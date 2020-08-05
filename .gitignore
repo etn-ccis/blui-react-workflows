@@ -1,0 +1,27 @@
+# Dependencies
+**/**/node_modules
+**/**/npm-debug.log*
+**/**/yarn-error.log*
+**/**/*.log
+**/**/*.tmp
+**/**/*.tmp.*
+
+# IDE - VSCode
+.vscode/*
+!.vscode/settings.json
+!.vscode/tasks.json
+!.vscode/launch.json
+!.vscode/extensions.json
+
+# System Files
+**/**/.DS_Store
+**/**/Thumbs.db
+
+# Local Environment Config
+**/**/.env.local
+**/**/.env.development.local
+**/**/.env.test.local
+**/**/.env.production.local
+
+# Build Folders
+/login-workflow/dist
