@@ -11,7 +11,7 @@ NC='\033[0m' # No Color
 
 echo -e "${BLUE}Building workflow package...${NC}"
 yarn build
-cd ./shared-auth && yarn build && cd ./login-workflow
+cd ./shared-auth && yarn build && cd ..
 
 echo -en "${BLUE}Creating new folder in node_modules...${NC}"
 rm -rf "./example/node_modules/@pxblue/react-auth-workflow"

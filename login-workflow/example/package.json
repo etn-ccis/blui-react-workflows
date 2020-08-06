@@ -21,7 +21,11 @@
         "react-dom": "^16.13.1",
         "react-scripts": "3.4.1",
         "typeface-open-sans": "^0.0.75",
-        "typescript": "~3.7.2"
+        "typescript": "~3.7.2",
+        "date-fns": "^2.14.0",
+        "highcharts": "^8.1.2",
+        "i18next": "^19.3.4",
+        "react-i18next": "^11.3.4"
     },
     "scripts": {
         "start": "react-scripts start",

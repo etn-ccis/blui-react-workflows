@@ -1,21 +1,65 @@
 import React from 'react';
-import logo from './logo.svg';
-import './App.css';
 
-function App() {
+// import { createStackNavigator } from '@react-navigation/stack';
+import { ExampleHome } from './screens/ExampleHome';
+
+import {
+    SecurityContextProvider,
+    AuthNavigationContainer,
+    AuthUIContextProvider,
+    useSecurityActions,
+} from '@pxblue/react-auth-workflow';
+// import { ProjectAuthUIActions } from './src/actions/AuthUIActions';
+// import { ProjectRegistrationUIActions } from './src/actions/RegistrationUIActions';
+
+// import { useLinking } from '@react-navigation/native';
+// import { authLinkMapping, resolveInitialState } from './src/navigation/DeepLinking';
+
+// import { Provider as ThemeProvider } from 'react-native-paper';
+import { ThemeProvider, createMuiTheme } from '@material-ui/core/styles';
+
+import * as PXBThemes from '@pxblue/react-themes';
+import { CssBaseline } from '@material-ui/core';
+
+// const Stack = createStackNavigator();
+
+export function AuthUIConfiguration(props: { children: JSX.Element }): JSX.Element {
+    const securityContextActions = useSecurityActions();
+
     return (
-        <div className="App">
-            <header className="App-header">
-                <img src={logo} className="App-logo" alt="logo" />
-                <p>
-                    Edit <code>src/App.tsx</code> and save to reload.
-                </p>
-                <a className="App-link" href="https://reactjs.org" target="_blank" rel="noopener noreferrer">
-                    Learn React
-                </a>
-            </header>
-        </div>
+        <AuthUIContextProvider
+            authActions={{}}//{ProjectAuthUIActions(securityContextActions)}
+            registrationActions={{}}//{ProjectRegistrationUIActions}
+            showSelfRegistration={true}
+            allowDebugMode={true}
+            htmlEula={false}
+            contactEmail={'something@email.com'}
+            contactPhone={'1-800-123-4567'}
+            // projectImage={require('./src/assets/images/some_image.png')}
+        >
+            {props.children}
+        </AuthUIContextProvider>
     );
 }
 
-export default App;
+export const App: React.FC = () => {
+    const ref = React.useRef(null);
+    // const { getInitialState } = useLinking(ref, authLinkMapping);
+    const [initialState, setInitialState] = React.useState();
+    // React.useEffect(() => {
+    //     resolveInitialState(getInitialState, setInitialState);
+    // }, [getInitialState]);
+
+    return (
+        <ThemeProvider theme={createMuiTheme(PXBThemes.blue)}>
+            <CssBaseline />
+            {/* <SecurityContextProvider>
+                <AuthUIConfiguration>
+                    <AuthNavigationContainer initialState={initialState} ref={ref}> */}
+                        <ExampleHome />
+                    {/* </AuthNavigationContainer>
+                </AuthUIConfiguration>
+            </SecurityContextProvider> */}
+        </ThemeProvider>
+    );
+};

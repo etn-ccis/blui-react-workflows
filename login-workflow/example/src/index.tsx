@@ -3,7 +3,7 @@ import 'react-app-polyfill/stable';
 import React from 'react';
 import ReactDOM from 'react-dom';
 import './index.css';
-import App from './App';
+import { App } from './App';
 import * as serviceWorker from './serviceWorker';
 import { ThemeProvider, createMuiTheme } from '@material-ui/core/styles';
 import CssBaseline from '@material-ui/core/CssBaseline';
@@ -12,10 +12,7 @@ import 'typeface-open-sans';
 
 ReactDOM.render(
     <React.StrictMode>
-        <ThemeProvider theme={createMuiTheme(PXBThemes.blue)}>
-            <CssBaseline />
-            <App />
-        </ThemeProvider>
+        <App />
     </React.StrictMode>,
     document.getElementById('root')
 );

@@ -15,15 +15,22 @@
         "lint:fix": "eslint \"src/**/**.{tsx,ts}\" --fix",
         "start:example": "yarn initialize && yarn install:dependencies && yarn link:workflow && cd example && yarn start",
         "prettier": "prettier \"**/**.{ts,tsx,js,jsx,json,css,scss,html}\" --write",
-        "prettier:check": "prettier \"**/**.{ts,tsx,js,jsx,json,css,scss,html}\" --check"
+        "prettier:check": "prettier \"**/**.{ts,tsx,js,jsx,json,css,scss,html}\" --check",
+        "update:submodule": "git submodule update --remote"
     },
     "prettier": "@pxblue/prettier-config",
-    "dependencies": {},
+    "dependencies": {
+        "@pxblue/react-auth-shared": "^2.0.0-beta.0"
+    },
     "peerDependencies": {
         "@material-ui/core": "^4.7.2",
         "@pxblue/colors": "^3.0.0",
-        "react": "^16.8.6",
-        "react-dom": "^16.8.6"
+        "react-dom": "^16.8.6",
+        "date-fns": "^2.14.0",
+        "highcharts": "^8.1.2",
+        "i18next": "^19.3.4",
+        "react": "^16.13.1",
+        "react-i18next": "^11.3.4"
     },
     "repository": {
         "type": "git",
@@ -59,9 +66,13 @@
         "eslint-plugin-react": "^7.20.5",
         "jest": "^24.0.0",
         "prettier": "^2.0.5",
-        "react": "^16.13.1",
         "react-dom": "^16.13.1",
         "ts-jest": "^24.0.0",
-        "typescript": "^3.9.7"
+        "typescript": "^3.9.7",
+        "date-fns": "^2.14.0",
+        "highcharts": "^8.1.2",
+        "i18next": "^19.3.4",
+        "react": "^16.13.1",
+        "react-i18next": "^11.3.4"
     }
 }
