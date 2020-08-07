@@ -20,7 +20,7 @@
     },
     "prettier": "@pxblue/prettier-config",
     "dependencies": {
-        "@pxblue/react-auth-shared": "^2.0.0-beta.0"
+        "@pxblue/react-auth-shared": "^2.0.0-beta.1"
     },
     "peerDependencies": {
         "@material-ui/core": "^4.7.2",
@@ -68,7 +68,7 @@
         "prettier": "^2.0.5",
         "react-dom": "^16.13.1",
         "ts-jest": "^24.0.0",
-        "typescript": "^3.9.7",
+        "typescript": "~3.9.3",
         "date-fns": "^2.14.0",
         "highcharts": "^8.1.2",
         "i18next": "^19.3.4",

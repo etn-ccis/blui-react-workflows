@@ -459,10 +459,10 @@
   resolved "https://registry.yarnpkg.com/@pxblue/prettier-config/-/prettier-config-1.0.2.tgz#fb00503df6557b66c3d91d43c9101e614c35d2ec"
   integrity sha512-/3cLBoTjZs3kV1ATPA/Sp0tsL7XmlV/b8HW/qt0jqR/uP5+cdXL2YIhMXQngLRa7PhpSkEiRIYK5sl0rKsXTUg==
 
-"@pxblue/react-auth-shared@^2.0.0-beta.0":
-  version "2.0.0-beta.0"
-  resolved "https://registry.yarnpkg.com/@pxblue/react-auth-shared/-/react-auth-shared-2.0.0-beta.0.tgz#764ca53dd5949d3fcb8625b7f27f2e4287466898"
-  integrity sha512-l2dgGxXeUypnntJiiv2I35bqer2oytKHKYqVaX+QAwufDNDHk+SrDZLCFRfxL7Zhj/RoU6x3ZIEoLLNJ09eQBw==
+"@pxblue/react-auth-shared@^2.0.0-beta.1":
+  version "2.0.0-beta.1"
+  resolved "https://registry.yarnpkg.com/@pxblue/react-auth-shared/-/react-auth-shared-2.0.0-beta.1.tgz#6346494eb454dd5c658d0ffb0a05b15a7a892816"
+  integrity sha512-0uA3omAZTYXYjYvNCZ4y/CO1/vVNpq29eVQd4iH3MKnUopbxye0Mwk9LGpba/yI99ijBV4eroMz8UaPsxOV7qQ==
 
 "@pxblue/react-themes@^5.0.2":
   version "5.0.2"
@@ -4648,7 +4648,7 @@ typeface-open-sans@^0.0.75:
   resolved "https://registry.yarnpkg.com/typeface-open-sans/-/typeface-open-sans-0.0.75.tgz#20d0c330f14c0c40463c334adbedd6005389abe4"
   integrity sha512-0lLmB7pfj113OP4T78SbpSmC4OCdFQ0vUxdSXQccsSb6qF76F92iEuC/DghFgmPswTyidk8+Hwf+PS/htiJoRQ==
 
-typescript@^3.9.7:
+typescript@~3.9.3:
   version "3.9.7"
   resolved "https://registry.yarnpkg.com/typescript/-/typescript-3.9.7.tgz#98d600a5ebdc38f40cb277522f12dc800e9e25fa"
   integrity sha512-BLbiRkiBzAwsjut4x/dsibSTB6yWpwT5qWmC2OfuCg3GgVQCSgMs4vEctYPhsaGtd0AeuuHMkjZ2h2WG8MSzRw==

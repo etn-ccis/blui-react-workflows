@@ -5,12 +5,12 @@ import { ExampleHome } from './screens/ExampleHome';
 
 import {
     SecurityContextProvider,
-    AuthNavigationContainer,
+    // AuthNavigationContainer,
     AuthUIContextProvider,
     useSecurityActions,
 } from '@pxblue/react-auth-workflow';
-// import { ProjectAuthUIActions } from './src/actions/AuthUIActions';
-// import { ProjectRegistrationUIActions } from './src/actions/RegistrationUIActions';
+import { ProjectAuthUIActions } from './actions/AuthUIActions';
+import { ProjectRegistrationUIActions } from './actions/RegistrationUIActions';
 
 // import { useLinking } from '@react-navigation/native';
 // import { authLinkMapping, resolveInitialState } from './src/navigation/DeepLinking';
@@ -23,19 +23,19 @@ import { CssBaseline } from '@material-ui/core';
 
 // const Stack = createStackNavigator();
 
-export function AuthUIConfiguration(props: { children: JSX.Element }): JSX.Element {
+export const AuthUIConfiguration: React.FC = (props) => {
     const securityContextActions = useSecurityActions();
 
     return (
         <AuthUIContextProvider
-            authActions={{}}//{ProjectAuthUIActions(securityContextActions)}
-            registrationActions={{}}//{ProjectRegistrationUIActions}
+            authActions={ProjectAuthUIActions(securityContextActions)}
+            registrationActions={ProjectRegistrationUIActions}
             showSelfRegistration={true}
             allowDebugMode={true}
             htmlEula={false}
             contactEmail={'something@email.com'}
             contactPhone={'1-800-123-4567'}
-            // projectImage={require('./src/assets/images/some_image.png')}
+        // projectImage={require('./src/assets/images/some_image.png')}
         >
             {props.children}
         </AuthUIContextProvider>
@@ -53,13 +53,11 @@ export const App: React.FC = () => {
     return (
         <ThemeProvider theme={createMuiTheme(PXBThemes.blue)}>
             <CssBaseline />
-            {/* <SecurityContextProvider>
+            <SecurityContextProvider>
                 <AuthUIConfiguration>
-                    <AuthNavigationContainer initialState={initialState} ref={ref}> */}
-                        <ExampleHome />
-                    {/* </AuthNavigationContainer>
+                    <ExampleHome />
                 </AuthUIConfiguration>
-            </SecurityContextProvider> */}
+            </SecurityContextProvider>
         </ThemeProvider>
     );
 };
