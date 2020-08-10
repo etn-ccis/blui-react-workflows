@@ -5,7 +5,7 @@ import { ExampleHome } from './screens/ExampleHome';
 
 import {
     SecurityContextProvider,
-    // AuthNavigationContainer,
+    AuthNavigationContainer,
     AuthUIContextProvider,
     useSecurityActions,
 } from '@pxblue/react-auth-workflow';
@@ -55,7 +55,9 @@ export const App: React.FC = () => {
             <CssBaseline />
             <SecurityContextProvider>
                 <AuthUIConfiguration>
-                    <ExampleHome />
+                    <AuthNavigationContainer /*initialState={initialState} ref={ref}*/>
+                        <ExampleHome />
+                    </AuthNavigationContainer>
                 </AuthUIConfiguration>
             </SecurityContextProvider>
         </ThemeProvider>

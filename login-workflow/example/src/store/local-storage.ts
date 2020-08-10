@@ -1,14 +1,5 @@
 import { LOCAL_USER_DATA, REMEMBER_ME_DATA } from '../constants';
 
-// For cross compatibility pretend AsyncStorage is just window local storage
-const window = {
-    localStorage: {
-        getItem: (key: string): Promise<string | null> => window.localStorage.getItem(key),
-        setItem: (key: string, value: string): Promise<void> => window.localStorage.setItem(key, value),
-        removeItem: (key: string): Promise<void> => window.localStorage.removeItem(key),
-    },
-};
-
 type AuthData = {
     userId: string | undefined;
     email: string | undefined;
@@ -16,12 +7,12 @@ type AuthData = {
 };
 
 async function readAuthData(): Promise<AuthData> {
-    const jsonUserData = (await window.localStorage.getItem(LOCAL_USER_DATA)) || '{}';
+    const jsonUserData = window.localStorage.getItem(LOCAL_USER_DATA) || '{}';
     const userData = JSON.parse(jsonUserData) as {
         user?: string;
         userId?: string;
     };
-    const jsonRememberMeData = (await window.localStorage.getItem(REMEMBER_ME_DATA)) || '{}';
+    const jsonRememberMeData = window.localStorage.getItem(REMEMBER_ME_DATA) || '{}';
     const rememberMeData = JSON.parse(jsonRememberMeData) as {
         user: string;
         rememberMe: boolean;
