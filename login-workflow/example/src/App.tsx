@@ -30,7 +30,7 @@ export const AuthUIConfiguration: React.FC = (props) => {
         <AuthUIContextProvider
             authActions={ProjectAuthUIActions(securityContextActions)}
             registrationActions={ProjectRegistrationUIActions}
-            showSelfRegistration={true}
+            showSelfRegistration={false}
             allowDebugMode={true}
             htmlEula={false}
             contactEmail={'something@email.com'}

@@ -14,6 +14,7 @@ const useStyles = makeStyles((theme: Theme) =>
             overflow: 'auto',
             display: 'flex',
             flexDirection: 'column',
+            position: 'relative',
         },
         brandingPanel: {
             height: '100%',

@@ -7,6 +7,7 @@ import { InviteRegistrationPager } from './InviteRegistrationPager';
 import { SelfRegistrationPager } from './SelfRegistrationPager';
 import { ContactSupport } from './ContactSupport';
 import { useInjectedUIContext } from '@pxblue/react-auth-shared';
+import { ForgotPassword } from './ForgotPassword';
 
 export const PreAuthContainer: React.FC = () => {
     const authProps = useInjectedUIContext();
@@ -14,6 +15,7 @@ export const PreAuthContainer: React.FC = () => {
         <Router>
             <Switch>
                 <Route exact path="/login" component={Login} />
+                <Route path="/forgot-password" component={ForgotPassword}/>
                 <Route path="/reset-password">
                     <Switch>
                         <Route exact path="/reset-password">

@@ -25,6 +25,7 @@
     "peerDependencies": {
         "@material-ui/core": "^4.7.2",
         "@pxblue/colors": "^3.0.0",
+        "@pxblue/react-components": "^4.0.2",
         "date-fns": "^2.14.0",
         "highcharts": "^8.1.2",
         "i18next": "^19.3.4",
@@ -51,6 +52,7 @@
         "@material-ui/icons": "^4.9.1",
         "@pxblue/eslint-config": "^2.0.1",
         "@pxblue/prettier-config": "^1.0.2",
+        "@pxblue/react-components": "^4.0.2",
         "@pxblue/react-themes": "^5.0.2",
         "@types/color": "^3.0.1",
         "@types/enzyme": "^3.10.5",

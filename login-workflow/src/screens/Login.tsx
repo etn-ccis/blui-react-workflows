@@ -1,7 +1,7 @@
 import React, { ChangeEvent, useCallback } from 'react';
 import { useTheme, Typography, TextField, Theme, createStyles, makeStyles, InputAdornment, IconButton, Grid, FormControlLabel, Checkbox, Button } from '@material-ui/core'
 import { Visibility, VisibilityOff } from '@material-ui/icons';
-import { useSecurityState, useLanguageLocale, useAccountUIActions, useAccountUIState, useInjectedUIContext } from '@pxblue/react-auth-shared';
+import { useSecurityState, useLanguageLocale, useAccountUIActions, useAccountUIState, useInjectedUIContext, EMAIL_REGEX } from '@pxblue/react-auth-shared';
 import { useHistory, Link } from 'react-router-dom';
 import { BrandedCardContainer } from '../components/BrandedCardContainer';
 import stackedEatonLogo from '../assets/images/eaton_stacked_logo.png';
@@ -25,6 +25,10 @@ const useStyles = makeStyles((theme: Theme) =>
         link: {
             fontWeight: 600,
             textTransform: 'none',
+            textDecoration: 'none',
+            '&:visited': {
+                color: 'inherit',
+            },
         },
         largeIcon: {
             width: 60,
@@ -76,22 +80,32 @@ export const Login: React.FC = () => {
 
     // Construct the optional elements
     let contactEatonRepresentative: JSX.Element = (
-        <Button variant={'text'} color={'primary'}
-            onClick={(): void => history.push(`/support`)}
-        >{t('MESSAGES.CONTACT')}</Button>
+        <Typography variant="body2" color={'primary'}>
+            <Link
+                className={classes.link}
+                to="/support"
+            >
+                {t('MESSAGES.CONTACT')}
+            </Link>
+        </Typography>
     );
 
     // const confirmPasswordRef = React.useRef<HTMLInputElement>(null);
     // const goToNextInput = (): void => confirmPasswordRef?.current?.focus();
 
     const showSelfRegistration = authProps.showSelfRegistration ?? true; // enabled by default
-    
+
     let createAccountOption: JSX.Element = <></>;
     if (showSelfRegistration || debugMode) {
         createAccountOption = (
-            <Button variant={'text'} color={'primary'}
-            onClick={(): void => history.push(`/register/create-account`)}
-        >{t('ACTIONS.CREATE_ACCOUNT')}</Button>
+            <Typography variant="body2" color={'primary'} style={{ marginBottom: theme.spacing(4) }}>
+                <Link
+                    className={classes.link}
+                    to="/register/create-account"
+                >
+                    {t('ACTIONS.CREATE_ACCOUNT')}
+                </Link>
+            </Typography>
         );
     }
 
@@ -100,14 +114,14 @@ export const Login: React.FC = () => {
     let debugButton: JSX.Element = <></>;
     if (allowDebugMode) {
         debugButton = (
-            <Button variant={'contained'} color={'primary'} onClick={(): void => setDebugMode(!debugMode)}>{`DEBUG`}</Button>
+            <Button variant={'contained'} color={'primary'} onClick={(): void => setDebugMode(!debugMode)} style={{ position: 'absolute', top: theme.spacing(2), right: theme.spacing(2) }}>{`DEBUG`}</Button>
         );
     }
 
     let debugMessage: JSX.Element = <></>;
     if (debugMode) {
         debugMessage = (
-            <div style={{ backgroundColor: Colors.yellow[500], padding: theme.spacing(1) }}>
+            <div style={{ backgroundColor: Colors.yellow[500], padding: theme.spacing(1), marginBottom: theme.spacing(2) }}>
                 <Typography variant={'h6'} align={'center'}>DEBUG MODE</Typography>
             </div>
         );
@@ -133,26 +147,29 @@ export const Login: React.FC = () => {
 
     return (
         <BrandedCardContainer>
-            {spinner}
-            {errorDialog}
+            {/* {spinner} */}
+            {/* {errorDialog} */}
+            {debugButton}
             <form
                 data-testid="login-form"
                 onSubmit={(evt): void => {
                     evt.preventDefault();
-                    // this.onLogIn();
+                    loginTapped();
                 }}
             >
-                <div style={{ padding: '40px', display: 'flex', flexDirection: 'column' }}>
-                    <div style={{ paddingBottom: 50 }}>
-                        <img style={{ maxWidth: '100%' }} src={stackedEatonLogo} alt="logo" />
+                <div style={{ padding: `${theme.spacing(4)}px ${theme.spacing(8)}px`, display: 'flex', flexDirection: 'column' }}>
+                    <div style={{ paddingBottom: theme.spacing(6) }}>
+                        <img style={{ maxWidth: '100%', maxHeight: 80 }} src={stackedEatonLogo} alt="logo" />
                     </div>
-                    {debugButton}
+
                     {debugMessage}
+
                     {/* {this.state.inActiveLogout && (
                         <Typography variant="subtitle1" color="error" style={{ paddingBottom: 10 }}>
                             {t('INACTIVITY.INACTIVE_LOGOUT')}
                         </Typography>
                     )} */}
+
                     <TextField
                         label={t('LABELS.EMAIL')}
                         id="email"
@@ -164,11 +181,8 @@ export const Login: React.FC = () => {
                             setEmailInput(evt.target.value)
                         }
                         variant="filled"
-                        // error={Boolean(this.state.message)}
-                        // helperText={t(this.state.message)}
-                        inputProps={{
-                            'data-testid': 'email',
-                        }}
+                        error={hasTransitError}
+                        helperText={hasTransitError ? t('LOGIN.INCORRECT_CREDENTIALS') : null}
                     />
                     <TextField
                         type={showPassword ? 'text' : 'password'}
@@ -181,11 +195,8 @@ export const Login: React.FC = () => {
                             setPasswordInput(evt.target.value)
                         }
                         variant="filled"
-                        // error={Boolean(this.state.message)}
-                        // helperText={t(this.state.message)}
-                        inputProps={{
-                            'data-testid': 'password',
-                        }}
+                        error={hasTransitError}
+                        helperText={hasTransitError ? t('LOGIN.INCORRECT_CREDENTIALS') : null}
                         InputProps={{
                             endAdornment: (
                                 <InputAdornment position="end">
@@ -199,6 +210,7 @@ export const Login: React.FC = () => {
                             ),
                         }}
                     />
+
                     <Grid
                         container
                         direction="row"
@@ -219,38 +231,34 @@ export const Login: React.FC = () => {
                         <Button
                             type="submit"
                             variant="contained"
-                            // disabled={!this.canLogIn()}
+                            disabled={!EMAIL_REGEX.test(emailInput) || !passwordInput}
                             color="primary"
                             style={{ width: 150 }}
-                            data-testid="login"
+                            onClick={loginTapped}
                         >
                             {t('ACTIONS.LOG_IN')}
                         </Button>
                     </Grid>
+
                     <div style={{ textAlign: 'center', paddingBottom: 32 }}>
-                        <Typography variant="body2">
+                        {testForgotPasswordDeepLinkButton}
+                        {testInviteRegisterButton}
+
+                        <Typography variant="body2" color={'primary'}>
                             <Link
                                 className={classes.link}
                                 to="/forgot-password"
-                                data-testid="forgot-password-link"
                             >
                                 {t('LABELS.FORGOT_PASSWORD')}
                             </Link>
                         </Typography>
-                        <Typography variant="body2">{t('LABELS.NEED_ACCOUNT')}</Typography>
-                        {/* <Typography variant="body2">
-                            <Button
-                                color="primary"
-                                className={classes.link}
-                                // onClick={(): void => this.setState({ showDialog: true })}
-                            >
-                                {t('MESSAGES.CONTACT')}
-                            </Button>
-                        </Typography> */}
+                        <Typography variant="body2" style={{ marginTop: theme.spacing(4) }}>{t('LABELS.NEED_ACCOUNT')}</Typography>
+
                         {createAccountOption}
                         {contactEatonRepresentative}
+
                     </div>
-                    <img src={cyberBadge} style={{alignSelf: 'center', maxWidth: '30%'}} alt="CyberSecurity Certification Badge" />
+                    <img src={cyberBadge} style={{ alignSelf: 'center', maxWidth: '30%' }} alt="CyberSecurity Certification Badge" />
                 </div>
             </form>
         </BrandedCardContainer>
