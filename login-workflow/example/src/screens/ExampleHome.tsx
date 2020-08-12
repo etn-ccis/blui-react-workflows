@@ -21,9 +21,13 @@ export const ExampleHome: React.FC = () => {
                 <p>
                     Edit <code>src/App.tsx</code> and save to reload.
                 </p>
-                <Button variant={'contained'} onClick={securityHelper.showChangePassword}>Change Password</Button>
-                <Button variant={'contained'} onClick={logOut}>Log Out</Button>
+                <Button variant={'contained'} onClick={securityHelper.showChangePassword}>
+                    Change Password
+                </Button>
+                <Button variant={'contained'} onClick={logOut}>
+                    Log Out
+                </Button>
             </header>
         </div>
     );
-}
+};

@@ -1,7 +1,17 @@
 import React from 'react';
 import { ChatBubbleOutline } from '@material-ui/icons';
 import { BrandedCardContainer } from '../components/BrandedCardContainer';
-import { CardContent, Button, CardActions, useTheme, Typography, makeStyles, Theme, createStyles, CardHeader } from '@material-ui/core';
+import {
+    CardContent,
+    Button,
+    CardActions,
+    useTheme,
+    Typography,
+    makeStyles,
+    Theme,
+    createStyles,
+    CardHeader,
+} from '@material-ui/core';
 import { useLanguageLocale, useInjectedUIContext } from '@pxblue/react-auth-shared';
 import { useHistory } from 'react-router-dom';
 
@@ -16,7 +26,8 @@ const useStyles = makeStyles((theme: Theme) =>
                 color: theme.palette.primary.main,
             },
         },
-    }));
+    })
+);
 
 export const ContactSupport: React.FC = (props) => {
     const { t } = useLanguageLocale();
@@ -27,13 +38,7 @@ export const ContactSupport: React.FC = (props) => {
 
     return (
         <BrandedCardContainer>
-            <CardHeader
-                title={
-                    <Typography variant={'h6'}>
-                        {t('USER_MENU.CONTACT_US')}
-                    </Typography>
-                }
-            />
+            <CardHeader title={<Typography variant={'h6'}>{t('USER_MENU.CONTACT_US')}</Typography>} />
             <CardContent style={{ flex: '1 1 0px', overflow: 'auto' }}>
                 <div style={{ fontSize: 70, marginBottom: theme.spacing(4), textAlign: 'center' }}>
                     <ChatBubbleOutline fontSize={'inherit'} color={'primary'} />
@@ -43,14 +48,18 @@ export const ContactSupport: React.FC = (props) => {
                     {t('CONTACT_SUPPORT.SUPPORT_MESSAGE')}
                     <a href={`mailto:${contactEmail}`} className={classes.link}>
                         {contactEmail}
-                    </a>.
+                    </a>
+                    .
                 </Typography>
-                <Typography variant={'h6'} style={{ marginTop: theme.spacing(4) }}>{t('CONTACT_SUPPORT.EMERGENCY_SUPPORT')}</Typography>
+                <Typography variant={'h6'} style={{ marginTop: theme.spacing(4) }}>
+                    {t('CONTACT_SUPPORT.EMERGENCY_SUPPORT')}
+                </Typography>
                 <Typography>
                     {t('CONTACT_SUPPORT.TECHNICAL_ASSISTANCE')}
                     <a href={`tel:${contactPhone}`} className={classes.link}>
                         {contactPhone}
-                    </a>.
+                    </a>
+                    .
                 </Typography>
             </CardContent>
             <CardActions style={{ padding: 16, justifyContent: 'flex-end' }}>
@@ -64,6 +73,5 @@ export const ContactSupport: React.FC = (props) => {
                 </Button>
             </CardActions>
         </BrandedCardContainer>
-
-    )
-}
+    );
+};

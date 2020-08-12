@@ -1,9 +1,10 @@
+// eslint-disable @typescript-eslint/naming-convention
 import i18n from 'i18next';
 import { initReactI18next } from 'react-i18next';
 import { translations } from '@pxblue/react-auth-shared';
 
-console.log('preloading the i18n');
-i18n.use(initReactI18next) // passes i18n down to react-i18next
+void i18n
+    .use(initReactI18next) // passes i18n down to react-i18next
     .init({
         resources: {
             en: translations.english,

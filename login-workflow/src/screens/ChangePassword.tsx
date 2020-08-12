@@ -1,7 +1,5 @@
 import React from 'react';
 
 export const ChangePassword: React.FC = (props) => {
-    return (
-        <span>ChangePassword</span>
-    )
-}
+    return <span>ChangePassword</span>;
+};

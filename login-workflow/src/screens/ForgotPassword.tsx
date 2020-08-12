@@ -1,9 +1,28 @@
 import React, { useEffect, ChangeEvent, useCallback } from 'react';
 import { BrandedCardContainer } from '../components/BrandedCardContainer';
-import { CardHeader, Typography, CardContent, Divider, CardActions, Grid, Button, useTheme, TextField, makeStyles, Theme, createStyles } from '@material-ui/core';
-import { useLanguageLocale, useAccountUIState, useAccountUIActions, AccountActions, EMAIL_REGEX, useInjectedUIContext } from '@pxblue/react-auth-shared';
+import {
+    CardHeader,
+    Typography,
+    CardContent,
+    Divider,
+    CardActions,
+    Grid,
+    Button,
+    TextField,
+    makeStyles,
+    Theme,
+    createStyles,
+} from '@material-ui/core';
+import {
+    useLanguageLocale,
+    useAccountUIState,
+    useAccountUIActions,
+    AccountActions,
+    EMAIL_REGEX,
+    useInjectedUIContext,
+} from '@pxblue/react-auth-shared';
 import { EmptyState } from '@pxblue/react-components';
-import { useLocation, useParams, useHistory } from 'react-router-dom';
+import { useHistory } from 'react-router-dom';
 import { CheckCircle } from '@material-ui/icons';
 import { Trans } from 'react-i18next';
 
@@ -20,10 +39,11 @@ const useStyles = makeStyles((theme: Theme) =>
         },
         description: {
             color: 'inherit',
-        }
-    }));
+        },
+    })
+);
 
-export const ForgotPassword: React.FC = (props) => {
+export const ForgotPassword: React.FC = () => {
     const { t } = useLanguageLocale();
     const history = useHistory();
     const classes = useStyles();
@@ -41,12 +61,18 @@ export const ForgotPassword: React.FC = (props) => {
     const [emailInput, setEmailInput] = React.useState('');
     const [hasAcknowledgedError, setHasAcknowledgedError] = React.useState(false);
 
-    const resetPassword = useCallback((emailInput: string): void => {
-        setHasAcknowledgedError(false);
-        accountUIActions.actions.forgotPassword(emailInput);
-    }, [setHasAcknowledgedError, accountUIActions]);
+    const resetPassword = useCallback(
+        (email: string): void => {
+            setHasAcknowledgedError(false);
+            void accountUIActions.actions.forgotPassword(email);
+        },
+        [setHasAcknowledgedError, accountUIActions]
+    );
 
-    const canContinue = useCallback((): boolean => EMAIL_REGEX.test(emailInput) && !accountUIState.forgotPassword.transitInProgress, [emailInput, accountUIState]);
+    const canContinue = useCallback(
+        (): boolean => EMAIL_REGEX.test(emailInput) && !accountUIState.forgotPassword.transitInProgress,
+        [emailInput, accountUIState]
+    );
 
     const onContinue = useCallback((): void => {
         if (accountUIState.forgotPassword.transitSuccess) {
@@ -54,7 +80,7 @@ export const ForgotPassword: React.FC = (props) => {
         } else {
             resetPassword(emailInput);
         }
-    }, [accountUIState, resetPassword, history]);
+    }, [accountUIState, resetPassword, history, emailInput]);
 
     // Reset state on dismissal
     useEffect(
@@ -65,7 +91,7 @@ export const ForgotPassword: React.FC = (props) => {
     );
 
     // Conditional Elements
-    const spinner = isInTransit ? <h1>Spinner</h1>/*</h1><Spinner />*/ : <></>;
+    const spinner = isInTransit ? <h1>Spinner</h1> /*</h1><Spinner />*/ : <></>;
 
     const errorDialog = (
         // <SimpleDialog
@@ -78,7 +104,6 @@ export const ForgotPassword: React.FC = (props) => {
         // />
         <h1>Error Dialog</h1>
     );
-
 
     let body: JSX.Element;
     if (accountUIState.forgotPassword.transitSuccess) {
@@ -96,7 +121,7 @@ export const ForgotPassword: React.FC = (props) => {
                         </Trans>
                     }
                     classes={{
-                        description: classes.description
+                        description: classes.description,
                     }}
                 />
             </div>
@@ -106,8 +131,12 @@ export const ForgotPassword: React.FC = (props) => {
             <div data-testid="forgot-password-entry-content">
                 <Typography>
                     <Trans i18nKey={'FORGOT_PASSWORD.INSTRUCTIONS_ALT'} values={{ phone: contactPhone }}>
-                        Please enter your email, we will respond in <b>one business day</b>. For urgent issues please call <a href={`tel:${contactPhone}`} className={classes.link}>
-                            {contactPhone}</a>.
+                        Please enter your email, we will respond in <b>one business day</b>. For urgent issues please
+                        call{' '}
+                        <a href={`tel:${contactPhone}`} className={classes.link}>
+                            {contactPhone}
+                        </a>
+                        .
                     </Trans>
                 </Typography>
 
@@ -140,13 +169,7 @@ export const ForgotPassword: React.FC = (props) => {
             <CardContent style={{ flex: '1 1 0px', overflow: 'auto' }}>{body}</CardContent>
             <Divider />
             <CardActions style={{ padding: 16 }}>
-                <Grid
-                    container
-                    direction="row"
-                    alignItems="center"
-                    justify="space-between"
-                    style={{ width: '100%' }}
-                >
+                <Grid container direction="row" alignItems="center" justify="space-between" style={{ width: '100%' }}>
                     <Button
                         variant="outlined"
                         color="primary"
@@ -168,5 +191,5 @@ export const ForgotPassword: React.FC = (props) => {
                 </Grid>
             </CardActions>
         </BrandedCardContainer>
-    )
-}
+    );
+};

@@ -19,12 +19,12 @@ import {
     useInjectedUIContext,
 } from '@pxblue/react-auth-shared';
 
-const NavigationContainer: React.FC = (props) => <>{props.children}</>
+const NavigationContainer: React.FC = (props) => <>{props.children}</>;
 
 /**
  * Type for the properties of the navigation container.
  */
-type NavigationContainerComponentProps = React.ComponentProps<'div'>;// React.ComponentProps<typeof NavigationContainer>;
+type NavigationContainerComponentProps = React.ComponentProps<'div'>; // React.ComponentProps<typeof NavigationContainer>;
 
 /**
  * Container component which holds the authentication and navigation state
@@ -59,6 +59,7 @@ type NavigationContainerComponentProps = React.ComponentProps<'div'>;// React.Co
  *
  * @category Component
  */
+// eslint-disable-next-line @typescript-eslint/ban-types
 const AuthNavigationContainerRender: React.ForwardRefRenderFunction<{}, NavigationContainerComponentProps> = (
     props: NavigationContainerComponentProps,
     ref: any
@@ -70,15 +71,16 @@ const AuthNavigationContainerRender: React.ForwardRefRenderFunction<{}, Navigati
     React.useEffect(() => {
         const bootstrapAsync = async (): Promise<void> => {
             await injectedContext.authActions().initiateSecurity();
+            return;
         };
 
-        bootstrapAsync();
+        void bootstrapAsync();
         // eslint-disable-next-line react-hooks/exhaustive-deps
     }, []);
 
     if (securityState.isLoading) {
         // We haven't finished checking for the token yet
-        return <span>loading</span>//</span><SplashScreen mainImage={injectedContext.projectImage} />;
+        return <span>loading</span>; //</span><SplashScreen mainImage={injectedContext.projectImage} />;
     }
 
     const ChangePasswordScreen = (

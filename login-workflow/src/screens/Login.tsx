@@ -1,7 +1,27 @@
 import React, { ChangeEvent, useCallback } from 'react';
-import { useTheme, Typography, TextField, Theme, createStyles, makeStyles, InputAdornment, IconButton, Grid, FormControlLabel, Checkbox, Button } from '@material-ui/core'
+import {
+    useTheme,
+    Typography,
+    TextField,
+    Theme,
+    createStyles,
+    makeStyles,
+    InputAdornment,
+    IconButton,
+    Grid,
+    FormControlLabel,
+    Checkbox,
+    Button,
+} from '@material-ui/core';
 import { Visibility, VisibilityOff } from '@material-ui/icons';
-import { useSecurityState, useLanguageLocale, useAccountUIActions, useAccountUIState, useInjectedUIContext, EMAIL_REGEX } from '@pxblue/react-auth-shared';
+import {
+    useSecurityState,
+    useLanguageLocale,
+    useAccountUIActions,
+    useAccountUIState,
+    useInjectedUIContext,
+    EMAIL_REGEX,
+} from '@pxblue/react-auth-shared';
 import { useHistory, Link } from 'react-router-dom';
 import { BrandedCardContainer } from '../components/BrandedCardContainer';
 import stackedEatonLogo from '../assets/images/eaton_stacked_logo.png';
@@ -35,7 +55,8 @@ const useStyles = makeStyles((theme: Theme) =>
             height: 60,
             color: theme.palette.text.secondary,
         },
-    }));
+    })
+);
 
 export const Login: React.FC = () => {
     const securityState = useSecurityState();
@@ -58,8 +79,8 @@ export const Login: React.FC = () => {
 
     const loginTapped = useCallback((): void => {
         setHasAcknowledgedError(false);
-        authUIActions.actions.logIn(emailInput, passwordInput, rememberPassword);
-    }, [setHasAcknowledgedError, authUIActions]);
+        void authUIActions.actions.logIn(emailInput, passwordInput, rememberPassword);
+    }, [setHasAcknowledgedError, authUIActions, emailInput, passwordInput, rememberPassword]);
 
     const transitState = authUIState.login;
     const spinner = transitState.transitInProgress ? <h1>Spinner</h1> /*<Spinner hasHeader={false} />*/ : <></>;
@@ -79,12 +100,9 @@ export const Login: React.FC = () => {
     );
 
     // Construct the optional elements
-    let contactEatonRepresentative: JSX.Element = (
+    const contactEatonRepresentative: JSX.Element = (
         <Typography variant="body2" color={'primary'}>
-            <Link
-                className={classes.link}
-                to="/support"
-            >
+            <Link className={classes.link} to="/support">
                 {t('MESSAGES.CONTACT')}
             </Link>
         </Typography>
@@ -99,10 +117,7 @@ export const Login: React.FC = () => {
     if (showSelfRegistration || debugMode) {
         createAccountOption = (
             <Typography variant="body2" color={'primary'} style={{ marginBottom: theme.spacing(4) }}>
-                <Link
-                    className={classes.link}
-                    to="/register/create-account"
-                >
+                <Link className={classes.link} to="/register/create-account">
                     {t('ACTIONS.CREATE_ACCOUNT')}
                 </Link>
             </Typography>
@@ -114,15 +129,28 @@ export const Login: React.FC = () => {
     let debugButton: JSX.Element = <></>;
     if (allowDebugMode) {
         debugButton = (
-            <Button variant={'contained'} color={'primary'} onClick={(): void => setDebugMode(!debugMode)} style={{ position: 'absolute', top: theme.spacing(2), right: theme.spacing(2) }}>{`DEBUG`}</Button>
+            <Button
+                variant={'contained'}
+                color={'primary'}
+                onClick={(): void => setDebugMode(!debugMode)}
+                style={{ position: 'absolute', top: theme.spacing(2), right: theme.spacing(2) }}
+            >{`DEBUG`}</Button>
         );
     }
 
     let debugMessage: JSX.Element = <></>;
     if (debugMode) {
         debugMessage = (
-            <div style={{ backgroundColor: Colors.yellow[500], padding: theme.spacing(1), marginBottom: theme.spacing(2) }}>
-                <Typography variant={'h6'} align={'center'}>DEBUG MODE</Typography>
+            <div
+                style={{
+                    backgroundColor: Colors.yellow[500],
+                    padding: theme.spacing(1),
+                    marginBottom: theme.spacing(2),
+                }}
+            >
+                <Typography variant={'h6'} align={'center'}>
+                    DEBUG MODE
+                </Typography>
             </div>
         );
     }
@@ -130,18 +158,24 @@ export const Login: React.FC = () => {
     let testForgotPasswordDeepLinkButton: JSX.Element = <></>;
     if (debugMode) {
         testForgotPasswordDeepLinkButton = (
-            <Button variant={'text'}
+            <Button
+                variant={'text'}
                 onClick={(): void => history.push(`/reset-password/complete?code=DEBUG_VALIDATION_CODE_DEADBEEF`)}
-            >[Test Forgot Password Email]</Button>
+            >
+                [Test Forgot Password Email]
+            </Button>
         );
     }
 
     let testInviteRegisterButton: JSX.Element = <></>;
     if (debugMode) {
         testInviteRegisterButton = (
-            <Button variant={'text'}
+            <Button
+                variant={'text'}
                 onClick={(): void => history.push(`/register/invite?code=DEBUG_VALIDATION_CODE_DEADBEEF`)}
-            >[Test Invite Register]</Button>
+            >
+                [Test Invite Register]
+            </Button>
         );
     }
 
@@ -157,7 +191,13 @@ export const Login: React.FC = () => {
                     loginTapped();
                 }}
             >
-                <div style={{ padding: `${theme.spacing(4)}px ${theme.spacing(8)}px`, display: 'flex', flexDirection: 'column' }}>
+                <div
+                    style={{
+                        padding: `${theme.spacing(4)}px ${theme.spacing(8)}px`,
+                        display: 'flex',
+                        flexDirection: 'column',
+                    }}
+                >
                     <div style={{ paddingBottom: theme.spacing(6) }}>
                         <img style={{ maxWidth: '100%', maxHeight: 80 }} src={stackedEatonLogo} alt="logo" />
                     </div>
@@ -177,9 +217,7 @@ export const Login: React.FC = () => {
                         type="email"
                         className={classes.formFields}
                         value={emailInput}
-                        onChange={(evt: ChangeEvent<HTMLInputElement>): void =>
-                            setEmailInput(evt.target.value)
-                        }
+                        onChange={(evt: ChangeEvent<HTMLInputElement>): void => setEmailInput(evt.target.value)}
                         variant="filled"
                         error={hasTransitError}
                         helperText={hasTransitError ? t('LOGIN.INCORRECT_CREDENTIALS') : null}
@@ -191,9 +229,7 @@ export const Login: React.FC = () => {
                         label={t('LABELS.PASSWORD')}
                         className={classes.formFields}
                         value={passwordInput}
-                        onChange={(evt: ChangeEvent<HTMLInputElement>): void =>
-                            setPasswordInput(evt.target.value)
-                        }
+                        onChange={(evt: ChangeEvent<HTMLInputElement>): void => setPasswordInput(evt.target.value)}
                         variant="filled"
                         error={hasTransitError}
                         helperText={hasTransitError ? t('LOGIN.INCORRECT_CREDENTIALS') : null}
@@ -245,23 +281,24 @@ export const Login: React.FC = () => {
                         {testInviteRegisterButton}
 
                         <Typography variant="body2" color={'primary'}>
-                            <Link
-                                className={classes.link}
-                                to="/forgot-password"
-                            >
+                            <Link className={classes.link} to="/forgot-password">
                                 {t('LABELS.FORGOT_PASSWORD')}
                             </Link>
                         </Typography>
-                        <Typography variant="body2" style={{ marginTop: theme.spacing(4) }}>{t('LABELS.NEED_ACCOUNT')}</Typography>
+                        <Typography variant="body2" style={{ marginTop: theme.spacing(4) }}>
+                            {t('LABELS.NEED_ACCOUNT')}
+                        </Typography>
 
                         {createAccountOption}
                         {contactEatonRepresentative}
-
                     </div>
-                    <img src={cyberBadge} style={{ alignSelf: 'center', maxWidth: '30%' }} alt="CyberSecurity Certification Badge" />
+                    <img
+                        src={cyberBadge}
+                        style={{ alignSelf: 'center', maxWidth: '30%' }}
+                        alt="CyberSecurity Certification Badge"
+                    />
                 </div>
             </form>
         </BrandedCardContainer>
-
-    )
-}
+    );
+};

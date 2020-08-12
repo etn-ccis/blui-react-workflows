@@ -26,7 +26,8 @@ const useStyles = makeStyles((theme: Theme) =>
             alignItems: 'center',
             justifyContent: 'center',
         },
-    }));
+    })
+);
 
 export const BrandedCardContainer: React.FC = (props) => {
     const classes = useStyles();
@@ -35,4 +36,4 @@ export const BrandedCardContainer: React.FC = (props) => {
             <Card className={classes.card}>{props.children}</Card>
         </div>
     );
-}
+};
