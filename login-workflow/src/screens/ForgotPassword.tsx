@@ -18,6 +18,9 @@ const useStyles = makeStyles((theme: Theme) =>
                 color: theme.palette.primary.main,
             },
         },
+        description: {
+            color: 'inherit',
+        }
     }));
 
 export const ForgotPassword: React.FC = (props) => {
@@ -85,8 +88,16 @@ export const ForgotPassword: React.FC = (props) => {
                 data-testid="forgot-password-confirmation-content"
             >
                 <EmptyState
-                    icon={<CheckCircle style={{ fontSize: 100, marginBottom: 16 }} />}
+                    icon={<CheckCircle color={'primary'} style={{ fontSize: 100, marginBottom: 16 }} />}
                     title={t('MESSAGES.EMAIL_SENT')}
+                    description={
+                        <Trans i18nKey={'FORGOT_PASSWORD.LINK_SENT_ALT'} values={{ email: emailInput }}>
+                            Link has been sent to <b>{emailInput}</b>.
+                        </Trans>
+                    }
+                    classes={{
+                        description: classes.description
+                    }}
                 />
             </div>
         );
