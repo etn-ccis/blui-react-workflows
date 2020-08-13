@@ -1,5 +1,3 @@
 import React from 'react';
 
-export const Splash: React.FC = (props) => {
-    return <span>Splash Screen</span>;
-};
+export const Splash: React.FC = (props) => <span>Splash Screen</span>;

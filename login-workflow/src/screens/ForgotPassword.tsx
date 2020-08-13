@@ -51,15 +51,15 @@ export const ForgotPassword: React.FC = () => {
     const accountUIActions = useAccountUIActions();
     const { contactPhone } = useInjectedUIContext();
 
+    // Local state
+    const [emailInput, setEmailInput] = React.useState('');
+    const [hasAcknowledgedError, setHasAcknowledgedError] = React.useState(false);
+
     // Network state (forgotPassword)
     const forgotPasswordTransit = accountUIState.forgotPassword;
     const isInTransit = forgotPasswordTransit.transitInProgress;
     const hasTransitError = forgotPasswordTransit.transitErrorMessage !== null;
     const transitErrorMessage = forgotPasswordTransit.transitErrorMessage;
-
-    // Local state
-    const [emailInput, setEmailInput] = React.useState('');
-    const [hasAcknowledgedError, setHasAcknowledgedError] = React.useState(false);
 
     const resetPassword = useCallback(
         (email: string): void => {

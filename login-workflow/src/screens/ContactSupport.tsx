@@ -29,7 +29,7 @@ const useStyles = makeStyles((theme: Theme) =>
     })
 );
 
-export const ContactSupport: React.FC = (props) => {
+export const ContactSupport: React.FC = () => {
     const { t } = useLanguageLocale();
     const theme = useTheme();
     const history = useHistory();

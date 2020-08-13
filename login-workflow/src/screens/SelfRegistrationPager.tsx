@@ -1,5 +1,3 @@
 import React from 'react';
 
-export const SelfRegistrationPager: React.FC = (props) => {
-    return <span>Self Registration Pager</span>;
-};
+export const SelfRegistrationPager: React.FC = (props) => <span>Self Registration Pager</span>;

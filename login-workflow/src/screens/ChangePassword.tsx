@@ -1,5 +1,3 @@
 import React from 'react';
 
-export const ChangePassword: React.FC = (props) => {
-    return <span>ChangePassword</span>;
-};
+export const ChangePassword: React.FC = (props) => <span>ChangePassword</span>;

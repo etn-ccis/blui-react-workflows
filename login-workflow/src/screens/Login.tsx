@@ -60,6 +60,14 @@ const useStyles = makeStyles((theme: Theme) =>
 
 export const Login: React.FC = () => {
     const securityState = useSecurityState();
+    const { t } = useLanguageLocale();
+    const authUIActions = useAccountUIActions();
+    const authUIState = useAccountUIState();
+    const authProps = useInjectedUIContext();
+    const history = useHistory();
+    const theme = useTheme();
+    const classes = useStyles();
+
     const [rememberPassword, setRememberPassword] = React.useState(securityState.rememberMeDetails.rememberMe ?? false);
     const [emailInput, setEmailInput] = React.useState(securityState.rememberMeDetails.email ?? '');
     const [passwordInput, setPasswordInput] = React.useState('');
@@ -67,15 +75,6 @@ export const Login: React.FC = () => {
 
     const [hasAcknowledgedError, setHasAcknowledgedError] = React.useState(false);
     const [debugMode, setDebugMode] = React.useState(false);
-
-    const history = useHistory();
-    const { t } = useLanguageLocale();
-    const authUIActions = useAccountUIActions();
-    const authUIState = useAccountUIState();
-    const authProps = useInjectedUIContext();
-
-    const theme = useTheme();
-    const classes = useStyles();
 
     const loginTapped = useCallback((): void => {
         setHasAcknowledgedError(false);
@@ -158,24 +157,22 @@ export const Login: React.FC = () => {
     let testForgotPasswordDeepLinkButton: JSX.Element = <></>;
     if (debugMode) {
         testForgotPasswordDeepLinkButton = (
-            <Button
-                variant={'text'}
-                onClick={(): void => history.push(`/reset-password/complete?code=DEBUG_VALIDATION_CODE_DEADBEEF`)}
-            >
-                [Test Forgot Password Email]
-            </Button>
+            <Typography variant="body2">
+                <Link className={classes.link} to="/reset-password?code=DEBUG_VALIDATION_CODE_DEADBEEF">
+                    [Test Forgot Password Email]
+                </Link>
+            </Typography>
         );
     }
 
     let testInviteRegisterButton: JSX.Element = <></>;
     if (debugMode) {
         testInviteRegisterButton = (
-            <Button
-                variant={'text'}
-                onClick={(): void => history.push(`/register/invite?code=DEBUG_VALIDATION_CODE_DEADBEEF`)}
-            >
-                [Test Invite Register]
-            </Button>
+            <Typography variant="body2">
+                <Link className={classes.link} to="/register/invite?code=DEBUG_VALIDATION_CODE_DEADBEEF">
+                    [Test Invite Register]
+                </Link>
+            </Typography>
         );
     }
 
