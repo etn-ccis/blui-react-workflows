@@ -6,11 +6,13 @@ import { InviteRegistrationPager } from './InviteRegistrationPager';
 import { SelfRegistrationPager } from './SelfRegistrationPager';
 import { ContactSupport } from './ContactSupport';
 import { ForgotPassword } from './ForgotPassword';
+import { Splash } from './Splash';
 
 export const PreAuthContainer: React.FC = () => (
     <Router>
         <Switch>
             <Route exact path="/login" component={Login} />
+            <Route exact path="/splash" component={Splash} />
             <Route path="/forgot-password" component={ForgotPassword} />
 
             <Route exact path="/reset-password" component={ResetPassword} />

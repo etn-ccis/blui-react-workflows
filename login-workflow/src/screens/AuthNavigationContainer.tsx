@@ -5,7 +5,7 @@
 
 import React from 'react';
 // import { NavigationContainer } from '@react-navigation/native';
-// import { Splash as SplashScreen } from './Splash';
+import { Splash as SplashScreen } from './Splash';
 import { PreAuthContainer } from './PreAuthContainer';
 // import { ChangePassword } from '../screens/ChangePassword';
 
@@ -18,6 +18,7 @@ import {
     useSecurityActions,
     useInjectedUIContext,
 } from '@pxblue/react-auth-shared';
+import { ChangePasswordModal } from '../components/password/ChangePasswordModal';
 
 const NavigationContainer: React.FC = (props) => <>{props.children}</>;
 
@@ -80,32 +81,20 @@ const AuthNavigationContainerRender: React.ForwardRefRenderFunction<{}, Navigati
 
     if (securityState.isLoading) {
         // We haven't finished checking for the token yet
-        return <span>loading</span>; //</span><SplashScreen mainImage={injectedContext.projectImage} />;
+        return <SplashScreen /*mainImage={injectedContext.projectImage}*/ />;
     }
 
-    const ChangePasswordScreen = (
-        <span>Change Password</span>
-        // <ChangePassword
-        //     onChangePassword={injectedContext.authActions().changePassword}
-        //     onCancel={securityActions.hideChangePassword}
-        //     onChangeComplete={securityActions.hideChangePassword}
-        // />
-    );
-
-    const appShouldBeVisible = securityState.isAuthenticatedUser && !securityState.isShowingChangePassword;
+    const appShouldBeVisible = securityState.isAuthenticatedUser;// && !securityState.isShowingChangePassword;
 
     // Show the change password screen regardless of state if true
     // Show PreAuthContainer unless the user is authenticated
     // Show the application
     return (
         <NavigationContainer ref={ref} {...props}>
-            {appShouldBeVisible ? (
-                <>{props.children}</>
-            ) : (
-                <AuthUIInternalStore>
-                    {securityState.isShowingChangePassword ? ChangePasswordScreen : <PreAuthContainer />}
-                </AuthUIInternalStore>
-            )}
+            <AuthUIInternalStore>
+                {appShouldBeVisible ? ( <>{props.children}</> ) : < PreAuthContainer />}
+                <ChangePasswordModal />
+            </AuthUIInternalStore>
         </NavigationContainer>
     );
 };

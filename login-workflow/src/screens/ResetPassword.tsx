@@ -30,7 +30,7 @@ import { useHistory } from 'react-router-dom';
 import { CheckCircle } from '@material-ui/icons';
 import { useQueryString } from '../hooks/useQueryString';
 import { SecureTextField } from '../components/SecureTextField';
-import { PasswordRequirements } from '../components/PasswordRequirements';
+import { PasswordRequirements } from '../components/password/PasswordRequirements';
 import { EmptyState } from '@pxblue/react-components';
 
 const useStyles = makeStyles((theme: Theme) =>
