@@ -33,7 +33,7 @@ echo -en "\r\n${BLUE}Linking Components: ${NC}"
 if [ ! -f ./example/node_modules/@pxblue/react-auth-workflow/package.json ]; then echo -e "${BRED}Not Linked${NC}" && exit 1; fi
 if [ ! -s ./example/node_modules/@pxblue/react-auth-workflow ];
     then
-        if [ ! -f ./example/node_modules/@pxblue/react-auth-workflow/lib/commonjs/index.js ];
+        if [ ! -f ./example/node_modules/@pxblue/react-auth-workflow/dist/index.js ];
         then echo -e "${BRED}Not Linked${NC}" && exit 1;
         fi;
 fi
