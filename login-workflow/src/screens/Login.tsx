@@ -22,7 +22,7 @@ import {
     useInjectedUIContext,
     EMAIL_REGEX,
 } from '@pxblue/react-auth-shared';
-import { useHistory, Link } from 'react-router-dom';
+import { Link } from 'react-router-dom';
 import { BrandedCardContainer } from '../components/BrandedCardContainer';
 import stackedEatonLogo from '../assets/images/eaton_stacked_logo.png';
 import cyberBadge from '../assets/images/cybersecurity_certified.png';
@@ -64,7 +64,6 @@ export const Login: React.FC = () => {
     const authUIActions = useAccountUIActions();
     const authUIState = useAccountUIState();
     const authProps = useInjectedUIContext();
-    const history = useHistory();
     const theme = useTheme();
     const classes = useStyles();
 

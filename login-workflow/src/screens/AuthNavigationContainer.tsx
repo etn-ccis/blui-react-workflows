@@ -15,7 +15,6 @@ import {
     AuthUIInternalStore,
     // Hooks
     useSecurityState,
-    useSecurityActions,
     useInjectedUIContext,
 } from '@pxblue/react-auth-shared';
 import { ChangePasswordModal } from '../components/password/ChangePasswordModal';
@@ -66,7 +65,6 @@ const AuthNavigationContainerRender: React.ForwardRefRenderFunction<{}, Navigati
     ref: any
 ) => {
     const securityState = useSecurityState();
-    const securityActions = useSecurityActions();
     const injectedContext = useInjectedUIContext();
 
     React.useEffect(() => {
@@ -84,7 +82,7 @@ const AuthNavigationContainerRender: React.ForwardRefRenderFunction<{}, Navigati
         return <SplashScreen /*mainImage={injectedContext.projectImage}*/ />;
     }
 
-    const appShouldBeVisible = securityState.isAuthenticatedUser;// && !securityState.isShowingChangePassword;
+    const appShouldBeVisible = securityState.isAuthenticatedUser; // && !securityState.isShowingChangePassword;
 
     // Show the change password screen regardless of state if true
     // Show PreAuthContainer unless the user is authenticated
@@ -92,7 +90,7 @@ const AuthNavigationContainerRender: React.ForwardRefRenderFunction<{}, Navigati
     return (
         <NavigationContainer ref={ref} {...props}>
             <AuthUIInternalStore>
-                {appShouldBeVisible ? ( <>{props.children}</> ) : < PreAuthContainer />}
+                {appShouldBeVisible ? <>{props.children}</> : <PreAuthContainer />}
                 <ChangePasswordModal />
             </AuthUIInternalStore>
         </NavigationContainer>

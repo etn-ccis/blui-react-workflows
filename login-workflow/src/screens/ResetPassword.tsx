@@ -9,7 +9,6 @@ import {
     Grid,
     Button,
     makeStyles,
-    Theme,
     createStyles,
     useTheme,
 } from '@material-ui/core';
@@ -33,7 +32,7 @@ import { SecureTextField } from '../components/SecureTextField';
 import { PasswordRequirements } from '../components/password/PasswordRequirements';
 import { EmptyState } from '@pxblue/react-components';
 
-const useStyles = makeStyles((theme: Theme) =>
+const useStyles = makeStyles(() =>
     createStyles({
         description: {
             color: 'inherit',

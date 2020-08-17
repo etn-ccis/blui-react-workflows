@@ -1,3 +1,3 @@
 import React from 'react';
 
-export const InviteRegistrationPager: React.FC = (props) => <span>Invite Registration Pager</span>;
+export const InviteRegistrationPager: React.FC = () => <span>Invite Registration Pager</span>;
