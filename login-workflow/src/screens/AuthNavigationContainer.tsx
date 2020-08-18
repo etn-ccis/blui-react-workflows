@@ -18,6 +18,8 @@ import {
     useInjectedUIContext,
 } from '@pxblue/react-auth-shared';
 import { ChangePasswordModal } from '../components/password/ChangePasswordModal';
+import { BrowserRouter, Route, Switch } from 'react-router-dom';
+import { PrivateRoute } from '../components/PrivateRoute';
 
 const NavigationContainer: React.FC = (props) => <>{props.children}</>;
 
@@ -82,7 +84,7 @@ const AuthNavigationContainerRender: React.ForwardRefRenderFunction<{}, Navigati
         return <SplashScreen /*mainImage={injectedContext.projectImage}*/ />;
     }
 
-    const appShouldBeVisible = securityState.isAuthenticatedUser; // && !securityState.isShowingChangePassword;
+    // const appShouldBeVisible = securityState.isAuthenticatedUser; // && !securityState.isShowingChangePassword;
 
     // Show the change password screen regardless of state if true
     // Show PreAuthContainer unless the user is authenticated
@@ -90,8 +92,24 @@ const AuthNavigationContainerRender: React.ForwardRefRenderFunction<{}, Navigati
     return (
         <NavigationContainer ref={ref} {...props}>
             <AuthUIInternalStore>
-                {appShouldBeVisible ? <>{props.children}</> : <PreAuthContainer />}
-                <ChangePasswordModal />
+                <BrowserRouter>
+                    <Switch>
+                        <Route
+                            path={[
+                                '/login',
+                                '/forgot-password',
+                                '/reset-password',
+                                '/register/invite',
+                                '/register/create-account',
+                                '/support',
+                            ]}
+                        >
+                            <PreAuthContainer />
+                        </Route>
+                        <PrivateRoute path="*">{props.children}</PrivateRoute>
+                    </Switch>
+                    {securityState.isAuthenticatedUser && <ChangePasswordModal />}
+                </BrowserRouter>
             </AuthUIInternalStore>
         </NavigationContainer>
     );
