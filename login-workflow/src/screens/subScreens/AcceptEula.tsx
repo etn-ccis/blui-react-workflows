@@ -29,6 +29,7 @@ export const AcceptEula: React.FC<AcceptEulaProps> = (props) => {
             {htmlEula && (
                 <div
                     style={{ flex: '1 1 0px', overflow: 'auto' }}
+                    /* eslint-disable-next-line @typescript-eslint/naming-convention */
                     dangerouslySetInnerHTML={{ __html: DOMPurify.sanitize(eulaContentInternals) }}
                 ></div>
             )}

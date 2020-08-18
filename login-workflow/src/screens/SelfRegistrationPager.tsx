@@ -262,8 +262,8 @@ export const SelfRegistrationPager: React.FC = () => {
         switch (currentPage) {
             case Pages.VerifyEmail:
                 return false;
-            case Pages.CreateAccount:
-                return false;
+            // case Pages.CreateAccount:
+            //     return false;
             case Pages.CreatePassword:
                 return false;
             case Pages.Complete:
@@ -434,7 +434,7 @@ export const SelfRegistrationPager: React.FC = () => {
                         onClick={(): void => advancePage(1)}
                         style={{ width: 100 }}
                     >
-                        Next
+                        {t('ACTIONS.NEXT')}
                     </Button>
                 }
                 style={{ background: 'transparent', width: '100%', padding: 0 }}
