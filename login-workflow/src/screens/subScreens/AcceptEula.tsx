@@ -1,6 +1,7 @@
 import React, { useEffect } from 'react';
 import { Typography, FormControlLabel, Checkbox, useTheme } from '@material-ui/core';
 import { useLanguageLocale } from '@pxblue/react-auth-shared';
+import DOMPurify from 'dompurify';
 
 export type AcceptEulaProps = {
     eulaAccepted: boolean;
@@ -15,13 +16,7 @@ export const AcceptEula: React.FC<AcceptEulaProps> = (props) => {
     const { t } = useLanguageLocale();
     const theme = useTheme();
 
-    const eulaContentInternals = !htmlEula
-        ? eulaContent ?? eulaError ?? t('REGISTRATION.EULA.LOADING')
-        : eulaContent ??
-          '<!DOCTYPE html><html><head><meta name="viewport" content="width=device-width, initial-scale=1.0"></head>' +
-              '<style>body { font-size: 120%; word-wrap: break-word; overflow-wrap: break-word; }</style>' +
-              `<body>${eulaError ?? t('REGISTRATION.EULA.LOADING')}</body>` +
-              '</html>';
+    const eulaContentInternals = eulaContent ?? eulaError ?? t('REGISTRATION.EULA.LOADING');
 
     useEffect(() => {
         loadEula();
@@ -30,7 +25,13 @@ export const AcceptEula: React.FC<AcceptEulaProps> = (props) => {
 
     return (
         <>
-            <Typography style={{ flex: '1 1 0px', overflow: 'auto' }}>{eulaContentInternals}</Typography>
+            {!htmlEula && <Typography style={{ flex: '1 1 0px', overflow: 'auto' }}>{eulaContentInternals}</Typography>}
+            {htmlEula && (
+                <div
+                    style={{ flex: '1 1 0px', overflow: 'auto' }}
+                    dangerouslySetInnerHTML={{ __html: DOMPurify.sanitize(eulaContentInternals) }}
+                ></div>
+            )}
             <FormControlLabel
                 control={
                     <Checkbox

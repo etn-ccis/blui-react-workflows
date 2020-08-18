@@ -20,7 +20,8 @@
     },
     "prettier": "@pxblue/prettier-config",
     "dependencies": {
-        "@pxblue/react-auth-shared": "^2.0.0-beta.1"
+        "@pxblue/react-auth-shared": "^2.0.0-beta.1",
+        "dompurify": "^2.0.12"
     },
     "peerDependencies": {
         "@material-ui/core": "^4.7.2",
@@ -55,6 +56,7 @@
         "@pxblue/react-components": "^4.0.2",
         "@pxblue/react-themes": "^5.0.2",
         "@types/color": "^3.0.1",
+        "@types/dompurify": "^2.0.3",
         "@types/enzyme": "^3.10.5",
         "@types/enzyme-adapter-react-16": "^1.0.6",
         "@types/jest": "^26.0.8",
