@@ -20,6 +20,7 @@ import { ThemeProvider, createMuiTheme } from '@material-ui/core/styles';
 
 import * as PXBThemes from '@pxblue/react-themes';
 import { CssBaseline } from '@material-ui/core';
+import { routes } from './navigation/Routing';
 
 // const Stack = createStackNavigator();
 
@@ -42,24 +43,15 @@ export const AuthUIConfiguration: React.FC = (props) => {
     );
 };
 
-export const App: React.FC = () => {
-    const ref = React.useRef(null);
-    // const { getInitialState } = useLinking(ref, authLinkMapping);
-    const [initialState, setInitialState] = React.useState();
-    // React.useEffect(() => {
-    //     resolveInitialState(getInitialState, setInitialState);
-    // }, [getInitialState]);
-
-    return (
-        <ThemeProvider theme={createMuiTheme(PXBThemes.blue)}>
-            <CssBaseline />
-            <SecurityContextProvider>
-                <AuthUIConfiguration>
-                    <AuthNavigationContainer /*initialState={initialState} ref={ref}*/>
-                        <ExampleHome />
-                    </AuthNavigationContainer>
-                </AuthUIConfiguration>
-            </SecurityContextProvider>
-        </ThemeProvider>
-    );
-};
+export const App: React.FC = () => (
+    <ThemeProvider theme={createMuiTheme(PXBThemes.blue)}>
+        <CssBaseline />
+        <SecurityContextProvider>
+            <AuthUIConfiguration>
+                <AuthNavigationContainer routeConfig={routes}>
+                    <ExampleHome />
+                </AuthNavigationContainer>
+            </AuthUIConfiguration>
+        </SecurityContextProvider>
+    </ThemeProvider>
+);

@@ -29,6 +29,7 @@ import { AccountDetails as AccountDetailsScreen } from './subScreens/AccountDeta
 import { RegistrationComplete } from './subScreens/RegistrationComplete';
 import { EmptyState } from '@pxblue/react-components';
 import { Error } from '@material-ui/icons';
+import { useRoutes } from '../contexts/RoutingContext';
 
 /* eslint-disable @typescript-eslint/naming-convention */
 
@@ -52,6 +53,7 @@ const useStyles = makeStyles(() =>
 export const InviteRegistrationPager: React.FC = () => {
     const { t } = useLanguageLocale();
     const history = useHistory();
+    const { routes } = useRoutes();
     const classes = useStyles();
     const registrationState = useRegistrationUIState();
     const registrationActions = useRegistrationUIActions();
@@ -215,9 +217,9 @@ export const InviteRegistrationPager: React.FC = () => {
             if (delta === 0) {
                 return;
             } else if (isFirstStep && delta < 0) {
-                history.push(`/login`);
+                history.push(routes.LOGIN);
             } else if (isLastStep && delta > 0) {
-                history.push(`/login`);
+                history.push(routes.LOGIN);
             } else {
                 // If this is the last user-entry step of the invite flow, it is time to make a network call
                 // Check > 0 so advancing backwards does not risk going into the completion block
@@ -229,6 +231,7 @@ export const InviteRegistrationPager: React.FC = () => {
             }
         },
         [
+            routes,
             isFirstStep,
             history,
             isLastStep,
@@ -393,7 +396,7 @@ export const InviteRegistrationPager: React.FC = () => {
                         <Button
                             variant="contained"
                             color="primary"
-                            onClick={(): void => history.push('/login')}
+                            onClick={(): void => history.push(routes.LOGIN)}
                             style={{ width: 100 }}
                         >
                             {t('ACTIONS.CONTINUE')}

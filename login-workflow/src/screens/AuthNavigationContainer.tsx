@@ -20,13 +20,45 @@ import {
 import { ChangePasswordModal } from '../components/password/ChangePasswordModal';
 import { BrowserRouter, Route, Switch } from 'react-router-dom';
 import { PrivateRoute } from '../components/PrivateRoute';
-
-const NavigationContainer: React.FC = (props) => <>{props.children}</>;
+import { RoutingContext } from '../contexts/RoutingContext';
 
 /**
  * Type for the properties of the navigation container.
  */
-type NavigationContainerComponentProps = React.ComponentProps<'div'>; // React.ComponentProps<typeof NavigationContainer>;
+export type RouteConfig = {
+    LOGIN?: string;
+    FORGOT_PASSWORD?: string;
+    RESET_PASSWORD?: string;
+    REGISTER_INVITE?: string;
+    REGISTER_SELF?: string;
+    SUPPORT?: string;
+};
+export type NavigationContainerComponentProps = {
+    routeConfig?: RouteConfig;
+};
+
+const defaultRoutes: Required<RouteConfig> = {
+    LOGIN: '/login',
+    FORGOT_PASSWORD: '/forgot-password',
+    RESET_PASSWORD: '/reset-password',
+    REGISTER_INVITE: '/register/invite',
+    REGISTER_SELF: '/register/create-account',
+    SUPPORT: '/support',
+};
+
+const prefixRoutes = (routes: RouteConfig): { routes: Required<RouteConfig>; routesArray: string[] } => {
+    const newRoutes = defaultRoutes;
+    const newRoutesArray: string[] = [];
+    Object.keys(routes).forEach((route) => {
+        const customPath = routes[route as keyof RouteConfig];
+        const routeWithPrefix = `${customPath.startsWith('/') ? '' : '/'}${customPath}`;
+        newRoutes[route as keyof RouteConfig] = routeWithPrefix;
+    });
+    Object.keys(newRoutes).forEach((route) => {
+        newRoutesArray.push(newRoutes[route as keyof RouteConfig]);
+    });
+    return { routes: newRoutes, routesArray: newRoutesArray };
+};
 
 /**
  * Container component which holds the authentication and navigation state
@@ -53,21 +85,15 @@ type NavigationContainerComponentProps = React.ComponentProps<'div'>; // React.C
  * };
  * ```
  *
- * @param props.initialState Initial state object for the navigation tree.
- * @param props.onStateChange Callback which is called with the latest navigation state when it changes.
- * @param props.theme Theme object for the navigators.
  * @param props.children Child elements to render the content.
- * @param props.ref Ref object which refers to the navigation object containing helper methods.
  *
  * @category Component
  */
 // eslint-disable-next-line @typescript-eslint/ban-types
-const AuthNavigationContainerRender: React.ForwardRefRenderFunction<{}, NavigationContainerComponentProps> = (
-    props: NavigationContainerComponentProps,
-    ref: any
-) => {
+export const AuthNavigationContainer: React.FC<NavigationContainerComponentProps> = (props) => {
     const securityState = useSecurityState();
     const injectedContext = useInjectedUIContext();
+    const { routeConfig, children, ...otherProps } = props;
 
     React.useEffect(() => {
         const bootstrapAsync = async (): Promise<void> => {
@@ -78,6 +104,14 @@ const AuthNavigationContainerRender: React.ForwardRefRenderFunction<{}, Navigati
         void bootstrapAsync();
         // eslint-disable-next-line react-hooks/exhaustive-deps
     }, []);
+
+    const { routes, routesArray } = prefixRoutes({ ...defaultRoutes, ...routeConfig });
+
+    // Object.keys(routes).forEach((route) => {
+    //     const routePath = routes[route as keyof RouteConfig];
+    //     const newRoute = `${routePath.startsWith('/') ? '' : '/'}${routePath}`;
+    //     publicRoutes.push(newRoute);
+    // });
 
     if (securityState.isLoading) {
         // We haven't finished checking for the token yet
@@ -90,29 +124,32 @@ const AuthNavigationContainerRender: React.ForwardRefRenderFunction<{}, Navigati
     // Show PreAuthContainer unless the user is authenticated
     // Show the application
     return (
-        <NavigationContainer ref={ref} {...props}>
-            <AuthUIInternalStore>
-                <BrowserRouter>
+        <AuthUIInternalStore {...otherProps}>
+            <BrowserRouter>
+                <RoutingContext.Provider value={{ routes: routes }}>
                     <Switch>
                         <Route
-                            path={[
-                                '/login',
-                                '/forgot-password',
-                                '/reset-password',
-                                '/register/invite',
-                                '/register/create-account',
-                                '/support',
-                            ]}
+                            path={
+                                routesArray
+                                //     [
+                                //     '/login',
+                                //     '/forgot-password',
+                                //     '/reset-password',
+                                //     '/register/invite',
+                                //     '/register/create-account',
+                                //     '/support',
+                                // ]
+                            }
                         >
                             <PreAuthContainer />
                         </Route>
-                        <PrivateRoute path="*">{props.children}</PrivateRoute>
+                        <PrivateRoute path="*" authRoute={routes.LOGIN}>
+                            {children}
+                        </PrivateRoute>
                     </Switch>
                     {securityState.isAuthenticatedUser && <ChangePasswordModal />}
-                </BrowserRouter>
-            </AuthUIInternalStore>
-        </NavigationContainer>
+                </RoutingContext.Provider>
+            </BrowserRouter>
+        </AuthUIInternalStore>
     );
 };
-
-export const AuthNavigationContainer = React.forwardRef(AuthNavigationContainerRender);

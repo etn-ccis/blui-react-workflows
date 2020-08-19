@@ -27,6 +27,7 @@ import { BrandedCardContainer } from '../components/BrandedCardContainer';
 import stackedEatonLogo from '../assets/images/eaton_stacked_logo.png';
 import cyberBadge from '../assets/images/cybersecurity_certified.png';
 import * as Colors from '@pxblue/colors';
+import { useRoutes } from '../contexts/RoutingContext';
 
 const useStyles = makeStyles((theme: Theme) =>
     createStyles({
@@ -46,6 +47,7 @@ const useStyles = makeStyles((theme: Theme) =>
             fontWeight: 600,
             textTransform: 'none',
             textDecoration: 'none',
+            color: theme.palette.primary.main,
             '&:visited': {
                 color: 'inherit',
             },
@@ -64,6 +66,7 @@ export const Login: React.FC = () => {
     const authUIActions = useAccountUIActions();
     const authUIState = useAccountUIState();
     const authProps = useInjectedUIContext();
+    const { routes } = useRoutes();
     const theme = useTheme();
     const classes = useStyles();
 
@@ -100,7 +103,7 @@ export const Login: React.FC = () => {
     // Construct the optional elements
     const contactEatonRepresentative: JSX.Element = (
         <Typography variant="body2" color={'primary'}>
-            <Link className={classes.link} to="/support">
+            <Link className={classes.link} to={routes.SUPPORT}>
                 {t('MESSAGES.CONTACT')}
             </Link>
         </Typography>
@@ -115,7 +118,7 @@ export const Login: React.FC = () => {
     if (showSelfRegistration || debugMode) {
         createAccountOption = (
             <Typography variant="body2" color={'primary'} style={{ marginBottom: theme.spacing(4) }}>
-                <Link className={classes.link} to="/register/create-account">
+                <Link className={classes.link} to={routes.REGISTER_SELF}>
                     {t('ACTIONS.CREATE_ACCOUNT')}
                 </Link>
             </Typography>
@@ -157,7 +160,7 @@ export const Login: React.FC = () => {
     if (debugMode) {
         testForgotPasswordDeepLinkButton = (
             <Typography variant="body2">
-                <Link className={classes.link} to="/reset-password?code=DEBUG_VALIDATION_CODE_DEADBEEF">
+                <Link className={classes.link} to={`${routes.FORGOT_PASSWORD}?code=DEBUG_VALIDATION_CODE_DEADBEEF`}>
                     [Test Forgot Password Email]
                 </Link>
             </Typography>
@@ -168,7 +171,7 @@ export const Login: React.FC = () => {
     if (debugMode) {
         testInviteRegisterButton = (
             <Typography variant="body2">
-                <Link className={classes.link} to="/register/invite?code=DEBUG_VALIDATION_CODE_DEADBEEF">
+                <Link className={classes.link} to={`${routes.REGISTER_INVITE}?code=DEBUG_VALIDATION_CODE_DEADBEEF`}>
                     [Test Invite Register]
                 </Link>
             </Typography>
@@ -277,7 +280,7 @@ export const Login: React.FC = () => {
                         {testInviteRegisterButton}
 
                         <Typography variant="body2" color={'primary'}>
-                            <Link className={classes.link} to="/forgot-password">
+                            <Link className={classes.link} to={routes.FORGOT_PASSWORD}>
                                 {t('LABELS.FORGOT_PASSWORD')}
                             </Link>
                         </Typography>

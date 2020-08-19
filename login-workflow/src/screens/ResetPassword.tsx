@@ -31,6 +31,7 @@ import { useQueryString } from '../hooks/useQueryString';
 import { SecureTextField } from '../components/SecureTextField';
 import { PasswordRequirements } from '../components/password/PasswordRequirements';
 import { EmptyState } from '@pxblue/react-components';
+import { useRoutes } from '../contexts/RoutingContext';
 
 const useStyles = makeStyles(() =>
     createStyles({
@@ -43,6 +44,7 @@ const useStyles = makeStyles(() =>
 export const ResetPassword: React.FC = () => {
     const { t } = useLanguageLocale();
     const history = useHistory();
+    const { routes } = useRoutes();
     const classes = useStyles();
     const theme = useTheme();
     const accountUIState = useAccountUIState();
@@ -129,11 +131,11 @@ export const ResetPassword: React.FC = () => {
     );
     const onContinue = useCallback(() => {
         if (setPasswordTransitSuccess) {
-            history.push(`/login`);
+            history.push(routes.LOGIN);
         } else {
             resetPassword(passwordInput);
         }
-    }, [resetPassword, setPasswordTransitSuccess, passwordInput, history]);
+    }, [resetPassword, setPasswordTransitSuccess, passwordInput, history, routes]);
 
     const getBody = useCallback(
         () =>
@@ -202,7 +204,7 @@ export const ResetPassword: React.FC = () => {
                         variant="outlined"
                         color="primary"
                         disabled={setPasswordTransitSuccess}
-                        onClick={(): void => history.push(`/login`)}
+                        onClick={(): void => history.push(routes.LOGIN)}
                         style={{ width: 100 }}
                     >
                         {t('ACTIONS.BACK')}

@@ -18,6 +18,7 @@ import { VerifyEmail as VerifyEmailScreen } from './subScreens/VerifyEmail';
 import { CreatePassword as CreatePasswordScreen } from './subScreens/CreatePassword';
 import { AccountDetails as AccountDetailsScreen } from './subScreens/AccountDetails';
 import { RegistrationComplete } from './subScreens/RegistrationComplete';
+import { useRoutes } from '../contexts/RoutingContext';
 
 /* eslint-disable @typescript-eslint/naming-convention */
 enum Pages {
@@ -52,6 +53,7 @@ export const SelfRegistrationPager: React.FC = () => {
 
     // const navigation = useNavigation();
     const history = useHistory();
+    const { routes } = useRoutes();
     // const viewPager = React.createRef<ViewPager>();
     const registrationActions = useRegistrationUIActions();
     const registrationState = useRegistrationUIState();
@@ -278,9 +280,9 @@ export const SelfRegistrationPager: React.FC = () => {
             if (delta === 0) {
                 return;
             } else if (isFirstStep && delta < 0) {
-                history.push(`/login`);
+                history.push(routes.LOGIN);
             } else if (isLastStep && delta > 0) {
-                history.push(`/login`);
+                history.push(routes.LOGIN);
             } else {
                 // If this is the last user-entry step of the invite flow, it is time to make a network call
                 // Check > 0 so advancing backwards does not risk going into the completion block
@@ -317,6 +319,7 @@ export const SelfRegistrationPager: React.FC = () => {
             registrationSuccess,
             requestCode,
             validateCode,
+            routes,
         ]
     );
 
