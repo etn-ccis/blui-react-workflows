@@ -16,11 +16,7 @@ export const AccountDetails: React.FC<AccountDetailsProps> = (props) => {
     const [phoneInput, setPhoneInput] = React.useState(initialDetails ? initialDetails.phone : '');
 
     React.useEffect((): void => {
-        // if (firstNameInput.length > 0 && lastNameInput.length > 0) {
         onDetailsChanged({ firstName: firstNameInput, lastName: lastNameInput, phone: phoneInput });
-        // } else {
-        // props.onDetailsChanged(null);
-        // }
         // eslint-disable-next-line react-hooks/exhaustive-deps
     }, [firstNameInput, lastNameInput, phoneInput]); // ignore props
 

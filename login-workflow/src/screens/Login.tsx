@@ -1,4 +1,18 @@
 import React, { ChangeEvent, useCallback } from 'react';
+
+// Hooks
+import { useRoutes } from '../contexts/RoutingContext';
+import {
+    useSecurityState,
+    useLanguageLocale,
+    useAccountUIActions,
+    useAccountUIState,
+    useInjectedUIContext,
+    EMAIL_REGEX,
+} from '@pxblue/react-auth-shared';
+
+// Components
+import { Link } from 'react-router-dom';
 import {
     useTheme,
     Typography,
@@ -13,26 +27,22 @@ import {
     Checkbox,
     Button,
 } from '@material-ui/core';
+import { BrandedCardContainer, SimpleDialog } from '../components';
+
+// Styles
 import { Visibility, VisibilityOff } from '@material-ui/icons';
-import {
-    useSecurityState,
-    useLanguageLocale,
-    useAccountUIActions,
-    useAccountUIState,
-    useInjectedUIContext,
-    EMAIL_REGEX,
-} from '@pxblue/react-auth-shared';
-import { Link } from 'react-router-dom';
-import { BrandedCardContainer } from '../components/BrandedCardContainer';
 import stackedEatonLogo from '../assets/images/eaton_stacked_logo.png';
 import cyberBadge from '../assets/images/cybersecurity_certified.png';
 import * as Colors from '@pxblue/colors';
-import { useRoutes } from '../contexts/RoutingContext';
+import clsx from 'clsx';
 
 const useStyles = makeStyles((theme: Theme) =>
     createStyles({
         formFields: {
             marginBottom: theme.spacing(5),
+            '&$hasError': {
+                marginBottom: theme.spacing(5) - 22, // height of error message
+            },
         },
         buttonRow: {
             marginBottom: theme.spacing(5),
@@ -57,9 +67,18 @@ const useStyles = makeStyles((theme: Theme) =>
             height: 60,
             color: theme.palette.text.secondary,
         },
+        hasError: {},
     })
 );
 
+/**
+ * Login screen with loading and error states, as well as "remember me" functionality to store a user's email between logins.
+ * Requires being wrapped in an [[AuthNavigationContainer]] for access to global state and actions for authentication and registration.
+ * Has a debug mode which shows buttons that allow direct access to the deep link flows (invite registration, set password from forgot password, etc.).
+ *
+ *
+ * @category Component
+ */
 export const Login: React.FC = () => {
     const securityState = useSecurityState();
     const { t } = useLanguageLocale();
@@ -84,23 +103,21 @@ export const Login: React.FC = () => {
     }, [setHasAcknowledgedError, authUIActions, emailInput, passwordInput, rememberPassword]);
 
     const transitState = authUIState.login;
-    const spinner = transitState.transitInProgress ? <h1>Spinner</h1> /*<Spinner hasHeader={false} />*/ : <></>;
 
     const hasTransitError = authUIState.login.transitErrorMessage !== null;
     const transitErrorMessage = authUIState.login.transitErrorMessage ?? t('MESSAGES.REQUEST_ERROR');
-    const errorDialog = (
-        // <SimpleDialog
-        //     title={t('MESSAGES.ERROR')}
-        //     bodyText={t(transitErrorMessage)}
-        //     visible={hasTransitError && !hasAcknowledgedError}
-        //     onDismiss={(): void => {
-        //         setHasAcknowledgedError(true);
-        //     }}
-        // />
-        <h1>DIALOG</h1>
-    );
 
-    // Construct the optional elements
+    // Construct the dynamic elements
+    const errorDialog = (
+        <SimpleDialog
+            title={t('MESSAGES.ERROR')}
+            body={t(transitErrorMessage)}
+            open={hasTransitError && !hasAcknowledgedError}
+            onClose={(): void => {
+                setHasAcknowledgedError(true);
+            }}
+        />
+    );
     const contactEatonRepresentative: JSX.Element = (
         <Typography variant="body2" color={'primary'}>
             <Link className={classes.link} to={routes.SUPPORT}>
@@ -108,9 +125,6 @@ export const Login: React.FC = () => {
             </Link>
         </Typography>
     );
-
-    // const confirmPasswordRef = React.useRef<HTMLInputElement>(null);
-    // const goToNextInput = (): void => confirmPasswordRef?.current?.focus();
 
     const showSelfRegistration = authProps.showSelfRegistration ?? true; // enabled by default
 
@@ -160,7 +174,7 @@ export const Login: React.FC = () => {
     if (debugMode) {
         testForgotPasswordDeepLinkButton = (
             <Typography variant="body2">
-                <Link className={classes.link} to={`${routes.FORGOT_PASSWORD}?code=DEBUG_VALIDATION_CODE_DEADBEEF`}>
+                <Link className={classes.link} to={`${routes.RESET_PASSWORD}?code=DEBUG_VALIDATION_CODE_DEADBEEF`}>
                     [Test Forgot Password Email]
                 </Link>
             </Typography>
@@ -179,9 +193,8 @@ export const Login: React.FC = () => {
     }
 
     return (
-        <BrandedCardContainer>
-            {/* {spinner} */}
-            {/* {errorDialog} */}
+        <BrandedCardContainer loading={transitState.transitInProgress}>
+            {errorDialog}
             {debugButton}
             <form
                 data-testid="login-form"
@@ -203,35 +216,29 @@ export const Login: React.FC = () => {
 
                     {debugMessage}
 
-                    {/* {this.state.inActiveLogout && (
-                        <Typography variant="subtitle1" color="error" style={{ paddingBottom: 10 }}>
-                            {t('INACTIVITY.INACTIVE_LOGOUT')}
-                        </Typography>
-                    )} */}
-
                     <TextField
                         label={t('LABELS.EMAIL')}
                         id="email"
                         name="email"
                         type="email"
-                        className={classes.formFields}
+                        className={clsx(classes.formFields, { [classes.hasError]: hasTransitError })}
                         value={emailInput}
                         onChange={(evt: ChangeEvent<HTMLInputElement>): void => setEmailInput(evt.target.value)}
                         variant="filled"
                         error={hasTransitError}
-                        helperText={hasTransitError ? t('LOGIN.INCORRECT_CREDENTIALS') : null}
+                        helperText={hasTransitError ? t('LOGIN.INCORRECT_CREDENTIALS') : ''}
                     />
                     <TextField
                         type={showPassword ? 'text' : 'password'}
                         id="password"
                         name="password"
                         label={t('LABELS.PASSWORD')}
-                        className={classes.formFields}
+                        className={clsx(classes.formFields, { [classes.hasError]: hasTransitError })}
                         value={passwordInput}
                         onChange={(evt: ChangeEvent<HTMLInputElement>): void => setPasswordInput(evt.target.value)}
                         variant="filled"
                         error={hasTransitError}
-                        helperText={hasTransitError ? t('LOGIN.INCORRECT_CREDENTIALS') : null}
+                        helperText={hasTransitError ? t('LOGIN.INCORRECT_CREDENTIALS') : ''}
                         InputProps={{
                             endAdornment: (
                                 <InputAdornment position="end">

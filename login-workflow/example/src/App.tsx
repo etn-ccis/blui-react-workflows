@@ -36,7 +36,7 @@ export const AuthUIConfiguration: React.FC = (props) => {
             htmlEula={false}
             contactEmail={'something@email.com'}
             contactPhone={'1-800-123-4567'}
-            // projectImage={require('./src/assets/images/some_image.png')}
+            projectImage={require('./assets/images/eaton_stacked_logo.png')}
         >
             {props.children}
         </AuthUIContextProvider>

@@ -30,6 +30,8 @@ import { RegistrationComplete } from './subScreens/RegistrationComplete';
 import { EmptyState } from '@pxblue/react-components';
 import { Error } from '@material-ui/icons';
 import { useRoutes } from '../contexts/RoutingContext';
+import { SimpleDialog } from '../components';
+import { ExistingAccountComplete } from './subScreens/ExistingAccountComplete';
 
 /* eslint-disable @typescript-eslint/naming-convention */
 
@@ -125,34 +127,15 @@ export const InviteRegistrationPager: React.FC = () => {
         }
     }, [registrationState.inviteRegistration.validationTransit, validationCode, validateCode, validationEmail]); // eslint-disable-line react-hooks/exhaustive-deps
 
-    // Spinner - shows if either of registration of code validation are in progress
-    const spinner = registrationIsInTransit || isValidationInTransit ? <h1>Spinner</h1> /*<Spinner />*/ : <></>;
-
-    // // View pager
-    // useEffect(() => {
-    //     if (viewPager && viewPager.current) {
-    //         if (currentPage === Pages.Complete) {
-    //             viewPager.current.setPageWithoutAnimation(currentPage);
-    //         } else {
-    //             viewPager.current.setPage(currentPage);
-    //         }
-    //     }
-    // }, [currentPage, viewPager, registrationSuccess]);
-
-    // // Styling
-    // const containerStyles = makeContainerStyles(theme);
-    // const styles = makeStyles();
-
     const errorDialog = (
-        <h1>Error Dialog</h1>
-        // <SimpleDialog
-        //     title={t('MESSAGES.ERROR')}
-        //     bodyText={t(registrationTransitErrorMessage)}
-        //     visible={hasRegistrationTransitError && !hasAcknowledgedError}
-        //     onDismiss={(): void => {
-        //         setHasAcknowledgedError(true);
-        //     }}
-        // />
+        <SimpleDialog
+            title={t('MESSAGES.ERROR')}
+            body={t(registrationTransitErrorMessage)}
+            open={hasRegistrationTransitError && !hasAcknowledgedError}
+            onClose={(): void => {
+                setHasAcknowledgedError(true);
+            }}
+        />
     );
 
     const loadAndCacheEula = useCallback(async (): Promise<void> => {
@@ -267,8 +250,6 @@ export const InviteRegistrationPager: React.FC = () => {
 
     const getBody = useCallback(() => {
         switch (currentPage) {
-            //     case Pages.CreateAccount:
-            //         return <CreateAccountScreen initialEmail={email} onEmailChanged={setEmail} />;
             case Pages.Eula:
                 return (
                     <AcceptEula
@@ -280,16 +261,6 @@ export const InviteRegistrationPager: React.FC = () => {
                         eulaContent={eulaContent}
                     />
                 );
-            //     case Pages.VerifyEmail:
-            //         return (
-            //             <VerifyEmailScreen
-            //                 initialCode={verificationCode}
-            //                 onVerifyCodeChanged={setVerificationCode}
-            //                 onResendVerificationEmail={(): void => {
-            //                     void requestCode();
-            //                 }}
-            //             />
-            //         );
             case Pages.CreatePassword:
                 return <CreatePasswordScreen onPasswordChanged={setPassword} initialPassword={password} />;
             case Pages.AccountDetails:
@@ -307,7 +278,7 @@ export const InviteRegistrationPager: React.FC = () => {
                     />
                 );
             default:
-                return <h1>TODO ERROR</h1>;
+                return <></>;
         }
     }, [
         currentPage,
@@ -365,7 +336,8 @@ export const InviteRegistrationPager: React.FC = () => {
     }
 
     return (
-        <BrandedCardContainer>
+        <BrandedCardContainer loading={registrationIsInTransit || isValidationInTransit}>
+            {errorDialog}
             <CardHeader
                 title={
                     <Typography variant={'h6'} style={{ fontWeight: 600 }}>
@@ -388,8 +360,7 @@ export const InviteRegistrationPager: React.FC = () => {
                     <CardContent
                         style={{ flex: '1 1 0px', overflow: 'auto', display: 'flex', flexDirection: 'column' }}
                     >
-                        {/* <ExistingAccountComplete /> */}
-                        <h1>Existing Account Complete TODO</h1>
+                        <ExistingAccountComplete />
                     </CardContent>
                     <Divider />
                     <CardActions style={{ padding: 16, justifyContent: 'flex-end' }}>
@@ -404,8 +375,7 @@ export const InviteRegistrationPager: React.FC = () => {
                     </CardActions>
                 </>
             ) : !validationComplete ? (
-                // <Spinner />
-                <h1>SPINNER</h1>
+                <></>
             ) : (
                 <div style={{ display: 'flex', flex: '1 1 0%', justifyContent: 'center', height: '100%' }}>
                     <EmptyState

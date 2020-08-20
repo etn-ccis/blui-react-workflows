@@ -1,5 +1,17 @@
 import React, { useEffect, ChangeEvent, useCallback } from 'react';
-import { BrandedCardContainer } from '../components/BrandedCardContainer';
+// Hooks
+import {
+    useLanguageLocale,
+    useAccountUIState,
+    useAccountUIActions,
+    AccountActions,
+    EMAIL_REGEX,
+    useInjectedUIContext,
+} from '@pxblue/react-auth-shared';
+import { useHistory } from 'react-router-dom';
+
+// Components
+import { BrandedCardContainer, SimpleDialog } from '../components';
 import {
     CardHeader,
     Typography,
@@ -13,18 +25,11 @@ import {
     Theme,
     createStyles,
 } from '@material-ui/core';
-import {
-    useLanguageLocale,
-    useAccountUIState,
-    useAccountUIActions,
-    AccountActions,
-    EMAIL_REGEX,
-    useInjectedUIContext,
-} from '@pxblue/react-auth-shared';
 import { EmptyState } from '@pxblue/react-components';
-import { useHistory } from 'react-router-dom';
-import { CheckCircle } from '@material-ui/icons';
 import { Trans } from 'react-i18next';
+
+// Styles
+import { CheckCircle } from '@material-ui/icons';
 
 const useStyles = makeStyles((theme: Theme) =>
     createStyles({
@@ -43,6 +48,11 @@ const useStyles = makeStyles((theme: Theme) =>
     })
 );
 
+/**
+ * Renders the forgot password screen (input for email).
+ *
+ * @category Component
+ */
 export const ForgotPassword: React.FC = () => {
     const { t } = useLanguageLocale();
     const history = useHistory();
@@ -90,19 +100,16 @@ export const ForgotPassword: React.FC = () => {
         []
     );
 
-    // Conditional Elements
-    const spinner = isInTransit ? <h1>Spinner</h1> /*</h1><Spinner />*/ : <></>;
-
+    // Dynamic Elements
     const errorDialog = (
-        // <SimpleDialog
-        //     title={'Error'}
-        //     bodyText={t(transitErrorMessage ?? '')}
-        //     visible={hasTransitError && !hasAcknowledgedError}
-        //     onDismiss={(): void => {
-        //         setHasAcknowledgedError(true);
-        //     }}
-        // />
-        <h1>Error Dialog</h1>
+        <SimpleDialog
+            title={t('MESSAGES.ERROR')}
+            body={t(transitErrorMessage ?? '')}
+            open={hasTransitError && !hasAcknowledgedError}
+            onClose={(): void => {
+                setHasAcknowledgedError(true);
+            }}
+        />
     );
 
     let body: JSX.Element;
@@ -157,7 +164,8 @@ export const ForgotPassword: React.FC = () => {
     }
 
     return (
-        <BrandedCardContainer>
+        <BrandedCardContainer loading={isInTransit}>
+            {errorDialog}
             <CardHeader
                 data-testid="title"
                 title={

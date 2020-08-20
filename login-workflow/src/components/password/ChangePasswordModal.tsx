@@ -12,7 +12,6 @@ import {
 } from '@material-ui/core';
 import {
     useSecurityState,
-    useAccountUIState,
     useSecurityActions,
     useLanguageLocale,
     useAccountUIActions,
@@ -21,18 +20,15 @@ import {
     transitSuccess,
     transitStart,
     transitFailed,
-    PasswordRequirement,
-    LENGTH_REGEX,
-    NUMBERS_REGEX,
-    UPPER_CASE_REGEX,
-    LOWER_CASE_REGEX,
-    SPECIAL_CHAR_REGEX,
     useInjectedUIContext,
+    AccountActions,
 } from '@pxblue/react-auth-shared';
 import { ChangePasswordForm } from './ChangePasswordForm';
 import { SecureTextField } from '../SecureTextField';
 import { EmptyState } from '@pxblue/react-components';
 import { CheckCircle } from '@material-ui/icons';
+import { defaultPasswordRequirements } from '../../constants';
+import { SimpleDialog } from '../SimpleDialog';
 
 const useStyles = makeStyles(() =>
     createStyles({
@@ -46,7 +42,6 @@ export const ChangePasswordModal: React.FC = () => {
     const { t } = useLanguageLocale();
     const securityState = useSecurityState();
     const accountUIActions = useAccountUIActions();
-    const accountUIState = useAccountUIState();
     const securityHelper = useSecurityActions();
     const theme = useTheme();
     const classes = useStyles();
@@ -58,10 +53,6 @@ export const ChangePasswordModal: React.FC = () => {
     const [password, setPassword] = useState('');
     const [confirm, setConfirm] = useState('');
 
-    // Network state (setPassword)
-    const setPasswordTransit = accountUIState.setPassword.setPasswordTransit;
-    const setPasswordTransitSuccess = setPasswordTransit.transitSuccess;
-
     const updateFields = useCallback(
         (fields: { password: string; confirm: string }) => {
             setPassword(fields.password);
@@ -70,44 +61,7 @@ export const ChangePasswordModal: React.FC = () => {
         [setPassword, setConfirm]
     );
 
-    // const resetPassword = useCallback(
-    //     (password: string): void => {
-    //         void accountUIActions.actions.changePassword('oldPassword', password);
-    //     },
-    //     [accountUIActions, code, email]
-    // );
-
-    // const onContinue = useCallback(() => {
-    //     if (setPasswordTransitSuccess) {
-    //         securityHelper.onUserNotAuthenticated();
-    //     } else {
-    //         resetPassword(passwordInput);
-    //     }
-    // }, [resetPassword, setPasswordTransitSuccess, passwordInput, history]);
-
-    const defaultRequirements: PasswordRequirement[] = [
-        {
-            regex: LENGTH_REGEX,
-            description: t('PASSWORD_REQUIREMENTS.LENGTH'),
-        },
-        {
-            regex: NUMBERS_REGEX,
-            description: t('PASSWORD_REQUIREMENTS.NUMBERS'),
-        },
-        {
-            regex: UPPER_CASE_REGEX,
-            description: t('PASSWORD_REQUIREMENTS.UPPER'),
-        },
-        {
-            regex: LOWER_CASE_REGEX,
-            description: t('PASSWORD_REQUIREMENTS.LOWER'),
-        },
-        {
-            regex: SPECIAL_CHAR_REGEX,
-            description: t('PASSWORD_REQUIREMENTS.SPECIAL'),
-        },
-    ];
-    const { passwordRequirements = defaultRequirements } = useInjectedUIContext();
+    const { passwordRequirements = defaultPasswordRequirements(t) } = useInjectedUIContext();
 
     const areValidMatchingPasswords = useCallback((): boolean => {
         for (let i = 0; i < passwordRequirements.length; i++) {
@@ -161,6 +115,17 @@ export const ChangePasswordModal: React.FC = () => {
         );
     }
 
+    const errorDialog = (
+        <SimpleDialog
+            title={t('MESSAGES.ERROR')}
+            body={transitState.transitErrorMessage ?? ''}
+            open={transitState.transitErrorMessage !== null && !hasAcknowledgedError}
+            onClose={(): void => {
+                setHasAcknowledgedError(true);
+            }}
+        />
+    );
+
     const resetForm = useCallback(() => {
         setTransitState(initialTransitState);
         setCurrentPassword('');
@@ -170,7 +135,8 @@ export const ChangePasswordModal: React.FC = () => {
 
     return (
         <Dialog open={securityState.isShowingChangePassword} maxWidth={'xs'} onExited={resetForm}>
-            <DialogTitle>Change Password</DialogTitle>
+            {errorDialog}
+            <DialogTitle>{t('CHANGE_PASSWORD.PASSWORD')}</DialogTitle>
             <DialogContent style={{ flex: '1 1 auto', overflow: 'auto' }}>{body}</DialogContent>
 
             <DialogActions style={{ padding: 16 }}>
@@ -186,16 +152,14 @@ export const ChangePasswordModal: React.FC = () => {
                     </Button>
                     <Button
                         variant="contained"
-                        // disabled={!canContinue()}
                         disabled={
                             !transitState.transitSuccess && (currentPassword === '' || !areValidMatchingPasswords())
                         }
                         color="primary"
-                        // onClick={onContinue}
-                        // onClick={() => securityHelper.hideChangePassword()}
                         onClick={
                             transitState.transitSuccess
                                 ? (): void => {
+                                      accountUIActions.dispatch(AccountActions.logout());
                                       securityHelper.onUserNotAuthenticated();
                                   }
                                 : changePassword

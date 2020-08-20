@@ -105,17 +105,11 @@ export const AuthNavigationContainer: React.FC<NavigationContainerComponentProps
         // eslint-disable-next-line react-hooks/exhaustive-deps
     }, []);
 
-    const { routes, routesArray } = prefixRoutes({ ...defaultRoutes, ...routeConfig });
-
-    // Object.keys(routes).forEach((route) => {
-    //     const routePath = routes[route as keyof RouteConfig];
-    //     const newRoute = `${routePath.startsWith('/') ? '' : '/'}${routePath}`;
-    //     publicRoutes.push(newRoute);
-    // });
+    const { routes, routesArray: publicRoutes } = prefixRoutes({ ...defaultRoutes, ...routeConfig });
 
     if (securityState.isLoading) {
         // We haven't finished checking for the token yet
-        return <SplashScreen /*mainImage={injectedContext.projectImage}*/ />;
+        return <SplashScreen mainImage={injectedContext.projectImage} />;
     }
 
     // const appShouldBeVisible = securityState.isAuthenticatedUser; // && !securityState.isShowingChangePassword;
@@ -128,19 +122,7 @@ export const AuthNavigationContainer: React.FC<NavigationContainerComponentProps
             <BrowserRouter>
                 <RoutingContext.Provider value={{ routes: routes }}>
                     <Switch>
-                        <Route
-                            path={
-                                routesArray
-                                //     [
-                                //     '/login',
-                                //     '/forgot-password',
-                                //     '/reset-password',
-                                //     '/register/invite',
-                                //     '/register/create-account',
-                                //     '/support',
-                                // ]
-                            }
-                        >
+                        <Route path={publicRoutes}>
                             <PreAuthContainer />
                         </Route>
                         <PrivateRoute path="*" authRoute={routes.LOGIN}>

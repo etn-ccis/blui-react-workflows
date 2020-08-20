@@ -3,6 +3,7 @@ import { Card, Theme } from '@material-ui/core';
 import { createStyles, makeStyles } from '@material-ui/core/styles';
 
 import backgroundImage from '../assets/images/background.svg';
+import { Spinner } from './Spinner';
 
 const useStyles = makeStyles((theme: Theme) =>
     createStyles({
@@ -29,11 +30,23 @@ const useStyles = makeStyles((theme: Theme) =>
     })
 );
 
-export const BrandedCardContainer: React.FC = (props) => {
+export const BrandedBackground: React.FC = (props) => {
+    const classes = useStyles();
+    return <div className={classes.brandingPanel}>{props.children}</div>;
+};
+
+export type BrandedCardContainerProps = {
+    loading?: boolean;
+};
+export const BrandedCardContainer: React.FC<BrandedCardContainerProps> = (props) => {
+    const { children, loading, ...otherProps } = props;
     const classes = useStyles();
     return (
-        <div className={classes.brandingPanel}>
-            <Card className={classes.card}>{props.children}</Card>
-        </div>
+        <BrandedBackground {...otherProps}>
+            <Card className={classes.card}>
+                <Spinner visible={loading} />
+                {children}
+            </Card>
+        </BrandedBackground>
     );
 };
