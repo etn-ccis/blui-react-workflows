@@ -38,6 +38,7 @@ export const VerifyEmail: React.FC<VerifyEmailProps> = (props) => {
             <Typography>{t('SELF_REGISTRATION.VERIFY_EMAIL.MESSAGE')}</Typography>
             <Divider style={{ margin: `${theme.spacing(4)}px 0px` }} />
             <TextField
+                id="code"
                 label={t('SELF_REGISTRATION.VERIFY_EMAIL.VERIFICATION')}
                 fullWidth
                 value={verifyCode}

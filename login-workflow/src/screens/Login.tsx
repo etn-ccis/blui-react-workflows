@@ -1,4 +1,4 @@
-import React, { ChangeEvent, useCallback } from 'react';
+import React, { ChangeEvent, useCallback, useEffect } from 'react';
 import { useRoutes } from '../contexts/RoutingContext';
 import {
     useSecurityState,
@@ -7,6 +7,7 @@ import {
     useAccountUIState,
     useInjectedUIContext,
     EMAIL_REGEX,
+    AccountActions,
 } from '@pxblue/react-auth-shared';
 import { Link } from 'react-router-dom';
 import {
@@ -126,6 +127,14 @@ export const Login: React.FC = () => {
     const hasTransitError = authUIState.login.transitErrorMessage !== null;
     const transitErrorMessage = authUIState.login.transitErrorMessage ?? t('MESSAGES.REQUEST_ERROR');
 
+    useEffect(
+        () => {
+            //@ts-ignore can remove this after a new shared auth package is published
+            authUIActions.dispatch(AccountActions.resetLogin());
+        },
+        [] // eslint-disable-line react-hooks/exhaustive-deps
+    );
+
     // Construct the dynamic elements
     const errorDialog = (
         <SimpleDialog
@@ -224,6 +233,7 @@ export const Login: React.FC = () => {
 
                     <TextField
                         label={t('LABELS.EMAIL')}
+                        id="email"
                         name="email"
                         type="email"
                         className={clsx(classes.formFields, { [classes.hasError]: hasTransitError })}
@@ -234,6 +244,7 @@ export const Login: React.FC = () => {
                         helperText={hasTransitError ? t('LOGIN.INCORRECT_CREDENTIALS') : ''}
                     />
                     <SecureTextField
+                        id="password"
                         name="password"
                         label={t('LABELS.PASSWORD')}
                         className={clsx(classes.formFields, { [classes.hasError]: hasTransitError })}

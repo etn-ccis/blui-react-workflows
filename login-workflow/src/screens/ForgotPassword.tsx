@@ -136,6 +136,7 @@ export const ForgotPassword: React.FC = () => {
                 <Divider style={{ margin: `${theme.spacing(4)}px 0px` }} />
 
                 <TextField
+                    id="email"
                     label={t('LABELS.EMAIL')}
                     fullWidth
                     value={emailInput}

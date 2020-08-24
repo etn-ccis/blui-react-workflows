@@ -33,6 +33,7 @@ export const AccountDetails: React.FC<AccountDetailsProps> = (props) => {
             <Typography>{t('REGISTRATION.INSTRUCTIONS.ACCOUNT_DETAILS')}</Typography>
             <Divider style={{ margin: `${theme.spacing(4)}px 0px` }} />
             <TextField
+                id="first"
                 label={t('FORMS.FIRST_NAME')}
                 fullWidth
                 value={firstNameInput}
@@ -42,6 +43,7 @@ export const AccountDetails: React.FC<AccountDetailsProps> = (props) => {
                 variant="filled"
             />
             <TextField
+                id="last"
                 label={t('FORMS.LAST_NAME')}
                 fullWidth
                 value={lastNameInput}
@@ -52,6 +54,7 @@ export const AccountDetails: React.FC<AccountDetailsProps> = (props) => {
                 style={{ marginTop: theme.spacing(2) }}
             />
             <TextField
+                id="phone"
                 label={`${t('FORMS.PHONE_NUMBER')} (${t('LABELS.OPTIONAL')})`}
                 fullWidth
                 value={phoneInput}

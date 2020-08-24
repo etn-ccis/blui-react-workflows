@@ -32,9 +32,9 @@ export const CreateAccount: React.FC<CreateAccountProps> = (props) => {
             <Typography>{t('SELF_REGISTRATION.INSTRUCTIONS')}</Typography>
             <Divider style={{ margin: `${theme.spacing(4)}px 0px` }} />
             <TextField
+                id="email"
                 label={t('LABELS.EMAIL')}
                 fullWidth
-                id="email"
                 value={emailInput}
                 onChange={(evt): void => {
                     setEmailInput(evt.target.value);

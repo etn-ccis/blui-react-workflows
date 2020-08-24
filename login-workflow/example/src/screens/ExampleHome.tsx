@@ -1,13 +1,12 @@
 import React from 'react';
 import logo from './logo.svg';
 import './Home.css';
-import { useSecurityActions, useSecurityState } from '@pxblue/react-auth-shared';
+import { useSecurityActions } from '@pxblue/react-auth-shared';
 import { LocalStorage } from '../store/local-storage';
 import { Button } from '@material-ui/core';
 
 export const ExampleHome: React.FC = () => {
     const securityHelper = useSecurityActions();
-    const securityState = useSecurityState();
 
     const logOut = (): void => {
         LocalStorage.clearAuthCredentials();

@@ -43,6 +43,7 @@ export const CreatePassword: React.FC<CreatePasswordProps> = (props) => {
             <Typography>{t('CHANGE_PASSWORD.PASSWORD_INFO')}</Typography>
             <Divider style={{ margin: `${theme.spacing(4)}px 0px` }} />
             <SecureTextField
+                id="password"
                 name="password"
                 label={t('FORMS.PASSWORD')}
                 value={passwordInput}
@@ -50,6 +51,7 @@ export const CreatePassword: React.FC<CreatePasswordProps> = (props) => {
             />
             <PasswordRequirements style={{ marginTop: theme.spacing(2) }} passwordText={passwordInput} />
             <SecureTextField
+                id="confirm"
                 name="confirm"
                 label={t('FORMS.CONFIRM_PASSWORD')}
                 style={{ marginTop: theme.spacing(2) }}
