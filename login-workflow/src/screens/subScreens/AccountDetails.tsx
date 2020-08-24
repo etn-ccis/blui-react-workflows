@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { useEffect } from 'react';
 import { TextField, Typography, Divider, useTheme } from '@material-ui/core';
 import { useLanguageLocale, AccountDetailInformation } from '@pxblue/react-auth-shared';
 
@@ -24,7 +24,7 @@ export const AccountDetails: React.FC<AccountDetailsProps> = (props) => {
     const [lastNameInput, setLastNameInput] = React.useState(initialDetails ? initialDetails.lastName : '');
     const [phoneInput, setPhoneInput] = React.useState(initialDetails ? initialDetails.phone : '');
 
-    React.useEffect((): void => {
+    useEffect((): void => {
         onDetailsChanged({ firstName: firstNameInput, lastName: lastNameInput, phone: phoneInput });
     }, [onDetailsChanged, firstNameInput, lastNameInput, phoneInput]);
 

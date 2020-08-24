@@ -1,4 +1,4 @@
-import React, { useState, useCallback, ChangeEvent } from 'react';
+import React, { useState, useCallback, ChangeEvent, useEffect } from 'react';
 import { useLanguageLocale, useInjectedUIContext } from '@pxblue/react-auth-shared';
 import { Typography, Divider, useTheme } from '@material-ui/core';
 import { SecureTextField, PasswordRequirements } from '../../components';
@@ -33,7 +33,7 @@ export const CreatePassword: React.FC<CreatePasswordProps> = (props) => {
         return confirmInput === passwordInput;
     }, [passwordRequirements, passwordInput, confirmInput]);
 
-    React.useEffect(() => {
+    useEffect(() => {
         onPasswordChanged(areValidMatchingPasswords() ? passwordInput : '');
         // eslint-disable-next-line react-hooks/exhaustive-deps
     }, [onPasswordChanged, passwordInput, confirmInput, areValidMatchingPasswords]);

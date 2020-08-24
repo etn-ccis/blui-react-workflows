@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { useEffect } from 'react';
 import { BrowserRouter, Route, Switch } from 'react-router-dom';
 import { AuthUIInternalStore, useSecurityState, useInjectedUIContext } from '@pxblue/react-auth-shared';
 import { Splash as SplashScreen } from './Splash';
@@ -59,7 +59,7 @@ export const AuthNavigationContainer: React.FC<NavigationContainerComponentProps
     const injectedContext = useInjectedUIContext();
     const { routeConfig, children, ...otherProps } = props;
 
-    React.useEffect(() => {
+    useEffect(() => {
         const bootstrapAsync = async (): Promise<void> => {
             await injectedContext.authActions().initiateSecurity();
             return;
