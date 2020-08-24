@@ -22,6 +22,7 @@ import {
     makeStyles,
     createStyles,
     Theme,
+    useTheme,
 } from '@material-ui/core';
 import { BrandedCardContainer, FinishState, SimpleDialog } from '../components';
 import { emptyAccountDetailInformation } from './SelfRegistrationPager';
@@ -73,6 +74,7 @@ export const InviteRegistrationPager: React.FC = () => {
     const history = useHistory();
     const { routes } = useRoutes();
     const classes = useStyles();
+    const theme = useTheme();
     const registrationState = useRegistrationUIState();
     const registrationActions = useRegistrationUIActions();
     const injectedUIContext = useInjectedUIContext();
