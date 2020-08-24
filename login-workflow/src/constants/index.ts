@@ -6,6 +6,7 @@ import {
     LOWER_CASE_REGEX,
     SPECIAL_CHAR_REGEX,
 } from '@pxblue/react-auth-shared';
+
 export const defaultPasswordRequirements = (t: (input: string) => string): PasswordRequirement[] => [
     {
         regex: LENGTH_REGEX,

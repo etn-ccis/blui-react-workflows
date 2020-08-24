@@ -6,6 +6,15 @@ export type AccountDetailsProps = {
     onDetailsChanged: (details: AccountDetailInformation | null) => void;
     initialDetails?: AccountDetailInformation;
 };
+
+/**
+ * Component that renders a screen requesting user first and last name and optional phone number.
+ *
+ * @param initialDetails an object specifying any details to pre-fill
+ * @param onDetailsChanged a function to call when any of the detail fields values change
+ *
+ * @category Component
+ */
 export const AccountDetails: React.FC<AccountDetailsProps> = (props) => {
     const { onDetailsChanged, initialDetails } = props;
     const theme = useTheme();
@@ -17,13 +26,12 @@ export const AccountDetails: React.FC<AccountDetailsProps> = (props) => {
 
     React.useEffect((): void => {
         onDetailsChanged({ firstName: firstNameInput, lastName: lastNameInput, phone: phoneInput });
-        // eslint-disable-next-line react-hooks/exhaustive-deps
-    }, [firstNameInput, lastNameInput, phoneInput]); // ignore props
+    }, [onDetailsChanged, firstNameInput, lastNameInput, phoneInput]);
 
     return (
         <>
             <Typography>{t('REGISTRATION.INSTRUCTIONS.ACCOUNT_DETAILS')}</Typography>
-            <Divider style={{ margin: '32px 0' }} />
+            <Divider style={{ margin: `${theme.spacing(4)}px 0px` }} />
             <TextField
                 label={t('FORMS.FIRST_NAME')}
                 fullWidth

@@ -3,6 +3,13 @@ import { useLocation } from 'react-router-dom';
 type SearchParams = {
     [key: string]: string;
 };
+/**
+ * Hook that returns an object of query string parameters and values.
+ *
+ * @return an object whose keys/values are search param keys/values from the URL
+ *
+ * @category Hook
+ */
 export const useQueryString = (): SearchParams => {
     const { search } = useLocation();
     let noQuestion = search;

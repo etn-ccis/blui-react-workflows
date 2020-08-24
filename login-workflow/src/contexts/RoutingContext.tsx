@@ -5,6 +5,13 @@ type RoutingContextType = {
     routes: Required<RouteConfig>;
 };
 
+/**
+ * Context Provider that gives access to the custom routes defined for the public routes (pre authentication).
+ *
+ * @param routes A object containing the required routes and their respective paths
+ *
+ * @category Component
+ */
 export const RoutingContext = createContext<RoutingContextType | null>(null);
 
 export const useRoutes = (): RoutingContextType => {
