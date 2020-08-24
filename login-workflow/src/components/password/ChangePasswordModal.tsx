@@ -82,7 +82,7 @@ export const ChangePasswordModal: React.FC = () => {
         body = (
             <ChangePasswordForm passwordLabel={t('LABELS.NEW_PASSWORD')} onPasswordChange={updateFields}>
                 <SecureTextField
-                    id="password"
+                    id="current-password"
                     label={t('LABELS.CURRENT_PASSWORD')}
                     value={currentPassword}
                     onChange={(evt: ChangeEvent<HTMLInputElement>): void => setCurrentPassword(evt.target.value)}
