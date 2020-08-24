@@ -1,6 +1,4 @@
 import React, { ChangeEvent, useCallback } from 'react';
-
-// Hooks
 import { useRoutes } from '../contexts/RoutingContext';
 import {
     useSecurityState,
@@ -10,8 +8,6 @@ import {
     useInjectedUIContext,
     EMAIL_REGEX,
 } from '@pxblue/react-auth-shared';
-
-// Components
 import { Link } from 'react-router-dom';
 import {
     useTheme,
@@ -20,17 +16,13 @@ import {
     Theme,
     createStyles,
     makeStyles,
-    InputAdornment,
-    IconButton,
     Grid,
     FormControlLabel,
     Checkbox,
     Button,
 } from '@material-ui/core';
-import { BrandedCardContainer, SimpleDialog } from '../components';
+import { BrandedCardContainer, SimpleDialog, SecureTextField } from '../components';
 
-// Styles
-import { Visibility, VisibilityOff } from '@material-ui/icons';
 import stackedEatonLogo from '../assets/images/eaton_stacked_logo.png';
 import cyberBadge from '../assets/images/cybersecurity_certified.png';
 import * as Colors from '@pxblue/colors';
@@ -53,6 +45,25 @@ const useStyles = makeStyles((theme: Theme) =>
                 justifyContent: 'center',
             },
         },
+        cyberBadge: {
+            alignSelf: 'center',
+            maxWidth: '30%',
+        },
+        debugButton: {
+            position: 'absolute',
+            top: theme.spacing(2),
+            right: theme.spacing(2),
+        },
+        debugMessage: {
+            backgroundColor: Colors.yellow[500],
+            padding: theme.spacing(1),
+            marginBottom: theme.spacing(2),
+        },
+        formContent: {
+            padding: `${theme.spacing(4)}px ${theme.spacing(8)}px`,
+            display: 'flex',
+            flexDirection: 'column',
+        },
         link: {
             fontWeight: 600,
             textTransform: 'none',
@@ -62,12 +73,20 @@ const useStyles = makeStyles((theme: Theme) =>
                 color: 'inherit',
             },
         },
+        linksWrapper: {
+            textAlign: 'center',
+            paddingBottom: theme.spacing(4),
+        },
         largeIcon: {
             width: 60,
             height: 60,
             color: theme.palette.text.secondary,
         },
         hasError: {},
+        productLogo: {
+            maxWidth: '100%',
+            maxHeight: 80,
+        },
     })
 );
 
@@ -89,10 +108,10 @@ export const Login: React.FC = () => {
     const theme = useTheme();
     const classes = useStyles();
 
+    // Local State
     const [rememberPassword, setRememberPassword] = React.useState(securityState.rememberMeDetails.rememberMe ?? false);
     const [emailInput, setEmailInput] = React.useState(securityState.rememberMeDetails.email ?? '');
     const [passwordInput, setPasswordInput] = React.useState('');
-    const [showPassword, setShowPassword] = React.useState(false);
 
     const [hasAcknowledgedError, setHasAcknowledgedError] = React.useState(false);
     const [debugMode, setDebugMode] = React.useState(false);
@@ -139,7 +158,7 @@ export const Login: React.FC = () => {
         );
     }
 
-    // Create buttons for debug mode
+    // Create buttons and links for debug mode
     const allowDebugMode = authProps.allowDebugMode ?? false; // don't allow debug mode by default
     let debugButton: JSX.Element = <></>;
     if (allowDebugMode) {
@@ -148,7 +167,7 @@ export const Login: React.FC = () => {
                 variant={'contained'}
                 color={'primary'}
                 onClick={(): void => setDebugMode(!debugMode)}
-                style={{ position: 'absolute', top: theme.spacing(2), right: theme.spacing(2) }}
+                className={classes.debugButton}
             >{`DEBUG`}</Button>
         );
     }
@@ -156,13 +175,7 @@ export const Login: React.FC = () => {
     let debugMessage: JSX.Element = <></>;
     if (debugMode) {
         debugMessage = (
-            <div
-                style={{
-                    backgroundColor: Colors.yellow[500],
-                    padding: theme.spacing(1),
-                    marginBottom: theme.spacing(2),
-                }}
-            >
+            <div className={classes.debugMessage}>
                 <Typography variant={'h6'} align={'center'}>
                     DEBUG MODE
                 </Typography>
@@ -197,28 +210,20 @@ export const Login: React.FC = () => {
             {errorDialog}
             {debugButton}
             <form
-                data-testid="login-form"
                 onSubmit={(evt): void => {
                     evt.preventDefault();
                     loginTapped();
                 }}
             >
-                <div
-                    style={{
-                        padding: `${theme.spacing(4)}px ${theme.spacing(8)}px`,
-                        display: 'flex',
-                        flexDirection: 'column',
-                    }}
-                >
+                <div className={classes.formContent}>
                     <div style={{ paddingBottom: theme.spacing(6) }}>
-                        <img style={{ maxWidth: '100%', maxHeight: 80 }} src={stackedEatonLogo} alt="logo" />
+                        <img className={classes.productLogo} src={stackedEatonLogo} alt="logo" />
                     </div>
 
                     {debugMessage}
 
                     <TextField
                         label={t('LABELS.EMAIL')}
-                        id="email"
                         name="email"
                         type="email"
                         className={clsx(classes.formFields, { [classes.hasError]: hasTransitError })}
@@ -228,9 +233,7 @@ export const Login: React.FC = () => {
                         error={hasTransitError}
                         helperText={hasTransitError ? t('LOGIN.INCORRECT_CREDENTIALS') : ''}
                     />
-                    <TextField
-                        type={showPassword ? 'text' : 'password'}
-                        id="password"
+                    <SecureTextField
                         name="password"
                         label={t('LABELS.PASSWORD')}
                         className={clsx(classes.formFields, { [classes.hasError]: hasTransitError })}
@@ -239,18 +242,6 @@ export const Login: React.FC = () => {
                         variant="filled"
                         error={hasTransitError}
                         helperText={hasTransitError ? t('LOGIN.INCORRECT_CREDENTIALS') : ''}
-                        InputProps={{
-                            endAdornment: (
-                                <InputAdornment position="end">
-                                    <IconButton
-                                        aria-label="Toggle password visibility"
-                                        onClick={(): void => setShowPassword(!showPassword)}
-                                    >
-                                        {showPassword ? <Visibility /> : <VisibilityOff />}
-                                    </IconButton>
-                                </InputAdornment>
-                            ),
-                        }}
                     />
 
                     <Grid
@@ -282,7 +273,7 @@ export const Login: React.FC = () => {
                         </Button>
                     </Grid>
 
-                    <div style={{ textAlign: 'center', paddingBottom: 32 }}>
+                    <div className={classes.linksWrapper}>
                         {testForgotPasswordDeepLinkButton}
                         {testInviteRegisterButton}
 
@@ -298,11 +289,7 @@ export const Login: React.FC = () => {
                         {createAccountOption}
                         {contactEatonRepresentative}
                     </div>
-                    <img
-                        src={cyberBadge}
-                        style={{ alignSelf: 'center', maxWidth: '30%' }}
-                        alt="CyberSecurity Certification Badge"
-                    />
+                    <img src={cyberBadge} className={classes.cyberBadge} alt="CyberSecurity Certification Badge" />
                 </div>
             </form>
         </BrandedCardContainer>

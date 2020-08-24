@@ -1,6 +1,6 @@
 import React from 'react';
-import { ChatBubbleOutline } from '@material-ui/icons';
-import { BrandedCardContainer } from '../components/BrandedCardContainer';
+import { useLanguageLocale, useInjectedUIContext } from '@pxblue/react-auth-shared';
+import { useHistory } from 'react-router-dom';
 import {
     CardContent,
     Button,
@@ -12,8 +12,8 @@ import {
     createStyles,
     CardHeader,
 } from '@material-ui/core';
-import { useLanguageLocale, useInjectedUIContext } from '@pxblue/react-auth-shared';
-import { useHistory } from 'react-router-dom';
+import { BrandedCardContainer } from '../components';
+import { ChatBubbleOutline } from '@material-ui/icons';
 
 const useStyles = makeStyles((theme: Theme) =>
     createStyles({
@@ -29,6 +29,13 @@ const useStyles = makeStyles((theme: Theme) =>
     })
 );
 
+/**
+ * Content for the Contact Us screen. This is exported separately
+ * in the event that a user wishes to build another area in their
+ * main application where users can view this information.
+ *
+ * @category Component
+ */
 export const ContactSupportContent: React.FC = () => {
     const { t } = useLanguageLocale();
     const theme = useTheme();
@@ -62,9 +69,17 @@ export const ContactSupportContent: React.FC = () => {
     );
 };
 
+/**
+ * Container that renders a screen with contact information for
+ * support with the application. Contact information is pulled
+ * from the context passed into the workflow.
+ *
+ * @category Component
+ */
 export const ContactSupport: React.FC = () => {
     const { t } = useLanguageLocale();
     const history = useHistory();
+    const theme = useTheme();
 
     return (
         <BrandedCardContainer>
@@ -72,7 +87,7 @@ export const ContactSupport: React.FC = () => {
             <CardContent style={{ flex: '1 1 0px', overflow: 'auto' }}>
                 <ContactSupportContent />
             </CardContent>
-            <CardActions style={{ padding: 16, justifyContent: 'flex-end' }}>
+            <CardActions style={{ padding: theme.spacing(2), justifyContent: 'flex-end' }}>
                 <Button
                     variant="contained"
                     color="primary"

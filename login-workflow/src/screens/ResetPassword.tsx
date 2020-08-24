@@ -1,8 +1,4 @@
 import React, { useState, useEffect, useCallback, ChangeEvent } from 'react';
-// Constants
-import { defaultPasswordRequirements } from '../constants';
-
-// Hooks
 import {
     useLanguageLocale,
     useAccountUIState,
@@ -13,33 +9,10 @@ import {
 import { useQueryString } from '../hooks/useQueryString';
 import { useRoutes } from '../contexts/RoutingContext';
 import { useHistory } from 'react-router-dom';
-
-// Components
-import { BrandedCardContainer, SecureTextField, PasswordRequirements, SimpleDialog } from '../components';
-import {
-    CardHeader,
-    Typography,
-    CardContent,
-    Divider,
-    CardActions,
-    Grid,
-    Button,
-    makeStyles,
-    createStyles,
-    useTheme,
-} from '@material-ui/core';
-import { EmptyState } from '@pxblue/react-components';
-
-// Styles
+import { CardHeader, Typography, CardContent, Divider, CardActions, Grid, Button, useTheme } from '@material-ui/core';
+import { BrandedCardContainer, SecureTextField, PasswordRequirements, SimpleDialog, FinishState } from '../components';
+import { defaultPasswordRequirements } from '../constants';
 import { CheckCircle, Error } from '@material-ui/icons';
-
-const useStyles = makeStyles(() =>
-    createStyles({
-        description: {
-            color: 'inherit',
-        },
-    })
-);
 
 /**
  * Renders a screen stack which handles the reset password flow (deep link from email).
@@ -50,7 +23,6 @@ export const ResetPassword: React.FC = () => {
     const { t } = useLanguageLocale();
     const history = useHistory();
     const { routes } = useRoutes();
-    const classes = useStyles();
     const theme = useTheme();
     const accountUIState = useAccountUIState();
     const accountUIActions = useAccountUIActions();
@@ -61,19 +33,19 @@ export const ResetPassword: React.FC = () => {
     const [confirmInput, setConfirmInput] = useState('');
     const [hasAcknowledgedError, setHasAcknowledgedError] = useState(false);
 
-    // Network state (setPassword)
-    const setPasswordTransit = accountUIState.setPassword.setPasswordTransit;
-    const setPasswordTransitSuccess = setPasswordTransit.transitSuccess;
-    const setPasswordIsInTransit = setPasswordTransit.transitInProgress;
-    const setPasswordHasTransitError = setPasswordTransit.transitErrorMessage !== null;
-    const setPasswordTransitErrorMessage = setPasswordTransit.transitErrorMessage;
-
     // Network state (verifyResetCode)
     const verifyResetCodeTransit = accountUIState.setPassword.verifyResetCodeTransit;
     const verifyIsInTransit = verifyResetCodeTransit.transitInProgress;
     const validationTransitErrorMessage = verifyResetCodeTransit.transitErrorMessage;
     const verifySuccess = verifyResetCodeTransit.transitSuccess;
     const verifyComplete = verifyResetCodeTransit.transitComplete;
+
+    // Network state (setPassword)
+    const setPasswordTransit = accountUIState.setPassword.setPasswordTransit;
+    const setPasswordTransitSuccess = setPasswordTransit.transitSuccess;
+    const setPasswordIsInTransit = setPasswordTransit.transitInProgress;
+    const setPasswordHasTransitError = setPasswordTransit.transitErrorMessage !== null;
+    const setPasswordTransitErrorMessage = setPasswordTransit.transitErrorMessage;
 
     // Reset state on dismissal
     useEffect(
@@ -123,67 +95,49 @@ export const ResetPassword: React.FC = () => {
         () =>
             verifySuccess && !verifyIsInTransit ? (
                 setPasswordTransitSuccess ? (
-                    <div
-                        style={{ display: 'flex', flex: '1 1 0%', justifyContent: 'center', height: '100%' }}
-                        data-testid="reset-password-confirmation-content"
-                    >
-                        <EmptyState
-                            icon={<CheckCircle color={'primary'} style={{ fontSize: 100, marginBottom: 16 }} />}
-                            title={t('PASSWORD_RESET.SUCCESS_MESSAGE')}
-                            description={t('CHANGE_PASSWORD.SUCCESS_MESSAGE')}
-                            classes={{
-                                description: classes.description,
-                            }}
-                        />
-                    </div>
+                    <FinishState
+                        icon={
+                            <CheckCircle color={'primary'} style={{ fontSize: 100, marginBottom: theme.spacing(2) }} />
+                        }
+                        title={t('PASSWORD_RESET.SUCCESS_MESSAGE')}
+                        description={t('CHANGE_PASSWORD.SUCCESS_MESSAGE')}
+                    />
                 ) : (
                     <>
                         <Typography>{t('CHANGE_PASSWORD.PASSWORD_INFO')}</Typography>
 
-                        <Divider style={{ margin: '32px 0' }} />
+                        <Divider style={{ margin: `${theme.spacing(4)}px 0px` }} />
 
                         <SecureTextField
                             id="password"
                             name="password"
                             label={t('FORMS.PASSWORD')}
-                            // className={classes.formFields}
                             value={passwordInput}
                             onChange={(evt: ChangeEvent<HTMLInputElement>): void => setPasswordInput(evt.target.value)}
-                            // error={hasTransitError}
-                            // helperText={hasTransitError ? t('LOGIN.INCORRECT_CREDENTIALS') : null}
                         />
                         <PasswordRequirements style={{ marginTop: theme.spacing(2) }} passwordText={passwordInput} />
                         <SecureTextField
                             id="confirm"
                             name="confirm"
                             label={t('FORMS.CONFIRM_PASSWORD')}
-                            // className={classes.formFields}
                             style={{ marginTop: theme.spacing(2) }}
                             value={confirmInput}
                             onChange={(evt: ChangeEvent<HTMLInputElement>): void => setConfirmInput(evt.target.value)}
-                            // error={hasTransitError}
-                            // helperText={hasTransitError ? t('LOGIN.INCORRECT_CREDENTIALS') : null}
                         />
                     </>
                 )
             ) : !verifyComplete ? (
                 <></>
             ) : (
-                <div style={{ display: 'flex', flex: '1 1 0%', justifyContent: 'center', height: '100%' }}>
-                    <EmptyState
-                        icon={<Error color={'error'} style={{ fontSize: 100, marginBottom: 16 }} />}
-                        title={t('MESSAGES.FAILURE')}
-                        description={validationTransitErrorMessage}
-                        classes={{
-                            description: classes.description,
-                        }}
-                    />
-                </div>
+                <FinishState
+                    icon={<Error color={'error'} style={{ fontSize: 100, marginBottom: theme.spacing(2) }} />}
+                    title={t('MESSAGES.FAILURE')}
+                    description={validationTransitErrorMessage}
+                />
             ),
         [
             t,
             theme,
-            classes,
             passwordInput,
             setPasswordInput,
             confirmInput,
@@ -211,7 +165,6 @@ export const ResetPassword: React.FC = () => {
         <BrandedCardContainer loading={verifyIsInTransit || setPasswordIsInTransit}>
             {errorDialog}
             <CardHeader
-                data-testid="title"
                 title={
                     <Typography variant={'h6'} style={{ fontWeight: 600 }}>
                         {t('FORMS.RESET_PASSWORD')}
@@ -220,7 +173,7 @@ export const ResetPassword: React.FC = () => {
             />
             <CardContent style={{ flex: '1 1 0px', overflow: 'auto' }}>{getBody()}</CardContent>
             <Divider />
-            <CardActions style={{ padding: 16 }}>
+            <CardActions style={{ padding: theme.spacing(2) }}>
                 <Grid container direction="row" alignItems="center" justify="space-between" style={{ width: '100%' }}>
                     <Button
                         variant="outlined"

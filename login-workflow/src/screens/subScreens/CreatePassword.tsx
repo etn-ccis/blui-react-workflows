@@ -1,8 +1,7 @@
 import React, { useState, useCallback, ChangeEvent } from 'react';
 import { useLanguageLocale, useInjectedUIContext } from '@pxblue/react-auth-shared';
 import { Typography, Divider, useTheme } from '@material-ui/core';
-import { SecureTextField } from '../../components/SecureTextField';
-import { PasswordRequirements } from '../../components/password/PasswordRequirements';
+import { SecureTextField, PasswordRequirements } from '../../components';
 import { defaultPasswordRequirements } from '../../constants';
 
 export type CreatePasswordProps = {

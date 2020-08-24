@@ -1,5 +1,4 @@
 import React, { useEffect, ChangeEvent, useCallback } from 'react';
-// Hooks
 import {
     useLanguageLocale,
     useAccountUIState,
@@ -8,10 +7,9 @@ import {
     EMAIL_REGEX,
     useInjectedUIContext,
 } from '@pxblue/react-auth-shared';
+import { Trans } from 'react-i18next';
 import { useHistory } from 'react-router-dom';
-
-// Components
-import { BrandedCardContainer, SimpleDialog } from '../components';
+import { BrandedCardContainer, SimpleDialog, FinishState } from '../components';
 import {
     CardHeader,
     Typography,
@@ -24,11 +22,8 @@ import {
     makeStyles,
     Theme,
     createStyles,
+    useTheme,
 } from '@material-ui/core';
-import { EmptyState } from '@pxblue/react-components';
-import { Trans } from 'react-i18next';
-
-// Styles
 import { CheckCircle } from '@material-ui/icons';
 
 const useStyles = makeStyles((theme: Theme) =>
@@ -42,14 +37,12 @@ const useStyles = makeStyles((theme: Theme) =>
                 color: theme.palette.primary.main,
             },
         },
-        description: {
-            color: 'inherit',
-        },
     })
 );
 
 /**
- * Renders the forgot password screen (input for email).
+ * Renders the screen for Forgot Password where a user enters their
+ * email to receive a reset link.
  *
  * @category Component
  */
@@ -57,6 +50,7 @@ export const ForgotPassword: React.FC = () => {
     const { t } = useLanguageLocale();
     const history = useHistory();
     const classes = useStyles();
+    const theme = useTheme();
     const accountUIState = useAccountUIState();
     const accountUIActions = useAccountUIActions();
     const { contactPhone } = useInjectedUIContext();
@@ -115,27 +109,19 @@ export const ForgotPassword: React.FC = () => {
     let body: JSX.Element;
     if (accountUIState.forgotPassword.transitSuccess) {
         body = (
-            <div
-                style={{ display: 'flex', flex: '1 1 0%', justifyContent: 'center', height: '100%' }}
-                data-testid="forgot-password-confirmation-content"
-            >
-                <EmptyState
-                    icon={<CheckCircle color={'primary'} style={{ fontSize: 100, marginBottom: 16 }} />}
-                    title={t('MESSAGES.EMAIL_SENT')}
-                    description={
-                        <Trans i18nKey={'FORGOT_PASSWORD.LINK_SENT_ALT'} values={{ email: emailInput }}>
-                            Link has been sent to <b>{emailInput}</b>.
-                        </Trans>
-                    }
-                    classes={{
-                        description: classes.description,
-                    }}
-                />
-            </div>
+            <FinishState
+                icon={<CheckCircle color={'primary'} style={{ fontSize: 100, marginBottom: theme.spacing(2) }} />}
+                title={t('MESSAGES.EMAIL_SENT')}
+                description={
+                    <Trans i18nKey={'FORGOT_PASSWORD.LINK_SENT_ALT'} values={{ email: emailInput }}>
+                        Link has been sent to <b>{emailInput}</b>.
+                    </Trans>
+                }
+            />
         );
     } else {
         body = (
-            <div data-testid="forgot-password-entry-content">
+            <>
                 <Typography>
                     <Trans i18nKey={'FORGOT_PASSWORD.INSTRUCTIONS_ALT'} values={{ phone: contactPhone }}>
                         Please enter your email, we will respond in <b>one business day</b>. For urgent issues please
@@ -147,19 +133,18 @@ export const ForgotPassword: React.FC = () => {
                     </Trans>
                 </Typography>
 
-                <Divider style={{ margin: '32px 0' }} />
+                <Divider style={{ margin: `${theme.spacing(4)}px 0px` }} />
 
                 <TextField
                     label={t('LABELS.EMAIL')}
                     fullWidth
-                    id="email"
                     value={emailInput}
                     onChange={(evt: ChangeEvent<HTMLInputElement>): void => setEmailInput(evt.target.value)}
                     variant="filled"
                     error={hasTransitError}
                     helperText={hasTransitError ? t('FORGOT_PASSWORD.ERROR') : ''}
                 />
-            </div>
+            </>
         );
     }
 
@@ -167,7 +152,6 @@ export const ForgotPassword: React.FC = () => {
         <BrandedCardContainer loading={isInTransit}>
             {errorDialog}
             <CardHeader
-                data-testid="title"
                 title={
                     <Typography variant={'h6'} style={{ fontWeight: 600 }}>
                         {t('HEADER.FORGOT_PASSWORD')}
@@ -176,7 +160,7 @@ export const ForgotPassword: React.FC = () => {
             />
             <CardContent style={{ flex: '1 1 0px', overflow: 'auto' }}>{body}</CardContent>
             <Divider />
-            <CardActions style={{ padding: 16 }}>
+            <CardActions style={{ padding: theme.spacing(2) }}>
                 <Grid container direction="row" alignItems="center" justify="space-between" style={{ width: '100%' }}>
                     <Button
                         variant="outlined"

@@ -1,6 +1,5 @@
 import React, { useState, useEffect, useCallback } from 'react';
-import { MobileStepper, Button, CardHeader, Typography, CardContent, Divider, CardActions } from '@material-ui/core';
-import { BrandedCardContainer } from '../components/BrandedCardContainer';
+import i18n from '../translations/i18n';
 import {
     useLanguageLocale,
     useRegistrationUIActions,
@@ -11,16 +10,47 @@ import {
 } from '@pxblue/react-auth-shared';
 import { useHistory } from 'react-router-dom';
 import { useQueryString } from '../hooks/useQueryString';
+import { useRoutes } from '../contexts/RoutingContext';
+import {
+    MobileStepper,
+    Button,
+    CardHeader,
+    Typography,
+    CardContent,
+    Divider,
+    CardActions,
+    makeStyles,
+    Theme,
+    createStyles,
+} from '@material-ui/core';
+import { BrandedCardContainer, SimpleDialog } from '../components';
 import { CreateAccount as CreateAccountScreen } from './subScreens/CreateAccount';
 import { AcceptEula } from './subScreens/AcceptEula';
-import i18n from '../translations/i18n';
 import { VerifyEmail as VerifyEmailScreen } from './subScreens/VerifyEmail';
 import { CreatePassword as CreatePasswordScreen } from './subScreens/CreatePassword';
 import { AccountDetails as AccountDetailsScreen } from './subScreens/AccountDetails';
 import { RegistrationComplete } from './subScreens/RegistrationComplete';
-import { useRoutes } from '../contexts/RoutingContext';
-import { SimpleDialog } from '../components';
 import { ExistingAccountComplete } from './subScreens/ExistingAccountComplete';
+
+const useStyles = makeStyles((theme: Theme) =>
+    createStyles({
+        cardContent: {
+            flex: '1 1 0px',
+            overflow: 'auto',
+            display: 'flex',
+            flexDirection: 'column',
+        },
+        cardActions: {
+            padding: theme.spacing(2),
+            justifyContent: 'flex-end',
+        },
+        stepper: {
+            background: 'transparent',
+            width: '100%',
+            padding: 0,
+        },
+    })
+);
 
 /* eslint-disable @typescript-eslint/naming-convention */
 enum Pages {
@@ -41,7 +71,8 @@ export const emptyAccountDetailInformation: AccountDetailInformation = {
 };
 
 /**
- * Pager controlling the user self registration screen flow.
+ * Container component that manages the transition between screens for the
+ * self-registration (i.e., Create Account) workflow.
  *
  * @category Component
  */
@@ -49,17 +80,17 @@ export const SelfRegistrationPager: React.FC = () => {
     const { t } = useLanguageLocale();
     const history = useHistory();
     const { routes } = useRoutes();
+    const classes = useStyles();
     const registrationActions = useRegistrationUIActions();
     const registrationState = useRegistrationUIState();
     const injectedUIContext = useInjectedUIContext();
     const { code, email: urlEmail } = useQueryString();
 
+    // Local State
     const [currentPage, setCurrentPage] = useState(0);
-
     const [eulaAccepted, setEulaAccepted] = useState(false);
     const [password, setPassword] = useState('');
     const [accountDetails, setAccountDetails] = useState<AccountDetailInformation | null>(null);
-    // const [organization] = useState<string>(t('REGISTRATION.UNKNOWN_ORGANIZATION'));
     const [eulaContent, setEulaContent] = useState<string>();
     const [accountAlreadyExists, setAccountAlreadyExists] = useState<boolean>(false);
     const [hasAcknowledgedError, setHasAcknowledgedError] = useState(false);
@@ -101,6 +132,7 @@ export const SelfRegistrationPager: React.FC = () => {
         (hasRegistrationTransitError && registrationTransitErrorMessage) ||
         registrationTransitErrorMessage;
 
+    // pre-populate fields if they are present in the url
     useEffect(() => {
         if (typeof code === 'string') {
             setVerificationCode(code);
@@ -117,6 +149,7 @@ export const SelfRegistrationPager: React.FC = () => {
         }
     }, [codeRequestSuccess, verificationCode]);
 
+    // Send the verification email
     const requestCode = useCallback(async (): Promise<void> => {
         registrationActions.dispatch(RegistrationActions.requestRegistrationCodeReset());
         setHasAcknowledgedError(false);
@@ -127,6 +160,7 @@ export const SelfRegistrationPager: React.FC = () => {
         }
     }, [registrationActions, setHasAcknowledgedError, email]);
 
+    // If the registration is successful, go to the success screen
     useEffect(() => {
         if (currentPage === Pages.AccountDetails && registrationSuccess) {
             setCurrentPage(Pages.Complete);
@@ -134,6 +168,7 @@ export const SelfRegistrationPager: React.FC = () => {
         // eslint-disable-next-line react-hooks/exhaustive-deps
     }, [registrationSuccess]);
 
+    // If the verification code is sent successfully, go to the confirmation page
     useEffect(() => {
         if (currentPage === Pages.Eula && codeRequestSuccess) {
             setCurrentPage(Pages.VerifyEmail);
@@ -141,6 +176,7 @@ export const SelfRegistrationPager: React.FC = () => {
         // eslint-disable-next-line react-hooks/exhaustive-deps
     }, [codeRequestSuccess]);
 
+    // Validate the code entered by the user
     const validateCode = useCallback(async (): Promise<void> => {
         setHasAcknowledgedError(false);
         try {
@@ -174,6 +210,7 @@ export const SelfRegistrationPager: React.FC = () => {
         // eslint-disable-next-line react-hooks/exhaustive-deps
     }, [hasAcknowledgedError]);
 
+    // If the email is validated successfully, go to the create password screen
     useEffect(() => {
         if (currentPage === Pages.VerifyEmail && validationSuccess) {
             setCurrentPage(Pages.CreatePassword);
@@ -181,20 +218,7 @@ export const SelfRegistrationPager: React.FC = () => {
         // eslint-disable-next-line react-hooks/exhaustive-deps
     }, [validationSuccess]);
 
-    const errorDialog = (
-        <SimpleDialog
-            title={'Error'}
-            body={t(errorBodyText)}
-            open={
-                !hasAcknowledgedError &&
-                (hasRegistrationTransitError || hasValidationTransitError || hasCodeRequestTransitError)
-            }
-            onClose={(): void => {
-                setHasAcknowledgedError(true);
-            }}
-        />
-    );
-
+    // Load the Eula if we do not yet bhave the content
     const loadAndCacheEula = useCallback(async (): Promise<void> => {
         if (!eulaContent) {
             try {
@@ -206,6 +230,7 @@ export const SelfRegistrationPager: React.FC = () => {
         }
     }, [eulaContent, setEulaContent, registrationActions]);
 
+    // Call the API to finish registration
     const attemptRegistration = useCallback(async (): Promise<void> => {
         setHasAcknowledgedError(false);
         try {
@@ -222,6 +247,7 @@ export const SelfRegistrationPager: React.FC = () => {
         }
     }, [setHasAcknowledgedError, registrationActions, password, accountDetails, verificationCode, email]);
 
+    // Page navigation logic
     const canProgress = useCallback((): boolean => {
         switch (currentPage) {
             case Pages.CreateAccount:
@@ -304,6 +330,7 @@ export const SelfRegistrationPager: React.FC = () => {
         ]
     );
 
+    // Page content logic
     const pageTitle = (): string => {
         if (accountAlreadyExists) return t('REGISTRATION.STEPS.COMPLETE');
         switch (currentPage) {
@@ -390,6 +417,7 @@ export const SelfRegistrationPager: React.FC = () => {
         verificationCode,
     ]);
 
+    // Page actions logic
     let buttonArea: JSX.Element;
     if (accountAlreadyExists) {
         buttonArea = (
@@ -432,10 +460,24 @@ export const SelfRegistrationPager: React.FC = () => {
                         {t('ACTIONS.NEXT')}
                     </Button>
                 }
-                style={{ background: 'transparent', width: '100%', padding: 0 }}
+                className={classes.stepper}
             />
         );
     }
+
+    const errorDialog = (
+        <SimpleDialog
+            title={'Error'}
+            body={t(errorBodyText)}
+            open={
+                !hasAcknowledgedError &&
+                (hasRegistrationTransitError || hasValidationTransitError || hasCodeRequestTransitError)
+            }
+            onClose={(): void => {
+                setHasAcknowledgedError(true);
+            }}
+        />
+    );
 
     return (
         <BrandedCardContainer loading={registrationIsInTransit || isValidationInTransit || codeRequestIsInTransit}>
@@ -447,11 +489,9 @@ export const SelfRegistrationPager: React.FC = () => {
                     </Typography>
                 }
             />
-            <CardContent style={{ flex: '1 1 0px', overflow: 'auto', display: 'flex', flexDirection: 'column' }}>
-                {getBody()}
-            </CardContent>
+            <CardContent className={classes.cardContent}>{getBody()}</CardContent>
             <Divider />
-            <CardActions style={{ padding: 16, justifyContent: 'flex-end' }}>{buttonArea}</CardActions>
+            <CardActions className={classes.cardActions}>{buttonArea}</CardActions>
         </BrandedCardContainer>
     );
 };
