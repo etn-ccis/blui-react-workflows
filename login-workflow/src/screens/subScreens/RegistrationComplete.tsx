@@ -1,17 +1,8 @@
 import React from 'react';
-import { makeStyles, createStyles } from '@material-ui/core';
 import { useLanguageLocale } from '@pxblue/react-auth-shared';
-import { EmptyState } from '@pxblue/react-components';
 import { CheckCircle } from '@material-ui/icons';
 import { Trans } from 'react-i18next';
-
-const useStyles = makeStyles(() =>
-    createStyles({
-        description: {
-            color: 'inherit',
-        },
-    })
-);
+import { FinishState } from '../../components';
 
 export type RegistrationCompleteProps = {
     firstName: string;
@@ -21,7 +12,6 @@ export type RegistrationCompleteProps = {
 };
 export const RegistrationComplete: React.FC<RegistrationCompleteProps> = (props) => {
     const { firstName, lastName, email, organization } = props;
-    const classes = useStyles();
     const { t } = useLanguageLocale();
 
     return (
@@ -29,12 +19,9 @@ export const RegistrationComplete: React.FC<RegistrationCompleteProps> = (props)
             style={{ display: 'flex', flex: '1 1 0%', justifyContent: 'center', height: '100%' }}
             data-testid="reset-password-confirmation-content"
         >
-            <EmptyState
+            <FinishState
                 icon={<CheckCircle color={'primary'} style={{ fontSize: 100, marginBottom: 16 }} />}
                 title={`${t('MESSAGES.WELCOME')}, ${firstName} ${lastName}!`}
-                // description={t('REGISTRATION.SUCCESS_MESSAGE', {
-                //     replace: { email: email, organization: organization },
-                // })}
                 description={
                     <Trans
                         i18nKey={'REGISTRATION.SUCCESS_MESSAGE_ALT'}
@@ -44,9 +31,6 @@ export const RegistrationComplete: React.FC<RegistrationCompleteProps> = (props)
                         <b>{organization}</b> org.
                     </Trans>
                 }
-                classes={{
-                    description: classes.description,
-                }}
             />
         </div>
     );

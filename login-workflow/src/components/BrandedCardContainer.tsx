@@ -1,9 +1,7 @@
 import React from 'react';
-import { Card, Theme } from '@material-ui/core';
-import { createStyles, makeStyles } from '@material-ui/core/styles';
-
-import backgroundImage from '../assets/images/background.svg';
+import { Card, Theme, createStyles, makeStyles } from '@material-ui/core';
 import { Spinner } from './Spinner';
+import backgroundImage from '../assets/images/background.svg';
 
 const useStyles = makeStyles((theme: Theme) =>
     createStyles({
@@ -22,7 +20,6 @@ const useStyles = makeStyles((theme: Theme) =>
             width: '100%',
             backgroundColor: theme.palette.primary.main,
             backgroundImage: `url(${backgroundImage})`,
-            // backgroundSize: 'cover',
             display: 'flex',
             alignItems: 'center',
             justifyContent: 'center',
@@ -30,6 +27,13 @@ const useStyles = makeStyles((theme: Theme) =>
     })
 );
 
+/**
+ * Component that renders a blue textured background and centers its children in the screen.
+ *
+ * @param children the content to render on the blue background
+ *
+ * @category Component
+ */
 export const BrandedBackground: React.FC = (props) => {
     const classes = useStyles();
     return <div className={classes.brandingPanel}>{props.children}</div>;
@@ -38,6 +42,14 @@ export const BrandedBackground: React.FC = (props) => {
 export type BrandedCardContainerProps = {
     loading?: boolean;
 };
+
+/**
+ * Component that renders a card centered on a blue textured background.
+ *
+ * @param loading if true a loading spinner will be displayed blocking the content
+ *
+ * @category Component
+ */
 export const BrandedCardContainer: React.FC<BrandedCardContainerProps> = (props) => {
     const { children, loading, ...otherProps } = props;
     const classes = useStyles();

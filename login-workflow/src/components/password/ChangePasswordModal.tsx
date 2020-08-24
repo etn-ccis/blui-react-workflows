@@ -1,21 +1,9 @@
 import React, { useState, useCallback, ChangeEvent } from 'react';
 import {
-    Dialog,
-    DialogTitle,
-    DialogActions,
-    DialogContent,
-    Button,
-    Grid,
-    useTheme,
-    makeStyles,
-    createStyles,
-} from '@material-ui/core';
-import {
     useSecurityState,
     useSecurityActions,
     useLanguageLocale,
     useAccountUIActions,
-    // Actions
     initialTransitState,
     transitSuccess,
     transitStart,
@@ -23,28 +11,27 @@ import {
     useInjectedUIContext,
     AccountActions,
 } from '@pxblue/react-auth-shared';
+import { Dialog, DialogTitle, DialogActions, DialogContent, Button, Grid, useTheme } from '@material-ui/core';
 import { ChangePasswordForm } from './ChangePasswordForm';
 import { SecureTextField } from '../SecureTextField';
-import { EmptyState } from '@pxblue/react-components';
+import { SimpleDialog } from '../SimpleDialog';
+import { FinishState } from '../FinishState';
 import { CheckCircle } from '@material-ui/icons';
 import { defaultPasswordRequirements } from '../../constants';
-import { SimpleDialog } from '../SimpleDialog';
 
-const useStyles = makeStyles(() =>
-    createStyles({
-        description: {
-            color: 'inherit',
-        },
-    })
-);
-
+/**
+ * Component that renders a change password form in a modal dialog. This dialog is automatically
+ * shown and hidden based on the securityState context. It can be opened by calling
+ * useSecurityActions().showChangePassword().
+ *
+ * @category Component
+ */
 export const ChangePasswordModal: React.FC = () => {
     const { t } = useLanguageLocale();
     const securityState = useSecurityState();
     const accountUIActions = useAccountUIActions();
     const securityHelper = useSecurityActions();
     const theme = useTheme();
-    const classes = useStyles();
 
     const [transitState, setTransitState] = useState(initialTransitState);
     const [hasAcknowledgedError, setHasAcknowledgedError] = useState(false);
@@ -81,26 +68,15 @@ export const ChangePasswordModal: React.FC = () => {
         }
     }, [accountUIActions, currentPassword, password]);
 
+    // Dynamically change the body content based on successful change
     let body: JSX.Element;
     if (transitState.transitSuccess) {
         body = (
-            <div
-                style={{
-                    display: 'flex',
-                    flex: '1 1 0%',
-                    justifyContent: 'center',
-                    alignItems: 'center',
-                    height: '100%',
-                    minHeight: 500,
-                }}
-            >
-                <EmptyState
-                    icon={<CheckCircle color={'primary'} style={{ fontSize: 100, marginBottom: 16 }} />}
-                    title={t('CHANGE_PASSWORD.PASSWORD_CHANGED')}
-                    description={t('CHANGE_PASSWORD.SUCCESS_MESSAGE')}
-                    classes={{ description: classes.description }}
-                />
-            </div>
+            <FinishState
+                icon={<CheckCircle color={'primary'} style={{ fontSize: 100, marginBottom: theme.spacing(2) }} />}
+                title={t('CHANGE_PASSWORD.PASSWORD_CHANGED')}
+                description={t('CHANGE_PASSWORD.SUCCESS_MESSAGE')}
+            />
         );
     } else {
         body = (
