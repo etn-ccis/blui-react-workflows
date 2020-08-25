@@ -3,7 +3,7 @@ import { TextField, Typography, Divider, useTheme } from '@material-ui/core';
 import { useLanguageLocale, AccountDetailInformation } from '@pxblue/react-auth-shared';
 
 export type AccountDetailsProps = {
-    onDetailsChanged: (details: AccountDetailInformation | null) => void;
+    onDetailsChanged: (details: (AccountDetailInformation & { valid: boolean }) | null) => void;
     initialDetails?: AccountDetailInformation;
 };
 
@@ -25,7 +25,9 @@ export const AccountDetails: React.FC<AccountDetailsProps> = (props) => {
     const [phoneInput, setPhoneInput] = React.useState(initialDetails ? initialDetails.phone : '');
 
     useEffect((): void => {
-        onDetailsChanged({ firstName: firstNameInput, lastName: lastNameInput, phone: phoneInput });
+        // validation checks
+        const valid = firstNameInput !== '' && lastNameInput !== '';
+        onDetailsChanged({ firstName: firstNameInput, lastName: lastNameInput, phone: phoneInput, valid });
     }, [onDetailsChanged, firstNameInput, lastNameInput, phoneInput]);
 
     return (

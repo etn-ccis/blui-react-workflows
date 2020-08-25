@@ -90,7 +90,7 @@ export const SelfRegistrationPager: React.FC = () => {
     const [currentPage, setCurrentPage] = useState(0);
     const [eulaAccepted, setEulaAccepted] = useState(false);
     const [password, setPassword] = useState('');
-    const [accountDetails, setAccountDetails] = useState<AccountDetailInformation | null>(null);
+    const [accountDetails, setAccountDetails] = useState<(AccountDetailInformation & { valid: boolean }) | null>(null);
     const [eulaContent, setEulaContent] = useState<string>();
     const [accountAlreadyExists, setAccountAlreadyExists] = useState<boolean>(false);
     const [hasAcknowledgedError, setHasAcknowledgedError] = useState(false);
@@ -259,7 +259,7 @@ export const SelfRegistrationPager: React.FC = () => {
             case Pages.CreatePassword:
                 return password.length > 0;
             case Pages.AccountDetails:
-                return accountDetails !== null;
+                return accountDetails !== null && accountDetails.valid;
             case Pages.Complete:
                 return true;
             default:

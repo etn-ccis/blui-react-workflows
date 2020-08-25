@@ -87,7 +87,7 @@ export const InviteRegistrationPager: React.FC = () => {
     const [hasAcknowledgedError, setHasAcknowledgedError] = useState(false);
     const [eulaAccepted, setEulaAccepted] = useState(false);
     const [password, setPassword] = useState('');
-    const [accountDetails, setAccountDetails] = useState<AccountDetailInformation | null>(null);
+    const [accountDetails, setAccountDetails] = useState<(AccountDetailInformation & { valid: boolean }) | null>(null);
     const [eulaContent, setEulaContent] = useState<string>();
     const [currentPage, setCurrentPage] = useState(Pages.Eula);
     const [accountAlreadyExists, setAccountAlreadyExists] = React.useState<boolean>(false);
@@ -188,7 +188,7 @@ export const InviteRegistrationPager: React.FC = () => {
             case Pages.CreatePassword:
                 return password.length > 0;
             case Pages.AccountDetails:
-                return accountDetails !== null;
+                return accountDetails !== null && accountDetails.valid;
             case Pages.Complete:
                 return true;
             default:

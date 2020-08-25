@@ -130,7 +130,8 @@ export const ChangePasswordModal: React.FC = () => {
                     <Button
                         variant="contained"
                         disabled={
-                            !transitState.transitSuccess && (currentPassword === '' || !areValidMatchingPasswords())
+                            transitState.transitInProgress ||
+                            (!transitState.transitSuccess && (currentPassword === '' || !areValidMatchingPasswords()))
                         }
                         color="primary"
                         onClick={
