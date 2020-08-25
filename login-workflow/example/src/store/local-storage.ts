@@ -22,12 +22,6 @@ async function readAuthData(): Promise<AuthData> {
         email: userData.user,
         rememberMeData: rememberMeData,
     };
-    // return {
-    //     initialExpirationDate,
-    //     userId: userData.userId,
-    //     email: userData.user,
-    //     rememberMeData: rememberMeData,
-    // };
 }
 
 function saveAuthCredentials(user: string, userId: string): void {
