@@ -11,9 +11,13 @@ import * as PXBThemes from '@pxblue/react-themes';
 import 'typeface-open-sans';
 
 ReactDOM.render(
-    <React.StrictMode>
+    // Enable Strict Mode for more error checking
+    // <React.StrictMode>
+    <ThemeProvider theme={createMuiTheme(PXBThemes.blue)}>
+        <CssBaseline />
         <App />
-    </React.StrictMode>,
+    </ThemeProvider>,
+    // </React.StrictMode>
     document.getElementById('root')
 );
 
