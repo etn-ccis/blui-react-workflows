@@ -11,13 +11,14 @@ import {
     useInjectedUIContext,
     AccountActions,
 } from '@pxblue/react-auth-shared';
-import { Dialog, DialogTitle, DialogActions, DialogContent, Button, Grid, useTheme } from '@material-ui/core';
+import { Dialog, DialogTitle, DialogActions, DialogContent, Button, Grid, useTheme, Divider } from '@material-ui/core';
 import { ChangePasswordForm } from './ChangePasswordForm';
 import { SecureTextField } from '../SecureTextField';
 import { SimpleDialog } from '../SimpleDialog';
 import { FinishState } from '../FinishState';
 import { CheckCircle } from '@material-ui/icons';
 import { defaultPasswordRequirements } from '../../constants';
+import { useDialogStyles } from '../../styles';
 
 /**
  * Component that renders a change password form in a modal dialog. This dialog is automatically
@@ -32,6 +33,7 @@ export const ChangePasswordModal: React.FC = () => {
     const accountUIActions = useAccountUIActions();
     const securityHelper = useSecurityActions();
     const theme = useTheme();
+    const sharedClasses = useDialogStyles();
 
     const [transitState, setTransitState] = useState(initialTransitState);
     const [hasAcknowledgedError, setHasAcknowledgedError] = useState(false);
@@ -86,7 +88,6 @@ export const ChangePasswordModal: React.FC = () => {
                     label={t('LABELS.CURRENT_PASSWORD')}
                     value={currentPassword}
                     onChange={(evt: ChangeEvent<HTMLInputElement>): void => setCurrentPassword(evt.target.value)}
-                    style={{ marginBottom: theme.spacing(2) }}
                 />
             </ChangePasswordForm>
         );
@@ -113,22 +114,26 @@ export const ChangePasswordModal: React.FC = () => {
     return (
         <Dialog open={securityState.isShowingChangePassword} maxWidth={'xs'} onExited={resetForm}>
             {errorDialog}
-            <DialogTitle>{t('CHANGE_PASSWORD.PASSWORD')}</DialogTitle>
-            <DialogContent style={{ flex: '1 1 auto', overflow: 'auto' }}>{body}</DialogContent>
-
-            <DialogActions style={{ padding: 16 }}>
+            <DialogTitle className={sharedClasses.dialogTitle}>{t('CHANGE_PASSWORD.PASSWORD')}</DialogTitle>
+            <DialogContent className={sharedClasses.dialogContent} style={{ flex: '1 1 auto' }}>
+                {body}
+            </DialogContent>
+            <Divider style={{ marginTop: theme.spacing(2) }} />
+            <DialogActions className={sharedClasses.dialogActions}>
                 <Grid container direction="row" alignItems="center" justify="space-between" style={{ width: '100%' }}>
                     <Button
                         variant="outlined"
                         color="primary"
+                        className={sharedClasses.dialogButton}
                         disabled={transitState.transitSuccess}
                         onClick={(): void => securityHelper.hideChangePassword()}
-                        style={{ width: 100 }}
                     >
                         {t('ACTIONS.BACK')}
                     </Button>
                     <Button
                         variant="contained"
+                        disableElevation
+                        className={sharedClasses.dialogButton}
                         disabled={
                             transitState.transitInProgress ||
                             (!transitState.transitSuccess && (currentPassword === '' || !areValidMatchingPasswords()))
@@ -142,7 +147,6 @@ export const ChangePasswordModal: React.FC = () => {
                                   }
                                 : changePassword
                         }
-                        style={{ width: 100 }}
                     >
                         {transitState.transitSuccess ? t('ACTIONS.LOG_IN') : t('ACTIONS.OKAY')}
                     </Button>

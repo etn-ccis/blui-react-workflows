@@ -11,18 +11,7 @@ import {
 import { useHistory } from 'react-router-dom';
 import { useQueryString } from '../hooks/useQueryString';
 import { useRoutes } from '../contexts/RoutingContext';
-import {
-    MobileStepper,
-    Button,
-    CardHeader,
-    Typography,
-    CardContent,
-    Divider,
-    CardActions,
-    makeStyles,
-    Theme,
-    createStyles,
-} from '@material-ui/core';
+import { MobileStepper, Button, CardHeader, Typography, CardContent, Divider, CardActions } from '@material-ui/core';
 import { BrandedCardContainer, SimpleDialog } from '../components';
 import { CreateAccount as CreateAccountScreen } from './subScreens/CreateAccount';
 import { AcceptEula } from './subScreens/AcceptEula';
@@ -31,26 +20,7 @@ import { CreatePassword as CreatePasswordScreen } from './subScreens/CreatePassw
 import { AccountDetails as AccountDetailsScreen } from './subScreens/AccountDetails';
 import { RegistrationComplete } from './subScreens/RegistrationComplete';
 import { ExistingAccountComplete } from './subScreens/ExistingAccountComplete';
-
-const useStyles = makeStyles((theme: Theme) =>
-    createStyles({
-        cardContent: {
-            flex: '1 1 0px',
-            overflow: 'auto',
-            display: 'flex',
-            flexDirection: 'column',
-        },
-        cardActions: {
-            padding: theme.spacing(2),
-            justifyContent: 'flex-end',
-        },
-        stepper: {
-            background: 'transparent',
-            width: '100%',
-            padding: 0,
-        },
-    })
-);
+import { useDialogStyles } from '../styles';
 
 /* eslint-disable @typescript-eslint/naming-convention */
 enum Pages {
@@ -80,7 +50,7 @@ export const SelfRegistrationPager: React.FC = () => {
     const { t } = useLanguageLocale();
     const history = useHistory();
     const { routes } = useRoutes();
-    const classes = useStyles();
+    const sharedClasses = useDialogStyles();
     const registrationActions = useRegistrationUIActions();
     const registrationState = useRegistrationUIState();
     const injectedUIContext = useInjectedUIContext();
@@ -421,13 +391,25 @@ export const SelfRegistrationPager: React.FC = () => {
     let buttonArea: JSX.Element;
     if (accountAlreadyExists) {
         buttonArea = (
-            <Button variant={'contained'} color={'primary'} onClick={(): void => history.push(routes.LOGIN)}>
+            <Button
+                variant={'contained'}
+                color={'primary'}
+                className={sharedClasses.dialogButton}
+                disableElevation
+                onClick={(): void => history.push(routes.LOGIN)}
+            >
                 {t('ACTIONS.CONTINUE')}
             </Button>
         );
     } else if (isLastStep) {
         buttonArea = (
-            <Button variant={'contained'} color={'primary'} onClick={(): void => advancePage(1)}>
+            <Button
+                variant={'contained'}
+                color={'primary'}
+                disableElevation
+                className={sharedClasses.dialogButton}
+                onClick={(): void => advancePage(1)}
+            >
                 {t('ACTIONS.CONTINUE')}
             </Button>
         );
@@ -444,7 +426,7 @@ export const SelfRegistrationPager: React.FC = () => {
                         color="primary"
                         disabled={!canGoBackProgress()}
                         onClick={(): void => advancePage(-1)}
-                        style={{ width: 100 }}
+                        className={sharedClasses.dialogButton}
                     >
                         {t('ACTIONS.BACK')}
                     </Button>
@@ -453,14 +435,15 @@ export const SelfRegistrationPager: React.FC = () => {
                     <Button
                         variant="contained"
                         color="primary"
+                        disableElevation
                         disabled={!canProgress()}
                         onClick={(): void => advancePage(1)}
-                        style={{ width: 100 }}
+                        className={sharedClasses.dialogButton}
                     >
                         {t('ACTIONS.NEXT')}
                     </Button>
                 }
-                className={classes.stepper}
+                classes={{ root: sharedClasses.stepper, dot: sharedClasses.stepperDot }}
             />
         );
     }
@@ -488,10 +471,11 @@ export const SelfRegistrationPager: React.FC = () => {
                         {pageTitle()}
                     </Typography>
                 }
+                className={sharedClasses.dialogTitle}
             />
-            <CardContent className={classes.cardContent}>{getBody()}</CardContent>
+            <CardContent className={sharedClasses.dialogContent}>{getBody()}</CardContent>
             <Divider />
-            <CardActions className={classes.cardActions}>{buttonArea}</CardActions>
+            <CardActions className={sharedClasses.dialogActions}>{buttonArea}</CardActions>
         </BrandedCardContainer>
     );
 };

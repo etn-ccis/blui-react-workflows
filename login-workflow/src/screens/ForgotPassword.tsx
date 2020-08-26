@@ -25,6 +25,7 @@ import {
     useTheme,
 } from '@material-ui/core';
 import { CheckCircle } from '@material-ui/icons';
+import { useDialogStyles } from '../styles';
 
 const useStyles = makeStyles((theme: Theme) =>
     createStyles({
@@ -50,6 +51,7 @@ export const ForgotPassword: React.FC = () => {
     const { t } = useLanguageLocale();
     const history = useHistory();
     const classes = useStyles();
+    const sharedClasses = useDialogStyles();
     const theme = useTheme();
     const accountUIState = useAccountUIState();
     const accountUIActions = useAccountUIActions();
@@ -133,7 +135,7 @@ export const ForgotPassword: React.FC = () => {
                     </Trans>
                 </Typography>
 
-                <Divider style={{ margin: `${theme.spacing(4)}px 0px` }} />
+                <Divider className={sharedClasses.fullDivider} />
 
                 <TextField
                     id="email"
@@ -158,26 +160,28 @@ export const ForgotPassword: React.FC = () => {
                         {t('HEADER.FORGOT_PASSWORD')}
                     </Typography>
                 }
+                className={sharedClasses.dialogTitle}
             />
-            <CardContent style={{ flex: '1 1 0px', overflow: 'auto' }}>{body}</CardContent>
+            <CardContent className={sharedClasses.dialogContent}>{body}</CardContent>
             <Divider />
-            <CardActions style={{ padding: theme.spacing(2) }}>
+            <CardActions className={sharedClasses.dialogActions}>
                 <Grid container direction="row" alignItems="center" justify="space-between" style={{ width: '100%' }}>
                     <Button
                         variant="outlined"
                         color="primary"
                         disabled={accountUIState.forgotPassword.transitSuccess}
                         onClick={(): void => history.goBack()}
-                        style={{ width: 100 }}
+                        className={sharedClasses.dialogButton}
                     >
                         {t('ACTIONS.BACK')}
                     </Button>
                     <Button
                         variant="contained"
+                        disableElevation
                         disabled={!canContinue()}
                         color="primary"
                         onClick={onContinue}
-                        style={{ width: 100 }}
+                        className={sharedClasses.dialogButton}
                     >
                         {accountUIState.forgotPassword.transitSuccess ? t('ACTIONS.DONE') : t('ACTIONS.OKAY')}
                     </Button>

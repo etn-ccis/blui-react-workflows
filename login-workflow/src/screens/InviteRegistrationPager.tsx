@@ -19,9 +19,6 @@ import {
     CardContent,
     Divider,
     CardActions,
-    makeStyles,
-    createStyles,
-    Theme,
     useTheme,
 } from '@material-ui/core';
 import { BrandedCardContainer, FinishState, SimpleDialog } from '../components';
@@ -32,26 +29,7 @@ import { AccountDetails as AccountDetailsScreen } from './subScreens/AccountDeta
 import { RegistrationComplete } from './subScreens/RegistrationComplete';
 import { ExistingAccountComplete } from './subScreens/ExistingAccountComplete';
 import { Error } from '@material-ui/icons';
-
-const useStyles = makeStyles((theme: Theme) =>
-    createStyles({
-        cardContent: {
-            flex: '1 1 0px',
-            overflow: 'auto',
-            display: 'flex',
-            flexDirection: 'column',
-        },
-        cardActions: {
-            padding: theme.spacing(2),
-            justifyContent: 'flex-end',
-        },
-        stepper: {
-            background: 'transparent',
-            width: '100%',
-            padding: 0,
-        },
-    })
-);
+import { useDialogStyles } from '../styles';
 
 /* eslint-disable @typescript-eslint/naming-convention */
 enum Pages {
@@ -73,7 +51,7 @@ export const InviteRegistrationPager: React.FC = () => {
     const { t } = useLanguageLocale();
     const history = useHistory();
     const { routes } = useRoutes();
-    const classes = useStyles();
+    const sharedClasses = useDialogStyles();
     const theme = useTheme();
     const registrationState = useRegistrationUIState();
     const registrationActions = useRegistrationUIActions();
@@ -311,7 +289,13 @@ export const InviteRegistrationPager: React.FC = () => {
     let buttonArea: JSX.Element;
     if (isLastStep) {
         buttonArea = (
-            <Button variant={'contained'} color={'primary'} onClick={(): void => advancePage(1)}>
+            <Button
+                variant={'contained'}
+                disableElevation
+                color={'primary'}
+                className={sharedClasses.dialogButton}
+                onClick={(): void => advancePage(1)}
+            >
                 {t('ACTIONS.CONTINUE')}
             </Button>
         );
@@ -328,7 +312,7 @@ export const InviteRegistrationPager: React.FC = () => {
                         color="primary"
                         disabled={!canGoBackProgress()}
                         onClick={(): void => advancePage(-1)}
-                        style={{ width: 100 }}
+                        className={sharedClasses.dialogButton}
                     >
                         {t('ACTIONS.BACK')}
                     </Button>
@@ -337,14 +321,15 @@ export const InviteRegistrationPager: React.FC = () => {
                     <Button
                         variant="contained"
                         color="primary"
+                        disableElevation
                         disabled={!canProgress()}
                         onClick={(): void => advancePage(1)}
-                        style={{ width: 100 }}
+                        className={sharedClasses.dialogButton}
                     >
                         {t('ACTIONS.NEXT')}
                     </Button>
                 }
-                className={classes.stepper}
+                classes={{ root: sharedClasses.stepper, dot: sharedClasses.stepperDot }}
             />
         );
     }
@@ -369,25 +354,27 @@ export const InviteRegistrationPager: React.FC = () => {
                         {pageTitle()}
                     </Typography>
                 }
+                className={sharedClasses.dialogTitle}
             />
             {!accountAlreadyExists && validationSuccess && !isValidationInTransit ? (
                 <>
-                    <CardContent className={classes.cardContent}>{getBody()}</CardContent>
+                    <CardContent className={sharedClasses.dialogContent}>{getBody()}</CardContent>
                     <Divider />
-                    <CardActions className={classes.cardActions}>{buttonArea}</CardActions>
+                    <CardActions className={sharedClasses.dialogActions}>{buttonArea}</CardActions>
                 </>
             ) : accountAlreadyExists ? (
                 <>
-                    <CardContent className={classes.cardContent}>
+                    <CardContent className={sharedClasses.dialogContent}>
                         <ExistingAccountComplete />
                     </CardContent>
                     <Divider />
-                    <CardActions className={classes.cardActions}>
+                    <CardActions className={sharedClasses.dialogActions}>
                         <Button
                             variant="contained"
                             color="primary"
+                            disableElevation
                             onClick={(): void => history.push(routes.LOGIN)}
-                            style={{ width: 100 }}
+                            className={sharedClasses.dialogButton}
                         >
                             {t('ACTIONS.CONTINUE')}
                         </Button>

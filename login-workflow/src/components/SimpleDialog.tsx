@@ -1,15 +1,7 @@
 import React from 'react';
-import {
-    DialogProps,
-    Dialog,
-    Typography,
-    DialogTitle,
-    DialogContent,
-    DialogActions,
-    Button,
-    useTheme,
-} from '@material-ui/core';
+import { DialogProps, Dialog, Typography, DialogTitle, DialogContent, DialogActions, Button } from '@material-ui/core';
 import { useLanguageLocale } from '@pxblue/react-auth-shared';
+import { useDialogStyles } from '../styles';
 
 export type SimpleDialogProps = DialogProps & {
     title: string;
@@ -29,18 +21,18 @@ export type SimpleDialogProps = DialogProps & {
  */
 export const SimpleDialog: React.FC<SimpleDialogProps> = (props) => {
     const { title, body, ...dialogProps } = props;
-    const theme = useTheme();
+    const classes = useDialogStyles();
     const { t } = useLanguageLocale();
 
     return (
         <Dialog disableBackdropClick {...dialogProps}>
-            <DialogTitle>{title}</DialogTitle>
-            <DialogContent style={{ flex: '1 1 auto', overflow: 'auto' }}>
+            <DialogTitle className={classes.dialogTitle}>{title}</DialogTitle>
+            <DialogContent className={classes.dialogContent}>
                 <Typography>{body}</Typography>
             </DialogContent>
-            <DialogActions style={{ padding: theme.spacing(2) }}>
-                <Button variant="text" color="primary" onClick={dialogProps.onClose} style={{ width: 100 }}>
-                    {t('ACTIONS.OKAY')}
+            <DialogActions className={classes.dialogActions}>
+                <Button variant="text" color="primary" onClick={dialogProps.onClose} className={classes.dialogButton}>
+                    {t('ACTIONS.OKAY').toUpperCase()}
                 </Button>
             </DialogActions>
         </Dialog>

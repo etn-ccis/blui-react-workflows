@@ -1,6 +1,7 @@
 import React, { useEffect } from 'react';
 import { useLanguageLocale } from '@pxblue/react-auth-shared';
 import { TextField, Typography, Divider, useTheme, Button } from '@material-ui/core';
+import { useDialogStyles } from '../../styles';
 
 export type VerifyEmailProps = {
     initialCode?: string;
@@ -21,6 +22,7 @@ export type VerifyEmailProps = {
 export const VerifyEmail: React.FC<VerifyEmailProps> = (props) => {
     const { initialCode, onVerifyCodeChanged, onResendVerificationEmail } = props;
     const theme = useTheme();
+    const classes = useDialogStyles();
     const { t } = useLanguageLocale();
 
     const [verifyCode, setVerifyCode] = React.useState(initialCode ?? '');
@@ -36,7 +38,7 @@ export const VerifyEmail: React.FC<VerifyEmailProps> = (props) => {
     return (
         <>
             <Typography>{t('SELF_REGISTRATION.VERIFY_EMAIL.MESSAGE')}</Typography>
-            <Divider style={{ margin: `${theme.spacing(4)}px 0px` }} />
+            <Divider className={classes.fullDivider} />
             <TextField
                 id="code"
                 label={t('SELF_REGISTRATION.VERIFY_EMAIL.VERIFICATION')}
@@ -50,6 +52,7 @@ export const VerifyEmail: React.FC<VerifyEmailProps> = (props) => {
             <Button
                 variant={'contained'}
                 color={'primary'}
+                disableElevation
                 onClick={(): void => onResendVerificationEmail()}
                 style={{ marginTop: theme.spacing(2) }}
             >

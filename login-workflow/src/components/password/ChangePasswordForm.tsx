@@ -3,6 +3,7 @@ import { useLanguageLocale } from '@pxblue/react-auth-shared';
 import { Typography, Divider, useTheme } from '@material-ui/core';
 import { SecureTextField } from '../SecureTextField';
 import { PasswordRequirements } from './PasswordRequirements';
+import { useDialogStyles } from '../../styles';
 
 export type ChangePasswordFormProps = {
     onPasswordChange: (passwords: { password: string; confirm: string }) => void;
@@ -26,6 +27,7 @@ export const ChangePasswordForm: React.FC<ChangePasswordFormProps> = (props) => 
     const { onPasswordChange, passwordLabel, confirmLabel, description, children } = props;
     const { t } = useLanguageLocale();
     const theme = useTheme();
+    const sharedClasses = useDialogStyles();
 
     // Local State
     const [passwordInput, setPasswordInput] = useState('');
@@ -51,7 +53,7 @@ export const ChangePasswordForm: React.FC<ChangePasswordFormProps> = (props) => 
         <>
             <Typography>{description || t('CHANGE_PASSWORD.PASSWORD_INFO')}</Typography>
 
-            <Divider style={{ margin: `${theme.spacing(4)}px 0px` }} />
+            <Divider className={sharedClasses.fullDivider} />
 
             {children}
             <SecureTextField
@@ -60,13 +62,14 @@ export const ChangePasswordForm: React.FC<ChangePasswordFormProps> = (props) => 
                 label={passwordLabel || t('FORMS.PASSWORD')}
                 value={passwordInput}
                 onChange={(evt: ChangeEvent<HTMLInputElement>): void => onPassChange(evt.target.value)}
+                className={sharedClasses.textField}
             />
             <PasswordRequirements style={{ marginTop: theme.spacing(2) }} passwordText={passwordInput} />
             <SecureTextField
                 id="confirm"
                 name="confirm"
                 label={confirmLabel || t('FORMS.CONFIRM_PASSWORD')}
-                style={{ marginTop: theme.spacing(2) }}
+                className={sharedClasses.textField}
                 value={confirmInput}
                 onChange={(evt: ChangeEvent<HTMLInputElement>): void => onConfirmChange(evt.target.value)}
             />

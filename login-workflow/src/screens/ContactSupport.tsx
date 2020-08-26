@@ -14,6 +14,7 @@ import {
 } from '@material-ui/core';
 import { BrandedCardContainer } from '../components';
 import { ChatBubbleOutline } from '@material-ui/icons';
+import { useDialogStyles } from '../styles';
 
 const useStyles = makeStyles((theme: Theme) =>
     createStyles({
@@ -47,7 +48,9 @@ export const ContactSupportContent: React.FC = () => {
             <div style={{ fontSize: 70, marginBottom: theme.spacing(4), textAlign: 'center' }}>
                 <ChatBubbleOutline fontSize={'inherit'} color={'primary'} />
             </div>
-            <Typography variant={'h6'}>{t('CONTACT_SUPPORT.GENERAL_QUESTIONS')}</Typography>
+            <Typography variant={'body1'} style={{ marginBottom: theme.spacing(1) }}>
+                {t('CONTACT_SUPPORT.GENERAL_QUESTIONS')}
+            </Typography>
             <Typography>
                 {t('CONTACT_SUPPORT.SUPPORT_MESSAGE')}
                 <a href={`mailto:${contactEmail}`} className={classes.link}>
@@ -55,7 +58,7 @@ export const ContactSupportContent: React.FC = () => {
                 </a>
                 .
             </Typography>
-            <Typography variant={'h6'} style={{ marginTop: theme.spacing(4) }}>
+            <Typography variant={'body1'} style={{ marginTop: theme.spacing(4), marginBottom: theme.spacing(1) }}>
                 {t('CONTACT_SUPPORT.EMERGENCY_SUPPORT')}
             </Typography>
             <Typography>
@@ -79,20 +82,24 @@ export const ContactSupportContent: React.FC = () => {
 export const ContactSupport: React.FC = () => {
     const { t } = useLanguageLocale();
     const history = useHistory();
-    const theme = useTheme();
+    const classes = useDialogStyles();
 
     return (
         <BrandedCardContainer>
-            <CardHeader title={<Typography variant={'h6'}>{t('USER_MENU.CONTACT_US')}</Typography>} />
-            <CardContent style={{ flex: '1 1 0px', overflow: 'auto' }}>
+            <CardHeader
+                title={<Typography variant={'h6'}>{t('USER_MENU.CONTACT_US')}</Typography>}
+                className={classes.dialogTitle}
+            />
+            <CardContent className={classes.dialogContent}>
                 <ContactSupportContent />
             </CardContent>
-            <CardActions style={{ padding: theme.spacing(2), justifyContent: 'flex-end' }}>
+            <CardActions className={classes.dialogActions}>
                 <Button
                     variant="contained"
                     color="primary"
+                    disableElevation
+                    className={classes.dialogButton}
                     onClick={(): void => history.goBack()}
-                    style={{ width: 100 }}
                 >
                     {t('ACTIONS.OKAY')}
                 </Button>

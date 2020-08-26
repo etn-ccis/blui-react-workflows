@@ -3,6 +3,7 @@ import { useLanguageLocale, useInjectedUIContext } from '@pxblue/react-auth-shar
 import { Typography, Divider, useTheme } from '@material-ui/core';
 import { SecureTextField, PasswordRequirements } from '../../components';
 import { defaultPasswordRequirements } from '../../constants';
+import { useDialogStyles } from '../../styles';
 
 export type CreatePasswordProps = {
     onPasswordChanged: (password: string) => void;
@@ -20,6 +21,7 @@ export type CreatePasswordProps = {
 export const CreatePassword: React.FC<CreatePasswordProps> = (props) => {
     const { onPasswordChanged, initialPassword = '' } = props;
     const theme = useTheme();
+    const classes = useDialogStyles();
     const { t } = useLanguageLocale();
 
     const [passwordInput, setPasswordInput] = useState(initialPassword);
@@ -41,7 +43,7 @@ export const CreatePassword: React.FC<CreatePasswordProps> = (props) => {
     return (
         <>
             <Typography>{t('CHANGE_PASSWORD.PASSWORD_INFO')}</Typography>
-            <Divider style={{ margin: `${theme.spacing(4)}px 0px` }} />
+            <Divider className={classes.fullDivider} />
             <SecureTextField
                 id="password"
                 name="password"
@@ -54,7 +56,7 @@ export const CreatePassword: React.FC<CreatePasswordProps> = (props) => {
                 id="confirm"
                 name="confirm"
                 label={t('FORMS.CONFIRM_PASSWORD')}
-                style={{ marginTop: theme.spacing(2) }}
+                className={classes.textField}
                 value={confirmInput}
                 onChange={(evt: ChangeEvent<HTMLInputElement>): void => setConfirmInput(evt.target.value)}
                 error={confirmInput !== '' && passwordInput !== confirmInput}

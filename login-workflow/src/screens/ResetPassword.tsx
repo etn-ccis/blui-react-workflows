@@ -13,6 +13,7 @@ import { CardHeader, Typography, CardContent, Divider, CardActions, Grid, Button
 import { BrandedCardContainer, SecureTextField, PasswordRequirements, SimpleDialog, FinishState } from '../components';
 import { defaultPasswordRequirements } from '../constants';
 import { CheckCircle, Error } from '@material-ui/icons';
+import { useDialogStyles } from '../styles';
 
 /**
  * Renders a screen stack which handles the reset password flow (deep link from email).
@@ -24,6 +25,7 @@ export const ResetPassword: React.FC = () => {
     const history = useHistory();
     const { routes } = useRoutes();
     const theme = useTheme();
+    const classes = useDialogStyles();
     const accountUIState = useAccountUIState();
     const accountUIActions = useAccountUIActions();
     const { code, email } = useQueryString();
@@ -106,7 +108,7 @@ export const ResetPassword: React.FC = () => {
                     <>
                         <Typography>{t('CHANGE_PASSWORD.PASSWORD_INFO')}</Typography>
 
-                        <Divider style={{ margin: `${theme.spacing(4)}px 0px` }} />
+                        <Divider className={classes.fullDivider} />
 
                         <SecureTextField
                             id="password"
@@ -120,7 +122,7 @@ export const ResetPassword: React.FC = () => {
                             id="confirm"
                             name="confirm"
                             label={t('FORMS.CONFIRM_PASSWORD')}
-                            style={{ marginTop: theme.spacing(2) }}
+                            className={classes.textField}
                             value={confirmInput}
                             onChange={(evt: ChangeEvent<HTMLInputElement>): void => setConfirmInput(evt.target.value)}
                         />
@@ -138,6 +140,7 @@ export const ResetPassword: React.FC = () => {
         [
             t,
             theme,
+            classes,
             passwordInput,
             setPasswordInput,
             confirmInput,
@@ -170,27 +173,29 @@ export const ResetPassword: React.FC = () => {
                         {t('FORMS.RESET_PASSWORD')}
                     </Typography>
                 }
+                className={classes.dialogTitle}
             />
-            <CardContent style={{ flex: '1 1 0px', overflow: 'auto' }}>{getBody()}</CardContent>
+            <CardContent className={classes.dialogContent}>{getBody()}</CardContent>
             <Divider />
-            <CardActions style={{ padding: theme.spacing(2) }}>
+            <CardActions className={classes.dialogActions}>
                 <Grid container direction="row" alignItems="center" justify="space-between" style={{ width: '100%' }}>
                     <Button
                         variant="outlined"
                         color="primary"
                         disabled={setPasswordTransitSuccess}
                         onClick={(): void => history.push(routes.LOGIN)}
-                        style={{ width: 100 }}
+                        className={classes.dialogButton}
                     >
                         {t('ACTIONS.BACK')}
                     </Button>
                     {verifySuccess && (
                         <Button
                             variant="contained"
+                            disableElevation
                             disabled={!canContinue()}
                             color="primary"
                             onClick={onContinue}
-                            style={{ width: 100 }}
+                            className={classes.dialogButton}
                         >
                             {setPasswordTransitSuccess ? t('ACTIONS.DONE') : t('ACTIONS.OKAY')}
                         </Button>

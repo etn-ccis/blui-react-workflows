@@ -32,9 +32,9 @@ import clsx from 'clsx';
 const useStyles = makeStyles((theme: Theme) =>
     createStyles({
         formFields: {
-            marginBottom: theme.spacing(5),
+            marginBottom: theme.spacing(4),
             '&$hasError': {
-                marginBottom: theme.spacing(5) - 22, // height of error message
+                marginBottom: theme.spacing(4) - 22, // height of error message
             },
         },
         buttonRow: {
@@ -52,8 +52,8 @@ const useStyles = makeStyles((theme: Theme) =>
         },
         debugButton: {
             position: 'absolute',
-            top: theme.spacing(2),
-            right: theme.spacing(2),
+            top: theme.spacing(3),
+            right: theme.spacing(3),
         },
         debugMessage: {
             backgroundColor: Colors.yellow[500],
@@ -225,7 +225,7 @@ export const Login: React.FC = () => {
                 }}
             >
                 <div className={classes.formContent}>
-                    <div style={{ paddingBottom: theme.spacing(6) }}>
+                    <div style={{ marginBottom: theme.spacing(6) }}>
                         <img className={classes.productLogo} src={stackedEatonLogo} alt="logo" />
                     </div>
 
@@ -275,6 +275,7 @@ export const Login: React.FC = () => {
                         <Button
                             type="submit"
                             variant="contained"
+                            disableElevation
                             disabled={!EMAIL_REGEX.test(emailInput) || !passwordInput}
                             color="primary"
                             style={{ width: 150 }}

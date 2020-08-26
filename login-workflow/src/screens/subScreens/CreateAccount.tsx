@@ -1,6 +1,7 @@
 import React, { useState } from 'react';
 import { EMAIL_REGEX, useLanguageLocale } from '@pxblue/react-auth-shared';
-import { TextField, Typography, Divider, useTheme } from '@material-ui/core';
+import { TextField, Typography, Divider } from '@material-ui/core';
+import { useDialogStyles } from '../../styles';
 
 const isValidEmail = (text: string): boolean => new RegExp(EMAIL_REGEX).test(text);
 
@@ -20,7 +21,7 @@ export type CreateAccountProps = {
  */
 export const CreateAccount: React.FC<CreateAccountProps> = (props) => {
     const { initialEmail, onEmailChanged } = props;
-    const theme = useTheme();
+    const classes = useDialogStyles();
     const { t } = useLanguageLocale();
 
     const [emailInput, setEmailInput] = useState(initialEmail ?? '');
@@ -30,7 +31,7 @@ export const CreateAccount: React.FC<CreateAccountProps> = (props) => {
     return (
         <>
             <Typography>{t('SELF_REGISTRATION.INSTRUCTIONS')}</Typography>
-            <Divider style={{ margin: `${theme.spacing(4)}px 0px` }} />
+            <Divider className={classes.fullDivider} />
             <TextField
                 id="email"
                 label={t('LABELS.EMAIL')}
