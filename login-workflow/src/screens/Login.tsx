@@ -32,15 +32,9 @@ import clsx from 'clsx';
 const useStyles = makeStyles((theme: Theme) =>
     createStyles({
         formFields: {
-            marginBottom: theme.spacing(4),
+            marginBottom: theme.spacing(3) + 22, // height of error message
             '&$hasError': {
-                marginBottom: theme.spacing(4) - 22, // height of error message
-            },
-            [theme.breakpoints.down('xs')]: {
                 marginBottom: theme.spacing(3),
-                '&$hasError': {
-                    marginBottom: theme.spacing(3) - 22, // height of error message
-                },
             },
         },
         buttonRow: {
