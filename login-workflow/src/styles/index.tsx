@@ -29,15 +29,9 @@ export const useDialogStyles = makeStyles((theme: Theme) =>
             width: 100,
         },
         fullDivider: {
-            margin: `${theme.spacing(2)}px -${theme.spacing(3)}px ${theme.spacing(5)}px`,
+            margin: `${theme.spacing(5)}px -${theme.spacing(3)}px ${theme.spacing(4)}px`,
             [theme.breakpoints.down('xs')]: {
                 margin: `${theme.spacing(5)}px -${theme.spacing(2)}px ${theme.spacing(4)}px`,
-            },
-        },
-        textField: {
-            marginTop: theme.spacing(4),
-            [theme.breakpoints.down('xs')]: {
-                marginTop: theme.spacing(3),
             },
         },
         stepper: {
@@ -47,6 +41,12 @@ export const useDialogStyles = makeStyles((theme: Theme) =>
         },
         stepperDot: {
             margin: `0px ${theme.spacing(0.5)}px`,
+        },
+        textField: {
+            marginTop: theme.spacing(4),
+            [theme.breakpoints.down('xs')]: {
+                marginTop: theme.spacing(3),
+            },
         },
     })
 );

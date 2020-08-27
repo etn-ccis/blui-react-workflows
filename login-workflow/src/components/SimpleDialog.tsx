@@ -27,7 +27,7 @@ export const SimpleDialog: React.FC<SimpleDialogProps> = (props) => {
     return (
         <Dialog disableBackdropClick {...dialogProps}>
             <DialogTitle className={classes.dialogTitle}>{title}</DialogTitle>
-            <DialogContent className={classes.dialogContent}>
+            <DialogContent className={classes.dialogContent} style={{ flex: '1 1 auto' }}>
                 <Typography>{body}</Typography>
             </DialogContent>
             <DialogActions className={classes.dialogActions}>

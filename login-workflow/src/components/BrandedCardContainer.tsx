@@ -9,7 +9,7 @@ const useStyles = makeStyles((theme: Theme) =>
             width: '100%',
             height: '100%',
             maxWidth: '450px',
-            maxHeight: '700px',
+            maxHeight: '730px',
             overflow: 'auto',
             display: 'flex',
             flexDirection: 'column',

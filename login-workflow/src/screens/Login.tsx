@@ -36,6 +36,12 @@ const useStyles = makeStyles((theme: Theme) =>
             '&$hasError': {
                 marginBottom: theme.spacing(4) - 22, // height of error message
             },
+            [theme.breakpoints.down('xs')]: {
+                marginBottom: theme.spacing(3),
+                '&$hasError': {
+                    marginBottom: theme.spacing(3) - 22, // height of error message
+                },
+            },
         },
         buttonRow: {
             marginBottom: theme.spacing(5),
