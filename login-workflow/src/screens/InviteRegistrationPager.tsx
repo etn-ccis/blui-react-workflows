@@ -8,8 +8,10 @@ import {
     RegistrationActions,
 } from '@pxblue/react-auth-shared';
 import i18n from '../translations/i18n';
+import { useHistory } from 'react-router-dom';
+import { useRoutes } from '../contexts/RoutingContext';
+import { useQueryString } from '../hooks/useQueryString';
 import {
-    makeStyles,
     Button,
     MobileStepper,
     CardHeader,
@@ -17,21 +19,19 @@ import {
     CardContent,
     Divider,
     CardActions,
-    createStyles,
+    useTheme,
 } from '@material-ui/core';
+import { BrandedCardContainer, FinishState, SimpleDialog } from '../components';
 import { emptyAccountDetailInformation } from './SelfRegistrationPager';
-import { useHistory } from 'react-router-dom';
-import { useQueryString } from '../hooks/useQueryString';
-import { BrandedCardContainer } from '../components/BrandedCardContainer';
 import { AcceptEula } from './subScreens/AcceptEula';
 import { CreatePassword as CreatePasswordScreen } from './subScreens/CreatePassword';
 import { AccountDetails as AccountDetailsScreen } from './subScreens/AccountDetails';
 import { RegistrationComplete } from './subScreens/RegistrationComplete';
-import { EmptyState } from '@pxblue/react-components';
+import { ExistingAccountComplete } from './subScreens/ExistingAccountComplete';
 import { Error } from '@material-ui/icons';
+import { useDialogStyles } from '../styles';
 
 /* eslint-disable @typescript-eslint/naming-convention */
-
 enum Pages {
     Eula = 0,
     CreatePassword,
@@ -41,34 +41,54 @@ enum Pages {
 }
 /* eslint-enable @typescript-eslint/naming-convention */
 
-const useStyles = makeStyles(() =>
-    createStyles({
-        description: {
-            color: 'inherit',
-        },
-    })
-);
-
+/**
+ * Container component that manages the transition between screens for the
+ * invite-based registration (i.e., via email) workflow.
+ *
+ * @category Component
+ */
 export const InviteRegistrationPager: React.FC = () => {
     const { t } = useLanguageLocale();
     const history = useHistory();
-    const classes = useStyles();
+    const { routes } = useRoutes();
+    const sharedClasses = useDialogStyles();
+    const theme = useTheme();
     const registrationState = useRegistrationUIState();
     const registrationActions = useRegistrationUIActions();
     const injectedUIContext = useInjectedUIContext();
 
-    const [hasAcknowledgedError, setHasAcknowledgedError] = useState(false);
+    const { code, email } = useQueryString();
+    const validationCode = code ?? 'NoCodeEntered';
+    const validationEmail = email;
 
+    // Local State
+    const [hasAcknowledgedError, setHasAcknowledgedError] = useState(false);
     const [eulaAccepted, setEulaAccepted] = useState(false);
     const [password, setPassword] = useState('');
-    const [accountDetails, setAccountDetails] = useState<AccountDetailInformation | null>(null);
+    const [accountDetails, setAccountDetails] = useState<(AccountDetailInformation & { valid: boolean }) | null>(null);
     const [eulaContent, setEulaContent] = useState<string>();
     const [currentPage, setCurrentPage] = useState(Pages.Eula);
     const [accountAlreadyExists, setAccountAlreadyExists] = React.useState<boolean>(false);
 
-    const { code, email } = useQueryString();
-    const validationCode = code ?? 'NoCodeEntered';
-    const validationEmail = email;
+    // Network state (registration)
+    const registrationTransit = registrationState.inviteRegistration.registrationTransit;
+    const registrationIsInTransit = registrationTransit.transitInProgress;
+    const hasRegistrationTransitError = registrationTransit.transitErrorMessage !== null;
+    const registrationTransitErrorMessage = registrationTransit.transitErrorMessage ?? t('MESSAGES.REQUEST_ERROR');
+    const registrationSuccess = registrationState.inviteRegistration.registrationTransit.transitSuccess;
+
+    // Network state (invite code validation)
+    const isValidationInTransit = registrationState.inviteRegistration.validationTransit.transitInProgress;
+    const validationTransitErrorMessage = registrationState.inviteRegistration.validationTransit.transitErrorMessage;
+    const validationSuccess = registrationState.inviteRegistration.validationTransit.transitSuccess;
+    const validationComplete = registrationState.inviteRegistration.validationTransit.transitComplete;
+
+    // Network state (loading eula)
+    const loadEulaTransitErrorMessage = registrationState.eulaTransit.transitErrorMessage;
+
+    // Pages
+    const isLastStep = currentPage === Pages.__LENGTH - 1;
+    const isFirstStep = currentPage === 0;
 
     // Reset registration and validation state on dismissal
     useEffect(
@@ -79,28 +99,13 @@ export const InviteRegistrationPager: React.FC = () => {
         [] // eslint-disable-line react-hooks/exhaustive-deps
     );
 
-    // Network state (registration)
-    const registrationTransit = registrationState.inviteRegistration.registrationTransit;
-    const registrationIsInTransit = registrationTransit.transitInProgress;
-    const hasRegistrationTransitError = registrationTransit.transitErrorMessage !== null;
-    const registrationTransitErrorMessage = registrationTransit.transitErrorMessage ?? t('MESSAGES.REQUEST_ERROR');
-    const registrationSuccess = registrationState.inviteRegistration.registrationTransit.transitSuccess;
-
+    // If we successfully register, move to the success screen
     useEffect(() => {
         if (currentPage === Pages.AccountDetails && registrationSuccess) {
             setCurrentPage(Pages.Complete);
         }
         // eslint-disable-next-line react-hooks/exhaustive-deps
     }, [registrationSuccess]);
-
-    // Network state (invite code validation)
-    const isValidationInTransit = registrationState.inviteRegistration.validationTransit.transitInProgress;
-    const validationTransitErrorMessage = registrationState.inviteRegistration.validationTransit.transitErrorMessage;
-    const validationSuccess = registrationState.inviteRegistration.validationTransit.transitSuccess;
-    const validationComplete = registrationState.inviteRegistration.validationTransit.transitComplete;
-
-    // Network state (loading eula)
-    const loadEulaTransitErrorMessage = registrationState.eulaTransit.transitErrorMessage;
 
     const validateCode = useCallback(async (): Promise<void> => {
         setHasAcknowledgedError(false);
@@ -117,42 +122,14 @@ export const InviteRegistrationPager: React.FC = () => {
         }
     }, [setHasAcknowledgedError, registrationActions, validationCode, validationEmail, setAccountAlreadyExists]);
 
+    // Validate the email verification code
     useEffect(() => {
         if (!isValidationInTransit && !validationComplete && validationCode.length > 0) {
             void validateCode();
         }
     }, [registrationState.inviteRegistration.validationTransit, validationCode, validateCode, validationEmail]); // eslint-disable-line react-hooks/exhaustive-deps
 
-    // Spinner - shows if either of registration of code validation are in progress
-    const spinner = registrationIsInTransit || isValidationInTransit ? <h1>Spinner</h1> /*<Spinner />*/ : <></>;
-
-    // // View pager
-    // useEffect(() => {
-    //     if (viewPager && viewPager.current) {
-    //         if (currentPage === Pages.Complete) {
-    //             viewPager.current.setPageWithoutAnimation(currentPage);
-    //         } else {
-    //             viewPager.current.setPage(currentPage);
-    //         }
-    //     }
-    // }, [currentPage, viewPager, registrationSuccess]);
-
-    // // Styling
-    // const containerStyles = makeContainerStyles(theme);
-    // const styles = makeStyles();
-
-    const errorDialog = (
-        <h1>Error Dialog</h1>
-        // <SimpleDialog
-        //     title={t('MESSAGES.ERROR')}
-        //     bodyText={t(registrationTransitErrorMessage)}
-        //     visible={hasRegistrationTransitError && !hasAcknowledgedError}
-        //     onDismiss={(): void => {
-        //         setHasAcknowledgedError(true);
-        //     }}
-        // />
-    );
-
+    // Load the Eula if we don't have it yet
     const loadAndCacheEula = useCallback(async (): Promise<void> => {
         if (!eulaContent) {
             try {
@@ -164,10 +141,7 @@ export const InviteRegistrationPager: React.FC = () => {
         }
     }, [eulaContent, setEulaContent, registrationActions]);
 
-    // Pages
-    const isLastStep = currentPage === Pages.__LENGTH - 1;
-    const isFirstStep = currentPage === 0;
-
+    // Make the call to the register API
     const attemptRegistration = useCallback(async (): Promise<void> => {
         setHasAcknowledgedError(false);
         try {
@@ -184,6 +158,7 @@ export const InviteRegistrationPager: React.FC = () => {
         }
     }, [registrationActions, setHasAcknowledgedError, accountDetails, password, validationCode, validationEmail]);
 
+    // Screen transition logic
     const canProgress = useCallback((): boolean => {
         switch (currentPage) {
             case Pages.Eula:
@@ -191,7 +166,7 @@ export const InviteRegistrationPager: React.FC = () => {
             case Pages.CreatePassword:
                 return password.length > 0;
             case Pages.AccountDetails:
-                return accountDetails !== null;
+                return accountDetails !== null && accountDetails.valid;
             case Pages.Complete:
                 return true;
             default:
@@ -215,9 +190,9 @@ export const InviteRegistrationPager: React.FC = () => {
             if (delta === 0) {
                 return;
             } else if (isFirstStep && delta < 0) {
-                history.push(`/login`);
+                history.push(routes.LOGIN);
             } else if (isLastStep && delta > 0) {
-                history.push(`/login`);
+                history.push(routes.LOGIN);
             } else {
                 // If this is the last user-entry step of the invite flow, it is time to make a network call
                 // Check > 0 so advancing backwards does not risk going into the completion block
@@ -229,6 +204,7 @@ export const InviteRegistrationPager: React.FC = () => {
             }
         },
         [
+            routes,
             isFirstStep,
             history,
             isLastStep,
@@ -240,6 +216,7 @@ export const InviteRegistrationPager: React.FC = () => {
         ]
     );
 
+    // Screen content logic
     const pageTitle = (): string => {
         if (isValidationInTransit) {
             return t('MESSAGES.LOADING');
@@ -264,8 +241,6 @@ export const InviteRegistrationPager: React.FC = () => {
 
     const getBody = useCallback(() => {
         switch (currentPage) {
-            //     case Pages.CreateAccount:
-            //         return <CreateAccountScreen initialEmail={email} onEmailChanged={setEmail} />;
             case Pages.Eula:
                 return (
                     <AcceptEula
@@ -277,16 +252,6 @@ export const InviteRegistrationPager: React.FC = () => {
                         eulaContent={eulaContent}
                     />
                 );
-            //     case Pages.VerifyEmail:
-            //         return (
-            //             <VerifyEmailScreen
-            //                 initialCode={verificationCode}
-            //                 onVerifyCodeChanged={setVerificationCode}
-            //                 onResendVerificationEmail={(): void => {
-            //                     void requestCode();
-            //                 }}
-            //             />
-            //         );
             case Pages.CreatePassword:
                 return <CreatePasswordScreen onPasswordChanged={setPassword} initialPassword={password} />;
             case Pages.AccountDetails:
@@ -304,7 +269,7 @@ export const InviteRegistrationPager: React.FC = () => {
                     />
                 );
             default:
-                return <h1>TODO ERROR</h1>;
+                return <></>;
         }
     }, [
         currentPage,
@@ -320,10 +285,17 @@ export const InviteRegistrationPager: React.FC = () => {
         t,
     ]);
 
+    // Screen actions content
     let buttonArea: JSX.Element;
     if (isLastStep) {
         buttonArea = (
-            <Button variant={'contained'} color={'primary'} onClick={(): void => advancePage(1)}>
+            <Button
+                variant={'contained'}
+                disableElevation
+                color={'primary'}
+                className={sharedClasses.dialogButton}
+                onClick={(): void => advancePage(1)}
+            >
                 {t('ACTIONS.CONTINUE')}
             </Button>
         );
@@ -340,7 +312,7 @@ export const InviteRegistrationPager: React.FC = () => {
                         color="primary"
                         disabled={!canGoBackProgress()}
                         onClick={(): void => advancePage(-1)}
-                        style={{ width: 100 }}
+                        className={sharedClasses.dialogButton}
                     >
                         {t('ACTIONS.BACK')}
                     </Button>
@@ -349,71 +321,73 @@ export const InviteRegistrationPager: React.FC = () => {
                     <Button
                         variant="contained"
                         color="primary"
+                        disableElevation
                         disabled={!canProgress()}
                         onClick={(): void => advancePage(1)}
-                        style={{ width: 100 }}
+                        className={sharedClasses.dialogButton}
                     >
                         {t('ACTIONS.NEXT')}
                     </Button>
                 }
-                style={{ background: 'transparent', width: '100%', padding: 0 }}
+                classes={{ root: sharedClasses.stepper, dot: sharedClasses.stepperDot }}
             />
         );
     }
 
+    const errorDialog = (
+        <SimpleDialog
+            title={t('MESSAGES.ERROR')}
+            body={t(registrationTransitErrorMessage)}
+            open={hasRegistrationTransitError && !hasAcknowledgedError}
+            onClose={(): void => {
+                setHasAcknowledgedError(true);
+            }}
+        />
+    );
+
     return (
-        <BrandedCardContainer>
+        <BrandedCardContainer loading={registrationIsInTransit || isValidationInTransit}>
+            {errorDialog}
             <CardHeader
                 title={
                     <Typography variant={'h6'} style={{ fontWeight: 600 }}>
                         {pageTitle()}
                     </Typography>
                 }
+                className={sharedClasses.dialogTitle}
             />
             {!accountAlreadyExists && validationSuccess && !isValidationInTransit ? (
                 <>
-                    <CardContent
-                        style={{ flex: '1 1 0px', overflow: 'auto', display: 'flex', flexDirection: 'column' }}
-                    >
-                        {getBody()}
-                    </CardContent>
+                    <CardContent className={sharedClasses.dialogContent}>{getBody()}</CardContent>
                     <Divider />
-                    <CardActions style={{ padding: 16, justifyContent: 'flex-end' }}>{buttonArea}</CardActions>
+                    <CardActions className={sharedClasses.dialogActions}>{buttonArea}</CardActions>
                 </>
             ) : accountAlreadyExists ? (
                 <>
-                    <CardContent
-                        style={{ flex: '1 1 0px', overflow: 'auto', display: 'flex', flexDirection: 'column' }}
-                    >
-                        {/* <ExistingAccountComplete /> */}
-                        <h1>Existing Account Complete TODO</h1>
+                    <CardContent className={sharedClasses.dialogContent}>
+                        <ExistingAccountComplete />
                     </CardContent>
                     <Divider />
-                    <CardActions style={{ padding: 16, justifyContent: 'flex-end' }}>
+                    <CardActions className={sharedClasses.dialogActions}>
                         <Button
                             variant="contained"
                             color="primary"
-                            onClick={(): void => history.push('/login')}
-                            style={{ width: 100 }}
+                            disableElevation
+                            onClick={(): void => history.push(routes.LOGIN)}
+                            className={sharedClasses.dialogButton}
                         >
                             {t('ACTIONS.CONTINUE')}
                         </Button>
                     </CardActions>
                 </>
             ) : !validationComplete ? (
-                // <Spinner />
-                <h1>SPINNER</h1>
+                <></>
             ) : (
-                <div style={{ display: 'flex', flex: '1 1 0%', justifyContent: 'center', height: '100%' }}>
-                    <EmptyState
-                        icon={<Error color={'error'} style={{ fontSize: 100, marginBottom: 16 }} />}
-                        title={t('MESSAGES.FAILURE')}
-                        description={validationTransitErrorMessage}
-                        classes={{
-                            description: classes.description,
-                        }}
-                    />
-                </div>
+                <FinishState
+                    icon={<Error color={'error'} style={{ fontSize: 100, marginBottom: theme.spacing(2) }} />}
+                    title={t('MESSAGES.FAILURE')}
+                    description={validationTransitErrorMessage}
+                />
             )}
         </BrandedCardContainer>
     );

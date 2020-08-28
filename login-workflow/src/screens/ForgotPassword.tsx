@@ -1,5 +1,15 @@
 import React, { useEffect, ChangeEvent, useCallback } from 'react';
-import { BrandedCardContainer } from '../components/BrandedCardContainer';
+import {
+    useLanguageLocale,
+    useAccountUIState,
+    useAccountUIActions,
+    AccountActions,
+    EMAIL_REGEX,
+    useInjectedUIContext,
+} from '@pxblue/react-auth-shared';
+import { Trans } from 'react-i18next';
+import { useHistory } from 'react-router-dom';
+import { BrandedCardContainer, SimpleDialog, FinishState } from '../components';
 import {
     CardHeader,
     Typography,
@@ -12,19 +22,10 @@ import {
     makeStyles,
     Theme,
     createStyles,
+    useTheme,
 } from '@material-ui/core';
-import {
-    useLanguageLocale,
-    useAccountUIState,
-    useAccountUIActions,
-    AccountActions,
-    EMAIL_REGEX,
-    useInjectedUIContext,
-} from '@pxblue/react-auth-shared';
-import { EmptyState } from '@pxblue/react-components';
-import { useHistory } from 'react-router-dom';
 import { CheckCircle } from '@material-ui/icons';
-import { Trans } from 'react-i18next';
+import { useDialogStyles } from '../styles';
 
 const useStyles = makeStyles((theme: Theme) =>
     createStyles({
@@ -37,16 +38,21 @@ const useStyles = makeStyles((theme: Theme) =>
                 color: theme.palette.primary.main,
             },
         },
-        description: {
-            color: 'inherit',
-        },
     })
 );
 
+/**
+ * Renders the screen for Forgot Password where a user enters their
+ * email to receive a reset link.
+ *
+ * @category Component
+ */
 export const ForgotPassword: React.FC = () => {
     const { t } = useLanguageLocale();
     const history = useHistory();
     const classes = useStyles();
+    const sharedClasses = useDialogStyles();
+    const theme = useTheme();
     const accountUIState = useAccountUIState();
     const accountUIActions = useAccountUIActions();
     const { contactPhone } = useInjectedUIContext();
@@ -90,45 +96,34 @@ export const ForgotPassword: React.FC = () => {
         []
     );
 
-    // Conditional Elements
-    const spinner = isInTransit ? <h1>Spinner</h1> /*</h1><Spinner />*/ : <></>;
-
+    // Dynamic Elements
     const errorDialog = (
-        // <SimpleDialog
-        //     title={'Error'}
-        //     bodyText={t(transitErrorMessage ?? '')}
-        //     visible={hasTransitError && !hasAcknowledgedError}
-        //     onDismiss={(): void => {
-        //         setHasAcknowledgedError(true);
-        //     }}
-        // />
-        <h1>Error Dialog</h1>
+        <SimpleDialog
+            title={t('MESSAGES.ERROR')}
+            body={t(transitErrorMessage ?? '')}
+            open={hasTransitError && !hasAcknowledgedError}
+            onClose={(): void => {
+                setHasAcknowledgedError(true);
+            }}
+        />
     );
 
     let body: JSX.Element;
     if (accountUIState.forgotPassword.transitSuccess) {
         body = (
-            <div
-                style={{ display: 'flex', flex: '1 1 0%', justifyContent: 'center', height: '100%' }}
-                data-testid="forgot-password-confirmation-content"
-            >
-                <EmptyState
-                    icon={<CheckCircle color={'primary'} style={{ fontSize: 100, marginBottom: 16 }} />}
-                    title={t('MESSAGES.EMAIL_SENT')}
-                    description={
-                        <Trans i18nKey={'FORGOT_PASSWORD.LINK_SENT_ALT'} values={{ email: emailInput }}>
-                            Link has been sent to <b>{emailInput}</b>.
-                        </Trans>
-                    }
-                    classes={{
-                        description: classes.description,
-                    }}
-                />
-            </div>
+            <FinishState
+                icon={<CheckCircle color={'primary'} style={{ fontSize: 100, marginBottom: theme.spacing(2) }} />}
+                title={t('MESSAGES.EMAIL_SENT')}
+                description={
+                    <Trans i18nKey={'FORGOT_PASSWORD.LINK_SENT_ALT'} values={{ email: emailInput }}>
+                        Link has been sent to <b>{emailInput}</b>.
+                    </Trans>
+                }
+            />
         );
     } else {
         body = (
-            <div data-testid="forgot-password-entry-content">
+            <>
                 <Typography>
                     <Trans i18nKey={'FORGOT_PASSWORD.INSTRUCTIONS_ALT'} values={{ phone: contactPhone }}>
                         Please enter your email, we will respond in <b>one business day</b>. For urgent issues please
@@ -140,51 +135,53 @@ export const ForgotPassword: React.FC = () => {
                     </Trans>
                 </Typography>
 
-                <Divider style={{ margin: '32px 0' }} />
+                <Divider className={sharedClasses.fullDivider} />
 
                 <TextField
+                    id="email"
                     label={t('LABELS.EMAIL')}
                     fullWidth
-                    id="email"
                     value={emailInput}
                     onChange={(evt: ChangeEvent<HTMLInputElement>): void => setEmailInput(evt.target.value)}
                     variant="filled"
                     error={hasTransitError}
                     helperText={hasTransitError ? t('FORGOT_PASSWORD.ERROR') : ''}
                 />
-            </div>
+            </>
         );
     }
 
     return (
-        <BrandedCardContainer>
+        <BrandedCardContainer loading={isInTransit}>
+            {errorDialog}
             <CardHeader
-                data-testid="title"
                 title={
                     <Typography variant={'h6'} style={{ fontWeight: 600 }}>
                         {t('HEADER.FORGOT_PASSWORD')}
                     </Typography>
                 }
+                className={sharedClasses.dialogTitle}
             />
-            <CardContent style={{ flex: '1 1 0px', overflow: 'auto' }}>{body}</CardContent>
+            <CardContent className={sharedClasses.dialogContent}>{body}</CardContent>
             <Divider />
-            <CardActions style={{ padding: 16 }}>
+            <CardActions className={sharedClasses.dialogActions}>
                 <Grid container direction="row" alignItems="center" justify="space-between" style={{ width: '100%' }}>
                     <Button
                         variant="outlined"
                         color="primary"
                         disabled={accountUIState.forgotPassword.transitSuccess}
                         onClick={(): void => history.goBack()}
-                        style={{ width: 100 }}
+                        className={sharedClasses.dialogButton}
                     >
                         {t('ACTIONS.BACK')}
                     </Button>
                     <Button
                         variant="contained"
+                        disableElevation
                         disabled={!canContinue()}
                         color="primary"
                         onClick={onContinue}
-                        style={{ width: 100 }}
+                        className={sharedClasses.dialogButton}
                     >
                         {accountUIState.forgotPassword.transitSuccess ? t('ACTIONS.DONE') : t('ACTIONS.OKAY')}
                     </Button>

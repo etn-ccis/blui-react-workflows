@@ -1,6 +1,6 @@
 import React from 'react';
-import { ChatBubbleOutline } from '@material-ui/icons';
-import { BrandedCardContainer } from '../components/BrandedCardContainer';
+import { useLanguageLocale, useInjectedUIContext } from '@pxblue/react-auth-shared';
+import { useHistory } from 'react-router-dom';
 import {
     CardContent,
     Button,
@@ -12,8 +12,9 @@ import {
     createStyles,
     CardHeader,
 } from '@material-ui/core';
-import { useLanguageLocale, useInjectedUIContext } from '@pxblue/react-auth-shared';
-import { useHistory } from 'react-router-dom';
+import { BrandedCardContainer } from '../components';
+import { ChatBubbleOutline } from '@material-ui/icons';
+import { useDialogStyles } from '../styles';
 
 const useStyles = makeStyles((theme: Theme) =>
     createStyles({
@@ -29,45 +30,76 @@ const useStyles = makeStyles((theme: Theme) =>
     })
 );
 
-export const ContactSupport: React.FC = () => {
+/**
+ * Content for the Contact Us screen. This is exported separately
+ * in the event that a user wishes to build another area in their
+ * main application where users can view this information.
+ *
+ * @category Component
+ */
+export const ContactSupportContent: React.FC = () => {
     const { t } = useLanguageLocale();
     const theme = useTheme();
-    const history = useHistory();
     const classes = useStyles();
     const { contactPhone, contactEmail } = useInjectedUIContext();
 
     return (
+        <>
+            <div style={{ fontSize: 70, marginBottom: theme.spacing(4), textAlign: 'center' }}>
+                <ChatBubbleOutline fontSize={'inherit'} color={'primary'} />
+            </div>
+            <Typography variant={'body1'} style={{ marginBottom: theme.spacing(1) }}>
+                {t('CONTACT_SUPPORT.GENERAL_QUESTIONS')}
+            </Typography>
+            <Typography>
+                {t('CONTACT_SUPPORT.SUPPORT_MESSAGE')}
+                <a href={`mailto:${contactEmail}`} className={classes.link}>
+                    {contactEmail}
+                </a>
+                .
+            </Typography>
+            <Typography variant={'body1'} style={{ marginTop: theme.spacing(4), marginBottom: theme.spacing(1) }}>
+                {t('CONTACT_SUPPORT.EMERGENCY_SUPPORT')}
+            </Typography>
+            <Typography>
+                {t('CONTACT_SUPPORT.TECHNICAL_ASSISTANCE')}
+                <a href={`tel:${contactPhone}`} className={classes.link}>
+                    {contactPhone}
+                </a>
+                .
+            </Typography>
+        </>
+    );
+};
+
+/**
+ * Container that renders a screen with contact information for
+ * support with the application. Contact information is pulled
+ * from the context passed into the workflow.
+ *
+ * @category Component
+ */
+export const ContactSupport: React.FC = () => {
+    const { t } = useLanguageLocale();
+    const history = useHistory();
+    const classes = useDialogStyles();
+
+    return (
         <BrandedCardContainer>
-            <CardHeader title={<Typography variant={'h6'}>{t('USER_MENU.CONTACT_US')}</Typography>} />
-            <CardContent style={{ flex: '1 1 0px', overflow: 'auto' }}>
-                <div style={{ fontSize: 70, marginBottom: theme.spacing(4), textAlign: 'center' }}>
-                    <ChatBubbleOutline fontSize={'inherit'} color={'primary'} />
-                </div>
-                <Typography variant={'h6'}>{t('CONTACT_SUPPORT.GENERAL_QUESTIONS')}</Typography>
-                <Typography>
-                    {t('CONTACT_SUPPORT.SUPPORT_MESSAGE')}
-                    <a href={`mailto:${contactEmail}`} className={classes.link}>
-                        {contactEmail}
-                    </a>
-                    .
-                </Typography>
-                <Typography variant={'h6'} style={{ marginTop: theme.spacing(4) }}>
-                    {t('CONTACT_SUPPORT.EMERGENCY_SUPPORT')}
-                </Typography>
-                <Typography>
-                    {t('CONTACT_SUPPORT.TECHNICAL_ASSISTANCE')}
-                    <a href={`tel:${contactPhone}`} className={classes.link}>
-                        {contactPhone}
-                    </a>
-                    .
-                </Typography>
+            <CardHeader
+                title={<Typography variant={'h6'}>{t('USER_MENU.CONTACT_US')}</Typography>}
+                className={classes.dialogTitle}
+            />
+            <CardContent className={classes.dialogContent}>
+                <ContactSupportContent />
             </CardContent>
-            <CardActions style={{ padding: 16, justifyContent: 'flex-end' }}>
+            <CardActions className={classes.dialogActions}>
                 <Button
                     variant="contained"
                     color="primary"
+                    disableElevation
+                    className={classes.dialogButton}
                     onClick={(): void => history.goBack()}
-                    style={{ width: 100 }}
                 >
                     {t('ACTIONS.OKAY')}
                 </Button>

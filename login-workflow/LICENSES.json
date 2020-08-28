@@ -1,0 +1,50 @@
+{
+    "@pxblue/icons-mui@2.1.1": {
+        "licenses": "BSD-3-Clause",
+        "repository": "https://github.com/pxblue/icons-mui",
+        "licenseUrl": "https://github.com/pxblue/icons-mui/raw/master/LICENSE",
+        "parents": "example"
+    },
+    "@testing-library/jest-dom@4.2.4": {
+        "licenses": "MIT",
+        "repository": "https://github.com/testing-library/jest-dom",
+        "licenseUrl": "https://github.com/testing-library/jest-dom/raw/master/LICENSE",
+        "parents": "example"
+    },
+    "@testing-library/react@9.5.0": {
+        "licenses": "MIT",
+        "repository": "https://github.com/testing-library/react-testing-library",
+        "licenseUrl": "https://github.com/testing-library/react-testing-library/raw/master/LICENSE",
+        "parents": "example"
+    },
+    "@testing-library/user-event@7.2.1": {
+        "licenses": "MIT",
+        "repository": "https://github.com/testing-library/user-event",
+        "licenseUrl": "https://github.com/testing-library/user-event/raw/master/LICENSE",
+        "parents": "example"
+    },
+    "@types/node@12.12.53": {
+        "licenses": "MIT",
+        "repository": "https://github.com/DefinitelyTyped/DefinitelyTyped",
+        "licenseUrl": "https://github.com/DefinitelyTyped/DefinitelyTyped/raw/master/LICENSE",
+        "parents": "example"
+    },
+    "dompurify@2.0.12": {
+        "licenses": "MPL-2.0 OR Apache-2.0",
+        "repository": "https://github.com/cure53/DOMPurify",
+        "licenseUrl": "https://github.com/cure53/DOMPurify/raw/master/LICENSE",
+        "parents": "@pxblue/react-auth-workflow"
+    },
+    "react-app-polyfill@1.0.6": {
+        "licenses": "MIT",
+        "repository": "https://github.com/facebook/create-react-app",
+        "licenseUrl": "https://github.com/facebook/create-react-app/raw/master/LICENSE",
+        "parents": "example"
+    },
+    "react-scripts@3.4.1": {
+        "licenses": "MIT",
+        "repository": "https://github.com/facebook/create-react-app",
+        "licenseUrl": "https://github.com/facebook/create-react-app/raw/master/LICENSE",
+        "parents": "example"
+    }
+}

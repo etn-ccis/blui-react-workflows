@@ -1,6 +1,6 @@
 import React, { useEffect } from 'react';
-import { Typography, FormControlLabel, Checkbox, useTheme } from '@material-ui/core';
 import { useLanguageLocale } from '@pxblue/react-auth-shared';
+import { Typography, FormControlLabel, Checkbox, useTheme } from '@material-ui/core';
 import DOMPurify from 'dompurify';
 
 export type AcceptEulaProps = {
@@ -11,6 +11,19 @@ export type AcceptEulaProps = {
     htmlEula?: boolean;
     eulaError?: string;
 };
+
+/**
+ * Component that renders a screen displaying the EULA and requests acceptance via a checkbox.
+ *
+ * @param eulaAccepted true if the checkbox should be checked
+ * @param eulaContent the content to render for the EULA. Can be a plain string or HTML
+ * @param onEulaChanged function to call when the state of the checkbox is changed
+ * @param loadEula function to call to retrieve the eulaContent
+ * @param htmlEula true if the EULA should be rendered as HTML
+ * @param eulaError error message if the EULA fails to load
+ *
+ * @category Component
+ */
 export const AcceptEula: React.FC<AcceptEulaProps> = (props) => {
     const { eulaAccepted, eulaContent, onEulaChanged, loadEula, htmlEula, eulaError } = props;
     const { t } = useLanguageLocale();

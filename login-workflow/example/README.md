@@ -1,4 +1,6 @@
-This project was bootstrapped with [Create React App](https://github.com/facebook/create-react-app).
+This project is a sample that demonstrates how to use [@pxblue/react-auth-workflow](https://www.npmjs.com/package/@pxblue/react-auth-workflow). It includes a sample Home screen with buttons to log out and change password. If the user is not authenticated, he/she will be presented with the authentication workflow with screens for Log In, Forgot Password, Support, and Registration.
+
+It was bootstrapped with [Create React App](https://github.com/facebook/create-react-app).
 
 ## Available Scripts
 

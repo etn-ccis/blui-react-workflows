@@ -2,18 +2,22 @@ import 'react-app-polyfill/ie11';
 import 'react-app-polyfill/stable';
 import React from 'react';
 import ReactDOM from 'react-dom';
-import './index.css';
-import { App } from './App';
 import * as serviceWorker from './serviceWorker';
 import { ThemeProvider, createMuiTheme } from '@material-ui/core/styles';
+import { App } from './App';
 import CssBaseline from '@material-ui/core/CssBaseline';
 import * as PXBThemes from '@pxblue/react-themes';
+import './index.css';
 import 'typeface-open-sans';
 
 ReactDOM.render(
-    <React.StrictMode>
+    // Enable Strict Mode for more error checking
+    // <React.StrictMode>
+    <ThemeProvider theme={createMuiTheme(PXBThemes.blue)}>
+        <CssBaseline />
         <App />
-    </React.StrictMode>,
+    </ThemeProvider>,
+    // </React.StrictMode>
     document.getElementById('root')
 );
 

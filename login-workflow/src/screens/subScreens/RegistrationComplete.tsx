@@ -1,17 +1,9 @@
 import React from 'react';
-import { makeStyles, createStyles } from '@material-ui/core';
 import { useLanguageLocale } from '@pxblue/react-auth-shared';
-import { EmptyState } from '@pxblue/react-components';
-import { CheckCircle } from '@material-ui/icons';
 import { Trans } from 'react-i18next';
-
-const useStyles = makeStyles(() =>
-    createStyles({
-        description: {
-            color: 'inherit',
-        },
-    })
-);
+import { useTheme } from '@material-ui/core';
+import { FinishState } from '../../components';
+import { CheckCircle } from '@material-ui/icons';
 
 export type RegistrationCompleteProps = {
     firstName: string;
@@ -19,35 +11,36 @@ export type RegistrationCompleteProps = {
     email: string;
     organization: string;
 };
+
+/**
+ * Component that renders a screen displaying success for creating an account for
+ * a new user.
+ *
+ * @param firstName first name for the new user
+ * @param lastName last name for the new user
+ * @param email email address for the new user
+ * @param organization organization that the user has joined
+ *
+ * @category Component
+ */
 export const RegistrationComplete: React.FC<RegistrationCompleteProps> = (props) => {
     const { firstName, lastName, email, organization } = props;
-    const classes = useStyles();
     const { t } = useLanguageLocale();
+    const theme = useTheme();
 
     return (
-        <div
-            style={{ display: 'flex', flex: '1 1 0%', justifyContent: 'center', height: '100%' }}
-            data-testid="reset-password-confirmation-content"
-        >
-            <EmptyState
-                icon={<CheckCircle color={'primary'} style={{ fontSize: 100, marginBottom: 16 }} />}
-                title={`${t('MESSAGES.WELCOME')}, ${firstName} ${lastName}!`}
-                // description={t('REGISTRATION.SUCCESS_MESSAGE', {
-                //     replace: { email: email, organization: organization },
-                // })}
-                description={
-                    <Trans
-                        i18nKey={'REGISTRATION.SUCCESS_MESSAGE_ALT'}
-                        values={{ email: email, organization: organization }}
-                    >
-                        Your account has successfully been created with the email <b>{email}</b> belonging to the{' '}
-                        <b>{organization}</b> org.
-                    </Trans>
-                }
-                classes={{
-                    description: classes.description,
-                }}
-            />
-        </div>
+        <FinishState
+            icon={<CheckCircle color={'primary'} style={{ fontSize: 100, marginBottom: theme.spacing(2) }} />}
+            title={`${t('MESSAGES.WELCOME')}, ${firstName} ${lastName}!`}
+            description={
+                <Trans
+                    i18nKey={'REGISTRATION.SUCCESS_MESSAGE_ALT'}
+                    values={{ email: email, organization: organization }}
+                >
+                    Your account has successfully been created with the email <b>{email}</b> belonging to the{' '}
+                    <b>{organization}</b> org.
+                </Trans>
+            }
+        />
     );
 };

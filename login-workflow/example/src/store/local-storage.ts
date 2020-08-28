@@ -8,12 +8,12 @@ type AuthData = {
 
 async function readAuthData(): Promise<AuthData> {
     const jsonUserData = window.localStorage.getItem(LOCAL_USER_DATA) || '{}';
-    const userData = JSON.parse(jsonUserData) as {
+    const userData = (await JSON.parse(jsonUserData)) as {
         user?: string;
         userId?: string;
     };
     const jsonRememberMeData = window.localStorage.getItem(REMEMBER_ME_DATA) || '{}';
-    const rememberMeData = JSON.parse(jsonRememberMeData) as {
+    const rememberMeData = (await JSON.parse(jsonRememberMeData)) as {
         user: string;
         rememberMe: boolean;
     };
@@ -22,12 +22,6 @@ async function readAuthData(): Promise<AuthData> {
         email: userData.user,
         rememberMeData: rememberMeData,
     };
-    // return {
-    //     initialExpirationDate,
-    //     userId: userData.userId,
-    //     email: userData.user,
-    //     rememberMeData: rememberMeData,
-    // };
 }
 
 function saveAuthCredentials(user: string, userId: string): void {
