@@ -1,0 +1,50 @@
+version: 2
+jobs:
+  build_login_workflow:
+    working_directory: ~/login-workflow
+    docker:
+      - image: circleci/node:12.6
+    steps:
+      - checkout
+      - restore_cache:
+          keys:
+            - v2-dependencies-{{ checksum "login-workflow/yarn.lock" }}
+      - run:
+          name: Install Dependencies
+          command: |
+            cd login-workflow
+            yarn install --frozen-lockfile
+      - save_cache:
+          name: Save Cache
+          paths:
+            - node_modules
+          key: v2-dependencies-{{ checksum "login-workflow/yarn.lock" }}
+      - run:
+          name: Prettier Check
+          command: |
+            cd login-workflow
+            yarn prettier:check
+      - run:
+          name: Set Max Memory
+          command: NODE_OPTIONS=--max_old_space_size=4096
+      - run:
+          name: Lint
+          command: |
+            cd login-workflow
+            yarn lint
+      - run:
+          name: Tests
+          command: |
+            cd login-workflow
+            yarn test
+      - run:
+          name: Build
+          command: |
+            cd login-workflow
+            yarn build
+
+workflows:
+  version: 2
+  react_native_workflows:
+    jobs:
+      - build_login_workflow
