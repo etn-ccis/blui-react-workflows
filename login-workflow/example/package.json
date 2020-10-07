@@ -68,7 +68,8 @@
         "eslint": "^6.6.0",
         "eslint-config-prettier": "^6.0.0",
         "eslint-plugin-react": "^7.0.0",
-        "prettier": "^2.0.0"
+        "prettier": "^2.0.0",
+        "yarn-audit-fix": "^3.2.7"
     },
     "prettier": "@pxblue/prettier-config"
 }
