@@ -16,7 +16,7 @@ import { ChangePasswordForm } from './ChangePasswordForm';
 import { SecureTextField } from '../SecureTextField';
 import { SimpleDialog } from '../SimpleDialog';
 import { FinishState } from '../FinishState';
-import { CheckCircle } from '@material-ui/icons';
+import CheckCircle from '@material-ui/icons/CheckCircle';
 import { defaultPasswordRequirements } from '../../constants';
 import { useDialogStyles } from '../../styles';
 
