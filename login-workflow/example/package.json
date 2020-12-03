@@ -8,6 +8,7 @@
         "@pxblue/colors": "^3.0.0",
         "@pxblue/icons-mui": "^2.2.1",
         "@pxblue/react-auth-shared": "^2.1.0",
+        "@pxblue/react-auth-workflow": "^1.0.0",
         "@pxblue/react-components": "^4.1.1",
         "@pxblue/react-themes": "^5.0.3",
         "@testing-library/jest-dom": "^4.2.4",

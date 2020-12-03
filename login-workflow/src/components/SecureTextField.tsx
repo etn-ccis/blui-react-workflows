@@ -1,6 +1,7 @@
 import React, { useState } from 'react';
 import { TextField, InputAdornment, IconButton, TextFieldProps } from '@material-ui/core';
-import { Visibility, VisibilityOff } from '@material-ui/icons';
+import Visibility from '@material-ui/icons/Visibility';
+import VisibilityOff from '@material-ui/icons/VisibilityOff';
 
 /**
  * Component that renders textfield with a visibility toggle. The toggle changes the

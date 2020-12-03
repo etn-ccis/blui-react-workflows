@@ -12,7 +12,8 @@ import { useHistory } from 'react-router-dom';
 import { CardHeader, Typography, CardContent, Divider, CardActions, Grid, Button, useTheme } from '@material-ui/core';
 import { BrandedCardContainer, SecureTextField, PasswordRequirements, SimpleDialog, FinishState } from '../components';
 import { defaultPasswordRequirements } from '../constants';
-import { CheckCircle, Error } from '@material-ui/icons';
+import CheckCircle from '@material-ui/icons/CheckCircle';
+import Error from '@material-ui/icons/Error';
 import { useDialogStyles } from '../styles';
 
 /**
