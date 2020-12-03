@@ -3,7 +3,7 @@ import { useLanguageLocale } from '@pxblue/react-auth-shared';
 import { Trans } from 'react-i18next';
 import { useTheme } from '@material-ui/core';
 import { FinishState } from '../../components';
-import { CheckCircle } from '@material-ui/icons';
+import CheckCircle from '@material-ui/icons/CheckCircle';
 
 export type RegistrationCompleteProps = {
     firstName: string;

@@ -1612,6 +1612,14 @@
   resolved "https://registry.yarnpkg.com/@pxblue/react-auth-shared/-/react-auth-shared-2.0.1.tgz#8d00422b4d2c12d2e94bfce1556b73c2641140fe"
   integrity sha512-871/Aeg2vYS80nSwbfZcxKHrDGn+0DtO8ilXDllElWtBavrKLC/LGhEiYOWRPifZQC41qMsk/SIJjJwlG5RTzA==
 
+"@pxblue/react-auth-workflow@^1.0.0":
+  version "1.0.0"
+  resolved "https://registry.yarnpkg.com/@pxblue/react-auth-workflow/-/react-auth-workflow-1.0.0.tgz#aa6d24bf204e44187a80ae94bc2890dba235b641"
+  integrity sha512-lfkecW9G7FhkrR3anxc/odv0tNKj8bTrxxnt/+/SzC5rALKoDWr96IN0cOFt6Rw4MzoazjF6r35O5kh5ewTz2A==
+  dependencies:
+    "@pxblue/react-auth-shared" "^2.0.1"
+    dompurify "^2.0.12"
+
 "@pxblue/react-components@^4.0.2":
   version "4.1.1"
   resolved "https://registry.yarnpkg.com/@pxblue/react-components/-/react-components-4.1.1.tgz#132cac6e49c430f3c35c1e871695bda9cb94b06e"
@@ -4583,6 +4591,11 @@ domhandler@^2.3.0:
   integrity sha512-JiK04h0Ht5u/80fdLMCEmV4zkNh2BcoMFBmZ/91WtYZ8qVXSKjiw7fXMgFPnHcSZgOo3XdinHvmnDUeMf5R4wA==
   dependencies:
     domelementtype "1"
+
+dompurify@^2.0.12:
+  version "2.2.2"
+  resolved "https://registry.yarnpkg.com/dompurify/-/dompurify-2.2.2.tgz#cb8c2b1a2f3c8a0b565127504ae4eedec176a972"
+  integrity sha512-BsGR4nDLaC5CNBnyT5I+d5pOeaoWvgVeg6Gq/aqmKYWMPR07131u60I80BvExLAJ0FQEIBQ1BTicw+C5+jOyrg==
 
 domutils@1.5.1:
   version "1.5.1"

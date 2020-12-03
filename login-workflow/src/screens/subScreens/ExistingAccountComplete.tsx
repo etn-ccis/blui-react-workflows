@@ -2,7 +2,7 @@ import React from 'react';
 import { useLanguageLocale } from '@pxblue/react-auth-shared';
 import { useTheme } from '@material-ui/core';
 import { FinishState } from '../../components';
-import { Person } from '@material-ui/icons';
+import Person from '@material-ui/icons/Person';
 
 /**
  * Component that renders a screen displaying success for creating an account for

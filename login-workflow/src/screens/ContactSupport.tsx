@@ -13,7 +13,7 @@ import {
     CardHeader,
 } from '@material-ui/core';
 import { BrandedCardContainer } from '../components';
-import { ChatBubbleOutline } from '@material-ui/icons';
+import ChatBubbleOutline from '@material-ui/icons/ChatBubbleOutline';
 import { useDialogStyles } from '../styles';
 
 const useStyles = makeStyles((theme: Theme) =>
