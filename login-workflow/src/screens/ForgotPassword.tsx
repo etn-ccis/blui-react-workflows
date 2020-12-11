@@ -24,7 +24,7 @@ import {
     createStyles,
     useTheme,
 } from '@material-ui/core';
-import { CheckCircle } from '@material-ui/icons';
+import CheckCircle from '@material-ui/icons/CheckCircle';
 import { useDialogStyles } from '../styles';
 
 const useStyles = makeStyles((theme: Theme) =>

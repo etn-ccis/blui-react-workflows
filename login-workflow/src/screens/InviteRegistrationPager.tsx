@@ -28,7 +28,7 @@ import { CreatePassword as CreatePasswordScreen } from './subScreens/CreatePassw
 import { AccountDetails as AccountDetailsScreen } from './subScreens/AccountDetails';
 import { RegistrationComplete } from './subScreens/RegistrationComplete';
 import { ExistingAccountComplete } from './subScreens/ExistingAccountComplete';
-import { Error } from '@material-ui/icons';
+import Error from '@material-ui/icons/Error';
 import { useDialogStyles } from '../styles';
 
 /* eslint-disable @typescript-eslint/naming-convention */
