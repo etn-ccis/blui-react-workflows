@@ -19,6 +19,7 @@ import { FinishState } from '../FinishState';
 import CheckCircle from '@material-ui/icons/CheckCircle';
 import { defaultPasswordRequirements } from '../../constants';
 import { useDialogStyles } from '../../styles';
+import clsx from 'clsx';
 
 /**
  * Component that renders a change password form in a modal dialog. This dialog is automatically
@@ -41,6 +42,8 @@ export const ChangePasswordModal: React.FC = () => {
     const [currentPassword, setCurrentPassword] = useState('');
     const [password, setPassword] = useState('');
     const [confirm, setConfirm] = useState('');
+
+    const success = transitState.transitSuccess;
 
     const updateFields = useCallback(
         (fields: { password: string; confirm: string }) => {
@@ -72,7 +75,7 @@ export const ChangePasswordModal: React.FC = () => {
 
     // Dynamically change the body content based on successful change
     let body: JSX.Element;
-    if (transitState.transitSuccess) {
+    if (success) {
         body = (
             <FinishState
                 icon={<CheckCircle color={'primary'} style={{ fontSize: 100, marginBottom: theme.spacing(2) }} />}
@@ -121,26 +124,27 @@ export const ChangePasswordModal: React.FC = () => {
             <Divider style={{ marginTop: theme.spacing(2) }} />
             <DialogActions className={sharedClasses.dialogActions}>
                 <Grid container direction="row" alignItems="center" justify="space-between" style={{ width: '100%' }}>
-                    <Button
-                        variant="outlined"
-                        color="primary"
-                        className={sharedClasses.dialogButton}
-                        disabled={transitState.transitSuccess}
-                        onClick={(): void => securityHelper.hideChangePassword()}
-                    >
-                        {t('ACTIONS.BACK')}
-                    </Button>
+                    {!success && (
+                        <Button
+                            variant="outlined"
+                            color="primary"
+                            className={sharedClasses.dialogButton}
+                            onClick={(): void => securityHelper.hideChangePassword()}
+                        >
+                            {t('ACTIONS.BACK')}
+                        </Button>
+                    )}
                     <Button
                         variant="contained"
                         disableElevation
-                        className={sharedClasses.dialogButton}
+                        className={clsx(sharedClasses.dialogButton, { [sharedClasses.fullWidth]: success })}
                         disabled={
                             transitState.transitInProgress ||
-                            (!transitState.transitSuccess && (currentPassword === '' || !areValidMatchingPasswords()))
+                            (!success && (currentPassword === '' || !areValidMatchingPasswords()))
                         }
                         color="primary"
                         onClick={
-                            transitState.transitSuccess
+                            success
                                 ? (): void => {
                                       accountUIActions.dispatch(AccountActions.logout());
                                       securityHelper.onUserNotAuthenticated();
@@ -148,7 +152,7 @@ export const ChangePasswordModal: React.FC = () => {
                                 : changePassword
                         }
                     >
-                        {transitState.transitSuccess ? t('ACTIONS.LOG_IN') : t('ACTIONS.OKAY')}
+                        {success ? t('ACTIONS.LOG_IN') : t('ACTIONS.OKAY')}
                     </Button>
                 </Grid>
             </DialogActions>

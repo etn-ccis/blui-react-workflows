@@ -15,6 +15,7 @@ import {
 import { BrandedCardContainer } from '../components';
 import ChatBubbleOutline from '@material-ui/icons/ChatBubbleOutline';
 import { useDialogStyles } from '../styles';
+import clsx from 'clsx';
 
 const useStyles = makeStyles((theme: Theme) =>
     createStyles({
@@ -98,7 +99,7 @@ export const ContactSupport: React.FC = () => {
                     variant="contained"
                     color="primary"
                     disableElevation
-                    className={classes.dialogButton}
+                    className={clsx(classes.dialogButton, { [classes.fullWidth]: true })}
                     onClick={(): void => history.goBack()}
                 >
                     {t('ACTIONS.OKAY')}
