@@ -15,6 +15,7 @@ import { defaultPasswordRequirements } from '../constants';
 import CheckCircle from '@material-ui/icons/CheckCircle';
 import Error from '@material-ui/icons/Error';
 import { useDialogStyles } from '../styles';
+import clsx from 'clsx';
 
 /**
  * Renders a screen stack which handles the reset password flow (deep link from email).
@@ -180,15 +181,16 @@ export const ResetPassword: React.FC = () => {
             <Divider />
             <CardActions className={classes.dialogActions}>
                 <Grid container direction="row" alignItems="center" justify="space-between" style={{ width: '100%' }}>
-                    <Button
-                        variant="outlined"
-                        color="primary"
-                        disabled={setPasswordTransitSuccess}
-                        onClick={(): void => history.push(routes.LOGIN)}
-                        className={classes.dialogButton}
-                    >
-                        {t('ACTIONS.BACK')}
-                    </Button>
+                    {!setPasswordTransitSuccess && (
+                        <Button
+                            variant="outlined"
+                            color="primary"
+                            onClick={(): void => history.push(routes.LOGIN)}
+                            className={classes.dialogButton}
+                        >
+                            {t('ACTIONS.BACK')}
+                        </Button>
+                    )}
                     {verifySuccess && (
                         <Button
                             variant="contained"
@@ -196,7 +198,7 @@ export const ResetPassword: React.FC = () => {
                             disabled={!canContinue()}
                             color="primary"
                             onClick={onContinue}
-                            className={classes.dialogButton}
+                            className={clsx(classes.dialogButton, { [classes.fullWidth]: setPasswordTransitSuccess })}
                         >
                             {setPasswordTransitSuccess ? t('ACTIONS.DONE') : t('ACTIONS.OKAY')}
                         </Button>

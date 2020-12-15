@@ -27,6 +27,9 @@ export const useDialogStyles = makeStyles((theme: Theme) =>
         },
         dialogButton: {
             width: 100,
+            '&$fullWidth': {
+                width: '100%',
+            },
         },
         fullDivider: {
             margin: `${theme.spacing(5)}px -${theme.spacing(3)}px ${theme.spacing(4)}px`,
@@ -48,5 +51,6 @@ export const useDialogStyles = makeStyles((theme: Theme) =>
                 marginTop: theme.spacing(3),
             },
         },
+        fullWidth: {},
     })
 );

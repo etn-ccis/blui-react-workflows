@@ -30,6 +30,7 @@ import { RegistrationComplete } from './subScreens/RegistrationComplete';
 import { ExistingAccountComplete } from './subScreens/ExistingAccountComplete';
 import Error from '@material-ui/icons/Error';
 import { useDialogStyles } from '../styles';
+import clsx from 'clsx';
 
 /* eslint-disable @typescript-eslint/naming-convention */
 enum Pages {
@@ -293,7 +294,7 @@ export const InviteRegistrationPager: React.FC = () => {
                 variant={'contained'}
                 disableElevation
                 color={'primary'}
-                className={sharedClasses.dialogButton}
+                className={clsx(sharedClasses.dialogButton, { [sharedClasses.fullWidth]: true })}
                 onClick={(): void => advancePage(1)}
             >
                 {t('ACTIONS.CONTINUE')}
