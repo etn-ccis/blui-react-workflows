@@ -7,6 +7,7 @@ export type VerifyEmailProps = {
     initialCode?: string;
     onVerifyCodeChanged: (code: string) => void;
     onResendVerificationEmail: () => void;
+    onSubmit?: () => void;
 };
 
 /**
@@ -16,11 +17,12 @@ export type VerifyEmailProps = {
  * @param initialCode code used to pre-populate the field
  * @param onVerifyCodeChanged function to call when the code input value changes
  * @param onResendVerificationEmail function to call when the user clicks the 'resend code' button
+ * @param onSubmit function to call when the user submits the mini form
  *
  * @category Component
  */
 export const VerifyEmail: React.FC<VerifyEmailProps> = (props) => {
-    const { initialCode, onVerifyCodeChanged, onResendVerificationEmail } = props;
+    const { initialCode, onVerifyCodeChanged, onResendVerificationEmail, onSubmit } = props;
     const theme = useTheme();
     const classes = useDialogStyles();
     const { t } = useLanguageLocale();
@@ -46,6 +48,9 @@ export const VerifyEmail: React.FC<VerifyEmailProps> = (props) => {
                 value={verifyCode}
                 onChange={(evt): void => {
                     setVerifyCode(evt.target.value);
+                }}
+                onKeyPress={(e): void => {
+                    if (e.key === 'Enter' && onSubmit) onSubmit();
                 }}
                 variant="filled"
             />

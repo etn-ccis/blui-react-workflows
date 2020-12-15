@@ -143,6 +143,9 @@ export const ForgotPassword: React.FC = () => {
                     fullWidth
                     value={emailInput}
                     onChange={(evt: ChangeEvent<HTMLInputElement>): void => setEmailInput(evt.target.value)}
+                    onKeyPress={(e): void => {
+                        if (e.key === 'Enter' && canContinue()) onContinue();
+                    }}
                     variant="filled"
                     error={hasTransitError}
                     helperText={hasTransitError ? t('FORGOT_PASSWORD.ERROR') : ''}

@@ -327,7 +327,13 @@ export const SelfRegistrationPager: React.FC = () => {
         }
         switch (currentPage) {
             case Pages.CreateAccount:
-                return <CreateAccountScreen initialEmail={email} onEmailChanged={setEmail} />;
+                return (
+                    <CreateAccountScreen
+                        initialEmail={email}
+                        onEmailChanged={setEmail}
+                        onSubmit={canProgress ? (): void => advancePage(1) : undefined}
+                    />
+                );
             case Pages.Eula:
                 return (
                     <AcceptEula
@@ -347,6 +353,7 @@ export const SelfRegistrationPager: React.FC = () => {
                         onResendVerificationEmail={(): void => {
                             void requestCode();
                         }}
+                        onSubmit={canProgress ? (): void => advancePage(1) : undefined}
                     />
                 );
             case Pages.CreatePassword:
@@ -369,6 +376,8 @@ export const SelfRegistrationPager: React.FC = () => {
                 return <></>;
         }
     }, [
+        advancePage,
+        canProgress,
         currentPage,
         setEmail,
         eulaAccepted,

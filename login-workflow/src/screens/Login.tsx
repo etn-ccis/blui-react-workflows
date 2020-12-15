@@ -1,4 +1,4 @@
-import React, { ChangeEvent, useCallback, useEffect } from 'react';
+import React, { ChangeEvent, useCallback, useEffect, useRef } from 'react';
 import { useRoutes } from '../contexts/RoutingContext';
 import {
     useSecurityState,
@@ -108,6 +108,8 @@ export const Login: React.FC = () => {
     const { routes } = useRoutes();
     const theme = useTheme();
     const classes = useStyles();
+
+    const passwordField = useRef<any>(null);
 
     // Local State
     const [rememberPassword, setRememberPassword] = React.useState(securityState.rememberMeDetails.rememberMe ?? false);
@@ -239,11 +241,15 @@ export const Login: React.FC = () => {
                         className={clsx(classes.formFields, { [classes.hasError]: hasTransitError })}
                         value={emailInput}
                         onChange={(evt: ChangeEvent<HTMLInputElement>): void => setEmailInput(evt.target.value)}
+                        onKeyPress={(e): void => {
+                            if (e.key === 'Enter' && passwordField.current) passwordField.current.focus();
+                        }}
                         variant="filled"
                         error={hasTransitError}
                         helperText={hasTransitError ? t('LOGIN.INCORRECT_CREDENTIALS') : ''}
                     />
                     <SecureTextField
+                        inputRef={passwordField}
                         id="password"
                         name="password"
                         label={t('LABELS.PASSWORD')}

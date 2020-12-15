@@ -1,4 +1,4 @@
-import React, { useState, useEffect, useCallback, ChangeEvent } from 'react';
+import React, { useState, useEffect, useCallback } from 'react';
 import {
     useLanguageLocale,
     useAccountUIState,
@@ -10,7 +10,7 @@ import { useQueryString } from '../hooks/useQueryString';
 import { useRoutes } from '../contexts/RoutingContext';
 import { useHistory } from 'react-router-dom';
 import { CardHeader, Typography, CardContent, Divider, CardActions, Grid, Button, useTheme } from '@material-ui/core';
-import { BrandedCardContainer, SecureTextField, PasswordRequirements, SimpleDialog, FinishState } from '../components';
+import { BrandedCardContainer, SimpleDialog, FinishState, ChangePasswordForm } from '../components';
 import { defaultPasswordRequirements } from '../constants';
 import CheckCircle from '@material-ui/icons/CheckCircle';
 import Error from '@material-ui/icons/Error';
@@ -75,6 +75,14 @@ export const ResetPassword: React.FC = () => {
         return confirmInput === passwordInput;
     }, [passwordRequirements, passwordInput, confirmInput]);
 
+    const updateFields = useCallback(
+        (fields: { password: string; confirm: string }) => {
+            setPasswordInput(fields.password);
+            setConfirmInput(fields.confirm);
+        },
+        [setPasswordInput, setConfirmInput]
+    );
+
     const resetPassword = useCallback(
         (password: string): void => {
             void accountUIActions.actions.setPassword(code, password, email);
@@ -108,25 +116,8 @@ export const ResetPassword: React.FC = () => {
                 ) : (
                     <>
                         <Typography>{t('CHANGE_PASSWORD.PASSWORD_INFO')}</Typography>
-
                         <Divider className={classes.fullDivider} />
-
-                        <SecureTextField
-                            id="password"
-                            name="password"
-                            label={t('FORMS.PASSWORD')}
-                            value={passwordInput}
-                            onChange={(evt: ChangeEvent<HTMLInputElement>): void => setPasswordInput(evt.target.value)}
-                        />
-                        <PasswordRequirements style={{ marginTop: theme.spacing(2) }} passwordText={passwordInput} />
-                        <SecureTextField
-                            id="confirm"
-                            name="confirm"
-                            label={t('FORMS.CONFIRM_PASSWORD')}
-                            className={classes.textField}
-                            value={confirmInput}
-                            onChange={(evt: ChangeEvent<HTMLInputElement>): void => setConfirmInput(evt.target.value)}
-                        />
+                        <ChangePasswordForm passwordLabel={t('LABELS.NEW_PASSWORD')} onPasswordChange={updateFields} />
                     </>
                 )
             ) : !verifyComplete ? (
@@ -142,15 +133,12 @@ export const ResetPassword: React.FC = () => {
             t,
             theme,
             classes,
-            passwordInput,
-            setPasswordInput,
-            confirmInput,
-            setConfirmInput,
             verifySuccess,
             verifyIsInTransit,
             verifyComplete,
             validationTransitErrorMessage,
             setPasswordTransitSuccess,
+            updateFields,
         ]
     );
 
