@@ -5,6 +5,7 @@ import {
     CardContent,
     Button,
     CardActions,
+    Divider,
     useTheme,
     Typography,
     makeStyles,
@@ -94,6 +95,7 @@ export const ContactSupport: React.FC = () => {
             <CardContent className={classes.dialogContent}>
                 <ContactSupportContent />
             </CardContent>
+            <Divider />
             <CardActions className={classes.dialogActions}>
                 <Button
                     variant="contained"
