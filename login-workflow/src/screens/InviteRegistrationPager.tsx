@@ -253,13 +253,19 @@ export const InviteRegistrationPager: React.FC = () => {
                     />
                 );
             case Pages.CreatePassword:
-                return <CreatePasswordScreen onPasswordChanged={setPassword} initialPassword={password} />;
+                return (
+                    <CreatePasswordScreen
+                        onPasswordChanged={setPassword}
+                        initialPassword={password}
+                        onSubmit={canProgress() ? (): void => advancePage(1) : undefined}
+                    />
+                );
             case Pages.AccountDetails:
                 return (
                     <AccountDetailsScreen
                         onDetailsChanged={setAccountDetails}
                         initialDetails={accountDetails}
-                        onSubmit={canProgress ? (): void => advancePage(1) : undefined}
+                        onSubmit={canProgress() ? (): void => advancePage(1) : undefined}
                     />
                 );
             case Pages.Complete:

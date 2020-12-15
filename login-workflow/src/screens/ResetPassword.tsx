@@ -1,4 +1,4 @@
-import React, { useState, useEffect, useCallback } from 'react';
+import React, { useState, useEffect, useCallback, useRef } from 'react';
 import {
     useLanguageLocale,
     useAccountUIState,
@@ -30,6 +30,9 @@ export const ResetPassword: React.FC = () => {
     const accountUIState = useAccountUIState();
     const accountUIActions = useAccountUIActions();
     const { code, email } = useQueryString();
+
+    const passwordRef = useRef(null);
+    const confirmRef = useRef(null);
 
     // Local State
     const [passwordInput, setPasswordInput] = useState('');
@@ -114,11 +117,13 @@ export const ResetPassword: React.FC = () => {
                         description={t('CHANGE_PASSWORD.SUCCESS_MESSAGE')}
                     />
                 ) : (
-                    <>
-                        <Typography>{t('CHANGE_PASSWORD.PASSWORD_INFO')}</Typography>
-                        <Divider className={classes.fullDivider} />
-                        <ChangePasswordForm passwordLabel={t('LABELS.NEW_PASSWORD')} onPasswordChange={updateFields} />
-                    </>
+                    <ChangePasswordForm
+                        passwordRef={passwordRef}
+                        confirmRef={confirmRef}
+                        passwordLabel={t('LABELS.NEW_PASSWORD')}
+                        onPasswordChange={updateFields}
+                        onSubmit={canContinue() ? onContinue : undefined}
+                    />
                 )
             ) : !verifyComplete ? (
                 <></>
@@ -131,8 +136,9 @@ export const ResetPassword: React.FC = () => {
             ),
         [
             t,
+            canContinue,
+            onContinue,
             theme,
-            classes,
             verifySuccess,
             verifyIsInTransit,
             verifyComplete,

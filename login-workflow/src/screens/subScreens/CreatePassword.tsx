@@ -1,4 +1,4 @@
-import React, { useState, useCallback, useEffect } from 'react';
+import React, { useState, useCallback, useEffect, useRef } from 'react';
 import { useLanguageLocale, useInjectedUIContext } from '@pxblue/react-auth-shared';
 import { ChangePasswordForm } from '../../components';
 import { defaultPasswordRequirements } from '../../constants';
@@ -6,6 +6,7 @@ import { defaultPasswordRequirements } from '../../constants';
 export type CreatePasswordProps = {
     onPasswordChanged: (password: string) => void;
     initialPassword?: string;
+    onSubmit?: () => void;
 };
 
 /**
@@ -13,12 +14,16 @@ export type CreatePasswordProps = {
  *
  * @param initialPassword value to pre-populate the password and confirmation fields
  * @param onPasswordChanged function to call when the password or confirm fields change
+ * @param onSubmit function to call when the mini form is submitted
  *
  * @category Component
  */
 export const CreatePassword: React.FC<CreatePasswordProps> = (props) => {
-    const { onPasswordChanged, initialPassword = '' } = props;
+    const { onPasswordChanged, initialPassword = '', onSubmit } = props;
     const { t } = useLanguageLocale();
+
+    const passwordRef = useRef(null);
+    const confirmRef = useRef(null);
 
     const [passwordInput, setPasswordInput] = useState(initialPassword);
     const [confirmInput, setConfirmInput] = useState(initialPassword);
@@ -44,5 +49,12 @@ export const CreatePassword: React.FC<CreatePasswordProps> = (props) => {
         // eslint-disable-next-line react-hooks/exhaustive-deps
     }, [onPasswordChanged, passwordInput, confirmInput, areValidMatchingPasswords]);
 
-    return <ChangePasswordForm onPasswordChange={updateFields} />;
+    return (
+        <ChangePasswordForm
+            passwordRef={passwordRef}
+            confirmRef={confirmRef}
+            onPasswordChange={updateFields}
+            onSubmit={onSubmit}
+        />
+    );
 };
