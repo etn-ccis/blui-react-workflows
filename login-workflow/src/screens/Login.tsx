@@ -226,7 +226,11 @@ export const Login: React.FC = () => {
             >
                 <div className={classes.formContent}>
                     <div style={{ marginBottom: theme.spacing(6) }}>
-                        <img className={classes.productLogo} src={stackedEatonLogo} alt="logo" />
+                        <img
+                            className={classes.productLogo}
+                            src={authProps.projectImage || stackedEatonLogo}
+                            alt="logo"
+                        />
                     </div>
 
                     {debugMessage}

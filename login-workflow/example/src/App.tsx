@@ -10,6 +10,7 @@ import { ProjectAuthUIActions } from './actions/AuthUIActions';
 import { ProjectRegistrationUIActions } from './actions/RegistrationUIActions';
 import { ExampleHome } from './screens/ExampleHome';
 import { routes } from './navigation/Routing';
+import productLogo from './assets/images/eaton_stacked_logo.png';
 
 export const AuthUIConfiguration: React.FC = (props) => {
     const securityContextActions = useSecurityActions();
@@ -23,7 +24,7 @@ export const AuthUIConfiguration: React.FC = (props) => {
             htmlEula={false}
             contactEmail={'something@email.com'}
             contactPhone={'1-800-123-4567'}
-            projectImage={require('./assets/images/eaton_stacked_logo.png')}
+            projectImage={productLogo}
         >
             {props.children}
         </AuthUIContextProvider>
