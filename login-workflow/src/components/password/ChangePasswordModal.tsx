@@ -1,4 +1,4 @@
-import React, { useState, useCallback, ChangeEvent } from 'react';
+import React, { useState, useCallback, ChangeEvent, useRef } from 'react';
 import {
     useSecurityState,
     useSecurityActions,
@@ -35,6 +35,9 @@ export const ChangePasswordModal: React.FC = () => {
     const securityHelper = useSecurityActions();
     const theme = useTheme();
     const sharedClasses = useDialogStyles();
+
+    const passwordRef = useRef(null);
+    const confirmRef = useRef(null);
 
     const [transitState, setTransitState] = useState(initialTransitState);
     const [hasAcknowledgedError, setHasAcknowledgedError] = useState(false);
@@ -85,12 +88,30 @@ export const ChangePasswordModal: React.FC = () => {
         );
     } else {
         body = (
-            <ChangePasswordForm passwordLabel={t('LABELS.NEW_PASSWORD')} onPasswordChange={updateFields}>
+            <ChangePasswordForm
+                passwordLabel={t('LABELS.NEW_PASSWORD')}
+                onPasswordChange={updateFields}
+                passwordRef={passwordRef}
+                confirmRef={confirmRef}
+                onSubmit={(): void => {
+                    if (
+                        transitState.transitInProgress ||
+                        (!transitState.transitSuccess && (currentPassword === '' || !areValidMatchingPasswords()))
+                    )
+                        return;
+                    void changePassword();
+                }}
+            >
                 <SecureTextField
                     id="current-password"
                     label={t('LABELS.CURRENT_PASSWORD')}
                     value={currentPassword}
                     onChange={(evt: ChangeEvent<HTMLInputElement>): void => setCurrentPassword(evt.target.value)}
+                    onKeyPress={(e): void => {
+                        if (e.key === 'Enter' && passwordRef.current) {
+                            passwordRef.current.focus();
+                        }
+                    }}
                 />
             </ChangePasswordForm>
         );

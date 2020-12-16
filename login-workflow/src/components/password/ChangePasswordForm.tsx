@@ -1,4 +1,4 @@
-import React, { ChangeEvent, useState, useCallback } from 'react';
+import React, { ChangeEvent, useState, useCallback, MutableRefObject } from 'react';
 import { useLanguageLocale } from '@pxblue/react-auth-shared';
 import { Typography, Divider, useTheme } from '@material-ui/core';
 import { SecureTextField } from '../SecureTextField';
@@ -10,6 +10,9 @@ export type ChangePasswordFormProps = {
     passwordLabel?: string;
     confirmLabel?: string;
     description?: string;
+    passwordRef?: MutableRefObject<any>;
+    confirmRef?: MutableRefObject<any>;
+    onSubmit?: () => void;
 };
 
 /**
@@ -20,11 +23,23 @@ export type ChangePasswordFormProps = {
  * @param passwordLabel Optional label for the new password field (default = 'Password')
  * @param confirmLabel Optional label for the confirm password field (default = 'Confirm')
  * @param description Optional text to replace the instructional text above the password fields.
+ * @param passwordRef Optional ref to forward to the password input.
+ * @param confirmRef Optional ref to forward to the confirm password input.
+ * @param onSubmit Optional callback function to call when the mini form is submitted.
  *
  * @category Component
  */
 export const ChangePasswordForm: React.FC<ChangePasswordFormProps> = (props) => {
-    const { onPasswordChange, passwordLabel, confirmLabel, description, children } = props;
+    const {
+        onPasswordChange,
+        passwordLabel,
+        confirmLabel,
+        description,
+        children,
+        passwordRef,
+        confirmRef,
+        onSubmit,
+    } = props;
     const { t } = useLanguageLocale();
     const theme = useTheme();
     const sharedClasses = useDialogStyles();
@@ -59,19 +74,29 @@ export const ChangePasswordForm: React.FC<ChangePasswordFormProps> = (props) => 
             <SecureTextField
                 id="password"
                 name="password"
+                inputRef={passwordRef}
                 label={passwordLabel || t('FORMS.PASSWORD')}
                 value={passwordInput}
                 onChange={(evt: ChangeEvent<HTMLInputElement>): void => onPassChange(evt.target.value)}
                 className={sharedClasses.textField}
+                onKeyPress={(e): void => {
+                    if (e.key === 'Enter' && confirmRef.current) {
+                        confirmRef.current.focus();
+                    }
+                }}
             />
             <PasswordRequirements style={{ marginTop: theme.spacing(2) }} passwordText={passwordInput} />
             <SecureTextField
                 id="confirm"
                 name="confirm"
+                inputRef={confirmRef}
                 label={confirmLabel || t('FORMS.CONFIRM_PASSWORD')}
                 className={sharedClasses.textField}
                 value={confirmInput}
                 onChange={(evt: ChangeEvent<HTMLInputElement>): void => onConfirmChange(evt.target.value)}
+                onKeyPress={(e): void => {
+                    if (e.key === 'Enter' && onSubmit) onSubmit();
+                }}
             />
         </>
     );
