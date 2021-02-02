@@ -5,7 +5,7 @@ To update the version number, edit the version in `<workflow>/package.json`.
 To publish a new package through NPM, run the following commands from the root folder: 
 
 ```
-cd login-workflow
+cd <workflow>
 yarn build 
 npm publish --tag <alpha | beta>
 ```
