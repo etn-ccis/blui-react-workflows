@@ -7,8 +7,8 @@ import { ThemeProvider, createMuiTheme } from '@material-ui/core/styles';
 import { App } from './App';
 import CssBaseline from '@material-ui/core/CssBaseline';
 import * as PXBThemes from '@pxblue/react-themes';
+import '@pxblue/react-themes/open-sans';
 import './index.css';
-import 'typeface-open-sans';
 
 ReactDOM.render(
     // Enable Strict Mode for more error checking
