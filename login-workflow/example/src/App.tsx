@@ -11,6 +11,7 @@ import { ProjectRegistrationUIActions } from './actions/RegistrationUIActions';
 import { ExampleHome } from './screens/ExampleHome';
 import { routes } from './navigation/Routing';
 import productLogo from './assets/images/eaton_stacked_logo.png';
+import { CustomDetailsScreen, CustomDetailsScreenTwo } from './components/CustomDetailsScreen';
 
 export const AuthUIConfiguration: React.FC = (props) => {
     const securityContextActions = useSecurityActions();
@@ -25,6 +26,7 @@ export const AuthUIConfiguration: React.FC = (props) => {
             contactEmail={'something@email.com'}
             contactPhone={'1-800-123-4567'}
             projectImage={productLogo}
+            customAccountDetails={[CustomDetailsScreen, null, CustomDetailsScreenTwo]}
         >
             {props.children}
         </AuthUIContextProvider>

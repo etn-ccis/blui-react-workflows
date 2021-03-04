@@ -53,6 +53,8 @@ export const CreatePassword: React.FC<CreatePasswordProps> = (props) => {
         <ChangePasswordForm
             passwordRef={passwordRef}
             confirmRef={confirmRef}
+            initialPassword={initialPassword}
+            initialConfirm={initialPassword}
             onPasswordChange={updateFields}
             onSubmit={onSubmit}
         />

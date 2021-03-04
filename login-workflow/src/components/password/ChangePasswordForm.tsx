@@ -7,6 +7,8 @@ import { useDialogStyles } from '../../styles';
 
 export type ChangePasswordFormProps = {
     onPasswordChange: (passwords: { password: string; confirm: string }) => void;
+    initialPassword?: string;
+    initialConfirm?: string;
     passwordLabel?: string;
     confirmLabel?: string;
     description?: string;
@@ -20,6 +22,8 @@ export type ChangePasswordFormProps = {
  * It includes callbacks so you can respond to changes in the inputs.
  *
  * @param onPasswordChange Fired when the new password or confirm new password fields value changes
+ * @param initialPassword Value to initialize the password field
+ * @param initialConfirm Value to initialize the confirm field
  * @param passwordLabel Optional label for the new password field (default = 'Password')
  * @param confirmLabel Optional label for the confirm password field (default = 'Confirm')
  * @param description Optional text to replace the instructional text above the password fields.
@@ -32,6 +36,8 @@ export type ChangePasswordFormProps = {
 export const ChangePasswordForm: React.FC<ChangePasswordFormProps> = (props) => {
     const {
         onPasswordChange,
+        initialPassword = '',
+        initialConfirm = '',
         passwordLabel,
         confirmLabel,
         description,
@@ -45,8 +51,8 @@ export const ChangePasswordForm: React.FC<ChangePasswordFormProps> = (props) => 
     const sharedClasses = useDialogStyles();
 
     // Local State
-    const [passwordInput, setPasswordInput] = useState('');
-    const [confirmInput, setConfirmInput] = useState('');
+    const [passwordInput, setPasswordInput] = useState(initialPassword);
+    const [confirmInput, setConfirmInput] = useState(initialConfirm);
 
     const onPassChange = useCallback(
         (newPassword) => {
