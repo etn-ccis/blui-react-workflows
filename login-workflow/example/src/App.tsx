@@ -26,7 +26,7 @@ export const AuthUIConfiguration: React.FC = (props) => {
             contactEmail={'something@email.com'}
             contactPhone={'1-800-123-4567'}
             projectImage={productLogo}
-            customAccountDetails={[CustomDetailsScreen, null, CustomDetailsScreenTwo]}
+            customAccountDetails={[null, CustomDetailsScreen, CustomDetailsScreenTwo]}
         >
             {props.children}
         </AuthUIContextProvider>

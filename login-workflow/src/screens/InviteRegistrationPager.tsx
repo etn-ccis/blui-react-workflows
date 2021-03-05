@@ -269,6 +269,7 @@ export const InviteRegistrationPager: React.FC = () => {
                         pageTitle: t('REGISTRATION.STEPS.ACCOUNT_DETAILS'),
                         pageBody: (
                             <PageComponent
+                                key={`CustomDetailsPage_${i + 1}`}
                                 onDetailsChanged={(details: CustomAccountDetails, valid: boolean): void => {
                                     setCustomAccountDetails({
                                         ...customAccountDetails,
