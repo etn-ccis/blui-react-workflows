@@ -10,7 +10,9 @@ import { ProjectAuthUIActions } from './actions/AuthUIActions';
 import { ProjectRegistrationUIActions } from './actions/RegistrationUIActions';
 import { ExampleHome } from './screens/ExampleHome';
 import { routes } from './navigation/Routing';
+
 import productLogo from './assets/images/eaton_stacked_logo.png';
+import topology from './assets/images/topology.png';
 
 export const AuthUIConfiguration: React.FC = (props) => {
     const securityContextActions = useSecurityActions();
@@ -25,6 +27,21 @@ export const AuthUIConfiguration: React.FC = (props) => {
             contactEmail={'something@email.com'}
             contactPhone={'1-800-123-4567'}
             projectImage={productLogo}
+            background={{
+                backgroundImage: `url(${topology})`,
+                backgroundColor: 'orange',
+                backgroundSize: '50%',
+            }}
+            showRememberMe={false}
+            // TODO
+            // enableInviteRegistration
+            // showForgotPassword
+            // showContactSupport
+            // enableResetPassword
+            // showRememberMe
+            //
+            // emailValidator
+            // eulaScrollLock
         >
             {props.children}
         </AuthUIContextProvider>

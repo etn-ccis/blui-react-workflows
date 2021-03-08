@@ -2,6 +2,7 @@ import React from 'react';
 import { Card, Theme, createStyles, makeStyles } from '@material-ui/core';
 import { Spinner } from './Spinner';
 import backgroundImage from '../assets/images/background.svg';
+import { useInjectedUIContext } from '@pxblue/react-auth-shared';
 
 const useStyles = makeStyles((theme: Theme) =>
     createStyles({
@@ -35,8 +36,14 @@ const useStyles = makeStyles((theme: Theme) =>
  * @category Component
  */
 export const BrandedBackground: React.FC = (props) => {
+    const { background } = useInjectedUIContext();
     const classes = useStyles();
-    return <div className={classes.brandingPanel}>{props.children}</div>;
+
+    return (
+        <div className={classes.brandingPanel} style={background || {}}>
+            {props.children}
+        </div>
+    );
 };
 
 export type BrandedCardContainerProps = {

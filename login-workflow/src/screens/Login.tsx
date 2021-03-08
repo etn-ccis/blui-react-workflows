@@ -104,7 +104,12 @@ export const Login: React.FC = () => {
     const { t } = useLanguageLocale();
     const authUIActions = useAccountUIActions();
     const authUIState = useAccountUIState();
-    const authProps = useInjectedUIContext();
+    const {
+        showRememberMe = true,
+        allowDebugMode = false,
+        showSelfRegistration = true,
+        projectImage,
+    } = useInjectedUIContext();
     const { routes } = useRoutes();
     const theme = useTheme();
     const classes = useStyles();
@@ -112,8 +117,12 @@ export const Login: React.FC = () => {
     const passwordField = useRef<any>(null);
 
     // Local State
-    const [rememberPassword, setRememberPassword] = React.useState(securityState.rememberMeDetails.rememberMe ?? false);
-    const [emailInput, setEmailInput] = React.useState(securityState.rememberMeDetails.email ?? '');
+    const [rememberPassword, setRememberPassword] = React.useState(
+        showRememberMe ? securityState.rememberMeDetails.rememberMe ?? false : false
+    );
+    const [emailInput, setEmailInput] = React.useState(
+        showRememberMe ? securityState.rememberMeDetails.email ?? '' : ''
+    );
     const [passwordInput, setPasswordInput] = React.useState('');
 
     const [hasAcknowledgedError, setHasAcknowledgedError] = React.useState(false);
@@ -121,8 +130,8 @@ export const Login: React.FC = () => {
 
     const loginTapped = useCallback((): void => {
         setHasAcknowledgedError(false);
-        void authUIActions.actions.logIn(emailInput, passwordInput, rememberPassword);
-    }, [setHasAcknowledgedError, authUIActions, emailInput, passwordInput, rememberPassword]);
+        void authUIActions.actions.logIn(emailInput, passwordInput, showRememberMe ? rememberPassword : false);
+    }, [setHasAcknowledgedError, authUIActions, emailInput, passwordInput, rememberPassword, showRememberMe]);
 
     const transitState = authUIState.login;
 
@@ -131,7 +140,6 @@ export const Login: React.FC = () => {
 
     useEffect(
         () => {
-            //@ts-ignore can remove this after a new shared auth package is published
             authUIActions.dispatch(AccountActions.resetLogin());
         },
         [] // eslint-disable-line react-hooks/exhaustive-deps
@@ -156,10 +164,9 @@ export const Login: React.FC = () => {
         </Typography>
     );
 
-    const showSelfRegistration = authProps.showSelfRegistration ?? true; // enabled by default
-
     let createAccountOption: JSX.Element = <></>;
     if (showSelfRegistration || debugMode) {
+        // TODO should we disable in debug mode?
         createAccountOption = (
             <Typography variant="body2" color={'primary'} style={{ marginBottom: theme.spacing(4) }}>
                 <Link className={classes.link} to={routes.REGISTER_SELF}>
@@ -170,7 +177,6 @@ export const Login: React.FC = () => {
     }
 
     // Create buttons and links for debug mode
-    const allowDebugMode = authProps.allowDebugMode ?? false; // don't allow debug mode by default
     let debugButton: JSX.Element = <></>;
     if (allowDebugMode) {
         debugButton = (
@@ -228,11 +234,7 @@ export const Login: React.FC = () => {
             >
                 <div className={classes.formContent}>
                     <div style={{ marginBottom: theme.spacing(6) }}>
-                        <img
-                            className={classes.productLogo}
-                            src={authProps.projectImage || stackedEatonLogo}
-                            alt="logo"
-                        />
+                        <img className={classes.productLogo} src={projectImage || stackedEatonLogo} alt="logo" />
                     </div>
 
                     {debugMessage}
@@ -272,23 +274,25 @@ export const Login: React.FC = () => {
                         justify="space-between"
                         className={classes.buttonRow}
                     >
-                        <FormControlLabel
-                            control={
-                                <Checkbox
-                                    color="primary"
-                                    checked={rememberPassword}
-                                    onChange={(evt): void => setRememberPassword(evt.target.checked)}
-                                />
-                            }
-                            label={t('ACTIONS.REMEMBER')}
-                        />
+                        {showRememberMe && (
+                            <FormControlLabel
+                                control={
+                                    <Checkbox
+                                        color="primary"
+                                        checked={rememberPassword}
+                                        onChange={(evt): void => setRememberPassword(evt.target.checked)}
+                                    />
+                                }
+                                label={t('ACTIONS.REMEMBER')}
+                            />
+                        )}
                         <Button
                             type="submit"
                             variant="contained"
                             disableElevation
                             disabled={!EMAIL_REGEX.test(emailInput) || !passwordInput}
                             color="primary"
-                            style={{ width: 150 }}
+                            style={{ width: showRememberMe ? 150 : '100%' }}
                             onClick={loginTapped}
                         >
                             {t('ACTIONS.LOG_IN')}
