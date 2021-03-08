@@ -108,7 +108,7 @@ export const Login: React.FC = () => {
         showRememberMe = true,
         allowDebugMode = false,
         showSelfRegistration = true,
-        showForgotPassword = true,
+        enableResetPassword = true,
         showContactSupport = true,
         projectImage,
     } = useInjectedUIContext();
@@ -136,7 +136,7 @@ export const Login: React.FC = () => {
     }, [setHasAcknowledgedError, authUIActions, emailInput, passwordInput, rememberPassword, showRememberMe]);
 
     const transitState = authUIState.login;
-    const showLinks = showSelfRegistration || showForgotPassword || showContactSupport;
+    const showLinks = showSelfRegistration || enableResetPassword || showContactSupport;
 
     const hasTransitError = authUIState.login.transitErrorMessage !== null;
     const transitErrorMessage = authUIState.login.transitErrorMessage ?? t('MESSAGES.REQUEST_ERROR');
@@ -170,7 +170,7 @@ export const Login: React.FC = () => {
     );
 
     let createAccountOption: JSX.Element = <></>;
-    if (showSelfRegistration || debugMode) {
+    if (showSelfRegistration) {
         // TODO should we disable in debug mode?
         createAccountOption = (
             <Typography variant="body2" color={'primary'} style={{ marginBottom: theme.spacing(4) }}>
@@ -205,27 +205,35 @@ export const Login: React.FC = () => {
         );
     }
 
-    let testForgotPasswordDeepLinkButton: JSX.Element = <></>;
-    if (debugMode) {
-        testForgotPasswordDeepLinkButton = (
-            <Typography variant="body2">
-                <Link className={classes.link} to={`${routes.RESET_PASSWORD}?code=DEBUG_VALIDATION_CODE_DEADBEEF`}>
-                    [Test Forgot Password Email]
-                </Link>
-            </Typography>
-        );
-    }
-
-    let testInviteRegisterButton: JSX.Element = <></>;
-    if (debugMode) {
-        testInviteRegisterButton = (
+    const debugLinks = !debugMode ? null : (
+        <div className={classes.linksWrapper}>
             <Typography variant="body2">
                 <Link className={classes.link} to={`${routes.REGISTER_INVITE}?code=DEBUG_VALIDATION_CODE_DEADBEEF`}>
                     [Test Invite Register]
                 </Link>
             </Typography>
-        );
-    }
+            <Typography variant="body2">
+                <Link className={classes.link} to={routes.REGISTER_SELF}>
+                    [Test Self Register]
+                </Link>
+            </Typography>
+            <Typography variant="body2">
+                <Link className={classes.link} to={`${routes.FORGOT_PASSWORD}`}>
+                    [Test Forgot Password]
+                </Link>
+            </Typography>
+            <Typography variant="body2">
+                <Link className={classes.link} to={`${routes.RESET_PASSWORD}?code=DEBUG_VALIDATION_CODE_DEADBEEF`}>
+                    [Test Reset Password Email]
+                </Link>
+            </Typography>
+            <Typography variant="body2">
+                <Link className={classes.link} to={`${routes.SUPPORT}`}>
+                    [Test Contact Support]
+                </Link>
+            </Typography>
+        </div>
+    );
 
     return (
         <BrandedCardContainer loading={transitState.transitInProgress}>
@@ -243,6 +251,7 @@ export const Login: React.FC = () => {
                     </div>
 
                     {debugMessage}
+                    {debugLinks}
 
                     <TextField
                         label={t('LABELS.EMAIL')}
@@ -305,10 +314,7 @@ export const Login: React.FC = () => {
                     </Grid>
 
                     <div className={showLinks ? classes.linksWrapper : undefined}>
-                        {testForgotPasswordDeepLinkButton}
-                        {testInviteRegisterButton}
-
-                        {showForgotPassword && (
+                        {enableResetPassword && (
                             <Typography variant="body2" color={'primary'}>
                                 <Link className={classes.link} to={routes.FORGOT_PASSWORD}>
                                     {t('LABELS.FORGOT_PASSWORD')}
@@ -318,7 +324,7 @@ export const Login: React.FC = () => {
                         {(showContactSupport || showSelfRegistration) && (
                             <Typography
                                 variant="body2"
-                                style={{ marginTop: showForgotPassword ? theme.spacing(4) : 0 }}
+                                style={{ marginTop: enableResetPassword ? theme.spacing(4) : 0 }}
                             >
                                 {t('LABELS.NEED_ACCOUNT')}
                             </Typography>
