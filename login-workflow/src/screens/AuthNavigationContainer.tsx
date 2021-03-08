@@ -51,7 +51,7 @@ const prefixRoutes = (routes: RouteConfig): { routes: Required<RouteConfig>; rou
  * if desired
  *
  * @param routeConfig Specifies the mapping of screens to URLs
- * @param extraRoutes Specifies additional routes that should be accessible without logging in TODO Document this
+ * @param extraRoutes Specifies additional routes that should be accessible without logging in
  * @param children Main application content.
  *
  * @category Component
