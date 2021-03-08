@@ -110,7 +110,10 @@ export const Login: React.FC = () => {
         showSelfRegistration = true,
         enableResetPassword = true,
         showContactSupport = true,
+        showCybersecurityBadge = true,
         projectImage,
+        loginFooter,
+        loginHeader,
     } = useInjectedUIContext();
     const { routes } = useRoutes();
     const theme = useTheme();
@@ -171,7 +174,6 @@ export const Login: React.FC = () => {
 
     let createAccountOption: JSX.Element = <></>;
     if (showSelfRegistration) {
-        // TODO should we disable in debug mode?
         createAccountOption = (
             <Typography variant="body2" color={'primary'} style={{ marginBottom: theme.spacing(4) }}>
                 <Link className={classes.link} to={routes.REGISTER_SELF}>
@@ -246,9 +248,11 @@ export const Login: React.FC = () => {
                 }}
             >
                 <div className={classes.formContent}>
-                    <div style={{ marginBottom: theme.spacing(6) }}>
-                        <img className={classes.productLogo} src={projectImage || stackedEatonLogo} alt="logo" />
-                    </div>
+                    {loginHeader || (
+                        <div style={{ marginBottom: theme.spacing(6) }}>
+                            <img className={classes.productLogo} src={projectImage || stackedEatonLogo} alt="logo" />
+                        </div>
+                    )}
 
                     {debugMessage}
                     {debugLinks}
@@ -333,7 +337,10 @@ export const Login: React.FC = () => {
                         {createAccountOption}
                         {contactEatonRepresentative}
                     </div>
-                    <img src={cyberBadge} className={classes.cyberBadge} alt="CyberSecurity Certification Badge" />
+                    {loginFooter}
+                    {showCybersecurityBadge && (
+                        <img src={cyberBadge} className={classes.cyberBadge} alt="CyberSecurity Certification Badge" />
+                    )}
                 </div>
             </form>
         </BrandedCardContainer>

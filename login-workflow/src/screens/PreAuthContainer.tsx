@@ -24,7 +24,6 @@ export const PreAuthContainer: React.FC = () => {
         enableResetPassword = true,
         showContactSupport = true,
         enableInviteRegistration = true,
-        enableResetPassword = true,
         showSelfRegistration = true,
     } = useInjectedUIContext();
 
