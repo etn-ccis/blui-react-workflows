@@ -1,6 +1,17 @@
 import React, { useEffect, useRef, useState } from 'react';
-import { TextField } from '@material-ui/core';
+import { makeStyles, createStyles, TextField, Theme } from '@material-ui/core';
 import { AccountDetailsFormProps } from '@pxblue/react-auth-workflow';
+
+export const useStyles = makeStyles((theme: Theme) =>
+    createStyles({
+        textField: {
+            marginTop: theme.spacing(4),
+            [theme.breakpoints.down('xs')]: {
+                marginTop: theme.spacing(3),
+            },
+        },
+    })
+);
 
 export const CustomDetailsScreen: React.FC<AccountDetailsFormProps> = (props) => {
     const { onDetailsChanged, initialDetails, onSubmit } = props;
@@ -10,32 +21,39 @@ export const CustomDetailsScreen: React.FC<AccountDetailsFormProps> = (props) =>
     const countryRef = useRef<any>(null);
     const currencyRef = useRef<any>(null);
 
+    const styles = useStyles();
+
     useEffect((): void => {
         // validation checks
         const valid = country !== '';
         onDetailsChanged({ country, currency }, valid);
+        // eslint-disable-next-line react-hooks/exhaustive-deps
     }, [currency, country]); // Do NOT include onDetailsChanged in the dependencies array here or you will run into an infinite loop of updates
 
     return (
         <>
             <TextField
+                fullWidth
+                variant={'filled'}
                 inputRef={countryRef}
                 label={'Country'}
                 value={country}
-                onChange={(evt) => setCountry(evt.target.value)}
-                variant={'filled'}
                 placeholder={'Enter your favorite country'}
+                className={styles.textField}
+                onChange={(evt) => setCountry(evt.target.value)}
                 onKeyPress={(e): void => {
                     if (e.key === 'Enter' && currencyRef.current) currencyRef.current.focus();
                 }}
             />
             <TextField
+                fullWidth
+                variant={'filled'}
                 inputRef={currencyRef}
                 label={'Currency (Optional)'}
                 value={currency}
-                onChange={(evt) => setCurrency(evt.target.value)}
-                variant={'filled'}
                 placeholder={'Enter your favorite currency'}
+                className={styles.textField}
+                onChange={(evt) => setCurrency(evt.target.value)}
                 onKeyPress={(e): void => {
                     if (e.key === 'Enter' && onSubmit) onSubmit();
                 }}
@@ -52,30 +70,37 @@ export const CustomDetailsScreenTwo: React.FC<AccountDetailsFormProps> = (props)
     const companyRef = useRef<any>(null);
     const roleRef = useRef<any>(null);
 
+    const styles = useStyles();
+
     useEffect((): void => {
         onDetailsChanged({ company, role }, true);
+        // eslint-disable-next-line react-hooks/exhaustive-deps
     }, [role, company]); // Do NOT include onDetailsChanged in the dependencies array here or you will run into an infinite loop of updates
 
     return (
         <>
             <TextField
+                fullWidth
+                variant={'filled'}
                 inputRef={companyRef}
                 label={'Company'}
                 value={company}
-                onChange={(evt) => setCompany(evt.target.value)}
-                variant={'filled'}
                 placeholder={'Where do you work?'}
+                className={styles.textField}
+                onChange={(evt) => setCompany(evt.target.value)}
                 onKeyPress={(e): void => {
                     if (e.key === 'Enter' && roleRef.current) roleRef.current.focus();
                 }}
             />
             <TextField
+                fullWidth
+                variant={'filled'}
                 inputRef={roleRef}
                 label={'Job Title'}
                 value={role}
-                onChange={(evt) => setRole(evt.target.value)}
-                variant={'filled'}
                 placeholder={'Enter your job title'}
+                className={styles.textField}
+                onChange={(evt) => setRole(evt.target.value)}
                 onKeyPress={(e): void => {
                     if (e.key === 'Enter' && onSubmit) onSubmit();
                 }}
