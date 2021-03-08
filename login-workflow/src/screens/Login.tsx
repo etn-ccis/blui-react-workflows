@@ -108,6 +108,7 @@ export const Login: React.FC = () => {
         showRememberMe = true,
         allowDebugMode = false,
         showSelfRegistration = true,
+        showForgotPassword = true,
         projectImage,
     } = useInjectedUIContext();
     const { routes } = useRoutes();
@@ -303,12 +304,14 @@ export const Login: React.FC = () => {
                         {testForgotPasswordDeepLinkButton}
                         {testInviteRegisterButton}
 
-                        <Typography variant="body2" color={'primary'}>
-                            <Link className={classes.link} to={routes.FORGOT_PASSWORD}>
-                                {t('LABELS.FORGOT_PASSWORD')}
-                            </Link>
-                        </Typography>
-                        <Typography variant="body2" style={{ marginTop: theme.spacing(4) }}>
+                        {showForgotPassword && (
+                            <Typography variant="body2" color={'primary'}>
+                                <Link className={classes.link} to={routes.FORGOT_PASSWORD}>
+                                    {t('LABELS.FORGOT_PASSWORD')}
+                                </Link>
+                            </Typography>
+                        )}
+                        <Typography variant="body2" style={{ marginTop: showForgotPassword ? theme.spacing(4) : 0 }}>
                             {t('LABELS.NEED_ACCOUNT')}
                         </Typography>
 

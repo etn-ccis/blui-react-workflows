@@ -33,13 +33,12 @@ export const AuthUIConfiguration: React.FC = (props) => {
                 backgroundSize: '50%',
             }}
             showRememberMe={false}
+            showForgotPassword={false}
             // TODO
             // enableInviteRegistration
-            // showForgotPassword
+            //
             // showContactSupport
             // enableResetPassword
-            // showRememberMe
-            //
             // emailValidator
             // eulaScrollLock
         >
