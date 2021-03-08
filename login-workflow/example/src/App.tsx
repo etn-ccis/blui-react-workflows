@@ -34,6 +34,7 @@ export const AuthUIConfiguration: React.FC = (props) => {
             }}
             showRememberMe={false}
             showForgotPassword={false}
+            showContactSupport={false}
             // TODO
             // enableInviteRegistration
             //

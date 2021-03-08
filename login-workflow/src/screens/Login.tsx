@@ -109,6 +109,7 @@ export const Login: React.FC = () => {
         allowDebugMode = false,
         showSelfRegistration = true,
         showForgotPassword = true,
+        showContactSupport = true,
         projectImage,
     } = useInjectedUIContext();
     const { routes } = useRoutes();
@@ -135,6 +136,7 @@ export const Login: React.FC = () => {
     }, [setHasAcknowledgedError, authUIActions, emailInput, passwordInput, rememberPassword, showRememberMe]);
 
     const transitState = authUIState.login;
+    const showLinks = showSelfRegistration || showForgotPassword || showContactSupport;
 
     const hasTransitError = authUIState.login.transitErrorMessage !== null;
     const transitErrorMessage = authUIState.login.transitErrorMessage ?? t('MESSAGES.REQUEST_ERROR');
@@ -157,12 +159,14 @@ export const Login: React.FC = () => {
             }}
         />
     );
-    const contactEatonRepresentative: JSX.Element = (
+    const contactEatonRepresentative: JSX.Element = showContactSupport ? (
         <Typography variant="body2" color={'primary'}>
             <Link className={classes.link} to={routes.SUPPORT}>
                 {t('MESSAGES.CONTACT')}
             </Link>
         </Typography>
+    ) : (
+        <></>
     );
 
     let createAccountOption: JSX.Element = <></>;
@@ -300,7 +304,7 @@ export const Login: React.FC = () => {
                         </Button>
                     </Grid>
 
-                    <div className={classes.linksWrapper}>
+                    <div className={showLinks ? classes.linksWrapper : undefined}>
                         {testForgotPasswordDeepLinkButton}
                         {testInviteRegisterButton}
 
@@ -311,9 +315,14 @@ export const Login: React.FC = () => {
                                 </Link>
                             </Typography>
                         )}
-                        <Typography variant="body2" style={{ marginTop: showForgotPassword ? theme.spacing(4) : 0 }}>
-                            {t('LABELS.NEED_ACCOUNT')}
-                        </Typography>
+                        {(showContactSupport || showSelfRegistration) && (
+                            <Typography
+                                variant="body2"
+                                style={{ marginTop: showForgotPassword ? theme.spacing(4) : 0 }}
+                            >
+                                {t('LABELS.NEED_ACCOUNT')}
+                            </Typography>
+                        )}
 
                         {createAccountOption}
                         {contactEatonRepresentative}

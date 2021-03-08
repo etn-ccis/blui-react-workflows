@@ -20,7 +20,7 @@ export const PreAuthContainer: React.FC = () => {
     const securityState = useSecurityState();
     const { routes } = useRoutes();
     const location = useLocation();
-    const { showForgotPassword = true } = useInjectedUIContext();
+    const { showForgotPassword = true, showContactSupport = true } = useInjectedUIContext();
 
     // If the user is authenticated, redirect back to wherever they came from (or the home page)
     if (securityState.isAuthenticatedUser) {
@@ -32,15 +32,19 @@ export const PreAuthContainer: React.FC = () => {
     return (
         <Switch>
             <Route exact path={routes.LOGIN} component={Login} />
-            {showForgotPassword ? (
-                <Route exact path={routes.FORGOT_PASSWORD} component={ForgotPassword} />
-            ) : (
-                <Redirect to={routes.LOGIN} />
-            )}
+            <Route
+                exact
+                path={routes.FORGOT_PASSWORD}
+                component={showForgotPassword ? ForgotPassword : (): JSX.Element => <Redirect to={routes.LOGIN} />}
+            />
             <Route exact path={routes.RESET_PASSWORD} component={ResetPassword} />
             <Route exact path={routes.REGISTER_INVITE} component={InviteRegistrationPager} />
             <Route exact path={routes.REGISTER_SELF} component={SelfRegistrationPager} />
-            <Route exact path={routes.SUPPORT} component={ContactSupport} />
+            <Route
+                exact
+                path={routes.SUPPORT}
+                component={showContactSupport ? ContactSupport : (): JSX.Element => <Redirect to={routes.LOGIN} />}
+            />
         </Switch>
     );
 };
