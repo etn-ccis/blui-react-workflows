@@ -17,7 +17,7 @@ You will probably want to call your project something other than 'example'. Rena
 
 #### Configure AuthUIContextProvider
 
-Open the root app file (`App.tsx`) and adjust the configuration options of the `AuthUIContextProvider` as necessary for your project (refer to the [Readme](https://github.com/pxblue/react-workflows/tree/master/login-workflow/README.md)). As a suggestion, you may want to swap out the example image with a product logo for your project.
+Open the root app file (`App.tsx`) and adjust the configuration options of the `AuthUIContextProvider` as necessary for your project. The various configuration options are explained in more detail in the [API](https://github.com/pxblue/react-workflows/tree/master/login-workflow/docs/API.md) documentation. As a suggestion, you may want to swap out the example image with a product logo for your project.
 
 
 #### Implement AuthUIActions and RegistrationUIActions

@@ -10,8 +10,12 @@ import { ProjectAuthUIActions } from './actions/AuthUIActions';
 import { ProjectRegistrationUIActions } from './actions/RegistrationUIActions';
 import { ExampleHome } from './screens/ExampleHome';
 import { routes } from './navigation/Routing';
+
 import productLogo from './assets/images/eaton_stacked_logo.png';
 import { CustomDetailsScreen, CustomDetailsScreenTwo } from './components/CustomDetailsScreen';
+// import topology from './assets/images/topology.png';
+// import { Typography } from '@material-ui/core';
+// import { Link, Route } from 'react-router-dom';
 
 export const AuthUIConfiguration: React.FC = (props) => {
     const securityContextActions = useSecurityActions();
@@ -27,6 +31,27 @@ export const AuthUIConfiguration: React.FC = (props) => {
             contactPhone={'1-800-123-4567'}
             projectImage={productLogo}
             customAccountDetails={[null, CustomDetailsScreen, CustomDetailsScreenTwo]}
+            // background={{
+            //     backgroundImage: `url(${topology})`,
+            //     backgroundColor: 'orange',
+            //     backgroundSize: '50%',
+            // }}
+            // showRememberMe={false}
+            // showContactSupport={false}
+            // enableResetPassword={false}
+            // enableInviteRegistration={true}
+            // showCybersecurityBadge={false}
+            // loginFooter={
+            //     <>
+            //         <Typography variant="body2" color={'primary'}>
+            //             <Link to={'/fake-route'}>GO SOMEWHERE</Link>
+            //         </Typography>
+            //         <Typography variant="body2" color={'primary'}>
+            //             <Link to={'/fake-route-two'}>GO SOMEWHERE 2</Link>
+            //         </Typography>
+            //     </>
+            // }
+            // loginHeader={<Typography>My Project</Typography>}
         >
             {props.children}
         </AuthUIContextProvider>
@@ -36,7 +61,19 @@ export const AuthUIConfiguration: React.FC = (props) => {
 export const App: React.FC = () => (
     <SecurityContextProvider>
         <AuthUIConfiguration>
-            <AuthNavigationContainer routeConfig={routes}>
+            <AuthNavigationContainer
+                // extraRoutes={
+                //     <>
+                //         <Route path={'/fake-route'}>
+                //             <Typography>FAKE ROUTE</Typography>
+                //         </Route>
+                //         <Route path={'/fake-route-two'}>
+                //             <Typography>FAKE ROUTE TWO</Typography>
+                //         </Route>
+                //     </>
+                // }
+                routeConfig={routes}
+            >
                 <ExampleHome />
             </AuthNavigationContainer>
         </AuthUIConfiguration>
