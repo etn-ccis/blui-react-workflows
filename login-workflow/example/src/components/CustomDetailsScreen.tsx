@@ -40,7 +40,7 @@ export const CustomDetailsScreen: React.FC<AccountDetailsFormProps> = (props) =>
                 value={country}
                 placeholder={'Enter your favorite country'}
                 className={styles.textField}
-                onChange={(evt) => setCountry(evt.target.value)}
+                onChange={(evt): void => setCountry(evt.target.value)}
                 onKeyPress={(e): void => {
                     if (e.key === 'Enter' && currencyRef.current) currencyRef.current.focus();
                 }}
@@ -53,7 +53,7 @@ export const CustomDetailsScreen: React.FC<AccountDetailsFormProps> = (props) =>
                 value={currency}
                 placeholder={'Enter your favorite currency'}
                 className={styles.textField}
-                onChange={(evt) => setCurrency(evt.target.value)}
+                onChange={(evt): void => setCurrency(evt.target.value)}
                 onKeyPress={(e): void => {
                     if (e.key === 'Enter' && onSubmit) onSubmit();
                 }}
@@ -87,7 +87,7 @@ export const CustomDetailsScreenTwo: React.FC<AccountDetailsFormProps> = (props)
                 value={company}
                 placeholder={'Where do you work?'}
                 className={styles.textField}
-                onChange={(evt) => setCompany(evt.target.value)}
+                onChange={(evt): void => setCompany(evt.target.value)}
                 onKeyPress={(e): void => {
                     if (e.key === 'Enter' && roleRef.current) roleRef.current.focus();
                 }}
@@ -100,7 +100,7 @@ export const CustomDetailsScreenTwo: React.FC<AccountDetailsFormProps> = (props)
                 value={role}
                 placeholder={'Enter your job title'}
                 className={styles.textField}
-                onChange={(evt) => setRole(evt.target.value)}
+                onChange={(evt): void => setRole(evt.target.value)}
                 onKeyPress={(e): void => {
                     if (e.key === 'Enter' && onSubmit) onSubmit();
                 }}

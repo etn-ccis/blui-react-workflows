@@ -139,11 +139,17 @@ export const InviteRegistrationPager: React.FC = () => {
     // Make the call to the register API
     const attemptRegistration = useCallback(async (): Promise<void> => {
         setHasAcknowledgedError(false);
+
+        let flattenedDetails = {};
+        Object.keys(customAccountDetails).forEach((key) => {
+            flattenedDetails = { ...flattenedDetails, ...customAccountDetails[parseInt(key, 10)].values };
+        });
+
         try {
             await registrationActions.actions.completeRegistration(
                 {
                     password: password,
-                    accountDetails: { ...(accountDetails ?? emptyAccountDetailInformation), ...customAccountDetails },
+                    accountDetails: { ...(accountDetails ?? emptyAccountDetailInformation), ...flattenedDetails },
                 },
                 validationCode,
                 validationEmail

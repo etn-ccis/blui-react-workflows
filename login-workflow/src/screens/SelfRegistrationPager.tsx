@@ -164,11 +164,17 @@ export const SelfRegistrationPager: React.FC = () => {
     // Call the API to finish registration
     const attemptRegistration = useCallback(async (): Promise<void> => {
         setHasAcknowledgedError(false);
+
+        let flattenedDetails = {};
+        Object.keys(customAccountDetails).forEach((key) => {
+            flattenedDetails = { ...flattenedDetails, ...customAccountDetails[parseInt(key, 10)].values };
+        });
+
         try {
             await registrationActions.actions.completeRegistration(
                 {
                     password: password,
-                    accountDetails: accountDetails ?? emptyAccountDetailInformation,
+                    accountDetails: { ...(accountDetails ?? emptyAccountDetailInformation), ...flattenedDetails },
                 },
                 verificationCode,
                 email
@@ -176,7 +182,15 @@ export const SelfRegistrationPager: React.FC = () => {
         } catch {
             // do nothing
         }
-    }, [setHasAcknowledgedError, registrationActions, password, accountDetails, verificationCode, email]);
+    }, [
+        setHasAcknowledgedError,
+        registrationActions,
+        password,
+        accountDetails,
+        customAccountDetails,
+        verificationCode,
+        email,
+    ]);
 
     // Define the pages in the workflow
     const customDetails = injectedUIContext.customAccountDetails || [];
