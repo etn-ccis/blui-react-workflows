@@ -38,7 +38,6 @@ enum Pages {
 export const emptyAccountDetailInformation: AccountDetailInformation = {
     firstName: '',
     lastName: '',
-    phone: '',
 };
 
 /**

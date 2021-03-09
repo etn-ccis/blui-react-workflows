@@ -1,5 +1,5 @@
-import React from 'react';
-import { useSecurityState } from '@pxblue/react-auth-shared';
+import React, { useCallback } from 'react';
+import { useInjectedUIContext, useSecurityState } from '@pxblue/react-auth-shared';
 import { useRoutes } from '../contexts/RoutingContext';
 import { Switch, Route, Redirect, useLocation } from 'react-router-dom';
 
@@ -20,6 +20,14 @@ export const PreAuthContainer: React.FC = () => {
     const securityState = useSecurityState();
     const { routes } = useRoutes();
     const location = useLocation();
+    const {
+        enableResetPassword = true,
+        showContactSupport = true,
+        enableInviteRegistration = true,
+        showSelfRegistration = true,
+    } = useInjectedUIContext();
+
+    const RedirectToLogin = useCallback((): JSX.Element => <Redirect to={routes.LOGIN} />, [routes]);
 
     // If the user is authenticated, redirect back to wherever they came from (or the home page)
     if (securityState.isAuthenticatedUser) {
@@ -31,11 +39,27 @@ export const PreAuthContainer: React.FC = () => {
     return (
         <Switch>
             <Route exact path={routes.LOGIN} component={Login} />
-            <Route exact path={routes.FORGOT_PASSWORD} component={ForgotPassword} />
-            <Route exact path={routes.RESET_PASSWORD} component={ResetPassword} />
-            <Route exact path={routes.REGISTER_INVITE} component={InviteRegistrationPager} />
-            <Route exact path={routes.REGISTER_SELF} component={SelfRegistrationPager} />
-            <Route exact path={routes.SUPPORT} component={ContactSupport} />
+            <Route
+                exact
+                path={routes.FORGOT_PASSWORD}
+                component={enableResetPassword ? ForgotPassword : RedirectToLogin}
+            />
+            <Route
+                exact
+                path={routes.RESET_PASSWORD}
+                component={enableResetPassword ? ResetPassword : RedirectToLogin}
+            />
+            <Route
+                exact
+                path={routes.REGISTER_INVITE}
+                component={enableInviteRegistration ? InviteRegistrationPager : RedirectToLogin}
+            />
+            <Route
+                exact
+                path={routes.REGISTER_SELF}
+                component={showSelfRegistration ? SelfRegistrationPager : RedirectToLogin}
+            />
+            <Route exact path={routes.SUPPORT} component={showContactSupport ? ContactSupport : RedirectToLogin} />
         </Switch>
     );
 };
