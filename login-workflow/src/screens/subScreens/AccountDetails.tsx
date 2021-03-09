@@ -24,17 +24,15 @@ export const AccountDetails: React.FC<AccountDetailsProps> = (props) => {
 
     const firstRef = useRef<any>(null);
     const lastRef = useRef<any>(null);
-    const phoneRef = useRef<any>(null);
 
     const [firstNameInput, setFirstNameInput] = React.useState(initialDetails ? initialDetails.firstName : '');
     const [lastNameInput, setLastNameInput] = React.useState(initialDetails ? initialDetails.lastName : '');
-    const [phoneInput, setPhoneInput] = React.useState(initialDetails ? initialDetails.phone : '');
 
     useEffect((): void => {
         // validation checks
         const valid = firstNameInput !== '' && lastNameInput !== '';
-        onDetailsChanged({ firstName: firstNameInput, lastName: lastNameInput, phone: phoneInput, valid });
-    }, [onDetailsChanged, firstNameInput, lastNameInput, phoneInput]);
+        onDetailsChanged({ firstName: firstNameInput, lastName: lastNameInput, valid });
+    }, [onDetailsChanged, firstNameInput, lastNameInput]);
 
     return (
         <>
@@ -62,21 +60,6 @@ export const AccountDetails: React.FC<AccountDetailsProps> = (props) => {
                 value={lastNameInput}
                 onChange={(evt): void => {
                     setLastNameInput(evt.target.value);
-                }}
-                onKeyPress={(e): void => {
-                    if (e.key === 'Enter' && phoneRef.current) phoneRef.current.focus();
-                }}
-                variant="filled"
-                className={classes.textField}
-            />
-            <TextField
-                inputRef={phoneRef}
-                id="phone"
-                label={`${t('FORMS.PHONE_NUMBER')} (${t('LABELS.OPTIONAL')})`}
-                fullWidth
-                value={phoneInput}
-                onChange={(evt): void => {
-                    setPhoneInput(evt.target.value);
                 }}
                 onKeyPress={(e): void => {
                     if (e.key === 'Enter' && onSubmit) onSubmit();

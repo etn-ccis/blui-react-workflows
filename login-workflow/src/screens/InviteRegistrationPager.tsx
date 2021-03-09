@@ -33,23 +33,7 @@ import { ExistingAccountComplete } from './subScreens/ExistingAccountComplete';
 import Error from '@material-ui/icons/Error';
 import { useDialogStyles } from '../styles';
 import clsx from 'clsx';
-
-type RegistrationPage = {
-    name: string;
-    pageTitle: string;
-    pageBody: JSX.Element;
-    canGoForward: boolean;
-    canGoBack: boolean;
-};
-
-type CustomRegistrationDetailsGroup = {
-    [key: number]: {
-        values: {
-            [key: string]: string | number | boolean;
-        };
-        valid: boolean;
-    };
-};
+import { CustomRegistrationDetailsGroup, RegistrationPage } from '../types';
 
 /**
  * Container component that manages the transition between screens for the
@@ -177,17 +161,9 @@ export const InviteRegistrationPager: React.FC = () => {
         validationEmail,
     ]);
 
-    // const updateCustomDetails = (details) => {
-    //     setCustomAccountDetails({...customAccountDetails, [index]: {values: details, valid: valid}})
-    // }
-
     const customDetails = injectedUIContext.customAccountDetails || [];
     const FirstCustomPage: ComponentType<AccountDetailsFormProps> | null =
         customDetails.length > 0 ? customDetails[0] : null;
-
-    // TODO Remove this
-    // eslint-disable-next-line no-console
-    console.log(customAccountDetails);
 
     const RegistrationPages: RegistrationPage[] = [
         {
