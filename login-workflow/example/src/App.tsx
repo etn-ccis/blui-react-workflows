@@ -12,7 +12,7 @@ import { ExampleHome } from './screens/ExampleHome';
 import { routes } from './navigation/Routing';
 
 import productLogo from './assets/images/eaton_stacked_logo.png';
-import { CustomDetailsScreen, CustomDetailsScreenTwo } from './components/CustomDetailsScreen';
+// import { CustomDetailsScreen, CustomDetailsScreenTwo } from './components/CustomDetailsScreen';
 // import topology from './assets/images/topology.png';
 // import { Typography } from '@material-ui/core';
 // import { Link, Route } from 'react-router-dom';
@@ -30,7 +30,7 @@ export const AuthUIConfiguration: React.FC = (props) => {
             contactEmail={'something@email.com'}
             contactPhone={'1-800-123-4567'}
             projectImage={productLogo}
-            customAccountDetails={[null, CustomDetailsScreen, CustomDetailsScreenTwo]}
+            // customAccountDetails={[null, CustomDetailsScreen, CustomDetailsScreenTwo]}
             // background={{
             //     backgroundImage: `url(${topology})`,
             //     backgroundColor: 'orange',

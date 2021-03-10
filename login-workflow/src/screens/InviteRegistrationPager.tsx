@@ -27,7 +27,7 @@ import { BrandedCardContainer, FinishState, SimpleDialog } from '../components';
 import { emptyAccountDetailInformation } from './SelfRegistrationPager';
 import { AcceptEula } from './subScreens/AcceptEula';
 import { CreatePassword as CreatePasswordScreen } from './subScreens/CreatePassword';
-import { AccountDetails as AccountDetailsScreen } from './subScreens/AccountDetails';
+import { AccountDetails as AccountDetailsScreen, AccountDetailsWrapper } from './subScreens/AccountDetails';
 import { RegistrationComplete } from './subScreens/RegistrationComplete';
 import { ExistingAccountComplete } from './subScreens/ExistingAccountComplete';
 import Error from '@material-ui/icons/Error';
@@ -80,18 +80,6 @@ export const InviteRegistrationPager: React.FC = () => {
 
     // Network state (loading eula)
     const loadEulaTransitErrorMessage = registrationState.eulaTransit.transitErrorMessage;
-
-    // Pages
-    /* eslint-disable @typescript-eslint/naming-convention */
-    // enum Pages {
-    //     Eula = 0,
-    //     CreatePassword,
-    //     AccountDetails,
-    //     CustomDetails,
-    //     Complete,
-    //     __LENGTH,
-    // }
-    /* eslint-enable @typescript-eslint/naming-convention */
 
     // Reset registration and validation state on dismissal
     useEffect(
@@ -250,18 +238,22 @@ export const InviteRegistrationPager: React.FC = () => {
                         name: `CustomPage${i + 1}`,
                         pageTitle: t('REGISTRATION.STEPS.ACCOUNT_DETAILS'),
                         pageBody: (
-                            <PageComponent
-                                key={`CustomDetailsPage_${i + 1}`}
-                                onDetailsChanged={(details: CustomAccountDetails, valid: boolean): void => {
-                                    setCustomAccountDetails({
-                                        ...customAccountDetails,
-                                        [i + 1]: { values: details, valid },
-                                    });
-                                }}
-                                initialDetails={customAccountDetails[i + 1]?.values}
-                                // eslint-disable-next-line no-use-before-define
-                                onSubmit={customAccountDetails[i + 1]?.valid ? (): void => advancePage(1) : undefined}
-                            />
+                            <AccountDetailsWrapper>
+                                <PageComponent
+                                    key={`CustomDetailsPage_${i + 1}`}
+                                    onDetailsChanged={(details: CustomAccountDetails, valid: boolean): void => {
+                                        setCustomAccountDetails({
+                                            ...customAccountDetails,
+                                            [i + 1]: { values: details, valid },
+                                        });
+                                    }}
+                                    initialDetails={customAccountDetails[i + 1]?.values}
+                                    onSubmit={
+                                        // eslint-disable-next-line no-use-before-define
+                                        customAccountDetails[i + 1]?.valid ? (): void => advancePage(1) : undefined
+                                    }
+                                />
+                            </AccountDetailsWrapper>
                         ),
                         canGoForward: customAccountDetails[i + 1]?.valid,
                         canGoBack: true,
