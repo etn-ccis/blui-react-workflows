@@ -1,10 +1,12 @@
-import React, { useState, useEffect, useCallback } from 'react';
+import React, { useState, useEffect, useCallback, ComponentType } from 'react';
 import {
     useLanguageLocale,
     useRegistrationUIState,
     useRegistrationUIActions,
     useInjectedUIContext,
     AccountDetailInformation,
+    AccountDetailsFormProps,
+    CustomAccountDetails,
     RegistrationActions,
 } from '@pxblue/react-auth-shared';
 import i18n from '../translations/i18n';
@@ -25,22 +27,13 @@ import { BrandedCardContainer, FinishState, SimpleDialog } from '../components';
 import { emptyAccountDetailInformation } from './SelfRegistrationPager';
 import { AcceptEula } from './subScreens/AcceptEula';
 import { CreatePassword as CreatePasswordScreen } from './subScreens/CreatePassword';
-import { AccountDetails as AccountDetailsScreen } from './subScreens/AccountDetails';
+import { AccountDetails as AccountDetailsScreen, AccountDetailsWrapper } from './subScreens/AccountDetails';
 import { RegistrationComplete } from './subScreens/RegistrationComplete';
 import { ExistingAccountComplete } from './subScreens/ExistingAccountComplete';
 import Error from '@material-ui/icons/Error';
 import { useDialogStyles } from '../styles';
 import clsx from 'clsx';
-
-/* eslint-disable @typescript-eslint/naming-convention */
-enum Pages {
-    Eula = 0,
-    CreatePassword,
-    AccountDetails,
-    Complete,
-    __LENGTH,
-}
-/* eslint-enable @typescript-eslint/naming-convention */
+import { CustomRegistrationDetailsGroup, RegistrationPage } from '../types';
 
 /**
  * Container component that manages the transition between screens for the
@@ -67,8 +60,9 @@ export const InviteRegistrationPager: React.FC = () => {
     const [eulaAccepted, setEulaAccepted] = useState(false);
     const [password, setPassword] = useState('');
     const [accountDetails, setAccountDetails] = useState<(AccountDetailInformation & { valid: boolean }) | null>(null);
+    const [customAccountDetails, setCustomAccountDetails] = useState<CustomRegistrationDetailsGroup | null>({});
     const [eulaContent, setEulaContent] = useState<string>();
-    const [currentPage, setCurrentPage] = useState(Pages.Eula);
+    const [currentPage, setCurrentPage] = useState(0);
     const [accountAlreadyExists, setAccountAlreadyExists] = React.useState<boolean>(false);
 
     // Network state (registration)
@@ -87,10 +81,6 @@ export const InviteRegistrationPager: React.FC = () => {
     // Network state (loading eula)
     const loadEulaTransitErrorMessage = registrationState.eulaTransit.transitErrorMessage;
 
-    // Pages
-    const isLastStep = currentPage === Pages.__LENGTH - 1;
-    const isFirstStep = currentPage === 0;
-
     // Reset registration and validation state on dismissal
     useEffect(
         () => (): void => {
@@ -99,14 +89,6 @@ export const InviteRegistrationPager: React.FC = () => {
         },
         [] // eslint-disable-line react-hooks/exhaustive-deps
     );
-
-    // If we successfully register, move to the success screen
-    useEffect(() => {
-        if (currentPage === Pages.AccountDetails && registrationSuccess) {
-            setCurrentPage(Pages.Complete);
-        }
-        // eslint-disable-next-line react-hooks/exhaustive-deps
-    }, [registrationSuccess]);
 
     const validateCode = useCallback(async (): Promise<void> => {
         setHasAcknowledgedError(false);
@@ -145,11 +127,17 @@ export const InviteRegistrationPager: React.FC = () => {
     // Make the call to the register API
     const attemptRegistration = useCallback(async (): Promise<void> => {
         setHasAcknowledgedError(false);
+
+        let flattenedDetails = {};
+        Object.keys(customAccountDetails).forEach((key) => {
+            flattenedDetails = { ...flattenedDetails, ...customAccountDetails[parseInt(key, 10)].values };
+        });
+
         try {
             await registrationActions.actions.completeRegistration(
                 {
                     password: password,
-                    accountDetails: accountDetails ?? emptyAccountDetailInformation,
+                    accountDetails: { ...(accountDetails ?? emptyAccountDetailInformation), ...flattenedDetails },
                 },
                 validationCode,
                 validationEmail
@@ -157,65 +145,173 @@ export const InviteRegistrationPager: React.FC = () => {
         } catch {
             // do nothing
         }
-    }, [registrationActions, setHasAcknowledgedError, accountDetails, password, validationCode, validationEmail]);
+    }, [
+        registrationActions,
+        setHasAcknowledgedError,
+        accountDetails,
+        customAccountDetails,
+        password,
+        validationCode,
+        validationEmail,
+    ]);
+
+    const customDetails = injectedUIContext.customAccountDetails || [];
+    const FirstCustomPage: ComponentType<AccountDetailsFormProps> | null =
+        customDetails.length > 0 ? customDetails[0] : null;
+
+    const RegistrationPages: RegistrationPage[] = [
+        {
+            name: 'Eula',
+            pageTitle: t('REGISTRATION.STEPS.LICENSE'),
+            pageBody: (
+                <AcceptEula
+                    eulaAccepted={eulaAccepted}
+                    onEulaChanged={setEulaAccepted}
+                    loadEula={loadAndCacheEula}
+                    htmlEula={injectedUIContext.htmlEula ?? false}
+                    eulaError={loadEulaTransitErrorMessage}
+                    eulaContent={eulaContent}
+                />
+            ),
+            canGoForward: eulaAccepted,
+            canGoBack: false,
+        },
+        {
+            name: 'CreatePassword',
+            pageTitle: t('REGISTRATION.STEPS.PASSWORD'),
+            pageBody: (
+                <CreatePasswordScreen
+                    onPasswordChanged={setPassword}
+                    initialPassword={password}
+                    // eslint-disable-next-line no-use-before-define
+                    onSubmit={password.length > 0 ? (): void => advancePage(1) : undefined}
+                />
+            ),
+            canGoForward: password.length > 0,
+            canGoBack: true,
+        },
+        {
+            name: 'AccountDetails',
+            pageTitle: t('REGISTRATION.STEPS.ACCOUNT_DETAILS'),
+            pageBody: (
+                <>
+                    <AccountDetailsScreen
+                        onDetailsChanged={setAccountDetails}
+                        initialDetails={accountDetails}
+                        onSubmit={
+                            FirstCustomPage
+                                ? (): void => {
+                                      /* TODO Focus first field in custom page */
+                                  }
+                                : accountDetails !== null && accountDetails.valid
+                                ? // eslint-disable-next-line no-use-before-define
+                                  (): void => advancePage(1)
+                                : undefined
+                        }
+                    />
+                    {FirstCustomPage && (
+                        <FirstCustomPage
+                            onDetailsChanged={(details: CustomAccountDetails, valid: boolean): void => {
+                                setCustomAccountDetails({ ...customAccountDetails, 0: { values: details, valid } });
+                            }}
+                            initialDetails={customAccountDetails[0]?.values}
+                            // eslint-disable-next-line no-use-before-define
+                            onSubmit={customAccountDetails[0]?.valid ? (): void => advancePage(1) : undefined}
+                        />
+                    )}
+                </>
+            ),
+            canGoForward:
+                accountDetails !== null &&
+                accountDetails.valid &&
+                ((FirstCustomPage && customAccountDetails[0]?.valid) || !FirstCustomPage),
+            canGoBack: true,
+        },
+    ]
+        .concat(
+            customDetails
+                .slice(1)
+                .filter((item: ComponentType<AccountDetailsFormProps>) => item !== null)
+                .map((page: ComponentType<AccountDetailsFormProps>, i: number) => {
+                    const PageComponent = page;
+                    return {
+                        name: `CustomPage${i + 1}`,
+                        pageTitle: t('REGISTRATION.STEPS.ACCOUNT_DETAILS'),
+                        pageBody: (
+                            <AccountDetailsWrapper>
+                                <PageComponent
+                                    key={`CustomDetailsPage_${i + 1}`}
+                                    onDetailsChanged={(details: CustomAccountDetails, valid: boolean): void => {
+                                        setCustomAccountDetails({
+                                            ...customAccountDetails,
+                                            [i + 1]: { values: details, valid },
+                                        });
+                                    }}
+                                    initialDetails={customAccountDetails[i + 1]?.values}
+                                    onSubmit={
+                                        // eslint-disable-next-line no-use-before-define
+                                        customAccountDetails[i + 1]?.valid ? (): void => advancePage(1) : undefined
+                                    }
+                                />
+                            </AccountDetailsWrapper>
+                        ),
+                        canGoForward: customAccountDetails[i + 1]?.valid,
+                        canGoBack: true,
+                    };
+                })
+        )
+        .concat([
+            {
+                name: 'Complete',
+                pageTitle: t('REGISTRATION.STEPS.COMPLETE'),
+                pageBody: (
+                    <RegistrationComplete
+                        firstName={accountDetails?.firstName ?? ''}
+                        lastName={accountDetails?.lastName ?? ''}
+                        email={registrationState.inviteRegistration.email ?? t('REGISTRATION.UNKNOWN_EMAIL')}
+                        organization={
+                            registrationState.inviteRegistration.organizationName ??
+                            t('REGISTRATION.UNKNOWN_ORGANIZATION')
+                        }
+                    />
+                ),
+                canGoForward: true,
+                canGoBack: false,
+            },
+        ]);
+
+    const isLastStep = currentPage === RegistrationPages.length - 1;
+    const isFirstStep = currentPage === 0;
+
+    // If we successfully register, move to the success screen
+    useEffect(() => {
+        if (currentPage === RegistrationPages.length - 2 && registrationSuccess) {
+            setCurrentPage(RegistrationPages.length - 1);
+        }
+        // eslint-disable-next-line react-hooks/exhaustive-deps
+    }, [registrationSuccess]);
 
     // Screen transition logic
-    const canProgress = useCallback((): boolean => {
-        switch (currentPage) {
-            case Pages.Eula:
-                return eulaAccepted;
-            case Pages.CreatePassword:
-                return password.length > 0;
-            case Pages.AccountDetails:
-                return accountDetails !== null && accountDetails.valid;
-            case Pages.Complete:
-                return true;
-            default:
-                return false;
-        }
-    }, [currentPage, accountDetails, eulaAccepted, password]);
+    const canProgress = (): boolean => RegistrationPages[currentPage].canGoForward ?? false;
+    const canGoBackProgress = (): boolean => RegistrationPages[currentPage].canGoBack ?? true;
 
-    const canGoBackProgress = useCallback((): boolean => {
-        switch (currentPage) {
-            case Pages.Eula:
-                return false;
-            case Pages.Complete:
-                return false;
-            default:
-                return true;
-        }
-    }, [currentPage]);
-
-    const advancePage = useCallback(
-        (delta = 0): void => {
-            if (delta === 0) {
-                return;
-            } else if (isFirstStep && delta < 0) {
-                history.push(routes.LOGIN);
-            } else if (isLastStep && delta > 0) {
-                history.push(routes.LOGIN);
+    const advancePage = (delta = 0): void => {
+        if (delta === 0) {
+            return;
+        } else if (isFirstStep && delta < 0) {
+            history.push(routes.LOGIN);
+        } else if (isLastStep && delta > 0) {
+            history.push(routes.LOGIN);
+        } else {
+            // If this is the last user-entry step of the invite flow, it is time to make a network call
+            // Check > 0 so advancing backwards does not risk going into the completion block
+            if (currentPage === RegistrationPages.length - 2 && !registrationSuccess && canProgress() && delta > 0) {
+                void attemptRegistration();
             } else {
-                // If this is the last user-entry step of the invite flow, it is time to make a network call
-                // Check > 0 so advancing backwards does not risk going into the completion block
-                if (currentPage === Pages.AccountDetails && !registrationSuccess && canProgress() && delta > 0) {
-                    void attemptRegistration();
-                } else {
-                    setCurrentPage(currentPage + (delta as number));
-                }
+                setCurrentPage(currentPage + delta);
             }
-        },
-        [
-            routes,
-            isFirstStep,
-            history,
-            isLastStep,
-            currentPage,
-            registrationSuccess,
-            canProgress,
-            attemptRegistration,
-            setCurrentPage,
-        ]
-    );
+        }
+    };
 
     // Screen content logic
     const pageTitle = (): string => {
@@ -226,79 +322,8 @@ export const InviteRegistrationPager: React.FC = () => {
         } else if (accountAlreadyExists) {
             return t('REGISTRATION.STEPS.COMPLETE');
         }
-        switch (currentPage) {
-            case Pages.Eula:
-                return t('REGISTRATION.STEPS.LICENSE');
-            case Pages.CreatePassword:
-                return t('REGISTRATION.STEPS.PASSWORD');
-            case Pages.AccountDetails:
-                return t('REGISTRATION.STEPS.ACCOUNT_DETAILS');
-            case Pages.Complete:
-                return t('REGISTRATION.STEPS.COMPLETE');
-            default:
-                return '';
-        }
+        return RegistrationPages[currentPage].pageTitle || '';
     };
-
-    const getBody = useCallback(() => {
-        switch (currentPage) {
-            case Pages.Eula:
-                return (
-                    <AcceptEula
-                        eulaAccepted={eulaAccepted}
-                        onEulaChanged={setEulaAccepted}
-                        loadEula={loadAndCacheEula}
-                        htmlEula={injectedUIContext.htmlEula ?? false}
-                        eulaError={loadEulaTransitErrorMessage}
-                        eulaContent={eulaContent}
-                    />
-                );
-            case Pages.CreatePassword:
-                return (
-                    <CreatePasswordScreen
-                        onPasswordChanged={setPassword}
-                        initialPassword={password}
-                        onSubmit={canProgress() ? (): void => advancePage(1) : undefined}
-                    />
-                );
-            case Pages.AccountDetails:
-                return (
-                    <AccountDetailsScreen
-                        onDetailsChanged={setAccountDetails}
-                        initialDetails={accountDetails}
-                        onSubmit={canProgress() ? (): void => advancePage(1) : undefined}
-                    />
-                );
-            case Pages.Complete:
-                return (
-                    <RegistrationComplete
-                        firstName={accountDetails?.firstName ?? ''}
-                        lastName={accountDetails?.lastName ?? ''}
-                        email={registrationState.inviteRegistration.email ?? t('REGISTRATION.UNKNOWN_EMAIL')}
-                        organization={
-                            registrationState.inviteRegistration.organizationName ??
-                            t('REGISTRATION.UNKNOWN_ORGANIZATION')
-                        }
-                    />
-                );
-            default:
-                return <></>;
-        }
-    }, [
-        advancePage,
-        canProgress,
-        currentPage,
-        eulaAccepted,
-        setEulaAccepted,
-        loadAndCacheEula,
-        injectedUIContext,
-        loadEulaTransitErrorMessage,
-        eulaContent,
-        accountDetails,
-        password,
-        registrationState,
-        t,
-    ]);
 
     // Screen actions content
     let buttonArea: JSX.Element;
@@ -319,7 +344,7 @@ export const InviteRegistrationPager: React.FC = () => {
             <MobileStepper
                 variant={'dots'}
                 position={'static'}
-                steps={Pages.__LENGTH}
+                steps={RegistrationPages.length}
                 activeStep={currentPage}
                 backButton={
                     <Button
@@ -373,7 +398,9 @@ export const InviteRegistrationPager: React.FC = () => {
             />
             {!accountAlreadyExists && validationSuccess && !isValidationInTransit ? (
                 <>
-                    <CardContent className={sharedClasses.dialogContent}>{getBody()}</CardContent>
+                    <CardContent className={sharedClasses.dialogContent}>
+                        {RegistrationPages[currentPage].pageBody}
+                    </CardContent>
                     <Divider />
                     <CardActions className={sharedClasses.dialogActions}>{buttonArea}</CardActions>
                 </>

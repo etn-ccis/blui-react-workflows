@@ -1628,22 +1628,17 @@
   resolved "https://registry.yarnpkg.com/@pxblue/prettier-config/-/prettier-config-1.0.2.tgz#fb00503df6557b66c3d91d43c9101e614c35d2ec"
   integrity sha512-/3cLBoTjZs3kV1ATPA/Sp0tsL7XmlV/b8HW/qt0jqR/uP5+cdXL2YIhMXQngLRa7PhpSkEiRIYK5sl0rKsXTUg==
 
-"@pxblue/react-auth-shared@^2.0.1":
-  version "2.0.1"
-  resolved "https://registry.yarnpkg.com/@pxblue/react-auth-shared/-/react-auth-shared-2.0.1.tgz#8d00422b4d2c12d2e94bfce1556b73c2641140fe"
-  integrity sha512-871/Aeg2vYS80nSwbfZcxKHrDGn+0DtO8ilXDllElWtBavrKLC/LGhEiYOWRPifZQC41qMsk/SIJjJwlG5RTzA==
+"@pxblue/react-auth-shared@^3.0.0-beta.2":
+  version "3.0.0-beta.2"
+  resolved "https://registry.yarnpkg.com/@pxblue/react-auth-shared/-/react-auth-shared-3.0.0-beta.2.tgz#77de6255361f5515b1c1ce113b5884b6de6ff50f"
+  integrity sha512-TA65y8tvU9i4FWYv+3+LErTx/1IvnvdBzYplnquqlApKKbyAOxfTvJepYyh0lgDfqgQD8q9LLGrcJ0fw6i6eQA==
 
-"@pxblue/react-auth-shared@^2.1.0":
-  version "2.1.0"
-  resolved "https://registry.yarnpkg.com/@pxblue/react-auth-shared/-/react-auth-shared-2.1.0.tgz#2130ec029d1cdf7f2abb7207fbeba9310af76d89"
-  integrity sha512-OmaiTLfL4oEPhXl0uaRoKwqm1BPh/z1p8nnB6qpRnldQk3B2ACOcuETmA8B5J4sBF7v4mbHESMGb44q6vGnmQw==
-
-"@pxblue/react-auth-workflow@^1.0.0":
-  version "1.0.0"
-  resolved "https://registry.yarnpkg.com/@pxblue/react-auth-workflow/-/react-auth-workflow-1.0.0.tgz#aa6d24bf204e44187a80ae94bc2890dba235b641"
-  integrity sha512-lfkecW9G7FhkrR3anxc/odv0tNKj8bTrxxnt/+/SzC5rALKoDWr96IN0cOFt6Rw4MzoazjF6r35O5kh5ewTz2A==
+"@pxblue/react-auth-workflow@^2.0.0-beta.2":
+  version "2.0.0-beta.2"
+  resolved "https://registry.yarnpkg.com/@pxblue/react-auth-workflow/-/react-auth-workflow-2.0.0-beta.2.tgz#2ecb2408c7fb8530d87467d1e516fbbf13c8b88c"
+  integrity sha512-YNfHrbB3IIWJ0E84ab1usBLZG1TUQiaglpVmPxn/m10tlQBqo60/lzo7TaM1+yrm+aKh83+3pZI8jkqAhK5u6Q==
   dependencies:
-    "@pxblue/react-auth-shared" "^2.0.1"
+    "@pxblue/react-auth-shared" "^3.0.0-beta.2"
     dompurify "^2.0.12"
 
 "@pxblue/react-components@^4.1.1":

@@ -12,6 +12,7 @@ import { ExampleHome } from './screens/ExampleHome';
 import { routes } from './navigation/Routing';
 
 import productLogo from './assets/images/eaton_stacked_logo.png';
+// import { CustomDetailsScreen, CustomDetailsScreenTwo } from './components/CustomDetailsScreen';
 // import topology from './assets/images/topology.png';
 // import { Typography } from '@material-ui/core';
 // import { Link, Route } from 'react-router-dom';
@@ -23,12 +24,13 @@ export const AuthUIConfiguration: React.FC = (props) => {
         <AuthUIContextProvider
             authActions={ProjectAuthUIActions(securityContextActions)}
             registrationActions={ProjectRegistrationUIActions}
-            // showSelfRegistration={false}
+            showSelfRegistration={true}
             allowDebugMode={true}
             htmlEula={false}
             contactEmail={'something@email.com'}
             contactPhone={'1-800-123-4567'}
             projectImage={productLogo}
+            // customAccountDetails={[null, CustomDetailsScreen, CustomDetailsScreenTwo]}
             // background={{
             //     backgroundImage: `url(${topology})`,
             //     backgroundColor: 'orange',
@@ -61,14 +63,14 @@ export const App: React.FC = () => (
         <AuthUIConfiguration>
             <AuthNavigationContainer
                 // extraRoutes={
-                //     <>
-                //         <Route path={'/fake-route'}>
+                //     [
+                //         <Route exact path={'/fake-route'}>
                 //             <Typography>FAKE ROUTE</Typography>
-                //         </Route>
-                //         <Route path={'/fake-route-two'}>
+                //         </Route>,
+                //         <Route exact path={'/fake-route-two'}>
                 //             <Typography>FAKE ROUTE TWO</Typography>
                 //         </Route>
-                //     </>
+                //     ]
                 // }
                 routeConfig={routes}
             >

@@ -3,6 +3,9 @@ import { TextField, Typography, Divider } from '@material-ui/core';
 import { useLanguageLocale, AccountDetailInformation } from '@pxblue/react-auth-shared';
 import { useDialogStyles } from '../../styles';
 
+export type AccountDetailsWrapperProps = {
+    description?: string;
+};
 export type AccountDetailsProps = {
     onDetailsChanged: (details: (AccountDetailInformation & { valid: boolean }) | null) => void;
     initialDetails?: AccountDetailInformation;
@@ -10,7 +13,27 @@ export type AccountDetailsProps = {
 };
 
 /**
- * Component that renders a screen requesting user first and last name and optional phone number.
+ * Component that wraps a form field with an optional description text.
+ *
+ * @param description an object specifying any details to pre-fill
+ * @category Component
+ */
+export const AccountDetailsWrapper: React.FC<AccountDetailsWrapperProps> = (props) => {
+    const { t } = useLanguageLocale();
+    const { description = t('REGISTRATION.INSTRUCTIONS.ACCOUNT_DETAILS') } = props;
+    const classes = useDialogStyles();
+
+    return (
+        <>
+            <Typography>{description}</Typography>
+            <Divider className={classes.fullDivider} />
+            {props.children}
+        </>
+    );
+};
+
+/**
+ * Component that renders a screen requesting user first and last name.
  *
  * @param initialDetails an object specifying any details to pre-fill
  * @param onDetailsChanged a function to call when any of the detail fields values change
@@ -35,9 +58,7 @@ export const AccountDetails: React.FC<AccountDetailsProps> = (props) => {
     }, [onDetailsChanged, firstNameInput, lastNameInput]);
 
     return (
-        <>
-            <Typography>{t('REGISTRATION.INSTRUCTIONS.ACCOUNT_DETAILS')}</Typography>
-            <Divider className={classes.fullDivider} />
+        <AccountDetailsWrapper>
             <TextField
                 inputRef={firstRef}
                 id="first"
@@ -67,6 +88,6 @@ export const AccountDetails: React.FC<AccountDetailsProps> = (props) => {
                 variant="filled"
                 className={classes.textField}
             />
-        </>
+        </AccountDetailsWrapper>
     );
 };

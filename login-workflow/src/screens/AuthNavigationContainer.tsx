@@ -16,7 +16,7 @@ export type RouteConfig = {
 };
 export type NavigationContainerComponentProps = {
     routeConfig?: RouteConfig;
-    extraRoutes?: JSX.Element;
+    extraRoutes?: JSX.Element[];
 };
 
 const defaultRoutes: Required<RouteConfig> = {
