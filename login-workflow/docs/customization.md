@@ -20,14 +20,14 @@ If there are routes that you would like to be available without logging in (such
 ```tsx
 <AuthNavigationContainer
     extraRoutes={
-        <>
+        [
             <Route exact path={'/new-route'}>
                 {/* Route Content */}
-            </Route>
+            </Route>,
             <Route exact path={'/new-route-two'}>
                 {/* Route Content */}
             </Route>
-        </>
+        ]
     }
     routeConfig={{SUPPORT: '/custom-support-url'}}
 >

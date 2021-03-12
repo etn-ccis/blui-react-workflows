@@ -66,10 +66,10 @@ export const App: React.FC = () => (
                 // @ts-ignore
                 // extraRoutes={
                 //     [
-                //         <Route path={'/fake-route'}>
+                //         <Route exact path={'/fake-route'}>
                 //             <Typography>FAKE ROUTE</Typography>
                 //         </Route>,
-                //         <Route path={'/fake-route-two'}>
+                //         <Route exact path={'/fake-route-two'}>
                 //             <Typography>FAKE ROUTE TWO</Typography>
                 //         </Route>
                 //     ]
