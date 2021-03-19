@@ -459,7 +459,7 @@
   resolved "https://registry.yarnpkg.com/@pxblue/prettier-config/-/prettier-config-1.0.2.tgz#fb00503df6557b66c3d91d43c9101e614c35d2ec"
   integrity sha512-/3cLBoTjZs3kV1ATPA/Sp0tsL7XmlV/b8HW/qt0jqR/uP5+cdXL2YIhMXQngLRa7PhpSkEiRIYK5sl0rKsXTUg==
 
-"@pxblue/react-auth-shared@3.0.0-beta.4":
+"@pxblue/react-auth-shared@^3.0.0-beta.4":
   version "3.0.0-beta.4"
   resolved "https://registry.yarnpkg.com/@pxblue/react-auth-shared/-/react-auth-shared-3.0.0-beta.4.tgz#28cad54c900f4132c0c586f88f8df264a95ad35c"
   integrity sha512-ZRM6aJAIRu+kLfqv9ICYdwjbcV2PERWopZJW5tbfiPWOyUgO8IV/+zpApu1qSRSiYLy95o+KGWD9/x5WsNlGSA==
