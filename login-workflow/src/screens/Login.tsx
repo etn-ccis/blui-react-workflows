@@ -104,6 +104,9 @@ export const Login: React.FC = () => {
     const { t } = useLanguageLocale();
     const authUIActions = useAccountUIActions();
     const authUIState = useAccountUIState();
+    const { routes } = useRoutes();
+    const theme = useTheme();
+    const classes = useStyles();
     const {
         showRememberMe = true,
         allowDebugMode = false,
@@ -113,11 +116,13 @@ export const Login: React.FC = () => {
         showCybersecurityBadge = true,
         projectImage,
         loginFooter,
-        loginHeader,
+        loginHeader = (
+            <div style={{ marginBottom: theme.spacing(6) }}>
+                <img className={classes.productLogo} src={projectImage || stackedEatonLogo} alt="logo" />
+            </div>
+        ),
+        loginActions,
     } = useInjectedUIContext();
-    const { routes } = useRoutes();
-    const theme = useTheme();
-    const classes = useStyles();
 
     const passwordField = useRef<any>(null);
 
@@ -248,11 +253,8 @@ export const Login: React.FC = () => {
                 }}
             >
                 <div className={classes.formContent}>
-                    {loginHeader || (
-                        <div style={{ marginBottom: theme.spacing(6) }}>
-                            <img className={classes.productLogo} src={projectImage || stackedEatonLogo} alt="logo" />
-                        </div>
-                    )}
+                    {loginHeader && typeof loginHeader === 'function' && loginHeader(null)}
+                    {loginHeader && typeof loginHeader !== 'function' && loginHeader}
 
                     {debugMessage}
                     {debugLinks}
@@ -317,6 +319,9 @@ export const Login: React.FC = () => {
                         </Button>
                     </Grid>
 
+                    {loginActions && typeof loginActions === 'function' && loginActions(null)}
+                    {loginActions && typeof loginActions !== 'function' && loginActions}
+
                     <div className={showLinks ? classes.linksWrapper : undefined}>
                         {enableResetPassword && (
                             <Typography variant="body2" color={'primary'}>
@@ -337,7 +342,8 @@ export const Login: React.FC = () => {
                         {createAccountOption}
                         {contactEatonRepresentative}
                     </div>
-                    {loginFooter}
+                    {loginFooter && typeof loginFooter === 'function' && loginFooter(null)}
+                    {loginFooter && typeof loginFooter !== 'function' && loginFooter}
                     {showCybersecurityBadge && (
                         <img src={cyberBadge} className={classes.cyberBadge} alt="CyberSecurity Certification Badge" />
                     )}
