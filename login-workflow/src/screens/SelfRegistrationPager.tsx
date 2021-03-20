@@ -194,6 +194,7 @@ export const SelfRegistrationPager: React.FC = () => {
 
     // Define the pages in the workflow
     const customDetails = injectedUIContext.customAccountDetails || [];
+    //@ts-ignore
     const FirstCustomPage: ComponentType<AccountDetailsFormProps> | null =
         customDetails.length > 0 ? customDetails[0] : null;
 
@@ -300,7 +301,9 @@ export const SelfRegistrationPager: React.FC = () => {
         .concat(
             customDetails
                 .slice(1)
+                //@ts-ignore
                 .filter((item: ComponentType<AccountDetailsFormProps>) => item !== null)
+                //@ts-ignore
                 .map((page: ComponentType<AccountDetailsFormProps>, i: number) => {
                     const PageComponent = page;
                     return {

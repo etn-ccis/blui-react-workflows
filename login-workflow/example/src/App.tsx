@@ -14,7 +14,7 @@ import { routes } from './navigation/Routing';
 import productLogo from './assets/images/eaton_stacked_logo.png';
 import { CustomDetailsScreen, CustomDetailsScreenTwo } from './components/CustomDetailsScreen';
 import topology from './assets/images/topology.png';
-import { Typography } from '@material-ui/core';
+import { Button, Typography } from '@material-ui/core';
 import { Link, Route } from 'react-router-dom';
 
 export const AuthUIConfiguration: React.FC = (props) => {
@@ -38,6 +38,7 @@ export const AuthUIConfiguration: React.FC = (props) => {
             //     backgroundRepeat: 'no-repeat'
             // }}
             // showRememberMe={false}
+            // loginActions={<Button style={{}}>Log In With Google</Button>}
             // showContactSupport={false}
             // enableResetPassword={false}
             // enableInviteRegistration={false}
