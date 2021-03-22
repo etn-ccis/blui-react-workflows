@@ -9,7 +9,7 @@
         "@pxblue/icons-mui": "^2.2.1",
         "@pxblue/react-auth-workflow": "^2.0.0-beta.2",
         "@pxblue/react-components": "^4.1.1",
-        "@pxblue/react-themes": "^5.0.3",
+        "@pxblue/react-themes": "^6.0.0-beta.0",
         "@testing-library/jest-dom": "^4.2.4",
         "@testing-library/react": "^9.3.2",
         "@testing-library/user-event": "^7.1.2",
@@ -26,7 +26,6 @@
         "react-i18next": "^11.7.0",
         "react-router-dom": "^5.2.0",
         "react-scripts": "3.4.3",
-        "typeface-open-sans": "^0.0.75",
         "typescript": "~3.9.3"
     },
     "scripts": {
