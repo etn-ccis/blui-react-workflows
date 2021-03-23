@@ -7,8 +7,9 @@ import {
     useInjectedUIContext,
     RegistrationActions,
     AccountDetailInformation,
-    AccountDetailsFormProps,
+    CustomRegistrationForm,
     CustomAccountDetails,
+    AccountDetailsFormProps,
 } from '@pxblue/react-auth-shared';
 import { useHistory } from 'react-router-dom';
 import { useQueryString } from '../hooks/useQueryString';
@@ -196,7 +197,7 @@ export const SelfRegistrationPager: React.FC = () => {
     const customDetails = injectedUIContext.customAccountDetails || [];
     //@ts-ignore
     const FirstCustomPage: ComponentType<AccountDetailsFormProps> | null =
-        customDetails.length > 0 ? customDetails[0] : null;
+        customDetails.length > 0 && customDetails[0] ? customDetails[0].component : null;
 
     const RegistrationPages: RegistrationPage[] = [
         {
@@ -302,15 +303,15 @@ export const SelfRegistrationPager: React.FC = () => {
             customDetails
                 .slice(1)
                 //@ts-ignore
-                .filter((item: ComponentType<AccountDetailsFormProps>) => item !== null)
+                .filter((item: ComponentType<CustomRegistrationForm> | null) => item !== null)
                 //@ts-ignore
-                .map((page: ComponentType<AccountDetailsFormProps>, i: number) => {
-                    const PageComponent = page;
+                .map((page: ComponentType<CustomRegistrationForm>, i: number) => {
+                    const PageComponent = page.component;
                     return {
                         name: `CustomPage${i + 1}`,
-                        pageTitle: t('REGISTRATION.STEPS.ACCOUNT_DETAILS'),
+                        pageTitle: page.title || t('REGISTRATION.STEPS.ACCOUNT_DETAILS'),
                         pageBody: (
-                            <AccountDetailsWrapper>
+                            <AccountDetailsWrapper description={page.instructions}>
                                 <PageComponent
                                     key={`CustomDetailsPage_${i + 1}`}
                                     onDetailsChanged={(details: CustomAccountDetails, valid: boolean): void => {

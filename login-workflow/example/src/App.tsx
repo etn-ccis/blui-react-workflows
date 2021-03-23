@@ -13,9 +13,9 @@ import { routes } from './navigation/Routing';
 
 import productLogo from './assets/images/eaton_stacked_logo.png';
 import { CustomDetailsScreen, CustomDetailsScreenTwo } from './components/CustomDetailsScreen';
-import topology from './assets/images/topology.png';
-import { Button, Typography } from '@material-ui/core';
-import { Link, Route } from 'react-router-dom';
+// import topology from './assets/images/topology.png';
+// import { Button, Typography } from '@material-ui/core';
+// import { Link, Route } from 'react-router-dom';
 
 export const AuthUIConfiguration: React.FC = (props) => {
     const securityContextActions = useSecurityActions();
@@ -30,7 +30,18 @@ export const AuthUIConfiguration: React.FC = (props) => {
             contactPhone={'1-800-123-4567'}
             projectImage={productLogo}
             // showSelfRegistration={false}
-            // customAccountDetails={[null, CustomDetailsScreen, CustomDetailsScreenTwo]}
+            customAccountDetails={[
+                null,
+                {
+                    component: CustomDetailsScreen,
+                    instructions:
+                        'This is a test instruction. This is some filler text. Below is a form so fill it out!',
+                },
+                {
+                    component: CustomDetailsScreenTwo,
+                    title: 'Test Title',
+                },
+            ]}
             // background={{
             //     backgroundImage: `url(${topology})`,
             //     backgroundColor: 'red',
