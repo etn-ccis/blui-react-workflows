@@ -305,7 +305,7 @@ export const SelfRegistrationPager: React.FC = () => {
                 //@ts-ignore
                 .filter((item: ComponentType<CustomRegistrationForm> | null) => item !== null)
                 //@ts-ignore
-                .map((page: ComponentType<CustomRegistrationForm>, i: number) => {
+                .map((page: CustomRegistrationForm, i: number) => {
                     const PageComponent = page.component;
                     return {
                         name: `CustomPage${i + 1}`,
