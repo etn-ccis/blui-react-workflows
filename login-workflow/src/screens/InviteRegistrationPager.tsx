@@ -6,6 +6,7 @@ import {
     useInjectedUIContext,
     AccountDetailInformation,
     AccountDetailsFormProps,
+    CustomRegistrationForm,
     CustomAccountDetails,
     RegistrationActions,
 } from '@pxblue/react-auth-shared';
@@ -158,7 +159,7 @@ export const InviteRegistrationPager: React.FC = () => {
     const customDetails = injectedUIContext.customAccountDetails || [];
     //@ts-ignore
     const FirstCustomPage: ComponentType<AccountDetailsFormProps> | null =
-        customDetails.length > 0 ? customDetails[0] : null;
+    customDetails.length > 0 && customDetails[0] ? customDetails[0].component : null;
 
     const RegistrationPages: RegistrationPage[] = [
         {
@@ -233,15 +234,15 @@ export const InviteRegistrationPager: React.FC = () => {
             customDetails
                 .slice(1)
                 //@ts-ignore
-                .filter((item: ComponentType<AccountDetailsFormProps>) => item !== null)
+                .filter((item: ComponentType<CustomRegistrationForm> | null) => item !== null)
                 //@ts-ignore
-                .map((page: ComponentType<AccountDetailsFormProps>, i: number) => {
-                    const PageComponent = page;
+                .map((page: CustomRegistrationForm, i: number) => {
+                    const PageComponent = page.component;
                     return {
                         name: `CustomPage${i + 1}`,
-                        pageTitle: t('REGISTRATION.STEPS.ACCOUNT_DETAILS'),
+                        pageTitle: page.title || t('REGISTRATION.STEPS.ACCOUNT_DETAILS'),
                         pageBody: (
-                            <AccountDetailsWrapper>
+                            <AccountDetailsWrapper description={page.instructions}>
                                 <PageComponent
                                     key={`CustomDetailsPage_${i + 1}`}
                                     onDetailsChanged={(details: CustomAccountDetails, valid: boolean): void => {
