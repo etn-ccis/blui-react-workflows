@@ -32,14 +32,8 @@ export const AuthUIConfiguration: React.FC = (props) => {
             // showSelfRegistration={false}
             customAccountDetails={[
                 
-                {
-                    component: CustomDetailsScreen,
-                    instructions:
-                        'This is a test instruction. This is some filler text. Below is a form so fill it out!',
-                },
-                {
-                    component: CustomDetailsScreenTwo,
-                    title: 'Job Info', instructions: 'Enter your employment information below.',
+                { component: CustomDetailsScreen },
+                { component: CustomDetailsScreenTwo,title: 'Job Info', instructions: 'Enter your employment information below.',
                 },
             ]}
             // background={{
