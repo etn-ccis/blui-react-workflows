@@ -43,7 +43,7 @@ export const CustomDetailsScreen: React.FC<AccountDetailsFormProps> = (props) =>
                 onKeyPress={(e): void => {
                     if (e.key === 'Enter' && currencyRef.current) currencyRef.current.focus();
                 }}
-                style={{marginTop:'32px'}}
+                style={{ marginTop: '32px' }}
             />
             <TextField
                 fullWidth

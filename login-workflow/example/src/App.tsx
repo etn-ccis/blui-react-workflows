@@ -31,9 +31,11 @@ export const AuthUIConfiguration: React.FC = (props) => {
             projectImage={productLogo}
             // showSelfRegistration={false}
             customAccountDetails={[
-                
                 { component: CustomDetailsScreen },
-                { component: CustomDetailsScreenTwo,title: 'Job Info', instructions: 'Enter your employment information below.',
+                {
+                    component: CustomDetailsScreenTwo,
+                    title: 'Job Info',
+                    instructions: 'Enter your employment information below.',
                 },
             ]}
             // background={{

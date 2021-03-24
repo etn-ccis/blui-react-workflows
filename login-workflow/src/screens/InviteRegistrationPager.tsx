@@ -159,7 +159,7 @@ export const InviteRegistrationPager: React.FC = () => {
     const customDetails = injectedUIContext.customAccountDetails || [];
     //@ts-ignore
     const FirstCustomPage: ComponentType<AccountDetailsFormProps> | null =
-    customDetails.length > 0 && customDetails[0] ? customDetails[0].component : null;
+        customDetails.length > 0 && customDetails[0] ? customDetails[0].component : null;
 
     const RegistrationPages: RegistrationPage[] = [
         {
