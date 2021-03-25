@@ -13,9 +13,9 @@ import { routes } from './navigation/Routing';
 
 import productLogo from './assets/images/eaton_stacked_logo.png';
 import { CustomDetailsScreen, CustomDetailsScreenTwo } from './components/CustomDetailsScreen';
-import topology from './assets/images/topology.png';
-import { Button, Typography } from '@material-ui/core';
-import { Link, Route } from 'react-router-dom';
+// import topology from './assets/images/topology.png';
+// import { Button, Typography } from '@material-ui/core';
+// import { Link, Route } from 'react-router-dom';
 
 export const AuthUIConfiguration: React.FC = (props) => {
     const securityContextActions = useSecurityActions();
@@ -30,7 +30,14 @@ export const AuthUIConfiguration: React.FC = (props) => {
             contactPhone={'1-800-123-4567'}
             projectImage={productLogo}
             // showSelfRegistration={false}
-            // customAccountDetails={[null, CustomDetailsScreen, CustomDetailsScreenTwo]}
+            // customAccountDetails={[
+            //     { component: CustomDetailsScreen },
+            //     {
+            //         component: CustomDetailsScreenTwo,
+            //         title: 'Job Info',
+            //         instructions: 'Enter your employment information below.',
+            //     },
+            // ]}
             // background={{
             //     backgroundImage: `url(${topology})`,
             //     backgroundColor: 'red',
