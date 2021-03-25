@@ -196,7 +196,7 @@ export const InviteRegistrationPager: React.FC = () => {
             name: 'AccountDetails',
             pageTitle: t('REGISTRATION.STEPS.ACCOUNT_DETAILS'),
             pageBody: (
-                <>
+                <AccountDetailsWrapper>
                     <AccountDetailsScreen
                         onDetailsChanged={setAccountDetails}
                         initialDetails={accountDetails}
@@ -212,6 +212,7 @@ export const InviteRegistrationPager: React.FC = () => {
                         }
                     />
                     {FirstCustomPage && (
+                        <div className={sharedClasses.textField}>
                         <FirstCustomPage
                             onDetailsChanged={(details: CustomAccountDetails, valid: boolean): void => {
                                 setCustomAccountDetails({ ...customAccountDetails, 0: { values: details, valid } });
@@ -220,8 +221,9 @@ export const InviteRegistrationPager: React.FC = () => {
                             // eslint-disable-next-line no-use-before-define
                             onSubmit={customAccountDetails[0]?.valid ? (): void => advancePage(1) : undefined}
                         />
+                        </div>
                     )}
-                </>
+                </AccountDetailsWrapper>
             ),
             canGoForward:
                 accountDetails !== null &&
@@ -233,9 +235,8 @@ export const InviteRegistrationPager: React.FC = () => {
         .concat(
             customDetails
                 .slice(1)
-                //@ts-ignore
+                //@ts-ignore there won't be any nulls after we filter them
                 .filter((item: ComponentType<CustomRegistrationForm> | null) => item !== null)
-                //@ts-ignore
                 .map((page: CustomRegistrationForm, i: number) => {
                     const PageComponent = page.component;
                     return {

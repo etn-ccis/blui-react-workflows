@@ -58,7 +58,7 @@ export const AccountDetails: React.FC<AccountDetailsProps> = (props) => {
     }, [onDetailsChanged, firstNameInput, lastNameInput]);
 
     return (
-        <AccountDetailsWrapper>
+        <>
             <TextField
                 inputRef={firstRef}
                 id="first"
@@ -88,6 +88,6 @@ export const AccountDetails: React.FC<AccountDetailsProps> = (props) => {
                 variant="filled"
                 className={classes.textField}
             />
-        </AccountDetailsWrapper>
+        </>
     );
 };

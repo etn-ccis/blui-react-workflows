@@ -30,14 +30,14 @@ export const AuthUIConfiguration: React.FC = (props) => {
             contactPhone={'1-800-123-4567'}
             projectImage={productLogo}
             // showSelfRegistration={false}
-            customAccountDetails={[
-                { component: CustomDetailsScreen },
-                {
-                    component: CustomDetailsScreenTwo,
-                    title: 'Job Info',
-                    instructions: 'Enter your employment information below.',
-                },
-            ]}
+            // customAccountDetails={[
+            //     { component: CustomDetailsScreen },
+            //     {
+            //         component: CustomDetailsScreenTwo,
+            //         title: 'Job Info',
+            //         instructions: 'Enter your employment information below.',
+            //     },
+            // ]}
             // background={{
             //     backgroundImage: `url(${topology})`,
             //     backgroundColor: 'red',
