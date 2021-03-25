@@ -282,14 +282,14 @@ export const SelfRegistrationPager: React.FC = () => {
                     />
                     {FirstCustomPage && (
                         <div className={sharedClasses.textField}>
-                        <FirstCustomPage
-                            onDetailsChanged={(details: CustomAccountDetails, valid: boolean): void => {
-                                setCustomAccountDetails({ ...customAccountDetails, 0: { values: details, valid } });
-                            }}
-                            initialDetails={customAccountDetails[0]?.values}
-                            // eslint-disable-next-line no-use-before-define
-                            onSubmit={customAccountDetails[0]?.valid ? (): void => advancePage(1) : undefined}
-                        />
+                            <FirstCustomPage
+                                onDetailsChanged={(details: CustomAccountDetails, valid: boolean): void => {
+                                    setCustomAccountDetails({ ...customAccountDetails, 0: { values: details, valid } });
+                                }}
+                                initialDetails={customAccountDetails[0]?.values}
+                                // eslint-disable-next-line no-use-before-define
+                                onSubmit={customAccountDetails[0]?.valid ? (): void => advancePage(1) : undefined}
+                            />
                         </div>
                     )}
                 </AccountDetailsWrapper>
