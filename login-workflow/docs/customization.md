@@ -48,15 +48,19 @@ Many applications will need to collect additional information about their users 
 
 ### Syntax
 
-The `customAccountDetails` prop takes an array of components that you would like to insert into the registration flow.
+The `customAccountDetails` prop takes an array of `CustomRegistrationForm`s describing components that you would like to insert into the registration flow (title, instructions, and form component).
 
-The first item in the array will render below the default fields (first and last name). Subsequent items will be rendered on new pages (one page per item in the array). If you do not want to render your custom elements below the default fields, you can pass `null` as the first item in the array.
+The first form in the array will render below the default fields (first and last name). Subsequent forms will be rendered on new pages (one page per item in the array). If you do not want to render your custom elements below the default fields, you can pass `null` as the first item in the array.
 
 ```tsx
 import { CustomDetailsScreen, CustomDetailsScreenTwo } from './path/to/file';
 ...
 <AuthUIContextProvider
-    customAccountDetails={[null, CustomDetailsScreen, CustomDetailsScreenTwo]}
+    customAccountDetails={[
+        null, 
+        { component: CustomDetailsScreen}, 
+        { title: 'Job Info', instructions: 'Enter your employment information below.', component: CustomDetailsScreenTwo}
+    ]}
 />
 ```
 
