@@ -185,7 +185,7 @@ export const InviteRegistrationPager: React.FC = () => {
                 <CreatePasswordScreen
                     onPasswordChanged={setPassword}
                     initialPassword={password}
-                    // eslint-disable-next-line no-use-before-define
+                    // eslint-disable-next-line @typescript-eslint/no-use-before-define
                     onSubmit={password.length > 0 ? (): void => advancePage(1) : undefined}
                 />
             ),
@@ -206,7 +206,7 @@ export const InviteRegistrationPager: React.FC = () => {
                                       /* TODO Focus first field in custom page */
                                   }
                                 : accountDetails !== null && accountDetails.valid
-                                ? // eslint-disable-next-line no-use-before-define
+                                ? // eslint-disable-next-line @typescript-eslint/no-use-before-define
                                   (): void => advancePage(1)
                                 : undefined
                         }
@@ -218,7 +218,7 @@ export const InviteRegistrationPager: React.FC = () => {
                                     setCustomAccountDetails({ ...customAccountDetails, 0: { values: details, valid } });
                                 }}
                                 initialDetails={customAccountDetails[0]?.values}
-                                // eslint-disable-next-line no-use-before-define
+                                // eslint-disable-next-line @typescript-eslint/no-use-before-define
                                 onSubmit={customAccountDetails[0]?.valid ? (): void => advancePage(1) : undefined}
                             />
                         </div>
@@ -254,7 +254,7 @@ export const InviteRegistrationPager: React.FC = () => {
                                     }}
                                     initialDetails={customAccountDetails[i + 1]?.values}
                                     onSubmit={
-                                        // eslint-disable-next-line no-use-before-define
+                                        // eslint-disable-next-line @typescript-eslint/no-use-before-define
                                         customAccountDetails[i + 1]?.valid ? (): void => advancePage(1) : undefined
                                     }
                                 />

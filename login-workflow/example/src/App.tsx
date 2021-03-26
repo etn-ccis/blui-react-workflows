@@ -12,7 +12,7 @@ import { ExampleHome } from './screens/ExampleHome';
 import { routes } from './navigation/Routing';
 
 import productLogo from './assets/images/eaton_stacked_logo.png';
-import { CustomDetailsScreen, CustomDetailsScreenTwo } from './components/CustomDetailsScreen';
+// import { CustomDetailsScreen, CustomDetailsScreenTwo } from './components/CustomDetailsScreen';
 // import topology from './assets/images/topology.png';
 // import { Button, Typography } from '@material-ui/core';
 // import { Link, Route } from 'react-router-dom';
