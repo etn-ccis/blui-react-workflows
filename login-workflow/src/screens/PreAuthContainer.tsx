@@ -31,7 +31,9 @@ export const PreAuthContainer: React.FC = () => {
 
     // If the user is authenticated, redirect back to wherever they came from (or the home page)
     if (securityState.isAuthenticatedUser) {
+        // @ts-ignore
         const { from } =
+            // @ts-ignore
             location && location.state && 'from' in location.state ? location.state : { from: { pathname: '/' } };
         return <Redirect to={from} />;
     }

@@ -23,7 +23,7 @@ export const ExampleHome: React.FC = () => {
                 <Button variant={'contained'} onClick={securityHelper.showChangePassword}>
                     Change Password
                 </Button>
-                <Button variant={'contained'} onClick={logOut}>
+                <Button variant={'contained'} onClick={logOut} style={{ marginTop: 16 }}>
                     Log Out
                 </Button>
             </header>
