@@ -1705,18 +1705,18 @@
     "@pxblue/react-auth-shared" "^3.0.0-beta.5"
     dompurify "^2.0.12"
 
-"@pxblue/react-components@^5.0.1-beta.2":
-  version "5.0.1-beta.2"
-  resolved "https://registry.yarnpkg.com/@pxblue/react-components/-/react-components-5.0.1-beta.2.tgz#97dbfd5a5733a291623b55410ac1905e7677aafb"
-  integrity sha512-z6/RHSvlpDjze+RxymfEiMxrxu/PQM0kIgncXSbEsSDexxLik5T3GZzkISw/t5YGhoOd+qk6ixd53iK0Lg3doQ==
+"@pxblue/react-components@^5.1.0":
+  version "5.1.0"
+  resolved "https://registry.yarnpkg.com/@pxblue/react-components/-/react-components-5.1.0.tgz#01b172814c583d4566fda15a9166c9344678ba18"
+  integrity sha512-Gtoisp81+zDncAz9fZ2dspJ0twWzSBIZ/CeXGlX/qf27cnZ2Yb+xJvr4HxVfdgY0svrnY2ArlY6/cyIdTv9uJg==
   dependencies:
     "@pxblue/colors" "^3.0.0"
     color "^3.1.2"
 
-"@pxblue/react-themes@^6.0.0-beta.3":
-  version "6.0.0-beta.3"
-  resolved "https://registry.yarnpkg.com/@pxblue/react-themes/-/react-themes-6.0.0-beta.3.tgz#bb4332d8629789f4ca036203720be5dc32e2ac81"
-  integrity sha512-zFOpRG2Lcr426LPATK3tnGvrOy9m8NHJnznVumEkqcxjh3AS2Z83iFyqr8Ovh2Cvv9x33zpa+WBm1mTC3QCn5A==
+"@pxblue/react-themes@^6.0.0":
+  version "6.0.0"
+  resolved "https://registry.yarnpkg.com/@pxblue/react-themes/-/react-themes-6.0.0.tgz#35ce84165263d8721bde638ed594f820c408727c"
+  integrity sha512-KiDJjMK3Dg45VayemC+NNIPAXA0kX0ExrBcln4wYn/yVfzH9/fK5GZF1yya6i3LWgHJYQo40Z6dCluFgn0GzvQ==
   dependencies:
     "@fontsource/open-sans" "^4.2.2"
     "@pxblue/colors" "^3.0.0"

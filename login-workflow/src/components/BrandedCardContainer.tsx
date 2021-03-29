@@ -40,7 +40,6 @@ export const BrandedBackground: React.FC = (props) => {
     const classes = useStyles();
 
     return (
-        // @ts-ignore TODO: Remove the ignore once we have a newer beta with the updated type def
         <div className={classes.brandingPanel} style={background || {}}>
             {props.children}
         </div>
