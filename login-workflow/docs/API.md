@@ -21,6 +21,8 @@ import { AuthNavigationContainer } from '@pxblue/react-auth-workflow';
 
 -   **routeConfig** (optional): _`RouteConfig`_
     -   Details the custom routes to use for any or all of the screens in the workflow.
+-   **extraRoutes** (optional): _`JSX.ELement[]`_
+    -   Additional routes that you would like to be accessible to the user without logging in (e.g. Terms of Service, etc.). Each child in the array should be an individual `<Route>` component.
 
 ### ContactSupportContent
 Contents used in the Contact/Support screen. These are exported so that you can present this same information elsewhere in the main content of your application if you so desire.

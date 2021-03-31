@@ -1,13 +1,12 @@
-import React, { useState, useCallback, ChangeEvent, useEffect } from 'react';
+import React, { useState, useCallback, useEffect, useRef } from 'react';
 import { useLanguageLocale, useInjectedUIContext } from '@pxblue/react-auth-shared';
-import { Typography, Divider, useTheme } from '@material-ui/core';
-import { SecureTextField, PasswordRequirements } from '../../components';
+import { ChangePasswordForm } from '../../components';
 import { defaultPasswordRequirements } from '../../constants';
-import { useDialogStyles } from '../../styles';
 
 export type CreatePasswordProps = {
     onPasswordChanged: (password: string) => void;
     initialPassword?: string;
+    onSubmit?: () => void;
 };
 
 /**
@@ -15,14 +14,16 @@ export type CreatePasswordProps = {
  *
  * @param initialPassword value to pre-populate the password and confirmation fields
  * @param onPasswordChanged function to call when the password or confirm fields change
+ * @param onSubmit function to call when the mini form is submitted
  *
  * @category Component
  */
 export const CreatePassword: React.FC<CreatePasswordProps> = (props) => {
-    const { onPasswordChanged, initialPassword = '' } = props;
-    const theme = useTheme();
-    const classes = useDialogStyles();
+    const { onPasswordChanged, initialPassword = '', onSubmit } = props;
     const { t } = useLanguageLocale();
+
+    const passwordRef = useRef(null);
+    const confirmRef = useRef(null);
 
     const [passwordInput, setPasswordInput] = useState(initialPassword);
     const [confirmInput, setConfirmInput] = useState(initialPassword);
@@ -35,32 +36,27 @@ export const CreatePassword: React.FC<CreatePasswordProps> = (props) => {
         return confirmInput === passwordInput;
     }, [passwordRequirements, passwordInput, confirmInput]);
 
+    const updateFields = useCallback(
+        (fields: { password: string; confirm: string }) => {
+            setPasswordInput(fields.password);
+            setConfirmInput(fields.confirm);
+        },
+        [setPasswordInput, setConfirmInput]
+    );
+
     useEffect(() => {
         onPasswordChanged(areValidMatchingPasswords() ? passwordInput : '');
         // eslint-disable-next-line react-hooks/exhaustive-deps
     }, [onPasswordChanged, passwordInput, confirmInput, areValidMatchingPasswords]);
 
     return (
-        <>
-            <Typography>{t('CHANGE_PASSWORD.PASSWORD_INFO')}</Typography>
-            <Divider className={classes.fullDivider} />
-            <SecureTextField
-                id="password"
-                name="password"
-                label={t('FORMS.PASSWORD')}
-                value={passwordInput}
-                onChange={(evt: ChangeEvent<HTMLInputElement>): void => setPasswordInput(evt.target.value)}
-            />
-            <PasswordRequirements style={{ marginTop: theme.spacing(2) }} passwordText={passwordInput} />
-            <SecureTextField
-                id="confirm"
-                name="confirm"
-                label={t('FORMS.CONFIRM_PASSWORD')}
-                className={classes.textField}
-                value={confirmInput}
-                onChange={(evt: ChangeEvent<HTMLInputElement>): void => setConfirmInput(evt.target.value)}
-                error={confirmInput !== '' && passwordInput !== confirmInput}
-            />
-        </>
+        <ChangePasswordForm
+            passwordRef={passwordRef}
+            confirmRef={confirmRef}
+            initialPassword={initialPassword}
+            initialConfirm={initialPassword}
+            onPasswordChange={updateFields}
+            onSubmit={onSubmit}
+        />
     );
 };

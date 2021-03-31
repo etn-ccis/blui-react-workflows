@@ -16,6 +16,7 @@ export type RouteConfig = {
 };
 export type NavigationContainerComponentProps = {
     routeConfig?: RouteConfig;
+    extraRoutes?: JSX.Element[];
 };
 
 const defaultRoutes: Required<RouteConfig> = {
@@ -50,6 +51,7 @@ const prefixRoutes = (routes: RouteConfig): { routes: Required<RouteConfig>; rou
  * if desired
  *
  * @param routeConfig Specifies the mapping of screens to URLs
+ * @param extraRoutes Specifies additional routes that should be accessible without logging in
  * @param children Main application content.
  *
  * @category Component
@@ -57,7 +59,7 @@ const prefixRoutes = (routes: RouteConfig): { routes: Required<RouteConfig>; rou
 export const AuthNavigationContainer: React.FC<NavigationContainerComponentProps> = (props) => {
     const securityState = useSecurityState();
     const injectedContext = useInjectedUIContext();
-    const { routeConfig, children, ...otherProps } = props;
+    const { routeConfig, extraRoutes, children, ...otherProps } = props;
 
     useEffect(() => {
         const bootstrapAsync = async (): Promise<void> => {
@@ -85,6 +87,7 @@ export const AuthNavigationContainer: React.FC<NavigationContainerComponentProps
                             {/* Routes defined in the routeConfig render the preAuth container */}
                             <PreAuthContainer />
                         </Route>
+                        {extraRoutes}
                         <PrivateRoute path="*" authRoute={routes.LOGIN}>
                             {/* Other routes render the main application */}
                             {children}

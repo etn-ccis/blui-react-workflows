@@ -8,6 +8,7 @@ const isValidEmail = (text: string): boolean => new RegExp(EMAIL_REGEX).test(tex
 export type CreateAccountProps = {
     initialEmail?: string;
     onEmailChanged: (email: string) => void;
+    onSubmit?: () => void;
 };
 
 /**
@@ -16,11 +17,12 @@ export type CreateAccountProps = {
  *
  * @param initialEmail email address used to pre-fill the text field
  * @param onEmailChanged function to call when the value of the email input changes
+ * @param onSubmit function to call when the user submits the mini form
  *
  * @category Component
  */
 export const CreateAccount: React.FC<CreateAccountProps> = (props) => {
-    const { initialEmail, onEmailChanged } = props;
+    const { initialEmail, onEmailChanged, onSubmit } = props;
     const classes = useDialogStyles();
     const { t } = useLanguageLocale();
 
@@ -41,6 +43,9 @@ export const CreateAccount: React.FC<CreateAccountProps> = (props) => {
                     setEmailInput(evt.target.value);
                     const validEmailOrEmpty = isValidEmail(evt.target.value) ? evt.target.value : '';
                     onEmailChanged(validEmailOrEmpty);
+                }}
+                onKeyPress={(e): void => {
+                    if (e.key === 'Enter' && onSubmit) onSubmit();
                 }}
                 variant="filled"
                 error={showEmailError}

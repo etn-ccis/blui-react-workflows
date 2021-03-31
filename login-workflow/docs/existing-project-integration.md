@@ -90,4 +90,6 @@ export const AuthUIConfiguration = (props) => {
 ```
 You can skip passing the `projectImage` property if you don't have one yet.
 
+You can read more about customizing the `AuthUIContextProvider` in the [Customization Guide](https://github.com/pxblue/react-workflows/tree/master/login-workflow/docs/customization.md) 
+
 The various configuration options are explained in more detail in the [API](https://github.com/pxblue/react-workflows/tree/master/login-workflow/docs/API.md) documentation.

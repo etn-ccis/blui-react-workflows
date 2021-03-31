@@ -1,41 +1,66 @@
-import React, { useEffect } from 'react';
+import React, { useEffect, useRef } from 'react';
 import { TextField, Typography, Divider } from '@material-ui/core';
 import { useLanguageLocale, AccountDetailInformation } from '@pxblue/react-auth-shared';
 import { useDialogStyles } from '../../styles';
 
+export type AccountDetailsWrapperProps = {
+    description?: string;
+};
 export type AccountDetailsProps = {
     onDetailsChanged: (details: (AccountDetailInformation & { valid: boolean }) | null) => void;
     initialDetails?: AccountDetailInformation;
+    onSubmit?: () => void;
 };
 
 /**
- * Component that renders a screen requesting user first and last name and optional phone number.
+ * Component that wraps a form field with an optional description text.
+ *
+ * @param description an object specifying any details to pre-fill
+ * @category Component
+ */
+export const AccountDetailsWrapper: React.FC<AccountDetailsWrapperProps> = (props) => {
+    const { t } = useLanguageLocale();
+    const { description = t('REGISTRATION.INSTRUCTIONS.ACCOUNT_DETAILS') } = props;
+    const classes = useDialogStyles();
+
+    return (
+        <>
+            <Typography>{description}</Typography>
+            <Divider className={classes.fullDivider} />
+            {props.children}
+        </>
+    );
+};
+
+/**
+ * Component that renders a screen requesting user first and last name.
  *
  * @param initialDetails an object specifying any details to pre-fill
  * @param onDetailsChanged a function to call when any of the detail fields values change
- *
+ * @param onSubmit function to call when the user submits the mini form
  * @category Component
  */
 export const AccountDetails: React.FC<AccountDetailsProps> = (props) => {
-    const { onDetailsChanged, initialDetails } = props;
+    const { onDetailsChanged, initialDetails, onSubmit } = props;
     const classes = useDialogStyles();
     const { t } = useLanguageLocale();
 
+    const firstRef = useRef<any>(null);
+    const lastRef = useRef<any>(null);
+
     const [firstNameInput, setFirstNameInput] = React.useState(initialDetails ? initialDetails.firstName : '');
     const [lastNameInput, setLastNameInput] = React.useState(initialDetails ? initialDetails.lastName : '');
-    const [phoneInput, setPhoneInput] = React.useState(initialDetails ? initialDetails.phone : '');
 
     useEffect((): void => {
         // validation checks
         const valid = firstNameInput !== '' && lastNameInput !== '';
-        onDetailsChanged({ firstName: firstNameInput, lastName: lastNameInput, phone: phoneInput, valid });
-    }, [onDetailsChanged, firstNameInput, lastNameInput, phoneInput]);
+        onDetailsChanged({ firstName: firstNameInput, lastName: lastNameInput, valid });
+    }, [onDetailsChanged, firstNameInput, lastNameInput]);
 
     return (
         <>
-            <Typography>{t('REGISTRATION.INSTRUCTIONS.ACCOUNT_DETAILS')}</Typography>
-            <Divider className={classes.fullDivider} />
             <TextField
+                inputRef={firstRef}
                 id="first"
                 label={t('FORMS.FIRST_NAME')}
                 fullWidth
@@ -43,9 +68,13 @@ export const AccountDetails: React.FC<AccountDetailsProps> = (props) => {
                 onChange={(evt): void => {
                     setFirstNameInput(evt.target.value);
                 }}
+                onKeyPress={(e): void => {
+                    if (e.key === 'Enter' && lastRef.current) lastRef.current.focus();
+                }}
                 variant="filled"
             />
             <TextField
+                inputRef={lastRef}
                 id="last"
                 label={t('FORMS.LAST_NAME')}
                 fullWidth
@@ -53,16 +82,8 @@ export const AccountDetails: React.FC<AccountDetailsProps> = (props) => {
                 onChange={(evt): void => {
                     setLastNameInput(evt.target.value);
                 }}
-                variant="filled"
-                className={classes.textField}
-            />
-            <TextField
-                id="phone"
-                label={`${t('FORMS.PHONE_NUMBER')} (${t('LABELS.OPTIONAL')})`}
-                fullWidth
-                value={phoneInput}
-                onChange={(evt): void => {
-                    setPhoneInput(evt.target.value);
+                onKeyPress={(e): void => {
+                    if (e.key === 'Enter' && onSubmit) onSubmit();
                 }}
                 variant="filled"
                 className={classes.textField}

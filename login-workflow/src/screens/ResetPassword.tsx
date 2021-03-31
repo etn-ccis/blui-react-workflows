@@ -1,4 +1,4 @@
-import React, { useState, useEffect, useCallback, ChangeEvent } from 'react';
+import React, { useState, useEffect, useCallback, useRef } from 'react';
 import {
     useLanguageLocale,
     useAccountUIState,
@@ -10,11 +10,12 @@ import { useQueryString } from '../hooks/useQueryString';
 import { useRoutes } from '../contexts/RoutingContext';
 import { useHistory } from 'react-router-dom';
 import { CardHeader, Typography, CardContent, Divider, CardActions, Grid, Button, useTheme } from '@material-ui/core';
-import { BrandedCardContainer, SecureTextField, PasswordRequirements, SimpleDialog, FinishState } from '../components';
+import { BrandedCardContainer, SimpleDialog, FinishState, ChangePasswordForm } from '../components';
 import { defaultPasswordRequirements } from '../constants';
 import CheckCircle from '@material-ui/icons/CheckCircle';
 import Error from '@material-ui/icons/Error';
 import { useDialogStyles } from '../styles';
+import clsx from 'clsx';
 
 /**
  * Renders a screen stack which handles the reset password flow (deep link from email).
@@ -30,6 +31,9 @@ export const ResetPassword: React.FC = () => {
     const accountUIState = useAccountUIState();
     const accountUIActions = useAccountUIActions();
     const { code, email } = useQueryString();
+
+    const passwordRef = useRef(null);
+    const confirmRef = useRef(null);
 
     // Local State
     const [passwordInput, setPasswordInput] = useState('');
@@ -75,6 +79,14 @@ export const ResetPassword: React.FC = () => {
         return confirmInput === passwordInput;
     }, [passwordRequirements, passwordInput, confirmInput]);
 
+    const updateFields = useCallback(
+        (fields: { password: string; confirm: string }) => {
+            setPasswordInput(fields.password);
+            setConfirmInput(fields.confirm);
+        },
+        [setPasswordInput, setConfirmInput]
+    );
+
     const resetPassword = useCallback(
         (password: string): void => {
             void accountUIActions.actions.setPassword(code, password, email);
@@ -106,28 +118,13 @@ export const ResetPassword: React.FC = () => {
                         description={t('CHANGE_PASSWORD.SUCCESS_MESSAGE')}
                     />
                 ) : (
-                    <>
-                        <Typography>{t('CHANGE_PASSWORD.PASSWORD_INFO')}</Typography>
-
-                        <Divider className={classes.fullDivider} />
-
-                        <SecureTextField
-                            id="password"
-                            name="password"
-                            label={t('FORMS.PASSWORD')}
-                            value={passwordInput}
-                            onChange={(evt: ChangeEvent<HTMLInputElement>): void => setPasswordInput(evt.target.value)}
-                        />
-                        <PasswordRequirements style={{ marginTop: theme.spacing(2) }} passwordText={passwordInput} />
-                        <SecureTextField
-                            id="confirm"
-                            name="confirm"
-                            label={t('FORMS.CONFIRM_PASSWORD')}
-                            className={classes.textField}
-                            value={confirmInput}
-                            onChange={(evt: ChangeEvent<HTMLInputElement>): void => setConfirmInput(evt.target.value)}
-                        />
-                    </>
+                    <ChangePasswordForm
+                        passwordRef={passwordRef}
+                        confirmRef={confirmRef}
+                        passwordLabel={t('LABELS.NEW_PASSWORD')}
+                        onPasswordChange={updateFields}
+                        onSubmit={canContinue() ? onContinue : undefined}
+                    />
                 )
             ) : !verifyComplete ? (
                 <></>
@@ -140,17 +137,15 @@ export const ResetPassword: React.FC = () => {
             ),
         [
             t,
+            canContinue,
+            onContinue,
             theme,
-            classes,
-            passwordInput,
-            setPasswordInput,
-            confirmInput,
-            setConfirmInput,
             verifySuccess,
             verifyIsInTransit,
             verifyComplete,
             validationTransitErrorMessage,
             setPasswordTransitSuccess,
+            updateFields,
         ]
     );
 
@@ -180,15 +175,16 @@ export const ResetPassword: React.FC = () => {
             <Divider />
             <CardActions className={classes.dialogActions}>
                 <Grid container direction="row" alignItems="center" justify="space-between" style={{ width: '100%' }}>
-                    <Button
-                        variant="outlined"
-                        color="primary"
-                        disabled={setPasswordTransitSuccess}
-                        onClick={(): void => history.push(routes.LOGIN)}
-                        className={classes.dialogButton}
-                    >
-                        {t('ACTIONS.BACK')}
-                    </Button>
+                    {!setPasswordTransitSuccess && (
+                        <Button
+                            variant="outlined"
+                            color="primary"
+                            onClick={(): void => history.push(routes.LOGIN)}
+                            className={classes.dialogButton}
+                        >
+                            {t('ACTIONS.BACK')}
+                        </Button>
+                    )}
                     {verifySuccess && (
                         <Button
                             variant="contained"
@@ -196,7 +192,7 @@ export const ResetPassword: React.FC = () => {
                             disabled={!canContinue()}
                             color="primary"
                             onClick={onContinue}
-                            className={classes.dialogButton}
+                            className={clsx(classes.dialogButton, { [classes.fullWidth]: setPasswordTransitSuccess })}
                         >
                             {setPasswordTransitSuccess ? t('ACTIONS.DONE') : t('ACTIONS.OKAY')}
                         </Button>

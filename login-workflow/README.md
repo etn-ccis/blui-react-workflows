@@ -78,8 +78,6 @@ cd react-workflows/login-workflow
 You can install all necessary dependencies and run the demo project by running:
 ```shell
 yarn start:example
-// or
-yarn start:example-android
 ```
 
 If you make changes to the library components and want to link them to the running example project, you can run:

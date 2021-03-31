@@ -42,9 +42,43 @@ jobs:
           command: |
             cd login-workflow
             yarn build
+      - persist_to_workspace:
+          root: .
+          paths:
+            - login-workflow/dist
+
+  publish_login_workflow:
+    docker:
+      - image: circleci/node:12.9.1-browsers
+    steps:
+      - checkout
+      - attach_workspace:
+          at: .
+      - run:
+          name: Authenticate with registry
+          command: echo "//registry.npmjs.org/:_authToken=$NPM_TOKEN" > ~/.npmrc
+      - run:
+          name: Publish @pxblue/react-auth-workflow
+          command:  |
+            cd login-workflow
+            MASTER_VERSION=`node -p "require('./package.json').version"`
+            NPM_LATEST_VERSION=`npm show @pxblue/react-auth-workflow version`
+            if ! [ $MASTER_VERSION == $NPM_LATEST_VERSION ];
+            then
+                npm publish
+            else
+                echo "Latest version is already published."
+            fi
 
 workflows:
   version: 2
   react_workflows:
     jobs:
       - build_login_workflow
+      - publish_login_workflow:
+          requires:
+            - build_login_workflow
+          filters:
+            branches:
+              only:
+                - master

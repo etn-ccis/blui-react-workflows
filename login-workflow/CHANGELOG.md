@@ -4,6 +4,15 @@ All notable changes to this project will be documented in this file.
 The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.0.0/),
 and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0.html).
 
+## v2.0.0
+### Added
+-   Ability to customize the Login screen by toggling on/off various elements and adding custom content
+-   Ability to insert custom forms into the Account Details section of registration for collecting additional user information
+
+### Removed
+-   Phone number from the default fields collected during registration
+    - If you need to collect phone number, you must now do it through a custom Account Details form
+
 ## v1.0.1
 ### Fixed
 -   Used more efficient icon import syntax for reduced bundle sizes
