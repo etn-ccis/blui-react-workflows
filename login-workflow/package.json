@@ -16,6 +16,7 @@
         "start:example": "yarn initialize && yarn install:dependencies && yarn link:workflow && cd example && yarn start",
         "prettier": "prettier \"**/**.{ts,tsx,js,jsx,json,css,scss,html}\" --write",
         "prettier:check": "prettier \"**/**.{ts,tsx,js,jsx,json,css,scss,html}\" --check",
+        "publish:package": "set npm_config_yes=true && npx -p @pxblue/publish pxb-publish",
         "update:submodule": "git submodule update --remote",
         "generate:licenses": "npm-license-crawler -onlyDirectDependencies -json LICENSES.json",
         "precommit": "yarn prettier && yarn lint && yarn test && yarn build"
