@@ -23,7 +23,7 @@
     },
     "prettier": "@pxblue/prettier-config",
     "dependencies": {
-        "@pxblue/react-auth-shared": "^3.0.0",
+        "@pxblue/react-auth-shared": "^3.1.0",
         "dompurify": "^2.0.12"
     },
     "peerDependencies": {

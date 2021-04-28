@@ -638,10 +638,10 @@
   resolved "https://registry.yarnpkg.com/@pxblue/prettier-config/-/prettier-config-1.0.2.tgz#fb00503df6557b66c3d91d43c9101e614c35d2ec"
   integrity sha512-/3cLBoTjZs3kV1ATPA/Sp0tsL7XmlV/b8HW/qt0jqR/uP5+cdXL2YIhMXQngLRa7PhpSkEiRIYK5sl0rKsXTUg==
 
-"@pxblue/react-auth-shared@^3.0.0":
-  version "3.0.0"
-  resolved "https://registry.yarnpkg.com/@pxblue/react-auth-shared/-/react-auth-shared-3.0.0.tgz#c0a5f26686e4bb0a736c80624dd9b58837b0c4b2"
-  integrity sha512-cWr1q/cMggpX2I40O6RwjOOM1De3TqP1ymqiMTW6nceBGxsrZQDu1ujo3Oiua/0hGbcwJKfYGQNoBSIV0fH+sA==
+"@pxblue/react-auth-shared@^3.1.0":
+  version "3.1.0"
+  resolved "https://registry.yarnpkg.com/@pxblue/react-auth-shared/-/react-auth-shared-3.1.0.tgz#c59e3ca167f4a9bdc80653bcb7c5099b7db1ab5b"
+  integrity sha512-YC4bgInD973DwnHZPq0RooP1H/YRT6buCjvprF6KR6T9wIwmyqi4zXc4pmBA4zrgn194RhbMcQ1cBlD7w7ctrQ==
 
 "@pxblue/react-components@^5.0.0":
   version "5.0.0"

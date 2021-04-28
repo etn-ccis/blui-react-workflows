@@ -89,6 +89,10 @@ export const SelfRegistrationPager: React.FC = () => {
     // Network state (loading eula)
     const loadEulaTransitErrorMessage = registrationState.eulaTransit.transitErrorMessage;
 
+    // Custom Registration Success Screens
+    const customSuccess = injectedUIContext.registrationSuccessScreen;
+    const customAccountAlreadyExists = injectedUIContext.accountAlreadyExistsScreen;
+
     const errorBodyText =
         (hasCodeRequestTransitError && codeRequestTransitErrorMessage) ||
         (hasValidationTransitError && validationTransitErrorMessage) ||
@@ -498,7 +502,17 @@ export const SelfRegistrationPager: React.FC = () => {
         />
     );
 
-    return (
+    return customSuccess && !accountAlreadyExists && isLastStep ? (
+        <BrandedCardContainer loading={registrationIsInTransit || isValidationInTransit || codeRequestIsInTransit}>
+            {typeof customSuccess === 'function' && customSuccess({ accountDetails: accountDetails })}
+            {typeof customSuccess !== 'function' && customSuccess}
+        </BrandedCardContainer>
+    ) : customAccountAlreadyExists && accountAlreadyExists ? (
+        <BrandedCardContainer loading={registrationIsInTransit || isValidationInTransit || codeRequestIsInTransit}>
+            {typeof customAccountAlreadyExists === 'function' && customAccountAlreadyExists()}
+            {typeof customAccountAlreadyExists !== 'function' && customAccountAlreadyExists}
+        </BrandedCardContainer>
+    ) : (
         <BrandedCardContainer loading={registrationIsInTransit || isValidationInTransit || codeRequestIsInTransit}>
             {errorDialog}
             <CardHeader

@@ -9,36 +9,33 @@ The Login screen supports some simple customization (via the `AuthUIContextProvi
 -   You can customize the background of the workflow using the `background` prop including the color, tile image, etc.
 -   You can disable and hide various aspects of the workflow using the following props: `enableInviteRegistration`, `enableResetPassword`, `showContactSupport`, `showCybersecurityBadge`, `showRememberMe`, `showSelfRegistration`.
 
-For more details, read the [full API details](https://github.com/pxblue/react-auth-shared/tree/master/docs/API.md). 
+For more details, read the [full API details](https://github.com/pxblue/react-auth-shared/tree/master/docs/API.md).
 
 ## Additional Routes
 
-The authentication workflow hides your application content behind a private routing mechanism that does not allow unauthenticated users to access any parts of the application. 
+The authentication workflow hides your application content behind a private routing mechanism that does not allow unauthenticated users to access any parts of the application.
 
 If there are routes that you would like to be available without logging in (such as a Terms of Service page), you need to provide these to the `AuthNavigationContainer` through the `extraRoutes` property. The content passed in here will be publicly accessible.
 
 ```tsx
 <AuthNavigationContainer
-    extraRoutes={
-        [
-            <Route exact path={'/new-route'}>
-                {/* Route Content */}
-            </Route>,
-            <Route exact path={'/new-route-two'}>
-                {/* Route Content */}
-            </Route>
-        ]
-    }
-    routeConfig={{SUPPORT: '/custom-support-url'}}
+    extraRoutes={[
+        <Route exact path={'/new-route'}>
+            {/* Route Content */}
+        </Route>,
+        <Route exact path={'/new-route-two'}>
+            {/* Route Content */}
+        </Route>,
+    ]}
+    routeConfig={{ SUPPORT: '/custom-support-url' }}
 >
     <ExampleHome />
 </AuthNavigationContainer>
-
 ```
 
 You can also customize the URL used for the default routes by passing a configuration object to the `routeConfig` prop.
 
-For more details, read the [full API details](https://github.com/pxblue/react-auth-shared/tree/master/docs/API.md). 
+For more details, read the [full API details](https://github.com/pxblue/react-auth-shared/tree/master/docs/API.md).
 
 ## Registration Details
 
@@ -57,8 +54,8 @@ import { CustomDetailsScreen, CustomDetailsScreenTwo } from './path/to/file';
 ...
 <AuthUIContextProvider
     customAccountDetails={[
-        null, 
-        { component: CustomDetailsScreen}, 
+        null,
+        { component: CustomDetailsScreen},
         { title: 'Job Info', instructions: 'Enter your employment information below.', component: CustomDetailsScreenTwo}
     ]}
 />
@@ -74,4 +71,16 @@ In order to work correctly, custom form components that you pass into the workfl
 
 You can see a sample implementation of the custom details forms in the `/example` project.
 
-> **NOTE:**  If you are using a useEffect hook to call the `onDetailsChanged` function, you must make sure NOT to include the `onDetailsChanged` prop in your list of dependencies. This will cause an infinite update loop.
+> **NOTE:** If you are using a useEffect hook to call the `onDetailsChanged` function, you must make sure NOT to include the `onDetailsChanged` prop in your list of dependencies. This will cause an infinite update loop.
+
+### Custom Registration Success Screen
+
+You can customize the success screen shown at the end of the Registration flows using the `registrationSuccessScreen` prop on the `AuthUIContextProvider`. This prop gives you access to a `registrationData` object that contains a user's `AccountDetailInformation` and email:
+
+```tsx
+registrationSuccessScreen={(registrationData) => <MySuccessScreen email={registrationData.email} firstName={registrationData.accountDetails.firstName}/>
+```
+
+#### Account Already Exists
+
+In the case when a user already has an existing account, a separate success screen is shown. You can customize this screen in the same way using the `accountAlreadyExistsScreen` prop on the `AuthUIContextProvider`.
