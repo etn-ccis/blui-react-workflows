@@ -12,6 +12,8 @@ import { ExampleHome } from './screens/ExampleHome';
 import { routes } from './navigation/Routing';
 
 import productLogo from './assets/images/eaton_stacked_logo.png';
+// import { ExamplePreAuth } from './screens/ExamplePreAuth';
+// import { Route } from 'react-router-dom';
 
 export const AuthUIConfiguration: React.FC = (props) => {
     const securityContextActions = useSecurityActions();
@@ -43,7 +45,10 @@ export const AuthUIConfiguration: React.FC = (props) => {
 export const App: React.FC = () => (
     <SecurityContextProvider>
         <AuthUIConfiguration>
-            <AuthNavigationContainer routeConfig={routes}>
+            <AuthNavigationContainer
+                routeConfig={routes}
+                // extraRoutes={[<Route exact path={'/pre-auth'} component={ExamplePreAuth} key={'pre-auth'} />]}
+            >
                 <ExampleHome />
             </AuthNavigationContainer>
         </AuthUIConfiguration>
