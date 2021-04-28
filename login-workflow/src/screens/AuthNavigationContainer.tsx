@@ -75,11 +75,7 @@ export const AuthNavigationContainer: React.FC<NavigationContainerComponentProps
     const extraRoutesPathnames = extraRoutes.map((route) => route.props.path);
 
     // Show the splash loading screen until we have loaded the initial authentication state
-    if (
-        securityState.isLoading &&
-        !publicRoutes.includes(window.location.pathname) &&
-        !extraRoutesPathnames.includes(window.location.pathname)
-    ) {
+    if (securityState.isLoading && !extraRoutesPathnames.includes(window.location.pathname)) {
         return <SplashScreen mainImage={injectedContext.projectImage} />;
     }
 
