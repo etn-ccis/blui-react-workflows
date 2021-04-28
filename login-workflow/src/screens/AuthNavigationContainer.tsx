@@ -59,7 +59,7 @@ const prefixRoutes = (routes: RouteConfig): { routes: Required<RouteConfig>; rou
 export const AuthNavigationContainer: React.FC<NavigationContainerComponentProps> = (props) => {
     const securityState = useSecurityState();
     const injectedContext = useInjectedUIContext();
-    const { routeConfig, extraRoutes, children, ...otherProps } = props;
+    const { routeConfig, extraRoutes = [], children, ...otherProps } = props;
 
     useEffect(() => {
         const bootstrapAsync = async (): Promise<void> => {
