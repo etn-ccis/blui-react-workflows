@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import React from 'react';
 import {
     SecurityContextProvider,
     AuthNavigationContainer,
@@ -30,9 +30,6 @@ i18n.addResourceBundle('fr', 'pxb', { ACTIONS: { CREATE_ACCOUNT: `S'inscrire mai
 
 export const AuthUIConfiguration: React.FC = (props) => {
     const securityContextActions = useSecurityActions();
-    // Language Toggle Button
-    const langs = ['en', 'fr', 'es'];
-    const [lang, setLang] = useState(0);
     const { t } = useTranslation();
 
     return (
@@ -45,15 +42,31 @@ export const AuthUIConfiguration: React.FC = (props) => {
             contactPhone={'1-800-123-4567'}
             projectImage={productLogo}
             loginFooter={
-                <Button
-                    onClick={(): void => {
-                        setLang((lang + 1) % langs.length);
-                        void i18n.changeLanguage(langs[(lang + 1) % langs.length]);
-                    }}
-                >
-                    {t('BUTTONLABEL')}
-                </Button>
+                <div style={{ display: 'flex', alignItems: 'center' }}>
+                    <Button
+                        onClick={(): void => {
+                            void i18n.changeLanguage('en');
+                        }}
+                    >
+                        {`${t('BUTTONLABEL')}-EN`}
+                    </Button>
+                    <Button
+                        onClick={(): void => {
+                            void i18n.changeLanguage('es');
+                        }}
+                    >
+                        {`${t('BUTTONLABEL')}-ES`}
+                    </Button>
+                    <Button
+                        onClick={(): void => {
+                            void i18n.changeLanguage('fr');
+                        }}
+                    >
+                        {`${t('BUTTONLABEL')}-FR`}
+                    </Button>
+                </div>
             }
+
             // Uncomment this line to see how to add custom form fields to the registration screens
             // customAccountDetails={[
             //     { component: CustomDetailsScreen },

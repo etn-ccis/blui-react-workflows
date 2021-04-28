@@ -16,6 +16,7 @@ void i18n
         whitelist: ['en', 'fr', 'es'],
         ns: ['app', 'pxb'],
         defaultNS: 'app',
+        fallbackNS: 'pxb',
         resources: {
             en: {
                 pxb: translations.english.translation,
