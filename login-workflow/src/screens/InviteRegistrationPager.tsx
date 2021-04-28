@@ -402,7 +402,7 @@ export const InviteRegistrationPager: React.FC = () => {
         </BrandedCardContainer>
     ) : customAccountAlreadyExists && accountAlreadyExists ? (
         <BrandedCardContainer loading={registrationIsInTransit || isValidationInTransit}>
-            {typeof customAccountAlreadyExists === 'function' && customAccountAlreadyExists()}
+            {typeof customAccountAlreadyExists === 'function' && customAccountAlreadyExists(undefined)}
             {typeof customAccountAlreadyExists !== 'function' && customAccountAlreadyExists}
         </BrandedCardContainer>
     ) : (

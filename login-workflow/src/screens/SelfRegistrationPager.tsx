@@ -509,7 +509,7 @@ export const SelfRegistrationPager: React.FC = () => {
         </BrandedCardContainer>
     ) : customAccountAlreadyExists && accountAlreadyExists ? (
         <BrandedCardContainer loading={registrationIsInTransit || isValidationInTransit || codeRequestIsInTransit}>
-            {typeof customAccountAlreadyExists === 'function' && customAccountAlreadyExists()}
+            {typeof customAccountAlreadyExists === 'function' && customAccountAlreadyExists(undefined)}
             {typeof customAccountAlreadyExists !== 'function' && customAccountAlreadyExists}
         </BrandedCardContainer>
     ) : (
