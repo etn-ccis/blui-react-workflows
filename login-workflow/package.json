@@ -24,7 +24,8 @@
     "prettier": "@pxblue/prettier-config",
     "dependencies": {
         "@pxblue/react-auth-shared": "^3.2.0-beta.0",
-        "dompurify": "^2.0.12"
+        "dompurify": "^2.0.12",
+        "i18next-browser-languagedetector": "^6.1.0"
     },
     "peerDependencies": {
         "@material-ui/core": "^4.7.2",

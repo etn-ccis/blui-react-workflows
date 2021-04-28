@@ -67,6 +67,9 @@ Note that the base routes for each screen can be customized via a prop on the `<
 # APIs
 More information about React Auth Workflow's exported objects and functions can found in the [API](https://github.com/pxblue/react-workflows/tree/master/login-workflow/docs/API.md) documentation.
 
+# Language Support
+For information about supporting multiple languages, refer to our [Language Support](https://github.com/pxblue/react-workflows/tree/master/login-workflow/docs/language-support.md) guidelines.
+
 # Contributors
 
 To work on this package as a contributor, first clone down the repository:

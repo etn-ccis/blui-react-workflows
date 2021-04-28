@@ -17,8 +17,8 @@ export const ExistingAccountComplete: React.FC = () => {
     return (
         <FinishState
             icon={<Person color={'primary'} style={{ fontSize: 100, marginBottom: theme.spacing(2) }} />}
-            title={t('MESSAGES.WELCOME')}
-            description={t('REGISTRATION.SUCCESS_EXISTING')}
+            title={t('pxb:MESSAGES.WELCOME')}
+            description={t('pxb:REGISTRATION.SUCCESS_EXISTING')}
         />
     );
 };

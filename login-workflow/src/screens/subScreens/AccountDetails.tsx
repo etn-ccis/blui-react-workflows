@@ -20,7 +20,7 @@ export type AccountDetailsProps = {
  */
 export const AccountDetailsWrapper: React.FC<AccountDetailsWrapperProps> = (props) => {
     const { t } = useLanguageLocale();
-    const { description = t('REGISTRATION.INSTRUCTIONS.ACCOUNT_DETAILS') } = props;
+    const { description = t('pxb:REGISTRATION.INSTRUCTIONS.ACCOUNT_DETAILS') } = props;
     const classes = useDialogStyles();
 
     return (
@@ -62,7 +62,7 @@ export const AccountDetails: React.FC<AccountDetailsProps> = (props) => {
             <TextField
                 inputRef={firstRef}
                 id="first"
-                label={t('FORMS.FIRST_NAME')}
+                label={t('pxb:FORMS.FIRST_NAME')}
                 fullWidth
                 value={firstNameInput}
                 onChange={(evt): void => {
@@ -76,7 +76,7 @@ export const AccountDetails: React.FC<AccountDetailsProps> = (props) => {
             <TextField
                 inputRef={lastRef}
                 id="last"
-                label={t('FORMS.LAST_NAME')}
+                label={t('pxb:FORMS.LAST_NAME')}
                 fullWidth
                 value={lastNameInput}
                 onChange={(evt): void => {

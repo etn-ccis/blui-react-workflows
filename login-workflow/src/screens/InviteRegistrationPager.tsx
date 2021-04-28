@@ -70,7 +70,7 @@ export const InviteRegistrationPager: React.FC = () => {
     const registrationTransit = registrationState.inviteRegistration.registrationTransit;
     const registrationIsInTransit = registrationTransit.transitInProgress;
     const hasRegistrationTransitError = registrationTransit.transitErrorMessage !== null;
-    const registrationTransitErrorMessage = registrationTransit.transitErrorMessage ?? t('MESSAGES.REQUEST_ERROR');
+    const registrationTransitErrorMessage = registrationTransit.transitErrorMessage ?? t('pxb:MESSAGES.REQUEST_ERROR');
     const registrationSuccess = registrationState.inviteRegistration.registrationTransit.transitSuccess;
 
     // Network state (invite code validation)
@@ -164,7 +164,7 @@ export const InviteRegistrationPager: React.FC = () => {
     const RegistrationPages: RegistrationPage[] = [
         {
             name: 'Eula',
-            pageTitle: t('REGISTRATION.STEPS.LICENSE'),
+            pageTitle: t('pxb:REGISTRATION.STEPS.LICENSE'),
             pageBody: (
                 <AcceptEula
                     eulaAccepted={eulaAccepted}
@@ -180,7 +180,7 @@ export const InviteRegistrationPager: React.FC = () => {
         },
         {
             name: 'CreatePassword',
-            pageTitle: t('REGISTRATION.STEPS.PASSWORD'),
+            pageTitle: t('pxb:REGISTRATION.STEPS.PASSWORD'),
             pageBody: (
                 <CreatePasswordScreen
                     onPasswordChanged={setPassword}
@@ -194,7 +194,7 @@ export const InviteRegistrationPager: React.FC = () => {
         },
         {
             name: 'AccountDetails',
-            pageTitle: t('REGISTRATION.STEPS.ACCOUNT_DETAILS'),
+            pageTitle: t('pxb:REGISTRATION.STEPS.ACCOUNT_DETAILS'),
             pageBody: (
                 <AccountDetailsWrapper>
                     <AccountDetailsScreen
@@ -241,7 +241,7 @@ export const InviteRegistrationPager: React.FC = () => {
                     const PageComponent = page.component;
                     return {
                         name: `CustomPage${i + 1}`,
-                        pageTitle: page.title || t('REGISTRATION.STEPS.ACCOUNT_DETAILS'),
+                        pageTitle: page.title || t('pxb:REGISTRATION.STEPS.ACCOUNT_DETAILS'),
                         pageBody: (
                             <AccountDetailsWrapper description={page.instructions}>
                                 <PageComponent
@@ -268,15 +268,15 @@ export const InviteRegistrationPager: React.FC = () => {
         .concat([
             {
                 name: 'Complete',
-                pageTitle: t('REGISTRATION.STEPS.COMPLETE'),
+                pageTitle: t('pxb:REGISTRATION.STEPS.COMPLETE'),
                 pageBody: (
                     <RegistrationComplete
                         firstName={accountDetails?.firstName ?? ''}
                         lastName={accountDetails?.lastName ?? ''}
-                        email={registrationState.inviteRegistration.email ?? t('REGISTRATION.UNKNOWN_EMAIL')}
+                        email={registrationState.inviteRegistration.email ?? t('pxb:REGISTRATION.UNKNOWN_EMAIL')}
                         organization={
                             registrationState.inviteRegistration.organizationName ??
-                            t('REGISTRATION.UNKNOWN_ORGANIZATION')
+                            t('pxb:REGISTRATION.UNKNOWN_ORGANIZATION')
                         }
                     />
                 ),
@@ -321,11 +321,11 @@ export const InviteRegistrationPager: React.FC = () => {
     // Screen content logic
     const pageTitle = (): string => {
         if (isValidationInTransit) {
-            return t('MESSAGES.LOADING');
+            return t('pxb:MESSAGES.LOADING');
         } else if (validationTransitErrorMessage !== null) {
-            return t('MESSAGES.ERROR');
+            return t('pxb:MESSAGES.ERROR');
         } else if (accountAlreadyExists) {
-            return t('REGISTRATION.STEPS.COMPLETE');
+            return t('pxb:REGISTRATION.STEPS.COMPLETE');
         }
         return RegistrationPages[currentPage].pageTitle || '';
     };
@@ -341,7 +341,7 @@ export const InviteRegistrationPager: React.FC = () => {
                 className={clsx(sharedClasses.dialogButton, { [sharedClasses.fullWidth]: true })}
                 onClick={(): void => advancePage(1)}
             >
-                {t('ACTIONS.CONTINUE')}
+                {t('pxb:ACTIONS.CONTINUE')}
             </Button>
         );
     } else {
@@ -359,7 +359,7 @@ export const InviteRegistrationPager: React.FC = () => {
                         onClick={(): void => advancePage(-1)}
                         className={sharedClasses.dialogButton}
                     >
-                        {t('ACTIONS.BACK')}
+                        {t('pxb:ACTIONS.BACK')}
                     </Button>
                 }
                 nextButton={
@@ -371,7 +371,7 @@ export const InviteRegistrationPager: React.FC = () => {
                         onClick={(): void => advancePage(1)}
                         className={sharedClasses.dialogButton}
                     >
-                        {t('ACTIONS.NEXT')}
+                        {t('pxb:ACTIONS.NEXT')}
                     </Button>
                 }
                 classes={{ root: sharedClasses.stepper, dot: sharedClasses.stepperDot }}
@@ -381,7 +381,7 @@ export const InviteRegistrationPager: React.FC = () => {
 
     const errorDialog = (
         <SimpleDialog
-            title={t('MESSAGES.ERROR')}
+            title={t('pxb:MESSAGES.ERROR')}
             body={t(registrationTransitErrorMessage)}
             open={hasRegistrationTransitError && !hasAcknowledgedError}
             onClose={(): void => {
@@ -423,7 +423,7 @@ export const InviteRegistrationPager: React.FC = () => {
                             onClick={(): void => history.push(routes.LOGIN)}
                             className={sharedClasses.dialogButton}
                         >
-                            {t('ACTIONS.CONTINUE')}
+                            {t('pxb:ACTIONS.CONTINUE')}
                         </Button>
                     </CardActions>
                 </>
@@ -432,7 +432,7 @@ export const InviteRegistrationPager: React.FC = () => {
             ) : (
                 <FinishState
                     icon={<Error color={'error'} style={{ fontSize: 100, marginBottom: theme.spacing(2) }} />}
-                    title={t('MESSAGES.FAILURE')}
+                    title={t('pxb:MESSAGES.FAILURE')}
                     description={validationTransitErrorMessage}
                 />
             )}

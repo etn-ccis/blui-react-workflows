@@ -32,11 +32,11 @@ export const CreateAccount: React.FC<CreateAccountProps> = (props) => {
 
     return (
         <>
-            <Typography>{t('SELF_REGISTRATION.INSTRUCTIONS')}</Typography>
+            <Typography>{t('pxb:SELF_REGISTRATION.INSTRUCTIONS')}</Typography>
             <Divider className={classes.fullDivider} />
             <TextField
                 id="email"
-                label={t('LABELS.EMAIL')}
+                label={t('pxb:LABELS.EMAIL')}
                 fullWidth
                 value={emailInput}
                 onChange={(evt): void => {
@@ -49,7 +49,7 @@ export const CreateAccount: React.FC<CreateAccountProps> = (props) => {
                 }}
                 variant="filled"
                 error={showEmailError}
-                helperText={showEmailError ? t('MESSAGES.EMAIL_ENTRY_ERROR') : ''}
+                helperText={showEmailError ? t('pxb:MESSAGES.EMAIL_ENTRY_ERROR') : ''}
             />
         </>
     );
