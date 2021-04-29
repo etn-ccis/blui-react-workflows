@@ -394,30 +394,38 @@ export const InviteRegistrationPager: React.FC = () => {
         />
     );
 
+    // Custom "Account Already Exists"
+    if (accountAlreadyExists && customAccountAlreadyExists) {
+        return (
+            <BrandedCardContainer loading={registrationIsInTransit || isValidationInTransit}>
+                {typeof customAccountAlreadyExists === 'function' && customAccountAlreadyExists(undefined)}
+                {typeof customAccountAlreadyExists !== 'function' && customAccountAlreadyExists}
+            </BrandedCardContainer>
+        );
+    }
+    // Custom Success Screen
+    else if (isLastStep && !accountAlreadyExists && validationSuccess && !isValidationInTransit && customSuccess) {
+        return (
+            <BrandedCardContainer loading={registrationIsInTransit || isValidationInTransit}>
+                {typeof customSuccess === 'function' &&
+                    customSuccess({ accountDetails: accountDetails, email: validationEmail })}
+                {typeof customSuccess !== 'function' && customSuccess}
+            </BrandedCardContainer>
+        );
+    }
+    // Default Screens
     return (
         <BrandedCardContainer loading={registrationIsInTransit || isValidationInTransit}>
             {errorDialog}
-            {customSuccess && !accountAlreadyExists && isLastStep && (
-                <>
-                    {typeof customSuccess === 'function' &&
-                        customSuccess({ accountDetails: accountDetails, email: validationEmail })}
-                    {typeof customSuccess !== 'function' && customSuccess}
-                </>
-            )}
-            {!((customSuccess && isLastStep) || (accountAlreadyExists && customAccountAlreadyExists)) && (
-                <CardHeader
-                    title={
-                        <Typography variant={'h6'} style={{ fontWeight: 600 }}>
-                            {pageTitle()}
-                        </Typography>
-                    }
-                    className={sharedClasses.dialogTitle}
-                />
-            )}
-            {!accountAlreadyExists &&
-            validationSuccess &&
-            !isValidationInTransit &&
-            (!customSuccess || (customSuccess && !isLastStep)) ? (
+            <CardHeader
+                title={
+                    <Typography variant={'h6'} style={{ fontWeight: 600 }}>
+                        {pageTitle()}
+                    </Typography>
+                }
+                className={sharedClasses.dialogTitle}
+            />
+            {!accountAlreadyExists && validationSuccess && !isValidationInTransit ? (
                 <>
                     <CardContent className={sharedClasses.dialogContent}>
                         {RegistrationPages[currentPage].pageBody}
@@ -426,41 +434,31 @@ export const InviteRegistrationPager: React.FC = () => {
                     <CardActions className={sharedClasses.dialogActions}>{buttonArea}</CardActions>
                 </>
             ) : accountAlreadyExists ? (
-                customAccountAlreadyExists ? (
-                    <>
-                        {typeof customAccountAlreadyExists === 'function' && customAccountAlreadyExists(undefined)}
-                        {typeof customAccountAlreadyExists !== 'function' && customAccountAlreadyExists}
-                    </>
-                ) : (
-                    <>
-                        <CardContent className={sharedClasses.dialogContent}>
-                            <ExistingAccountComplete />
-                        </CardContent>
-                        <Divider />
-                        <CardActions className={sharedClasses.dialogActions}>
-                            <Button
-                                variant="contained"
-                                color="primary"
-                                disableElevation
-                                onClick={(): void => history.push(routes.LOGIN)}
-                                className={sharedClasses.dialogButton}
-                            >
-                                {t('ACTIONS.CONTINUE')}
-                            </Button>
-                        </CardActions>
-                    </>
-                )
+                <>
+                    <CardContent className={sharedClasses.dialogContent}>
+                        <ExistingAccountComplete />
+                    </CardContent>
+                    <Divider />
+                    <CardActions className={sharedClasses.dialogActions}>
+                        <Button
+                            variant="contained"
+                            color="primary"
+                            disableElevation
+                            onClick={(): void => history.push(routes.LOGIN)}
+                            className={sharedClasses.dialogButton}
+                        >
+                            {t('ACTIONS.CONTINUE')}
+                        </Button>
+                    </CardActions>
+                </>
             ) : !validationComplete ? (
                 <></>
             ) : (
-                !customSuccess ||
-                (customSuccess && !isLastStep && (
-                    <FinishState
-                        icon={<Error color={'error'} style={{ fontSize: 100, marginBottom: theme.spacing(2) }} />}
-                        title={t('MESSAGES.FAILURE')}
-                        description={validationTransitErrorMessage}
-                    />
-                ))
+                <FinishState
+                    icon={<Error color={'error'} style={{ fontSize: 100, marginBottom: theme.spacing(2) }} />}
+                    title={t('MESSAGES.FAILURE')}
+                    description={validationTransitErrorMessage}
+                />
             )}
         </BrandedCardContainer>
     );
