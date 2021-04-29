@@ -15,8 +15,8 @@ import productLogo from './assets/images/eaton_stacked_logo.png';
 // import { Route } from 'react-router-dom';
 // import { ExamplePreAuth } from './screens/ExamplePreAuth';
 // import {
-//     customAccountAlreadyExistsScreen,
-//     customRegistrationSuccessScreen,
+//     CustomAccountAlreadyExistsScreen,
+//     CustomRegistrationSuccessScreen,
 // } from './screens/ExampleRegistrationSuccess';
 
 export const AuthUIConfiguration: React.FC = (props) => {
@@ -40,10 +40,10 @@ export const AuthUIConfiguration: React.FC = (props) => {
             //         instructions: 'Enter your employment information below.',
             //     },
             // ]}
-            // registrationSuccessScreen={(registrationData: RegistrationData): JSX.Element =>
-            //     customRegistrationSuccessScreen(registrationData)
-            // }
-            // accountAlreadyExistsScreen={(): JSX.Element => customAccountAlreadyExistsScreen}
+            // registrationSuccessScreen={(registrationData: RegistrationData): JSX.Element => (
+            //     <CustomRegistrationSuccessScreen registrationData={registrationData} />
+            // )}
+            // accountAlreadyExistsScreen={(): JSX.Element => <CustomAccountAlreadyExistsScreen />}
         >
             {props.children}
         </AuthUIContextProvider>

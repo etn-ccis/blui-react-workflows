@@ -5,7 +5,11 @@ import { Link } from 'react-router-dom';
 import { EmptyState } from '@pxblue/react-components';
 import Person from '@material-ui/icons/Person';
 
-export const customRegistrationSuccessScreen = (registrationData: RegistrationData | undefined): JSX.Element => (
+type CustomRegistrationProps = {
+    registrationData: RegistrationData;
+};
+
+export const CustomRegistrationSuccessScreen: React.FC<CustomRegistrationProps> = (props) => (
     <>
         <CardHeader
             title={
@@ -29,8 +33,8 @@ export const customRegistrationSuccessScreen = (registrationData: RegistrationDa
         >
             <EmptyState
                 icon={<Person color={'primary'} style={{ fontSize: 100 }} />}
-                title={`Congratulations ${registrationData?.accountDetails?.firstName || ''}${' '}
-                ${registrationData?.accountDetails?.lastName || ''}!`}
+                title={`Congratulations ${props.registrationData?.accountDetails?.firstName || ''}${' '}
+                ${props.registrationData?.accountDetails?.lastName || ''}!`}
                 description={'You made it to the custom registration success screen!'}
             />
         </CardContent>
@@ -50,7 +54,7 @@ export const customRegistrationSuccessScreen = (registrationData: RegistrationDa
     </>
 );
 
-export const customAccountAlreadyExistsScreen = (
+export const CustomAccountAlreadyExistsScreen: React.FC = () => (
     <>
         <CardHeader
             title={
