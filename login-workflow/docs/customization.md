@@ -84,3 +84,7 @@ registrationSuccessScreen={(registrationData) => <MySuccessScreen email={registr
 #### Account Already Exists
 
 In the case when a user already has an existing account, a separate success screen is shown. You can customize this screen in the same way using the `accountAlreadyExistsScreen` prop on the `AuthUIContextProvider`.
+
+```tsx
+accountAlreadyExistsScreen={() => <MyAccountAlreadyExistsScreen />}
+```
