@@ -518,7 +518,7 @@ export const SelfRegistrationPager: React.FC = () => {
                     {typeof customAccountAlreadyExists !== 'function' && customAccountAlreadyExists}
                 </>
             )}
-            {(!isLastStep || !customSuccess || !customAccountAlreadyExists) && (
+            {!((customSuccess && isLastStep) || (accountAlreadyExists && customAccountAlreadyExists)) && (
                 <>
                     <CardHeader
                         title={

@@ -404,9 +404,7 @@ export const InviteRegistrationPager: React.FC = () => {
                     {typeof customSuccess !== 'function' && customSuccess}
                 </>
             )}
-            {((!customSuccess && !customAccountAlreadyExists) ||
-                (customSuccess && !isLastStep) ||
-                (accountAlreadyExists && !customAccountAlreadyExists)) && (
+            {!((customSuccess && isLastStep) || (accountAlreadyExists && customAccountAlreadyExists)) && (
                 <CardHeader
                     title={
                         <Typography variant={'h6'} style={{ fontWeight: 600 }}>
