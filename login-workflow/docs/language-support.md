@@ -1,12 +1,12 @@
 # Language Support
 
-This package supports translations to different langauges using [i18next](https://www.i18next.com/) / [react-i18next](https://github.com/i18next/react-i18next). The workflow screens are currently available in:
+This package supports translations to different languages using [i18next](https://www.i18next.com/) / [react-i18next](https://github.com/i18next/react-i18next). The workflow screens are currently available in:
 -   English
 -   French
 -   Spanish
 
 ## Changing the Language
-The authentication workflow configures i18next to store the most recently used language in localstorage (`i18nextLng`) so that when the app is loaded again, it will default to the last language used. There are three ways that you can change this stored value.
+The authentication workflow configures i18next to store the most recently used language in local storage (`i18nextLng`) so that when the app is loaded again, it will default to the last language used. There are three ways that you can change this stored value.
 
 ### 1. ChangeLanguage Function
     
@@ -26,7 +26,7 @@ If you navigate to your application URL and append the `lng` query string, the s
 https://www.yourwebsite.com/page?lgn=fr
 ```
 
-### 3. Localstorage
+### 3. Local Storage
 
 You can also manually modify the value that is stored in Local Storage to edit or remove the stored value. Removing the value will tell the application to default to the browser default value.
 
