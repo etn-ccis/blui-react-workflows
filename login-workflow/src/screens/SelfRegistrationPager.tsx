@@ -502,39 +502,41 @@ export const SelfRegistrationPager: React.FC = () => {
         />
     );
 
+    // Custom "Account Already Exists"
+    if (accountAlreadyExists && customAccountAlreadyExists) {
+        return (
+            <BrandedCardContainer loading={registrationIsInTransit || isValidationInTransit || codeRequestIsInTransit}>
+                {typeof customAccountAlreadyExists === 'function' && customAccountAlreadyExists(undefined)}
+                {typeof customAccountAlreadyExists !== 'function' && customAccountAlreadyExists}
+            </BrandedCardContainer>
+        );
+    }
+    // Custom Success Screen
+    else if (isLastStep && !accountAlreadyExists && validationSuccess && !isValidationInTransit && customSuccess) {
+        return (
+            <BrandedCardContainer loading={registrationIsInTransit || isValidationInTransit || codeRequestIsInTransit}>
+                {typeof customSuccess === 'function' && customSuccess({ accountDetails: accountDetails })}
+                {typeof customSuccess !== 'function' && customSuccess}
+            </BrandedCardContainer>
+        );
+    }
+
     return (
         <BrandedCardContainer loading={registrationIsInTransit || isValidationInTransit || codeRequestIsInTransit}>
             {errorDialog}
-            {customSuccess && !accountAlreadyExists && isLastStep && (
-                <>
-                    {typeof customSuccess === 'function' && customSuccess({ accountDetails: accountDetails })}
-                    {typeof customSuccess !== 'function' && customSuccess}
-                </>
-            )}
-
-            {customAccountAlreadyExists && accountAlreadyExists && (
-                <>
-                    {typeof customAccountAlreadyExists === 'function' && customAccountAlreadyExists(undefined)}
-                    {typeof customAccountAlreadyExists !== 'function' && customAccountAlreadyExists}
-                </>
-            )}
-            {!((customSuccess && isLastStep) || (accountAlreadyExists && customAccountAlreadyExists)) && (
-                <>
-                    <CardHeader
-                        title={
-                            <Typography variant={'h6'} style={{ fontWeight: 600 }}>
-                                {pageTitle()}
-                            </Typography>
-                        }
-                        className={sharedClasses.dialogTitle}
-                    />
-                    <CardContent className={sharedClasses.dialogContent}>
-                        {accountAlreadyExists ? <ExistingAccountComplete /> : RegistrationPages[currentPage].pageBody}
-                    </CardContent>
-                    <Divider />
-                    <CardActions className={sharedClasses.dialogActions}>{buttonArea}</CardActions>
-                </>
-            )}
+            <CardHeader
+                title={
+                    <Typography variant={'h6'} style={{ fontWeight: 600 }}>
+                        {pageTitle()}
+                    </Typography>
+                }
+                className={sharedClasses.dialogTitle}
+            />
+            <CardContent className={sharedClasses.dialogContent}>
+                {accountAlreadyExists ? <ExistingAccountComplete /> : RegistrationPages[currentPage].pageBody}
+            </CardContent>
+            <Divider />
+            <CardActions className={sharedClasses.dialogActions}>{buttonArea}</CardActions>
         </BrandedCardContainer>
     );
 };
