@@ -82,14 +82,14 @@ export const ChangePasswordModal: React.FC = () => {
         body = (
             <FinishState
                 icon={<CheckCircle color={'primary'} style={{ fontSize: 100, marginBottom: theme.spacing(2) }} />}
-                title={t('CHANGE_PASSWORD.PASSWORD_CHANGED')}
-                description={t('CHANGE_PASSWORD.SUCCESS_MESSAGE')}
+                title={t('pxb:CHANGE_PASSWORD.PASSWORD_CHANGED')}
+                description={t('pxb:CHANGE_PASSWORD.SUCCESS_MESSAGE')}
             />
         );
     } else {
         body = (
             <ChangePasswordForm
-                passwordLabel={t('LABELS.NEW_PASSWORD')}
+                passwordLabel={t('pxb:LABELS.NEW_PASSWORD')}
                 onPasswordChange={updateFields}
                 passwordRef={passwordRef}
                 confirmRef={confirmRef}
@@ -104,7 +104,7 @@ export const ChangePasswordModal: React.FC = () => {
             >
                 <SecureTextField
                     id="current-password"
-                    label={t('LABELS.CURRENT_PASSWORD')}
+                    label={t('pxb:LABELS.CURRENT_PASSWORD')}
                     value={currentPassword}
                     onChange={(evt: ChangeEvent<HTMLInputElement>): void => setCurrentPassword(evt.target.value)}
                     onKeyPress={(e): void => {
@@ -119,7 +119,7 @@ export const ChangePasswordModal: React.FC = () => {
 
     const errorDialog = (
         <SimpleDialog
-            title={t('MESSAGES.ERROR')}
+            title={t('pxb:MESSAGES.ERROR')}
             body={transitState.transitErrorMessage ?? ''}
             open={transitState.transitErrorMessage !== null && !hasAcknowledgedError}
             onClose={(): void => {
@@ -138,7 +138,7 @@ export const ChangePasswordModal: React.FC = () => {
     return (
         <Dialog open={securityState.isShowingChangePassword} maxWidth={'xs'} onExited={resetForm}>
             {errorDialog}
-            <DialogTitle className={sharedClasses.dialogTitle}>{t('CHANGE_PASSWORD.PASSWORD')}</DialogTitle>
+            <DialogTitle className={sharedClasses.dialogTitle}>{t('pxb:CHANGE_PASSWORD.PASSWORD')}</DialogTitle>
             <DialogContent className={sharedClasses.dialogContent} style={{ flex: '1 1 auto' }}>
                 {body}
             </DialogContent>
@@ -152,7 +152,7 @@ export const ChangePasswordModal: React.FC = () => {
                             className={sharedClasses.dialogButton}
                             onClick={(): void => securityHelper.hideChangePassword()}
                         >
-                            {t('ACTIONS.BACK')}
+                            {t('pxb:ACTIONS.BACK')}
                         </Button>
                     )}
                     <Button
@@ -173,7 +173,7 @@ export const ChangePasswordModal: React.FC = () => {
                                 : changePassword
                         }
                     >
-                        {success ? t('ACTIONS.LOG_IN') : t('ACTIONS.OKAY')}
+                        {success ? t('pxb:ACTIONS.LOG_IN') : t('pxb:ACTIONS.OKAY')}
                     </Button>
                 </Grid>
             </DialogActions>

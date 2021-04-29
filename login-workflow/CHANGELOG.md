@@ -4,6 +4,12 @@ All notable changes to this project will be documented in this file.
 The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.0.0/),
 and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0.html).
 
+## v2.2.0 (Unpublished)
+### Added
+-   Support for Spanish language.
+
+## v2.1.0 (Unpublished)
+
 ## v2.0.0 (March 31, 2021)
 ### Added
 -   Ability to customize the Login screen by toggling on/off various elements and adding custom content

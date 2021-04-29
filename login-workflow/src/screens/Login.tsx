@@ -147,7 +147,7 @@ export const Login: React.FC = () => {
     const showLinks = showSelfRegistration || enableResetPassword || showContactSupport;
 
     const hasTransitError = authUIState.login.transitErrorMessage !== null;
-    const transitErrorMessage = authUIState.login.transitErrorMessage ?? t('MESSAGES.REQUEST_ERROR');
+    const transitErrorMessage = authUIState.login.transitErrorMessage ?? t('pxb:MESSAGES.REQUEST_ERROR');
 
     useEffect(
         () => {
@@ -159,7 +159,7 @@ export const Login: React.FC = () => {
     // Construct the dynamic elements
     const errorDialog = (
         <SimpleDialog
-            title={t('MESSAGES.ERROR')}
+            title={t('pxb:MESSAGES.ERROR')}
             body={t(transitErrorMessage)}
             open={hasTransitError && !hasAcknowledgedError}
             onClose={(): void => {
@@ -170,7 +170,7 @@ export const Login: React.FC = () => {
     const contactEatonRepresentative: JSX.Element = showContactSupport ? (
         <Typography variant="body2" color={'primary'}>
             <Link className={classes.link} to={routes.SUPPORT}>
-                {t('MESSAGES.CONTACT')}
+                {t('pxb:MESSAGES.CONTACT')}
             </Link>
         </Typography>
     ) : (
@@ -182,7 +182,7 @@ export const Login: React.FC = () => {
         createAccountOption = (
             <Typography variant="body2" color={'primary'} style={{ marginBottom: theme.spacing(4) }}>
                 <Link className={classes.link} to={routes.REGISTER_SELF}>
-                    {t('ACTIONS.CREATE_ACCOUNT')}
+                    {t('pxb:ACTIONS.CREATE_ACCOUNT')}
                 </Link>
             </Typography>
         );
@@ -260,7 +260,7 @@ export const Login: React.FC = () => {
                     {debugLinks}
 
                     <TextField
-                        label={t('LABELS.EMAIL')}
+                        label={t('pxb:LABELS.EMAIL')}
                         id="email"
                         name="email"
                         type="email"
@@ -272,19 +272,19 @@ export const Login: React.FC = () => {
                         }}
                         variant="filled"
                         error={hasTransitError}
-                        helperText={hasTransitError ? t('LOGIN.INCORRECT_CREDENTIALS') : ''}
+                        helperText={hasTransitError ? t('pxb:LOGIN.INCORRECT_CREDENTIALS') : ''}
                     />
                     <SecureTextField
                         inputRef={passwordField}
                         id="password"
                         name="password"
-                        label={t('LABELS.PASSWORD')}
+                        label={t('pxb:LABELS.PASSWORD')}
                         className={clsx(classes.formFields, { [classes.hasError]: hasTransitError })}
                         value={passwordInput}
                         onChange={(evt: ChangeEvent<HTMLInputElement>): void => setPasswordInput(evt.target.value)}
                         variant="filled"
                         error={hasTransitError}
-                        helperText={hasTransitError ? t('LOGIN.INCORRECT_CREDENTIALS') : ''}
+                        helperText={hasTransitError ? t('pxb:LOGIN.INCORRECT_CREDENTIALS') : ''}
                     />
 
                     <Grid
@@ -303,7 +303,7 @@ export const Login: React.FC = () => {
                                         onChange={(evt): void => setRememberPassword(evt.target.checked)}
                                     />
                                 }
-                                label={t('ACTIONS.REMEMBER')}
+                                label={t('pxb:ACTIONS.REMEMBER')}
                             />
                         )}
                         <Button
@@ -315,7 +315,7 @@ export const Login: React.FC = () => {
                             style={{ width: showRememberMe ? 150 : '100%' }}
                             onClick={loginTapped}
                         >
-                            {t('ACTIONS.LOG_IN')}
+                            {t('pxb:ACTIONS.LOG_IN')}
                         </Button>
                     </Grid>
 
@@ -326,7 +326,7 @@ export const Login: React.FC = () => {
                         {enableResetPassword && (
                             <Typography variant="body2" color={'primary'}>
                                 <Link className={classes.link} to={routes.FORGOT_PASSWORD}>
-                                    {t('LABELS.FORGOT_PASSWORD')}
+                                    {t('pxb:LABELS.FORGOT_PASSWORD')}
                                 </Link>
                             </Typography>
                         )}
@@ -335,7 +335,7 @@ export const Login: React.FC = () => {
                                 variant="body2"
                                 style={{ marginTop: enableResetPassword ? theme.spacing(4) : 0 }}
                             >
-                                {t('LABELS.NEED_ACCOUNT')}
+                                {t('pxb:LABELS.NEED_ACCOUNT')}
                             </Typography>
                         )}
 

@@ -101,7 +101,7 @@ export const ForgotPassword: React.FC = () => {
     // Dynamic Elements
     const errorDialog = (
         <SimpleDialog
-            title={t('MESSAGES.ERROR')}
+            title={t('pxb:MESSAGES.ERROR')}
             body={t(transitErrorMessage ?? '')}
             open={hasTransitError && !hasAcknowledgedError}
             onClose={(): void => {
@@ -115,9 +115,9 @@ export const ForgotPassword: React.FC = () => {
         body = (
             <FinishState
                 icon={<CheckCircle color={'primary'} style={{ fontSize: 100, marginBottom: theme.spacing(2) }} />}
-                title={t('MESSAGES.EMAIL_SENT')}
+                title={t('pxb:MESSAGES.EMAIL_SENT')}
                 description={
-                    <Trans i18nKey={'FORGOT_PASSWORD.LINK_SENT_ALT'} values={{ email: emailInput }}>
+                    <Trans i18nKey={'pxb:FORGOT_PASSWORD.LINK_SENT_ALT'} values={{ email: emailInput }}>
                         Link has been sent to <b>{emailInput}</b>.
                     </Trans>
                 }
@@ -127,7 +127,7 @@ export const ForgotPassword: React.FC = () => {
         body = (
             <>
                 <Typography>
-                    <Trans i18nKey={'FORGOT_PASSWORD.INSTRUCTIONS_ALT'} values={{ phone: contactPhone }}>
+                    <Trans i18nKey={'pxb:FORGOT_PASSWORD.INSTRUCTIONS_ALT'} values={{ phone: contactPhone }}>
                         Please enter your email, we will respond in <b>one business day</b>. For urgent issues please
                         call{' '}
                         <a href={`tel:${contactPhone}`} className={classes.link}>
@@ -141,7 +141,7 @@ export const ForgotPassword: React.FC = () => {
 
                 <TextField
                     id="email"
-                    label={t('LABELS.EMAIL')}
+                    label={t('pxb:LABELS.EMAIL')}
                     fullWidth
                     value={emailInput}
                     onChange={(evt: ChangeEvent<HTMLInputElement>): void => setEmailInput(evt.target.value)}
@@ -150,7 +150,7 @@ export const ForgotPassword: React.FC = () => {
                     }}
                     variant="filled"
                     error={hasTransitError}
-                    helperText={hasTransitError ? t('FORGOT_PASSWORD.ERROR') : ''}
+                    helperText={hasTransitError ? t('pxb:FORGOT_PASSWORD.ERROR') : ''}
                 />
             </>
         );
@@ -162,7 +162,7 @@ export const ForgotPassword: React.FC = () => {
             <CardHeader
                 title={
                     <Typography variant={'h6'} style={{ fontWeight: 600 }}>
-                        {t('HEADER.FORGOT_PASSWORD')}
+                        {t('pxb:HEADER.FORGOT_PASSWORD')}
                     </Typography>
                 }
                 className={sharedClasses.dialogTitle}
@@ -178,7 +178,7 @@ export const ForgotPassword: React.FC = () => {
                             onClick={(): void => history.goBack()}
                             className={sharedClasses.dialogButton}
                         >
-                            {t('ACTIONS.BACK')}
+                            {t('pxb:ACTIONS.BACK')}
                         </Button>
                     )}
                     <Button
@@ -189,7 +189,7 @@ export const ForgotPassword: React.FC = () => {
                         onClick={onContinue}
                         className={clsx(sharedClasses.dialogButton, { [sharedClasses.fullWidth]: finished })}
                     >
-                        {accountUIState.forgotPassword.transitSuccess ? t('ACTIONS.DONE') : t('ACTIONS.OKAY')}
+                        {accountUIState.forgotPassword.transitSuccess ? t('pxb:ACTIONS.DONE') : t('pxb:ACTIONS.OKAY')}
                     </Button>
                 </Grid>
             </CardActions>
