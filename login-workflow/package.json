@@ -1,6 +1,6 @@
 {
     "name": "@pxblue/react-auth-workflow",
-    "version": "2.0.0",
+    "version": "2.1.0",
     "author": "Power Xpert Blue <pxblue@eaton.com> (https://github.com/pxblue)",
     "license": "BSD-3-Clause",
     "description": "Re-usable workflow components for Authentication and Registration within Eaton applications.",
@@ -16,13 +16,14 @@
         "start:example": "yarn initialize && yarn install:dependencies && yarn link:workflow && cd example && yarn start",
         "prettier": "prettier \"**/**.{ts,tsx,js,jsx,json,css,scss,html}\" --write",
         "prettier:check": "prettier \"**/**.{ts,tsx,js,jsx,json,css,scss,html}\" --check",
+        "publish:package": "set npm_config_yes=true && npx -p @pxblue/publish pxb-publish",
         "update:submodule": "git submodule update --remote",
         "generate:licenses": "npm-license-crawler -onlyDirectDependencies -json LICENSES.json",
         "precommit": "yarn prettier && yarn lint && yarn test && yarn build"
     },
     "prettier": "@pxblue/prettier-config",
     "dependencies": {
-        "@pxblue/react-auth-shared": "^3.0.0",
+        "@pxblue/react-auth-shared": "^3.2.0",
         "dompurify": "^2.0.12"
     },
     "peerDependencies": {
