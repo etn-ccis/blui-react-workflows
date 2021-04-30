@@ -4,16 +4,20 @@ import {
     AuthNavigationContainer,
     AuthUIContextProvider,
     useSecurityActions,
+    // RegistrationData,
 } from '@pxblue/react-auth-workflow';
 import { ProjectAuthUIActions } from './actions/AuthUIActions';
 import { ProjectRegistrationUIActions } from './actions/RegistrationUIActions';
 import { ExampleHome } from './screens/ExampleHome';
 // import { CustomDetailsScreen, CustomDetailsScreenTwo } from './components/CustomDetailsScreen';
 import { routes } from './navigation/Routing';
-
 import productLogo from './assets/images/eaton_stacked_logo.png';
-// import { ExamplePreAuth } from './screens/ExamplePreAuth';
 // import { Route } from 'react-router-dom';
+// import { ExamplePreAuth } from './screens/ExamplePreAuth';
+// import {
+//     CustomAccountAlreadyExistsScreen,
+//     CustomRegistrationSuccessScreen,
+// } from './screens/ExampleRegistrationSuccess';
 
 export const AuthUIConfiguration: React.FC = (props) => {
     const securityContextActions = useSecurityActions();
@@ -36,6 +40,10 @@ export const AuthUIConfiguration: React.FC = (props) => {
             //         instructions: 'Enter your employment information below.',
             //     },
             // ]}
+            // registrationSuccessScreen={(registrationData: RegistrationData): JSX.Element => (
+            //     <CustomRegistrationSuccessScreen registrationData={registrationData} />
+            // )}
+            // accountAlreadyExistsScreen={(): JSX.Element => <CustomAccountAlreadyExistsScreen />}
         >
             {props.children}
         </AuthUIContextProvider>
