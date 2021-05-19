@@ -94,7 +94,7 @@ workflows:
       - coverage_report:
                    requires:
                         - build_login_workflow
-                  #  filters:
-                  #       branches:
-                  #           only:
-                  #               - master
+                   filters:
+                        branches:
+                            only:
+                                - master
