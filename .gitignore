@@ -25,3 +25,6 @@
 
 # Build Folders
 /login-workflow/dist
+
+# Testing
+/login-workflow/coverage

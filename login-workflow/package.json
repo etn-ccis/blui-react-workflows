@@ -19,7 +19,8 @@
         "publish:package": "set npm_config_yes=true && npx -p @pxblue/publish pxb-publish",
         "update:submodule": "git submodule update --remote",
         "generate:licenses": "npm-license-crawler -onlyDirectDependencies -json LICENSES.json",
-        "precommit": "yarn prettier && yarn lint && yarn test && yarn build"
+        "precommit": "yarn prettier && yarn lint && yarn test && yarn build",
+        "coverage": "yarn test --coverage --watchAll=false"
     },
     "prettier": "@pxblue/prettier-config",
     "dependencies": {
@@ -72,6 +73,7 @@
         "@typescript-eslint/eslint-plugin": "^4.0.0",
         "@typescript-eslint/parser": "^4.0.0",
         "clsx": "^1.1.1",
+        "codecov": "^3.8.2",
         "date-fns": "^2.14.0",
         "enzyme": "^3.11.0",
         "eslint": "^7.0.0",
@@ -88,5 +90,9 @@
         "react-router-dom": "^5.2.0",
         "ts-jest": "^26.0.0",
         "typescript": "^4.0.0"
+    },
+    "jest": {
+        "coverageDirectory": "./login-workflow/coverage/",
+        "collectCoverage": true
     }
 }
