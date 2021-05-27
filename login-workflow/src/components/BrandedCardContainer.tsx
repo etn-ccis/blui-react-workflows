@@ -15,6 +15,11 @@ const useStyles = makeStyles((theme: Theme) =>
             display: 'flex',
             flexDirection: 'column',
             position: 'relative',
+            [theme.breakpoints.down('xs')]: {
+                maxWidth: 'none',
+                maxHeight: 'none',
+                borderRadius: 0,
+            },
         },
         brandingPanel: {
             height: '100%',
