@@ -45,7 +45,7 @@ export const ChangePasswordModal: React.FC = () => {
     const securityHelper = useSecurityActions();
     const theme = useTheme();
     const sharedClasses = useDialogStyles();
-    const matchesXS = useMediaQuery('(max-width:600px)');
+    const matchesXS = useMediaQuery(theme.breakpoints.down('xs'));
 
     const passwordRef = useRef(null);
     const confirmRef = useRef(null);
