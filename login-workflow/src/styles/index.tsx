@@ -15,7 +15,7 @@ export const useDialogStyles = makeStyles((theme: Theme) =>
             flexDirection: 'column',
             padding: `${theme.spacing(2)}px ${theme.spacing(3)}px`,
             [theme.breakpoints.down('xs')]: {
-                padding: `${theme.spacing(2)}px ${theme.spacing(2)}px`,
+                padding: `${theme.spacing(2)}px ${theme.spacing(2)}px ${theme.spacing(3)}px ${theme.spacing(2)}px`,
             },
         },
         dialogActions: {
