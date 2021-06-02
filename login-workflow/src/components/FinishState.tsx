@@ -1,9 +1,9 @@
 import React from 'react';
-import { makeStyles, createStyles } from '@material-ui/core';
+import { makeStyles, createStyles, Theme } from '@material-ui/core';
 import { EmptyStateProps, EmptyState } from '@pxblue/react-components';
 import clsx from 'clsx';
 
-const useStyles = makeStyles(() =>
+const useStyles = makeStyles((theme: Theme) =>
     createStyles({
         wrapper: {
             display: 'flex',
@@ -12,6 +12,9 @@ const useStyles = makeStyles(() =>
             alignItems: 'center',
             height: '100%',
             minHeight: 500,
+            [theme.breakpoints.down('xs')]: {
+                minHeight: 'auto',
+            },
         },
         description: {
             color: 'inherit',

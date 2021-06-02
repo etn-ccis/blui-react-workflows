@@ -31,18 +31,24 @@ import clsx from 'clsx';
 
 const useStyles = makeStyles((theme: Theme) =>
     createStyles({
-        formFields: {
-            marginBottom: theme.spacing(3) + 22, // height of error message
+        emailFormField: {
+            marginBottom: theme.spacing(5),
             '&$hasError': {
                 marginBottom: theme.spacing(3),
             },
+            [theme.breakpoints.down('xs')]: {
+                marginBottom: theme.spacing(4),
+            },
+        },
+        passwordFormField: {
+            marginBottom: theme.spacing(3),
         },
         buttonRow: {
             marginBottom: theme.spacing(5),
             flexWrap: 'nowrap',
             [theme.breakpoints.down('xs')]: {
                 flexWrap: 'wrap',
-                flexDirection: 'column-reverse',
+                flexDirection: 'column',
                 justifyContent: 'center',
             },
         },
@@ -64,6 +70,9 @@ const useStyles = makeStyles((theme: Theme) =>
             padding: `${theme.spacing(4)}px ${theme.spacing(8)}px`,
             display: 'flex',
             flexDirection: 'column',
+            [theme.breakpoints.down('xs')]: {
+                padding: `${theme.spacing(4)}px ${theme.spacing(4)}px`,
+            },
         },
         link: {
             fontWeight: 600,
@@ -82,6 +91,11 @@ const useStyles = makeStyles((theme: Theme) =>
             width: 60,
             height: 60,
             color: theme.palette.text.secondary,
+        },
+        rememberMeCheckbox: {
+            [theme.breakpoints.down('xs')]: {
+                marginRight: 0,
+            },
         },
         hasError: {},
         productLogo: {
@@ -264,7 +278,7 @@ export const Login: React.FC = () => {
                         id="email"
                         name="email"
                         type="email"
-                        className={clsx(classes.formFields, { [classes.hasError]: hasTransitError })}
+                        className={clsx(classes.emailFormField, { [classes.hasError]: hasTransitError })}
                         value={emailInput}
                         onChange={(evt: ChangeEvent<HTMLInputElement>): void => setEmailInput(evt.target.value)}
                         onKeyPress={(e): void => {
@@ -279,7 +293,7 @@ export const Login: React.FC = () => {
                         id="password"
                         name="password"
                         label={t('LABELS.PASSWORD')}
-                        className={clsx(classes.formFields, { [classes.hasError]: hasTransitError })}
+                        className={clsx(classes.passwordFormField, { [classes.hasError]: hasTransitError })}
                         value={passwordInput}
                         onChange={(evt: ChangeEvent<HTMLInputElement>): void => setPasswordInput(evt.target.value)}
                         variant="filled"
@@ -296,6 +310,7 @@ export const Login: React.FC = () => {
                     >
                         {showRememberMe && (
                             <FormControlLabel
+                                className={classes.rememberMeCheckbox}
                                 control={
                                     <Checkbox
                                         color="primary"

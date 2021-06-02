@@ -4,7 +4,7 @@ import { CircularProgress, makeStyles, createStyles } from '@material-ui/core';
 const useStyles = makeStyles(() =>
     createStyles({
         background: {
-            position: 'absolute',
+            position: 'fixed',
             top: 0,
             left: 0,
             right: 0,
