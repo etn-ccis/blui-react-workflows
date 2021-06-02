@@ -163,6 +163,10 @@ export const Login: React.FC = () => {
     const hasTransitError = authUIState.login.transitErrorMessage !== null;
     const transitErrorMessage = authUIState.login.transitErrorMessage ?? t('MESSAGES.REQUEST_ERROR');
 
+    const isInvalidCredentials =
+        transitErrorMessage.replace('pxb:', '') === 'LOGIN.INCORRECT_CREDENTIALS' ||
+        transitErrorMessage.replace('pxb:', '') === 'LOGIN.INVALID_CREDENTIALS';
+
     useEffect(
         () => {
             authUIActions.dispatch(AccountActions.resetLogin());
@@ -285,8 +289,8 @@ export const Login: React.FC = () => {
                             if (e.key === 'Enter' && passwordField.current) passwordField.current.focus();
                         }}
                         variant="filled"
-                        error={hasTransitError}
-                        helperText={hasTransitError ? t('LOGIN.INCORRECT_CREDENTIALS') : ''}
+                        error={isInvalidCredentials}
+                        helperText={isInvalidCredentials ? t('LOGIN.INCORRECT_CREDENTIALS') : ''}
                     />
                     <SecureTextField
                         inputRef={passwordField}
@@ -297,8 +301,8 @@ export const Login: React.FC = () => {
                         value={passwordInput}
                         onChange={(evt: ChangeEvent<HTMLInputElement>): void => setPasswordInput(evt.target.value)}
                         variant="filled"
-                        error={hasTransitError}
-                        helperText={hasTransitError ? t('LOGIN.INCORRECT_CREDENTIALS') : ''}
+                        error={isInvalidCredentials}
+                        helperText={isInvalidCredentials ? t('LOGIN.INCORRECT_CREDENTIALS') : ''}
                     />
 
                     <Grid
