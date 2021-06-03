@@ -31,6 +31,7 @@ export const AuthUIConfiguration: React.FC = (props) => {
             contactEmail={'something@email.com'}
             contactPhone={'1-800-123-4567'}
             projectImage={productLogo}
+            // loginType={'username'}
             // Uncomment this line to see how to add custom form fields to the registration screens
             // customAccountDetails={[
             //     { component: CustomDetailsScreen },
