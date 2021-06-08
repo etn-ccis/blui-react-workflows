@@ -12,6 +12,7 @@ void i18n
         detection: {
             order: ['querystring', 'localStorage', 'navigator'],
             caches: ['localStorage'],
+            lookupLocalStorage: 'pxb-i18nextLng',
         },
         whitelist: ['en', 'fr', 'es', 'zh'],
         ns: ['app', 'pxb'],

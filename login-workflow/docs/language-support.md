@@ -1,15 +1,17 @@
 # Language Support
 
 This package supports translations to different languages using [i18next](https://www.i18next.com/) / [react-i18next](https://github.com/i18next/react-i18next). The workflow screens are currently available in:
+
 -   English
 -   French
 -   Spanish
 
 ## Changing the Language
-The authentication workflow configures i18next to store the most recently used language in local storage (`i18nextLng`) so that when the app is loaded again, it will default to the last language used. There are three ways that you can change this stored value.
+
+The authentication workflow configures i18next to store the most recently used language in local storage (`pxb-i18nextLng`) so that when the app is loaded again, it will default to the last language used. There are three ways that you can change this stored value.
 
 ### 1. ChangeLanguage Function
-    
+
 The i18next package provides a function you can call to change the current language:
 
 ```tsx
@@ -19,7 +21,7 @@ i18n.changeLanguage('fr'); // 'en', 'es', 'fr'
 ```
 
 ### 2. Query String
-    
+
 If you navigate to your application URL and append the `lng` query string, the specified language will be loaded:
 
 ```
@@ -29,10 +31,11 @@ https://www.yourwebsite.com/page?lgn=fr
 ### 3. Local Storage
 
 You can also manually modify the value that is stored in Local Storage to edit or remove the stored value. Removing the value will tell the application to default to the browser default value.
+We recommend using the ChangeLanguage function or the query string rather than Local Storage to handle language modifications as any applications that are using this workflow on the same computer will have collisions.
 
 ```tsx
-localStorage.setItem('i18nextLng', 'fr');
-localStorage.removeItem('i18nextLng');
+localStorage.setItem('pxb-i18nextLng', 'fr');
+localStorage.removeItem('pxb-i18nextLng');
 ```
 
 > If you are planning to provide user-specific language settings for your application, you will be responsible for manipulating the value in localStorage in order to properly reflect a user's setting when loading the application.
@@ -42,6 +45,7 @@ localStorage.removeItem('i18nextLng');
 If you intend to support multiple languages in your application, you will need to provide translations for all of the UI string resources used in your application (refer to the [documentation](https://www.i18next.com/overview/getting-started) for i18next for specific information on how to build translation files).
 
 The Auth Workflow is configured with two separate namespaces for resources:
+
 -   The `pxb` namespace contains strings that are used internally in the workflow screens
 -   The `app` namespace is where your app-specific UI strings are placed
 
