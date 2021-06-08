@@ -1427,15 +1427,15 @@
     "@types/yargs" "^15.0.0"
     chalk "^4.0.0"
 
-"@material-ui/core@^4.0.0":
-  version "4.11.3"
-  resolved "https://registry.yarnpkg.com/@material-ui/core/-/core-4.11.3.tgz#f22e41775b0bd075e36a7a093d43951bf7f63850"
-  integrity sha512-Adt40rGW6Uds+cAyk3pVgcErpzU/qxc7KBR94jFHBYretU4AtWZltYcNsbeMn9tXL86jjVL1kuGcIHsgLgFGRw==
+"@material-ui/core@^4.11.4":
+  version "4.11.4"
+  resolved "https://registry.yarnpkg.com/@material-ui/core/-/core-4.11.4.tgz#4fb9fe5dec5dcf780b687e3a40cff78b2b9640a4"
+  integrity sha512-oqb+lJ2Dl9HXI9orc6/aN8ZIAMkeThufA5iZELf2LQeBn2NtjVilF5D2w7e9RpntAzDb4jK5DsVhkfOvFY/8fg==
   dependencies:
     "@babel/runtime" "^7.4.4"
-    "@material-ui/styles" "^4.11.3"
+    "@material-ui/styles" "^4.11.4"
     "@material-ui/system" "^4.11.3"
-    "@material-ui/types" "^5.1.0"
+    "@material-ui/types" "5.1.0"
     "@material-ui/utils" "^4.11.2"
     "@types/react-transition-group" "^4.2.0"
     clsx "^1.0.4"
@@ -1445,21 +1445,21 @@
     react-is "^16.8.0 || ^17.0.0"
     react-transition-group "^4.4.0"
 
-"@material-ui/icons@^4.0.0":
+"@material-ui/icons@^4.11.2":
   version "4.11.2"
   resolved "https://registry.yarnpkg.com/@material-ui/icons/-/icons-4.11.2.tgz#b3a7353266519cd743b6461ae9fdfcb1b25eb4c5"
   integrity sha512-fQNsKX2TxBmqIGJCSi3tGTO/gZ+eJgWmMJkgDiOfyNaunNaxcklJQFaFogYcFl0qFuaEz1qaXYXboa/bUXVSOQ==
   dependencies:
     "@babel/runtime" "^7.4.4"
 
-"@material-ui/styles@^4.11.3":
-  version "4.11.3"
-  resolved "https://registry.yarnpkg.com/@material-ui/styles/-/styles-4.11.3.tgz#1b8d97775a4a643b53478c895e3f2a464e8916f2"
-  integrity sha512-HzVzCG+PpgUGMUYEJ2rTEmQYeonGh41BYfILNFb/1ueqma+p1meSdu4RX6NjxYBMhf7k+jgfHFTTz+L1SXL/Zg==
+"@material-ui/styles@^4.11.4":
+  version "4.11.4"
+  resolved "https://registry.yarnpkg.com/@material-ui/styles/-/styles-4.11.4.tgz#eb9dfccfcc2d208243d986457dff025497afa00d"
+  integrity sha512-KNTIZcnj/zprG5LW0Sao7zw+yG3O35pviHzejMdcSGCdWbiO8qzRgOYL8JAxAsWBKOKYwVZxXtHWaB5T2Kvxew==
   dependencies:
     "@babel/runtime" "^7.4.4"
     "@emotion/hash" "^0.8.0"
-    "@material-ui/types" "^5.1.0"
+    "@material-ui/types" "5.1.0"
     "@material-ui/utils" "^4.11.2"
     clsx "^1.0.4"
     csstype "^2.5.2"
@@ -1484,7 +1484,7 @@
     csstype "^2.5.2"
     prop-types "^15.7.2"
 
-"@material-ui/types@^5.1.0":
+"@material-ui/types@5.1.0":
   version "5.1.0"
   resolved "https://registry.yarnpkg.com/@material-ui/types/-/types-5.1.0.tgz#efa1c7a0b0eaa4c7c87ac0390445f0f88b0d88f2"
   integrity sha512-7cqRjrY50b8QzRSYyhSpx4WRw2YuO0KKIGQEVk5J8uoz2BanawykgZGoWEqKm7pVIbzFDN0SpPcVV4IhOFkl8A==
@@ -1672,43 +1672,50 @@
   dependencies:
     "@pxblue/types" "^2.0.0"
 
-"@pxblue/eslint-config@^2.0.4":
-  version "2.0.4"
-  resolved "https://registry.yarnpkg.com/@pxblue/eslint-config/-/eslint-config-2.0.4.tgz#b22d637e2e8bbf1d8606de99bfd7e95f3af2ce34"
-  integrity sha512-PDBj5dhi/6c14/QYhoFLTkMnrYRTKw8hW7AuFq/9wc7pJ4MdSOF3i5MJH1NZ1p9chBl9na4ZASPeHWsDCvvk8A==
+"@pxblue/colors@^3.0.1":
+  version "3.0.1"
+  resolved "https://registry.yarnpkg.com/@pxblue/colors/-/colors-3.0.1.tgz#4f89fc9ed10d754eac1ea699b722f5ac8c723173"
+  integrity sha512-3iROA/tvf7BiXRA4R9DobWeEE4Tg7bFgFWNuLzqqwHBEz/uI/J83XTW913g/wba9V5IAVt2DYAQFb/qbqYyjKQ==
+  dependencies:
+    "@pxblue/types" "^2.0.0"
+
+"@pxblue/eslint-config@^2.0.5":
+  version "2.0.5"
+  resolved "https://registry.yarnpkg.com/@pxblue/eslint-config/-/eslint-config-2.0.5.tgz#2c9f9156175cd99aef2d579e834716f3c0877c93"
+  integrity sha512-nkFi1CSD37OutixMlapg5zPJ3HE+RyokgYmR4J7Uput5Jp6MIzvUw+YeRCT0KWOoWq5snTxyUvIA0ANuX/sXig==
   dependencies:
     "@typescript-eslint/parser" "^4.8.0"
     eslint-config-prettier ">= 6.3.0"
   optionalDependencies:
     eslint-plugin-react "^7.16.0"
 
-"@pxblue/icons-mui@^2.2.1":
+"@pxblue/icons-mui@^2.3.0":
   version "2.3.0"
   resolved "https://registry.yarnpkg.com/@pxblue/icons-mui/-/icons-mui-2.3.0.tgz#5398630529e5a89b2c93d13db7ccf86f14b8ab51"
   integrity sha512-GzqkkSKFYgaSy1/LITheqI3BSxPthXE6UrCAz5Ubk1btwDajSvw0O5YR3/b4h7p9vfk/fIxSYgztW8H2/1i4Eg==
 
-"@pxblue/prettier-config@^1.0.2":
-  version "1.0.2"
-  resolved "https://registry.yarnpkg.com/@pxblue/prettier-config/-/prettier-config-1.0.2.tgz#fb00503df6557b66c3d91d43c9101e614c35d2ec"
-  integrity sha512-/3cLBoTjZs3kV1ATPA/Sp0tsL7XmlV/b8HW/qt0jqR/uP5+cdXL2YIhMXQngLRa7PhpSkEiRIYK5sl0rKsXTUg==
+"@pxblue/prettier-config@^1.0.3":
+  version "1.0.3"
+  resolved "https://registry.yarnpkg.com/@pxblue/prettier-config/-/prettier-config-1.0.3.tgz#285b9ba346f714d397ef4a59579443b95a77e63e"
+  integrity sha512-x9SDup4pf5H54r/stZBXz7/XlMcIqnwHkEJ+9pyXVtGyQljI28lDGQCWQj6heipWAett50yx0RB3P2+MWZDhJA==
 
-"@pxblue/react-auth-shared@^3.0.0-beta.5":
-  version "3.0.0-beta.5"
-  resolved "https://registry.yarnpkg.com/@pxblue/react-auth-shared/-/react-auth-shared-3.0.0-beta.5.tgz#50bd3a12a2c4cf17b834b3760f734d6bbe56e935"
-  integrity sha512-yKb8rp6mApa/qj0h+bff7aeGgYI7c0ARUB6iuprqxdPA/f5ruTQUo8FpeQhaxd9QAb9WEXXdkaCOQgZExAwTPQ==
+"@pxblue/react-auth-shared@^3.2.0":
+  version "3.2.1"
+  resolved "https://registry.yarnpkg.com/@pxblue/react-auth-shared/-/react-auth-shared-3.2.1.tgz#84d0b8f326fedfe9eb638323d4a5fe86b0420955"
+  integrity sha512-Kise5OobXaE/qmxOZ4k7pb2ygklxMPasiR4j7zDBi3g3YqZ4en1rohwyM4CJmbjT5dBZ+4dCJn+nkIMDUx7zLA==
 
-"@pxblue/react-auth-workflow@^2.0.0-beta.3":
-  version "2.0.0-beta.3"
-  resolved "https://registry.yarnpkg.com/@pxblue/react-auth-workflow/-/react-auth-workflow-2.0.0-beta.3.tgz#9abb1d2e73af7e7d50cb53dd1f7b2d77400bc746"
-  integrity sha512-C+NpBZuUz+w7LN6im6z7rB8k7Us5nvLmQNQsLkfRWqSt4vY0e0yYFXRy6hcOTtUsIQYQWk8uyz9NpdPlPeoqrA==
+"@pxblue/react-auth-workflow@^2.1.0":
+  version "2.1.0"
+  resolved "https://registry.yarnpkg.com/@pxblue/react-auth-workflow/-/react-auth-workflow-2.1.0.tgz#6dc9a320ec0bc46aa653bc40a4d14d8e8d77bb10"
+  integrity sha512-Dzyg9zC/K9FHmTRK6WPsfbwRul0ikLi3eUOW7QBLLxbtLy35N7JrRgpNamdnlwu+QaVUXR/LTjjRMSIpECwlOA==
   dependencies:
-    "@pxblue/react-auth-shared" "^3.0.0-beta.5"
+    "@pxblue/react-auth-shared" "^3.2.0"
     dompurify "^2.0.12"
 
-"@pxblue/react-components@^5.1.0":
-  version "5.1.0"
-  resolved "https://registry.yarnpkg.com/@pxblue/react-components/-/react-components-5.1.0.tgz#01b172814c583d4566fda15a9166c9344678ba18"
-  integrity sha512-Gtoisp81+zDncAz9fZ2dspJ0twWzSBIZ/CeXGlX/qf27cnZ2Yb+xJvr4HxVfdgY0svrnY2ArlY6/cyIdTv9uJg==
+"@pxblue/react-components@^5.2.0":
+  version "5.2.0"
+  resolved "https://registry.yarnpkg.com/@pxblue/react-components/-/react-components-5.2.0.tgz#6388f19311e99206b6a74d5713cb0f2150c432ab"
+  integrity sha512-FpVzqeY1ol+wntt3qpmbzT9LHrE3WuXMl2yP4s1WEcC61puR9+1QCzYClFuYWQiVQ7jVdDnLKPlz6s/hS/H1Cg==
   dependencies:
     "@pxblue/colors" "^3.0.0"
     color "^3.1.2"
@@ -10260,10 +10267,10 @@ prepend-http@^1.0.0:
   resolved "https://registry.yarnpkg.com/prepend-http/-/prepend-http-1.0.4.tgz#d4f4562b0ce3696e41ac52d0e002e57a635dc6dc"
   integrity sha1-1PRWKwzjaW5BrFLQ4ALlemNdxtw=
 
-prettier@^2.0.0:
-  version "2.2.1"
-  resolved "https://registry.yarnpkg.com/prettier/-/prettier-2.2.1.tgz#795a1a78dd52f073da0cd42b21f9c91381923ff5"
-  integrity sha512-PqyhM2yCjg/oKkFPtTGUojv7gnZAoG80ttl45O6x2Ug/rMJw4wcc9k6aaf2hibP7BGVCCM33gZoGjyvt9mm16Q==
+prettier@^2.3.1:
+  version "2.3.1"
+  resolved "https://registry.yarnpkg.com/prettier/-/prettier-2.3.1.tgz#76903c3f8c4449bc9ac597acefa24dc5ad4cbea6"
+  integrity sha512-p+vNbgpLjif/+D+DwAZAbndtRrR0md0MwfmOVN9N+2RgyACMT+7tfaRnT+WDPkqnuVwleyuBIG2XBxKDme3hPA==
 
 pretty-bytes@^5.3.0:
   version "5.6.0"
@@ -12482,10 +12489,10 @@ typedarray@^0.0.6:
   resolved "https://registry.yarnpkg.com/typedarray/-/typedarray-0.0.6.tgz#867ac74e3864187b1d3d47d996a78ec5c8830777"
   integrity sha1-hnrHTjhkGHsdPUfZlqeOxciDB3c=
 
-typescript@^4.0.0:
-  version "4.2.3"
-  resolved "https://registry.yarnpkg.com/typescript/-/typescript-4.2.3.tgz#39062d8019912d43726298f09493d598048c1ce3"
-  integrity sha512-qOcYwxaByStAWrBf4x0fibwZvMRG+r4cQoTjbPtUlrWjBHbmCAww1i448U0GJ+3cNNEtebDteo/cHOR3xJ4wEw==
+typescript@^4.3.2:
+  version "4.3.2"
+  resolved "https://registry.yarnpkg.com/typescript/-/typescript-4.3.2.tgz#399ab18aac45802d6f2498de5054fcbbe716a805"
+  integrity sha512-zZ4hShnmnoVnAHpVHWpTcxdv7dWP60S2FsydQLV8V5PbS3FifjWFFRiHSWpDJahly88PRyV5teTSLoq4eG7mKw==
 
 unbox-primitive@^1.0.0:
   version "1.0.1"
