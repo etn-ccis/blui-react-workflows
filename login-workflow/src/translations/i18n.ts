@@ -13,7 +13,7 @@ void i18n
             order: ['querystring', 'localStorage', 'navigator'],
             caches: ['localStorage'],
         },
-        whitelist: ['en', 'fr', 'es'],
+        whitelist: ['en', 'fr', 'es', 'zh'],
         ns: ['app', 'pxb'],
         defaultNS: 'app',
         fallbackNS: 'pxb',
@@ -28,6 +28,10 @@ void i18n
             },
             es: {
                 pxb: translations.spanish.translation,
+                app: {},
+            },
+            zh: {
+                pxb: translations.chinese.translation,
                 app: {},
             },
         },

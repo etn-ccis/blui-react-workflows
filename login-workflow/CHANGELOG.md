@@ -16,6 +16,7 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 -   Ability to use a username or email input field via the `loginType` prop on the `AuthUIContextProvider`.
 -   Support for Spanish language.
+-   Support for Chinese language
 
 ## v2.1.0 (April 30, 2021)
 
