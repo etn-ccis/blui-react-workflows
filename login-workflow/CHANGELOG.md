@@ -9,7 +9,11 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 ### Changed
 
--   Updated styles to improve mobile responsiveness
+-   Updated styles to improve mobile responsiveness.
+
+### Added
+
+-   Ability to use a username or email input field via the `loginType` prop on the `AuthUIContextProvider`.
 
 ## v2.1.0 (April 30, 2021)
 

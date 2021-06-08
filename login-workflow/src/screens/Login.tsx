@@ -6,8 +6,8 @@ import {
     useAccountUIActions,
     useAccountUIState,
     useInjectedUIContext,
-    EMAIL_REGEX,
     AccountActions,
+    EMAIL_REGEX,
 } from '@pxblue/react-auth-shared';
 import { Link } from 'react-router-dom';
 import {
@@ -135,6 +135,7 @@ export const Login: React.FC = () => {
                 <img className={classes.productLogo} src={projectImage || stackedEatonLogo} alt="logo" />
             </div>
         ),
+        loginType = 'email',
         loginActions,
     } = useInjectedUIContext();
 
@@ -278,10 +279,10 @@ export const Login: React.FC = () => {
                     {debugLinks}
 
                     <TextField
-                        label={t('LABELS.EMAIL')}
+                        label={loginType === 'username' ? t('LABELS.USERNAME') : t('LABELS.EMAIL')}
                         id="email"
-                        name="email"
-                        type="email"
+                        name={loginType === 'username' ? 'username' : 'email'}
+                        type={loginType === 'username' ? 'text' : 'email'}
                         className={clsx(classes.emailFormField, { [classes.hasError]: hasTransitError })}
                         value={emailInput}
                         onChange={(evt: ChangeEvent<HTMLInputElement>): void => setEmailInput(evt.target.value)}
@@ -329,7 +330,11 @@ export const Login: React.FC = () => {
                             type="submit"
                             variant="contained"
                             disableElevation
-                            disabled={!EMAIL_REGEX.test(emailInput) || !passwordInput}
+                            disabled={
+                                loginType === 'username'
+                                    ? !emailInput || !passwordInput
+                                    : !EMAIL_REGEX.test(emailInput) || !passwordInput
+                            }
                             color="primary"
                             style={{ width: showRememberMe ? 150 : '100%' }}
                             onClick={loginTapped}
