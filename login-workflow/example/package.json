@@ -3,12 +3,12 @@
     "version": "0.1.0",
     "private": true,
     "dependencies": {
-        "@material-ui/core": "^4.0.0",
-        "@material-ui/icons": "^4.0.0",
-        "@pxblue/colors": "^3.0.0",
-        "@pxblue/icons-mui": "^2.2.1",
-        "@pxblue/react-auth-workflow": "^2.0.0-beta.3",
-        "@pxblue/react-components": "^5.1.0",
+        "@material-ui/core": "^4.11.4",
+        "@material-ui/icons": "^4.11.2",
+        "@pxblue/colors": "^3.0.1",
+        "@pxblue/icons-mui": "^2.3.0",
+        "@pxblue/react-auth-workflow": "^2.1.0",
+        "@pxblue/react-components": "^5.2.0",
         "@pxblue/react-themes": "^6.0.0",
         "@testing-library/jest-dom": "^5.0.0",
         "@testing-library/react": "^11.0.0",
@@ -25,7 +25,7 @@
         "react-i18next": "^11.7.0",
         "react-router-dom": "^5.2.0",
         "react-scripts": "^4.0.3",
-        "typescript": "^4.0.0"
+        "typescript": "^4.3.2"
     },
     "scripts": {
         "start": "react-scripts start",
@@ -57,8 +57,8 @@
         ]
     },
     "devDependencies": {
-        "@pxblue/eslint-config": "^2.0.4",
-        "@pxblue/prettier-config": "^1.0.2",
+        "@pxblue/eslint-config": "^2.0.5",
+        "@pxblue/prettier-config": "^1.0.3",
         "@typescript-eslint/eslint-plugin": "^4.0.0",
         "@typescript-eslint/parser": "^4.0.0",
         "enzyme": "^3.11.0",
@@ -66,7 +66,7 @@
         "eslint-config-prettier": "^8.0.0",
         "eslint-plugin-react": "^7.0.0",
         "jest": "26.6.0",
-        "prettier": "^2.0.0",
+        "prettier": "^2.3.1",
         "yarn-audit-fix": "^4.0.0"
     },
     "prettier": "@pxblue/prettier-config"

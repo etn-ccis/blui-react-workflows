@@ -87,6 +87,8 @@ export const ProjectAuthUIActions: AuthUIActionsWithSecurity = (securityHelper) 
     logIn: async (email: string, password: string, rememberMe: boolean): Promise<void> => {
         await sleep(1000);
 
+        // throw new Error('My Custom Error');
+
         if (isRandomFailure()) {
             // reject(new Error('LOGIN.GENERIC_ERROR'));
             throw new Error('LOGIN.INVALID_CREDENTIALS');

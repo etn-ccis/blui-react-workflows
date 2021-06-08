@@ -11,7 +11,17 @@ import {
     useInjectedUIContext,
     AccountActions,
 } from '@pxblue/react-auth-shared';
-import { Dialog, DialogTitle, DialogActions, DialogContent, Button, Grid, useTheme, Divider } from '@material-ui/core';
+import {
+    Dialog,
+    DialogTitle,
+    DialogActions,
+    DialogContent,
+    Button,
+    Grid,
+    useTheme,
+    Divider,
+    useMediaQuery,
+} from '@material-ui/core';
 import { ChangePasswordForm } from './ChangePasswordForm';
 import { SecureTextField } from '../SecureTextField';
 import { SimpleDialog } from '../SimpleDialog';
@@ -35,6 +45,7 @@ export const ChangePasswordModal: React.FC = () => {
     const securityHelper = useSecurityActions();
     const theme = useTheme();
     const sharedClasses = useDialogStyles();
+    const matchesXS = useMediaQuery(theme.breakpoints.down('xs'));
 
     const passwordRef = useRef(null);
     const confirmRef = useRef(null);
@@ -136,7 +147,12 @@ export const ChangePasswordModal: React.FC = () => {
     }, [setTransitState, setCurrentPassword, setPassword, setConfirm]);
 
     return (
-        <Dialog open={securityState.isShowingChangePassword} maxWidth={'xs'} onExited={resetForm}>
+        <Dialog
+            fullScreen={matchesXS ? true : false}
+            open={securityState.isShowingChangePassword}
+            maxWidth={'xs'}
+            onExited={resetForm}
+        >
             {errorDialog}
             <DialogTitle className={sharedClasses.dialogTitle}>{t('pxb:CHANGE_PASSWORD.PASSWORD')}</DialogTitle>
             <DialogContent className={sharedClasses.dialogContent} style={{ flex: '1 1 auto' }}>
