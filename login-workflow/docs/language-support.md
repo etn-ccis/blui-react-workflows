@@ -11,7 +11,7 @@ This package supports translations to different languages using [i18next](https:
 
 The authentication workflow configures i18next to store the most recently used language in local storage (`pxb-i18nextLng`) so that when the app is loaded again, it will default to the last language used. There are three ways that you can change this stored value.
 
-### 1. ChangeLanguage Function
+### 1. ChangeLanguage Function (recommended)
 
 The i18next package provides a function you can call to change the current language:
 
@@ -32,7 +32,7 @@ https://www.yourwebsite.com/page?lgn=fr
 ### 3. Local Storage
 
 You can also manually modify the value that is stored in Local Storage to edit or remove the stored value. Removing the value will tell the application to default to the browser default value.
-We recommend using the ChangeLanguage function or the query string rather than Local Storage to handle language modifications as any applications that are using this workflow on the same computer will have collisions.
+All applications using the @pxblue/react-auth-workflow will use the same localstorage key when doing this lookup. In order to avoid possible interference with other applications, we recommend using the ChangeLanguage function (#1) instead of relying on localstorage.
 
 ```tsx
 localStorage.setItem('pxb-i18nextLng', 'fr');
