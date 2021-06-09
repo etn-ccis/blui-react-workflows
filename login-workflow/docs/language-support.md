@@ -5,6 +5,7 @@ This package supports translations to different languages using [i18next](https:
 -   English
 -   French
 -   Spanish
+-   Simplified Chinese
 
 ## Changing the Language
 
