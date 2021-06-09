@@ -10,7 +10,7 @@ This package supports translations to different languages using [i18next](https:
 
 The authentication workflow configures i18next to store the most recently used language in local storage (`pxb-i18nextLng`) so that when the app is loaded again, it will default to the last language used. There are three ways that you can change this stored value.
 
-### 1. ChangeLanguage Function
+### 1. ChangeLanguage Function (recommended)
 
 The i18next package provides a function you can call to change the current language:
 
