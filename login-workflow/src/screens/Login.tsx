@@ -283,7 +283,7 @@ export const Login: React.FC = () => {
                         id="email"
                         name={loginType === 'username' ? 'username' : 'email'}
                         type={loginType === 'username' ? 'text' : 'email'}
-                        className={clsx(classes.emailFormField, { [classes.hasError]: hasTransitError })}
+                        className={clsx(classes.emailFormField, { [classes.hasError]: isInvalidCredentials })}
                         value={emailInput}
                         onChange={(evt: ChangeEvent<HTMLInputElement>): void => setEmailInput(evt.target.value)}
                         onKeyPress={(e): void => {
