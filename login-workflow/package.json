@@ -107,7 +107,7 @@
             "enzyme-to-json/serializer"
         ],
         "moduleNameMapper": {
-            ".+\\.(css|styl|less|sass|scss|png|jpg|ttf|woff|woff2)$": "identity-obj-proxy"
+            ".+\\.(css|styl|less|sass|scss|png|svg|jpg|ttf|woff|woff2)$": "identity-obj-proxy"
         }
     }
 }

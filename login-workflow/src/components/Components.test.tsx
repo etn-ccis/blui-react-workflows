@@ -2,7 +2,7 @@ import React from 'react';
 import ReactDOM from 'react-dom';
 import Enzyme, { shallow } from 'enzyme';
 import Adapter from 'enzyme-adapter-react-16';
-// import { BrandedCardContainer } from './BrandedCardContainer';
+import { BrandedCardContainer } from './BrandedCardContainer';
 // import backgroundImage from '../assets/images/background.svg';
 import { FinishState } from './FinishState';
 import CheckCircle from '@material-ui/icons/CheckCircle';
@@ -20,21 +20,30 @@ Enzyme.configure({ adapter: new Adapter() });
 
 // jest.mock('@pxblue/react-auth-shared', () => ({
 //     ...jest.requireActual('@pxblue/react-auth-shared'),
-//     useInjectedUIContext: jest.fn().mockReturnValue({ backgroundImage: 'https://picsum.photos/200' }),
+//     useInjectedUIContext: jest.fn().mockReturnValue({ backgroundImage: backgroundImage }),
 // }));
+
+// 'https://picsum.photos/200';
 
 // @TODO: Fix image not found issue
 
-// describe('BrandedCardContainer tests', () => {
-//     it('renders without crashing', () => {
-//         const div = document.createElement('div');
-//         ReactDOM.render(<BrandedCardContainer loading={false} />, div);
-//         ReactDOM.unmountComponentAtNode(div);
+// jest.mock('../assets/images/background.svg', () => 'https://picsum.photos/200');
 
-//         // const component = shallow(<BrandedCardContainer />);
-//         // expect(component).toMatchSnapshot();
-//     });
-// });
+describe('BrandedCardContainer tests', () => {
+    it('renders without crashing', () => {
+        const div = document.createElement('div');
+        const authUIActions = jest.fn();
+        const registrationUIActions = jest.fn();
+
+        ReactDOM.render(
+            <AuthUIContextProvider authActions={authUIActions} registrationActions={registrationUIActions}>
+                <BrandedCardContainer loading={false} />
+            </AuthUIContextProvider>,
+            div
+        );
+        ReactDOM.unmountComponentAtNode(div);
+    });
+});
 
 describe('FinishState tests', () => {
     it('renders without crashing', () => {
