@@ -298,7 +298,7 @@ export const Login: React.FC = () => {
                         id="password"
                         name="password"
                         label={t('pxb:LABELS.PASSWORD')}
-                        className={clsx(classes.passwordFormField, { [classes.hasError]: hasTransitError })}
+                        className={clsx(classes.passwordFormField, { [classes.hasError]: isInvalidCredentials })}
                         value={passwordInput}
                         onChange={(evt: ChangeEvent<HTMLInputElement>): void => setPasswordInput(evt.target.value)}
                         variant="filled"
