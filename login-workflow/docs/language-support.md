@@ -32,7 +32,6 @@ https://www.yourwebsite.com/page?lgn=fr
 ### 3. Local Storage
 
 You can also manually modify the value that is stored in Local Storage to edit or remove the stored value. Removing the value will tell the application to default to the browser default value.
-All applications using the @pxblue/react-auth-workflow will use the same localstorage key when doing this lookup. In order to avoid possible interference with other applications, we recommend using the ChangeLanguage function (#1) instead of relying on localstorage.
 
 ```tsx
 localStorage.setItem('pxb-i18nextLng', 'fr');
@@ -40,6 +39,8 @@ localStorage.removeItem('pxb-i18nextLng');
 ```
 
 > If you are planning to provide user-specific language settings for your application, you will be responsible for manipulating the value in localStorage in order to properly reflect a user's setting when loading the application.
+
+> All applications using the @pxblue/react-auth-workflow will use the same local storage key when doing this lookup. In order to avoid possible interference with other applications, we recommend using the ChangeLanguage function (#1) instead of relying on local storage.
 
 ## Adding Your Own Resources
 
