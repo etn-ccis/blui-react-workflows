@@ -9,8 +9,12 @@ import CheckCircle from '@material-ui/icons/CheckCircle';
 import { PrivateRoute } from './PrivateRoute';
 import { BrowserRouter } from 'react-router-dom';
 import { SecureTextField } from './SecureTextField';
-import Visibility from '@material-ui/icons/Visibility';
-import VisibilityOff from '@material-ui/icons/VisibilityOff';
+// import Visibility from '@material-ui/icons/Visibility';
+// import VisibilityOff from '@material-ui/icons/VisibilityOff';
+import { SimpleDialog } from './SimpleDialog';
+import { Spinner } from './Spinner';
+import { ChangePasswordForm, ChangePasswordModal, PasswordRequirements, PasswordRequirementsCheck } from './password';
+import { AccountUIActionContext, AuthUIContextProvider, SecurityContextProvider } from '@pxblue/react-auth-shared';
 
 Enzyme.configure({ adapter: new Adapter() });
 
@@ -18,6 +22,8 @@ Enzyme.configure({ adapter: new Adapter() });
 //     ...jest.requireActual('@pxblue/react-auth-shared'),
 //     useInjectedUIContext: jest.fn().mockReturnValue({ backgroundImage: 'https://picsum.photos/200' }),
 // }));
+
+// @TODO: Fix image not found issue
 
 // describe('BrandedCardContainer tests', () => {
 //     it('renders without crashing', () => {
@@ -87,15 +93,126 @@ describe('SecureTextField tests', () => {
     });
 
     it('hides input text by default', () => {
-        const secureTextField = shallow(<SecureTextField />);
-        expect(secureTextField.props().type).toBe('password');
+        const secureTextFieldWrapper = shallow(<SecureTextField />);
+        expect(secureTextFieldWrapper.props().type).toBe('password');
+
+        // check that the visibility off icon is present
     });
 
     // it('shows input text on password visibility toggle', () => {
     //     const secureTextField = shallow(<SecureTextField />);
-    //     const visibilityButton = secureTextField.find(Visibility);
-    //     // update state
-    //     // check showPassword state after toggle
+    //     const visibilityOffButton = secureTextField.find(Visibility_Off);
+    //     // update state / click button
+    //     // check showPassword state / input type / icon after toggle
     //     expect(secureTextField.props().type).toBe('text');
     // });
+});
+
+// @TODO: register useLanguageLocale
+// console.warn > react-i18next:: You will need to pass in an i18next instance by using initReactI18next
+
+// jest.mock('@pxblue/react-auth-shared', () => ({
+//     ...jest.requireActual('@pxblue/react-auth-shared'),
+//     useLanguageLocale: jest.fn().mockReturnValue(() => {}),
+// }));
+
+describe('SimpleDialog tests', () => {
+    it('renders without crashing', () => {
+        const div = document.createElement('div');
+        ReactDOM.render(
+            <SimpleDialog title={'test title'} body={'test body'} open={true} onClose={(): void => {}} />,
+            div
+        );
+        ReactDOM.unmountComponentAtNode(div);
+    });
+});
+
+describe('Spinner tests', () => {
+    it('renders without crashing', () => {
+        const div = document.createElement('div');
+        ReactDOM.render(<Spinner />, div);
+        ReactDOM.unmountComponentAtNode(div);
+    });
+});
+
+describe('ChangePasswordForm tests', () => {
+    it('renders without crashing', () => {
+        const div = document.createElement('div');
+        const authUIActions = jest.fn();
+        const registrationUIActions = jest.fn();
+
+        ReactDOM.render(
+            <AuthUIContextProvider authActions={authUIActions} registrationActions={registrationUIActions}>
+                <ChangePasswordForm onPasswordChange={(): void => {}} />
+            </AuthUIContextProvider>,
+            div
+        );
+        ReactDOM.unmountComponentAtNode(div);
+    });
+});
+
+jest.mock('@pxblue/react-auth-shared', () => ({
+    ...jest.requireActual('@pxblue/react-auth-shared'),
+    useSecurityState: jest.fn().mockReturnValue({ isShowingChangePassword: true }),
+}));
+
+describe('ChangePasswordModal tests', () => {
+    it('renders without crashing', () => {
+        const div = document.createElement('div');
+        const authUIActions = jest.fn();
+        const registrationUIActions = jest.fn();
+        const authActions = {
+            initiateSecurity: jest.fn(),
+            logIn: jest.fn(),
+            forgotPassword: jest.fn(),
+            verifyResetCode: jest.fn(),
+            setPassword: jest.fn(),
+            changePassword: jest.fn(),
+        };
+        const authDispatch = jest.fn();
+
+        ReactDOM.render(
+            <SecurityContextProvider>
+                <AccountUIActionContext.Provider value={{ actions: authActions, dispatch: authDispatch }}>
+                    <AuthUIContextProvider authActions={authUIActions} registrationActions={registrationUIActions}>
+                        <ChangePasswordModal />
+                    </AuthUIContextProvider>
+                </AccountUIActionContext.Provider>
+            </SecurityContextProvider>,
+            div
+        );
+        ReactDOM.unmountComponentAtNode(div);
+    });
+});
+
+describe('PasswordRequirements tests', () => {
+    it('renders without crashing', () => {
+        const div = document.createElement('div');
+        const authUIActions = jest.fn();
+        const registrationUIActions = jest.fn();
+
+        ReactDOM.render(
+            <AuthUIContextProvider authActions={authUIActions} registrationActions={registrationUIActions}>
+                <PasswordRequirements passwordText={'Test@123'} />
+            </AuthUIContextProvider>,
+            div
+        );
+        ReactDOM.unmountComponentAtNode(div);
+    });
+});
+
+describe('PasswordRequirementsCheck tests', () => {
+    it('renders without crashing', () => {
+        const div = document.createElement('div');
+        const authUIActions = jest.fn();
+        const registrationUIActions = jest.fn();
+
+        ReactDOM.render(
+            <AuthUIContextProvider authActions={authUIActions} registrationActions={registrationUIActions}>
+                <PasswordRequirementsCheck label={'test label'} isChecked={false} />
+            </AuthUIContextProvider>,
+            div
+        );
+        ReactDOM.unmountComponentAtNode(div);
+    });
 });
