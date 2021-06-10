@@ -283,7 +283,7 @@ export const Login: React.FC = () => {
                         id="email"
                         name={loginType === 'username' ? 'username' : 'email'}
                         type={loginType === 'username' ? 'text' : 'email'}
-                        className={clsx(classes.emailFormField, { [classes.hasError]: hasTransitError })}
+                        className={clsx(classes.emailFormField, { [classes.hasError]: isInvalidCredentials })}
                         value={emailInput}
                         onChange={(evt: ChangeEvent<HTMLInputElement>): void => setEmailInput(evt.target.value)}
                         onKeyPress={(e): void => {
@@ -298,7 +298,7 @@ export const Login: React.FC = () => {
                         id="password"
                         name="password"
                         label={t('pxb:LABELS.PASSWORD')}
-                        className={clsx(classes.passwordFormField, { [classes.hasError]: hasTransitError })}
+                        className={clsx(classes.passwordFormField, { [classes.hasError]: isInvalidCredentials })}
                         value={passwordInput}
                         onChange={(evt: ChangeEvent<HTMLInputElement>): void => setPasswordInput(evt.target.value)}
                         variant="filled"
