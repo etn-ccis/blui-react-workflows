@@ -114,14 +114,14 @@ export const ResetPassword: React.FC = () => {
                         icon={
                             <CheckCircle color={'primary'} style={{ fontSize: 100, marginBottom: theme.spacing(2) }} />
                         }
-                        title={t('PASSWORD_RESET.SUCCESS_MESSAGE')}
-                        description={t('CHANGE_PASSWORD.SUCCESS_MESSAGE')}
+                        title={t('pxb:PASSWORD_RESET.SUCCESS_MESSAGE')}
+                        description={t('pxb:CHANGE_PASSWORD.SUCCESS_MESSAGE')}
                     />
                 ) : (
                     <ChangePasswordForm
                         passwordRef={passwordRef}
                         confirmRef={confirmRef}
-                        passwordLabel={t('LABELS.NEW_PASSWORD')}
+                        passwordLabel={t('pxb:LABELS.NEW_PASSWORD')}
                         onPasswordChange={updateFields}
                         onSubmit={canContinue() ? onContinue : undefined}
                     />
@@ -131,7 +131,7 @@ export const ResetPassword: React.FC = () => {
             ) : (
                 <FinishState
                     icon={<Error color={'error'} style={{ fontSize: 100, marginBottom: theme.spacing(2) }} />}
-                    title={t('MESSAGES.FAILURE')}
+                    title={t('pxb:MESSAGES.FAILURE')}
                     description={validationTransitErrorMessage}
                 />
             ),
@@ -151,7 +151,7 @@ export const ResetPassword: React.FC = () => {
 
     const errorDialog = (
         <SimpleDialog
-            title={t('MESSAGES.ERROR')}
+            title={t('pxb:MESSAGES.ERROR')}
             body={t(setPasswordTransitErrorMessage ?? '')}
             open={setPasswordHasTransitError && !hasAcknowledgedError}
             onClose={(): void => {
@@ -166,7 +166,7 @@ export const ResetPassword: React.FC = () => {
             <CardHeader
                 title={
                     <Typography variant={'h6'} style={{ fontWeight: 600 }}>
-                        {t('FORMS.RESET_PASSWORD')}
+                        {t('pxb:FORMS.RESET_PASSWORD')}
                     </Typography>
                 }
                 className={classes.dialogTitle}
@@ -182,7 +182,7 @@ export const ResetPassword: React.FC = () => {
                             onClick={(): void => history.push(routes.LOGIN)}
                             className={classes.dialogButton}
                         >
-                            {t('ACTIONS.BACK')}
+                            {t('pxb:ACTIONS.BACK')}
                         </Button>
                     )}
                     {verifySuccess && (
@@ -194,7 +194,7 @@ export const ResetPassword: React.FC = () => {
                             onClick={onContinue}
                             className={clsx(classes.dialogButton, { [classes.fullWidth]: setPasswordTransitSuccess })}
                         >
-                            {setPasswordTransitSuccess ? t('ACTIONS.DONE') : t('ACTIONS.OKAY')}
+                            {setPasswordTransitSuccess ? t('pxb:ACTIONS.DONE') : t('pxb:ACTIONS.OKAY')}
                         </Button>
                     )}
                 </Grid>

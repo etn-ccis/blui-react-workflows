@@ -32,7 +32,7 @@ export const SimpleDialog: React.FC<SimpleDialogProps> = (props) => {
             </DialogContent>
             <DialogActions className={classes.dialogActions}>
                 <Button variant="text" color="primary" onClick={dialogProps.onClose} className={classes.dialogButton}>
-                    {t('ACTIONS.OKAY').toUpperCase()}
+                    {t('pxb:ACTIONS.OKAY').toUpperCase()}
                 </Button>
             </DialogActions>
         </Dialog>

@@ -31,10 +31,10 @@ export const RegistrationComplete: React.FC<RegistrationCompleteProps> = (props)
     return (
         <FinishState
             icon={<CheckCircle color={'primary'} style={{ fontSize: 100, marginBottom: theme.spacing(2) }} />}
-            title={`${t('MESSAGES.WELCOME')}, ${firstName} ${lastName}!`}
+            title={`${t('pxb:MESSAGES.WELCOME')}, ${firstName} ${lastName}!`}
             description={
                 <Trans
-                    i18nKey={'REGISTRATION.SUCCESS_MESSAGE_ALT'}
+                    i18nKey={'pxb:REGISTRATION.SUCCESS_MESSAGE_ALT'}
                     values={{ email: email, organization: organization }}
                 >
                     Your account has successfully been created with the email <b>{email}</b> belonging to the{' '}

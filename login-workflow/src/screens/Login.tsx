@@ -32,16 +32,22 @@ import clsx from 'clsx';
 const useStyles = makeStyles((theme: Theme) =>
     createStyles({
         emailFormField: {
-            marginBottom: theme.spacing(5),
+            marginBottom: theme.spacing(4) + 22,
             '&$hasError': {
-                marginBottom: theme.spacing(3),
+                marginBottom: theme.spacing(4),
             },
             [theme.breakpoints.down('xs')]: {
-                marginBottom: theme.spacing(4),
+                marginBottom: theme.spacing(3) + 22,
+                '&$hasError': {
+                    marginBottom: theme.spacing(3),
+                },
             },
         },
         passwordFormField: {
-            marginBottom: theme.spacing(3),
+            marginBottom: theme.spacing(3) + 22,
+            '&$hasError': {
+                marginBottom: theme.spacing(3),
+            },
         },
         buttonRow: {
             marginBottom: theme.spacing(5),
@@ -162,7 +168,7 @@ export const Login: React.FC = () => {
     const showLinks = showSelfRegistration || enableResetPassword || showContactSupport;
 
     const hasTransitError = authUIState.login.transitErrorMessage !== null;
-    const transitErrorMessage = authUIState.login.transitErrorMessage ?? t('MESSAGES.REQUEST_ERROR');
+    const transitErrorMessage = authUIState.login.transitErrorMessage ?? t('pxb:MESSAGES.REQUEST_ERROR');
 
     const isInvalidCredentials =
         transitErrorMessage.replace('pxb:', '') === 'LOGIN.INCORRECT_CREDENTIALS' ||
@@ -178,7 +184,7 @@ export const Login: React.FC = () => {
     // Construct the dynamic elements
     const errorDialog = (
         <SimpleDialog
-            title={t('MESSAGES.ERROR')}
+            title={t('pxb:MESSAGES.ERROR')}
             body={t(transitErrorMessage)}
             open={hasTransitError && !hasAcknowledgedError}
             onClose={(): void => {
@@ -189,7 +195,7 @@ export const Login: React.FC = () => {
     const contactEatonRepresentative: JSX.Element = showContactSupport ? (
         <Typography variant="body2" color={'primary'}>
             <Link className={classes.link} to={routes.SUPPORT}>
-                {t('MESSAGES.CONTACT')}
+                {t('pxb:MESSAGES.CONTACT')}
             </Link>
         </Typography>
     ) : (
@@ -201,7 +207,7 @@ export const Login: React.FC = () => {
         createAccountOption = (
             <Typography variant="body2" color={'primary'} style={{ marginBottom: theme.spacing(4) }}>
                 <Link className={classes.link} to={routes.REGISTER_SELF}>
-                    {t('ACTIONS.CREATE_ACCOUNT')}
+                    {t('pxb:ACTIONS.CREATE_ACCOUNT')}
                 </Link>
             </Typography>
         );
@@ -279,11 +285,11 @@ export const Login: React.FC = () => {
                     {debugLinks}
 
                     <TextField
-                        label={loginType === 'username' ? t('LABELS.USERNAME') : t('LABELS.EMAIL')}
+                        label={loginType === 'username' ? t('pxb:LABELS.USERNAME') : t('pxb:LABELS.EMAIL')}
                         id="email"
                         name={loginType === 'username' ? 'username' : 'email'}
                         type={loginType === 'username' ? 'text' : 'email'}
-                        className={clsx(classes.emailFormField, { [classes.hasError]: hasTransitError })}
+                        className={clsx(classes.emailFormField, { [classes.hasError]: isInvalidCredentials })}
                         value={emailInput}
                         onChange={(evt: ChangeEvent<HTMLInputElement>): void => setEmailInput(evt.target.value)}
                         onKeyPress={(e): void => {
@@ -291,19 +297,19 @@ export const Login: React.FC = () => {
                         }}
                         variant="filled"
                         error={isInvalidCredentials}
-                        helperText={isInvalidCredentials ? t('LOGIN.INCORRECT_CREDENTIALS') : ''}
+                        helperText={isInvalidCredentials ? t('pxb:LOGIN.INCORRECT_CREDENTIALS') : ''}
                     />
                     <SecureTextField
                         inputRef={passwordField}
                         id="password"
                         name="password"
-                        label={t('LABELS.PASSWORD')}
-                        className={clsx(classes.passwordFormField, { [classes.hasError]: hasTransitError })}
+                        label={t('pxb:LABELS.PASSWORD')}
+                        className={clsx(classes.passwordFormField, { [classes.hasError]: isInvalidCredentials })}
                         value={passwordInput}
                         onChange={(evt: ChangeEvent<HTMLInputElement>): void => setPasswordInput(evt.target.value)}
                         variant="filled"
                         error={isInvalidCredentials}
-                        helperText={isInvalidCredentials ? t('LOGIN.INCORRECT_CREDENTIALS') : ''}
+                        helperText={isInvalidCredentials ? t('pxb:LOGIN.INCORRECT_CREDENTIALS') : ''}
                     />
 
                     <Grid
@@ -323,7 +329,7 @@ export const Login: React.FC = () => {
                                         onChange={(evt): void => setRememberPassword(evt.target.checked)}
                                     />
                                 }
-                                label={t('ACTIONS.REMEMBER')}
+                                label={t('pxb:ACTIONS.REMEMBER')}
                             />
                         )}
                         <Button
@@ -339,7 +345,7 @@ export const Login: React.FC = () => {
                             style={{ width: showRememberMe ? 150 : '100%' }}
                             onClick={loginTapped}
                         >
-                            {t('ACTIONS.LOG_IN')}
+                            {t('pxb:ACTIONS.LOG_IN')}
                         </Button>
                     </Grid>
 
@@ -350,7 +356,7 @@ export const Login: React.FC = () => {
                         {enableResetPassword && (
                             <Typography variant="body2" color={'primary'}>
                                 <Link className={classes.link} to={routes.FORGOT_PASSWORD}>
-                                    {t('LABELS.FORGOT_PASSWORD')}
+                                    {t('pxb:LABELS.FORGOT_PASSWORD')}
                                 </Link>
                             </Typography>
                         )}
@@ -359,7 +365,7 @@ export const Login: React.FC = () => {
                                 variant="body2"
                                 style={{ marginTop: enableResetPassword ? theme.spacing(4) : 0 }}
                             >
-                                {t('LABELS.NEED_ACCOUNT')}
+                                {t('pxb:LABELS.NEED_ACCOUNT')}
                             </Typography>
                         )}
 
