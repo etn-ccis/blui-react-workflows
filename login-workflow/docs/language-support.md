@@ -9,7 +9,7 @@ This package supports translations to different languages using [i18next](https:
 
 ## Changing the Language
 
-The authentication workflow configures i18next to store the most recently used language in local storage (`pxb-i18nextLng`) so that when the app is loaded again, it will default to the last language used. There are three ways that you can change this stored value.
+The authentication workflow configures i18next to store the most recently used language in local storage (`pxb-auth-i18nextLng`) so that when the app is loaded again, it will default to the last language used. There are three ways that you can change this stored value.
 
 ### 1. ChangeLanguage Function (recommended)
 
@@ -34,8 +34,8 @@ https://www.yourwebsite.com/page?lgn=fr
 You can also manually modify the value that is stored in Local Storage to edit or remove the stored value. Removing the value will tell the application to default to the browser default value.
 
 ```tsx
-localStorage.setItem('pxb-i18nextLng', 'fr');
-localStorage.removeItem('pxb-i18nextLng');
+localStorage.setItem('pxb-auth-i18nextLng', 'fr');
+localStorage.removeItem('pxb-auth-i18nextLng');
 ```
 
 > If you are planning to provide user-specific language settings for your application, you will be responsible for manipulating the value in localStorage in order to properly reflect a user's setting when loading the application.
