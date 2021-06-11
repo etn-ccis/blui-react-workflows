@@ -32,16 +32,22 @@ import clsx from 'clsx';
 const useStyles = makeStyles((theme: Theme) =>
     createStyles({
         emailFormField: {
-            marginBottom: theme.spacing(5),
+            marginBottom: theme.spacing(4) + 22,
             '&$hasError': {
-                marginBottom: theme.spacing(3),
+                marginBottom: theme.spacing(4),
             },
             [theme.breakpoints.down('xs')]: {
-                marginBottom: theme.spacing(4),
+                marginBottom: theme.spacing(3) + 22,
+                '&$hasError': {
+                    marginBottom: theme.spacing(3),
+                },
             },
         },
         passwordFormField: {
-            marginBottom: theme.spacing(3),
+            marginBottom: theme.spacing(3) + 22,
+            '&$hasError': {
+                marginBottom: theme.spacing(3),
+            },
         },
         buttonRow: {
             marginBottom: theme.spacing(5),
