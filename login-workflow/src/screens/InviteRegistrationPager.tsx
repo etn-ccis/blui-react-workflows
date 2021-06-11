@@ -82,6 +82,10 @@ export const InviteRegistrationPager: React.FC = () => {
     // Network state (loading eula)
     const loadEulaTransitErrorMessage = registrationState.eulaTransit.transitErrorMessage;
 
+    // Custom Registration Success Screens
+    const customSuccess = injectedUIContext.registrationSuccessScreen;
+    const customAccountAlreadyExists = injectedUIContext.accountAlreadyExistsScreen;
+
     // Reset registration and validation state on dismissal
     useEffect(
         () => (): void => {
@@ -390,6 +394,26 @@ export const InviteRegistrationPager: React.FC = () => {
         />
     );
 
+    // Custom "Account Already Exists"
+    if (accountAlreadyExists && customAccountAlreadyExists) {
+        return (
+            <BrandedCardContainer loading={registrationIsInTransit || isValidationInTransit}>
+                {typeof customAccountAlreadyExists === 'function' && customAccountAlreadyExists(undefined)}
+                {typeof customAccountAlreadyExists !== 'function' && customAccountAlreadyExists}
+            </BrandedCardContainer>
+        );
+    }
+    // Custom Success Screen
+    else if (isLastStep && !accountAlreadyExists && validationSuccess && !isValidationInTransit && customSuccess) {
+        return (
+            <BrandedCardContainer loading={registrationIsInTransit || isValidationInTransit}>
+                {typeof customSuccess === 'function' &&
+                    customSuccess({ accountDetails: accountDetails, email: validationEmail })}
+                {typeof customSuccess !== 'function' && customSuccess}
+            </BrandedCardContainer>
+        );
+    }
+    // Default Screens
     return (
         <BrandedCardContainer loading={registrationIsInTransit || isValidationInTransit}>
             {errorDialog}

@@ -15,11 +15,16 @@ const useStyles = makeStyles((theme: Theme) =>
             display: 'flex',
             flexDirection: 'column',
             position: 'relative',
+            [theme.breakpoints.down('xs')]: {
+                maxWidth: 'none',
+                maxHeight: 'none',
+                borderRadius: 0,
+            },
         },
         brandingPanel: {
             height: '100%',
             width: '100%',
-            backgroundColor: theme.palette.primary.main,
+            backgroundColor: theme.palette.type === 'light' ? theme.palette.primary.main : theme.palette.primary.dark,
             backgroundImage: `url(${backgroundImage})`,
             display: 'flex',
             alignItems: 'center',
