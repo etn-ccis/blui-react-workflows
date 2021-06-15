@@ -10,6 +10,7 @@ import { ExistingAccountComplete } from './subScreens/ExistingAccountComplete';
 import { RegistrationComplete } from './subScreens/RegistrationComplete';
 import { VerifyEmail } from './subScreens/VerifyEmail';
 import {
+    AccountUIActionContext,
     // AccountUIActionContext,
     AuthUIContextProvider,
     // RegistrationActionContext,
@@ -17,13 +18,13 @@ import {
 } from '@pxblue/react-auth-shared';
 import { ContactSupport } from './ContactSupport';
 import { ForgotPassword } from './ForgotPassword';
-// import { InviteRegistrationPager } from './InviteRegistrationPager';
-// import { BrowserRouter } from 'react-router-dom';
-// import { RoutingContext } from '../contexts/RoutingContext';
+import { InviteRegistrationPager } from './InviteRegistrationPager';
+import { BrowserRouter } from 'react-router-dom';
+import { RoutingContext } from '../contexts/RoutingContext';
 // import { Login } from './Login';
 // import { PreAuthContainer } from './PreAuthContainer';
 // import { ResetPassword } from './ResetPassword';
-// import { SelfRegistrationPager } from './SelfRegistrationPager';
+import { SelfRegistrationPager } from './SelfRegistrationPager';
 import { Splash } from './Splash';
 // import { RoutingContext } from '../contexts/RoutingContext';
 // import { BrowserRouter } from 'react-router-dom';
@@ -143,8 +144,6 @@ describe('ContactSupport tests', () => {
     });
 });
 
-// @TODO: Fix the [TypeError: accountUIActions.dispatch is not a function] issue
-
 jest.mock('@pxblue/react-auth-shared', () => ({
     ...jest.requireActual('@pxblue/react-auth-shared'),
     useAccountUIActions: jest.fn().mockReturnValue(() => {}),
@@ -155,64 +154,84 @@ describe('ForgotPassword tests', () => {
         const div = document.createElement('div');
         const authUIActions = jest.fn();
         const registrationUIActions = jest.fn();
+        const accountUIActions = {
+            initiateSecurity: jest.fn(),
+            logIn: jest.fn(),
+            forgotPassword: jest.fn(),
+            verifyResetCode: jest.fn(),
+            setPassword: jest.fn(),
+            changePassword: jest.fn(),
+        };
+        const accountUIDispatch = jest.fn();
 
         ReactDOM.render(
-            <AuthUIContextProvider authActions={authUIActions} registrationActions={registrationUIActions}>
-                <ForgotPassword />
-            </AuthUIContextProvider>,
+            <AccountUIActionContext.Provider value={{ actions: accountUIActions, dispatch: accountUIDispatch }}>
+                <AuthUIContextProvider authActions={authUIActions} registrationActions={registrationUIActions}>
+                    <ForgotPassword />
+                </AuthUIContextProvider>
+            </AccountUIActionContext.Provider>,
             div
         );
         ReactDOM.unmountComponentAtNode(div);
     });
 });
 
-// @TODO: Fix this!... ugh!
+type QueryParams = {
+    code?: string;
+    email?: string;
+    search?: string;
+};
 
-// jest.mock('react-router-dom', () => ({
-//     ...jest.requireActual('react-router-dom'),
-//     useLocation: jest.fn().mockReturnValue('test-location'),
-// }));
+jest.mock('../hooks/useQueryString', () => ({
+    useQueryString: (): QueryParams => ({ search: 'test-search' }),
+}));
 
-// jest.mock('@pxblue/react-auth-shared', () => ({
-//     ...jest.requireActual('@pxblue/react-auth-shared'),
-//     useRegistrationUIActions: jest.fn().mockReturnValue(() => {}),
-// }));
+jest.mock('react-router-dom', () => ({
+    ...jest.requireActual('react-router-dom'),
+    useLocation: jest.fn().mockReturnValue('test-location'),
+}));
 
-// describe('InviteRegistrationPager tests', () => {
-//     it('renders without crashing', () => {
-//         const div = document.createElement('div');
-//         const authUIActions = jest.fn();
-//         const registrationUIActions = jest.fn();
-//         // const registrationDispatch = jest.fn();
-//         // const registrationActions = {
-//         //     loadEULA: jest.fn(),
-//         //     requestRegistrationCode: jest.fn(),
-//         //     validateUserRegistrationRequest: jest.fn(),
-//         //     completeRegistration: jest.fn(),
-//         // };
+jest.mock('@pxblue/react-auth-shared', () => ({
+    ...jest.requireActual('@pxblue/react-auth-shared'),
+    useRegistrationUIActions: jest.fn().mockReturnValue(() => ({
+        // loadEULA: jest.fn(),
+        // requestRegistrationCode: jest.fn(),
+        // validateUserRegistrationRequest: jest.fn(),
+        // completeRegistration: jest.fn(),
+        dispatch: jest.fn(),
+    })),
+}));
 
-//         const defaultRoutes = {
-//             LOGIN: '/login',
-//             FORGOT_PASSWORD: '/forgot-password',
-//             RESET_PASSWORD: '/reset-password',
-//             REGISTER_INVITE: '/register/invite',
-//             REGISTER_SELF: '/register/create-account',
-//             SUPPORT: '/support',
-//         };
+// @TODO: Fix "Error: Uncaught [TypeError: registrationActions.dispatch is not a function]"
 
-//         ReactDOM.render(
-//             <BrowserRouter>
-//                 <RoutingContext.Provider value={{ routes: defaultRoutes }}>
-//                     <AuthUIContextProvider authActions={authUIActions} registrationActions={registrationUIActions}>
-//                         <InviteRegistrationPager />
-//                     </AuthUIContextProvider>
-//                 </RoutingContext.Provider>
-//             </BrowserRouter>,
-//             div
-//         );
-//         ReactDOM.unmountComponentAtNode(div);
-//     });
-// });
+describe('InviteRegistrationPager tests', () => {
+    it('renders without crashing', () => {
+        const div = document.createElement('div');
+        const authUIActions = jest.fn();
+        const registrationUIActions = jest.fn();
+
+        const defaultRoutes = {
+            LOGIN: '/login',
+            FORGOT_PASSWORD: '/forgot-password',
+            RESET_PASSWORD: '/reset-password',
+            REGISTER_INVITE: '/register/invite',
+            REGISTER_SELF: '/register/create-account',
+            SUPPORT: '/support',
+        };
+
+        ReactDOM.render(
+            <BrowserRouter>
+                <RoutingContext.Provider value={{ routes: defaultRoutes }}>
+                    <AuthUIContextProvider authActions={authUIActions} registrationActions={registrationUIActions}>
+                        <InviteRegistrationPager />
+                    </AuthUIContextProvider>
+                </RoutingContext.Provider>
+            </BrowserRouter>,
+            div
+        );
+        ReactDOM.unmountComponentAtNode(div);
+    });
+});
 
 // @TODO: Fix image issue for the stackedEatonLogo and cyberBadge
 
@@ -248,11 +267,6 @@ describe('ForgotPassword tests', () => {
 // });
 
 // @TODO: Fix this too! So close...
-
-// type QueryParams = {
-//     code: string;
-//     email: string;
-// };
 
 // jest.mock('../hooks/useQueryString', () => ({
 //     useQueryString: (): QueryParams => ({ code: 'test', email: 'test@email.com' }),
@@ -308,15 +322,36 @@ describe('ForgotPassword tests', () => {
 //     });
 // });
 
-// @TODO: Fix this!... ugh!
+// @TODO: Fix "Error: Uncaught [TypeError: registrationActions.dispatch is not a function]"
 
-// describe('SelfRegistrationPager tests', () => {
-//     it('renders without crashing', () => {
-//         const div = document.createElement('div');
-//         ReactDOM.render(<SelfRegistrationPager />, div);
-//         ReactDOM.unmountComponentAtNode(div);
-//     });
-// });
+describe('SelfRegistrationPager tests', () => {
+    it('renders without crashing', () => {
+        const div = document.createElement('div');
+        const authUIActions = jest.fn();
+        const registrationUIActions = jest.fn();
+
+        const defaultRoutes = {
+            LOGIN: '/login',
+            FORGOT_PASSWORD: '/forgot-password',
+            RESET_PASSWORD: '/reset-password',
+            REGISTER_INVITE: '/register/invite',
+            REGISTER_SELF: '/register/create-account',
+            SUPPORT: '/support',
+        };
+
+        ReactDOM.render(
+            <BrowserRouter>
+                <RoutingContext.Provider value={{ routes: defaultRoutes }}>
+                    <AuthUIContextProvider authActions={authUIActions} registrationActions={registrationUIActions}>
+                        <SelfRegistrationPager />
+                    </AuthUIContextProvider>
+                </RoutingContext.Provider>
+            </BrowserRouter>,
+            div
+        );
+        ReactDOM.unmountComponentAtNode(div);
+    });
+});
 
 describe('Splash tests', () => {
     it('renders without crashing', () => {
