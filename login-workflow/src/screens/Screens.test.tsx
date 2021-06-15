@@ -23,7 +23,7 @@ import { BrowserRouter } from 'react-router-dom';
 import { RoutingContext } from '../contexts/RoutingContext';
 // import { Login } from './Login';
 // import { PreAuthContainer } from './PreAuthContainer';
-// import { ResetPassword } from './ResetPassword';
+import { ResetPassword } from './ResetPassword';
 import { SelfRegistrationPager } from './SelfRegistrationPager';
 import { Splash } from './Splash';
 // import { RoutingContext } from '../contexts/RoutingContext';
@@ -183,7 +183,7 @@ type QueryParams = {
 };
 
 jest.mock('../hooks/useQueryString', () => ({
-    useQueryString: (): QueryParams => ({ search: 'test-search' }),
+    useQueryString: (): QueryParams => ({ search: 'test-search', code: 'test', email: 'test@email.com' }),
 }));
 
 jest.mock('react-router-dom', () => ({
@@ -266,62 +266,6 @@ describe('InviteRegistrationPager tests', () => {
 //     });
 // });
 
-// @TODO: Fix this too! So close...
-
-// jest.mock('../hooks/useQueryString', () => ({
-//     useQueryString: (): QueryParams => ({ code: 'test', email: 'test@email.com' }),
-// }));
-
-// jest.mock('@pxblue/react-auth-shared', () => ({
-//     ...jest.requireActual('@pxblue/react-auth-shared'),
-//     useAccountUIActions: jest.fn().mockReturnValue(() => ({
-//         actions: {
-//             verifyResetCode: (): any => ({
-//                 type: 'VerifyResetCode',
-//             }),
-//         },
-//     })),
-// }));
-
-// describe('ResetPassword tests', () => {
-//     it('renders without crashing', () => {
-//         const div = document.createElement('div');
-//         const authUIActions = jest.fn();
-//         const registrationUIActions = jest.fn();
-//         const defaultRoutes = {
-//             LOGIN: '/login',
-//             FORGOT_PASSWORD: '/forgot-password',
-//             RESET_PASSWORD: '/reset-password',
-//             REGISTER_INVITE: '/register/invite',
-//             REGISTER_SELF: '/register/create-account',
-//             SUPPORT: '/support',
-//         };
-//         const authActions = {
-//             initiateSecurity: jest.fn(),
-//             logIn: jest.fn(),
-//             forgotPassword: jest.fn(),
-//             verifyResetCode: jest.fn(),
-//             setPassword: jest.fn(),
-//             changePassword: jest.fn(),
-//         };
-//         const authDispatch = jest.fn();
-
-//         ReactDOM.render(
-//             <BrowserRouter>
-//                 <RoutingContext.Provider value={{ routes: defaultRoutes }}>
-//                     <AccountUIActionContext.Provider value={{ actions: authActions, dispatch: authDispatch }}>
-//                         <AuthUIContextProvider authActions={authUIActions} registrationActions={registrationUIActions}>
-//                             <ResetPassword />
-//                         </AuthUIContextProvider>
-//                     </AccountUIActionContext.Provider>
-//                 </RoutingContext.Provider>
-//             </BrowserRouter>,
-//             div
-//         );
-//         ReactDOM.unmountComponentAtNode(div);
-//     });
-// });
-
 // @TODO: Fix "Error: Uncaught [TypeError: registrationActions.dispatch is not a function]"
 
 describe('SelfRegistrationPager tests', () => {
@@ -363,6 +307,45 @@ describe('Splash tests', () => {
             <AuthUIContextProvider authActions={authUIActions} registrationActions={registrationUIActions}>
                 <Splash />
             </AuthUIContextProvider>,
+            div
+        );
+        ReactDOM.unmountComponentAtNode(div);
+    });
+});
+
+describe('ResetPassword tests', () => {
+    it('renders without crashing', () => {
+        const div = document.createElement('div');
+        const authUIActions = jest.fn();
+        const registrationUIActions = jest.fn();
+        const defaultRoutes = {
+            LOGIN: '/login',
+            FORGOT_PASSWORD: '/forgot-password',
+            RESET_PASSWORD: '/reset-password',
+            REGISTER_INVITE: '/register/invite',
+            REGISTER_SELF: '/register/create-account',
+            SUPPORT: '/support',
+        };
+        const authActions = {
+            initiateSecurity: jest.fn(),
+            logIn: jest.fn(),
+            forgotPassword: jest.fn(),
+            verifyResetCode: jest.fn(),
+            setPassword: jest.fn(),
+            changePassword: jest.fn(),
+        };
+        const authDispatch = jest.fn();
+
+        ReactDOM.render(
+            <BrowserRouter>
+                <RoutingContext.Provider value={{ routes: defaultRoutes }}>
+                    <AccountUIActionContext.Provider value={{ actions: authActions, dispatch: authDispatch }}>
+                        <AuthUIContextProvider authActions={authUIActions} registrationActions={registrationUIActions}>
+                            <ResetPassword />
+                        </AuthUIContextProvider>
+                    </AccountUIActionContext.Provider>
+                </RoutingContext.Provider>
+            </BrowserRouter>,
             div
         );
         ReactDOM.unmountComponentAtNode(div);
