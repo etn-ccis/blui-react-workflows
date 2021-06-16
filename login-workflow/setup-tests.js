@@ -1,5 +1,4 @@
 import React from 'react';
-import 'react-native';
 import 'jest-enzyme';
 import Adapter from 'enzyme-adapter-react-16';
 import Enzyme from 'enzyme';
