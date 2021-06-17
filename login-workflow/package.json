@@ -20,7 +20,7 @@
         "update:submodule": "git submodule update --remote",
         "generate:licenses": "npm-license-crawler -onlyDirectDependencies -json LICENSES.json",
         "precommit": "yarn prettier && yarn lint && yarn test && yarn build",
-        "coverage": "yarn test --coverage --watchAll=false"
+        "coverage": "yarn test --coverage --watchAll=false --no-cache"
     },
     "prettier": "@pxblue/prettier-config",
     "dependencies": {
@@ -102,11 +102,22 @@
         "typescript": "^4.0.0"
     },
     "jest": {
-        "coverageDirectory": "./login-workflow/coverage/",
+        "coverageDirectory": "./coverage/",
         "collectCoverage": true,
+        "coverageReporters": [
+            "json",
+            "lcov",
+            "html"
+        ],
+        "moduleDirectories": [
+            "node_modules",
+            "src",
+            "assets"
+        ],
         "moduleNameMapper": {
             "\\.(jpg|ico|jpeg|png|gif|eot|otf|webp|svg|ttf|woff|woff2|mp4|webm|wav|mp3|m4a|aac|oga)$": "<rootDir>/__mocks__/fileMock.js",
-            "\\.(css|less)$": "<rootDir>/__mocks__/fileMock.js"
+            "\\.(css|less)$": "<rootDir>/__mocks__/fileMock.js",
+            "react-i18next": "<rootDir>/__mocks__/reacti18nextMock.js"
         }
     }
 }
