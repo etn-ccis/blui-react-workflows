@@ -9,11 +9,12 @@ reactI18Next.useTranslation = () => {
     };
 };
 
-reactI18Next.Trans = () => (Component) => (props) => (
-    <Component t={() => ''} {...props}>
-        {props.children}
-    </Component>
-);
+reactI18Next.Trans = () => (Component) => (props) =>
+    (
+        <Component t={() => ''} {...props}>
+            {props.children}
+        </Component>
+    );
 
 module.exports = reactI18Next;
 
