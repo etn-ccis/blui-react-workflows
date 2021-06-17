@@ -19,8 +19,24 @@ import productLogo from './assets/images/eaton_stacked_logo.png';
 //     CustomRegistrationSuccessScreen,
 // } from './screens/ExampleRegistrationSuccess';
 
+// Imports for internationalization
+import i18n from 'i18next';
+import { Button } from '@material-ui/core';
+import { useTranslation } from 'react-i18next';
+
+// Uncomment these lines to add your app-specific translation resource
+i18n.addResourceBundle('en', 'app', { BUTTONLABEL: 'Change Language' });
+i18n.addResourceBundle('es', 'app', { BUTTONLABEL: '¡Cambia el idioma!' });
+i18n.addResourceBundle('fr', 'app', { BUTTONLABEL: 'Changez de Langue' });
+
+// Uncomment these lines to override workflow strings / translations
+i18n.addResourceBundle('en', 'pxb', { ACTIONS: { CREATE_ACCOUNT: 'Register now!' } }, true, true);
+i18n.addResourceBundle('es', 'pxb', { ACTIONS: { CREATE_ACCOUNT: '¡Regístrate ahora!' } }, true, true);
+i18n.addResourceBundle('fr', 'pxb', { ACTIONS: { CREATE_ACCOUNT: `S'inscrire maintenant!` } }, true, true);
+
 export const AuthUIConfiguration: React.FC = (props) => {
     const securityContextActions = useSecurityActions();
+    const { t } = useTranslation();
 
     return (
         <AuthUIContextProvider
@@ -31,6 +47,39 @@ export const AuthUIConfiguration: React.FC = (props) => {
             contactEmail={'something@email.com'}
             contactPhone={'1-800-123-4567'}
             projectImage={productLogo}
+            loginFooter={
+                <div style={{ display: 'flex', alignItems: 'center' }}>
+                    <Button
+                        onClick={(): void => {
+                            void i18n.changeLanguage('en');
+                        }}
+                    >
+                        {`${t('BUTTONLABEL')}-EN`}
+                    </Button>
+                    <Button
+                        onClick={(): void => {
+                            void i18n.changeLanguage('es');
+                        }}
+                    >
+                        {`${t('BUTTONLABEL')}-ES`}
+                    </Button>
+                    <Button
+                        onClick={(): void => {
+                            void i18n.changeLanguage('fr');
+                        }}
+                    >
+                        {`${t('BUTTONLABEL')}-FR`}
+                    </Button>
+                    <Button
+                        onClick={(): void => {
+                            void i18n.changeLanguage('zh');
+                        }}
+                    >
+                        {`${t('BUTTONLABEL')}-ZH`}
+                    </Button>
+                </div>
+            }
+
             // loginType={'username'}
             // Uncomment this line to see how to add custom form fields to the registration screens
             // customAccountDetails={[
