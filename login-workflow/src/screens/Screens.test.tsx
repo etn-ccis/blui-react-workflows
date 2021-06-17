@@ -15,6 +15,7 @@ import {
     // AccountUIActionContext,
     AuthUIContextProvider,
     SecurityContextProvider,
+    translations,
     // RegistrationActionContext,
     // RegistrationActionsCreator,
 } from '@pxblue/react-auth-shared';
@@ -30,8 +31,33 @@ import { ResetPassword } from './ResetPassword';
 import { Splash } from './Splash';
 // import { RoutingContext } from '../contexts/RoutingContext';
 // import { BrowserRouter } from 'react-router-dom';
+import i18n from 'i18next';
+import { initReactI18next } from 'react-i18next';
+import LanguageDetector from 'i18next-browser-languagedetector';
 
 Enzyme.configure({ adapter: new Adapter() });
+
+void i18n
+    .use(initReactI18next)
+    .use(LanguageDetector)
+    .init({
+        load: 'languageOnly',
+        detection: {
+            order: ['querystring', 'localStorage', 'navigator'],
+            caches: ['localStorage'],
+            lookupLocalStorage: 'pxb-auth-i18nextLng',
+        },
+        whitelist: ['en'],
+        ns: ['app', 'pxb'],
+        defaultNS: 'app',
+        fallbackNS: 'pxb',
+        resources: {
+            en: {
+                pxb: translations.english.translation,
+                app: {},
+            },
+        },
+    });
 
 describe('AcceptEula tests', () => {
     it('renders without crashing', () => {

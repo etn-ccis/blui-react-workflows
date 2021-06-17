@@ -15,9 +15,40 @@ import { SecureTextField } from './SecureTextField';
 import { SimpleDialog } from './SimpleDialog';
 import { Spinner } from './Spinner';
 import { ChangePasswordForm, PasswordRequirements, PasswordRequirementsCheck, ChangePasswordModal } from './password';
-import { AuthUIContextProvider, SecurityContextProvider, AccountUIActionContext } from '@pxblue/react-auth-shared';
+import {
+    AuthUIContextProvider,
+    SecurityContextProvider,
+    AccountUIActionContext,
+    translations,
+} from '@pxblue/react-auth-shared';
 
 Enzyme.configure({ adapter: new Adapter() });
+
+import i18n from 'i18next';
+import { initReactI18next } from 'react-i18next';
+import LanguageDetector from 'i18next-browser-languagedetector';
+
+void i18n
+    .use(initReactI18next)
+    .use(LanguageDetector)
+    .init({
+        load: 'languageOnly',
+        detection: {
+            order: ['querystring', 'localStorage', 'navigator'],
+            caches: ['localStorage'],
+            lookupLocalStorage: 'pxb-auth-i18nextLng',
+        },
+        whitelist: ['en'],
+        ns: ['app', 'pxb'],
+        defaultNS: 'app',
+        fallbackNS: 'pxb',
+        resources: {
+            en: {
+                pxb: translations.english.translation,
+                app: {},
+            },
+        },
+    });
 
 describe('BrandedCardContainer tests', () => {
     it('renders without crashing', () => {
