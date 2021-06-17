@@ -33,52 +33,6 @@ import { Splash } from './Splash';
 
 Enzyme.configure({ adapter: new Adapter() });
 
-// jest.mock('@pxblue/react-auth-shared', () => ({
-//     ...jest.requireActual('@pxblue/react-auth-shared'),
-//     useLanguageLocale: jest.fn().mockReturnValue(() => ({ t: {} })),
-// }));
-
-// import i18n from 'i18next';
-// import { initReactI18next } from 'react-i18next';
-
-// // Mock t function
-// export const t = (key: string, params?: any): any => {
-//     if (key === 'key.with.params') {
-//         return `key.with.params.${params.param}`;
-//     }
-
-//     return key;
-// };
-
-// // Mock react-i18next
-// void i18n.use(initReactI18next).init({
-//     lng: 'en',
-//     fallbackLng: 'en',
-//     ns: ['common'],
-//     defaultNS: 'common',
-//     resources: {
-//         en: {
-//             common: {},
-//         },
-//     },
-// });
-
-// // Mock your i18n
-// jest.mock('i18next', () => ({
-//     useTranslation: (): any => ({
-//         t,
-//         i18n: {
-//             language: 'en',
-//             // eslint-disable-next-line no-console
-//             changeLanguage: jest.fn().mockImplementation((lang: string) => console.log(lang)),
-//         },
-//     }),
-//     withTranslation: () => (component: any): any => {
-//         component.defaultProps = { ...component.defaultProps, t };
-//         return component;
-//     },
-// }));
-
 describe('AcceptEula tests', () => {
     it('renders without crashing', () => {
         const div = document.createElement('div');

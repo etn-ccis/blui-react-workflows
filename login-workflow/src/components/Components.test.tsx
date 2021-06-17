@@ -14,26 +14,10 @@ import { SecureTextField } from './SecureTextField';
 // import VisibilityOff from '@material-ui/icons/VisibilityOff';
 import { SimpleDialog } from './SimpleDialog';
 import { Spinner } from './Spinner';
-import {
-    ChangePasswordForm,
-    PasswordRequirements,
-    PasswordRequirementsCheck /*, ChangePasswordModal*/,
-} from './password';
-import { AuthUIContextProvider /*, SecurityContextProvider, AccountUIActionContext*/ } from '@pxblue/react-auth-shared';
+import { ChangePasswordForm, PasswordRequirements, PasswordRequirementsCheck, ChangePasswordModal } from './password';
+import { AuthUIContextProvider, SecurityContextProvider, AccountUIActionContext } from '@pxblue/react-auth-shared';
 
 Enzyme.configure({ adapter: new Adapter() });
-
-// jest.mock('react-i18next', () => ({
-//     withTranslation: () => (component: any): any => {
-//         component.defaultProps = { ...component.defaultProps, t: (): any => '' };
-//         return component;
-//     },
-// }));
-
-// jest.mock('@pxblue/react-auth-shared', () => ({
-//     ...jest.requireActual('@pxblue/react-auth-shared'),
-//     useLanguageLocale: jest.fn().mockReturnValue(() => ({ t: (key: any): any => key })),
-// }));
 
 describe('BrandedCardContainer tests', () => {
     it('renders without crashing', () => {
@@ -113,14 +97,6 @@ describe('SecureTextField tests', () => {
     });
 });
 
-// @TODO: register useLanguageLocale
-// console.warn > react-i18next:: You will need to pass in an i18next instance by using initReactI18next
-
-// jest.mock('@pxblue/react-auth-shared', () => ({
-//     ...jest.requireActual('@pxblue/react-auth-shared'),
-//     useLanguageLocale: jest.fn().mockReturnValue(() => {}),
-// }));
-
 describe('SimpleDialog tests', () => {
     it('renders without crashing', () => {
         const div = document.createElement('div');
@@ -159,36 +135,72 @@ describe('ChangePasswordForm tests', () => {
 jest.mock('@pxblue/react-auth-shared', () => ({
     ...jest.requireActual('@pxblue/react-auth-shared'),
     useSecurityState: jest.fn().mockReturnValue({ isShowingChangePassword: true }),
+    initialTransitState: jest.fn().mockReturnValue({ transitSuccess: true }),
 }));
 
-// describe('ChangePasswordModal tests', () => {
-//     it('renders without crashing', () => {
-//         const div = document.createElement('div');
-//         const authUIActions = jest.fn();
-//         const registrationUIActions = jest.fn();
-//         const authActions = {
-//             initiateSecurity: jest.fn(),
-//             logIn: jest.fn(),
-//             forgotPassword: jest.fn(),
-//             verifyResetCode: jest.fn(),
-//             setPassword: jest.fn(),
-//             changePassword: jest.fn(),
-//         };
-//         const authDispatch = jest.fn();
+describe('ChangePasswordModal transitSuccess=true tests', () => {
+    it('renders without crashing', () => {
+        const div = document.createElement('div');
+        const authUIActions = jest.fn();
+        const registrationUIActions = jest.fn();
+        const authActions = {
+            initiateSecurity: jest.fn(),
+            logIn: jest.fn(),
+            forgotPassword: jest.fn(),
+            verifyResetCode: jest.fn(),
+            setPassword: jest.fn(),
+            changePassword: jest.fn(),
+        };
+        const authDispatch = jest.fn();
 
-//         ReactDOM.render(
-//             <SecurityContextProvider>
-//                 <AccountUIActionContext.Provider value={{ actions: authActions, dispatch: authDispatch }}>
-//                     <AuthUIContextProvider authActions={authUIActions} registrationActions={registrationUIActions}>
-//                         <ChangePasswordModal />
-//                     </AuthUIContextProvider>
-//                 </AccountUIActionContext.Provider>
-//             </SecurityContextProvider>,
-//             div
-//         );
-//         ReactDOM.unmountComponentAtNode(div);
-//     });
-// });
+        ReactDOM.render(
+            <SecurityContextProvider>
+                <AccountUIActionContext.Provider value={{ actions: authActions, dispatch: authDispatch }}>
+                    <AuthUIContextProvider authActions={authUIActions} registrationActions={registrationUIActions}>
+                        <ChangePasswordModal />
+                    </AuthUIContextProvider>
+                </AccountUIActionContext.Provider>
+            </SecurityContextProvider>,
+            div
+        );
+        ReactDOM.unmountComponentAtNode(div);
+    });
+});
+
+jest.mock('@pxblue/react-auth-shared', () => ({
+    ...jest.requireActual('@pxblue/react-auth-shared'),
+    useSecurityState: jest.fn().mockReturnValue({ isShowingChangePassword: true }),
+    initialTransitState: jest.fn().mockReturnValue({ transitSuccess: false }),
+}));
+
+describe('ChangePasswordModal transitSuccess=false tests', () => {
+    it('renders without crashing', () => {
+        const div = document.createElement('div');
+        const authUIActions = jest.fn();
+        const registrationUIActions = jest.fn();
+        const authActions = {
+            initiateSecurity: jest.fn(),
+            logIn: jest.fn(),
+            forgotPassword: jest.fn(),
+            verifyResetCode: jest.fn(),
+            setPassword: jest.fn(),
+            changePassword: jest.fn(),
+        };
+        const authDispatch = jest.fn();
+
+        ReactDOM.render(
+            <SecurityContextProvider>
+                <AccountUIActionContext.Provider value={{ actions: authActions, dispatch: authDispatch }}>
+                    <AuthUIContextProvider authActions={authUIActions} registrationActions={registrationUIActions}>
+                        <ChangePasswordModal />
+                    </AuthUIContextProvider>
+                </AccountUIActionContext.Provider>
+            </SecurityContextProvider>,
+            div
+        );
+        ReactDOM.unmountComponentAtNode(div);
+    });
+});
 
 describe('PasswordRequirements tests', () => {
     it('renders without crashing', () => {
