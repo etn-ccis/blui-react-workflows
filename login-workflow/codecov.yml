@@ -19,3 +19,4 @@ comment:
   layout: "reach,diff,flags,tree"
   behavior: default
   require_changes: no
+- "::login-workflow/"         # move root   e.g., "path/" => "after/path/"

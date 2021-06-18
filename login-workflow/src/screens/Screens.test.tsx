@@ -163,6 +163,7 @@ describe('ContactSupport tests', () => {
 });
 
 jest.mock('@pxblue/react-auth-shared', () => ({
+    // @ts-ignore
     ...jest.requireActual('@pxblue/react-auth-shared'),
     useAccountUIActions: jest.fn().mockReturnValue(() => {}),
 }));
@@ -195,6 +196,7 @@ describe('ForgotPassword tests', () => {
 });
 
 jest.mock('@pxblue/react-auth-shared', () => ({
+    // @ts-ignore
     ...jest.requireActual('@pxblue/react-auth-shared'),
     useSecurityState: jest.fn().mockReturnValue({}),
 }));
@@ -304,11 +306,13 @@ jest.mock('../hooks/useQueryString', () => ({
 }));
 
 jest.mock('react-router-dom', () => ({
+    // @ts-ignore
     ...jest.requireActual('react-router-dom'),
     useLocation: jest.fn().mockReturnValue('test-location'),
 }));
 
 jest.mock('@pxblue/react-auth-shared', () => ({
+    // @ts-ignore
     ...jest.requireActual('@pxblue/react-auth-shared'),
     useRegistrationUIActions: jest.fn().mockReturnValue(() => ({
         actions: {
