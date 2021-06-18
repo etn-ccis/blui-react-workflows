@@ -8,7 +8,7 @@
     "scripts": {
         "initialize": "bash scripts/initializeSubmodule.sh",
         "install:dependencies": "cd example && yarn && cd ../shared-auth && yarn && cd .. && yarn",
-        "test": "jest src --passWithNoTests",
+        "test": "jest src --env=jsdom",
         "build": "tsc --p tsconfig.lib.json && cp -r src/assets/. dist/assets",
         "link:workflow": "bash ./scripts/linkWorkflow.sh",
         "lint": "eslint \"src/**/**.{tsx,ts}\"",
@@ -20,7 +20,7 @@
         "update:submodule": "git submodule update --remote",
         "generate:licenses": "npm-license-crawler -onlyDirectDependencies -json LICENSES.json",
         "precommit": "yarn prettier && yarn lint && yarn test && yarn build",
-        "coverage": "yarn test --coverage --watchAll=false"
+        "coverage": "yarn test --coverage --watchAll=false --no-cache"
     },
     "prettier": "@pxblue/prettier-config",
     "dependencies": {
@@ -59,7 +59,11 @@
         "package.json"
     ],
     "devDependencies": {
-        "@material-ui/core": "^4.11.4",
+        "@babel/core": "^7.14.6",
+        "@babel/preset-env": "^7.14.5",
+        "@babel/preset-react": "^7.14.5",
+        "@babel/preset-typescript": "^7.14.5",
+        "@material-ui/core": "^4.11.0",
         "@material-ui/icons": "^4.11.2",
         "@pxblue/eslint-config": "^2.0.5",
         "@pxblue/prettier-config": "^1.0.3",
@@ -68,20 +72,25 @@
         "@types/color": "^3.0.1",
         "@types/dompurify": "^2.2.2",
         "@types/enzyme": "^3.10.8",
-        "@types/jest": "^26.0.23",
+        "@types/enzyme-adapter-react-16": "^1.0.6",
+        "@types/jest": "^26.0.0",
         "@types/react-dom": "^17.0.6",
         "@types/react-router-dom": "^5.1.7",
         "@typescript-eslint/eslint-plugin": "^4.26.1",
         "@typescript-eslint/parser": "^4.26.1",
+        "babel-jest": "^26.0.0",
         "clsx": "^1.1.1",
         "codecov": "^3.8.2",
         "date-fns": "^2.22.1",
         "enzyme": "^3.11.0",
+        "enzyme-adapter-react-16": "^1.15.6",
+        "enzyme-to-json": "^3.6.2",
         "eslint": "^7.28.0",
         "eslint-config-prettier": "^8.3.0",
         "eslint-plugin-react": "^7.24.0",
         "eslint-plugin-react-hooks": "^4.2.0",
         "i18next": "^20.3.1",
+        "identity-obj-proxy": "^3.0.0",
         "jest": "26.6.0",
         "npm-license-crawler": "^0.2.1",
         "prettier": "^2.3.1",
@@ -89,11 +98,26 @@
         "react-dom": "^17.0.2",
         "react-i18next": "^11.10.0",
         "react-router-dom": "^5.2.0",
+        "regenerator-runtime": "^0.13.7",
         "ts-jest": "^26.0.0",
         "typescript": "^4.3.2"
     },
     "jest": {
-        "coverageDirectory": "./login-workflow/coverage/",
-        "collectCoverage": true
+        "coverageDirectory": "./coverage/",
+        "collectCoverage": true,
+        "coverageReporters": [
+            "json",
+            "lcov",
+            "html"
+        ],
+        "moduleDirectories": [
+            "node_modules",
+            "src",
+            "assets"
+        ],
+        "moduleNameMapper": {
+            "\\.(jpg|ico|jpeg|png|gif|eot|otf|webp|svg|ttf|woff|woff2|mp4|webm|wav|mp3|m4a|aac|oga)$": "<rootDir>/__mocks__/fileMock.js",
+            "\\.(css|less)$": "<rootDir>/__mocks__/fileMock.js"
+        }
     }
 }
