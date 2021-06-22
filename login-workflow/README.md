@@ -102,3 +102,7 @@ You can update the auto-generated licenses.md file by running:
 ```shell
 yarn generate:licenses
 ```
+
+## Browser Support
+
+PX Blue Login Workflow will work with any modern browser. For details refer to our [Browser Support](https://pxblue.github.io/development/frameworks-web/react#browser-support) documentation.
