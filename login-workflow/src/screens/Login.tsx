@@ -29,22 +29,24 @@ import cyberBadge from '../assets/images/cybersecurity_certified.png';
 import * as Colors from '@pxblue/colors';
 import clsx from 'clsx';
 
+const HELPER_TEXT_HEIGHT = 22;
+
 const useStyles = makeStyles((theme: Theme) =>
     createStyles({
         emailFormField: {
-            marginBottom: theme.spacing(4) + 22,
+            marginBottom: theme.spacing(4) + HELPER_TEXT_HEIGHT,
             '&$hasError': {
                 marginBottom: theme.spacing(4),
             },
             [theme.breakpoints.down('xs')]: {
-                marginBottom: theme.spacing(3) + 22,
+                marginBottom: theme.spacing(3) + HELPER_TEXT_HEIGHT,
                 '&$hasError': {
                     marginBottom: theme.spacing(3),
                 },
             },
         },
         passwordFormField: {
-            marginBottom: theme.spacing(3) + 22,
+            marginBottom: theme.spacing(3) + HELPER_TEXT_HEIGHT,
             '&$hasError': {
                 marginBottom: theme.spacing(3),
             },
@@ -174,11 +176,19 @@ export const Login: React.FC = () => {
         transitErrorMessage.replace('pxb:', '') === 'LOGIN.INCORRECT_CREDENTIALS' ||
         transitErrorMessage.replace('pxb:', '') === 'LOGIN.INVALID_CREDENTIALS';
 
+    const [isValidEmail, setIsValidEmail] = React.useState(false);
+    const [shouldValidateEmail, setShouldValidateEmail] = React.useState(false);
+
     useEffect(
         () => {
             authUIActions.dispatch(AccountActions.resetLogin());
         },
         [] // eslint-disable-line react-hooks/exhaustive-deps
+    );
+
+    const hasEmailError = useCallback(
+        (): boolean => shouldValidateEmail && emailInput.length !== 0 && !isValidEmail,
+        [shouldValidateEmail, emailInput, isValidEmail]
     );
 
     // Construct the dynamic elements
@@ -201,6 +211,15 @@ export const Login: React.FC = () => {
     ) : (
         <></>
     );
+
+    const getEmailHelperText = (): string => {
+        if (hasEmailError()) {
+            return t('pxb:MESSAGES.EMAIL_ENTRY_ERROR');
+        } else if (isInvalidCredentials) {
+            return t('pxb:LOGIN.INCORRECT_CREDENTIALS');
+        }
+        return '';
+    };
 
     let createAccountOption: JSX.Element = <></>;
     if (showSelfRegistration) {
@@ -289,15 +308,24 @@ export const Login: React.FC = () => {
                         id="email"
                         name={loginType === 'username' ? 'username' : 'email'}
                         type={loginType === 'username' ? 'text' : 'email'}
-                        className={clsx(classes.emailFormField, { [classes.hasError]: isInvalidCredentials })}
+                        className={clsx(classes.emailFormField, {
+                            [classes.hasError]: isInvalidCredentials || hasEmailError(),
+                        })}
                         value={emailInput}
-                        onChange={(evt: ChangeEvent<HTMLInputElement>): void => setEmailInput(evt.target.value)}
+                        onChange={(evt: ChangeEvent<HTMLInputElement>): void => {
+                            const { value } = evt.target;
+                            setIsValidEmail(EMAIL_REGEX.test(value));
+                            setEmailInput(value);
+                        }}
                         onKeyPress={(e): void => {
                             if (e.key === 'Enter' && passwordField.current) passwordField.current.focus();
                         }}
+                        onBlur={(): void => {
+                            setShouldValidateEmail(true);
+                        }}
                         variant="filled"
-                        error={isInvalidCredentials}
-                        helperText={isInvalidCredentials ? t('pxb:LOGIN.INCORRECT_CREDENTIALS') : ''}
+                        error={hasEmailError() || isInvalidCredentials}
+                        helperText={getEmailHelperText()}
                     />
                     <SecureTextField
                         inputRef={passwordField}
