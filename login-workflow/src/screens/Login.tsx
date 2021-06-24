@@ -184,6 +184,7 @@ export const Login: React.FC = () => {
         () => {
             authUIActions.dispatch(AccountActions.resetLogin());
 
+            // Updates the state for email and password when using browser autofill so login button doesn't remain disabled
             const interval = setInterval(() => {
                 if (emailField.current && passwordField.current) {
                     setEmailInput(emailField.current.value);
@@ -197,7 +198,7 @@ export const Login: React.FC = () => {
 
     const hasEmailError = useCallback(
         (): boolean => loginType === 'email' && shouldValidateEmail && emailInput.length !== 0 && !isValidEmail,
-        [shouldValidateEmail, emailInput, isValidEmail]
+        [shouldValidateEmail, emailInput, isValidEmail, loginType]
     );
 
     // Construct the dynamic elements
