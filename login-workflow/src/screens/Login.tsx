@@ -147,6 +147,7 @@ export const Login: React.FC = () => {
         loginActions,
     } = useInjectedUIContext();
 
+    const emailField = useRef<any>(null);
     const passwordField = useRef<any>(null);
 
     // Local State
@@ -182,6 +183,14 @@ export const Login: React.FC = () => {
     useEffect(
         () => {
             authUIActions.dispatch(AccountActions.resetLogin());
+
+            let interval = setInterval(() => {
+                if (emailField.current && passwordField.current) {
+                    setPasswordInput(emailField.current.value);
+                    setPasswordInput(passwordField.current.value);
+                    clearInterval(interval);
+                }
+            }, 100);
         },
         [] // eslint-disable-line react-hooks/exhaustive-deps
     );
@@ -304,6 +313,7 @@ export const Login: React.FC = () => {
                     {debugLinks}
 
                     <TextField
+                        inputRef={emailField}
                         label={loginType === 'username' ? t('pxb:LABELS.USERNAME') : t('pxb:LABELS.EMAIL')}
                         id="email"
                         name={loginType === 'username' ? 'username' : 'email'}
