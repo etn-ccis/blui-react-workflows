@@ -184,9 +184,9 @@ export const Login: React.FC = () => {
         () => {
             authUIActions.dispatch(AccountActions.resetLogin());
 
-            let interval = setInterval(() => {
+            const interval = setInterval(() => {
                 if (emailField.current && passwordField.current) {
-                    setPasswordInput(emailField.current.value);
+                    setEmailInput(emailField.current.value);
                     setPasswordInput(passwordField.current.value);
                     clearInterval(interval);
                 }
