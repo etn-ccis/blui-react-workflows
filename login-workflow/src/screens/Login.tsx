@@ -187,7 +187,7 @@ export const Login: React.FC = () => {
     );
 
     const hasEmailError = useCallback(
-        (): boolean => shouldValidateEmail && emailInput.length !== 0 && !isValidEmail,
+        (): boolean => loginType === 'email' && shouldValidateEmail && emailInput.length !== 0 && !isValidEmail,
         [shouldValidateEmail, emailInput, isValidEmail]
     );
 
