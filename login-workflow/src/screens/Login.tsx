@@ -147,7 +147,6 @@ export const Login: React.FC = () => {
         loginActions,
     } = useInjectedUIContext();
 
-    const emailField = useRef<any>(null);
     const passwordField = useRef<any>(null);
 
     // Local State
@@ -183,15 +182,6 @@ export const Login: React.FC = () => {
     useEffect(
         () => {
             authUIActions.dispatch(AccountActions.resetLogin());
-
-            // Updates the state for email and password when using browser autofill so login button doesn't remain disabled
-            const interval = setInterval(() => {
-                if (emailField.current && passwordField.current) {
-                    setEmailInput(emailField.current.value);
-                    setPasswordInput(passwordField.current.value);
-                    clearInterval(interval);
-                }
-            }, 100);
         },
         [] // eslint-disable-line react-hooks/exhaustive-deps
     );
@@ -314,7 +304,6 @@ export const Login: React.FC = () => {
                     {debugLinks}
 
                     <TextField
-                        inputRef={emailField}
                         label={loginType === 'username' ? t('pxb:LABELS.USERNAME') : t('pxb:LABELS.EMAIL')}
                         id="email"
                         name={loginType === 'username' ? 'username' : 'email'}
