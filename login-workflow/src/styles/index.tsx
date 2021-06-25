@@ -3,9 +3,9 @@ import { makeStyles, Theme, createStyles } from '@material-ui/core';
 export const useDialogStyles = makeStyles((theme: Theme) =>
     createStyles({
         dialogTitle: {
-            padding: `${theme.spacing(2)}px ${theme.spacing(3)}px`,
+            padding: `${theme.spacing(4)}px ${theme.spacing(3)}px 0 ${theme.spacing(3)}px`,
             [theme.breakpoints.down('xs')]: {
-                padding: `${theme.spacing(2)}px ${theme.spacing(2)}px`,
+                padding: `${theme.spacing(2)}px ${theme.spacing(2)}px 0 ${theme.spacing(2)}px`,
             },
         },
         dialogContent: {
@@ -15,7 +15,7 @@ export const useDialogStyles = makeStyles((theme: Theme) =>
             flexDirection: 'column',
             padding: `${theme.spacing(2)}px ${theme.spacing(3)}px`,
             [theme.breakpoints.down('xs')]: {
-                padding: `${theme.spacing(2)}px ${theme.spacing(2)}px`,
+                padding: `${theme.spacing(2)}px ${theme.spacing(2)}px ${theme.spacing(3)}px ${theme.spacing(2)}px`,
             },
         },
         dialogActions: {

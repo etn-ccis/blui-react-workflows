@@ -29,7 +29,7 @@ export const AcceptEula: React.FC<AcceptEulaProps> = (props) => {
     const { t } = useLanguageLocale();
     const theme = useTheme();
 
-    const eulaContentInternals = eulaContent ?? eulaError ?? t('REGISTRATION.EULA.LOADING');
+    const eulaContentInternals = eulaContent ?? eulaError ?? t('pxb:REGISTRATION.EULA.LOADING');
 
     useEffect(() => {
         loadEula();
@@ -57,7 +57,7 @@ export const AcceptEula: React.FC<AcceptEulaProps> = (props) => {
                         }
                     />
                 }
-                label={t('REGISTRATION.EULA.AGREE_TERMS')}
+                label={t('pxb:REGISTRATION.EULA.AGREE_TERMS')}
                 style={{ flex: '0 0 auto', marginRight: 0, marginTop: theme.spacing(2) }}
             />
         </>

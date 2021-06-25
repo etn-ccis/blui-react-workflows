@@ -6,8 +6,8 @@ import {
     useAccountUIActions,
     useAccountUIState,
     useInjectedUIContext,
-    EMAIL_REGEX,
     AccountActions,
+    EMAIL_REGEX,
 } from '@pxblue/react-auth-shared';
 import { Link } from 'react-router-dom';
 import {
@@ -29,10 +29,24 @@ import cyberBadge from '../assets/images/cybersecurity_certified.png';
 import * as Colors from '@pxblue/colors';
 import clsx from 'clsx';
 
+const HELPER_TEXT_HEIGHT = 22;
+
 const useStyles = makeStyles((theme: Theme) =>
     createStyles({
-        formFields: {
-            marginBottom: theme.spacing(3) + 22, // height of error message
+        emailFormField: {
+            marginBottom: theme.spacing(4) + HELPER_TEXT_HEIGHT,
+            '&$hasError': {
+                marginBottom: theme.spacing(4),
+            },
+            [theme.breakpoints.down('xs')]: {
+                marginBottom: theme.spacing(3) + HELPER_TEXT_HEIGHT,
+                '&$hasError': {
+                    marginBottom: theme.spacing(3),
+                },
+            },
+        },
+        passwordFormField: {
+            marginBottom: theme.spacing(3) + HELPER_TEXT_HEIGHT,
             '&$hasError': {
                 marginBottom: theme.spacing(3),
             },
@@ -42,7 +56,7 @@ const useStyles = makeStyles((theme: Theme) =>
             flexWrap: 'nowrap',
             [theme.breakpoints.down('xs')]: {
                 flexWrap: 'wrap',
-                flexDirection: 'column-reverse',
+                flexDirection: 'column',
                 justifyContent: 'center',
             },
         },
@@ -64,6 +78,9 @@ const useStyles = makeStyles((theme: Theme) =>
             padding: `${theme.spacing(4)}px ${theme.spacing(8)}px`,
             display: 'flex',
             flexDirection: 'column',
+            [theme.breakpoints.down('xs')]: {
+                padding: `${theme.spacing(4)}px ${theme.spacing(4)}px`,
+            },
         },
         link: {
             fontWeight: 600,
@@ -82,6 +99,11 @@ const useStyles = makeStyles((theme: Theme) =>
             width: 60,
             height: 60,
             color: theme.palette.text.secondary,
+        },
+        rememberMeCheckbox: {
+            [theme.breakpoints.down('xs')]: {
+                marginRight: 0,
+            },
         },
         hasError: {},
         productLogo: {
@@ -121,6 +143,7 @@ export const Login: React.FC = () => {
                 <img className={classes.productLogo} src={projectImage || stackedEatonLogo} alt="logo" />
             </div>
         ),
+        loginType = 'email',
         loginActions,
     } = useInjectedUIContext();
 
@@ -147,7 +170,14 @@ export const Login: React.FC = () => {
     const showLinks = showSelfRegistration || enableResetPassword || showContactSupport;
 
     const hasTransitError = authUIState.login.transitErrorMessage !== null;
-    const transitErrorMessage = authUIState.login.transitErrorMessage ?? t('MESSAGES.REQUEST_ERROR');
+    const transitErrorMessage = authUIState.login.transitErrorMessage ?? t('pxb:MESSAGES.REQUEST_ERROR');
+
+    const isInvalidCredentials =
+        transitErrorMessage.replace('pxb:', '') === 'LOGIN.INCORRECT_CREDENTIALS' ||
+        transitErrorMessage.replace('pxb:', '') === 'LOGIN.INVALID_CREDENTIALS';
+
+    const [isValidEmail, setIsValidEmail] = React.useState(false);
+    const [shouldValidateEmail, setShouldValidateEmail] = React.useState(false);
 
     useEffect(
         () => {
@@ -156,10 +186,15 @@ export const Login: React.FC = () => {
         [] // eslint-disable-line react-hooks/exhaustive-deps
     );
 
+    const hasEmailError = useCallback(
+        (): boolean => loginType === 'email' && shouldValidateEmail && emailInput.length !== 0 && !isValidEmail,
+        [shouldValidateEmail, emailInput, isValidEmail, loginType]
+    );
+
     // Construct the dynamic elements
     const errorDialog = (
         <SimpleDialog
-            title={t('MESSAGES.ERROR')}
+            title={t('pxb:MESSAGES.ERROR')}
             body={t(transitErrorMessage)}
             open={hasTransitError && !hasAcknowledgedError}
             onClose={(): void => {
@@ -170,19 +205,28 @@ export const Login: React.FC = () => {
     const contactEatonRepresentative: JSX.Element = showContactSupport ? (
         <Typography variant="body2" color={'primary'}>
             <Link className={classes.link} to={routes.SUPPORT}>
-                {t('MESSAGES.CONTACT')}
+                {t('pxb:MESSAGES.CONTACT')}
             </Link>
         </Typography>
     ) : (
         <></>
     );
 
+    const getEmailHelperText = (): string => {
+        if (hasEmailError()) {
+            return t('pxb:MESSAGES.EMAIL_ENTRY_ERROR');
+        } else if (isInvalidCredentials) {
+            return t('pxb:LOGIN.INCORRECT_CREDENTIALS');
+        }
+        return '';
+    };
+
     let createAccountOption: JSX.Element = <></>;
     if (showSelfRegistration) {
         createAccountOption = (
             <Typography variant="body2" color={'primary'} style={{ marginBottom: theme.spacing(4) }}>
                 <Link className={classes.link} to={routes.REGISTER_SELF}>
-                    {t('ACTIONS.CREATE_ACCOUNT')}
+                    {t('pxb:ACTIONS.CREATE_ACCOUNT')}
                 </Link>
             </Typography>
         );
@@ -260,31 +304,40 @@ export const Login: React.FC = () => {
                     {debugLinks}
 
                     <TextField
-                        label={t('LABELS.EMAIL')}
+                        label={loginType === 'username' ? t('pxb:LABELS.USERNAME') : t('pxb:LABELS.EMAIL')}
                         id="email"
-                        name="email"
-                        type="email"
-                        className={clsx(classes.formFields, { [classes.hasError]: hasTransitError })}
+                        name={loginType === 'username' ? 'username' : 'email'}
+                        type={loginType === 'username' ? 'text' : 'email'}
+                        className={clsx(classes.emailFormField, {
+                            [classes.hasError]: isInvalidCredentials || hasEmailError(),
+                        })}
                         value={emailInput}
-                        onChange={(evt: ChangeEvent<HTMLInputElement>): void => setEmailInput(evt.target.value)}
+                        onChange={(evt: ChangeEvent<HTMLInputElement>): void => {
+                            const { value } = evt.target;
+                            setIsValidEmail(EMAIL_REGEX.test(value));
+                            setEmailInput(value);
+                        }}
                         onKeyPress={(e): void => {
                             if (e.key === 'Enter' && passwordField.current) passwordField.current.focus();
                         }}
+                        onBlur={(): void => {
+                            setShouldValidateEmail(true);
+                        }}
                         variant="filled"
-                        error={hasTransitError}
-                        helperText={hasTransitError ? t('LOGIN.INCORRECT_CREDENTIALS') : ''}
+                        error={hasEmailError() || isInvalidCredentials}
+                        helperText={getEmailHelperText()}
                     />
                     <SecureTextField
                         inputRef={passwordField}
                         id="password"
                         name="password"
-                        label={t('LABELS.PASSWORD')}
-                        className={clsx(classes.formFields, { [classes.hasError]: hasTransitError })}
+                        label={t('pxb:LABELS.PASSWORD')}
+                        className={clsx(classes.passwordFormField, { [classes.hasError]: isInvalidCredentials })}
                         value={passwordInput}
                         onChange={(evt: ChangeEvent<HTMLInputElement>): void => setPasswordInput(evt.target.value)}
                         variant="filled"
-                        error={hasTransitError}
-                        helperText={hasTransitError ? t('LOGIN.INCORRECT_CREDENTIALS') : ''}
+                        error={isInvalidCredentials}
+                        helperText={isInvalidCredentials ? t('pxb:LOGIN.INCORRECT_CREDENTIALS') : ''}
                     />
 
                     <Grid
@@ -296,6 +349,7 @@ export const Login: React.FC = () => {
                     >
                         {showRememberMe && (
                             <FormControlLabel
+                                className={classes.rememberMeCheckbox}
                                 control={
                                     <Checkbox
                                         color="primary"
@@ -303,19 +357,23 @@ export const Login: React.FC = () => {
                                         onChange={(evt): void => setRememberPassword(evt.target.checked)}
                                     />
                                 }
-                                label={t('ACTIONS.REMEMBER')}
+                                label={t('pxb:ACTIONS.REMEMBER')}
                             />
                         )}
                         <Button
                             type="submit"
                             variant="contained"
                             disableElevation
-                            disabled={!EMAIL_REGEX.test(emailInput) || !passwordInput}
+                            disabled={
+                                loginType === 'username'
+                                    ? !emailInput || !passwordInput
+                                    : !EMAIL_REGEX.test(emailInput) || !passwordInput
+                            }
                             color="primary"
                             style={{ width: showRememberMe ? 150 : '100%' }}
                             onClick={loginTapped}
                         >
-                            {t('ACTIONS.LOG_IN')}
+                            {t('pxb:ACTIONS.LOG_IN')}
                         </Button>
                     </Grid>
 
@@ -326,7 +384,7 @@ export const Login: React.FC = () => {
                         {enableResetPassword && (
                             <Typography variant="body2" color={'primary'}>
                                 <Link className={classes.link} to={routes.FORGOT_PASSWORD}>
-                                    {t('LABELS.FORGOT_PASSWORD')}
+                                    {t('pxb:LABELS.FORGOT_PASSWORD')}
                                 </Link>
                             </Typography>
                         )}
@@ -335,7 +393,7 @@ export const Login: React.FC = () => {
                                 variant="body2"
                                 style={{ marginTop: enableResetPassword ? theme.spacing(4) : 0 }}
                             >
-                                {t('LABELS.NEED_ACCOUNT')}
+                                {t('pxb:LABELS.NEED_ACCOUNT')}
                             </Typography>
                         )}
 

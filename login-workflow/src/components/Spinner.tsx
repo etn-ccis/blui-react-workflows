@@ -1,16 +1,16 @@
 import React from 'react';
-import { CircularProgress, makeStyles, createStyles } from '@material-ui/core';
+import { CircularProgress, makeStyles, createStyles, useTheme, Theme } from '@material-ui/core';
 
-const useStyles = makeStyles(() =>
+const useStyles = makeStyles((theme: Theme) =>
     createStyles({
         background: {
-            position: 'absolute',
+            position: 'fixed',
             top: 0,
             left: 0,
             right: 0,
             bottom: 0,
             zIndex: 1000,
-            backgroundColor: 'rgba(255,255,255,0.6)',
+            backgroundColor: theme.palette.type === 'light' ? 'rgba(255,255,255,0.6)' : 'rgba(0,0,0,0.7)',
             display: 'flex',
             alignItems: 'center',
             justifyContent: 'center',
@@ -31,7 +31,8 @@ type SpinnerProps = {
  */
 export const Spinner: React.FC<SpinnerProps> = (props) => {
     const { visible } = props;
-    const classes = useStyles();
+    const theme = useTheme();
+    const classes = useStyles(theme);
 
     return visible ? (
         <div className={classes.background}>
