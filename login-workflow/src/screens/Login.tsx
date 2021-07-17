@@ -371,7 +371,6 @@ export const Login: React.FC = () => {
                             }
                             color="primary"
                             style={{ width: showRememberMe ? 150 : '100%' }}
-                            onClick={loginTapped}
                         >
                             {t('pxb:ACTIONS.LOG_IN')}
                         </Button>

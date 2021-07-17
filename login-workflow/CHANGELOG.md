@@ -5,6 +5,12 @@ All notable changes to this project will be documented in this file.
 The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.0.0/),
 and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0.html).
 
+## v2.3.0 (Unpublished)
+
+### Fixed
+
+-   Issue with login function being called twice ([#70](https://github.com/pxblue/react-workflows/issues/70)).
+
 ## v2.2.0 (June 28, 2021)
 
 ### Changed
