@@ -180,7 +180,7 @@ export const InviteRegistrationPager: React.FC = () => {
                 />
             ),
             canGoForward: eulaAccepted,
-            canGoBack: false,
+            canGoBack: true,
         },
         {
             name: 'CreatePassword',

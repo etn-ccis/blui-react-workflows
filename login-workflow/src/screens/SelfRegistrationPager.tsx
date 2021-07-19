@@ -249,7 +249,7 @@ export const SelfRegistrationPager: React.FC = () => {
                 />
             ),
             canGoForward: verificationCode.length > 0,
-            canGoBack: false,
+            canGoBack: true,
         },
         {
             name: 'CreatePassword',
@@ -263,7 +263,7 @@ export const SelfRegistrationPager: React.FC = () => {
                 />
             ),
             canGoForward: password.length > 0,
-            canGoBack: false,
+            canGoBack: true,
         },
         {
             name: 'AccountDetails',
