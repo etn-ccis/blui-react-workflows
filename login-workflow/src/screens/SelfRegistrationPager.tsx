@@ -205,20 +205,6 @@ export const SelfRegistrationPager: React.FC = () => {
 
     const RegistrationPages: RegistrationPage[] = [
         {
-            name: 'CreateAccount',
-            pageTitle: t('pxb:REGISTRATION.STEPS.CREATE_ACCOUNT'),
-            pageBody: (
-                <CreateAccountScreen
-                    initialEmail={email}
-                    onEmailChanged={setEmail}
-                    // eslint-disable-next-line @typescript-eslint/no-use-before-define
-                    onSubmit={email.length > 0 ? (): void => advancePage(1) : undefined}
-                />
-            ),
-            canGoForward: email.length > 0,
-            canGoBack: true,
-        },
-        {
             name: 'Eula',
             pageTitle: t('pxb:REGISTRATION.STEPS.LICENSE'),
             pageBody: (
@@ -232,6 +218,20 @@ export const SelfRegistrationPager: React.FC = () => {
                 />
             ),
             canGoForward: eulaAccepted,
+            canGoBack: true,
+        },
+        {
+            name: 'CreateAccount',
+            pageTitle: t('pxb:REGISTRATION.STEPS.CREATE_ACCOUNT'),
+            pageBody: (
+                <CreateAccountScreen
+                    initialEmail={email}
+                    onEmailChanged={setEmail}
+                    // eslint-disable-next-line @typescript-eslint/no-use-before-define
+                    onSubmit={email.length > 0 ? (): void => advancePage(1) : undefined}
+                />
+            ),
+            canGoForward: email.length > 0,
             canGoBack: true,
         },
         {
