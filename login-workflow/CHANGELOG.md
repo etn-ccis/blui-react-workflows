@@ -10,6 +10,15 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 ### Fixed
 
 -   Issue with login function being called twice ([#70](https://github.com/pxblue/react-workflows/issues/70)).
+-   Issue with disabled back button at certain points in the registration workflows.
+
+### Changed
+
+-   EULA page order in the self registration workflow.
+
+### Added
+
+-   Ability to to customize the character limits for first and last name text fields in the registration workflow via the `registrationConfig` prop on the `AuthUIContextProvider`.
 
 ## v2.2.0 (June 28, 2021)
 
