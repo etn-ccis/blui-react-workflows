@@ -79,7 +79,6 @@ export const AuthUIConfiguration: React.FC = (props) => {
                     </Button>
                 </div>
             }
-
             // loginType={'username'}
             // Uncomment this line to see how to add custom form fields to the registration screens
             // customAccountDetails={[
@@ -94,6 +93,10 @@ export const AuthUIConfiguration: React.FC = (props) => {
             //     <CustomRegistrationSuccessScreen registrationData={registrationData} />
             // )}
             // accountAlreadyExistsScreen={(): JSX.Element => <CustomAccountAlreadyExistsScreen />}
+            // registrationConfig={{
+            //     firstNameLengthLimit: 30,
+            //     lastNameLengthLimit: 30,
+            // }}
         >
             {props.children}
         </AuthUIContextProvider>
