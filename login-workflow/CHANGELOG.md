@@ -11,6 +11,7 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 -   Issue with login function being called twice ([#70](https://github.com/pxblue/react-workflows/issues/70)).
 -   Issue with disabled back button at certain points in the registration workflows.
+-   Issue where "Invalid Credentials" error message would persist on login screen.
 
 ### Changed
 
