@@ -51,7 +51,8 @@ export const AccountDetails: React.FC<AccountDetailsProps> = (props) => {
     const [firstNameInput, setFirstNameInput] = React.useState(initialDetails ? initialDetails.firstName : '');
     const [lastNameInput, setLastNameInput] = React.useState(initialDetails ? initialDetails.lastName : '');
 
-    const { firstNameLengthLimit, lastNameLengthLimit } = useInjectedUIContext().registrationConfig || {};
+    const firstNameLengthLimit = useInjectedUIContext()?.registrationConfig?.firstName?.maxLength || null;
+    const lastNameLengthLimit = useInjectedUIContext()?.registrationConfig?.lastName?.maxLength || null;
 
     useEffect((): void => {
         // validation checks

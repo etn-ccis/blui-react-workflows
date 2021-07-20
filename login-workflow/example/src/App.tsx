@@ -94,8 +94,12 @@ export const AuthUIConfiguration: React.FC = (props) => {
             // )}
             // accountAlreadyExistsScreen={(): JSX.Element => <CustomAccountAlreadyExistsScreen />}
             // registrationConfig={{
-            //     firstNameLengthLimit: 30,
-            //     lastNameLengthLimit: 30,
+            //     firstName: {
+            //         maxLength: 30,
+            //     },
+            //     lastName: {
+            //         maxLength: 30,
+            //     },
             // }}
         >
             {props.children}
