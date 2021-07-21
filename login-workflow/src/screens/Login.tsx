@@ -316,7 +316,8 @@ export const Login: React.FC = () => {
                             const { value } = evt.target;
                             setIsValidEmail(EMAIL_REGEX.test(value));
                             setEmailInput(value);
-                            authUIState.login.transitErrorMessage = null;
+                            if (authUIState.login.transitErrorMessage !== null)
+                                authUIActions.dispatch(AccountActions.resetLogin());
                         }}
                         onKeyPress={(e): void => {
                             if (e.key === 'Enter' && passwordField.current) passwordField.current.focus();
@@ -337,7 +338,8 @@ export const Login: React.FC = () => {
                         value={passwordInput}
                         onChange={(evt: ChangeEvent<HTMLInputElement>): void => {
                             setPasswordInput(evt.target.value);
-                            authUIState.login.transitErrorMessage = null;
+                            if (authUIState.login.transitErrorMessage !== null)
+                                authUIActions.dispatch(AccountActions.resetLogin());
                         }}
                         variant="filled"
                         error={isInvalidCredentials}
