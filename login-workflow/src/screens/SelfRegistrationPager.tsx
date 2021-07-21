@@ -359,7 +359,7 @@ export const SelfRegistrationPager: React.FC = () => {
         ]);
     const isLastStep = currentPage === RegistrationPages.length - 1;
     const isFirstStep = currentPage === 0;
-    const EulaPage = RegistrationPages.findIndex((item) => item.name === 'Eula');
+    const CreateAccountPage = RegistrationPages.findIndex((item) => item.name === 'CreateAccount');
     const VerifyEmailPage = RegistrationPages.findIndex((item) => item.name === 'VerifyEmail');
     const CreatePasswordPage = RegistrationPages.findIndex((item) => item.name === 'CreatePassword');
     const CompletePage = RegistrationPages.length - 1;
@@ -381,7 +381,7 @@ export const SelfRegistrationPager: React.FC = () => {
 
     // If the verification code is sent successfully, go to the confirmation page
     useEffect(() => {
-        if (currentPage === EulaPage && codeRequestSuccess) {
+        if (currentPage === CreateAccountPage && codeRequestSuccess) {
             setCurrentPage(VerifyEmailPage);
         }
         // eslint-disable-next-line react-hooks/exhaustive-deps
@@ -411,7 +411,7 @@ export const SelfRegistrationPager: React.FC = () => {
             // Check > 0 so advancing backwards does not risk going into the completion block
             if (currentPage === RegistrationPages.length - 2 && !registrationSuccess && canProgress() && delta > 0) {
                 void attemptRegistration();
-            } else if (currentPage === EulaPage && !codeRequestIsInTransit && canProgress() && delta > 0) {
+            } else if (currentPage === CreateAccountPage && !codeRequestIsInTransit && canProgress() && delta > 0) {
                 void requestCode();
             } else if (currentPage === VerifyEmailPage && !isValidationInTransit && canProgress() && delta > 0) {
                 void validateCode();
