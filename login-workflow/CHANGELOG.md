@@ -10,16 +10,16 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 ### Fixed
 
 -   Issue with login function being called twice ([#70](https://github.com/pxblue/react-workflows/issues/70)).
--   Issue with disabled back button at certain points in the registration workflows.
--   Issue where "Invalid Credentials" error message would persist on login screen.
+-   Issue where "Invalid Credentials" error message would persist on login screen([#67](https://github.com/pxblue/react-workflows/issues/67)).
 
 ### Changed
 
--   EULA page order in the self registration workflow.
+-   EULA screen now appears first in the self registration workflow.
+-   Allow users to go back at all steps of the registration flow.
 
 ### Added
 
--   Ability to customize the character limits for first and last name text fields in the registration workflow via the `registrationConfig` prop on the `AuthUIContextProvider`.
+-   Ability to customize the character limits for first and last name text fields in the registration workflow via the `registrationConfig` prop on the `AuthUIContextProvider` ([#72](https://github.com/pxblue/react-workflows/issues/72)).
 
 ## v2.2.0 (June 28, 2021)
 
