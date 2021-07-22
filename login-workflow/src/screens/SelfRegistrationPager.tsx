@@ -438,7 +438,7 @@ export const SelfRegistrationPager: React.FC = () => {
                 disableElevation
                 onClick={(): void => history.push(routes.LOGIN)}
             >
-                {t('pxb:ACTIONS.CONTINUE')}
+                {isFirstStep ? t('pxb:ACTIONS.CANCEL') : t('pxb:ACTIONS.BACK')}
             </Button>
         );
     } else if (isLastStep) {
@@ -468,7 +468,7 @@ export const SelfRegistrationPager: React.FC = () => {
                         onClick={(): void => advancePage(-1)}
                         className={sharedClasses.dialogButton}
                     >
-                        {t('pxb:ACTIONS.BACK')}
+                        {isFirstStep ? t('pxb:ACTIONS.CANCEL') : t('pxb:ACTIONS.BACK')}
                     </Button>
                 }
                 nextButton={
