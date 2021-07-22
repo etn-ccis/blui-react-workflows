@@ -1,6 +1,6 @@
 {
     "name": "@pxblue/react-auth-workflow",
-    "version": "2.2.0",
+    "version": "2.3.0",
     "author": "Power Xpert Blue <pxblue@eaton.com> (https://github.com/pxblue)",
     "license": "BSD-3-Clause",
     "description": "Re-usable workflow components for Authentication and Registration within Eaton applications.",
@@ -26,7 +26,7 @@
     "prettier": "@pxblue/prettier-config",
     "dependencies": {
         "i18next-browser-languagedetector": "^6.1.0",
-        "@pxblue/react-auth-shared": "^3.3.0-beta.0",
+        "@pxblue/react-auth-shared": "^3.4.0",
         "dompurify": "^2.2.9"
     },
     "peerDependencies": {

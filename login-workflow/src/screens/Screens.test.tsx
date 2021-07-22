@@ -74,8 +74,15 @@ describe('AcceptEula tests', () => {
 describe('AccountDetails tests', () => {
     it('renders without crashing', () => {
         const div = document.createElement('div');
+        const authUIActions = jest.fn();
+        const registrationUIActions = jest.fn();
         const onDetailsChanged = jest.fn();
-        ReactDOM.render(<AccountDetails onDetailsChanged={onDetailsChanged} />, div);
+        ReactDOM.render(
+            <AuthUIContextProvider authActions={authUIActions} registrationActions={registrationUIActions}>
+                <AccountDetails onDetailsChanged={onDetailsChanged} />
+            </AuthUIContextProvider>,
+            div
+        );
         ReactDOM.unmountComponentAtNode(div);
     });
 });

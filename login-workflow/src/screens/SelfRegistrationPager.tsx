@@ -205,20 +205,6 @@ export const SelfRegistrationPager: React.FC = () => {
 
     const RegistrationPages: RegistrationPage[] = [
         {
-            name: 'CreateAccount',
-            pageTitle: t('pxb:REGISTRATION.STEPS.CREATE_ACCOUNT'),
-            pageBody: (
-                <CreateAccountScreen
-                    initialEmail={email}
-                    onEmailChanged={setEmail}
-                    // eslint-disable-next-line @typescript-eslint/no-use-before-define
-                    onSubmit={email.length > 0 ? (): void => advancePage(1) : undefined}
-                />
-            ),
-            canGoForward: email.length > 0,
-            canGoBack: true,
-        },
-        {
             name: 'Eula',
             pageTitle: t('pxb:REGISTRATION.STEPS.LICENSE'),
             pageBody: (
@@ -232,6 +218,20 @@ export const SelfRegistrationPager: React.FC = () => {
                 />
             ),
             canGoForward: eulaAccepted,
+            canGoBack: true,
+        },
+        {
+            name: 'CreateAccount',
+            pageTitle: t('pxb:REGISTRATION.STEPS.CREATE_ACCOUNT'),
+            pageBody: (
+                <CreateAccountScreen
+                    initialEmail={email}
+                    onEmailChanged={setEmail}
+                    // eslint-disable-next-line @typescript-eslint/no-use-before-define
+                    onSubmit={email.length > 0 ? (): void => advancePage(1) : undefined}
+                />
+            ),
+            canGoForward: email.length > 0,
             canGoBack: true,
         },
         {
@@ -249,7 +249,7 @@ export const SelfRegistrationPager: React.FC = () => {
                 />
             ),
             canGoForward: verificationCode.length > 0,
-            canGoBack: false,
+            canGoBack: true,
         },
         {
             name: 'CreatePassword',
@@ -263,7 +263,7 @@ export const SelfRegistrationPager: React.FC = () => {
                 />
             ),
             canGoForward: password.length > 0,
-            canGoBack: false,
+            canGoBack: true,
         },
         {
             name: 'AccountDetails',
@@ -359,7 +359,7 @@ export const SelfRegistrationPager: React.FC = () => {
         ]);
     const isLastStep = currentPage === RegistrationPages.length - 1;
     const isFirstStep = currentPage === 0;
-    const EulaPage = RegistrationPages.findIndex((item) => item.name === 'Eula');
+    const CreateAccountPage = RegistrationPages.findIndex((item) => item.name === 'CreateAccount');
     const VerifyEmailPage = RegistrationPages.findIndex((item) => item.name === 'VerifyEmail');
     const CreatePasswordPage = RegistrationPages.findIndex((item) => item.name === 'CreatePassword');
     const CompletePage = RegistrationPages.length - 1;
@@ -381,7 +381,7 @@ export const SelfRegistrationPager: React.FC = () => {
 
     // If the verification code is sent successfully, go to the confirmation page
     useEffect(() => {
-        if (currentPage === EulaPage && codeRequestSuccess) {
+        if (currentPage === CreateAccountPage && codeRequestSuccess) {
             setCurrentPage(VerifyEmailPage);
         }
         // eslint-disable-next-line react-hooks/exhaustive-deps
@@ -411,7 +411,7 @@ export const SelfRegistrationPager: React.FC = () => {
             // Check > 0 so advancing backwards does not risk going into the completion block
             if (currentPage === RegistrationPages.length - 2 && !registrationSuccess && canProgress() && delta > 0) {
                 void attemptRegistration();
-            } else if (currentPage === EulaPage && !codeRequestIsInTransit && canProgress() && delta > 0) {
+            } else if (currentPage === CreateAccountPage && !codeRequestIsInTransit && canProgress() && delta > 0) {
                 void requestCode();
             } else if (currentPage === VerifyEmailPage && !isValidationInTransit && canProgress() && delta > 0) {
                 void validateCode();
@@ -438,7 +438,7 @@ export const SelfRegistrationPager: React.FC = () => {
                 disableElevation
                 onClick={(): void => history.push(routes.LOGIN)}
             >
-                {t('pxb:ACTIONS.CONTINUE')}
+                {isFirstStep ? t('pxb:ACTIONS.CANCEL') : t('pxb:ACTIONS.BACK')}
             </Button>
         );
     } else if (isLastStep) {
@@ -468,7 +468,7 @@ export const SelfRegistrationPager: React.FC = () => {
                         onClick={(): void => advancePage(-1)}
                         className={sharedClasses.dialogButton}
                     >
-                        {t('pxb:ACTIONS.BACK')}
+                        {isFirstStep ? t('pxb:ACTIONS.CANCEL') : t('pxb:ACTIONS.BACK')}
                     </Button>
                 }
                 nextButton={

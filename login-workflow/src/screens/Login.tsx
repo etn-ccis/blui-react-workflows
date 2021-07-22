@@ -316,6 +316,8 @@ export const Login: React.FC = () => {
                             const { value } = evt.target;
                             setIsValidEmail(EMAIL_REGEX.test(value));
                             setEmailInput(value);
+                            if (authUIState.login.transitErrorMessage !== null)
+                                authUIActions.dispatch(AccountActions.resetLogin());
                         }}
                         onKeyPress={(e): void => {
                             if (e.key === 'Enter' && passwordField.current) passwordField.current.focus();
@@ -334,7 +336,11 @@ export const Login: React.FC = () => {
                         label={t('pxb:LABELS.PASSWORD')}
                         className={clsx(classes.passwordFormField, { [classes.hasError]: isInvalidCredentials })}
                         value={passwordInput}
-                        onChange={(evt: ChangeEvent<HTMLInputElement>): void => setPasswordInput(evt.target.value)}
+                        onChange={(evt: ChangeEvent<HTMLInputElement>): void => {
+                            setPasswordInput(evt.target.value);
+                            if (authUIState.login.transitErrorMessage !== null)
+                                authUIActions.dispatch(AccountActions.resetLogin());
+                        }}
                         variant="filled"
                         error={isInvalidCredentials}
                         helperText={isInvalidCredentials ? t('pxb:LOGIN.INCORRECT_CREDENTIALS') : ''}
