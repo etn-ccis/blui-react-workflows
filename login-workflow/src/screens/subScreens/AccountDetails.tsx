@@ -1,6 +1,6 @@
 import React, { useEffect, useRef } from 'react';
 import { TextField, Typography, Divider } from '@material-ui/core';
-import { useLanguageLocale, AccountDetailInformation } from '@pxblue/react-auth-shared';
+import { useLanguageLocale, AccountDetailInformation, useInjectedUIContext } from '@pxblue/react-auth-shared';
 import { useDialogStyles } from '../../styles';
 
 export type AccountDetailsWrapperProps = {
@@ -51,6 +51,9 @@ export const AccountDetails: React.FC<AccountDetailsProps> = (props) => {
     const [firstNameInput, setFirstNameInput] = React.useState(initialDetails ? initialDetails.firstName : '');
     const [lastNameInput, setLastNameInput] = React.useState(initialDetails ? initialDetails.lastName : '');
 
+    const firstNameLengthLimit = useInjectedUIContext()?.registrationConfig?.firstName?.maxLength || null;
+    const lastNameLengthLimit = useInjectedUIContext()?.registrationConfig?.lastName?.maxLength || null;
+
     useEffect((): void => {
         // validation checks
         const valid = firstNameInput !== '' && lastNameInput !== '';
@@ -72,6 +75,7 @@ export const AccountDetails: React.FC<AccountDetailsProps> = (props) => {
                     if (e.key === 'Enter' && lastRef.current) lastRef.current.focus();
                 }}
                 variant="filled"
+                inputProps={{ maxLength: firstNameLengthLimit }}
             />
             <TextField
                 inputRef={lastRef}
@@ -87,6 +91,7 @@ export const AccountDetails: React.FC<AccountDetailsProps> = (props) => {
                 }}
                 variant="filled"
                 className={classes.textField}
+                inputProps={{ maxLength: lastNameLengthLimit }}
             />
         </>
     );

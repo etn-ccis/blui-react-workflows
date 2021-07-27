@@ -180,7 +180,7 @@ export const InviteRegistrationPager: React.FC = () => {
                 />
             ),
             canGoForward: eulaAccepted,
-            canGoBack: false,
+            canGoBack: true,
         },
         {
             name: 'CreatePassword',
@@ -363,7 +363,7 @@ export const InviteRegistrationPager: React.FC = () => {
                         onClick={(): void => advancePage(-1)}
                         className={sharedClasses.dialogButton}
                     >
-                        {t('pxb:ACTIONS.BACK')}
+                        {isFirstStep ? t('pxb:ACTIONS.CANCEL') : t('pxb:ACTIONS.BACK')}
                     </Button>
                 }
                 nextButton={
