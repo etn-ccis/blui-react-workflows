@@ -83,7 +83,7 @@ export const ChangePasswordModal: React.FC = () => {
             await accountUIActions.actions.changePassword(currentPassword, password);
             setTransitState(transitSuccess());
         } catch (error) {
-            setTransitState(transitFailed(error.errorMessage));
+            setTransitState(transitFailed(error.message));
         }
     }, [accountUIActions, currentPassword, password]);
 
