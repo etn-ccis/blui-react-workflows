@@ -11,7 +11,7 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 -   Ability to customize how error messages are displayed on the login screen via the `loginErrorDisplayConfig` prop on the `AuthUIContextProvider`.
 
-## v2.3.0 (July 21, 2021)
+## v2.3.0 (July 27, 2021)
 
 ### Fixed
 
