@@ -9,9 +9,21 @@ BGREEN='\033[1;32m' #BOLD
 GRAY='\033[1;30m'
 NC='\033[0m' # No Color
 
+echo -e "${BLUE}Building auth-shared package...${NC}"
+cd ./shared-auth && yarn build && cd ..
+
+echo -en "${BLUE}Creating new folder in login-workflow node_modules...${NC}"
+rm -rf "./node_modules/@pxblue/react-auth-shared"
+mkdir -p "./node_modules/@pxblue/react-auth-shared"
+echo -e "${GREEN}Done${NC}"
+
+echo -en "${BLUE}Copying auth-shared build output into node_modules...${NC}";
+cp -r ./shared-auth/package.json ./node_modules/@pxblue/react-auth-shared/package.json
+cp -r ./shared-auth/lib/. ./node_modules/@pxblue/react-auth-shared/lib
+echo -e "${GREEN}Done${NC}"
+
 echo -e "${BLUE}Building workflow package...${NC}"
 yarn build
-cd ./shared-auth && yarn build && cd ..
 
 echo -en "${BLUE}Creating new folder in node_modules...${NC}"
 rm -rf "./example/node_modules/@pxblue/react-auth-workflow"
