@@ -62,19 +62,22 @@ const useStyles = makeStyles((theme: Theme) =>
             },
         },
         errorMessageBox: {
-            display: 'flex',
             width: '100%',
-            backgroundColor: (props: LoginErrorDisplayConfig) => props.backgroundColor || theme.palette.error.main,
+            backgroundColor: (loginErrorDisplayConfig: LoginErrorDisplayConfig) =>
+                loginErrorDisplayConfig.backgroundColor || theme.palette.error.main,
             borderRadius: 4,
             padding: 16,
-            color: (props: LoginErrorDisplayConfig) => props.fontColor || Colors.white[50],
+            color: (loginErrorDisplayConfig: LoginErrorDisplayConfig) =>
+                loginErrorDisplayConfig.fontColor || Colors.white[50],
             marginBottom: 16,
-            marginTop: (props: LoginErrorDisplayConfig) => (props.position !== 'bottom' ? 0 : -24),
+            marginTop: (loginErrorDisplayConfig: LoginErrorDisplayConfig) =>
+                loginErrorDisplayConfig.position !== 'bottom' ? 0 : theme.spacing(-1),
         },
         errorBoxDismissIcon: {
             '&:hover': {
                 cursor: 'pointer',
             },
+            float: 'right',
         },
         cyberBadge: {
             alignSelf: 'center',
@@ -231,9 +234,6 @@ export const Login: React.FC = () => {
     const errorMessageBox: JSX.Element =
         hasTransitError && transitErrorMessage && showErrorMessageBox ? (
             <div className={classes.errorMessageBox}>
-                <Typography variant="body2">
-                    {t('pxb:MESSAGES.ERROR')}: {t(transitErrorMessage)}
-                </Typography>
                 {loginErrorDisplayConfig.dismissible !== false && (
                     <CloseIcon
                         className={classes.errorBoxDismissIcon}
@@ -242,6 +242,7 @@ export const Login: React.FC = () => {
                         }}
                     />
                 )}
+                <Typography variant="body2">{t(transitErrorMessage)}</Typography>
             </div>
         ) : (
             <></>
@@ -395,6 +396,10 @@ export const Login: React.FC = () => {
                         helperText={isInvalidCredentials ? t('pxb:LOGIN.INCORRECT_CREDENTIALS') : ''}
                     />
 
+                    {(loginErrorDisplayConfig.mode === 'message-box' || loginErrorDisplayConfig.mode === 'both') &&
+                        loginErrorDisplayConfig.position === 'bottom' &&
+                        errorMessageBox}
+
                     <Grid
                         container
                         direction="row"
@@ -431,9 +436,6 @@ export const Login: React.FC = () => {
                         </Button>
                     </Grid>
 
-                    {(loginErrorDisplayConfig.mode === 'message-box' || loginErrorDisplayConfig.mode === 'both') &&
-                        loginErrorDisplayConfig.position === 'bottom' &&
-                        errorMessageBox}
                     {loginActions && typeof loginActions === 'function' && loginActions(null)}
                     {loginActions && typeof loginActions !== 'function' && loginActions}
 
