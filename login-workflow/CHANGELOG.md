@@ -11,6 +11,12 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 -   Ability to customize how error messages are displayed on the login screen via the `loginErrorDisplayConfig` prop on the `AuthUIContextProvider`.
 
+## v2.3.1 (August 12, 2021)
+
+### Fixed
+
+-   Issue with error messages not being displayed while changing password ([#77](https://github.com/pxblue/react-workflows/issues/77)).
+
 ## v2.3.0 (July 27, 2021)
 
 ### Fixed
