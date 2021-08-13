@@ -334,7 +334,8 @@ export const Login: React.FC = () => {
 
     return (
         <BrandedCardContainer loading={transitState.transitInProgress}>
-            {(loginErrorDisplayConfig.mode === 'dialog' || loginErrorDisplayConfig.mode === 'both') &&
+            {!isInvalidCredentials &&
+                (loginErrorDisplayConfig.mode === 'dialog' || loginErrorDisplayConfig.mode === 'both') &&
                 transitErrorMessage &&
                 errorDialog}
             {debugButton}
