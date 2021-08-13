@@ -232,7 +232,7 @@ export const Login: React.FC = () => {
     );
 
     const errorMessageBox: JSX.Element =
-        hasTransitError && transitErrorMessage && showErrorMessageBox ? (
+        !isInvalidCredentials && hasTransitError && transitErrorMessage && showErrorMessageBox ? (
             <div className={classes.errorMessageBox}>
                 {loginErrorDisplayConfig.dismissible !== false && (
                     <CloseIcon
