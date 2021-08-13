@@ -147,7 +147,7 @@ export const Login: React.FC = () => {
     const authUIState = useAccountUIState();
     const { routes } = useRoutes();
     const theme = useTheme();
-    const { loginErrorDisplayConfig = { mode: 'dialog' } } = useInjectedUIContext();
+    const { loginErrorDisplayConfig = { mode: 'dialog' }, ...otherUIContext } = useInjectedUIContext();
     const classes = useStyles(loginErrorDisplayConfig);
     const {
         showRememberMe = true,
@@ -165,7 +165,7 @@ export const Login: React.FC = () => {
         ),
         loginType = 'email',
         loginActions,
-    } = useInjectedUIContext();
+    } = otherUIContext;
 
     const passwordField = useRef<any>(null);
 
