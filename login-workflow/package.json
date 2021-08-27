@@ -26,7 +26,7 @@
     "prettier": "@pxblue/prettier-config",
     "dependencies": {
         "i18next-browser-languagedetector": "^6.1.0",
-        "@pxblue/react-auth-shared": "^3.5.0-beta.0",
+        "@pxblue/react-auth-shared": "^3.5.0",
         "dompurify": "^2.2.9"
     },
     "peerDependencies": {
