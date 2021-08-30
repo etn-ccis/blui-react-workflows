@@ -7,6 +7,7 @@ import {
     useAccountUIState,
     useInjectedUIContext,
     AccountActions,
+    LoginErrorDisplayConfig,
     EMAIL_REGEX,
 } from '@pxblue/react-auth-shared';
 import { Link } from 'react-router-dom';
@@ -23,7 +24,7 @@ import {
     Button,
 } from '@material-ui/core';
 import { BrandedCardContainer, SimpleDialog, SecureTextField } from '../components';
-
+import { Close as CloseIcon } from '@material-ui/icons';
 import stackedEatonLogo from '../assets/images/eaton_stacked_logo.png';
 import cyberBadge from '../assets/images/cybersecurity_certified.png';
 import * as Colors from '@pxblue/colors';
@@ -59,6 +60,24 @@ const useStyles = makeStyles((theme: Theme) =>
                 flexDirection: 'column',
                 justifyContent: 'center',
             },
+        },
+        errorMessageBox: {
+            width: '100%',
+            backgroundColor: (loginErrorDisplayConfig: LoginErrorDisplayConfig) =>
+                loginErrorDisplayConfig.backgroundColor || theme.palette.error.main,
+            borderRadius: 4,
+            padding: 16,
+            color: (loginErrorDisplayConfig: LoginErrorDisplayConfig) =>
+                loginErrorDisplayConfig.fontColor || Colors.white[50],
+            marginBottom: 16,
+            marginTop: (loginErrorDisplayConfig: LoginErrorDisplayConfig) =>
+                loginErrorDisplayConfig.position !== 'bottom' ? 0 : theme.spacing(-1),
+        },
+        errorBoxDismissIcon: {
+            '&:hover': {
+                cursor: 'pointer',
+            },
+            float: 'right',
         },
         cyberBadge: {
             alignSelf: 'center',
@@ -128,7 +147,8 @@ export const Login: React.FC = () => {
     const authUIState = useAccountUIState();
     const { routes } = useRoutes();
     const theme = useTheme();
-    const classes = useStyles();
+    const { loginErrorDisplayConfig = { mode: 'dialog' }, ...otherUIContext } = useInjectedUIContext();
+    const classes = useStyles(loginErrorDisplayConfig);
     const {
         showRememberMe = true,
         allowDebugMode = false,
@@ -145,7 +165,7 @@ export const Login: React.FC = () => {
         ),
         loginType = 'email',
         loginActions,
-    } = useInjectedUIContext();
+    } = otherUIContext;
 
     const passwordField = useRef<any>(null);
 
@@ -160,6 +180,8 @@ export const Login: React.FC = () => {
 
     const [hasAcknowledgedError, setHasAcknowledgedError] = React.useState(false);
     const [debugMode, setDebugMode] = React.useState(false);
+
+    const [showErrorMessageBox, setShowErrorMessageBox] = React.useState(false);
 
     const loginTapped = useCallback((): void => {
         setHasAcknowledgedError(false);
@@ -186,6 +208,12 @@ export const Login: React.FC = () => {
         [] // eslint-disable-line react-hooks/exhaustive-deps
     );
 
+    useEffect(() => {
+        if (hasTransitError) {
+            setShowErrorMessageBox(true);
+        }
+    }, [hasTransitError]);
+
     const hasEmailError = useCallback(
         (): boolean => loginType === 'email' && shouldValidateEmail && emailInput.length !== 0 && !isValidEmail,
         [shouldValidateEmail, emailInput, isValidEmail, loginType]
@@ -202,6 +230,24 @@ export const Login: React.FC = () => {
             }}
         />
     );
+
+    const errorMessageBox: JSX.Element =
+        !isInvalidCredentials && hasTransitError && transitErrorMessage && showErrorMessageBox ? (
+            <div className={classes.errorMessageBox}>
+                {loginErrorDisplayConfig.dismissible !== false && (
+                    <CloseIcon
+                        className={classes.errorBoxDismissIcon}
+                        onClick={(): void => {
+                            setShowErrorMessageBox(false);
+                        }}
+                    />
+                )}
+                <Typography variant="body2">{t(transitErrorMessage)}</Typography>
+            </div>
+        ) : (
+            <></>
+        );
+
     const contactEatonRepresentative: JSX.Element = showContactSupport ? (
         <Typography variant="body2" color={'primary'}>
             <Link className={classes.link} to={routes.SUPPORT}>
@@ -288,7 +334,10 @@ export const Login: React.FC = () => {
 
     return (
         <BrandedCardContainer loading={transitState.transitInProgress}>
-            {errorDialog}
+            {!isInvalidCredentials &&
+                (loginErrorDisplayConfig.mode === 'dialog' || loginErrorDisplayConfig.mode === 'both') &&
+                transitErrorMessage &&
+                errorDialog}
             {debugButton}
             <form
                 onSubmit={(evt): void => {
@@ -302,6 +351,10 @@ export const Login: React.FC = () => {
 
                     {debugMessage}
                     {debugLinks}
+
+                    {(loginErrorDisplayConfig.mode === 'message-box' || loginErrorDisplayConfig.mode === 'both') &&
+                        loginErrorDisplayConfig.position !== 'bottom' &&
+                        errorMessageBox}
 
                     <TextField
                         label={loginType === 'username' ? t('pxb:LABELS.USERNAME') : t('pxb:LABELS.EMAIL')}
@@ -345,6 +398,10 @@ export const Login: React.FC = () => {
                         error={isInvalidCredentials}
                         helperText={isInvalidCredentials ? t('pxb:LOGIN.INCORRECT_CREDENTIALS') : ''}
                     />
+
+                    {(loginErrorDisplayConfig.mode === 'message-box' || loginErrorDisplayConfig.mode === 'both') &&
+                        loginErrorDisplayConfig.position === 'bottom' &&
+                        errorMessageBox}
 
                     <Grid
                         container
