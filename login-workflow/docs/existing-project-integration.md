@@ -14,9 +14,9 @@ yarn add @pxblue/react-auth-workflow
 
 This package also has a number of peer dependency requirements that you will also need to install in your project. To install the latest version of all of these peer dependencies, run the following command in your project root:
 ```
-npm install --save @material-ui/core @pxblue/colors @pxblue/react-components date-fns highcharts i18next react-dom react-i18next react-router-dom
+npm install --save @material-ui/core @pxblue/colors @pxblue/react-components date-fns i18next react-dom react-i18next react-router-dom
 // or
-yarn add @material-ui/core @pxblue/colors @pxblue/react-components date-fns highcharts i18next react-dom react-i18next react-router-dom
+yarn add @material-ui/core @pxblue/colors @pxblue/react-components date-fns i18next react-dom react-i18next react-router-dom
 ```
 
 #### Implement AuthUIActions and RegistrationUIActions
