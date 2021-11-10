@@ -9,7 +9,7 @@ import {
     CustomRegistrationForm,
     CustomAccountDetails,
     RegistrationActions,
-} from '@pxblue/react-auth-shared';
+} from '@brightlayer-ui/react-auth-shared';
 import i18n from '../translations/i18n';
 import { useHistory } from 'react-router-dom';
 import { useRoutes } from '../contexts/RoutingContext';

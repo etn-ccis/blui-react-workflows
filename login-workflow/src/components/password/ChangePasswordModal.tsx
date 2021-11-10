@@ -10,7 +10,7 @@ import {
     transitFailed,
     useInjectedUIContext,
     AccountActions,
-} from '@pxblue/react-auth-shared';
+} from '@brightlayer-ui/react-auth-shared';
 import {
     Dialog,
     DialogTitle,

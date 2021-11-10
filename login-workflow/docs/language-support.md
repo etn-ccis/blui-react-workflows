@@ -81,4 +81,4 @@ i18n.addResourceBundle('es', 'pxb', { ACTIONS: { CREATE_ACCOUNT: '¡Regístrate 
 i18n.addResourceBundle('fr', 'pxb', { ACTIONS: { CREATE_ACCOUNT: `S'inscrire maintenant!` } }, true, true);
 ```
 
-> For a complete list of resource IDs available, refer to the documentation for [@pxblue/react-auth-shared](https://github.com/pxblue/react-auth-shared/blob/master/src/data/translations/english.ts).
+> For a complete list of resource IDs available, refer to the documentation for [@brightlayer-ui/react-auth-shared](https://github.com/pxblue/react-auth-shared/blob/master/src/data/translations/english.ts).

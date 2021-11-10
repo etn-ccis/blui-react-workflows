@@ -1,5 +1,5 @@
 import React, { ChangeEvent, useState, useCallback, MutableRefObject } from 'react';
-import { useLanguageLocale } from '@pxblue/react-auth-shared';
+import { useLanguageLocale } from '@brightlayer-ui/react-auth-shared';
 import { Typography, Divider, useTheme } from '@material-ui/core';
 import { SecureTextField } from '../SecureTextField';
 import { PasswordRequirements } from './PasswordRequirements';

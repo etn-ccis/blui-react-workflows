@@ -1,5 +1,5 @@
 import React, { useEffect } from 'react';
-import { useLanguageLocale } from '@pxblue/react-auth-shared';
+import { useLanguageLocale } from '@brightlayer-ui/react-auth-shared';
 import { Typography, FormControlLabel, Checkbox, useTheme } from '@material-ui/core';
 import DOMPurify from 'dompurify';
 

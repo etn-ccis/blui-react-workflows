@@ -10,4 +10,4 @@ export { default as i18n } from './translations/i18n';
 
 export { ContactSupportContent } from './screens/ContactSupport';
 
-export * from '@pxblue/react-auth-shared';
+export * from '@brightlayer-ui/react-auth-shared';

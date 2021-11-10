@@ -1,5 +1,5 @@
 import React from 'react';
-import { useLanguageLocale } from '@pxblue/react-auth-shared';
+import { useLanguageLocale } from '@brightlayer-ui/react-auth-shared';
 import { useTheme } from '@material-ui/core';
 import { FinishState } from '../../components';
 import Person from '@material-ui/icons/Person';

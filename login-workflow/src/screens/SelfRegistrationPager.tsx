@@ -10,7 +10,7 @@ import {
     CustomRegistrationForm,
     CustomAccountDetails,
     AccountDetailsFormProps,
-} from '@pxblue/react-auth-shared';
+} from '@brightlayer-ui/react-auth-shared';
 import { useHistory } from 'react-router-dom';
 import { useQueryString } from '../hooks/useQueryString';
 import { useRoutes } from '../contexts/RoutingContext';

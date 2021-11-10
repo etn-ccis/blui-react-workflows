@@ -9,7 +9,7 @@ import {
     AccountActions,
     LoginErrorDisplayConfig,
     EMAIL_REGEX,
-} from '@pxblue/react-auth-shared';
+} from '@brightlayer-ui/react-auth-shared';
 import { Link } from 'react-router-dom';
 import {
     useTheme,

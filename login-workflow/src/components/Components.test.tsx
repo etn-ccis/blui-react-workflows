@@ -17,7 +17,7 @@ import {
     SecurityContextProvider,
     AccountUIActionContext,
     translations,
-} from '@pxblue/react-auth-shared';
+} from '@brightlayer-ui/react-auth-shared';
 
 Enzyme.configure({ adapter: new Adapter() });
 
@@ -71,8 +71,8 @@ describe('FinishState tests', () => {
     });
 });
 
-jest.mock('@pxblue/react-auth-shared', () => ({
-    ...jest.requireActual('@pxblue/react-auth-shared'),
+jest.mock('@brightlayer-ui/react-auth-shared', () => ({
+    ...jest.requireActual('@brightlayer-ui/react-auth-shared'),
     useSecurityState: jest.fn().mockReturnValue({ isAuthenticatedUser: false }),
 }));
 
@@ -94,8 +94,8 @@ describe('PrivateRoute unauthenticated tests', () => {
     });
 });
 
-jest.mock('@pxblue/react-auth-shared', () => ({
-    ...jest.requireActual('@pxblue/react-auth-shared'),
+jest.mock('@brightlayer-ui/react-auth-shared', () => ({
+    ...jest.requireActual('@brightlayer-ui/react-auth-shared'),
     useSecurityState: jest.fn().mockReturnValue({ isAuthenticatedUser: true }),
 }));
 
@@ -160,8 +160,8 @@ describe('ChangePasswordForm tests', () => {
     });
 });
 
-jest.mock('@pxblue/react-auth-shared', () => ({
-    ...jest.requireActual('@pxblue/react-auth-shared'),
+jest.mock('@brightlayer-ui/react-auth-shared', () => ({
+    ...jest.requireActual('@brightlayer-ui/react-auth-shared'),
     useSecurityState: jest.fn().mockReturnValue({ isShowingChangePassword: true }),
     initialTransitState: jest.fn().mockReturnValue({ transitSuccess: true }),
 }));
@@ -195,8 +195,8 @@ describe('ChangePasswordModal transitSuccess=true tests', () => {
     });
 });
 
-jest.mock('@pxblue/react-auth-shared', () => ({
-    ...jest.requireActual('@pxblue/react-auth-shared'),
+jest.mock('@brightlayer-ui/react-auth-shared', () => ({
+    ...jest.requireActual('@brightlayer-ui/react-auth-shared'),
     useSecurityState: jest.fn().mockReturnValue({ isShowingChangePassword: true }),
     initialTransitState: jest.fn().mockReturnValue({ transitSuccess: false }),
 }));

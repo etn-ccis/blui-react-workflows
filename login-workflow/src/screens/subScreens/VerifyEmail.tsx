@@ -1,5 +1,5 @@
 import React, { useEffect } from 'react';
-import { useLanguageLocale } from '@pxblue/react-auth-shared';
+import { useLanguageLocale } from '@brightlayer-ui/react-auth-shared';
 import { TextField, Typography, Divider, useTheme, Button } from '@material-ui/core';
 import { useDialogStyles } from '../../styles';
 

@@ -1,6 +1,6 @@
 import React, { useEffect, useRef } from 'react';
 import { TextField, Typography, Divider } from '@material-ui/core';
-import { useLanguageLocale, AccountDetailInformation, useInjectedUIContext } from '@pxblue/react-auth-shared';
+import { useLanguageLocale, AccountDetailInformation, useInjectedUIContext } from '@brightlayer-ui/react-auth-shared';
 import { useDialogStyles } from '../../styles';
 
 export type AccountDetailsWrapperProps = {

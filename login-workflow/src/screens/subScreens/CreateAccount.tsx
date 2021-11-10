@@ -1,5 +1,5 @@
 import React, { useState } from 'react';
-import { EMAIL_REGEX, useLanguageLocale } from '@pxblue/react-auth-shared';
+import { EMAIL_REGEX, useLanguageLocale } from '@brightlayer-ui/react-auth-shared';
 import { TextField, Typography, Divider } from '@material-ui/core';
 import { useDialogStyles } from '../../styles';
 

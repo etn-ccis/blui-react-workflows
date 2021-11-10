@@ -1,6 +1,6 @@
 import React from 'react';
 import { DialogProps, Dialog, Typography, DialogTitle, DialogContent, DialogActions, Button } from '@material-ui/core';
-import { useLanguageLocale } from '@pxblue/react-auth-shared';
+import { useLanguageLocale } from '@brightlayer-ui/react-auth-shared';
 import { useDialogStyles } from '../styles';
 
 export type SimpleDialogProps = DialogProps & {

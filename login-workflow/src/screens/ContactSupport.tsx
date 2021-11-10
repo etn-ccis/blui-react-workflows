@@ -1,5 +1,5 @@
 import React from 'react';
-import { useLanguageLocale, useInjectedUIContext } from '@pxblue/react-auth-shared';
+import { useLanguageLocale, useInjectedUIContext } from '@brightlayer-ui/react-auth-shared';
 import { useHistory } from 'react-router-dom';
 import {
     CardContent,

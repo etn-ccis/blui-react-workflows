@@ -1,5 +1,5 @@
 import React from 'react';
-import { useSecurityState } from '@pxblue/react-auth-shared';
+import { useSecurityState } from '@brightlayer-ui/react-auth-shared';
 import { RouteProps, useLocation, Route, Redirect } from 'react-router-dom';
 
 type PrivateRouteProps = RouteProps & {
