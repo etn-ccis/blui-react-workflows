@@ -32,11 +32,11 @@ export const CreateAccount: React.FC<CreateAccountProps> = (props) => {
 
     return (
         <>
-            <Typography>{t('pxb:SELF_REGISTRATION.INSTRUCTIONS')}</Typography>
+            <Typography>{t('blui:SELF_REGISTRATION.INSTRUCTIONS')}</Typography>
             <Divider className={classes.fullDivider} />
             <TextField
                 id="email"
-                label={t('pxb:LABELS.EMAIL')}
+                label={t('blui:LABELS.EMAIL')}
                 fullWidth
                 value={emailInput}
                 onChange={(evt): void => {
@@ -49,7 +49,7 @@ export const CreateAccount: React.FC<CreateAccountProps> = (props) => {
                 }}
                 variant="filled"
                 error={showEmailError}
-                helperText={showEmailError ? t('pxb:MESSAGES.EMAIL_ENTRY_ERROR') : ''}
+                helperText={showEmailError ? t('blui:MESSAGES.EMAIL_ENTRY_ERROR') : ''}
             />
         </>
     );

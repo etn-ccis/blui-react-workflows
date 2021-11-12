@@ -15,14 +15,14 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 ### Fixed
 
--   Issue with error messages not being displayed while changing password ([#77](https://github.com/pxblue/react-workflows/issues/77)).
+-   Issue with error messages not being displayed while changing password ([#77](https://github.com/brightlayer-ui/react-workflows/issues/77)).
 
 ## v2.3.0 (July 27, 2021)
 
 ### Fixed
 
--   Issue with login function being called twice ([#70](https://github.com/pxblue/react-workflows/issues/70)).
--   Issue where "Invalid Credentials" error message would persist on login screen([#67](https://github.com/pxblue/react-workflows/issues/67)).
+-   Issue with login function being called twice ([#70](https://github.com/brightlayer-ui/react-workflows/issues/70)).
+-   Issue where "Invalid Credentials" error message would persist on login screen([#67](https://github.com/brightlayer-ui/react-workflows/issues/67)).
 
 ### Changed
 
@@ -31,7 +31,7 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 ### Added
 
--   Ability to customize the character limits for first and last name text fields in the registration workflow via the `registrationConfig` prop on the `AuthUIContextProvider` ([#72](https://github.com/pxblue/react-workflows/issues/72)).
+-   Ability to customize the character limits for first and last name text fields in the registration workflow via the `registrationConfig` prop on the `AuthUIContextProvider` ([#72](https://github.com/brightlayer-ui/react-workflows/issues/72)).
 
 ## v2.2.0 (June 28, 2021)
 

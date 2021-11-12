@@ -51,20 +51,20 @@ export const ContactSupportContent: React.FC = () => {
                 <ChatBubbleOutline fontSize={'inherit'} color={'primary'} />
             </div>
             <Typography variant={'body1'} style={{ marginBottom: theme.spacing(1) }}>
-                {t('pxb:CONTACT_SUPPORT.GENERAL_QUESTIONS')}
+                {t('blui:CONTACT_SUPPORT.GENERAL_QUESTIONS')}
             </Typography>
             <Typography>
-                {t('pxb:CONTACT_SUPPORT.SUPPORT_MESSAGE')}
+                {t('blui:CONTACT_SUPPORT.SUPPORT_MESSAGE')}
                 <a href={`mailto:${contactEmail}`} className={classes.link}>
                     {contactEmail}
                 </a>
                 .
             </Typography>
             <Typography variant={'body1'} style={{ marginTop: theme.spacing(4), marginBottom: theme.spacing(1) }}>
-                {t('pxb:CONTACT_SUPPORT.EMERGENCY_SUPPORT')}
+                {t('blui:CONTACT_SUPPORT.EMERGENCY_SUPPORT')}
             </Typography>
             <Typography>
-                {t('pxb:CONTACT_SUPPORT.TECHNICAL_ASSISTANCE')}
+                {t('blui:CONTACT_SUPPORT.TECHNICAL_ASSISTANCE')}
                 <a href={`tel:${contactPhone}`} className={classes.link}>
                     {contactPhone}
                 </a>
@@ -89,7 +89,7 @@ export const ContactSupport: React.FC = () => {
     return (
         <BrandedCardContainer>
             <CardHeader
-                title={<Typography variant={'h6'}>{t('pxb:USER_MENU.CONTACT_US')}</Typography>}
+                title={<Typography variant={'h6'}>{t('blui:USER_MENU.CONTACT_US')}</Typography>}
                 className={classes.dialogTitle}
             />
             <CardContent className={classes.dialogContent}>
@@ -104,7 +104,7 @@ export const ContactSupport: React.FC = () => {
                     className={clsx(classes.dialogButton, { [classes.fullWidth]: true })}
                     onClick={(): void => history.goBack()}
                 >
-                    {t('pxb:ACTIONS.OKAY')}
+                    {t('blui:ACTIONS.OKAY')}
                 </Button>
             </CardActions>
         </BrandedCardContainer>

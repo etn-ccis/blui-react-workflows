@@ -1,7 +1,7 @@
 # API
 This document outlines the various exports and configuration options for the React Auth Workflow package.
 
-The majority of the types and export used in this package come from @brightlayer-ui/react-auth-shared. You can read about those exported objects and functions in their [API](https://github.com/pxblue/react-auth-shared/tree/master/docs/API.md) documentation.
+The majority of the types and export used in this package come from @brightlayer-ui/react-auth-shared. You can read about those exported objects and functions in their [API](https://github.com/brightlayer-ui/react-auth-shared/tree/master/docs/API.md) documentation.
 
 ## Components
 
@@ -10,7 +10,7 @@ Container component which holds the authentication and navigation state and scre
 
 #### Usage
 ```tsx
-import { AuthNavigationContainer } from '@pxblue/react-auth-workflow';
+import { AuthNavigationContainer } from '@brightlayer-ui/react-auth-workflow';
 
 <AuthNavigationContainer routeConfig={customRoutes}>
     { /* ...contents */ }
@@ -29,7 +29,7 @@ Contents used in the Contact/Support screen. These are exported so that you can 
 
 #### Usage
 ```tsx
-import { ContactSupportContent } from '@pxblue/react-auth-workflow';
+import { ContactSupportContent } from '@brightlayer-ui/react-auth-workflow';
 
 <ContainerComponent>
     <ContactSupportContent />

@@ -1288,9 +1288,9 @@
     "@nodelib/fs.scandir" "2.1.5"
     fastq "^1.6.0"
 
-"@pxblue/colors@^3.0.0":
+"@brightlayer-ui/colors@^3.0.0":
   version "3.0.1"
-  resolved "https://registry.yarnpkg.com/@pxblue/colors/-/colors-3.0.1.tgz#4f89fc9ed10d754eac1ea699b722f5ac8c723173"
+  resolved "https://registry.yarnpkg.com/@brightlayer-ui/colors/-/colors-3.0.1.tgz#4f89fc9ed10d754eac1ea699b722f5ac8c723173"
   integrity sha512-3iROA/tvf7BiXRA4R9DobWeEE4Tg7bFgFWNuLzqqwHBEz/uI/J83XTW913g/wba9V5IAVt2DYAQFb/qbqYyjKQ==
   dependencies:
     "@pxblue/types" "^2.0.0"

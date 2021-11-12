@@ -39,11 +39,11 @@ export const VerifyEmail: React.FC<VerifyEmailProps> = (props) => {
 
     return (
         <>
-            <Typography>{t('pxb:SELF_REGISTRATION.VERIFY_EMAIL.MESSAGE')}</Typography>
+            <Typography>{t('blui:SELF_REGISTRATION.VERIFY_EMAIL.MESSAGE')}</Typography>
             <Divider className={classes.fullDivider} />
             <TextField
                 id="code"
-                label={t('pxb:SELF_REGISTRATION.VERIFY_EMAIL.VERIFICATION')}
+                label={t('blui:SELF_REGISTRATION.VERIFY_EMAIL.VERIFICATION')}
                 fullWidth
                 value={verifyCode}
                 onChange={(evt): void => {
@@ -61,7 +61,7 @@ export const VerifyEmail: React.FC<VerifyEmailProps> = (props) => {
                 onClick={(): void => onResendVerificationEmail()}
                 style={{ marginTop: theme.spacing(2) }}
             >
-                {t('pxb:SELF_REGISTRATION.VERIFY_EMAIL.RESEND')}
+                {t('blui:SELF_REGISTRATION.VERIFY_EMAIL.RESEND')}
             </Button>
         </>
     );

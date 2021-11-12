@@ -9,7 +9,7 @@ This package supports translations to different languages using [i18next](https:
 
 ## Changing the Language
 
-The authentication workflow configures i18next to store the most recently used language in local storage (`pxb-auth-i18nextLng`) so that when the app is loaded again, it will default to the last language used. There are three ways that you can change this stored value.
+The authentication workflow configures i18next to store the most recently used language in local storage (`blui-auth-i18nextLng`) so that when the app is loaded again, it will default to the last language used. There are three ways that you can change this stored value.
 
 ### 1. ChangeLanguage Function (recommended)
 
@@ -34,13 +34,13 @@ https://www.yourwebsite.com/page?lgn=fr
 You can also manually modify the value that is stored in Local Storage to edit or remove the stored value. Removing the value will tell the application to default to the browser default value.
 
 ```tsx
-localStorage.setItem('pxb-auth-i18nextLng', 'fr');
-localStorage.removeItem('pxb-auth-i18nextLng');
+localStorage.setItem('blui-auth-i18nextLng', 'fr');
+localStorage.removeItem('blui-auth-i18nextLng');
 ```
 
 > If you are planning to provide user-specific language settings for your application, you will be responsible for manipulating the value in localStorage in order to properly reflect a user's setting when loading the application.
 
-> All applications using the @pxblue/react-auth-workflow will use the same local storage key when doing this lookup. In order to avoid possible interference with other applications, we recommend using the ChangeLanguage function (#1) instead of relying on local storage.
+> All applications using the @brightlayer-ui/react-auth-workflow will use the same local storage key when doing this lookup. In order to avoid possible interference with other applications, we recommend using the ChangeLanguage function (#1) instead of relying on local storage.
 
 ## Adding Your Own Resources
 
@@ -48,7 +48,7 @@ If you intend to support multiple languages in your application, you will need t
 
 The Auth Workflow is configured with two separate namespaces for resources:
 
--   The `pxb` namespace contains strings that are used internally in the workflow screens
+-   The `blui` namespace contains strings that are used internally in the workflow screens
 -   The `app` namespace is where your app-specific UI strings are placed
 
 > The `app` namespace is set as the default so that you do not need to prefix any of your resource IDs.
@@ -71,14 +71,14 @@ To use the appropriate translations in your application, you can use the `t` fun
 
 ## Overriding default resources
 
-If you need to override any of the strings or translations used internally in the Auth Workflow, you can do so in a similar way by specifying the pxb namespace and the appropriate resource ID:
+If you need to override any of the strings or translations used internally in the Auth Workflow, you can do so in a similar way by specifying the blui namespace and the appropriate resource ID:
 
 ```tsx
 import i18n from 'i18next';
 
-i18n.addResourceBundle('en', 'pxb', { ACTIONS: { CREATE_ACCOUNT: 'Register now!' } }, true, true);
-i18n.addResourceBundle('es', 'pxb', { ACTIONS: { CREATE_ACCOUNT: '¡Regístrate ahora!' } }, true, true);
-i18n.addResourceBundle('fr', 'pxb', { ACTIONS: { CREATE_ACCOUNT: `S'inscrire maintenant!` } }, true, true);
+i18n.addResourceBundle('en', 'blui', { ACTIONS: { CREATE_ACCOUNT: 'Register now!' } }, true, true);
+i18n.addResourceBundle('es', 'blui', { ACTIONS: { CREATE_ACCOUNT: '¡Regístrate ahora!' } }, true, true);
+i18n.addResourceBundle('fr', 'blui', { ACTIONS: { CREATE_ACCOUNT: `S'inscrire maintenant!` } }, true, true);
 ```
 
-> For a complete list of resource IDs available, refer to the documentation for [@brightlayer-ui/react-auth-shared](https://github.com/pxblue/react-auth-shared/blob/master/src/data/translations/english.ts).
+> For a complete list of resource IDs available, refer to the documentation for [@brightlayer-ui/react-auth-shared](https://github.com/brightlayer-ui/react-auth-shared/blob/master/src/data/translations/english.ts).
