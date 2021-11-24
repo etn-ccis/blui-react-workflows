@@ -5,7 +5,7 @@ import {
     AuthUIContextProvider,
     useSecurityActions,
     // RegistrationData,
-} from '@pxblue/react-auth-workflow';
+} from '@brightlayer-ui/react-auth-workflow';
 import { ProjectAuthUIActions } from './actions/AuthUIActions';
 import { ProjectRegistrationUIActions } from './actions/RegistrationUIActions';
 import { ExampleHome } from './screens/ExampleHome';

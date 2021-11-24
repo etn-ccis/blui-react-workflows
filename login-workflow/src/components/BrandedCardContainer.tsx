@@ -2,7 +2,7 @@ import React from 'react';
 import { Card, Theme, createStyles, makeStyles } from '@material-ui/core';
 import { Spinner } from './Spinner';
 import backgroundImage from '../assets/images/background.svg';
-import { useInjectedUIContext } from '@pxblue/react-auth-shared';
+import { useInjectedUIContext } from '@brightlayer-ui/react-auth-shared';
 
 const useStyles = makeStyles((theme: Theme) =>
     createStyles({

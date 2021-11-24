@@ -1,5 +1,5 @@
 # React Auth Workflow 
-![npm (scoped)](https://img.shields.io/npm/v/@pxblue/react-auth-workflow)
+![npm (scoped)](https://img.shields.io/npm/v/@brightlayer-ui/react-auth-workflow)
 
 The React Auth Workflow package provides a consistent authentication and registration experience across Eaton web applications using React. 
 
@@ -13,9 +13,9 @@ Integrating the user interface into your application is as easy as providing the
 # Installation
 To install the latest version of this package, run:
 ```shell
-npm install --save @pxblue/react-auth-workflow
+npm install --save @brightlayer-ui/react-auth-workflow
 // or
-yarn add @pxblue/react-auth-workflow
+yarn add @brightlayer-ui/react-auth-workflow
 ```
 
 # Integration
@@ -31,7 +31,7 @@ To use the example project as a starting point, read our [Sample Project Integra
 After setup, you are now able to access various security actions and state from within your application. Importing `useSecurityActions` and `useSecurityState` allows you use these hooks as follows:
 
 ```ts
-import {useSecurityActions, useSecurityState } from '@pxblue/react-auth-workflow';
+import {useSecurityActions, useSecurityState } from '@brightlayer-ui/react-auth-workflow';
 
 const securityActions = useSecurityActions();
 const securityState = useSecurityState();

@@ -1,8 +1,8 @@
 import React from 'react';
-import { RegistrationData } from '@pxblue/react-auth-workflow';
+import { RegistrationData } from '@brightlayer-ui/react-auth-workflow';
 import { Button, CardActions, CardContent, CardHeader, Divider, Typography, useMediaQuery } from '@material-ui/core';
 import { Link } from 'react-router-dom';
-import { EmptyState } from '@pxblue/react-components';
+import { EmptyState } from '@brightlayer-ui/react-components';
 import Person from '@material-ui/icons/Person';
 
 type CustomRegistrationProps = {

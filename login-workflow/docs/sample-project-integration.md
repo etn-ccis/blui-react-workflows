@@ -5,7 +5,7 @@ If you don't have an existing React project and would like an example as a start
 
 #### Setup
 
-Clone or download the package [repository](https://github.com/pxblue/react-workflows) and then copy the `/example` folder to a new location. Navigate into this folder and run `yarn` to install the required dependencies.
+Clone or download the package [repository](https://github.com/brightlayer-ui/react-workflows) and then copy the `/example` folder to a new location. Navigate into this folder and run `yarn` to install the required dependencies.
 
 > If you are using npm as your package manager, you can delete the yarn.lock file and run `npm install` instead. This will generate a new lock file.
 
@@ -17,9 +17,9 @@ You will probably want to call your project something other than 'example'. Rena
 
 #### Configure AuthUIContextProvider
 
-Open the root app file (`App.tsx`) and adjust the configuration options of the `AuthUIContextProvider` as necessary for your project. The various configuration options are explained in more detail in the [API](https://github.com/pxblue/react-workflows/tree/master/login-workflow/docs/API.md) documentation. As a suggestion, you may want to swap out the example image with a product logo for your project.
+Open the root app file (`App.tsx`) and adjust the configuration options of the `AuthUIContextProvider` as necessary for your project. The various configuration options are explained in more detail in the [API](https://github.com/brightlayer-ui/react-workflows/tree/master/login-workflow/docs/API.md) documentation. As a suggestion, you may want to swap out the example image with a product logo for your project.
 
-You can read more about customizing the `AuthUIContextProvider` in the [Customization Guide](https://github.com/pxblue/react-workflows/tree/master/login-workflow/docs/customization.md) 
+You can read more about customizing the `AuthUIContextProvider` in the [Customization Guide](https://github.com/brightlayer-ui/react-workflows/tree/master/login-workflow/docs/customization.md) 
 
 
 #### Implement AuthUIActions and RegistrationUIActions

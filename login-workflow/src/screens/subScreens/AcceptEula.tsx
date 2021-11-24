@@ -1,5 +1,5 @@
 import React, { useEffect } from 'react';
-import { useLanguageLocale } from '@pxblue/react-auth-shared';
+import { useLanguageLocale } from '@brightlayer-ui/react-auth-shared';
 import { Typography, FormControlLabel, Checkbox, useTheme } from '@material-ui/core';
 import DOMPurify from 'dompurify';
 
@@ -29,7 +29,7 @@ export const AcceptEula: React.FC<AcceptEulaProps> = (props) => {
     const { t } = useLanguageLocale();
     const theme = useTheme();
 
-    const eulaContentInternals = eulaContent ?? eulaError ?? t('pxb:REGISTRATION.EULA.LOADING');
+    const eulaContentInternals = eulaContent ?? eulaError ?? t('blui:REGISTRATION.EULA.LOADING');
 
     useEffect(() => {
         loadEula();
@@ -57,7 +57,7 @@ export const AcceptEula: React.FC<AcceptEulaProps> = (props) => {
                         }
                     />
                 }
-                label={t('pxb:REGISTRATION.EULA.AGREE_TERMS')}
+                label={t('blui:REGISTRATION.EULA.AGREE_TERMS')}
                 style={{ flex: '0 0 auto', marginRight: 0, marginTop: theme.spacing(2) }}
             />
         </>

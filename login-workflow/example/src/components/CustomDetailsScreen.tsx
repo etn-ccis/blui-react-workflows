@@ -1,6 +1,6 @@
 import React, { useEffect, useRef, useState } from 'react';
 import { makeStyles, createStyles, TextField, Theme } from '@material-ui/core';
-import { AccountDetailsFormProps } from '@pxblue/react-auth-workflow';
+import { AccountDetailsFormProps } from '@brightlayer-ui/react-auth-workflow';
 
 export const useStyles = makeStyles((theme: Theme) =>
     createStyles({

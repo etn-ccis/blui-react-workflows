@@ -5,7 +5,7 @@ import {
     useAccountUIActions,
     AccountActions,
     useInjectedUIContext,
-} from '@pxblue/react-auth-shared';
+} from '@brightlayer-ui/react-auth-shared';
 import { useQueryString } from '../hooks/useQueryString';
 import { useRoutes } from '../contexts/RoutingContext';
 import { useHistory } from 'react-router-dom';
@@ -114,14 +114,14 @@ export const ResetPassword: React.FC = () => {
                         icon={
                             <CheckCircle color={'primary'} style={{ fontSize: 100, marginBottom: theme.spacing(2) }} />
                         }
-                        title={t('pxb:PASSWORD_RESET.SUCCESS_MESSAGE')}
-                        description={t('pxb:CHANGE_PASSWORD.SUCCESS_MESSAGE')}
+                        title={t('blui:PASSWORD_RESET.SUCCESS_MESSAGE')}
+                        description={t('blui:CHANGE_PASSWORD.SUCCESS_MESSAGE')}
                     />
                 ) : (
                     <ChangePasswordForm
                         passwordRef={passwordRef}
                         confirmRef={confirmRef}
-                        passwordLabel={t('pxb:LABELS.NEW_PASSWORD')}
+                        passwordLabel={t('blui:LABELS.NEW_PASSWORD')}
                         onPasswordChange={updateFields}
                         onSubmit={canContinue() ? onContinue : undefined}
                     />
@@ -131,7 +131,7 @@ export const ResetPassword: React.FC = () => {
             ) : (
                 <FinishState
                     icon={<Error color={'error'} style={{ fontSize: 100, marginBottom: theme.spacing(2) }} />}
-                    title={t('pxb:MESSAGES.FAILURE')}
+                    title={t('blui:MESSAGES.FAILURE')}
                     description={validationTransitErrorMessage}
                 />
             ),
@@ -151,7 +151,7 @@ export const ResetPassword: React.FC = () => {
 
     const errorDialog = (
         <SimpleDialog
-            title={t('pxb:MESSAGES.ERROR')}
+            title={t('blui:MESSAGES.ERROR')}
             body={t(setPasswordTransitErrorMessage ?? '')}
             open={setPasswordHasTransitError && !hasAcknowledgedError}
             onClose={(): void => {
@@ -166,7 +166,7 @@ export const ResetPassword: React.FC = () => {
             <CardHeader
                 title={
                     <Typography variant={'h6'} style={{ fontWeight: 600 }}>
-                        {t('pxb:FORMS.RESET_PASSWORD')}
+                        {t('blui:FORMS.RESET_PASSWORD')}
                     </Typography>
                 }
                 className={classes.dialogTitle}
@@ -182,7 +182,7 @@ export const ResetPassword: React.FC = () => {
                             onClick={(): void => history.push(routes.LOGIN)}
                             className={classes.dialogButton}
                         >
-                            {t('pxb:ACTIONS.BACK')}
+                            {t('blui:ACTIONS.BACK')}
                         </Button>
                     )}
                     {verifySuccess && (
@@ -194,7 +194,7 @@ export const ResetPassword: React.FC = () => {
                             onClick={onContinue}
                             className={clsx(classes.dialogButton, { [classes.fullWidth]: setPasswordTransitSuccess })}
                         >
-                            {setPasswordTransitSuccess ? t('pxb:ACTIONS.DONE') : t('pxb:ACTIONS.OKAY')}
+                            {setPasswordTransitSuccess ? t('blui:ACTIONS.DONE') : t('blui:ACTIONS.OKAY')}
                         </Button>
                     )}
                 </Grid>

@@ -1,6 +1,6 @@
 import React, { useEffect, useRef } from 'react';
 import { TextField, Typography, Divider } from '@material-ui/core';
-import { useLanguageLocale, AccountDetailInformation, useInjectedUIContext } from '@pxblue/react-auth-shared';
+import { useLanguageLocale, AccountDetailInformation, useInjectedUIContext } from '@brightlayer-ui/react-auth-shared';
 import { useDialogStyles } from '../../styles';
 
 export type AccountDetailsWrapperProps = {
@@ -20,7 +20,7 @@ export type AccountDetailsProps = {
  */
 export const AccountDetailsWrapper: React.FC<AccountDetailsWrapperProps> = (props) => {
     const { t } = useLanguageLocale();
-    const { description = t('pxb:REGISTRATION.INSTRUCTIONS.ACCOUNT_DETAILS') } = props;
+    const { description = t('blui:REGISTRATION.INSTRUCTIONS.ACCOUNT_DETAILS') } = props;
     const classes = useDialogStyles();
 
     return (
@@ -65,7 +65,7 @@ export const AccountDetails: React.FC<AccountDetailsProps> = (props) => {
             <TextField
                 inputRef={firstRef}
                 id="first"
-                label={t('pxb:FORMS.FIRST_NAME')}
+                label={t('blui:FORMS.FIRST_NAME')}
                 fullWidth
                 value={firstNameInput}
                 onChange={(evt): void => {
@@ -80,7 +80,7 @@ export const AccountDetails: React.FC<AccountDetailsProps> = (props) => {
             <TextField
                 inputRef={lastRef}
                 id="last"
-                label={t('pxb:FORMS.LAST_NAME')}
+                label={t('blui:FORMS.LAST_NAME')}
                 fullWidth
                 value={lastNameInput}
                 onChange={(evt): void => {

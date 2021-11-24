@@ -1,5 +1,5 @@
 /* eslint-disable @typescript-eslint/no-unused-vars */
-import { RegistrationUIActions, AccountDetailInformation } from '@pxblue/react-auth-workflow';
+import { RegistrationUIActions, AccountDetailInformation } from '@brightlayer-ui/react-auth-workflow';
 
 // Constants
 import { SAMPLE_EULA } from '../constants/sampleEula';
