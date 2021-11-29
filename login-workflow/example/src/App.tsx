@@ -30,9 +30,9 @@ i18n.addResourceBundle('es', 'app', { BUTTONLABEL: '¡Cambia el idioma!' });
 i18n.addResourceBundle('fr', 'app', { BUTTONLABEL: 'Changez de Langue' });
 
 // Uncomment these lines to override workflow strings / translations
-i18n.addResourceBundle('en', 'pxb', { ACTIONS: { CREATE_ACCOUNT: 'Register now!' } }, true, true);
-i18n.addResourceBundle('es', 'pxb', { ACTIONS: { CREATE_ACCOUNT: '¡Regístrate ahora!' } }, true, true);
-i18n.addResourceBundle('fr', 'pxb', { ACTIONS: { CREATE_ACCOUNT: `S'inscrire maintenant!` } }, true, true);
+i18n.addResourceBundle('en', 'blui', { ACTIONS: { CREATE_ACCOUNT: 'Register now!' } }, true, true);
+i18n.addResourceBundle('es', 'blui', { ACTIONS: { CREATE_ACCOUNT: '¡Regístrate ahora!' } }, true, true);
+i18n.addResourceBundle('fr', 'blui', { ACTIONS: { CREATE_ACCOUNT: `S'inscrire maintenant!` } }, true, true);
 
 export const AuthUIConfiguration: React.FC = (props) => {
     const securityContextActions = useSecurityActions();

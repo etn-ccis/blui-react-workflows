@@ -6,14 +6,14 @@ import * as serviceWorker from './serviceWorker';
 import { ThemeProvider, createMuiTheme } from '@material-ui/core/styles';
 import { App } from './App';
 import CssBaseline from '@material-ui/core/CssBaseline';
-import * as PXBThemes from '@brightlayer-ui/react-themes';
+import * as BLUIThemes from '@brightlayer-ui/react-themes';
 import '@brightlayer-ui/react-themes/open-sans';
 import './index.css';
 
 ReactDOM.render(
     // Enable Strict Mode for more error checking
     // <React.StrictMode>
-    <ThemeProvider theme={createMuiTheme(PXBThemes.blue)}>
+    <ThemeProvider theme={createMuiTheme(BLUIThemes.blue)}>
         <CssBaseline />
         <App />
     </ThemeProvider>,

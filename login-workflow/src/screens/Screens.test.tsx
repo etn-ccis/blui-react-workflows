@@ -45,12 +45,12 @@ void i18n
         detection: {
             order: ['querystring', 'localStorage', 'navigator'],
             caches: ['localStorage'],
-            lookupLocalStorage: 'pxb-auth-i18nextLng',
+            lookupLocalStorage: 'blui-auth-i18nextLng',
         },
         whitelist: ['en'],
-        ns: ['app', 'pxb'],
+        ns: ['app', 'blui'],
         defaultNS: 'app',
-        fallbackNS: 'pxb',
+        fallbackNS: 'blui',
         resources: {
             en: {
                 blui: translations.english.translation,
