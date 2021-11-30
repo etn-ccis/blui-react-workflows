@@ -10,7 +10,7 @@ import {
     CustomRegistrationForm,
     CustomAccountDetails,
     AccountDetailsFormProps,
-} from '@pxblue/react-auth-shared';
+} from '@brightlayer-ui/react-auth-shared';
 import { useHistory } from 'react-router-dom';
 import { useQueryString } from '../hooks/useQueryString';
 import { useRoutes } from '../contexts/RoutingContext';
@@ -69,14 +69,14 @@ export const SelfRegistrationPager: React.FC = () => {
     const codeRequestTransit = registrationState.inviteRegistration.codeRequestTransit;
     const codeRequestIsInTransit = codeRequestTransit.transitInProgress;
     const hasCodeRequestTransitError = codeRequestTransit.transitErrorMessage !== null;
-    const codeRequestTransitErrorMessage = codeRequestTransit.transitErrorMessage ?? t('pxb:MESSAGES.REQUEST_ERROR');
+    const codeRequestTransitErrorMessage = codeRequestTransit.transitErrorMessage ?? t('blui:MESSAGES.REQUEST_ERROR');
     const codeRequestSuccess = codeRequestTransit.transitSuccess;
 
     // Network state (registration)
     const registrationTransit = registrationState.inviteRegistration.registrationTransit;
     const registrationIsInTransit = registrationTransit.transitInProgress;
     const hasRegistrationTransitError = registrationTransit.transitErrorMessage !== null;
-    const registrationTransitErrorMessage = registrationTransit.transitErrorMessage ?? t('pxb:MESSAGES.REQUEST_ERROR');
+    const registrationTransitErrorMessage = registrationTransit.transitErrorMessage ?? t('blui:MESSAGES.REQUEST_ERROR');
     const registrationSuccess = registrationTransit.transitSuccess;
 
     // Network state (invite code validation)
@@ -206,7 +206,7 @@ export const SelfRegistrationPager: React.FC = () => {
     const RegistrationPages: RegistrationPage[] = [
         {
             name: 'Eula',
-            pageTitle: t('pxb:REGISTRATION.STEPS.LICENSE'),
+            pageTitle: t('blui:REGISTRATION.STEPS.LICENSE'),
             pageBody: (
                 <AcceptEula
                     eulaAccepted={eulaAccepted}
@@ -222,7 +222,7 @@ export const SelfRegistrationPager: React.FC = () => {
         },
         {
             name: 'CreateAccount',
-            pageTitle: t('pxb:REGISTRATION.STEPS.CREATE_ACCOUNT'),
+            pageTitle: t('blui:REGISTRATION.STEPS.CREATE_ACCOUNT'),
             pageBody: (
                 <CreateAccountScreen
                     initialEmail={email}
@@ -236,7 +236,7 @@ export const SelfRegistrationPager: React.FC = () => {
         },
         {
             name: 'VerifyEmail',
-            pageTitle: t('pxb:REGISTRATION.STEPS.VERIFY_EMAIL'),
+            pageTitle: t('blui:REGISTRATION.STEPS.VERIFY_EMAIL'),
             pageBody: (
                 <VerifyEmailScreen
                     initialCode={verificationCode}
@@ -253,7 +253,7 @@ export const SelfRegistrationPager: React.FC = () => {
         },
         {
             name: 'CreatePassword',
-            pageTitle: t('pxb:REGISTRATION.STEPS.PASSWORD'),
+            pageTitle: t('blui:REGISTRATION.STEPS.PASSWORD'),
             pageBody: (
                 <CreatePasswordScreen
                     onPasswordChanged={setPassword}
@@ -267,7 +267,7 @@ export const SelfRegistrationPager: React.FC = () => {
         },
         {
             name: 'AccountDetails',
-            pageTitle: t('pxb:REGISTRATION.STEPS.ACCOUNT_DETAILS'),
+            pageTitle: t('blui:REGISTRATION.STEPS.ACCOUNT_DETAILS'),
             pageBody: (
                 <AccountDetailsWrapper>
                     <AccountDetailsScreen
@@ -314,7 +314,7 @@ export const SelfRegistrationPager: React.FC = () => {
                     const PageComponent = page.component;
                     return {
                         name: `CustomPage${i + 1}`,
-                        pageTitle: page.title || t('pxb:REGISTRATION.STEPS.ACCOUNT_DETAILS'),
+                        pageTitle: page.title || t('blui:REGISTRATION.STEPS.ACCOUNT_DETAILS'),
                         pageBody: (
                             <AccountDetailsWrapper description={page.instructions}>
                                 <PageComponent
@@ -341,15 +341,15 @@ export const SelfRegistrationPager: React.FC = () => {
         .concat([
             {
                 name: 'Complete',
-                pageTitle: t('pxb:REGISTRATION.STEPS.COMPLETE'),
+                pageTitle: t('blui:REGISTRATION.STEPS.COMPLETE'),
                 pageBody: (
                     <RegistrationComplete
                         firstName={accountDetails?.firstName ?? ''}
                         lastName={accountDetails?.lastName ?? ''}
-                        email={registrationState.inviteRegistration.email ?? t('pxb:REGISTRATION.UNKNOWN_EMAIL')}
+                        email={registrationState.inviteRegistration.email ?? t('blui:REGISTRATION.UNKNOWN_EMAIL')}
                         organization={
                             registrationState.inviteRegistration.organizationName ??
-                            t('pxb:REGISTRATION.UNKNOWN_ORGANIZATION')
+                            t('blui:REGISTRATION.UNKNOWN_ORGANIZATION')
                         }
                     />
                 ),
@@ -423,7 +423,7 @@ export const SelfRegistrationPager: React.FC = () => {
 
     // Page content logic
     const pageTitle = (): string => {
-        if (accountAlreadyExists) return t('pxb:REGISTRATION.STEPS.COMPLETE');
+        if (accountAlreadyExists) return t('blui:REGISTRATION.STEPS.COMPLETE');
         return RegistrationPages[currentPage].pageTitle || '';
     };
 
@@ -438,7 +438,7 @@ export const SelfRegistrationPager: React.FC = () => {
                 disableElevation
                 onClick={(): void => history.push(routes.LOGIN)}
             >
-                {isFirstStep ? t('pxb:ACTIONS.CANCEL') : t('pxb:ACTIONS.BACK')}
+                {isFirstStep ? t('blui:ACTIONS.CANCEL') : t('blui:ACTIONS.BACK')}
             </Button>
         );
     } else if (isLastStep) {
@@ -450,7 +450,7 @@ export const SelfRegistrationPager: React.FC = () => {
                 className={clsx(sharedClasses.dialogButton, { [sharedClasses.fullWidth]: true })}
                 onClick={(): void => advancePage(1)}
             >
-                {t('pxb:ACTIONS.CONTINUE')}
+                {t('blui:ACTIONS.CONTINUE')}
             </Button>
         );
     } else {
@@ -468,7 +468,7 @@ export const SelfRegistrationPager: React.FC = () => {
                         onClick={(): void => advancePage(-1)}
                         className={sharedClasses.dialogButton}
                     >
-                        {isFirstStep ? t('pxb:ACTIONS.CANCEL') : t('pxb:ACTIONS.BACK')}
+                        {isFirstStep ? t('blui:ACTIONS.CANCEL') : t('blui:ACTIONS.BACK')}
                     </Button>
                 }
                 nextButton={
@@ -480,7 +480,7 @@ export const SelfRegistrationPager: React.FC = () => {
                         onClick={(): void => advancePage(1)}
                         className={sharedClasses.dialogButton}
                     >
-                        {t('pxb:ACTIONS.NEXT')}
+                        {t('blui:ACTIONS.NEXT')}
                     </Button>
                 }
                 classes={{ root: sharedClasses.stepper, dot: sharedClasses.stepperDot }}

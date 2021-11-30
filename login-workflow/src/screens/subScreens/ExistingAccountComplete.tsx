@@ -1,5 +1,5 @@
 import React from 'react';
-import { useLanguageLocale } from '@pxblue/react-auth-shared';
+import { useLanguageLocale } from '@brightlayer-ui/react-auth-shared';
 import { useTheme } from '@material-ui/core';
 import { FinishState } from '../../components';
 import Person from '@material-ui/icons/Person';
@@ -17,8 +17,8 @@ export const ExistingAccountComplete: React.FC = () => {
     return (
         <FinishState
             icon={<Person color={'primary'} style={{ fontSize: 100, marginBottom: theme.spacing(2) }} />}
-            title={t('pxb:MESSAGES.WELCOME')}
-            description={t('pxb:REGISTRATION.SUCCESS_EXISTING')}
+            title={t('blui:MESSAGES.WELCOME')}
+            description={t('blui:REGISTRATION.SUCCESS_EXISTING')}
         />
     );
 };

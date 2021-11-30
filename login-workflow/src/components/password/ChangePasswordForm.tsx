@@ -1,5 +1,5 @@
 import React, { ChangeEvent, useState, useCallback, MutableRefObject } from 'react';
-import { useLanguageLocale } from '@pxblue/react-auth-shared';
+import { useLanguageLocale } from '@brightlayer-ui/react-auth-shared';
 import { Typography, Divider, useTheme } from '@material-ui/core';
 import { SecureTextField } from '../SecureTextField';
 import { PasswordRequirements } from './PasswordRequirements';
@@ -72,7 +72,7 @@ export const ChangePasswordForm: React.FC<ChangePasswordFormProps> = (props) => 
 
     return (
         <>
-            <Typography>{description || t('pxb:CHANGE_PASSWORD.PASSWORD_INFO')}</Typography>
+            <Typography>{description || t('blui:CHANGE_PASSWORD.PASSWORD_INFO')}</Typography>
 
             <Divider className={sharedClasses.fullDivider} />
 
@@ -81,7 +81,7 @@ export const ChangePasswordForm: React.FC<ChangePasswordFormProps> = (props) => 
                 id="password"
                 name="password"
                 inputRef={passwordRef}
-                label={passwordLabel || t('pxb:FORMS.PASSWORD')}
+                label={passwordLabel || t('blui:FORMS.PASSWORD')}
                 value={passwordInput}
                 onChange={(evt: ChangeEvent<HTMLInputElement>): void => onPassChange(evt.target.value)}
                 className={sharedClasses.textField}
@@ -96,7 +96,7 @@ export const ChangePasswordForm: React.FC<ChangePasswordFormProps> = (props) => 
                 id="confirm"
                 name="confirm"
                 inputRef={confirmRef}
-                label={confirmLabel || t('pxb:FORMS.CONFIRM_PASSWORD')}
+                label={confirmLabel || t('blui:FORMS.CONFIRM_PASSWORD')}
                 className={sharedClasses.textField}
                 value={confirmInput}
                 onChange={(evt: ChangeEvent<HTMLInputElement>): void => onConfirmChange(evt.target.value)}

@@ -18,7 +18,7 @@ import {
     translations,
     // RegistrationActionContext,
     // RegistrationActionsCreator,
-} from '@pxblue/react-auth-shared';
+} from '@brightlayer-ui/react-auth-shared';
 import { ContactSupport } from './ContactSupport';
 import { ForgotPassword } from './ForgotPassword';
 // import { InviteRegistrationPager } from './InviteRegistrationPager';
@@ -45,15 +45,15 @@ void i18n
         detection: {
             order: ['querystring', 'localStorage', 'navigator'],
             caches: ['localStorage'],
-            lookupLocalStorage: 'pxb-auth-i18nextLng',
+            lookupLocalStorage: 'blui-auth-i18nextLng',
         },
         whitelist: ['en'],
-        ns: ['app', 'pxb'],
+        ns: ['app', 'blui'],
         defaultNS: 'app',
-        fallbackNS: 'pxb',
+        fallbackNS: 'blui',
         resources: {
             en: {
-                pxb: translations.english.translation,
+                blui: translations.english.translation,
                 app: {},
             },
         },
@@ -169,9 +169,9 @@ describe('ContactSupport tests', () => {
     });
 });
 
-jest.mock('@pxblue/react-auth-shared', () => ({
+jest.mock('@brightlayer-ui/react-auth-shared', () => ({
     // @ts-ignore
-    ...jest.requireActual('@pxblue/react-auth-shared'),
+    ...jest.requireActual('@brightlayer-ui/react-auth-shared'),
     useAccountUIActions: jest.fn().mockReturnValue(() => {}),
 }));
 
@@ -202,9 +202,9 @@ describe('ForgotPassword tests', () => {
     });
 });
 
-jest.mock('@pxblue/react-auth-shared', () => ({
+jest.mock('@brightlayer-ui/react-auth-shared', () => ({
     // @ts-ignore
-    ...jest.requireActual('@pxblue/react-auth-shared'),
+    ...jest.requireActual('@brightlayer-ui/react-auth-shared'),
     useSecurityState: jest.fn().mockReturnValue({}),
 }));
 
@@ -318,9 +318,9 @@ jest.mock('react-router-dom', () => ({
     useLocation: jest.fn().mockReturnValue('test-location'),
 }));
 
-jest.mock('@pxblue/react-auth-shared', () => ({
+jest.mock('@brightlayer-ui/react-auth-shared', () => ({
     // @ts-ignore
-    ...jest.requireActual('@pxblue/react-auth-shared'),
+    ...jest.requireActual('@brightlayer-ui/react-auth-shared'),
     useRegistrationUIActions: jest.fn().mockReturnValue(() => ({
         actions: {
             loadEULA: jest.fn(),

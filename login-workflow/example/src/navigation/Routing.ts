@@ -1,4 +1,4 @@
-import { RouteConfig } from '@pxblue/react-auth-workflow';
+import { RouteConfig } from '@brightlayer-ui/react-auth-workflow';
 
 export const routes: RouteConfig = {
     LOGIN: '/custom-login-route',

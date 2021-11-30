@@ -1,14 +1,14 @@
 {
-    "@pxblue/react-auth-shared@3.0.0": {
+    "@brightlayer-ui/react-auth-shared@3.5.0": {
         "licenses": "BSD-3-Clause",
-        "repository": "https://github.com/pxblue/react-auth-shared/tree/master",
-        "licenseUrl": "https://github.com/pxblue/react-auth-shared/tree/master/raw/master/LICENSE.md",
-        "parents": "@pxblue/react-auth-workflow"
+        "repository": "https://github.com/brightlayer-ui/react-auth-shared/tree/master",
+        "licenseUrl": "https://github.com/brightlayer-ui/react-auth-shared/tree/master/raw/master/LICENSE.md",
+        "parents": "@brightlayer-ui/react-auth-workflow"
     },
     "dompurify@2.2.7": {
         "licenses": "(MPL-2.0 OR Apache-2.0)",
         "repository": "https://github.com/cure53/DOMPurify",
         "licenseUrl": "https://github.com/cure53/DOMPurify/raw/master/LICENSE",
-        "parents": "@pxblue/react-auth-workflow"
+        "parents": "@brightlayer-ui/react-auth-workflow"
     }
 }
