@@ -2,7 +2,7 @@ import React from 'react';
 import logo from './logo.svg';
 import './Home.css';
 import { Button, Typography } from '@material-ui/core';
-import { useSecurityState } from '@pxblue/react-auth-shared';
+import { useSecurityState } from '@brightlayer-ui/react-auth-shared';
 import { Link } from 'react-router-dom';
 
 export const ExamplePreAuth: React.FC = () => {

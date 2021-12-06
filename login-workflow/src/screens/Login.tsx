@@ -9,7 +9,7 @@ import {
     AccountActions,
     LoginErrorDisplayConfig,
     EMAIL_REGEX,
-} from '@pxblue/react-auth-shared';
+} from '@brightlayer-ui/react-auth-shared';
 import { Link } from 'react-router-dom';
 import {
     useTheme,
@@ -27,7 +27,7 @@ import { BrandedCardContainer, SimpleDialog, SecureTextField } from '../componen
 import { Close as CloseIcon } from '@material-ui/icons';
 import stackedEatonLogo from '../assets/images/eaton_stacked_logo.png';
 import cyberBadge from '../assets/images/cybersecurity_certified.png';
-import * as Colors from '@pxblue/colors';
+import * as Colors from '@brightlayer-ui/colors';
 import clsx from 'clsx';
 
 const HELPER_TEXT_HEIGHT = 22;
@@ -192,11 +192,11 @@ export const Login: React.FC = () => {
     const showLinks = showSelfRegistration || enableResetPassword || showContactSupport;
 
     const hasTransitError = authUIState.login.transitErrorMessage !== null;
-    const transitErrorMessage = authUIState.login.transitErrorMessage ?? t('pxb:MESSAGES.REQUEST_ERROR');
+    const transitErrorMessage = authUIState.login.transitErrorMessage ?? t('blui:MESSAGES.REQUEST_ERROR');
 
     const isInvalidCredentials =
-        transitErrorMessage.replace('pxb:', '') === 'LOGIN.INCORRECT_CREDENTIALS' ||
-        transitErrorMessage.replace('pxb:', '') === 'LOGIN.INVALID_CREDENTIALS';
+        transitErrorMessage.replace('blui:', '') === 'LOGIN.INCORRECT_CREDENTIALS' ||
+        transitErrorMessage.replace('blui:', '') === 'LOGIN.INVALID_CREDENTIALS';
 
     const [isValidEmail, setIsValidEmail] = React.useState(false);
     const [shouldValidateEmail, setShouldValidateEmail] = React.useState(false);
@@ -222,7 +222,7 @@ export const Login: React.FC = () => {
     // Construct the dynamic elements
     const errorDialog = (
         <SimpleDialog
-            title={t('pxb:MESSAGES.ERROR')}
+            title={t('blui:MESSAGES.ERROR')}
             body={t(transitErrorMessage)}
             open={hasTransitError && !hasAcknowledgedError}
             onClose={(): void => {
@@ -251,7 +251,7 @@ export const Login: React.FC = () => {
     const contactEatonRepresentative: JSX.Element = showContactSupport ? (
         <Typography variant="body2" color={'primary'}>
             <Link className={classes.link} to={routes.SUPPORT}>
-                {t('pxb:MESSAGES.CONTACT')}
+                {t('blui:MESSAGES.CONTACT')}
             </Link>
         </Typography>
     ) : (
@@ -260,9 +260,9 @@ export const Login: React.FC = () => {
 
     const getEmailHelperText = (): string => {
         if (hasEmailError()) {
-            return t('pxb:MESSAGES.EMAIL_ENTRY_ERROR');
+            return t('blui:MESSAGES.EMAIL_ENTRY_ERROR');
         } else if (isInvalidCredentials) {
-            return t('pxb:LOGIN.INCORRECT_CREDENTIALS');
+            return t('blui:LOGIN.INCORRECT_CREDENTIALS');
         }
         return '';
     };
@@ -272,7 +272,7 @@ export const Login: React.FC = () => {
         createAccountOption = (
             <Typography variant="body2" color={'primary'} style={{ marginBottom: theme.spacing(4) }}>
                 <Link className={classes.link} to={routes.REGISTER_SELF}>
-                    {t('pxb:ACTIONS.CREATE_ACCOUNT')}
+                    {t('blui:ACTIONS.CREATE_ACCOUNT')}
                 </Link>
             </Typography>
         );
@@ -357,7 +357,7 @@ export const Login: React.FC = () => {
                         errorMessageBox}
 
                     <TextField
-                        label={loginType === 'username' ? t('pxb:LABELS.USERNAME') : t('pxb:LABELS.EMAIL')}
+                        label={loginType === 'username' ? t('blui:LABELS.USERNAME') : t('blui:LABELS.EMAIL')}
                         id="email"
                         name={loginType === 'username' ? 'username' : 'email'}
                         type={loginType === 'username' ? 'text' : 'email'}
@@ -386,7 +386,7 @@ export const Login: React.FC = () => {
                         inputRef={passwordField}
                         id="password"
                         name="password"
-                        label={t('pxb:LABELS.PASSWORD')}
+                        label={t('blui:LABELS.PASSWORD')}
                         className={clsx(classes.passwordFormField, { [classes.hasError]: isInvalidCredentials })}
                         value={passwordInput}
                         onChange={(evt: ChangeEvent<HTMLInputElement>): void => {
@@ -396,7 +396,7 @@ export const Login: React.FC = () => {
                         }}
                         variant="filled"
                         error={isInvalidCredentials}
-                        helperText={isInvalidCredentials ? t('pxb:LOGIN.INCORRECT_CREDENTIALS') : ''}
+                        helperText={isInvalidCredentials ? t('blui:LOGIN.INCORRECT_CREDENTIALS') : ''}
                     />
 
                     {(loginErrorDisplayConfig.mode === 'message-box' || loginErrorDisplayConfig.mode === 'both') &&
@@ -420,7 +420,7 @@ export const Login: React.FC = () => {
                                         onChange={(evt): void => setRememberPassword(evt.target.checked)}
                                     />
                                 }
-                                label={t('pxb:ACTIONS.REMEMBER')}
+                                label={t('blui:ACTIONS.REMEMBER')}
                             />
                         )}
                         <Button
@@ -435,7 +435,7 @@ export const Login: React.FC = () => {
                             color="primary"
                             style={{ width: showRememberMe ? 150 : '100%' }}
                         >
-                            {t('pxb:ACTIONS.LOG_IN')}
+                            {t('blui:ACTIONS.LOG_IN')}
                         </Button>
                     </Grid>
 
@@ -446,7 +446,7 @@ export const Login: React.FC = () => {
                         {enableResetPassword && (
                             <Typography variant="body2" color={'primary'}>
                                 <Link className={classes.link} to={routes.FORGOT_PASSWORD}>
-                                    {t('pxb:LABELS.FORGOT_PASSWORD')}
+                                    {t('blui:LABELS.FORGOT_PASSWORD')}
                                 </Link>
                             </Typography>
                         )}
@@ -455,7 +455,7 @@ export const Login: React.FC = () => {
                                 variant="body2"
                                 style={{ marginTop: enableResetPassword ? theme.spacing(4) : 0 }}
                             >
-                                {t('pxb:LABELS.NEED_ACCOUNT')}
+                                {t('blui:LABELS.NEED_ACCOUNT')}
                             </Typography>
                         )}
 

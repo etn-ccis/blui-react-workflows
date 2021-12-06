@@ -1,6 +1,6 @@
 import React from 'react';
 import { makeStyles, createStyles, Theme } from '@material-ui/core';
-import { EmptyStateProps, EmptyState } from '@pxblue/react-components';
+import { EmptyStateProps, EmptyState } from '@brightlayer-ui/react-components';
 import clsx from 'clsx';
 
 const useStyles = makeStyles((theme: Theme) =>

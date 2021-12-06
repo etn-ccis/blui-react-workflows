@@ -1,5 +1,5 @@
 import React, { useCallback } from 'react';
-import { useInjectedUIContext, useSecurityState } from '@pxblue/react-auth-shared';
+import { useInjectedUIContext, useSecurityState } from '@brightlayer-ui/react-auth-shared';
 import { useRoutes } from '../contexts/RoutingContext';
 import { Switch, Route, Redirect, useLocation } from 'react-router-dom';
 

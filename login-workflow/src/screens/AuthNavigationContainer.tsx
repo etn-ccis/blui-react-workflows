@@ -1,6 +1,6 @@
 import React, { useEffect } from 'react';
 import { BrowserRouter, Route, Switch } from 'react-router-dom';
-import { AuthUIInternalStore, useSecurityState, useInjectedUIContext } from '@pxblue/react-auth-shared';
+import { AuthUIInternalStore, useSecurityState, useInjectedUIContext } from '@brightlayer-ui/react-auth-shared';
 import { Splash as SplashScreen } from './Splash';
 import { PreAuthContainer } from './PreAuthContainer';
 import { ChangePasswordModal, PrivateRoute } from '../components';

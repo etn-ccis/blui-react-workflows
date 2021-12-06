@@ -5,11 +5,10 @@
     "dependencies": {
         "@material-ui/core": "^4.11.4",
         "@material-ui/icons": "^4.11.2",
-        "@pxblue/colors": "^3.0.1",
-        "@pxblue/icons-mui": "^2.3.0",
-        "@pxblue/react-auth-workflow": "^2.1.0",
-        "@pxblue/react-components": "^5.2.0",
-        "@pxblue/react-themes": "^6.0.0",
+        "@brightlayer-ui/colors": "^3.0.1",
+        "@brightlayer-ui/icons-mui": "^2.3.0",
+        "@brightlayer-ui/react-components": "^5.2.0",
+        "@brightlayer-ui/react-themes": "^6.0.0",
         "@testing-library/jest-dom": "^5.0.0",
         "@testing-library/react": "^11.0.0",
         "@testing-library/user-event": "^13.0.0",
@@ -57,8 +56,8 @@
         ]
     },
     "devDependencies": {
-        "@pxblue/eslint-config": "^2.0.5",
-        "@pxblue/prettier-config": "^1.0.3",
+        "@brightlayer-ui/eslint-config": "^2.0.5",
+        "@brightlayer-ui/prettier-config": "^1.0.3",
         "@typescript-eslint/eslint-plugin": "^4.0.0",
         "@typescript-eslint/parser": "^4.0.0",
         "enzyme": "^3.11.0",
@@ -69,5 +68,5 @@
         "prettier": "^2.3.1",
         "yarn-audit-fix": "^4.0.0"
     },
-    "prettier": "@pxblue/prettier-config"
+    "prettier": "@brightlayer-ui/prettier-config"
 }
