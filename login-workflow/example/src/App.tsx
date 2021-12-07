@@ -77,6 +77,13 @@ export const AuthUIConfiguration: React.FC = (props) => {
                     >
                         {`${t('BUTTONLABEL')}-ZH`}
                     </Button>
+                    <Button
+                        onClick={(): void => {
+                            void i18n.changeLanguage('pt');
+                        }}
+                    >
+                        {`${t('BUTTONLABEL')}-pt`}
+                    </Button>
                 </div>
             }
             // loginType={'username'}
