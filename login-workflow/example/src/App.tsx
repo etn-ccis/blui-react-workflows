@@ -82,7 +82,7 @@ export const AuthUIConfiguration: React.FC = (props) => {
                             void i18n.changeLanguage('pt');
                         }}
                     >
-                        {`${t('BUTTONLABEL')}-pt`}
+                        {`${t('BUTTONLABEL')}-PT`}
                     </Button>
                 </div>
             }
