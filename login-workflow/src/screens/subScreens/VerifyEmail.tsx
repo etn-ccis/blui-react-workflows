@@ -1,6 +1,10 @@
 import React, { useEffect } from 'react';
 import { useLanguageLocale } from '@brightlayer-ui/react-auth-shared';
-import { TextField, Typography, Divider, useTheme, Button } from '@material-ui/core';
+import Button from '@material-ui/core/Button';
+import Typography from '@material-ui/core/Typography';
+import TextField from '@material-ui/core/TextField';
+import Divider from '@material-ui/core/Divider';
+import useTheme from '@material-ui/core/styles/useTheme';
 import { useDialogStyles } from '../../styles';
 
 export type VerifyEmailProps = {

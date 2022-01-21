@@ -1,5 +1,7 @@
 import React, { useState } from 'react';
-import { TextField, InputAdornment, IconButton, TextFieldProps } from '@material-ui/core';
+import TextField, {TextFieldProps} from '@material-ui/core/TextField';
+import InputAdornment from '@material-ui/core/InputAdornment';
+import IconButton from '@material-ui/core/IconButton';
 import Visibility from '@material-ui/icons/Visibility';
 import VisibilityOff from '@material-ui/icons/VisibilityOff';
 

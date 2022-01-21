@@ -1,6 +1,8 @@
 import React, { ChangeEvent, useState, useCallback, MutableRefObject } from 'react';
 import { useLanguageLocale } from '@brightlayer-ui/react-auth-shared';
-import { Typography, Divider, useTheme } from '@material-ui/core';
+import Typography from '@material-ui/core/Typography';
+import Divider from '@material-ui/core/Divider';
+import useTheme from '@material-ui/core/styles/useTheme';
 import { SecureTextField } from '../SecureTextField';
 import { PasswordRequirements } from './PasswordRequirements';
 import { useDialogStyles } from '../../styles';

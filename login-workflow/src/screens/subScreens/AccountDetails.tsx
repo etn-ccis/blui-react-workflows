@@ -1,5 +1,7 @@
 import React, { useEffect, useRef } from 'react';
-import { TextField, Typography, Divider } from '@material-ui/core';
+import Typography from '@material-ui/core/Typography';
+import TextField from '@material-ui/core/TextField';
+import Divider from '@material-ui/core/Divider';
 import { useLanguageLocale, AccountDetailInformation, useInjectedUIContext } from '@brightlayer-ui/react-auth-shared';
 import { useDialogStyles } from '../../styles';
 
