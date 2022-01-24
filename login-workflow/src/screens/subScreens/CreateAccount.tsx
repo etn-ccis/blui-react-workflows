@@ -1,8 +1,6 @@
 import React, { useState } from 'react';
 import { EMAIL_REGEX, useLanguageLocale } from '@brightlayer-ui/react-auth-shared';
-import Typography from '@material-ui/core/Typography';
-import TextField from '@material-ui/core/TextField';
-import Divider from '@material-ui/core/Divider';
+import { TextField, Typography, Divider } from '@material-ui/core';
 import { useDialogStyles } from '../../styles';
 
 const isValidEmail = (text: string): boolean => new RegExp(EMAIL_REGEX).test(text);

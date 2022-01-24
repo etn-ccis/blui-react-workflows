@@ -11,10 +11,6 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 -   Support for Portuguese translations.
 
-### Updated
-
--   Import material-ui components via default imports instead of named imports to reduce overall bundle size ([#85](https://github.com/brightlayer-ui/react-themes/issues/85))
-
 ## v2.4.0 (December 6, 2021)
 
 ### Changed

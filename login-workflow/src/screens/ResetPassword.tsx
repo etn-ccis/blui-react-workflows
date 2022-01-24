@@ -9,14 +9,7 @@ import {
 import { useQueryString } from '../hooks/useQueryString';
 import { useRoutes } from '../contexts/RoutingContext';
 import { useHistory } from 'react-router-dom';
-import Button from '@material-ui/core/Button';
-import CardActions from '@material-ui/core/CardActions';
-import CardContent from '@material-ui/core/CardContent';
-import CardHeader from '@material-ui/core/CardHeader';
-import Divider from '@material-ui/core/Divider';
-import Typography from '@material-ui/core/Typography';
-import Grid from '@material-ui/core/Grid';
-import useTheme from '@material-ui/core/styles/useTheme';
+import { CardHeader, Typography, CardContent, Divider, CardActions, Grid, Button, useTheme } from '@material-ui/core';
 import { BrandedCardContainer, SimpleDialog, FinishState, ChangePasswordForm } from '../components';
 import { defaultPasswordRequirements } from '../constants';
 import CheckCircle from '@material-ui/icons/CheckCircle';

@@ -1,8 +1,5 @@
 import React, { useEffect, useRef, useState } from 'react';
-import createStyles from '@material-ui/core/styles/createStyles';
-import makeStyles from '@material-ui/core/styles/makeStyles';
-import TextField from '@material-ui/core/TextField';
-import { Theme } from '@material-ui/core/styles/createMuiTheme';
+import { makeStyles, createStyles, TextField, Theme } from '@material-ui/core';
 import { AccountDetailsFormProps } from '@brightlayer-ui/react-auth-workflow';
 
 export const useStyles = makeStyles((theme: Theme) =>
