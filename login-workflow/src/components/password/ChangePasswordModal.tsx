@@ -11,15 +11,17 @@ import {
     useInjectedUIContext,
     AccountActions,
 } from '@brightlayer-ui/react-auth-shared';
-import Dialog from '@material-ui/core/Dialog';
-import DialogTitle from '@material-ui/core/DialogTitle';
-import DialogContent from '@material-ui/core/DialogContent';
-import DialogActions from '@material-ui/core/DialogActions';
-import Button from '@material-ui/core/Button';
-import Grid from '@material-ui/core/Grid';
-import useTheme from '@material-ui/core/styles/useTheme';
-import Divider from '@material-ui/core/Divider';
-import useMediaQuery from '@material-ui/core/useMediaQuery';
+import {
+    Dialog,
+    DialogTitle,
+    DialogActions,
+    DialogContent,
+    Button,
+    Grid,
+    useTheme,
+    Divider,
+    useMediaQuery,
+} from '@material-ui/core';
 import { ChangePasswordForm } from './ChangePasswordForm';
 import { SecureTextField } from '../SecureTextField';
 import { SimpleDialog } from '../SimpleDialog';

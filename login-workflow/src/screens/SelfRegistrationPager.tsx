@@ -14,13 +14,7 @@ import {
 import { useHistory } from 'react-router-dom';
 import { useQueryString } from '../hooks/useQueryString';
 import { useRoutes } from '../contexts/RoutingContext';
-import Button from '@material-ui/core/Button';
-import CardActions from '@material-ui/core/CardActions';
-import CardContent from '@material-ui/core/CardContent';
-import CardHeader from '@material-ui/core/CardHeader';
-import Divider from '@material-ui/core/Divider';
-import Typography from '@material-ui/core/Typography';
-import MobileStepper from '@material-ui/core/MobileStepper';
+import { MobileStepper, Button, CardHeader, Typography, CardContent, Divider, CardActions } from '@material-ui/core';
 import { BrandedCardContainer, SimpleDialog } from '../components';
 import { CreateAccount as CreateAccountScreen } from './subScreens/CreateAccount';
 import { AcceptEula } from './subScreens/AcceptEula';

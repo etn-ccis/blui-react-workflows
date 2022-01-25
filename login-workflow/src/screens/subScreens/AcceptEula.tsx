@@ -1,9 +1,6 @@
 import React, { useEffect } from 'react';
 import { useLanguageLocale } from '@brightlayer-ui/react-auth-shared';
-import Typography from '@material-ui/core/Typography';
-import FormControlLabel from '@material-ui/core/FormControlLabel';
-import Checkbox from '@material-ui/core/Checkbox';
-import useTheme from '@material-ui/core/styles/useTheme';
+import { Typography, FormControlLabel, Checkbox, useTheme } from '@material-ui/core';
 import DOMPurify from 'dompurify';
 
 export type AcceptEulaProps = {

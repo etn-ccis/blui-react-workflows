@@ -10,18 +10,20 @@ import {
 import { Trans } from 'react-i18next';
 import { useHistory } from 'react-router-dom';
 import { BrandedCardContainer, SimpleDialog, FinishState } from '../components';
-import Button from '@material-ui/core/Button';
-import CardActions from '@material-ui/core/CardActions';
-import CardContent from '@material-ui/core/CardContent';
-import CardHeader from '@material-ui/core/CardHeader';
-import Divider from '@material-ui/core/Divider';
-import Typography from '@material-ui/core/Typography';
-import Grid from '@material-ui/core/Grid';
-import TextField from '@material-ui/core/TextField';
-import createStyles from '@material-ui/core/styles/createStyles';
-import makeStyles from '@material-ui/core/styles/makeStyles';
-import { Theme } from '@material-ui/core/styles/createMuiTheme';
-import useTheme from '@material-ui/core/styles/useTheme';
+import {
+    CardHeader,
+    Typography,
+    CardContent,
+    Divider,
+    CardActions,
+    Grid,
+    Button,
+    TextField,
+    makeStyles,
+    Theme,
+    createStyles,
+    useTheme,
+} from '@material-ui/core';
 import CheckCircle from '@material-ui/icons/CheckCircle';
 import { useDialogStyles } from '../styles';
 import clsx from 'clsx';
