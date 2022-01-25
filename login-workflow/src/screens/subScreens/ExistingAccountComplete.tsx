@@ -1,6 +1,6 @@
 import React from 'react';
 import { useLanguageLocale } from '@brightlayer-ui/react-auth-shared';
-import { useTheme } from '@material-ui/core';
+import useTheme from '@material-ui/core/styles/useTheme';
 import { FinishState } from '../../components';
 import Person from '@material-ui/icons/Person';
 

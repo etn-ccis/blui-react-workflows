@@ -11,20 +11,18 @@ import {
     EMAIL_REGEX,
 } from '@brightlayer-ui/react-auth-shared';
 import { Link } from 'react-router-dom';
-import {
-    useTheme,
-    Typography,
-    TextField,
-    Theme,
-    createStyles,
-    makeStyles,
-    Grid,
-    FormControlLabel,
-    Checkbox,
-    Button,
-} from '@material-ui/core';
+import Button from '@material-ui/core/Button';
+import Typography from '@material-ui/core/Typography';
+import TextField from '@material-ui/core/TextField';
+import Grid from '@material-ui/core/Grid';
+import FormControlLabel from '@material-ui/core/FormControlLabel';
+import Checkbox from '@material-ui/core/Checkbox';
+import useTheme from '@material-ui/core/styles/useTheme';
+import createStyles from '@material-ui/core/styles/createStyles';
+import makeStyles from '@material-ui/core/styles/makeStyles';
+import { Theme } from '@material-ui/core/styles/createMuiTheme';
 import { BrandedCardContainer, SimpleDialog, SecureTextField } from '../components';
-import { Close as CloseIcon } from '@material-ui/icons';
+import Close from '@material-ui/icons/Close';
 import stackedEatonLogo from '../assets/images/eaton_stacked_logo.png';
 import cyberBadge from '../assets/images/cybersecurity_certified.png';
 import * as Colors from '@brightlayer-ui/colors';
@@ -235,7 +233,7 @@ export const Login: React.FC = () => {
         !isInvalidCredentials && hasTransitError && transitErrorMessage && showErrorMessageBox ? (
             <div className={classes.errorMessageBox}>
                 {loginErrorDisplayConfig.dismissible !== false && (
-                    <CloseIcon
+                    <Close
                         className={classes.errorBoxDismissIcon}
                         onClick={(): void => {
                             setShowErrorMessageBox(false);
