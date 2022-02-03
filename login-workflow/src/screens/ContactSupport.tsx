@@ -7,14 +7,12 @@ import CardContent from '@material-ui/core/CardContent';
 import CardHeader from '@material-ui/core/CardHeader';
 import Divider from '@material-ui/core/Divider';
 import Typography from '@material-ui/core/Typography';
-import createStyles from '@material-ui/core/styles/createStyles';
-import makeStyles from '@material-ui/core/styles/makeStyles';
-import { Theme } from '@material-ui/core/styles/createMuiTheme';
-import useTheme from '@material-ui/core/styles/useTheme';
+import { Theme, createStyles, makeStyles, useTheme } from '@material-ui/core/styles';
 import { BrandedCardContainer } from '../components';
 import ChatBubbleOutline from '@material-ui/icons/ChatBubbleOutline';
-import { useDialogStyles } from '../styles';
 import clsx from 'clsx';
+import { sharedDialogStyles } from '../styles';
+const useDialogStyles = makeStyles(sharedDialogStyles);
 
 const useStyles = makeStyles((theme: Theme) =>
     createStyles({

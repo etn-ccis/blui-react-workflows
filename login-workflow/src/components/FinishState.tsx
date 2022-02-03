@@ -1,7 +1,5 @@
 import React from 'react';
-import createStyles from '@material-ui/core/styles/createStyles';
-import makeStyles from '@material-ui/core/styles/makeStyles';
-import { Theme } from '@material-ui/core/styles/createMuiTheme';
+import { Theme, createStyles, makeStyles } from '@material-ui/core/styles';
 import { EmptyStateProps, EmptyState } from '@brightlayer-ui/react-components';
 import clsx from 'clsx';
 

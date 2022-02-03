@@ -1,8 +1,6 @@
-import { createStyles } from '@material-ui/core';
-import makeStyles from '@material-ui/core/styles/makeStyles';
-import { Theme } from '@material-ui/core/styles/createMuiTheme';
+import { Theme, createStyles, StyleRules } from '@material-ui/core/styles';
 
-export const useDialogStyles = makeStyles((theme: Theme) =>
+export const sharedDialogStyles: (theme: Theme) => StyleRules = (theme: Theme) =>
     createStyles({
         dialogTitle: {
             padding: `${theme.spacing(4)}px ${theme.spacing(3)}px 0 ${theme.spacing(3)}px`,
@@ -54,5 +52,4 @@ export const useDialogStyles = makeStyles((theme: Theme) =>
             },
         },
         fullWidth: {},
-    })
-);
+    });

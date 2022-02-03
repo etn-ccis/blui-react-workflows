@@ -18,13 +18,11 @@ import Divider from '@material-ui/core/Divider';
 import Typography from '@material-ui/core/Typography';
 import Grid from '@material-ui/core/Grid';
 import TextField from '@material-ui/core/TextField';
-import createStyles from '@material-ui/core/styles/createStyles';
-import makeStyles from '@material-ui/core/styles/makeStyles';
-import { Theme } from '@material-ui/core/styles/createMuiTheme';
-import useTheme from '@material-ui/core/styles/useTheme';
+import { Theme, createStyles, makeStyles, useTheme } from '@material-ui/core/styles';
 import CheckCircle from '@material-ui/icons/CheckCircle';
-import { useDialogStyles } from '../styles';
 import clsx from 'clsx';
+import { sharedDialogStyles } from '../styles';
+const useDialogStyles = makeStyles(sharedDialogStyles);
 
 const useStyles = makeStyles((theme: Theme) =>
     createStyles({

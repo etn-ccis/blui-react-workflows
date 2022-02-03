@@ -29,9 +29,11 @@ import { CreatePassword as CreatePasswordScreen } from './subScreens/CreatePassw
 import { AccountDetails as AccountDetailsScreen, AccountDetailsWrapper } from './subScreens/AccountDetails';
 import { RegistrationComplete } from './subScreens/RegistrationComplete';
 import { ExistingAccountComplete } from './subScreens/ExistingAccountComplete';
-import { useDialogStyles } from '../styles';
 import clsx from 'clsx';
 import { CustomRegistrationDetailsGroup, RegistrationPage } from '../types';
+import { makeStyles } from '@material-ui/core/styles';
+import { sharedDialogStyles } from '../styles';
+const useDialogStyles = makeStyles(sharedDialogStyles);
 
 export const emptyAccountDetailInformation: AccountDetailInformation = {
     firstName: '',
