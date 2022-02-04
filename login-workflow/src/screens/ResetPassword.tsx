@@ -16,13 +16,14 @@ import CardHeader from '@material-ui/core/CardHeader';
 import Divider from '@material-ui/core/Divider';
 import Typography from '@material-ui/core/Typography';
 import Grid from '@material-ui/core/Grid';
-import useTheme from '@material-ui/core/styles/useTheme';
+import { useTheme, makeStyles } from '@material-ui/core/styles';
 import { BrandedCardContainer, SimpleDialog, FinishState, ChangePasswordForm } from '../components';
 import { defaultPasswordRequirements } from '../constants';
 import CheckCircle from '@material-ui/icons/CheckCircle';
 import Error from '@material-ui/icons/Error';
-import { useDialogStyles } from '../styles';
 import clsx from 'clsx';
+import { sharedDialogStyles } from '../styles';
+const useDialogStyles = makeStyles(sharedDialogStyles);
 
 /**
  * Renders a screen stack which handles the reset password flow (deep link from email).

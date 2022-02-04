@@ -17,7 +17,7 @@ import DialogContent from '@material-ui/core/DialogContent';
 import DialogActions from '@material-ui/core/DialogActions';
 import Button from '@material-ui/core/Button';
 import Grid from '@material-ui/core/Grid';
-import useTheme from '@material-ui/core/styles/useTheme';
+import { useTheme, makeStyles } from '@material-ui/core/styles';
 import Divider from '@material-ui/core/Divider';
 import useMediaQuery from '@material-ui/core/useMediaQuery';
 import { ChangePasswordForm } from './ChangePasswordForm';
@@ -26,8 +26,9 @@ import { SimpleDialog } from '../SimpleDialog';
 import { FinishState } from '../FinishState';
 import CheckCircle from '@material-ui/icons/CheckCircle';
 import { defaultPasswordRequirements } from '../../constants';
-import { useDialogStyles } from '../../styles';
 import clsx from 'clsx';
+import { sharedDialogStyles } from '../../styles';
+const useDialogStyles = makeStyles(sharedDialogStyles);
 
 /**
  * Component that renders a change password form in a modal dialog. This dialog is automatically

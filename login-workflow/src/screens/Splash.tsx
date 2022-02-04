@@ -1,8 +1,6 @@
 import React from 'react';
 import CardContent from '@material-ui/core/CardContent';
-import createStyles from '@material-ui/core/styles/createStyles';
-import makeStyles from '@material-ui/core/styles/makeStyles';
-import useTheme from '@material-ui/core/styles/useTheme';
+import { useTheme, createStyles, makeStyles } from '@material-ui/core/styles';
 import { BrandedCardContainer } from '../components';
 import CircularProgress from '@material-ui/core/CircularProgress';
 

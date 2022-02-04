@@ -21,7 +21,7 @@ import CardHeader from '@material-ui/core/CardHeader';
 import Divider from '@material-ui/core/Divider';
 import Typography from '@material-ui/core/Typography';
 import MobileStepper from '@material-ui/core/MobileStepper';
-import useTheme from '@material-ui/core/styles/useTheme';
+import { useTheme, makeStyles } from '@material-ui/core/styles';
 import { BrandedCardContainer, FinishState, SimpleDialog } from '../components';
 import { emptyAccountDetailInformation } from './SelfRegistrationPager';
 import { AcceptEula } from './subScreens/AcceptEula';
@@ -30,9 +30,11 @@ import { AccountDetails as AccountDetailsScreen, AccountDetailsWrapper } from '.
 import { RegistrationComplete } from './subScreens/RegistrationComplete';
 import { ExistingAccountComplete } from './subScreens/ExistingAccountComplete';
 import Error from '@material-ui/icons/Error';
-import { useDialogStyles } from '../styles';
+
 import clsx from 'clsx';
 import { CustomRegistrationDetailsGroup, RegistrationPage } from '../types';
+import { sharedDialogStyles } from '../styles';
+const useDialogStyles = makeStyles(sharedDialogStyles);
 
 /**
  * Container component that manages the transition between screens for the

@@ -3,7 +3,7 @@ import { useLanguageLocale } from '@brightlayer-ui/react-auth-shared';
 import Typography from '@material-ui/core/Typography';
 import FormControlLabel from '@material-ui/core/FormControlLabel';
 import Checkbox from '@material-ui/core/Checkbox';
-import useTheme from '@material-ui/core/styles/useTheme';
+import { useTheme } from '@material-ui/core/styles';
 import DOMPurify from 'dompurify';
 
 export type AcceptEulaProps = {

@@ -1,8 +1,6 @@
 import React from 'react';
 import Card from '@material-ui/core/Card';
-import { Theme } from '@material-ui/core/styles/createMuiTheme';
-import createStyles from '@material-ui/core/styles/createStyles';
-import makeStyles from '@material-ui/core/styles/makeStyles';
+import { Theme, createStyles, makeStyles } from '@material-ui/core/styles';
 import { Spinner } from './Spinner';
 import backgroundImage from '../assets/images/background.svg';
 import { useInjectedUIContext } from '@brightlayer-ui/react-auth-shared';
