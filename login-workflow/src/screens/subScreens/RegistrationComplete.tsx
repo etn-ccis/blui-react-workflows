@@ -1,7 +1,7 @@
 import React from 'react';
 import { useLanguageLocale } from '@brightlayer-ui/react-auth-shared';
 import { Trans } from 'react-i18next';
-import { useTheme } from '@material-ui/core';
+import { useTheme } from '@material-ui/core/styles';
 import { FinishState } from '../../components';
 import CheckCircle from '@material-ui/icons/CheckCircle';
 

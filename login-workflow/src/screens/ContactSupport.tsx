@@ -1,22 +1,18 @@
 import React from 'react';
 import { useLanguageLocale, useInjectedUIContext } from '@brightlayer-ui/react-auth-shared';
 import { useHistory } from 'react-router-dom';
-import {
-    CardContent,
-    Button,
-    CardActions,
-    Divider,
-    useTheme,
-    Typography,
-    makeStyles,
-    Theme,
-    createStyles,
-    CardHeader,
-} from '@material-ui/core';
+import Button from '@material-ui/core/Button';
+import CardActions from '@material-ui/core/CardActions';
+import CardContent from '@material-ui/core/CardContent';
+import CardHeader from '@material-ui/core/CardHeader';
+import Divider from '@material-ui/core/Divider';
+import Typography from '@material-ui/core/Typography';
+import { Theme, createStyles, makeStyles, useTheme } from '@material-ui/core/styles';
 import { BrandedCardContainer } from '../components';
 import ChatBubbleOutline from '@material-ui/icons/ChatBubbleOutline';
-import { useDialogStyles } from '../styles';
 import clsx from 'clsx';
+import { sharedDialogStyles } from '../styles';
+const useDialogStyles = makeStyles(sharedDialogStyles);
 
 const useStyles = makeStyles((theme: Theme) =>
     createStyles({

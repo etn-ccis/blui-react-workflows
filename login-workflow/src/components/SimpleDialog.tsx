@@ -1,7 +1,14 @@
 import React from 'react';
-import { DialogProps, Dialog, Typography, DialogTitle, DialogContent, DialogActions, Button } from '@material-ui/core';
+import Button from '@material-ui/core/Button';
+import Dialog, { DialogProps } from '@material-ui/core/Dialog';
+import Typography from '@material-ui/core/Typography';
+import DialogTitle from '@material-ui/core/DialogTitle';
+import DialogContent from '@material-ui/core/DialogContent';
+import DialogActions from '@material-ui/core/DialogActions';
 import { useLanguageLocale } from '@brightlayer-ui/react-auth-shared';
-import { useDialogStyles } from '../styles';
+import { makeStyles } from '@material-ui/core/styles';
+import { sharedDialogStyles } from '../styles';
+const useDialogStyles = makeStyles(sharedDialogStyles);
 
 export type SimpleDialogProps = DialogProps & {
     title: string;

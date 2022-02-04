@@ -1,9 +1,12 @@
 import React, { ChangeEvent, useState, useCallback, MutableRefObject } from 'react';
 import { useLanguageLocale } from '@brightlayer-ui/react-auth-shared';
-import { Typography, Divider, useTheme } from '@material-ui/core';
+import Typography from '@material-ui/core/Typography';
+import Divider from '@material-ui/core/Divider';
+import { useTheme, makeStyles } from '@material-ui/core/styles';
 import { SecureTextField } from '../SecureTextField';
 import { PasswordRequirements } from './PasswordRequirements';
-import { useDialogStyles } from '../../styles';
+import { sharedDialogStyles } from '../../styles';
+const useDialogStyles = makeStyles(sharedDialogStyles);
 
 export type ChangePasswordFormProps = {
     onPasswordChange: (passwords: { password: string; confirm: string }) => void;

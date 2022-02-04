@@ -1,6 +1,8 @@
 import React from 'react';
-import { CardContent, CircularProgress, useTheme, makeStyles, createStyles } from '@material-ui/core';
+import CardContent from '@material-ui/core/CardContent';
+import { useTheme, createStyles, makeStyles } from '@material-ui/core/styles';
 import { BrandedCardContainer } from '../components';
+import CircularProgress from '@material-ui/core/CircularProgress';
 
 type SplashProps = {
     mainImage?: string | number;
