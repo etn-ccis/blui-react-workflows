@@ -11,20 +11,21 @@ import {
     useInjectedUIContext,
     AccountActions,
 } from '@brightlayer-ui/react-auth-shared';
-import Dialog from '@material-ui/core/Dialog';
-import DialogTitle from '@material-ui/core/DialogTitle';
-import DialogContent from '@material-ui/core/DialogContent';
-import DialogActions from '@material-ui/core/DialogActions';
-import Button from '@material-ui/core/Button';
-import Grid from '@material-ui/core/Grid';
-import { useTheme, makeStyles } from '@material-ui/core/styles';
-import Divider from '@material-ui/core/Divider';
-import useMediaQuery from '@material-ui/core/useMediaQuery';
+import Dialog from '@mui/material/Dialog';
+import DialogTitle from '@mui/material/DialogTitle';
+import DialogContent from '@mui/material/DialogContent';
+import DialogActions from '@mui/material/DialogActions';
+import Button from '@mui/material/Button';
+import Grid from '@mui/material/Grid';
+import { useTheme } from '@mui/material/styles';
+import makeStyles from '@mui/styles/makeStyles';
+import Divider from '@mui/material/Divider';
+import useMediaQuery from '@mui/material/useMediaQuery';
 import { ChangePasswordForm } from './ChangePasswordForm';
 import { SecureTextField } from '../SecureTextField';
 import { SimpleDialog } from '../SimpleDialog';
 import { FinishState } from '../FinishState';
-import CheckCircle from '@material-ui/icons/CheckCircle';
+import CheckCircle from '@mui/icons-material/CheckCircle';
 import { defaultPasswordRequirements } from '../../constants';
 import clsx from 'clsx';
 import { sharedDialogStyles } from '../../styles';
@@ -44,7 +45,7 @@ export const ChangePasswordModal: React.FC = () => {
     const securityHelper = useSecurityActions();
     const theme = useTheme();
     const sharedClasses = useDialogStyles();
-    const matchesXS = useMediaQuery(theme.breakpoints.down('xs'));
+    const matchesXS = useMediaQuery(theme.breakpoints.down('sm'));
 
     const passwordRef = useRef(null);
     const confirmRef = useRef(null);
@@ -82,7 +83,7 @@ export const ChangePasswordModal: React.FC = () => {
             await accountUIActions.actions.changePassword(currentPassword, password);
             setTransitState(transitSuccess());
         } catch (error) {
-            setTransitState(transitFailed(error.message));
+            // setTransitState(transitFailed(error.message));
         }
     }, [accountUIActions, currentPassword, password]);
 
@@ -150,8 +151,9 @@ export const ChangePasswordModal: React.FC = () => {
             fullScreen={matchesXS ? true : false}
             open={securityState.isShowingChangePassword}
             maxWidth={'xs'}
-            onExited={resetForm}
-        >
+            TransitionProps={{
+                onExited: resetForm
+            }}>
             {errorDialog}
             <DialogTitle className={sharedClasses.dialogTitle}>{t('blui:CHANGE_PASSWORD.PASSWORD')}</DialogTitle>
             <DialogContent className={sharedClasses.dialogContent} style={{ flex: '1 1 auto' }}>
@@ -159,7 +161,7 @@ export const ChangePasswordModal: React.FC = () => {
             </DialogContent>
             <Divider style={{ marginTop: theme.spacing(2) }} />
             <DialogActions className={sharedClasses.dialogActions}>
-                <Grid container direction="row" alignItems="center" justify="space-between" style={{ width: '100%' }}>
+                <Grid container direction="row" alignItems="center" justifyContent="space-between" style={{ width: '100%' }}>
                     {!success && (
                         <Button
                             variant="outlined"

@@ -1,6 +1,8 @@
 import React from 'react';
-import Card from '@material-ui/core/Card';
-import { Theme, createStyles, makeStyles } from '@material-ui/core/styles';
+import Card from '@mui/material/Card';
+import { Theme } from '@mui/material/styles';
+import createStyles from '@mui/styles/createStyles';
+import makeStyles from '@mui/styles/makeStyles';
 import { Spinner } from './Spinner';
 import backgroundImage from '../assets/images/background.svg';
 import { useInjectedUIContext } from '@brightlayer-ui/react-auth-shared';
@@ -16,7 +18,7 @@ const useStyles = makeStyles((theme: Theme) =>
             display: 'flex',
             flexDirection: 'column',
             position: 'relative',
-            [theme.breakpoints.down('xs')]: {
+            [theme.breakpoints.down('sm')]: {
                 maxWidth: 'none',
                 maxHeight: 'none',
                 borderRadius: 0,
@@ -25,7 +27,7 @@ const useStyles = makeStyles((theme: Theme) =>
         brandingPanel: {
             height: '100%',
             width: '100%',
-            backgroundColor: theme.palette.type === 'light' ? theme.palette.primary.main : theme.palette.primary.dark,
+            backgroundColor: theme.palette.mode === 'light' ? theme.palette.primary.main : theme.palette.primary.dark,
             backgroundImage: `url(${backgroundImage})`,
             display: 'flex',
             alignItems: 'center',

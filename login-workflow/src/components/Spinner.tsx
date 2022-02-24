@@ -1,6 +1,9 @@
 import React from 'react';
-import CircularProgress from '@material-ui/core/CircularProgress';
-import { Theme, createStyles, makeStyles, useTheme } from '@material-ui/core/styles';
+import CircularProgress from '@mui/material/CircularProgress';
+import { Theme, useTheme } from '@mui/material/styles';
+
+import createStyles from '@mui/styles/createStyles';
+import makeStyles from '@mui/styles/makeStyles';
 
 const useStyles = makeStyles((theme: Theme) =>
     createStyles({
@@ -11,7 +14,7 @@ const useStyles = makeStyles((theme: Theme) =>
             right: 0,
             bottom: 0,
             zIndex: 1000,
-            backgroundColor: theme.palette.type === 'light' ? 'rgba(255,255,255,0.6)' : 'rgba(0,0,0,0.7)',
+            backgroundColor: theme.palette.mode === 'light' ? 'rgba(255,255,255,0.6)' : 'rgba(0,0,0,0.7)',
             display: 'flex',
             alignItems: 'center',
             justifyContent: 'center',

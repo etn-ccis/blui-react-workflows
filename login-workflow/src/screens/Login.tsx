@@ -11,15 +11,17 @@ import {
     EMAIL_REGEX,
 } from '@brightlayer-ui/react-auth-shared';
 import { Link } from 'react-router-dom';
-import Button from '@material-ui/core/Button';
-import Typography from '@material-ui/core/Typography';
-import TextField from '@material-ui/core/TextField';
-import Grid from '@material-ui/core/Grid';
-import FormControlLabel from '@material-ui/core/FormControlLabel';
-import Checkbox from '@material-ui/core/Checkbox';
-import { Theme, createStyles, makeStyles, useTheme } from '@material-ui/core/styles';
+import Button from '@mui/material/Button';
+import Typography from '@mui/material/Typography';
+import TextField from '@mui/material/TextField';
+import Grid from '@mui/material/Grid';
+import FormControlLabel from '@mui/material/FormControlLabel';
+import Checkbox from '@mui/material/Checkbox';
+import { Theme, useTheme } from '@mui/material/styles';
+import createStyles from '@mui/styles/createStyles';
+import makeStyles from '@mui/styles/makeStyles';
 import { BrandedCardContainer, SimpleDialog, SecureTextField } from '../components';
-import Close from '@material-ui/icons/Close';
+import Close from '@mui/icons-material/Close';
 import stackedEatonLogo from '../assets/images/eaton_stacked_logo.png';
 import cyberBadge from '../assets/images/cybersecurity_certified.png';
 import * as Colors from '@brightlayer-ui/colors';
@@ -34,7 +36,7 @@ const useStyles = makeStyles((theme: Theme) =>
             '&$hasError': {
                 marginBottom: theme.spacing(4),
             },
-            [theme.breakpoints.down('xs')]: {
+            [theme.breakpoints.down('sm')]: {
                 marginBottom: theme.spacing(3) + HELPER_TEXT_HEIGHT,
                 '&$hasError': {
                     marginBottom: theme.spacing(3),
@@ -50,7 +52,7 @@ const useStyles = makeStyles((theme: Theme) =>
         buttonRow: {
             marginBottom: theme.spacing(5),
             flexWrap: 'nowrap',
-            [theme.breakpoints.down('xs')]: {
+            [theme.breakpoints.down('sm')]: {
                 flexWrap: 'wrap',
                 flexDirection: 'column',
                 justifyContent: 'center',
@@ -89,11 +91,11 @@ const useStyles = makeStyles((theme: Theme) =>
             marginBottom: theme.spacing(2),
         },
         formContent: {
-            padding: `${theme.spacing(4)}px ${theme.spacing(8)}px`,
+            padding: `${theme.spacing(4)} ${theme.spacing(8)}`,
             display: 'flex',
             flexDirection: 'column',
-            [theme.breakpoints.down('xs')]: {
-                padding: `${theme.spacing(4)}px ${theme.spacing(4)}px`,
+            [theme.breakpoints.down('sm')]: {
+                padding: `${theme.spacing(4)} ${theme.spacing(4)}`,
             },
         },
         link: {
@@ -115,7 +117,7 @@ const useStyles = makeStyles((theme: Theme) =>
             color: theme.palette.text.secondary,
         },
         rememberMeCheckbox: {
-            [theme.breakpoints.down('xs')]: {
+            [theme.breakpoints.down('sm')]: {
                 marginRight: 0,
             },
         },
@@ -402,7 +404,7 @@ export const Login: React.FC = () => {
                         container
                         direction="row"
                         alignItems="center"
-                        justify="space-between"
+                        justifyContent="space-between"
                         className={classes.buttonRow}
                     >
                         {showRememberMe && (

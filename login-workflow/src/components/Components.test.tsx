@@ -5,7 +5,7 @@ import Enzyme, { shallow } from 'enzyme';
 import Adapter from 'enzyme-adapter-react-16';
 import { BrandedCardContainer } from './BrandedCardContainer';
 import { FinishState } from './FinishState';
-import CheckCircle from '@material-ui/icons/CheckCircle';
+import CheckCircle from '@mui/icons-material/CheckCircle';
 import { PrivateRoute } from './PrivateRoute';
 import { BrowserRouter } from 'react-router-dom';
 import { SecureTextField } from './SecureTextField';
