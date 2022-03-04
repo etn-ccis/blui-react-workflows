@@ -32,7 +32,7 @@ const HELPER_TEXT_HEIGHT = 22;
 const useStyles = makeStyles((theme: Theme) =>
     createStyles({
         emailFormField: {
-            marginBottom: theme.spacing(4) + HELPER_TEXT_HEIGHT,
+            marginBottom: (parseInt(theme.spacing(4)) + HELPER_TEXT_HEIGHT).toString() + 'px',
             '&$hasError': {
                 marginBottom: theme.spacing(4),
             },
@@ -44,7 +44,8 @@ const useStyles = makeStyles((theme: Theme) =>
             },
         },
         passwordFormField: {
-            marginBottom: theme.spacing(3) + HELPER_TEXT_HEIGHT,
+            marginBottom: (parseInt(theme.spacing(3)) + HELPER_TEXT_HEIGHT).toString() + 'px',
+            // marginBottom: theme.spacing(3) + HELPER_TEXT_HEIGHT,
             '&$hasError': {
                 marginBottom: theme.spacing(3),
             },
