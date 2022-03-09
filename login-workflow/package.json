@@ -75,7 +75,7 @@
         "@mui/styles": "^5.4.1",
         "@brightlayer-ui/eslint-config": "^2.0.5",
         "@brightlayer-ui/prettier-config": "^1.0.3",
-        "@brightlayer-ui/react-components": "^6.0.0-alpha.1",
+        "@brightlayer-ui/react-components": "^6.0.0-alpha.2",
         "@brightlayer-ui/react-themes": "^7.0.0-alpha.0",
         "@types/color": "^3.0.1",
         "@types/dompurify": "^2.2.2",
