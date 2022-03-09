@@ -1025,10 +1025,10 @@
   resolved "https://registry.yarnpkg.com/@brightlayer-ui/react-auth-shared/-/react-auth-shared-3.6.0.tgz#db32c7f079fe05bee22f553bac227d82c482a858"
   integrity sha512-kVYK3VagIF3Yw9OOqjAhUuiNhMBBcX2dbcnaTiti98+O+RbjHvCyW9Z+a7fNnFvqxQr/cCubnUkLVFYLFeNGiA==
 
-"@brightlayer-ui/react-components@^6.0.0-alpha.2":
-  version "6.0.0-alpha.2"
-  resolved "https://registry.yarnpkg.com/@brightlayer-ui/react-components/-/react-components-6.0.0-alpha.2.tgz#d15da79384c39d3a4459bbf2867887ed04cef7be"
-  integrity sha512-LueznvWt4GVJPBTsIzEdWOJlFhqGhQe2CJ7z2X1CryssWvgvYPpTX448m+7FWjmJ0rmmk7ePFP0sgajw2/7zmg==
+"@brightlayer-ui/react-components@^6.0.0-alpha.3":
+  version "6.0.0-alpha.3"
+  resolved "https://registry.yarnpkg.com/@brightlayer-ui/react-components/-/react-components-6.0.0-alpha.3.tgz#574630206d89f2c57575ceaac692ce72e1f62e08"
+  integrity sha512-nk9rBO+tgsV6tnMCbEhRXmZoIG9LrJ75q6wdd27N1UnYLLs6F10i8PxgCU9mISGZ5pD00OcjqdFCvO+BZl2Jxg==
   dependencies:
     "@brightlayer-ui/colors" "^3.0.0"
     "@seznam/compose-react-refs" "^1.0.6"
