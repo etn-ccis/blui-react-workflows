@@ -6,7 +6,8 @@ jobs:
   build_login_workflow:
     working_directory: ~/login-workflow
     docker:
-      - image: circleci/node:12.6
+      - image: cimg/node:14.19.0-browsers
+    resource_class: large
     steps:
       - checkout
       - restore_cache:
@@ -27,9 +28,6 @@ jobs:
           command: |
             cd login-workflow
             yarn prettier:check
-      - run:
-          name: Set Max Memory
-          command: NODE_OPTIONS=--max_old_space_size=4096
       - run:
           name: Lint
           command: |
@@ -53,7 +51,7 @@ jobs:
   coverage_report:
         working_directory: ~/react-native-component-library
         docker:
-            - image: circleci/node:12.9.1-browsers
+            - image: cimg/node:14.19.0-browsers
         steps:
             - checkout
             - attach_workspace:
@@ -64,7 +62,7 @@ jobs:
 
   publish_login_workflow:
     docker:
-      - image: circleci/node:12.9.1-browsers
+      - image: cimg/node:14.19.0-browsers
     steps:
       - checkout
       - attach_workspace:
@@ -81,7 +79,7 @@ jobs:
 
   tag_login_workflow:
     docker:
-      - image: circleci/node:12.9.1-browsers
+      - image: cimg/node:14.19.0-browsers
     steps:
       - checkout
       - gh/setup
