@@ -168,7 +168,13 @@ export const ForgotPassword: React.FC = () => {
             <CardContent className={sharedClasses.dialogContent}>{body}</CardContent>
             <Divider />
             <CardActions className={sharedClasses.dialogActions}>
-                <Grid container direction="row" alignItems="center" justifyContent="space-between" style={{ width: '100%' }}>
+                <Grid
+                    container
+                    direction="row"
+                    alignItems="center"
+                    justifyContent="space-between"
+                    style={{ width: '100%' }}
+                >
                     {!finished && (
                         <Button
                             variant="outlined"

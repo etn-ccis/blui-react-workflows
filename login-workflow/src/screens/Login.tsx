@@ -32,19 +32,19 @@ const HELPER_TEXT_HEIGHT = 22;
 const useStyles = makeStyles((theme: Theme) =>
     createStyles({
         emailFormField: {
-            marginBottom: (parseInt(theme.spacing(4)) + HELPER_TEXT_HEIGHT).toString() + 'px',
+            marginBottom: `${(parseInt(theme.spacing(4)) + HELPER_TEXT_HEIGHT).toString()  }px`,
             '&$hasError': {
                 marginBottom: theme.spacing(4),
             },
             [theme.breakpoints.down('sm')]: {
-                marginBottom: theme.spacing(3) + HELPER_TEXT_HEIGHT,
+                marginBottom: `${(parseInt(theme.spacing(3)) + HELPER_TEXT_HEIGHT).toString()  }px`,
                 '&$hasError': {
                     marginBottom: theme.spacing(3),
                 },
             },
         },
         passwordFormField: {
-            marginBottom: (parseInt(theme.spacing(3)) + HELPER_TEXT_HEIGHT).toString() + 'px',
+            marginBottom: `${(parseInt(theme.spacing(3)) + HELPER_TEXT_HEIGHT).toString()  }px`,
             // marginBottom: theme.spacing(3) + HELPER_TEXT_HEIGHT,
             '&$hasError': {
                 marginBottom: theme.spacing(3),

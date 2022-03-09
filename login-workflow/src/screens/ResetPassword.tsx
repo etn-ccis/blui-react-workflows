@@ -183,7 +183,13 @@ export const ResetPassword: React.FC = () => {
             <CardContent className={classes.dialogContent}>{getBody()}</CardContent>
             <Divider />
             <CardActions className={classes.dialogActions}>
-                <Grid container direction="row" alignItems="center" justifyContent="space-between" style={{ width: '100%' }}>
+                <Grid
+                    container
+                    direction="row"
+                    alignItems="center"
+                    justifyContent="space-between"
+                    style={{ width: '100%' }}
+                >
                     {!setPasswordTransitSuccess && (
                         <Button
                             variant="outlined"

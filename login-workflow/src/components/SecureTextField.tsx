@@ -28,7 +28,8 @@ export const SecureTextField: React.FC<TextFieldProps> = (props) => {
                             aria-label="Toggle password visibility"
                             onClick={(): void => setShowPassword(!showPassword)}
                             edge={'end'}
-                            size="large">
+                            size="large"
+                        >
                             {showPassword ? <Visibility /> : <VisibilityOff />}
                         </IconButton>
                     </InputAdornment>

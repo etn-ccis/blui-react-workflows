@@ -83,7 +83,7 @@ export const ChangePasswordModal: React.FC = () => {
             await accountUIActions.actions.changePassword(currentPassword, password);
             setTransitState(transitSuccess());
         } catch (error) {
-            // setTransitState(transitFailed(error.message));
+            setTransitState(transitFailed(error.message));
         }
     }, [accountUIActions, currentPassword, password]);
 
@@ -152,8 +152,9 @@ export const ChangePasswordModal: React.FC = () => {
             open={securityState.isShowingChangePassword}
             maxWidth={'xs'}
             TransitionProps={{
-                onExited: resetForm
-            }}>
+                onExited: resetForm,
+            }}
+        >
             {errorDialog}
             <DialogTitle className={sharedClasses.dialogTitle}>{t('blui:CHANGE_PASSWORD.PASSWORD')}</DialogTitle>
             <DialogContent className={sharedClasses.dialogContent} style={{ flex: '1 1 auto' }}>
@@ -161,7 +162,13 @@ export const ChangePasswordModal: React.FC = () => {
             </DialogContent>
             <Divider style={{ marginTop: theme.spacing(2) }} />
             <DialogActions className={sharedClasses.dialogActions}>
-                <Grid container direction="row" alignItems="center" justifyContent="space-between" style={{ width: '100%' }}>
+                <Grid
+                    container
+                    direction="row"
+                    alignItems="center"
+                    justifyContent="space-between"
+                    style={{ width: '100%' }}
+                >
                     {!success && (
                         <Button
                             variant="outlined"

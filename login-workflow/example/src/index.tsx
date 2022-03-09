@@ -1,5 +1,5 @@
 import 'react-app-polyfill/ie11';
-import { ThemeProvider, createTheme , StyledEngineProvider} from '@mui/material/styles';
+import { ThemeProvider, createTheme, StyledEngineProvider } from '@mui/material/styles';
 import 'react-app-polyfill/stable';
 import React from 'react';
 import ReactDOM from 'react-dom';
@@ -14,14 +14,12 @@ import './index.css';
 ReactDOM.render(
     // Enable Strict Mode for more error checking
     <React.StrictMode>
-    <StyledEngineProvider injectFirst>
-        <ThemeProvider theme={createTheme(
-                            BLUIThemes.blue
-                    )}>
-            <CssBaseline />
-            <App />
-        </ThemeProvider>
-    </StyledEngineProvider>
+        <StyledEngineProvider injectFirst>
+            <ThemeProvider theme={createTheme(BLUIThemes.blue)}>
+                <CssBaseline />
+                <App />
+            </ThemeProvider>
+        </StyledEngineProvider>
     </React.StrictMode>,
     document.getElementById('root')
 );
