@@ -1,10 +1,11 @@
 import React, { useEffect } from 'react';
 import { useLanguageLocale } from '@brightlayer-ui/react-auth-shared';
-import Button from '@material-ui/core/Button';
-import Typography from '@material-ui/core/Typography';
-import TextField from '@material-ui/core/TextField';
-import Divider from '@material-ui/core/Divider';
-import { useTheme, makeStyles } from '@material-ui/core/styles';
+import Button from '@mui/material/Button';
+import Typography from '@mui/material/Typography';
+import TextField from '@mui/material/TextField';
+import Divider from '@mui/material/Divider';
+import { useTheme } from '@mui/material/styles';
+import makeStyles from '@mui/styles/makeStyles';
 import { sharedDialogStyles } from '../../styles';
 const useDialogStyles = makeStyles(sharedDialogStyles);
 

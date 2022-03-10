@@ -1,7 +1,9 @@
 import React from 'react';
-import Typography from '@material-ui/core/Typography';
-import { Theme, createStyles, makeStyles } from '@material-ui/core/styles';
-import Check from '@material-ui/icons/Check';
+import Typography from '@mui/material/Typography';
+import { Theme } from '@mui/material/styles';
+import createStyles from '@mui/styles/createStyles';
+import makeStyles from '@mui/styles/makeStyles';
+import Check from '@mui/icons-material/Check';
 
 export type PasswordRequirementsCheckProps = {
     isChecked: boolean;

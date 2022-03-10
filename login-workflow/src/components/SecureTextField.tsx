@@ -1,9 +1,9 @@
 import React, { useState } from 'react';
-import TextField, { TextFieldProps } from '@material-ui/core/TextField';
-import InputAdornment from '@material-ui/core/InputAdornment';
-import IconButton from '@material-ui/core/IconButton';
-import Visibility from '@material-ui/icons/Visibility';
-import VisibilityOff from '@material-ui/icons/VisibilityOff';
+import TextField, { TextFieldProps } from '@mui/material/TextField';
+import InputAdornment from '@mui/material/InputAdornment';
+import IconButton from '@mui/material/IconButton';
+import Visibility from '@mui/icons-material/Visibility';
+import VisibilityOff from '@mui/icons-material/VisibilityOff';
 
 /**
  * Component that renders textfield with a visibility toggle. The toggle changes the
@@ -28,6 +28,7 @@ export const SecureTextField: React.FC<TextFieldProps> = (props) => {
                             aria-label="Toggle password visibility"
                             onClick={(): void => setShowPassword(!showPassword)}
                             edge={'end'}
+                            size="large"
                         >
                             {showPassword ? <Visibility /> : <VisibilityOff />}
                         </IconButton>

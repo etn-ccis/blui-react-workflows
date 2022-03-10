@@ -10,16 +10,18 @@ import {
 import { Trans } from 'react-i18next';
 import { useHistory } from 'react-router-dom';
 import { BrandedCardContainer, SimpleDialog, FinishState } from '../components';
-import Button from '@material-ui/core/Button';
-import CardActions from '@material-ui/core/CardActions';
-import CardContent from '@material-ui/core/CardContent';
-import CardHeader from '@material-ui/core/CardHeader';
-import Divider from '@material-ui/core/Divider';
-import Typography from '@material-ui/core/Typography';
-import Grid from '@material-ui/core/Grid';
-import TextField from '@material-ui/core/TextField';
-import { Theme, createStyles, makeStyles, useTheme } from '@material-ui/core/styles';
-import CheckCircle from '@material-ui/icons/CheckCircle';
+import Button from '@mui/material/Button';
+import CardActions from '@mui/material/CardActions';
+import CardContent from '@mui/material/CardContent';
+import CardHeader from '@mui/material/CardHeader';
+import Divider from '@mui/material/Divider';
+import Typography from '@mui/material/Typography';
+import Grid from '@mui/material/Grid';
+import TextField from '@mui/material/TextField';
+import { Theme, useTheme } from '@mui/material/styles';
+import createStyles from '@mui/styles/createStyles';
+import makeStyles from '@mui/styles/makeStyles';
+import CheckCircle from '@mui/icons-material/CheckCircle';
 import clsx from 'clsx';
 import { sharedDialogStyles } from '../styles';
 const useDialogStyles = makeStyles(sharedDialogStyles);
@@ -166,7 +168,13 @@ export const ForgotPassword: React.FC = () => {
             <CardContent className={sharedClasses.dialogContent}>{body}</CardContent>
             <Divider />
             <CardActions className={sharedClasses.dialogActions}>
-                <Grid container direction="row" alignItems="center" justify="space-between" style={{ width: '100%' }}>
+                <Grid
+                    container
+                    direction="row"
+                    alignItems="center"
+                    justifyContent="space-between"
+                    style={{ width: '100%' }}
+                >
                     {!finished && (
                         <Button
                             variant="outlined"

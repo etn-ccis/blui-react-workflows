@@ -1,15 +1,15 @@
 import React, { useEffect, useRef, useState } from 'react';
-import createStyles from '@material-ui/core/styles/createStyles';
-import makeStyles from '@material-ui/core/styles/makeStyles';
-import TextField from '@material-ui/core/TextField';
-import { Theme } from '@material-ui/core/styles/createMuiTheme';
+import { Theme } from '@mui/material/styles';
+import createStyles from '@mui/styles/createStyles';
+import makeStyles from '@mui/styles/makeStyles';
+import TextField from '@mui/material/TextField';
 import { AccountDetailsFormProps } from '@brightlayer-ui/react-auth-workflow';
 
 export const useStyles = makeStyles((theme: Theme) =>
     createStyles({
         textField: {
             marginTop: theme.spacing(4),
-            [theme.breakpoints.down('xs')]: {
+            [theme.breakpoints.down('sm')]: {
                 marginTop: theme.spacing(3),
             },
         },

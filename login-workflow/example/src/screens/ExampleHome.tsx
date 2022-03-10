@@ -3,7 +3,7 @@ import logo from './logo.svg';
 import './Home.css';
 import { useSecurityActions } from '@brightlayer-ui/react-auth-shared';
 import { LocalStorage } from '../store/local-storage';
-import Button from '@material-ui/core/Button';
+import Button from '@mui/material/Button';
 
 export const ExampleHome: React.FC = () => {
     const securityHelper = useSecurityActions();

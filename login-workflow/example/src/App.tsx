@@ -21,7 +21,7 @@ import productLogo from './assets/images/eaton_stacked_logo.png';
 
 // Imports for internationalization
 import i18n from 'i18next';
-import Button from '@material-ui/core/Button';
+import Button from '@mui/material/Button';
 import { useTranslation } from 'react-i18next';
 
 // Uncomment these lines to add your app-specific translation resource
@@ -50,6 +50,7 @@ export const AuthUIConfiguration: React.FC = (props) => {
             loginFooter={
                 <div style={{ display: 'flex', alignItems: 'center' }}>
                     <Button
+                        color={'inherit'}
                         onClick={(): void => {
                             void i18n.changeLanguage('en');
                         }}
@@ -57,6 +58,7 @@ export const AuthUIConfiguration: React.FC = (props) => {
                         {`${t('BUTTONLABEL')}-EN`}
                     </Button>
                     <Button
+                        color={'inherit'}
                         onClick={(): void => {
                             void i18n.changeLanguage('es');
                         }}
@@ -64,6 +66,7 @@ export const AuthUIConfiguration: React.FC = (props) => {
                         {`${t('BUTTONLABEL')}-ES`}
                     </Button>
                     <Button
+                        color={'inherit'}
                         onClick={(): void => {
                             void i18n.changeLanguage('fr');
                         }}
@@ -71,6 +74,7 @@ export const AuthUIConfiguration: React.FC = (props) => {
                         {`${t('BUTTONLABEL')}-FR`}
                     </Button>
                     <Button
+                        color={'inherit'}
                         onClick={(): void => {
                             void i18n.changeLanguage('zh');
                         }}
@@ -78,6 +82,7 @@ export const AuthUIConfiguration: React.FC = (props) => {
                         {`${t('BUTTONLABEL')}-ZH`}
                     </Button>
                     <Button
+                        color={'inherit'}
                         onClick={(): void => {
                             void i18n.changeLanguage('pt');
                         }}
