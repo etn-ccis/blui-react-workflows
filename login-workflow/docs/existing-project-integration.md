@@ -14,9 +14,9 @@ yarn add @brightlayer-ui/react-auth-workflow
 
 This package also has a number of peer dependency requirements that you will also need to install in your project. To install the latest version of all of these peer dependencies, run the following command in your project root:
 ```
-npm install --save @material-ui/core @brightlayer-ui/colors @brightlayer-ui/react-components date-fns i18next react-dom react-i18next react-router-dom
+npm install --save @mui/material @emotion/react @emotion/styled @mui/styles @brightlayer-ui/colors @brightlayer-ui/react-components date-fns i18next react-dom react-i18next react-router-dom
 // or
-yarn add @material-ui/core @brightlayer-ui/colors @brightlayer-ui/react-components date-fns i18next react-dom react-i18next react-router-dom
+yarn add @mui/material @emotion/react @emotion/styled @mui/styles @brightlayer-ui/colors @brightlayer-ui/react-components date-fns i18next react-dom react-i18next react-router-dom
 ```
 
 #### Implement AuthUIActions and RegistrationUIActions
