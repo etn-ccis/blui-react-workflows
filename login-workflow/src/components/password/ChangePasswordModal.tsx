@@ -45,7 +45,7 @@ export const ChangePasswordModal: React.FC = () => {
     const securityHelper = useSecurityActions();
     const theme = useTheme();
     const sharedClasses = useDialogStyles();
-    const matchesXS = useMediaQuery(theme.breakpoints.down('sm'));
+    const matchesSM = useMediaQuery(theme.breakpoints.down('sm'));
 
     const passwordRef = useRef(null);
     const confirmRef = useRef(null);
@@ -151,7 +151,7 @@ export const ChangePasswordModal: React.FC = () => {
 
     return (
         <Dialog
-            fullScreen={matchesXS ? true : false}
+            fullScreen={matchesSM ? true : false}
             open={securityState.isShowingChangePassword}
             maxWidth={'xs'}
             TransitionProps={{

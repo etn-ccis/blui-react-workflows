@@ -50,6 +50,7 @@ export const AuthUIConfiguration: React.FC = (props) => {
             loginFooter={
                 <div style={{ display: 'flex', alignItems: 'center' }}>
                     <Button
+                        color={'inherit'}
                         onClick={(): void => {
                             void i18n.changeLanguage('en');
                         }}
@@ -57,6 +58,7 @@ export const AuthUIConfiguration: React.FC = (props) => {
                         {`${t('BUTTONLABEL')}-EN`}
                     </Button>
                     <Button
+                        color={'inherit'}
                         onClick={(): void => {
                             void i18n.changeLanguage('es');
                         }}
@@ -64,6 +66,7 @@ export const AuthUIConfiguration: React.FC = (props) => {
                         {`${t('BUTTONLABEL')}-ES`}
                     </Button>
                     <Button
+                        color={'inherit'}
                         onClick={(): void => {
                             void i18n.changeLanguage('fr');
                         }}
@@ -71,6 +74,7 @@ export const AuthUIConfiguration: React.FC = (props) => {
                         {`${t('BUTTONLABEL')}-FR`}
                     </Button>
                     <Button
+                        color={'inherit'}
                         onClick={(): void => {
                             void i18n.changeLanguage('zh');
                         }}
@@ -78,6 +82,7 @@ export const AuthUIConfiguration: React.FC = (props) => {
                         {`${t('BUTTONLABEL')}-ZH`}
                     </Button>
                     <Button
+                        color={'inherit'}
                         onClick={(): void => {
                             void i18n.changeLanguage('pt');
                         }}
@@ -86,7 +91,7 @@ export const AuthUIConfiguration: React.FC = (props) => {
                     </Button>
                 </div>
             }
-            loginType={'username'}
+            // loginType={'username'}
             // Uncomment this line to see how to add custom form fields to the registration screens
             // customAccountDetails={[
             //     { component: CustomDetailsScreen },

@@ -52,7 +52,7 @@ import { ProjectRegistrationUIActions } from './src/actions/RegistrationUIAction
 2. Inside your root export, wrap your entire application as follows, where `<YourApp>` is your existing app structure XML (if you used the Brightlayer UI CLI to create your project, the `ThemeProvider` should already be configured. If you didn't, you can skip those wrappers or follow the manual [integration instructions](https://brightlayer-ui.github.io/development/frameworks-web/react)):
 
 ```tsx
-<ThemeProvider theme={createMuiTheme(BLUIThemes.blue)}>
+<ThemeProvider theme={createTheme(BLUIThemes.blue)}>
     <CssBaseline />
     <SecurityContextProvider>
         <AuthUIConfiguration>
