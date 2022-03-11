@@ -37,8 +37,8 @@ export const RegistrationComplete: React.FC<RegistrationCompleteProps> = (props)
                     i18nKey={'blui:REGISTRATION.SUCCESS_MESSAGE_ALT'}
                     values={{ email: email, organization: organization }}
                 >
-                    Your account has successfully been created with the email <b>{email}</b> belonging to the{' '}
-                    <b>{organization}</b> org.
+                    Your account has successfully been created with the email <b>{email}</b> belonging to the
+                    <b>{` ${organization}`}</b> org.
                 </Trans>
             }
         />
