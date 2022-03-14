@@ -37,7 +37,7 @@ export const ProjectRegistrationUIActions: () => RegistrationUIActions = () => (
             throw new Error('Sorry, there was a problem sending your request.');
         }
 
-        if (language !== 'en' && language !== 'en_US') {
+        if (!language.includes('en')) {
             return 'Other language EULA';
         }
 

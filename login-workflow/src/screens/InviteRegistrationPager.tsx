@@ -14,16 +14,14 @@ import i18n from '../translations/i18n';
 import { useHistory } from 'react-router-dom';
 import { useRoutes } from '../contexts/RoutingContext';
 import { useQueryString } from '../hooks/useQueryString';
-import {
-    Button,
-    MobileStepper,
-    CardHeader,
-    Typography,
-    CardContent,
-    Divider,
-    CardActions,
-    useTheme,
-} from '@material-ui/core';
+import Button from '@material-ui/core/Button';
+import CardActions from '@material-ui/core/CardActions';
+import CardContent from '@material-ui/core/CardContent';
+import CardHeader from '@material-ui/core/CardHeader';
+import Divider from '@material-ui/core/Divider';
+import Typography from '@material-ui/core/Typography';
+import MobileStepper from '@material-ui/core/MobileStepper';
+import { useTheme, makeStyles } from '@material-ui/core/styles';
 import { BrandedCardContainer, FinishState, SimpleDialog } from '../components';
 import { emptyAccountDetailInformation } from './SelfRegistrationPager';
 import { AcceptEula } from './subScreens/AcceptEula';
@@ -32,9 +30,11 @@ import { AccountDetails as AccountDetailsScreen, AccountDetailsWrapper } from '.
 import { RegistrationComplete } from './subScreens/RegistrationComplete';
 import { ExistingAccountComplete } from './subScreens/ExistingAccountComplete';
 import Error from '@material-ui/icons/Error';
-import { useDialogStyles } from '../styles';
+
 import clsx from 'clsx';
 import { CustomRegistrationDetailsGroup, RegistrationPage } from '../types';
+import { sharedDialogStyles } from '../styles';
+const useDialogStyles = makeStyles(sharedDialogStyles);
 
 /**
  * Container component that manages the transition between screens for the

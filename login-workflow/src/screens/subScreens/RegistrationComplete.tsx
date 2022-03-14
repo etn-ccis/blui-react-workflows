@@ -1,7 +1,7 @@
 import React from 'react';
 import { useLanguageLocale } from '@brightlayer-ui/react-auth-shared';
 import { Trans } from 'react-i18next';
-import { useTheme } from '@material-ui/core';
+import { useTheme } from '@material-ui/core/styles';
 import { FinishState } from '../../components';
 import CheckCircle from '@material-ui/icons/CheckCircle';
 
@@ -37,8 +37,8 @@ export const RegistrationComplete: React.FC<RegistrationCompleteProps> = (props)
                     i18nKey={'blui:REGISTRATION.SUCCESS_MESSAGE_ALT'}
                     values={{ email: email, organization: organization }}
                 >
-                    Your account has successfully been created with the email <b>{email}</b> belonging to the{' '}
-                    <b>{organization}</b> org.
+                    Your account has successfully been created with the email <b>{email}</b> belonging to the
+                    <b>{` ${organization}`}</b> org.
                 </Trans>
             }
         />

@@ -21,7 +21,7 @@ import productLogo from './assets/images/eaton_stacked_logo.png';
 
 // Imports for internationalization
 import i18n from 'i18next';
-import { Button } from '@material-ui/core';
+import Button from '@material-ui/core/Button';
 import { useTranslation } from 'react-i18next';
 
 // Uncomment these lines to add your app-specific translation resource
@@ -76,6 +76,13 @@ export const AuthUIConfiguration: React.FC = (props) => {
                         }}
                     >
                         {`${t('BUTTONLABEL')}-ZH`}
+                    </Button>
+                    <Button
+                        onClick={(): void => {
+                            void i18n.changeLanguage('pt');
+                        }}
+                    >
+                        {`${t('BUTTONLABEL')}-PT`}
                     </Button>
                 </div>
             }

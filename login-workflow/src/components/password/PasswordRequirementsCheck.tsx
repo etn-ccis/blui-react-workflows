@@ -1,5 +1,6 @@
 import React from 'react';
-import { Typography, makeStyles, createStyles, Theme } from '@material-ui/core';
+import Typography from '@material-ui/core/Typography';
+import { Theme, createStyles, makeStyles } from '@material-ui/core/styles';
 import Check from '@material-ui/icons/Check';
 
 export type PasswordRequirementsCheckProps = {

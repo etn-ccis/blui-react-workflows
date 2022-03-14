@@ -14,7 +14,7 @@ void i18n
             caches: ['localStorage'],
             lookupLocalStorage: 'blui-auth-i18nextLng',
         },
-        whitelist: ['en', 'fr', 'es', 'zh'],
+        whitelist: ['en', 'fr', 'es', 'zh', 'pt'],
         ns: ['app', 'blui'],
         defaultNS: 'app',
         fallbackNS: 'blui',
@@ -33,6 +33,10 @@ void i18n
             },
             zh: {
                 blui: translations.chinese.translation,
+                app: {},
+            },
+            pt: {
+                blui: translations.portuguese.translation,
                 app: {},
             },
         },
