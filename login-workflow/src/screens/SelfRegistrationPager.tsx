@@ -1,3 +1,4 @@
+/* eslint-disable @typescript-eslint/naming-convention */
 import React, { useState, useEffect, useCallback, ComponentType } from 'react';
 import i18n from '../translations/i18n';
 import {
@@ -219,6 +220,7 @@ export const SelfRegistrationPager: React.FC = () => {
                 <AcceptEula
                     eulaAccepted={eulaAccepted}
                     onEulaChanged={setEulaAccepted}
+                    // eslint-disable-next-line @typescript-eslint/no-misused-promises
                     loadEula={loadAndCacheEula}
                     htmlEula={injectedUIContext.htmlEula ?? false}
                     eulaError={loadEulaTransitErrorMessage}

@@ -1,3 +1,4 @@
+/* eslint-disable @typescript-eslint/naming-convention */
 import React, { ChangeEvent, useCallback, useEffect, useRef } from 'react';
 import { useRoutes } from '../contexts/RoutingContext';
 import {
