@@ -1,4 +1,3 @@
-/* eslint-disable @typescript-eslint/naming-convention */
 import React, { useState, useEffect, useCallback, ComponentType } from 'react';
 import i18n from '../translations/i18n';
 import {

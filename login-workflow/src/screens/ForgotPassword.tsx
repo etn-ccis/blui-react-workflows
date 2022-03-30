@@ -1,4 +1,3 @@
-/* eslint-disable @typescript-eslint/naming-convention */
 import React, { useEffect, ChangeEvent, useCallback } from 'react';
 import {
     useLanguageLocale,

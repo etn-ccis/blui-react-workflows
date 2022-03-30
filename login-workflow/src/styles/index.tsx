@@ -1,4 +1,3 @@
-/* eslint-disable @typescript-eslint/naming-convention */
 import { Theme } from '@mui/material/styles';
 
 import { StyleRules } from '@mui/styles';
