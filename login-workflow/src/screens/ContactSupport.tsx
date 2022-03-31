@@ -1,6 +1,6 @@
 import React from 'react';
 import { useLanguageLocale, useInjectedUIContext } from '@brightlayer-ui/react-auth-shared';
-import { useHistory } from 'react-router-dom';
+import { useNavigate } from 'react-router-dom';
 import Button from '@mui/material/Button';
 import CardActions from '@mui/material/CardActions';
 import CardContent from '@mui/material/CardContent';
@@ -81,7 +81,7 @@ export const ContactSupportContent: React.FC = () => {
  */
 export const ContactSupport: React.FC = () => {
     const { t } = useLanguageLocale();
-    const history = useHistory();
+    const navigate = useNavigate();
     const classes = useDialogStyles();
 
     return (
@@ -100,7 +100,7 @@ export const ContactSupport: React.FC = () => {
                     color="primary"
                     disableElevation
                     className={clsx(classes.dialogButton, { [classes.fullWidth]: true })}
-                    onClick={(): void => history.goBack()}
+                    onClick={(): void => navigate(-1)}
                 >
                     {t('blui:ACTIONS.OKAY')}
                 </Button>

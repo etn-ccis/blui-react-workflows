@@ -8,7 +8,7 @@ import {
     useInjectedUIContext,
 } from '@brightlayer-ui/react-auth-shared';
 import { Trans } from 'react-i18next';
-import { useHistory } from 'react-router-dom';
+import { useNavigate } from 'react-router-dom';
 import { BrandedCardContainer, SimpleDialog, FinishState } from '../components';
 import Button from '@mui/material/Button';
 import CardActions from '@mui/material/CardActions';
@@ -48,7 +48,7 @@ const useStyles = makeStyles((theme: Theme) =>
  */
 export const ForgotPassword: React.FC = () => {
     const { t } = useLanguageLocale();
-    const history = useHistory();
+    const navigate = useNavigate();
     const classes = useStyles();
     const sharedClasses = useDialogStyles();
     const theme = useTheme();
@@ -82,11 +82,11 @@ export const ForgotPassword: React.FC = () => {
 
     const onContinue = useCallback((): void => {
         if (accountUIState.forgotPassword.transitSuccess) {
-            history.goBack();
+            navigate(-1);
         } else {
             resetPassword(emailInput);
         }
-    }, [accountUIState, resetPassword, history, emailInput]);
+    }, [accountUIState, resetPassword, navigate, emailInput]);
 
     // Reset state on dismissal
     useEffect(
@@ -179,7 +179,7 @@ export const ForgotPassword: React.FC = () => {
                         <Button
                             variant="outlined"
                             color="primary"
-                            onClick={(): void => history.goBack()}
+                            onClick={(): void => navigate(-1)}
                             className={sharedClasses.dialogButton}
                         >
                             {t('blui:ACTIONS.BACK')}

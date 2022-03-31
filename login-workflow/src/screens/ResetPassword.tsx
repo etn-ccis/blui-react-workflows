@@ -8,7 +8,7 @@ import {
 } from '@brightlayer-ui/react-auth-shared';
 import { useQueryString } from '../hooks/useQueryString';
 import { useRoutes } from '../contexts/RoutingContext';
-import { useHistory } from 'react-router-dom';
+import { useNavigate } from 'react-router-dom';
 import Button from '@mui/material/Button';
 import CardActions from '@mui/material/CardActions';
 import CardContent from '@mui/material/CardContent';
@@ -33,7 +33,7 @@ const useDialogStyles = makeStyles(sharedDialogStyles);
  */
 export const ResetPassword: React.FC = () => {
     const { t } = useLanguageLocale();
-    const history = useHistory();
+    const navigate = useNavigate();
     const { routes } = useRoutes();
     const theme = useTheme();
     const classes = useDialogStyles();
@@ -109,11 +109,11 @@ export const ResetPassword: React.FC = () => {
     );
     const onContinue = useCallback(() => {
         if (setPasswordTransitSuccess) {
-            history.push(routes.LOGIN);
+            navigate(routes.LOGIN);
         } else {
             resetPassword(passwordInput);
         }
-    }, [resetPassword, setPasswordTransitSuccess, passwordInput, history, routes]);
+    }, [resetPassword, setPasswordTransitSuccess, passwordInput, navigate, routes]);
 
     const getBody = useCallback(
         () =>
@@ -194,7 +194,7 @@ export const ResetPassword: React.FC = () => {
                         <Button
                             variant="outlined"
                             color="primary"
-                            onClick={(): void => history.push(routes.LOGIN)}
+                            onClick={(): void => navigate(routes.LOGIN)}
                             className={classes.dialogButton}
                         >
                             {t('blui:ACTIONS.BACK')}

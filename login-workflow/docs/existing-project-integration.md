@@ -2,10 +2,10 @@
 
 To start integrating this package into an existing application, you must first have an application. We recommend using the [Brightlayer UI CLI](https://www.npmjs.com/package/@brightlayer-ui/cli) to initialize your project. 
 
-
 #### Installation and Setup
 
 Once you have a project, you can install this package via:
+
 ```shell
 npm install --save @brightlayer-ui/react-auth-workflow
 // or
@@ -13,6 +13,7 @@ yarn add @brightlayer-ui/react-auth-workflow
 ```
 
 This package also has a number of peer dependency requirements that you will also need to install in your project. To install the latest version of all of these peer dependencies, run the following command in your project root:
+
 ```
 npm install --save @mui/material @emotion/react @emotion/styled @mui/styles @brightlayer-ui/colors @brightlayer-ui/react-components date-fns i18next react-dom react-i18next react-router-dom
 // or
@@ -21,7 +22,7 @@ yarn add @mui/material @emotion/react @emotion/styled @mui/styles @brightlayer-u
 
 #### Implement AuthUIActions and RegistrationUIActions
 
-You need to implement the backend networking for all networking within react-auth-workflow. Your implementation will likely involve writing calls to your APIs and caching the returned data, as needed, depending on the requirements of your application. The example application has these actions mocked with calls to `sleep`.
+You need to implement the backend networking for all networking within react-auth-workflow. Your implementation will likely involve writing calls to your APIs and caching the returned data, as needed, depending on the requirements of your application. The example application has these actions mocked with calls to `sleep` .
 
 1. Create a `/src` folder in your application if it does not already exist
 2. Add an `/actions` folder inside the `src` directory.
@@ -31,24 +32,26 @@ You need to implement the backend networking for all networking within react-aut
     - You can copy these files directly from the [example](https://github.com/brightlayer-ui/react-workflows/tree/master/login-workflow/example) project as a starting point and then update the implementation details if you choose.
 4. You might also want to copy over the `example/src/store` and `example/src/constants` folders from react-auth-workflow for the purposes of compiling with the mock `AuthUIActions` and `RegistrationUIActions` before you write your own implementation. These sample implementations make use of the browser LocalStorage, but you may want to use a different approach in order to follow best practices for cybersecurity.
 5. Import the actions in your root app file (usually App.tsx):
+
 ```
 import { ProjectAuthUIActions } from './src/actions/AuthUIActions';
 import { ProjectRegistrationUIActions } from './src/actions/RegistrationUIActions';
 ```
 
-
 #### Setting Up the Application Structure
 
 1. In the root app file (generally App.tsx), add the following imports to the top of the file:
+    
 
-    ```tsx
-    import {
-        SecurityContextProvider,
-        AuthNavigationContainer,
-        AuthUIContextProvider,
-        useSecurityActions,
-    } from '@brightlayer-ui/react-auth-workflow';
-    ```
+```tsx
+import {
+    SecurityContextProvider,
+    AuthNavigationContainer,
+    AuthUIContextProvider,
+    useSecurityActions,
+} from '@brightlayer-ui/react-auth-workflow';
+```
+
 2. Inside your root export, wrap your entire application as follows, where `<YourApp>` is your existing app structure XML (if you used the Brightlayer UI CLI to create your project, the `ThemeProvider` should already be configured. If you didn't, you can skip those wrappers or follow the manual [integration instructions](https://brightlayer-ui.github.io/development/frameworks-web/react)):
 
 ```tsx
@@ -62,8 +65,21 @@ import { ProjectRegistrationUIActions } from './src/actions/RegistrationUIAction
         </AuthUIConfiguration>
     </SecurityContextProvider>
 </ThemeProvider>
-``` 
+```
 
+`<YourApp>` must be a collection of `<Route>` elements the define the route structure for your main application, e.g., :
+
+```tsx
+<AuthNavigationContainer /*routeConfig={routes}*/>
+    <>
+        <Route path={''} element={<HomePage />} />
+        <Route path={'subpage'} element={<SubPage />} />
+        <Route path={'subpage/nested'} element={<NestedSubpage />} />
+        {/* Redirect any other routes to home page */}
+        <Route path={'*'} element={<Navigate to={''} />} /> 
+    </>
+</AuthNavigationContainer>
+```
 
 #### Configure AuthUIContextProvider
 
@@ -88,6 +104,7 @@ export const AuthUIConfiguration = (props) => {
     );
 }
 ```
+
 You can skip passing the `projectImage` property if you don't have one yet.
 
 You can read more about customizing the `AuthUIContextProvider` in the [Customization Guide](https://github.com/brightlayer-ui/react-workflows/tree/master/login-workflow/docs/customization.md) 

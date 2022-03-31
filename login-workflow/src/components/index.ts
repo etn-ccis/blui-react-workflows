@@ -1,5 +1,5 @@
 export { BrandedCardContainer } from './BrandedCardContainer';
-export { PrivateRoute } from './PrivateRoute';
+export { AuthGuard } from './AuthGuard';
 export { SecureTextField } from './SecureTextField';
 export { SimpleDialog } from './SimpleDialog';
 export { Spinner } from './Spinner';

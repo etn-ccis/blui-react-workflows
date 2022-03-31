@@ -26,6 +26,7 @@ echo -e "${BLUE}Building workflow package...${NC}"
 yarn build
 
 echo -en "${BLUE}Creating new folder in node_modules...${NC}"
+rm -rf "./example/node_modules/.cache"
 rm -rf "./example/node_modules/@brightlayer-ui/react-auth-workflow"
 mkdir -p "./example/node_modules/@brightlayer-ui/react-auth-workflow"
 

@@ -11,7 +11,7 @@ import {
     RegistrationActions,
 } from '@brightlayer-ui/react-auth-shared';
 import i18n from '../translations/i18n';
-import { useHistory } from 'react-router-dom';
+import { useNavigate } from 'react-router-dom';
 import { useRoutes } from '../contexts/RoutingContext';
 import { useQueryString } from '../hooks/useQueryString';
 import Button from '@mui/material/Button';
@@ -45,7 +45,7 @@ const useDialogStyles = makeStyles(sharedDialogStyles);
  */
 export const InviteRegistrationPager: React.FC = () => {
     const { t } = useLanguageLocale();
-    const history = useHistory();
+    const navigate = useNavigate();
     const { routes } = useRoutes();
     const sharedClasses = useDialogStyles();
     const theme = useTheme();
@@ -309,9 +309,9 @@ export const InviteRegistrationPager: React.FC = () => {
         if (delta === 0) {
             return;
         } else if (isFirstStep && delta < 0) {
-            history.push(routes.LOGIN);
+            navigate(routes.LOGIN);
         } else if (isLastStep && delta > 0) {
-            history.push(routes.LOGIN);
+            navigate(routes.LOGIN);
         } else {
             // If this is the last user-entry step of the invite flow, it is time to make a network call
             // Check > 0 so advancing backwards does not risk going into the completion block
@@ -445,7 +445,7 @@ export const InviteRegistrationPager: React.FC = () => {
                             variant="contained"
                             color="primary"
                             disableElevation
-                            onClick={(): void => history.push(routes.LOGIN)}
+                            onClick={(): void => navigate(routes.LOGIN)}
                             className={sharedClasses.dialogButton}
                         >
                             {t('blui:ACTIONS.CONTINUE')}
