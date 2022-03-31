@@ -10,7 +10,7 @@ export type AcceptEulaProps = {
     eulaAccepted: boolean;
     eulaContent?: string;
     onEulaChanged: (accepted: boolean) => void;
-    loadEula: () => void;
+    loadEula: () => Promise<void> | void;
     htmlEula?: boolean;
     eulaError?: string;
 };
@@ -35,7 +35,7 @@ export const AcceptEula: React.FC<AcceptEulaProps> = (props) => {
     const eulaContentInternals = eulaContent ?? eulaError ?? t('blui:REGISTRATION.EULA.LOADING');
 
     useEffect(() => {
-        loadEula();
+        void loadEula();
         // eslint-disable-next-line react-hooks/exhaustive-deps
     }, []);
 
@@ -45,7 +45,6 @@ export const AcceptEula: React.FC<AcceptEulaProps> = (props) => {
             {htmlEula && (
                 <div
                     style={{ flex: '1 1 0px', overflow: 'auto' }}
-                    /* eslint-disable-next-line @typescript-eslint/naming-convention */
                     dangerouslySetInnerHTML={{ __html: DOMPurify.sanitize(eulaContentInternals) }}
                 ></div>
             )}
