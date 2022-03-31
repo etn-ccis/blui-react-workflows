@@ -174,7 +174,6 @@ export const InviteRegistrationPager: React.FC = () => {
                 <AcceptEula
                     eulaAccepted={eulaAccepted}
                     onEulaChanged={setEulaAccepted}
-                    // eslint-disable-next-line @typescript-eslint/no-misused-promises
                     loadEula={loadAndCacheEula}
                     htmlEula={injectedUIContext.htmlEula ?? false}
                     eulaError={loadEulaTransitErrorMessage}
