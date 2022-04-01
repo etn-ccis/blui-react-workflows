@@ -1,11 +1,14 @@
-import { Theme, createStyles, StyleRules } from '@material-ui/core/styles';
+import { Theme } from '@mui/material/styles';
+
+import { StyleRules } from '@mui/styles';
+import createStyles from '@mui/styles/createStyles';
 
 export const sharedDialogStyles: (theme: Theme) => StyleRules = (theme: Theme) =>
     createStyles({
         dialogTitle: {
-            padding: `${theme.spacing(4)}px ${theme.spacing(3)}px 0 ${theme.spacing(3)}px`,
-            [theme.breakpoints.down('xs')]: {
-                padding: `${theme.spacing(2)}px ${theme.spacing(2)}px 0 ${theme.spacing(2)}px`,
+            padding: `${theme.spacing(4)} ${theme.spacing(3)} 0 ${theme.spacing(3)}`,
+            [theme.breakpoints.down('sm')]: {
+                padding: `${theme.spacing(2)} ${theme.spacing(2)} 0 ${theme.spacing(2)}`,
             },
         },
         dialogContent: {
@@ -13,15 +16,15 @@ export const sharedDialogStyles: (theme: Theme) => StyleRules = (theme: Theme) =
             overflow: 'auto',
             display: 'flex',
             flexDirection: 'column',
-            padding: `${theme.spacing(2)}px ${theme.spacing(3)}px`,
-            [theme.breakpoints.down('xs')]: {
-                padding: `${theme.spacing(2)}px ${theme.spacing(2)}px ${theme.spacing(3)}px ${theme.spacing(2)}px`,
+            padding: `${theme.spacing(2)} ${theme.spacing(3)}`,
+            [theme.breakpoints.down('sm')]: {
+                padding: `${theme.spacing(2)} ${theme.spacing(2)} ${theme.spacing(3)} ${theme.spacing(2)}`,
             },
         },
         dialogActions: {
             padding: theme.spacing(3),
             justifyContent: 'flex-end',
-            [theme.breakpoints.down('xs')]: {
+            [theme.breakpoints.down('sm')]: {
                 padding: theme.spacing(2),
             },
         },
@@ -32,9 +35,9 @@ export const sharedDialogStyles: (theme: Theme) => StyleRules = (theme: Theme) =
             },
         },
         fullDivider: {
-            margin: `${theme.spacing(5)}px -${theme.spacing(3)}px ${theme.spacing(4)}px`,
-            [theme.breakpoints.down('xs')]: {
-                margin: `${theme.spacing(5)}px -${theme.spacing(2)}px ${theme.spacing(4)}px`,
+            margin: `${theme.spacing(5)} -${theme.spacing(3)} ${theme.spacing(4)}`,
+            [theme.breakpoints.down('sm')]: {
+                margin: `${theme.spacing(5)} -${theme.spacing(2)} ${theme.spacing(4)}`,
             },
         },
         stepper: {
@@ -43,11 +46,11 @@ export const sharedDialogStyles: (theme: Theme) => StyleRules = (theme: Theme) =
             padding: 0,
         },
         stepperDot: {
-            margin: `0px ${theme.spacing(0.5)}px`,
+            margin: `0px ${theme.spacing(0.5)}`,
         },
         textField: {
             marginTop: theme.spacing(4),
-            [theme.breakpoints.down('xs')]: {
+            [theme.breakpoints.down('sm')]: {
                 marginTop: theme.spacing(3),
             },
         },

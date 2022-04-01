@@ -11,17 +11,18 @@ import {
     RegistrationActions,
 } from '@brightlayer-ui/react-auth-shared';
 import i18n from '../translations/i18n';
-import { useHistory } from 'react-router-dom';
+import { useNavigate } from 'react-router-dom';
 import { useRoutes } from '../contexts/RoutingContext';
 import { useQueryString } from '../hooks/useQueryString';
-import Button from '@material-ui/core/Button';
-import CardActions from '@material-ui/core/CardActions';
-import CardContent from '@material-ui/core/CardContent';
-import CardHeader from '@material-ui/core/CardHeader';
-import Divider from '@material-ui/core/Divider';
-import Typography from '@material-ui/core/Typography';
-import MobileStepper from '@material-ui/core/MobileStepper';
-import { useTheme, makeStyles } from '@material-ui/core/styles';
+import Button from '@mui/material/Button';
+import CardActions from '@mui/material/CardActions';
+import CardContent from '@mui/material/CardContent';
+import CardHeader from '@mui/material/CardHeader';
+import Divider from '@mui/material/Divider';
+import Typography from '@mui/material/Typography';
+import MobileStepper from '@mui/material/MobileStepper';
+import { useTheme } from '@mui/material/styles';
+import makeStyles from '@mui/styles/makeStyles';
 import { BrandedCardContainer, FinishState, SimpleDialog } from '../components';
 import { emptyAccountDetailInformation } from './SelfRegistrationPager';
 import { AcceptEula } from './subScreens/AcceptEula';
@@ -29,7 +30,7 @@ import { CreatePassword as CreatePasswordScreen } from './subScreens/CreatePassw
 import { AccountDetails as AccountDetailsScreen, AccountDetailsWrapper } from './subScreens/AccountDetails';
 import { RegistrationComplete } from './subScreens/RegistrationComplete';
 import { ExistingAccountComplete } from './subScreens/ExistingAccountComplete';
-import Error from '@material-ui/icons/Error';
+import Error from '@mui/icons-material/Error';
 
 import clsx from 'clsx';
 import { CustomRegistrationDetailsGroup, RegistrationPage } from '../types';
@@ -44,7 +45,7 @@ const useDialogStyles = makeStyles(sharedDialogStyles);
  */
 export const InviteRegistrationPager: React.FC = () => {
     const { t } = useLanguageLocale();
-    const history = useHistory();
+    const navigate = useNavigate();
     const { routes } = useRoutes();
     const sharedClasses = useDialogStyles();
     const theme = useTheme();
@@ -308,9 +309,9 @@ export const InviteRegistrationPager: React.FC = () => {
         if (delta === 0) {
             return;
         } else if (isFirstStep && delta < 0) {
-            history.push(routes.LOGIN);
+            navigate(routes.LOGIN);
         } else if (isLastStep && delta > 0) {
-            history.push(routes.LOGIN);
+            navigate(routes.LOGIN);
         } else {
             // If this is the last user-entry step of the invite flow, it is time to make a network call
             // Check > 0 so advancing backwards does not risk going into the completion block
@@ -444,7 +445,7 @@ export const InviteRegistrationPager: React.FC = () => {
                             variant="contained"
                             color="primary"
                             disableElevation
-                            onClick={(): void => history.push(routes.LOGIN)}
+                            onClick={(): void => navigate(routes.LOGIN)}
                             className={sharedClasses.dialogButton}
                         >
                             {t('blui:ACTIONS.CONTINUE')}

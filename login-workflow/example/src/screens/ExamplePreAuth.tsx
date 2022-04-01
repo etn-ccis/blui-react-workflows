@@ -1,8 +1,8 @@
 import React from 'react';
 import logo from './logo.svg';
 import './Home.css';
-import Button from '@material-ui/core/Button';
-import Typography from '@material-ui/core/Typography';
+import Button from '@mui/material/Button';
+import Typography from '@mui/material/Typography';
 import { useSecurityState } from '@brightlayer-ui/react-auth-shared';
 import { Link } from 'react-router-dom';
 

@@ -1,15 +1,17 @@
 import React from 'react';
 import { useLanguageLocale, useInjectedUIContext } from '@brightlayer-ui/react-auth-shared';
-import { useHistory } from 'react-router-dom';
-import Button from '@material-ui/core/Button';
-import CardActions from '@material-ui/core/CardActions';
-import CardContent from '@material-ui/core/CardContent';
-import CardHeader from '@material-ui/core/CardHeader';
-import Divider from '@material-ui/core/Divider';
-import Typography from '@material-ui/core/Typography';
-import { Theme, createStyles, makeStyles, useTheme } from '@material-ui/core/styles';
+import { useNavigate } from 'react-router-dom';
+import Button from '@mui/material/Button';
+import CardActions from '@mui/material/CardActions';
+import CardContent from '@mui/material/CardContent';
+import CardHeader from '@mui/material/CardHeader';
+import Divider from '@mui/material/Divider';
+import Typography from '@mui/material/Typography';
+import { Theme, useTheme } from '@mui/material/styles';
+import createStyles from '@mui/styles/createStyles';
+import makeStyles from '@mui/styles/makeStyles';
 import { BrandedCardContainer } from '../components';
-import ChatBubbleOutline from '@material-ui/icons/ChatBubbleOutline';
+import ChatBubbleOutline from '@mui/icons-material/ChatBubbleOutline';
 import clsx from 'clsx';
 import { sharedDialogStyles } from '../styles';
 const useDialogStyles = makeStyles(sharedDialogStyles);
@@ -79,7 +81,7 @@ export const ContactSupportContent: React.FC = () => {
  */
 export const ContactSupport: React.FC = () => {
     const { t } = useLanguageLocale();
-    const history = useHistory();
+    const navigate = useNavigate();
     const classes = useDialogStyles();
 
     return (
@@ -98,7 +100,7 @@ export const ContactSupport: React.FC = () => {
                     color="primary"
                     disableElevation
                     className={clsx(classes.dialogButton, { [classes.fullWidth]: true })}
-                    onClick={(): void => history.goBack()}
+                    onClick={(): void => navigate(-1)}
                 >
                     {t('blui:ACTIONS.OKAY')}
                 </Button>

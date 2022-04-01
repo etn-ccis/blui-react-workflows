@@ -1,15 +1,15 @@
 import React from 'react';
 import { RegistrationData } from '@brightlayer-ui/react-auth-workflow';
-import Button from '@material-ui/core/Button';
-import CardActions from '@material-ui/core/CardActions';
-import CardContent from '@material-ui/core/CardContent';
-import CardHeader from '@material-ui/core/CardHeader';
-import Divider from '@material-ui/core/Divider';
-import Typography from '@material-ui/core/Typography';
-import useMediaQuery from '@material-ui/core/useMediaQuery';
+import Button from '@mui/material/Button';
+import CardActions from '@mui/material/CardActions';
+import CardContent from '@mui/material/CardContent';
+import CardHeader from '@mui/material/CardHeader';
+import Divider from '@mui/material/Divider';
+import Typography from '@mui/material/Typography';
+import useMediaQuery from '@mui/material/useMediaQuery';
 import { Link } from 'react-router-dom';
 import { EmptyState } from '@brightlayer-ui/react-components';
-import Person from '@material-ui/icons/Person';
+import Person from '@mui/icons-material/Person';
 
 type CustomRegistrationProps = {
     registrationData: RegistrationData;

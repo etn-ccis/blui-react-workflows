@@ -1,24 +1,25 @@
 import 'react-app-polyfill/ie11';
+import { ThemeProvider, createTheme, StyledEngineProvider } from '@mui/material/styles';
 import 'react-app-polyfill/stable';
 import React from 'react';
 import ReactDOM from 'react-dom';
 import * as serviceWorker from './serviceWorker';
-import createMuiTheme from '@material-ui/core/styles/createMuiTheme';
-import ThemeProvider from '@material-ui/styles/ThemeProvider';
 import { App } from './App';
-import CssBaseline from '@material-ui/core/CssBaseline';
+import CssBaseline from '@mui/material/CssBaseline';
 import * as BLUIThemes from '@brightlayer-ui/react-themes';
 import '@brightlayer-ui/react-themes/open-sans';
 import './index.css';
 
 ReactDOM.render(
     // Enable Strict Mode for more error checking
-    // <React.StrictMode>
-    <ThemeProvider theme={createMuiTheme(BLUIThemes.blue)}>
-        <CssBaseline />
-        <App />
-    </ThemeProvider>,
-    // </React.StrictMode>
+    <React.StrictMode>
+        <StyledEngineProvider injectFirst>
+            <ThemeProvider theme={createTheme(BLUIThemes.blue)}>
+                <CssBaseline />
+                <App />
+            </ThemeProvider>
+        </StyledEngineProvider>
+    </React.StrictMode>,
     document.getElementById('root')
 );
 

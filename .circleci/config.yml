@@ -2,6 +2,7 @@ version: 2.1
 orbs:
     codecov: codecov/codecov@1.1.3
     gh: circleci/github-cli@1.0.3
+    browser-tools: circleci/browser-tools@1.2.4
 jobs:
   build_login_workflow:
     working_directory: ~/login-workflow

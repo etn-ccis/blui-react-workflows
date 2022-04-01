@@ -8,18 +8,20 @@ import {
     useInjectedUIContext,
 } from '@brightlayer-ui/react-auth-shared';
 import { Trans } from 'react-i18next';
-import { useHistory } from 'react-router-dom';
+import { useNavigate } from 'react-router-dom';
 import { BrandedCardContainer, SimpleDialog, FinishState } from '../components';
-import Button from '@material-ui/core/Button';
-import CardActions from '@material-ui/core/CardActions';
-import CardContent from '@material-ui/core/CardContent';
-import CardHeader from '@material-ui/core/CardHeader';
-import Divider from '@material-ui/core/Divider';
-import Typography from '@material-ui/core/Typography';
-import Grid from '@material-ui/core/Grid';
-import TextField from '@material-ui/core/TextField';
-import { Theme, createStyles, makeStyles, useTheme } from '@material-ui/core/styles';
-import CheckCircle from '@material-ui/icons/CheckCircle';
+import Button from '@mui/material/Button';
+import CardActions from '@mui/material/CardActions';
+import CardContent from '@mui/material/CardContent';
+import CardHeader from '@mui/material/CardHeader';
+import Divider from '@mui/material/Divider';
+import Typography from '@mui/material/Typography';
+import Grid from '@mui/material/Grid';
+import TextField from '@mui/material/TextField';
+import { Theme, useTheme } from '@mui/material/styles';
+import createStyles from '@mui/styles/createStyles';
+import makeStyles from '@mui/styles/makeStyles';
+import CheckCircle from '@mui/icons-material/CheckCircle';
 import clsx from 'clsx';
 import { sharedDialogStyles } from '../styles';
 const useDialogStyles = makeStyles(sharedDialogStyles);
@@ -46,7 +48,7 @@ const useStyles = makeStyles((theme: Theme) =>
  */
 export const ForgotPassword: React.FC = () => {
     const { t } = useLanguageLocale();
-    const history = useHistory();
+    const navigate = useNavigate();
     const classes = useStyles();
     const sharedClasses = useDialogStyles();
     const theme = useTheme();
@@ -80,11 +82,11 @@ export const ForgotPassword: React.FC = () => {
 
     const onContinue = useCallback((): void => {
         if (accountUIState.forgotPassword.transitSuccess) {
-            history.goBack();
+            navigate(-1);
         } else {
             resetPassword(emailInput);
         }
-    }, [accountUIState, resetPassword, history, emailInput]);
+    }, [accountUIState, resetPassword, navigate, emailInput]);
 
     // Reset state on dismissal
     useEffect(
@@ -166,12 +168,18 @@ export const ForgotPassword: React.FC = () => {
             <CardContent className={sharedClasses.dialogContent}>{body}</CardContent>
             <Divider />
             <CardActions className={sharedClasses.dialogActions}>
-                <Grid container direction="row" alignItems="center" justify="space-between" style={{ width: '100%' }}>
+                <Grid
+                    container
+                    direction="row"
+                    alignItems="center"
+                    justifyContent="space-between"
+                    style={{ width: '100%' }}
+                >
                     {!finished && (
                         <Button
                             variant="outlined"
                             color="primary"
-                            onClick={(): void => history.goBack()}
+                            onClick={(): void => navigate(-1)}
                             className={sharedClasses.dialogButton}
                         >
                             {t('blui:ACTIONS.BACK')}
