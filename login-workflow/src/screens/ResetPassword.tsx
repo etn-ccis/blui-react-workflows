@@ -8,19 +8,20 @@ import {
 } from '@brightlayer-ui/react-auth-shared';
 import { useQueryString } from '../hooks/useQueryString';
 import { useRoutes } from '../contexts/RoutingContext';
-import { useHistory } from 'react-router-dom';
-import Button from '@material-ui/core/Button';
-import CardActions from '@material-ui/core/CardActions';
-import CardContent from '@material-ui/core/CardContent';
-import CardHeader from '@material-ui/core/CardHeader';
-import Divider from '@material-ui/core/Divider';
-import Typography from '@material-ui/core/Typography';
-import Grid from '@material-ui/core/Grid';
-import { useTheme, makeStyles } from '@material-ui/core/styles';
+import { useNavigate } from 'react-router-dom';
+import Button from '@mui/material/Button';
+import CardActions from '@mui/material/CardActions';
+import CardContent from '@mui/material/CardContent';
+import CardHeader from '@mui/material/CardHeader';
+import Divider from '@mui/material/Divider';
+import Typography from '@mui/material/Typography';
+import Grid from '@mui/material/Grid';
+import { useTheme } from '@mui/material/styles';
+import makeStyles from '@mui/styles/makeStyles';
 import { BrandedCardContainer, SimpleDialog, FinishState, ChangePasswordForm } from '../components';
 import { defaultPasswordRequirements } from '../constants';
-import CheckCircle from '@material-ui/icons/CheckCircle';
-import Error from '@material-ui/icons/Error';
+import CheckCircle from '@mui/icons-material/CheckCircle';
+import Error from '@mui/icons-material/Error';
 import clsx from 'clsx';
 import { sharedDialogStyles } from '../styles';
 const useDialogStyles = makeStyles(sharedDialogStyles);
@@ -32,7 +33,7 @@ const useDialogStyles = makeStyles(sharedDialogStyles);
  */
 export const ResetPassword: React.FC = () => {
     const { t } = useLanguageLocale();
-    const history = useHistory();
+    const navigate = useNavigate();
     const { routes } = useRoutes();
     const theme = useTheme();
     const classes = useDialogStyles();
@@ -108,11 +109,11 @@ export const ResetPassword: React.FC = () => {
     );
     const onContinue = useCallback(() => {
         if (setPasswordTransitSuccess) {
-            history.push(routes.LOGIN);
+            navigate(routes.LOGIN);
         } else {
             resetPassword(passwordInput);
         }
-    }, [resetPassword, setPasswordTransitSuccess, passwordInput, history, routes]);
+    }, [resetPassword, setPasswordTransitSuccess, passwordInput, navigate, routes]);
 
     const getBody = useCallback(
         () =>
@@ -182,12 +183,18 @@ export const ResetPassword: React.FC = () => {
             <CardContent className={classes.dialogContent}>{getBody()}</CardContent>
             <Divider />
             <CardActions className={classes.dialogActions}>
-                <Grid container direction="row" alignItems="center" justify="space-between" style={{ width: '100%' }}>
+                <Grid
+                    container
+                    direction="row"
+                    alignItems="center"
+                    justifyContent="space-between"
+                    style={{ width: '100%' }}
+                >
                     {!setPasswordTransitSuccess && (
                         <Button
                             variant="outlined"
                             color="primary"
-                            onClick={(): void => history.push(routes.LOGIN)}
+                            onClick={(): void => navigate(routes.LOGIN)}
                             className={classes.dialogButton}
                         >
                             {t('blui:ACTIONS.BACK')}

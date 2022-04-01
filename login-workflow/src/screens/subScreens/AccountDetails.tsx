@@ -1,9 +1,9 @@
 import React, { useEffect, useRef } from 'react';
-import Typography from '@material-ui/core/Typography';
-import TextField from '@material-ui/core/TextField';
-import Divider from '@material-ui/core/Divider';
+import Typography from '@mui/material/Typography';
+import TextField from '@mui/material/TextField';
+import Divider from '@mui/material/Divider';
 import { useLanguageLocale, AccountDetailInformation, useInjectedUIContext } from '@brightlayer-ui/react-auth-shared';
-import { makeStyles } from '@material-ui/core/styles';
+import makeStyles from '@mui/styles/makeStyles';
 import { sharedDialogStyles } from '../../styles';
 const useDialogStyles = makeStyles(sharedDialogStyles);
 

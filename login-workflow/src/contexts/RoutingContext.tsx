@@ -1,5 +1,5 @@
 import { createContext, useContext } from 'react';
-import { RouteConfig } from '../screens/AuthNavigationContainer';
+import { RouteConfig } from '../routing/AuthNavigationContainer';
 
 type RoutingContextType = {
     routes: Required<RouteConfig>;

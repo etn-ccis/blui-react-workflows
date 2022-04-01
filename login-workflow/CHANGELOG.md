@@ -5,6 +5,12 @@ All notable changes to this project will be documented in this file.
 The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.0.0/),
 and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0.html).
 
+## v3.0.0 (April 1, 2022)
+
+### Changed
+-   We now use [Material UI v5](https://mui.com/) — you will need to update peerDependencies appropriately and make the [necessary changes](https://mui.com/guides/migration-v4/) to migrate your application to the new version.
+-   We now use [React Router v6](https://reactrouter.com/docs/en/v6/upgrading/v5) — this will likely require you to reconfigure how your application routes are set up. Routes must be passed directly into the `<AuthNavigationContainer>` element (see [Existing Project Integration ](https://github.com/brightlayer-ui/react-workflows/tree/master/login-workflow/docs/existing-project-integration.md) for examples).
+
 ## v2.5.0 (March 14, 2022)
 
 ### Added

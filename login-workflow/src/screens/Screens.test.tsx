@@ -25,7 +25,6 @@ import { ForgotPassword } from './ForgotPassword';
 import { BrowserRouter } from 'react-router-dom';
 import { RoutingContext } from '../contexts/RoutingContext';
 import { Login } from './Login';
-import { PreAuthContainer } from './PreAuthContainer';
 import { ResetPassword } from './ResetPassword';
 // import { SelfRegistrationPager } from './SelfRegistrationPager';
 import { Splash } from './Splash';
@@ -34,6 +33,11 @@ import { Splash } from './Splash';
 import i18n from 'i18next';
 import { initReactI18next } from 'react-i18next';
 import LanguageDetector from 'i18next-browser-languagedetector';
+
+import { createTheme, ThemeProvider } from '@mui/material/styles';
+import * as BLUIThemes from '@brightlayer-ui/react-themes';
+
+const theme = createTheme(BLUIThemes.blue);
 
 Enzyme.configure({ adapter: new Adapter() });
 
@@ -64,7 +68,9 @@ describe('AcceptEula tests', () => {
         const div = document.createElement('div');
         const onEulaChanged = jest.fn();
         ReactDOM.render(
-            <AcceptEula eulaAccepted={false} loadEula={(): void => {}} onEulaChanged={onEulaChanged} />,
+            <ThemeProvider theme={theme}>
+                <AcceptEula eulaAccepted={false} loadEula={(): void => {}} onEulaChanged={onEulaChanged} />
+            </ThemeProvider>,
             div
         );
         ReactDOM.unmountComponentAtNode(div);
@@ -78,9 +84,11 @@ describe('AccountDetails tests', () => {
         const registrationUIActions = jest.fn();
         const onDetailsChanged = jest.fn();
         ReactDOM.render(
-            <AuthUIContextProvider authActions={authUIActions} registrationActions={registrationUIActions}>
-                <AccountDetails onDetailsChanged={onDetailsChanged} />
-            </AuthUIContextProvider>,
+            <ThemeProvider theme={theme}>
+                <AuthUIContextProvider authActions={authUIActions} registrationActions={registrationUIActions}>
+                    <AccountDetails onDetailsChanged={onDetailsChanged} />
+                </AuthUIContextProvider>
+            </ThemeProvider>,
             div
         );
         ReactDOM.unmountComponentAtNode(div);
@@ -91,7 +99,12 @@ describe('CreateAccount tests', () => {
     it('renders without crashing', () => {
         const div = document.createElement('div');
         const onEmailChanged = jest.fn();
-        ReactDOM.render(<CreateAccount onEmailChanged={onEmailChanged} />, div);
+        ReactDOM.render(
+            <ThemeProvider theme={theme}>
+                <CreateAccount onEmailChanged={onEmailChanged} />
+            </ThemeProvider>,
+            div
+        );
         ReactDOM.unmountComponentAtNode(div);
     });
 });
@@ -104,9 +117,11 @@ describe('CreatePassword tests', () => {
         const registrationUIActions = jest.fn();
 
         ReactDOM.render(
-            <AuthUIContextProvider authActions={authUIActions} registrationActions={registrationUIActions}>
-                <CreatePassword onPasswordChanged={onPasswordChanged} />
-            </AuthUIContextProvider>,
+            <ThemeProvider theme={theme}>
+                <AuthUIContextProvider authActions={authUIActions} registrationActions={registrationUIActions}>
+                    <CreatePassword onPasswordChanged={onPasswordChanged} />
+                </AuthUIContextProvider>
+            </ThemeProvider>,
             div
         );
         ReactDOM.unmountComponentAtNode(div);
@@ -116,7 +131,12 @@ describe('CreatePassword tests', () => {
 describe('ExistingAccountComplete tests', () => {
     it('renders without crashing', () => {
         const div = document.createElement('div');
-        ReactDOM.render(<ExistingAccountComplete />, div);
+        ReactDOM.render(
+            <ThemeProvider theme={theme}>
+                <ExistingAccountComplete />
+            </ThemeProvider>,
+            div
+        );
         ReactDOM.unmountComponentAtNode(div);
     });
 });
@@ -125,12 +145,14 @@ describe('RegistrationComplete tests', () => {
     it('renders without crashing', () => {
         const div = document.createElement('div');
         ReactDOM.render(
-            <RegistrationComplete
-                firstName={'Betty'}
-                lastName={'White'}
-                email={'potentiallyImmortal@email.com'}
-                organization={'Not Your Typical Granny Inc.'}
-            />,
+            <ThemeProvider theme={theme}>
+                <RegistrationComplete
+                    firstName={'Betty'}
+                    lastName={'White'}
+                    email={'potentiallyImmortal@email.com'}
+                    organization={'Not Your Typical Granny Inc.'}
+                />
+            </ThemeProvider>,
             div
         );
         ReactDOM.unmountComponentAtNode(div);
@@ -143,10 +165,12 @@ describe('VerifyEmail tests', () => {
         const onVerifyCodeChanged = jest.fn();
         const onResendVerificationEmail = jest.fn();
         ReactDOM.render(
-            <VerifyEmail
-                onVerifyCodeChanged={onVerifyCodeChanged}
-                onResendVerificationEmail={onResendVerificationEmail}
-            />,
+            <ThemeProvider theme={theme}>
+                <VerifyEmail
+                    onVerifyCodeChanged={onVerifyCodeChanged}
+                    onResendVerificationEmail={onResendVerificationEmail}
+                />
+            </ThemeProvider>,
             div
         );
         ReactDOM.unmountComponentAtNode(div);
@@ -160,9 +184,11 @@ describe('ContactSupport tests', () => {
         const registrationUIActions = jest.fn();
 
         ReactDOM.render(
-            <AuthUIContextProvider authActions={authUIActions} registrationActions={registrationUIActions}>
-                <ContactSupport />
-            </AuthUIContextProvider>,
+            <ThemeProvider theme={theme}>
+                <AuthUIContextProvider authActions={authUIActions} registrationActions={registrationUIActions}>
+                    <ContactSupport />
+                </AuthUIContextProvider>
+            </ThemeProvider>,
             div
         );
         ReactDOM.unmountComponentAtNode(div);
@@ -191,11 +217,13 @@ describe('ForgotPassword tests', () => {
         const accountUIDispatch = jest.fn();
 
         ReactDOM.render(
-            <AccountUIActionContext.Provider value={{ actions: accountUIActions, dispatch: accountUIDispatch }}>
-                <AuthUIContextProvider authActions={authUIActions} registrationActions={registrationUIActions}>
-                    <ForgotPassword />
-                </AuthUIContextProvider>
-            </AccountUIActionContext.Provider>,
+            <ThemeProvider theme={theme}>
+                <AccountUIActionContext.Provider value={{ actions: accountUIActions, dispatch: accountUIDispatch }}>
+                    <AuthUIContextProvider authActions={authUIActions} registrationActions={registrationUIActions}>
+                        <ForgotPassword />
+                    </AuthUIContextProvider>
+                </AccountUIActionContext.Provider>
+            </ThemeProvider>,
             div
         );
         ReactDOM.unmountComponentAtNode(div);
@@ -233,69 +261,24 @@ describe('Login tests', () => {
         };
 
         ReactDOM.render(
-            <BrowserRouter>
-                <RoutingContext.Provider value={{ routes: defaultRoutes }}>
-                    <SecurityContextProvider>
-                        <AccountUIActionContext.Provider
-                            value={{ actions: accountUIActions, dispatch: accountUIDispatch }}
-                        >
-                            <AuthUIContextProvider
-                                authActions={authUIActions}
-                                registrationActions={registrationUIActions}
+            <ThemeProvider theme={theme}>
+                <BrowserRouter>
+                    <RoutingContext.Provider value={{ routes: defaultRoutes }}>
+                        <SecurityContextProvider>
+                            <AccountUIActionContext.Provider
+                                value={{ actions: accountUIActions, dispatch: accountUIDispatch }}
                             >
-                                <Login />
-                            </AuthUIContextProvider>
-                        </AccountUIActionContext.Provider>
-                    </SecurityContextProvider>
-                </RoutingContext.Provider>
-            </BrowserRouter>,
-            div
-        );
-        ReactDOM.unmountComponentAtNode(div);
-    });
-});
-
-describe('PreAuthContainer tests', () => {
-    it('renders without crashing', () => {
-        const div = document.createElement('div');
-        const authUIActions = jest.fn();
-        const registrationUIActions = jest.fn();
-        const accountUIActions = {
-            initiateSecurity: jest.fn(),
-            logIn: jest.fn(),
-            forgotPassword: jest.fn(),
-            verifyResetCode: jest.fn(),
-            setPassword: jest.fn(),
-            changePassword: jest.fn(),
-        };
-        const accountUIDispatch = jest.fn();
-
-        const defaultRoutes = {
-            LOGIN: '/login',
-            FORGOT_PASSWORD: '/forgot-password',
-            RESET_PASSWORD: '/reset-password',
-            REGISTER_INVITE: '/register/invite',
-            REGISTER_SELF: '/register/create-account',
-            SUPPORT: '/support',
-        };
-
-        ReactDOM.render(
-            <BrowserRouter>
-                <RoutingContext.Provider value={{ routes: defaultRoutes }}>
-                    <SecurityContextProvider>
-                        <AccountUIActionContext.Provider
-                            value={{ actions: accountUIActions, dispatch: accountUIDispatch }}
-                        >
-                            <AuthUIContextProvider
-                                authActions={authUIActions}
-                                registrationActions={registrationUIActions}
-                            >
-                                <PreAuthContainer />
-                            </AuthUIContextProvider>
-                        </AccountUIActionContext.Provider>
-                    </SecurityContextProvider>
-                </RoutingContext.Provider>
-            </BrowserRouter>,
+                                <AuthUIContextProvider
+                                    authActions={authUIActions}
+                                    registrationActions={registrationUIActions}
+                                >
+                                    <Login />
+                                </AuthUIContextProvider>
+                            </AccountUIActionContext.Provider>
+                        </SecurityContextProvider>
+                    </RoutingContext.Provider>
+                </BrowserRouter>
+            </ThemeProvider>,
             div
         );
         ReactDOM.unmountComponentAtNode(div);
@@ -315,6 +298,7 @@ jest.mock('../hooks/useQueryString', () => ({
 jest.mock('react-router-dom', () => ({
     // @ts-ignore
     ...jest.requireActual('react-router-dom'),
+    useNavigate: jest.fn().mockReturnValue(jest.fn()),
     useLocation: jest.fn().mockReturnValue('test-location'),
 }));
 
@@ -401,9 +385,11 @@ describe('Splash tests', () => {
         const registrationUIActions = jest.fn();
 
         ReactDOM.render(
-            <AuthUIContextProvider authActions={authUIActions} registrationActions={registrationUIActions}>
-                <Splash />
-            </AuthUIContextProvider>,
+            <ThemeProvider theme={theme}>
+                <AuthUIContextProvider authActions={authUIActions} registrationActions={registrationUIActions}>
+                    <Splash />
+                </AuthUIContextProvider>
+            </ThemeProvider>,
             div
         );
         ReactDOM.unmountComponentAtNode(div);
@@ -434,15 +420,20 @@ describe('ResetPassword tests', () => {
         const authDispatch = jest.fn();
 
         ReactDOM.render(
-            <BrowserRouter>
-                <RoutingContext.Provider value={{ routes: defaultRoutes }}>
-                    <AccountUIActionContext.Provider value={{ actions: authActions, dispatch: authDispatch }}>
-                        <AuthUIContextProvider authActions={authUIActions} registrationActions={registrationUIActions}>
-                            <ResetPassword />
-                        </AuthUIContextProvider>
-                    </AccountUIActionContext.Provider>
-                </RoutingContext.Provider>
-            </BrowserRouter>,
+            <ThemeProvider theme={theme}>
+                <BrowserRouter>
+                    <RoutingContext.Provider value={{ routes: defaultRoutes }}>
+                        <AccountUIActionContext.Provider value={{ actions: authActions, dispatch: authDispatch }}>
+                            <AuthUIContextProvider
+                                authActions={authUIActions}
+                                registrationActions={registrationUIActions}
+                            >
+                                <ResetPassword />
+                            </AuthUIContextProvider>
+                        </AccountUIActionContext.Provider>
+                    </RoutingContext.Provider>
+                </BrowserRouter>
+            </ThemeProvider>,
             div
         );
         ReactDOM.unmountComponentAtNode(div);

@@ -1,8 +1,8 @@
 import React from 'react';
 import { useLanguageLocale } from '@brightlayer-ui/react-auth-shared';
-import { useTheme } from '@material-ui/core/styles';
+import { useTheme } from '@mui/material/styles';
 import { FinishState } from '../../components';
-import Person from '@material-ui/icons/Person';
+import Person from '@mui/icons-material/Person';
 
 /**
  * Component that renders a screen displaying success for creating an account for

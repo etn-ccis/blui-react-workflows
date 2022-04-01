@@ -1,5 +1,7 @@
 import React from 'react';
-import { Theme, createStyles, makeStyles } from '@material-ui/core/styles';
+import { Theme } from '@mui/material/styles';
+import createStyles from '@mui/styles/createStyles';
+import makeStyles from '@mui/styles/makeStyles';
 import { EmptyStateProps, EmptyState } from '@brightlayer-ui/react-components';
 import clsx from 'clsx';
 
@@ -12,7 +14,7 @@ const useStyles = makeStyles((theme: Theme) =>
             alignItems: 'center',
             height: '100%',
             minHeight: 500,
-            [theme.breakpoints.down('xs')]: {
+            [theme.breakpoints.down('sm')]: {
                 minHeight: 'auto',
             },
         },
