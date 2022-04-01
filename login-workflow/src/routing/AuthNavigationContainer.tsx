@@ -150,7 +150,7 @@ export const AuthNavigationContainer: React.FC<NavigationContainerComponentProps
                         {extraRoutes}
 
                         {/* Main user application content routes, behind authentication guard */}
-                        <Route path={'*'} element={<AuthGuard authRoute={routes.LOGIN} />}>
+                        <Route path={'*'} element={<AuthGuard />}>
                             {children}
                         </Route>
                     </Routes>

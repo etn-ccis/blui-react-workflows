@@ -52,25 +52,26 @@ import {
 } from '@brightlayer-ui/react-auth-workflow';
 ```
 
-2. Inside your root export, wrap your entire application as follows, where `<YourApp>` is your existing app structure XML (if you used the Brightlayer UI CLI to create your project, the `ThemeProvider` should already be configured. If you didn't, you can skip those wrappers or follow the manual [integration instructions](https://brightlayer-ui.github.io/development/frameworks-web/react)):
+2. Inside your root export, wrap your entire application as follows, where `YourRoutingSetup` is your existing app structure XML (this must be nested under a `<Route>` element at the top level in order to work with React Router v6 — see below) . If you used the Brightlayer UI CLI to create your project, the `ThemeProvider` should already be configured. If you didn't, you can skip those wrappers or follow the manual [integration instructions](https://brightlayer-ui.github.io/development/frameworks-web/react):
 
 ```tsx
 <ThemeProvider theme={createTheme(BLUIThemes.blue)}>
     <CssBaseline />
     <SecurityContextProvider>
         <AuthUIConfiguration>
-            <AuthNavigationContainer /*routeConfig={routes}*/>
-                <YourApp />    <--- Your existing app
+            <AuthNavigationContainer>
+                {YourRoutingSetup}    <--- Your app content
             </AuthNavigationContainer>
         </AuthUIConfiguration>
     </SecurityContextProvider>
 </ThemeProvider>
 ```
 
-`<YourApp>` must be a collection of `<Route>` elements the define the route structure for your main application, e.g., :
+#### Configuring Your Routes
+`YourRoutingSetup` must be a collection of `<Route>` elements that define the route structure for your main application, e.g.,:
 
 ```tsx
-<AuthNavigationContainer /*routeConfig={routes}*/>
+<AuthNavigationContainer>
     <>
         <Route path={''} element={<HomePage />} />
         <Route path={'subpage'} element={<SubPage />} />
@@ -78,6 +79,35 @@ import {
         {/* Redirect any other routes to home page */}
         <Route path={'*'} element={<Navigate to={''} />} /> 
     </>
+</AuthNavigationContainer>
+```
+
+If you prefer to define your routes in a separate file or you want to have shared layout elements that wrap all of your routes, you can do this by specifying a single all-encompassing route and passing the rest of your routing config as children, e.g.,:
+
+```tsx
+// The main application routes — can be defined elsewhere or in separate files
+const AppRoutes = (
+    <>
+        <Route {...props}/>
+        <Route {...props}/>
+        {/* ...etc */}
+    </>
+);
+
+// layout or wrapper element(s) shared by all routes
+const SharedLayoutWrapper = () => (
+    <LayoutWrapper>
+        <SomeSharedComponent/>
+        <Outlet/> {/* application routes will get rendered here */}
+    </LayoutWrapper>
+);
+
+...
+
+<AuthNavigationContainer>
+    <Route path={''} element={<SharedLayoutWrapper/>} >
+        {AppRoutes}
+    </Route>
 </AuthNavigationContainer>
 ```
 

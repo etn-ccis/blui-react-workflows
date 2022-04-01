@@ -25,6 +25,8 @@ import Button from '@mui/material/Button';
 import { useTranslation } from 'react-i18next';
 import { Navigate, Route } from 'react-router-dom';
 import { ExamplePreAuth } from './screens/ExamplePreAuth';
+import { AppBar, Toolbar, Typography } from '@mui/material';
+import { Outlet } from 'react-router';
 
 // Uncomment these lines to add your app-specific translation resource
 i18n.addResourceBundle('en', 'app', { BUTTONLABEL: 'Change Language' });
@@ -121,6 +123,25 @@ export const AuthUIConfiguration: React.FC = (props) => {
     );
 };
 
+export const MySharedWrapper: React.FC = () => (
+    <>
+        <AppBar>
+            <Toolbar>
+                <Typography>PAGE TITLE</Typography>
+            </Toolbar>
+        </AppBar>
+        <Outlet />
+    </>
+);
+export const MyAppRoutes = (
+    <>
+        <Route path={''} element={<ExampleHome />} />
+        {/* <Route path={'subpage'} element={<ExamplePreAuth />} />
+        <Route path={'subpage/nested'} element={<h1>Nested</h1>} /> */}
+        <Route path={'*'} element={<Navigate to={''} />} />
+    </>
+);
+
 export const App: React.FC = () => (
     <SecurityContextProvider>
         <AuthUIConfiguration>
@@ -128,11 +149,7 @@ export const App: React.FC = () => (
                 routeConfig={routes}
                 extraRoutes={[<Route path={'/pre-auth'} element={ExamplePreAuth} key={'pre-auth'} />]}
             >
-                <Route path={''} element={<ExampleHome />} />
-                <Route path={'subpage'} element={<ExamplePreAuth />} />
-                <Route path={'subpage/nested'} element={<h1>Nested</h1>} />
-                {/* Redirect any other routes to home page */}
-                <Route path={'*'} element={<Navigate to={''} />} />
+                <Route path={''} /*element={<MySharedWrapper />}*/>{MyAppRoutes}</Route>
             </AuthNavigationContainer>
         </AuthUIConfiguration>
     </SecurityContextProvider>

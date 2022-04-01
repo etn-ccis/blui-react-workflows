@@ -27,6 +27,7 @@ Enzyme.configure({ adapter: new Adapter() });
 import i18n from 'i18next';
 import { initReactI18next } from 'react-i18next';
 import LanguageDetector from 'i18next-browser-languagedetector';
+import { RouteConfig } from '../routing/AuthNavigationContainer';
 
 void i18n
     .use(initReactI18next)
@@ -84,6 +85,7 @@ describe('FinishState tests', () => {
 jest.mock('@brightlayer-ui/react-auth-shared', () => ({
     // @ts-ignore
     ...jest.requireActual('@brightlayer-ui/react-auth-shared'),
+    useRoutes: jest.fn().mockReturnValue({ LOGIN: 'login' }),
     useSecurityState: jest.fn().mockReturnValue({ isAuthenticatedUser: false }),
 }));
 
@@ -93,13 +95,16 @@ jest.mock('react-router-dom', () => ({
     useNavigate: jest.fn().mockReturnValue(jest.fn()),
     useLocation: jest.fn().mockReturnValue('test-location'),
 }));
+jest.mock('../contexts/RoutingContext', () => ({
+    useRoutes: (): { routes: RouteConfig } => ({ routes: { LOGIN: 'login' } }),
+}));
 
 describe('AuthGuard unauthenticated tests', () => {
     it('renders without crashing', () => {
         const div = document.createElement('div');
         ReactDOM.render(
             <ThemeProvider theme={theme}>
-                <AuthGuard authRoute={'/login'}></AuthGuard>
+                <AuthGuard></AuthGuard>
             </ThemeProvider>,
             div
         );
@@ -118,7 +123,7 @@ describe('AuthGuard authenticated tests', () => {
         const div = document.createElement('div');
         ReactDOM.render(
             <ThemeProvider theme={theme}>
-                <AuthGuard authRoute={'/login'}></AuthGuard>
+                <AuthGuard></AuthGuard>
             </ThemeProvider>,
             div
         );
