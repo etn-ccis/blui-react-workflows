@@ -1135,24 +1135,24 @@
   resolved "https://registry.yarnpkg.com/@brightlayer-ui/prettier-config/-/prettier-config-1.0.3.tgz#e40a7ae7435c6fd5118acbf249080e0aa81e93af"
   integrity sha512-EYm3+V7Qd+oYEF+8FadsXAZqXryEHHbGnrV1BMp9selhABjceqUqXPVE4Sn3SKWQdBNJ3En2A3EzgrzRbvRTaw==
 
-"@brightlayer-ui/react-auth-shared@^3.6.1-beta.0":
-  version "3.6.1-beta.0"
-  resolved "https://registry.yarnpkg.com/@brightlayer-ui/react-auth-shared/-/react-auth-shared-3.6.1-beta.0.tgz#06bb912e4a109d277609db8538da424eeb02c4b3"
-  integrity sha512-+PaECvZnfxQtr1lzlZzohHVr0JmU9et9g5WVDkwNBRlQxWUPvCk1huY7QaLgYA/kftYrxpnhka4pxIKfF21BOQ==
+"@brightlayer-ui/react-auth-shared@^3.6.1":
+  version "3.6.1"
+  resolved "https://registry.yarnpkg.com/@brightlayer-ui/react-auth-shared/-/react-auth-shared-3.6.1.tgz#52c4f52fe1db5547a92de197de62947a6c55e4d7"
+  integrity sha512-017RUghekEkk1YqOsbYAFpq2+hBquFqIwJHifITfR5jCt4iOovOGchcJCh5Vq9zQ5nNpBUlj26N7UIfuk1HK7g==
 
-"@brightlayer-ui/react-components@^6.0.0-alpha.3":
-  version "6.0.0-alpha.3"
-  resolved "https://registry.yarnpkg.com/@brightlayer-ui/react-components/-/react-components-6.0.0-alpha.3.tgz#574630206d89f2c57575ceaac692ce72e1f62e08"
-  integrity sha512-nk9rBO+tgsV6tnMCbEhRXmZoIG9LrJ75q6wdd27N1UnYLLs6F10i8PxgCU9mISGZ5pD00OcjqdFCvO+BZl2Jxg==
+"@brightlayer-ui/react-components@^6.0.0":
+  version "6.0.0"
+  resolved "https://registry.yarnpkg.com/@brightlayer-ui/react-components/-/react-components-6.0.0.tgz#cfd41fc00200a56deb09fef6ea380c2d4b8d0f0d"
+  integrity sha512-rywHjzDrzqGqXguaC3VHG0EKapUDSW29pbuG4JyEgn6yrnufK4//c1SAwN/f1csFaUl0iB1SDF574CqDhE1H9w==
   dependencies:
     "@brightlayer-ui/colors" "^3.0.0"
     "@seznam/compose-react-refs" "^1.0.6"
-    color "^3.1.2"
+    color "^4.2.1"
 
-"@brightlayer-ui/react-themes@^7.0.0-alpha.2":
-  version "7.0.0-alpha.2"
-  resolved "https://registry.yarnpkg.com/@brightlayer-ui/react-themes/-/react-themes-7.0.0-alpha.2.tgz#01489b8b8e4bcc1a365b28719860e5dd64c5e8d2"
-  integrity sha512-OW7VQzsdHOZgbZRNv0juZckhM52yX07hMFxv9oA7J7xuZamz7Q67qC1VpgDifRbD0TPNaxPbcyZAAKquUjkTWg==
+"@brightlayer-ui/react-themes@^7.0.0":
+  version "7.0.0"
+  resolved "https://registry.yarnpkg.com/@brightlayer-ui/react-themes/-/react-themes-7.0.0.tgz#0f00a7d464461fa7ea23be72ed8b820bf356b52d"
+  integrity sha512-5osYg/eb/6/Ct2BaX50ZMEx/6ob1F6TWXiMZn01sHOpDvjJ+f5W/LaOy6488xVN0J4wRhPBAnCZztzqAFGxYXA==
   dependencies:
     "@brightlayer-ui/colors" "^3.0.0"
     "@fontsource/open-sans" "^4.2.2"
@@ -2492,7 +2492,7 @@ color-name@^1.0.0, color-name@~1.1.4:
   resolved "https://registry.yarnpkg.com/color-name/-/color-name-1.1.4.tgz#c2a09a87acbde69543de6f63fa3995c826c536a2"
   integrity sha512-dOy+3AuW3a2wNbZHIuMZpTcgjGuLU/uBL/ubcZF9OXbDo8ff4O8yVp5Bf0efS8uEoYo5q4Fx7dY9OgQGXgAsQA==
 
-color-string@^1.6.0:
+color-string@^1.6.0, color-string@^1.9.0:
   version "1.9.0"
   resolved "https://registry.yarnpkg.com/color-string/-/color-string-1.9.0.tgz#63b6ebd1bec11999d1df3a79a7569451ac2be8aa"
   integrity sha512-9Mrz2AQLefkH1UvASKj6v6hj/7eWgjnT/cVsR8CumieLoT+g900exWeNogqtweI8dxloXN9BDQTYro1oWu/5CQ==
@@ -2500,13 +2500,21 @@ color-string@^1.6.0:
     color-name "^1.0.0"
     simple-swizzle "^0.2.2"
 
-color@^3.1.2, color@^3.1.3:
+color@^3.1.3:
   version "3.2.1"
   resolved "https://registry.yarnpkg.com/color/-/color-3.2.1.tgz#3544dc198caf4490c3ecc9a790b54fe9ff45e164"
   integrity sha512-aBl7dZI9ENN6fUGC7mWpMTPNHmWUSNan9tuWN6ahh5ZLNk9baLJOnSMlrQkHcrfFgz2/RigjUVAjdx36VcemKA==
   dependencies:
     color-convert "^1.9.3"
     color-string "^1.6.0"
+
+color@^4.2.1:
+  version "4.2.1"
+  resolved "https://registry.yarnpkg.com/color/-/color-4.2.1.tgz#498aee5fce7fc982606c8875cab080ac0547c884"
+  integrity sha512-MFJr0uY4RvTQUKvPq7dh9grVOTYSFeXja2mBXioCGjnjJoXrAp9jJ1NQTDR73c9nwBSAQiNKloKl5zq9WB9UPw==
+  dependencies:
+    color-convert "^2.0.1"
+    color-string "^1.9.0"
 
 combined-stream@^1.0.8:
   version "1.0.8"
