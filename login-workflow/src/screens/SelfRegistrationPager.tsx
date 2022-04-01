@@ -11,7 +11,7 @@ import {
     CustomAccountDetails,
     AccountDetailsFormProps,
 } from '@brightlayer-ui/react-auth-shared';
-import { useHistory } from 'react-router-dom';
+import { useNavigate } from 'react-router-dom';
 import { useQueryString } from '../hooks/useQueryString';
 import { useRoutes } from '../contexts/RoutingContext';
 import Button from '@mui/material/Button';
@@ -48,7 +48,7 @@ export const emptyAccountDetailInformation: AccountDetailInformation = {
  */
 export const SelfRegistrationPager: React.FC = () => {
     const { t } = useLanguageLocale();
-    const history = useHistory();
+    const navigate = useNavigate();
     const { routes } = useRoutes();
     const sharedClasses = useDialogStyles();
     const registrationActions = useRegistrationUIActions();
@@ -411,9 +411,9 @@ export const SelfRegistrationPager: React.FC = () => {
         if (delta === 0) {
             return;
         } else if (isFirstStep && delta < 0) {
-            history.push(routes.LOGIN);
+            navigate(routes.LOGIN);
         } else if (isLastStep && delta > 0) {
-            history.push(routes.LOGIN);
+            navigate(routes.LOGIN);
         } else {
             // If this is the last user-entry step of the invite flow, it is time to make a network call
             // Check > 0 so advancing backwards does not risk going into the completion block
@@ -444,7 +444,7 @@ export const SelfRegistrationPager: React.FC = () => {
                 color={'primary'}
                 className={clsx(sharedClasses.dialogButton, { [sharedClasses.fullWidth]: true })}
                 disableElevation
-                onClick={(): void => history.push(routes.LOGIN)}
+                onClick={(): void => navigate(routes.LOGIN)}
             >
                 {isFirstStep ? t('blui:ACTIONS.CANCEL') : t('blui:ACTIONS.BACK')}
             </Button>

@@ -23,6 +23,10 @@ import productLogo from './assets/images/eaton_stacked_logo.png';
 import i18n from 'i18next';
 import Button from '@mui/material/Button';
 import { useTranslation } from 'react-i18next';
+import { Navigate, Route } from 'react-router-dom';
+import { ExamplePreAuth } from './screens/ExamplePreAuth';
+import { AppBar, Toolbar, Typography } from '@mui/material';
+import { Outlet } from 'react-router';
 
 // Uncomment these lines to add your app-specific translation resource
 i18n.addResourceBundle('en', 'app', { BUTTONLABEL: 'Change Language' });
@@ -119,14 +123,33 @@ export const AuthUIConfiguration: React.FC = (props) => {
     );
 };
 
+export const MySharedWrapper: React.FC = () => (
+    <>
+        <AppBar>
+            <Toolbar>
+                <Typography>PAGE TITLE</Typography>
+            </Toolbar>
+        </AppBar>
+        <Outlet />
+    </>
+);
+export const MyAppRoutes = (
+    <>
+        <Route path={''} element={<ExampleHome />} />
+        {/* <Route path={'subpage'} element={<ExamplePreAuth />} />
+        <Route path={'subpage/nested'} element={<h1>Nested</h1>} /> */}
+        <Route path={'*'} element={<Navigate to={''} />} />
+    </>
+);
+
 export const App: React.FC = () => (
     <SecurityContextProvider>
         <AuthUIConfiguration>
             <AuthNavigationContainer
                 routeConfig={routes}
-                // extraRoutes={[<Route exact path={'/pre-auth'} component={ExamplePreAuth} key={'pre-auth'} />]}
+                extraRoutes={[<Route path={'/pre-auth'} element={ExamplePreAuth} key={'pre-auth'} />]}
             >
-                <ExampleHome />
+                <Route path={''} /*element={<MySharedWrapper />}*/>{MyAppRoutes}</Route>
             </AuthNavigationContainer>
         </AuthUIConfiguration>
     </SecurityContextProvider>

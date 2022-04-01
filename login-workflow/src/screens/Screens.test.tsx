@@ -25,7 +25,6 @@ import { ForgotPassword } from './ForgotPassword';
 import { BrowserRouter } from 'react-router-dom';
 import { RoutingContext } from '../contexts/RoutingContext';
 import { Login } from './Login';
-import { PreAuthContainer } from './PreAuthContainer';
 import { ResetPassword } from './ResetPassword';
 // import { SelfRegistrationPager } from './SelfRegistrationPager';
 import { Splash } from './Splash';
@@ -286,55 +285,6 @@ describe('Login tests', () => {
     });
 });
 
-describe('PreAuthContainer tests', () => {
-    it('renders without crashing', () => {
-        const div = document.createElement('div');
-        const authUIActions = jest.fn();
-        const registrationUIActions = jest.fn();
-        const accountUIActions = {
-            initiateSecurity: jest.fn(),
-            logIn: jest.fn(),
-            forgotPassword: jest.fn(),
-            verifyResetCode: jest.fn(),
-            setPassword: jest.fn(),
-            changePassword: jest.fn(),
-        };
-        const accountUIDispatch = jest.fn();
-
-        const defaultRoutes = {
-            LOGIN: '/login',
-            FORGOT_PASSWORD: '/forgot-password',
-            RESET_PASSWORD: '/reset-password',
-            REGISTER_INVITE: '/register/invite',
-            REGISTER_SELF: '/register/create-account',
-            SUPPORT: '/support',
-        };
-
-        ReactDOM.render(
-            <ThemeProvider theme={theme}>
-                <BrowserRouter>
-                    <RoutingContext.Provider value={{ routes: defaultRoutes }}>
-                        <SecurityContextProvider>
-                            <AccountUIActionContext.Provider
-                                value={{ actions: accountUIActions, dispatch: accountUIDispatch }}
-                            >
-                                <AuthUIContextProvider
-                                    authActions={authUIActions}
-                                    registrationActions={registrationUIActions}
-                                >
-                                    <PreAuthContainer />
-                                </AuthUIContextProvider>
-                            </AccountUIActionContext.Provider>
-                        </SecurityContextProvider>
-                    </RoutingContext.Provider>
-                </BrowserRouter>
-            </ThemeProvider>,
-            div
-        );
-        ReactDOM.unmountComponentAtNode(div);
-    });
-});
-
 type QueryParams = {
     code?: string;
     email?: string;
@@ -348,6 +298,7 @@ jest.mock('../hooks/useQueryString', () => ({
 jest.mock('react-router-dom', () => ({
     // @ts-ignore
     ...jest.requireActual('react-router-dom'),
+    useNavigate: jest.fn().mockReturnValue(jest.fn()),
     useLocation: jest.fn().mockReturnValue('test-location'),
 }));
 

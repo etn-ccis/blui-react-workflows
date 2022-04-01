@@ -20,10 +20,10 @@ If there are routes that you would like to be available without logging in (such
 ```tsx
 <AuthNavigationContainer
     extraRoutes={[
-        <Route exact path={'/new-route'}>
+        <Route path={'/new-route'}>
             {/* Route Content */}
         </Route>,
-        <Route exact path={'/new-route-two'}>
+        <Route path={'/new-route-two'}>
             {/* Route Content */}
         </Route>,
     ]}

@@ -1,6 +1,6 @@
 {
     "name": "@brightlayer-ui/react-auth-workflow",
-    "version": "3.0.0-alpha.0",
+    "version": "3.0.0",
     "author": "Brightlayer UI <brightlayer-ui@eaton.com> (https://github.com/brightlayer-ui)",
     "license": "BSD-3-Clause",
     "description": "Re-usable workflow components for Authentication and Registration within Eaton applications.",
@@ -26,7 +26,7 @@
     "prettier": "@brightlayer-ui/prettier-config",
     "dependencies": {
         "i18next-browser-languagedetector": "^6.1.0",
-        "@brightlayer-ui/react-auth-shared": "^3.6.1-beta.0",
+        "@brightlayer-ui/react-auth-shared": "^3.6.1",
         "dompurify": "^2.2.9"
     },
     "peerDependencies": {
@@ -36,13 +36,13 @@
         "@mui/material": "^5.4.1",
         "@mui/styles": "^5.4.1",
         "@brightlayer-ui/colors": "^3.0.0",
-        "@brightlayer-ui/react-components": "^6.0.0-alpha.3",
+        "@brightlayer-ui/react-components": "^6.0.0",
         "date-fns": "^2.14.0",
         "i18next": "^19.3.4 || ^20.0.0",
         "react": "^16.13.1 || ^17.0.0",
-        "react-dom": "^16.8.6 || ^17.0.0",
+        "react-dom": "^16.8.6 || ^17.0.0 || ^18.0.0",
         "react-i18next": "^11.3.4",
-        "react-router-dom": "^5.2.0"
+        "react-router-dom": "^6.0.0"
     },
     "repository": {
         "type": "git",
@@ -76,8 +76,8 @@
         "@mui/styles": "^5.4.1",
         "@brightlayer-ui/eslint-config": "^3.0.0",
         "@brightlayer-ui/prettier-config": "^1.0.3",
-        "@brightlayer-ui/react-components": "^6.0.0-alpha.3",
-        "@brightlayer-ui/react-themes": "^7.0.0-alpha.2",
+        "@brightlayer-ui/react-components": "^6.0.0",
+        "@brightlayer-ui/react-themes": "^7.0.0",
         "@types/color": "^3.0.1",
         "@types/dompurify": "^2.2.2",
         "@types/enzyme": "^3.10.8",
@@ -96,8 +96,8 @@
         "enzyme-to-json": "^3.6.2",
         "eslint": "^8.12.0",
         "eslint-config-prettier": "^8.3.0",
-        "eslint-plugin-react": "^7.24.0",
-        "eslint-plugin-react-hooks": "^4.2.0",
+        "eslint-plugin-react": "^7.29.4",
+        "eslint-plugin-react-hooks": "^4.4.0",
         "i18next": "^20.3.1",
         "identity-obj-proxy": "^3.0.0",
         "jest": "27.5.1",
@@ -106,7 +106,7 @@
         "react": "^17.0.2",
         "react-dom": "^17.0.2",
         "react-i18next": "^11.10.0",
-        "react-router-dom": "^5.2.0",
+        "react-router-dom": "^6.0.0",
         "regenerator-runtime": "^0.13.7",
         "ts-jest": "^27.1.4",
         "typescript": "^4.3.2"
