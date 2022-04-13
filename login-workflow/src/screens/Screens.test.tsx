@@ -36,6 +36,7 @@ import LanguageDetector from 'i18next-browser-languagedetector';
 
 import { createTheme, ThemeProvider } from '@mui/material/styles';
 import * as BLUIThemes from '@brightlayer-ui/react-themes';
+import { createRoot } from 'react-dom/client';
 
 const theme = createTheme(BLUIThemes.blue);
 
@@ -67,84 +68,90 @@ describe('AcceptEula tests', () => {
     it('renders without crashing', () => {
         const div = document.createElement('div');
         const onEulaChanged = jest.fn();
-        ReactDOM.render(
+        const root = createRoot(div);
+
+        root.render(
             <ThemeProvider theme={theme}>
                 <AcceptEula eulaAccepted={false} loadEula={(): void => {}} onEulaChanged={onEulaChanged} />
-            </ThemeProvider>,
-            div
+            </ThemeProvider>
         );
-        ReactDOM.unmountComponentAtNode(div);
+        root.unmount();
     });
 });
 
 describe('AccountDetails tests', () => {
     it('renders without crashing', () => {
         const div = document.createElement('div');
+        const root = createRoot(div);
         const authUIActions = jest.fn();
         const registrationUIActions = jest.fn();
         const onDetailsChanged = jest.fn();
-        ReactDOM.render(
+
+        root.render(
             <ThemeProvider theme={theme}>
                 <AuthUIContextProvider authActions={authUIActions} registrationActions={registrationUIActions}>
                     <AccountDetails onDetailsChanged={onDetailsChanged} />
                 </AuthUIContextProvider>
-            </ThemeProvider>,
-            div
+            </ThemeProvider>
         );
-        ReactDOM.unmountComponentAtNode(div);
+        root.unmount();
     });
 });
 
 describe('CreateAccount tests', () => {
     it('renders without crashing', () => {
         const div = document.createElement('div');
+        const root = createRoot(div);
         const onEmailChanged = jest.fn();
-        ReactDOM.render(
+
+        root.render(
             <ThemeProvider theme={theme}>
                 <CreateAccount onEmailChanged={onEmailChanged} />
-            </ThemeProvider>,
-            div
+            </ThemeProvider>
         );
-        ReactDOM.unmountComponentAtNode(div);
+        root.unmount();
     });
 });
 
 describe('CreatePassword tests', () => {
     it('renders without crashing', () => {
         const div = document.createElement('div');
+        const root = createRoot(div);
         const onPasswordChanged = jest.fn();
         const authUIActions = jest.fn();
         const registrationUIActions = jest.fn();
 
-        ReactDOM.render(
+        root.render(
             <ThemeProvider theme={theme}>
                 <AuthUIContextProvider authActions={authUIActions} registrationActions={registrationUIActions}>
                     <CreatePassword onPasswordChanged={onPasswordChanged} />
                 </AuthUIContextProvider>
-            </ThemeProvider>,
-            div
+            </ThemeProvider>
         );
-        ReactDOM.unmountComponentAtNode(div);
+        root.unmount();
     });
 });
 
 describe('ExistingAccountComplete tests', () => {
     it('renders without crashing', () => {
         const div = document.createElement('div');
-        ReactDOM.render(
+        const root = createRoot(div);
+
+        root.render(
             <ThemeProvider theme={theme}>
                 <ExistingAccountComplete />
-            </ThemeProvider>,
-            div
+            </ThemeProvider>
         );
-        ReactDOM.unmountComponentAtNode(div);
+        root.unmount();
     });
 });
 
 describe('RegistrationComplete tests', () => {
     it('renders without crashing', () => {
         const div = document.createElement('div');
-        ReactDOM.render(
+        const root = createRoot(div);
+
+        root.render(
             <ThemeProvider theme={theme}>
                 <RegistrationComplete
                     firstName={'Betty'}
@@ -152,46 +159,46 @@ describe('RegistrationComplete tests', () => {
                     email={'potentiallyImmortal@email.com'}
                     organization={'Not Your Typical Granny Inc.'}
                 />
-            </ThemeProvider>,
-            div
+            </ThemeProvider>
         );
-        ReactDOM.unmountComponentAtNode(div);
+        root.unmount();
     });
 });
 
 describe('VerifyEmail tests', () => {
     it('renders without crashing', () => {
         const div = document.createElement('div');
+        const root = createRoot(div);
         const onVerifyCodeChanged = jest.fn();
         const onResendVerificationEmail = jest.fn();
-        ReactDOM.render(
+
+        root.render(
             <ThemeProvider theme={theme}>
                 <VerifyEmail
                     onVerifyCodeChanged={onVerifyCodeChanged}
                     onResendVerificationEmail={onResendVerificationEmail}
                 />
-            </ThemeProvider>,
-            div
+            </ThemeProvider>
         );
-        ReactDOM.unmountComponentAtNode(div);
+        root.unmount();
     });
 });
 
 describe('ContactSupport tests', () => {
     it('renders without crashing', () => {
         const div = document.createElement('div');
+        const root = createRoot(div);
         const authUIActions = jest.fn();
         const registrationUIActions = jest.fn();
 
-        ReactDOM.render(
+        root.render(
             <ThemeProvider theme={theme}>
                 <AuthUIContextProvider authActions={authUIActions} registrationActions={registrationUIActions}>
                     <ContactSupport />
                 </AuthUIContextProvider>
-            </ThemeProvider>,
-            div
+            </ThemeProvider>
         );
-        ReactDOM.unmountComponentAtNode(div);
+        root.unmount();
     });
 });
 
@@ -204,6 +211,7 @@ jest.mock('@brightlayer-ui/react-auth-shared', () => ({
 describe('ForgotPassword tests', () => {
     it('renders without crashing', () => {
         const div = document.createElement('div');
+        const root = createRoot(div);
         const authUIActions = jest.fn();
         const registrationUIActions = jest.fn();
         const accountUIActions = {
@@ -216,17 +224,16 @@ describe('ForgotPassword tests', () => {
         };
         const accountUIDispatch = jest.fn();
 
-        ReactDOM.render(
+        root.render(
             <ThemeProvider theme={theme}>
                 <AccountUIActionContext.Provider value={{ actions: accountUIActions, dispatch: accountUIDispatch }}>
                     <AuthUIContextProvider authActions={authUIActions} registrationActions={registrationUIActions}>
                         <ForgotPassword />
                     </AuthUIContextProvider>
                 </AccountUIActionContext.Provider>
-            </ThemeProvider>,
-            div
+            </ThemeProvider>
         );
-        ReactDOM.unmountComponentAtNode(div);
+        root.unmount();
     });
 });
 
@@ -239,6 +246,7 @@ jest.mock('@brightlayer-ui/react-auth-shared', () => ({
 describe('Login tests', () => {
     it('renders without crashing', () => {
         const div = document.createElement('div');
+        const root = createRoot(div);
         const authUIActions = jest.fn();
         const registrationUIActions = jest.fn();
         const accountUIActions = {
@@ -260,7 +268,7 @@ describe('Login tests', () => {
             SUPPORT: '/support',
         };
 
-        ReactDOM.render(
+        root.render(
             <ThemeProvider theme={theme}>
                 <BrowserRouter>
                     <RoutingContext.Provider value={{ routes: defaultRoutes }}>
@@ -278,10 +286,9 @@ describe('Login tests', () => {
                         </SecurityContextProvider>
                     </RoutingContext.Provider>
                 </BrowserRouter>
-            </ThemeProvider>,
-            div
+            </ThemeProvider>
         );
-        ReactDOM.unmountComponentAtNode(div);
+        root.unmount();
     });
 });
 
@@ -321,37 +328,7 @@ jest.mock('@brightlayer-ui/react-auth-shared', () => ({
 // describe('InviteRegistrationPager tests', () => {
 //     it('renders without crashing', () => {
 //         const div = document.createElement('div');
-//         const authUIActions = jest.fn();
-//          const registrationUIActions = jest.fn();
-
-//         const defaultRoutes = {
-//             LOGIN: '/login',
-//             FORGOT_PASSWORD: '/forgot-password',
-//             RESET_PASSWORD: '/reset-password',
-//             REGISTER_INVITE: '/register/invite',
-//             REGISTER_SELF: '/register/create-account',
-//             SUPPORT: '/support',
-//         };
-
-//         ReactDOM.render(
-//             <BrowserRouter>
-//                 <RoutingContext.Provider value={{ routes: defaultRoutes }}>
-//                     <AuthUIContextProvider authActions={authUIActions} registrationActions={registrationUIActions}>
-//                         <InviteRegistrationPager />
-//                     </AuthUIContextProvider>
-//                 </RoutingContext.Provider>
-//             </BrowserRouter>,
-//             div
-//         );
-//         ReactDOM.unmountComponentAtNode(div);
-//     });
-// });
-
-// @TODO: Fix "Error: Uncaught [TypeError: registrationActions.dispatch is not a function]"
-
-// describe('SelfRegistrationPager tests', () => {
-//     it('renders without crashing', () => {
-//         const div = document.createElement('div');
+//         const root = createRoot(div);
 //         const authUIActions = jest.fn();
 //         const registrationUIActions = jest.fn();
 
@@ -364,41 +341,72 @@ jest.mock('@brightlayer-ui/react-auth-shared', () => ({
 //             SUPPORT: '/support',
 //         };
 
-//         ReactDOM.render(
+//         root.render(
+//             <BrowserRouter>
+//                 <RoutingContext.Provider value={{ routes: defaultRoutes }}>
+//                     <AuthUIContextProvider authActions={authUIActions} registrationActions={registrationUIActions}>
+//                         <InviteRegistrationPager />
+//                     </AuthUIContextProvider>
+//                 </RoutingContext.Provider>
+//             </BrowserRouter>
+//         );
+//         root.unmount();
+//     });
+// });
+
+// @TODO: Fix "Error: Uncaught [TypeError: registrationActions.dispatch is not a function]"
+
+// describe('SelfRegistrationPager tests', () => {
+//     it('renders without crashing', () => {
+//         const div = document.createElement('div');
+//         const root = createRoot(div);
+//         const authUIActions = jest.fn();
+//         const registrationUIActions = jest.fn();
+
+//         const defaultRoutes = {
+//             LOGIN: '/login',
+//             FORGOT_PASSWORD: '/forgot-password',
+//             RESET_PASSWORD: '/reset-password',
+//             REGISTER_INVITE: '/register/invite',
+//             REGISTER_SELF: '/register/create-account',
+//             SUPPORT: '/support',
+//         };
+
+//         root.render(
 //             <BrowserRouter>
 //                 <RoutingContext.Provider value={{ routes: defaultRoutes }}>
 //                     <AuthUIContextProvider authActions={authUIActions} registrationActions={registrationUIActions}>
 //                         <SelfRegistrationPager />
 //                     </AuthUIContextProvider>
 //                 </RoutingContext.Provider>
-//             </BrowserRouter>,
-//             div
+//             </BrowserRouter>
 //         );
-//         ReactDOM.unmountComponentAtNode(div);
+//         root.unmount();
 //     });
 // });
 
 describe('Splash tests', () => {
     it('renders without crashing', () => {
         const div = document.createElement('div');
+        const root = createRoot(div);
         const authUIActions = jest.fn();
         const registrationUIActions = jest.fn();
 
-        ReactDOM.render(
+        root.render(
             <ThemeProvider theme={theme}>
                 <AuthUIContextProvider authActions={authUIActions} registrationActions={registrationUIActions}>
                     <Splash />
                 </AuthUIContextProvider>
-            </ThemeProvider>,
-            div
+            </ThemeProvider>
         );
-        ReactDOM.unmountComponentAtNode(div);
+        root.unmount();
     });
 });
 
 describe('ResetPassword tests', () => {
     it('renders without crashing', () => {
         const div = document.createElement('div');
+        const root = createRoot(div);
         const authUIActions = jest.fn();
         const registrationUIActions = jest.fn();
         const defaultRoutes = {
@@ -419,7 +427,7 @@ describe('ResetPassword tests', () => {
         };
         const authDispatch = jest.fn();
 
-        ReactDOM.render(
+        root.render(
             <ThemeProvider theme={theme}>
                 <BrowserRouter>
                     <RoutingContext.Provider value={{ routes: defaultRoutes }}>
@@ -433,9 +441,8 @@ describe('ResetPassword tests', () => {
                         </AccountUIActionContext.Provider>
                     </RoutingContext.Provider>
                 </BrowserRouter>
-            </ThemeProvider>,
-            div
+            </ThemeProvider>
         );
-        ReactDOM.unmountComponentAtNode(div);
+        root.unmount();
     });
 });
