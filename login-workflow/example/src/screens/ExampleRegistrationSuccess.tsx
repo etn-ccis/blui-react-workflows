@@ -15,7 +15,7 @@ type CustomRegistrationProps = {
     registrationData: RegistrationData;
 };
 
-export const CustomRegistrationSuccessScreen: React.FC<CustomRegistrationProps> = (props) => {
+export const CustomRegistrationSuccessScreen: React.FC<React.PropsWithChildren<CustomRegistrationProps>> = (props) => {
     const matchesXS = useMediaQuery('(max-width:600px)');
 
     return (
@@ -64,7 +64,7 @@ export const CustomRegistrationSuccessScreen: React.FC<CustomRegistrationProps> 
     );
 };
 
-export const CustomAccountAlreadyExistsScreen: React.FC = () => {
+export const CustomAccountAlreadyExistsScreen: React.FC<React.PropsWithChildren<unknown>> = () => {
     const matchesXS = useMediaQuery('(max-width:600px)');
 
     return (

@@ -37,7 +37,7 @@ export type ChangePasswordFormProps = {
  *
  * @category Component
  */
-export const ChangePasswordForm: React.FC<ChangePasswordFormProps> = (props) => {
+export const ChangePasswordForm: React.FC<React.PropsWithChildren<ChangePasswordFormProps>> = (props) => {
     const {
         onPasswordChange,
         initialPassword = '',

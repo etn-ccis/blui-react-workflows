@@ -27,7 +27,7 @@ export type AcceptEulaProps = {
  *
  * @category Component
  */
-export const AcceptEula: React.FC<AcceptEulaProps> = (props) => {
+export const AcceptEula: React.FC<React.PropsWithChildren<AcceptEulaProps>> = (props) => {
     const { eulaAccepted, eulaContent, onEulaChanged, loadEula, htmlEula, eulaError } = props;
     const { t } = useLanguageLocale();
     const theme = useTheme();

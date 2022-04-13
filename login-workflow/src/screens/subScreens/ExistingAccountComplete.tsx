@@ -10,7 +10,7 @@ import Person from '@mui/icons-material/Person';
  *
  * @category Component
  */
-export const ExistingAccountComplete: React.FC = () => {
+export const ExistingAccountComplete: React.FC<React.PropsWithChildren<unknown>> = () => {
     const { t } = useLanguageLocale();
     const theme = useTheme();
 
