@@ -163,8 +163,9 @@ export const InviteRegistrationPager: React.FC<React.PropsWithChildren<React.Pro
 
     const customDetails = injectedUIContext.customAccountDetails || [];
     //@ts-ignore
-    const FirstCustomPage: ComponentType<React.PropsWithChildren<React.PropsWithChildren<AccountDetailsFormProps>>> | null =
-        customDetails.length > 0 && customDetails[0] ? customDetails[0].component : null;
+    const FirstCustomPage: ComponentType<
+        React.PropsWithChildren<React.PropsWithChildren<AccountDetailsFormProps>>
+    > | null = customDetails.length > 0 && customDetails[0] ? customDetails[0].component : null;
 
     const RegistrationPages: RegistrationPage[] = [
         {
@@ -241,7 +242,13 @@ export const InviteRegistrationPager: React.FC<React.PropsWithChildren<React.Pro
             customDetails
                 .slice(1)
                 //@ts-ignore there won't be any nulls after we filter them
-                .filter((item: ComponentType<React.PropsWithChildren<React.PropsWithChildren<CustomRegistrationForm>>> | null) => item !== null)
+                .filter(
+                    (
+                        item: ComponentType<
+                            React.PropsWithChildren<React.PropsWithChildren<CustomRegistrationForm>>
+                        > | null
+                    ) => item !== null
+                )
                 .map((page: CustomRegistrationForm, i: number) => {
                     const PageComponent = page.component;
                     return {

@@ -23,7 +23,9 @@ export type RegistrationCompleteProps = {
  *
  * @category Component
  */
-export const RegistrationComplete: React.FC<React.PropsWithChildren<React.PropsWithChildren<RegistrationCompleteProps>>> = (props) => {
+export const RegistrationComplete: React.FC<
+    React.PropsWithChildren<React.PropsWithChildren<RegistrationCompleteProps>>
+> = (props) => {
     const { firstName, lastName, email, organization } = props;
     const { t } = useLanguageLocale();
     const theme = useTheme();

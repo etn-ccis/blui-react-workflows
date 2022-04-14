@@ -65,7 +65,9 @@ export type BrandedCardContainerProps = {
  *
  * @category Component
  */
-export const BrandedCardContainer: React.FC<React.PropsWithChildren<React.PropsWithChildren<BrandedCardContainerProps>>> = (props) => {
+export const BrandedCardContainer: React.FC<
+    React.PropsWithChildren<React.PropsWithChildren<BrandedCardContainerProps>>
+> = (props) => {
     const { children, loading, ...otherProps } = props;
     const classes = useStyles();
     return (

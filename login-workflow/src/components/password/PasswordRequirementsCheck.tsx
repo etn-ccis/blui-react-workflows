@@ -31,7 +31,9 @@ const useStyles = makeStyles((theme: Theme) =>
  *
  * @category Component
  */
-export const PasswordRequirementsCheck: React.FC<React.PropsWithChildren<React.PropsWithChildren<PasswordRequirementsCheckProps>>> = (props) => {
+export const PasswordRequirementsCheck: React.FC<
+    React.PropsWithChildren<React.PropsWithChildren<PasswordRequirementsCheckProps>>
+> = (props) => {
     const { isChecked, label } = props;
     const classes = useStyles(props);
 

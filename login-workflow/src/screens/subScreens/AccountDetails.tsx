@@ -22,7 +22,9 @@ export type AccountDetailsProps = {
  * @param description an object specifying any details to pre-fill
  * @category Component
  */
-export const AccountDetailsWrapper: React.FC<React.PropsWithChildren<React.PropsWithChildren<AccountDetailsWrapperProps>>> = (props) => {
+export const AccountDetailsWrapper: React.FC<
+    React.PropsWithChildren<React.PropsWithChildren<AccountDetailsWrapperProps>>
+> = (props) => {
     const { t } = useLanguageLocale();
     const { description = t('blui:REGISTRATION.INSTRUCTIONS.ACCOUNT_DETAILS') } = props;
     const classes = useDialogStyles();
@@ -44,7 +46,9 @@ export const AccountDetailsWrapper: React.FC<React.PropsWithChildren<React.Props
  * @param onSubmit function to call when the user submits the mini form
  * @category Component
  */
-export const AccountDetails: React.FC<React.PropsWithChildren<React.PropsWithChildren<AccountDetailsProps>>> = (props) => {
+export const AccountDetails: React.FC<React.PropsWithChildren<React.PropsWithChildren<AccountDetailsProps>>> = (
+    props
+) => {
     const { onDetailsChanged, initialDetails, onSubmit } = props;
     const classes = useDialogStyles();
     const { t } = useLanguageLocale();
