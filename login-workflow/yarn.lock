@@ -1017,10 +1017,10 @@
   resolved "https://registry.yarnpkg.com/@brightlayer-ui/prettier-config/-/prettier-config-1.0.3.tgz#e40a7ae7435c6fd5118acbf249080e0aa81e93af"
   integrity sha512-EYm3+V7Qd+oYEF+8FadsXAZqXryEHHbGnrV1BMp9selhABjceqUqXPVE4Sn3SKWQdBNJ3En2A3EzgrzRbvRTaw==
 
-"@brightlayer-ui/react-auth-shared@^3.6.1":
-  version "3.6.1"
-  resolved "https://registry.yarnpkg.com/@brightlayer-ui/react-auth-shared/-/react-auth-shared-3.6.1.tgz#52c4f52fe1db5547a92de197de62947a6c55e4d7"
-  integrity sha512-017RUghekEkk1YqOsbYAFpq2+hBquFqIwJHifITfR5jCt4iOovOGchcJCh5Vq9zQ5nNpBUlj26N7UIfuk1HK7g==
+"@brightlayer-ui/react-auth-shared@^3.6.2-beta.0":
+  version "3.6.2-beta.0"
+  resolved "https://registry.yarnpkg.com/@brightlayer-ui/react-auth-shared/-/react-auth-shared-3.6.2-beta.0.tgz#1f6a01e06b1fd994418e9a49b9a1c7238fde9489"
+  integrity sha512-uSe+8ezjiRaiVSsePk7LzyLOoFr+TMa2ZrWNEqEKmP6l1Uc3kRGIVwTphrr6CtoD5S3PFzR1iOxT5b3dTKqNYg==
 
 "@brightlayer-ui/react-components@^6.0.0":
   version "6.0.0"
@@ -4255,9 +4255,9 @@ levn@~0.3.0:
     prelude-ls "~1.1.2"
     type-check "~0.3.2"
 
-"license-checker@git+https://github.com/mwittig/license-checker.git#d546e3f738e14c62e732346fa355162d46700893":
+"license-checker@git+https://github.com/mwittig/license-checker#d546e3f738e14c62e732346fa355162d46700893":
   version "1.0.0"
-  resolved "git+https://github.com/mwittig/license-checker.git#d546e3f738e14c62e732346fa355162d46700893"
+  resolved "git+https://github.com/mwittig/license-checker#d546e3f738e14c62e732346fa355162d46700893"
   dependencies:
     chalk "~0.5.1"
     mkdirp "^0.3.5"
