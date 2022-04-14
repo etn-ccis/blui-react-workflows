@@ -2,7 +2,6 @@ import 'react-app-polyfill/ie11';
 import { ThemeProvider, createTheme, StyledEngineProvider } from '@mui/material/styles';
 import 'react-app-polyfill/stable';
 import React from 'react';
-// import ReactDOM from 'react-dom';
 import * as serviceWorker from './serviceWorker';
 import { App } from './App';
 import CssBaseline from '@mui/material/CssBaseline';
