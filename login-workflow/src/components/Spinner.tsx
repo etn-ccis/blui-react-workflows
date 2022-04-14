@@ -33,7 +33,7 @@ type SpinnerProps = {
  *
  * @category Component
  */
-export const Spinner: React.FC<SpinnerProps> = (props) => {
+export const Spinner: React.FC<React.PropsWithChildren<React.PropsWithChildren<SpinnerProps>>> = (props) => {
     const { visible } = props;
     const theme = useTheme();
     const classes = useStyles(theme);

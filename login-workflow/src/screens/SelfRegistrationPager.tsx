@@ -46,7 +46,7 @@ export const emptyAccountDetailInformation: AccountDetailInformation = {
  *
  * @category Component
  */
-export const SelfRegistrationPager: React.FC = () => {
+export const SelfRegistrationPager: React.FC<React.PropsWithChildren<React.PropsWithChildren<unknown>>> = () => {
     const { t } = useLanguageLocale();
     const navigate = useNavigate();
     const { routes } = useRoutes();
@@ -208,8 +208,9 @@ export const SelfRegistrationPager: React.FC = () => {
     // Define the pages in the workflow
     const customDetails = injectedUIContext.customAccountDetails || [];
     //@ts-ignore
-    const FirstCustomPage: ComponentType<AccountDetailsFormProps> | null =
-        customDetails.length > 0 && customDetails[0] ? customDetails[0].component : null;
+    const FirstCustomPage: ComponentType<
+        React.PropsWithChildren<React.PropsWithChildren<AccountDetailsFormProps>>
+    > | null = customDetails.length > 0 && customDetails[0] ? customDetails[0].component : null;
 
     const RegistrationPages: RegistrationPage[] = [
         {

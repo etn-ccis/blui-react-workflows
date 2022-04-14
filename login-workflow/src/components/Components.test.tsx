@@ -1,5 +1,4 @@
 import React from 'react';
-import ReactDOM from 'react-dom';
 import 'regenerator-runtime/runtime';
 import Enzyme, { shallow } from 'enzyme';
 import Adapter from 'enzyme-adapter-react-16';
@@ -19,6 +18,7 @@ import {
 } from '@brightlayer-ui/react-auth-shared';
 import { createTheme, ThemeProvider } from '@mui/material/styles';
 import * as BLUIThemes from '@brightlayer-ui/react-themes';
+import { createRoot } from 'react-dom/client';
 
 const theme = createTheme(BLUIThemes.blue);
 
@@ -56,29 +56,30 @@ describe('BrandedCardContainer tests', () => {
         const div = document.createElement('div');
         const authUIActions = jest.fn();
         const registrationUIActions = jest.fn();
+        const root = createRoot(div);
 
-        ReactDOM.render(
+        root.render(
             <ThemeProvider theme={theme}>
                 <AuthUIContextProvider authActions={authUIActions} registrationActions={registrationUIActions}>
                     <BrandedCardContainer loading={false} />
                 </AuthUIContextProvider>
-            </ThemeProvider>,
-            div
+            </ThemeProvider>
         );
-        ReactDOM.unmountComponentAtNode(div);
+        root.unmount();
     });
 });
 
 describe('FinishState tests', () => {
     it('renders without crashing', () => {
         const div = document.createElement('div');
-        ReactDOM.render(
+        const root = createRoot(div);
+
+        root.render(
             <ThemeProvider theme={theme}>
                 <FinishState icon={<CheckCircle color={'primary'} />} title={`Test Title`} />
-            </ThemeProvider>,
-            div
+            </ThemeProvider>
         );
-        ReactDOM.unmountComponentAtNode(div);
+        root.unmount();
     });
 });
 
@@ -102,13 +103,14 @@ jest.mock('../contexts/RoutingContext', () => ({
 describe('AuthGuard unauthenticated tests', () => {
     it('renders without crashing', () => {
         const div = document.createElement('div');
-        ReactDOM.render(
+        const root = createRoot(div);
+
+        root.render(
             <ThemeProvider theme={theme}>
                 <AuthGuard></AuthGuard>
-            </ThemeProvider>,
-            div
+            </ThemeProvider>
         );
-        ReactDOM.unmountComponentAtNode(div);
+        root.unmount();
     });
 });
 
@@ -121,26 +123,28 @@ jest.mock('@brightlayer-ui/react-auth-shared', () => ({
 describe('AuthGuard authenticated tests', () => {
     it('renders without crashing', () => {
         const div = document.createElement('div');
-        ReactDOM.render(
+        const root = createRoot(div);
+
+        root.render(
             <ThemeProvider theme={theme}>
                 <AuthGuard></AuthGuard>
-            </ThemeProvider>,
-            div
+            </ThemeProvider>
         );
-        ReactDOM.unmountComponentAtNode(div);
+        root.unmount();
     });
 });
 
 describe('SecureTextField tests', () => {
     it('renders without crashing', () => {
         const div = document.createElement('div');
-        ReactDOM.render(
+        const root = createRoot(div);
+
+        root.render(
             <ThemeProvider theme={theme}>
                 <SecureTextField />
-            </ThemeProvider>,
-            div
+            </ThemeProvider>
         );
-        ReactDOM.unmountComponentAtNode(div);
+        root.unmount();
     });
 
     it('hides input text by default', () => {
@@ -152,44 +156,46 @@ describe('SecureTextField tests', () => {
 describe('SimpleDialog tests', () => {
     it('renders without crashing', () => {
         const div = document.createElement('div');
-        ReactDOM.render(
+        const root = createRoot(div);
+
+        root.render(
             <ThemeProvider theme={theme}>
                 <SimpleDialog title={'test title'} body={'test body'} open={true} onClose={(): void => {}} />
-            </ThemeProvider>,
-            div
+            </ThemeProvider>
         );
-        ReactDOM.unmountComponentAtNode(div);
+        root.unmount();
     });
 });
 
 describe('Spinner tests', () => {
     it('renders without crashing', () => {
         const div = document.createElement('div');
-        ReactDOM.render(
+        const root = createRoot(div);
+
+        root.render(
             <ThemeProvider theme={theme}>
                 <Spinner />
-            </ThemeProvider>,
-            div
+            </ThemeProvider>
         );
-        ReactDOM.unmountComponentAtNode(div);
+        root.unmount();
     });
 });
 
 describe('ChangePasswordForm tests', () => {
     it('renders without crashing', () => {
         const div = document.createElement('div');
+        const root = createRoot(div);
         const authUIActions = jest.fn();
         const registrationUIActions = jest.fn();
 
-        ReactDOM.render(
+        root.render(
             <ThemeProvider theme={theme}>
                 <AuthUIContextProvider authActions={authUIActions} registrationActions={registrationUIActions}>
                     <ChangePasswordForm onPasswordChange={(): void => {}} />
                 </AuthUIContextProvider>
-            </ThemeProvider>,
-            div
+            </ThemeProvider>
         );
-        ReactDOM.unmountComponentAtNode(div);
+        root.unmount();
     });
 });
 
@@ -203,6 +209,7 @@ jest.mock('@brightlayer-ui/react-auth-shared', () => ({
 describe('ChangePasswordModal transitSuccess=true tests', () => {
     it('renders without crashing', () => {
         const div = document.createElement('div');
+        const root = createRoot(div);
         const authUIActions = jest.fn();
         const registrationUIActions = jest.fn();
         const authActions = {
@@ -215,7 +222,7 @@ describe('ChangePasswordModal transitSuccess=true tests', () => {
         };
         const authDispatch = jest.fn();
 
-        ReactDOM.render(
+        root.render(
             <ThemeProvider theme={theme}>
                 <SecurityContextProvider>
                     <AccountUIActionContext.Provider value={{ actions: authActions, dispatch: authDispatch }}>
@@ -224,10 +231,9 @@ describe('ChangePasswordModal transitSuccess=true tests', () => {
                         </AuthUIContextProvider>
                     </AccountUIActionContext.Provider>
                 </SecurityContextProvider>
-            </ThemeProvider>,
-            div
+            </ThemeProvider>
         );
-        ReactDOM.unmountComponentAtNode(div);
+        root.unmount();
     });
 });
 
@@ -241,6 +247,7 @@ jest.mock('@brightlayer-ui/react-auth-shared', () => ({
 describe('ChangePasswordModal transitSuccess=false tests', () => {
     it('renders without crashing', () => {
         const div = document.createElement('div');
+        const root = createRoot(div);
         const authUIActions = jest.fn();
         const registrationUIActions = jest.fn();
         const authActions = {
@@ -253,7 +260,7 @@ describe('ChangePasswordModal transitSuccess=false tests', () => {
         };
         const authDispatch = jest.fn();
 
-        ReactDOM.render(
+        root.render(
             <ThemeProvider theme={theme}>
                 <SecurityContextProvider>
                     <AccountUIActionContext.Provider value={{ actions: authActions, dispatch: authDispatch }}>
@@ -262,45 +269,44 @@ describe('ChangePasswordModal transitSuccess=false tests', () => {
                         </AuthUIContextProvider>
                     </AccountUIActionContext.Provider>
                 </SecurityContextProvider>
-            </ThemeProvider>,
-            div
+            </ThemeProvider>
         );
-        ReactDOM.unmountComponentAtNode(div);
+        root.unmount();
     });
 });
 
 describe('PasswordRequirements tests', () => {
     it('renders without crashing', () => {
         const div = document.createElement('div');
+        const root = createRoot(div);
         const authUIActions = jest.fn();
         const registrationUIActions = jest.fn();
 
-        ReactDOM.render(
+        root.render(
             <ThemeProvider theme={theme}>
                 <AuthUIContextProvider authActions={authUIActions} registrationActions={registrationUIActions}>
                     <PasswordRequirements passwordText={'Test@123'} />
                 </AuthUIContextProvider>
-            </ThemeProvider>,
-            div
+            </ThemeProvider>
         );
-        ReactDOM.unmountComponentAtNode(div);
+        root.unmount();
     });
 });
 
 describe('PasswordRequirementsCheck tests', () => {
     it('renders without crashing', () => {
         const div = document.createElement('div');
+        const root = createRoot(div);
         const authUIActions = jest.fn();
         const registrationUIActions = jest.fn();
 
-        ReactDOM.render(
+        root.render(
             <ThemeProvider theme={theme}>
                 <AuthUIContextProvider authActions={authUIActions} registrationActions={registrationUIActions}>
                     <PasswordRequirementsCheck label={'test label'} isChecked={false} />
                 </AuthUIContextProvider>
-            </ThemeProvider>,
-            div
+            </ThemeProvider>
         );
-        ReactDOM.unmountComponentAtNode(div);
+        root.unmount();
     });
 });

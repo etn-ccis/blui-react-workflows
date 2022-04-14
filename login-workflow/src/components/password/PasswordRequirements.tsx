@@ -14,7 +14,9 @@ export type PasswordRequirementsProps = HTMLAttributes<HTMLDivElement> & {
  *
  * @category Component
  */
-export const PasswordRequirements: React.FC<PasswordRequirementsProps> = (props) => {
+export const PasswordRequirements: React.FC<
+    React.PropsWithChildren<React.PropsWithChildren<PasswordRequirementsProps>>
+> = (props) => {
     const { passwordText, ...divProps } = props;
     const { t } = useLanguageLocale();
     const { passwordRequirements = defaultPasswordRequirements(t) } = useInjectedUIContext();
