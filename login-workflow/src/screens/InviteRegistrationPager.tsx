@@ -242,13 +242,7 @@ export const InviteRegistrationPager: React.FC<React.PropsWithChildren<React.Pro
             customDetails
                 .slice(1)
                 //@ts-ignore there won't be any nulls after we filter them
-                .filter(
-                    (
-                        item: ComponentType<
-                            React.PropsWithChildren<React.PropsWithChildren<CustomRegistrationForm>>
-                        > | null
-                    ) => item !== null
-                )
+                .filter((item: ComponentType<CustomRegistrationForm> | null) => item !== null)
                 .map((page: CustomRegistrationForm, i: number) => {
                     const PageComponent = page.component;
                     return {
