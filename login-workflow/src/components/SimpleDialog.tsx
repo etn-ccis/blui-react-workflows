@@ -26,7 +26,7 @@ export type SimpleDialogProps = DialogProps & {
  *
  * @category Component
  */
-export const SimpleDialog: React.FC<SimpleDialogProps> = (props) => {
+export const SimpleDialog: React.FC<React.PropsWithChildren<React.PropsWithChildren<SimpleDialogProps>>> = (props) => {
     const { title, body, ...dialogProps } = props;
     const classes = useDialogStyles();
     const { t } = useLanguageLocale();

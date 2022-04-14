@@ -62,7 +62,9 @@ const prefixRoutes = (routes: RouteConfig): { routes: Required<RouteConfig>; rou
  *
  * @category Component
  */
-export const AuthNavigationContainer: React.FC<NavigationContainerComponentProps> = (props) => {
+export const AuthNavigationContainer: React.FC<
+    React.PropsWithChildren<React.PropsWithChildren<NavigationContainerComponentProps>>
+> = (props) => {
     const securityState = useSecurityState();
     const injectedContext = useInjectedUIContext();
     const { routeConfig, extraRoutes, children, ...otherProps } = props;

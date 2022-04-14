@@ -12,8 +12,6 @@ import { ExampleHome } from './screens/ExampleHome';
 // import { CustomDetailsScreen, CustomDetailsScreenTwo } from './components/CustomDetailsScreen';
 import { routes } from './navigation/Routing';
 import productLogo from './assets/images/eaton_stacked_logo.png';
-// import { Route } from 'react-router-dom';
-// import { ExamplePreAuth } from './screens/ExamplePreAuth';
 // import {
 //     CustomAccountAlreadyExistsScreen,
 //     CustomRegistrationSuccessScreen,
@@ -38,7 +36,7 @@ i18n.addResourceBundle('en', 'blui', { ACTIONS: { CREATE_ACCOUNT: 'Register now!
 i18n.addResourceBundle('es', 'blui', { ACTIONS: { CREATE_ACCOUNT: '¡Regístrate ahora!' } }, true, true);
 i18n.addResourceBundle('fr', 'blui', { ACTIONS: { CREATE_ACCOUNT: `S'inscrire maintenant!` } }, true, true);
 
-export const AuthUIConfiguration: React.FC = (props) => {
+export const AuthUIConfiguration: React.FC<React.PropsWithChildren<unknown>> = (props) => {
     const securityContextActions = useSecurityActions();
     const { t } = useTranslation();
 
@@ -123,7 +121,7 @@ export const AuthUIConfiguration: React.FC = (props) => {
     );
 };
 
-export const MySharedWrapper: React.FC = () => (
+export const MySharedWrapper: React.FC<React.PropsWithChildren<unknown>> = () => (
     <>
         <AppBar>
             <Toolbar>
@@ -142,12 +140,12 @@ export const MyAppRoutes = (
     </>
 );
 
-export const App: React.FC = () => (
+export const App: React.FC<React.PropsWithChildren<unknown>> = () => (
     <SecurityContextProvider>
         <AuthUIConfiguration>
             <AuthNavigationContainer
                 routeConfig={routes}
-                extraRoutes={[<Route path={'/pre-auth'} element={ExamplePreAuth} key={'pre-auth'} />]}
+                extraRoutes={[<Route path={'/pre-auth'} element={<ExamplePreAuth />} key={'pre-auth'} />]}
             >
                 <Route path={''} /*element={<MySharedWrapper />}*/>{MyAppRoutes}</Route>
             </AuthNavigationContainer>

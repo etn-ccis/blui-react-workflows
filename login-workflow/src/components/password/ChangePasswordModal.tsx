@@ -38,7 +38,7 @@ const useDialogStyles = makeStyles(sharedDialogStyles);
  *
  * @category Component
  */
-export const ChangePasswordModal: React.FC = () => {
+export const ChangePasswordModal: React.FC<React.PropsWithChildren<React.PropsWithChildren<unknown>>> = () => {
     const { t } = useLanguageLocale();
     const securityState = useSecurityState();
     const accountUIActions = useAccountUIActions();

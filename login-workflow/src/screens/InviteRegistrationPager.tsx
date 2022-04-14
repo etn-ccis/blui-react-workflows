@@ -43,7 +43,7 @@ const useDialogStyles = makeStyles(sharedDialogStyles);
  *
  * @category Component
  */
-export const InviteRegistrationPager: React.FC = () => {
+export const InviteRegistrationPager: React.FC<React.PropsWithChildren<React.PropsWithChildren<unknown>>> = () => {
     const { t } = useLanguageLocale();
     const navigate = useNavigate();
     const { routes } = useRoutes();
@@ -163,8 +163,9 @@ export const InviteRegistrationPager: React.FC = () => {
 
     const customDetails = injectedUIContext.customAccountDetails || [];
     //@ts-ignore
-    const FirstCustomPage: ComponentType<AccountDetailsFormProps> | null =
-        customDetails.length > 0 && customDetails[0] ? customDetails[0].component : null;
+    const FirstCustomPage: ComponentType<
+        React.PropsWithChildren<React.PropsWithChildren<AccountDetailsFormProps>>
+    > | null = customDetails.length > 0 && customDetails[0] ? customDetails[0].component : null;
 
     const RegistrationPages: RegistrationPage[] = [
         {

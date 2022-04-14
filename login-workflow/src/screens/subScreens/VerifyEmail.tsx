@@ -27,7 +27,7 @@ export type VerifyEmailProps = {
  *
  * @category Component
  */
-export const VerifyEmail: React.FC<VerifyEmailProps> = (props) => {
+export const VerifyEmail: React.FC<React.PropsWithChildren<React.PropsWithChildren<VerifyEmailProps>>> = (props) => {
     const { initialCode, onVerifyCodeChanged, onResendVerificationEmail, onSubmit } = props;
     const theme = useTheme();
     const classes = useDialogStyles();

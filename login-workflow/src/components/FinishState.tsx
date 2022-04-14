@@ -31,7 +31,7 @@ const useStyles = makeStyles((theme: Theme) =>
  *
  * @category Component
  */
-export const FinishState: React.FC<EmptyStateProps> = (props) => {
+export const FinishState: React.FC<React.PropsWithChildren<React.PropsWithChildren<EmptyStateProps>>> = (props) => {
     const { classes: emptyStateClasses = {}, style, ...emptyStateProps } = props;
     const classes = useStyles();
     return (

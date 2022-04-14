@@ -43,7 +43,7 @@ const useStyles = makeStyles((theme: Theme) =>
  *
  * @category Component
  */
-export const BrandedBackground: React.FC = (props) => {
+export const BrandedBackground: React.FC<React.PropsWithChildren<React.PropsWithChildren<unknown>>> = (props) => {
     const { background } = useInjectedUIContext();
     const classes = useStyles();
 
@@ -65,7 +65,9 @@ export type BrandedCardContainerProps = {
  *
  * @category Component
  */
-export const BrandedCardContainer: React.FC<BrandedCardContainerProps> = (props) => {
+export const BrandedCardContainer: React.FC<
+    React.PropsWithChildren<React.PropsWithChildren<BrandedCardContainerProps>>
+> = (props) => {
     const { children, loading, ...otherProps } = props;
     const classes = useStyles();
     return (

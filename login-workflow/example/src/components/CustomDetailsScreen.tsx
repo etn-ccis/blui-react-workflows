@@ -16,7 +16,7 @@ export const useStyles = makeStyles((theme: Theme) =>
     })
 );
 
-export const CustomDetailsScreen: React.FC<AccountDetailsFormProps> = (props) => {
+export const CustomDetailsScreen: React.FC<React.PropsWithChildren<AccountDetailsFormProps>> = (props) => {
     const { onDetailsChanged, initialDetails, onSubmit } = props;
     const [country, setCountry] = useState(initialDetails ? initialDetails.country : '');
     const [currency, setCurrency] = useState(initialDetails ? initialDetails.currency : '');
@@ -64,7 +64,7 @@ export const CustomDetailsScreen: React.FC<AccountDetailsFormProps> = (props) =>
     );
 };
 
-export const CustomDetailsScreenTwo: React.FC<AccountDetailsFormProps> = (props) => {
+export const CustomDetailsScreenTwo: React.FC<React.PropsWithChildren<AccountDetailsFormProps>> = (props) => {
     const { onDetailsChanged, initialDetails, onSubmit } = props;
     const [company, setCompany] = useState(initialDetails ? initialDetails.company : '');
     const [role, setRole] = useState(initialDetails ? initialDetails.role : '');
