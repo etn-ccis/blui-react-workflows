@@ -46,7 +46,7 @@ const useStyles = makeStyles((theme: Theme) =>
  *
  * @category Component
  */
-export const ForgotPassword: React.FC<React.PropsWithChildren<unknown>> = () => {
+export const ForgotPassword: React.FC<React.PropsWithChildren<React.PropsWithChildren<unknown>>> = () => {
     const { t } = useLanguageLocale();
     const navigate = useNavigate();
     const classes = useStyles();

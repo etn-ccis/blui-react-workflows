@@ -138,7 +138,7 @@ const useStyles = makeStyles((theme: Theme) =>
  *
  * @category Component
  */
-export const Login: React.FC<React.PropsWithChildren<unknown>> = () => {
+export const Login: React.FC<React.PropsWithChildren<React.PropsWithChildren<unknown>>> = () => {
     const securityState = useSecurityState();
     const { t } = useLanguageLocale();
     const authUIActions = useAccountUIActions();

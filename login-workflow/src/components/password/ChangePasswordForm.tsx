@@ -37,7 +37,7 @@ export type ChangePasswordFormProps = {
  *
  * @category Component
  */
-export const ChangePasswordForm: React.FC<React.PropsWithChildren<ChangePasswordFormProps>> = (props) => {
+export const ChangePasswordForm: React.FC<React.PropsWithChildren<React.PropsWithChildren<ChangePasswordFormProps>>> = (props) => {
     const {
         onPasswordChange,
         initialPassword = '',
@@ -59,7 +59,7 @@ export const ChangePasswordForm: React.FC<React.PropsWithChildren<ChangePassword
     const [confirmInput, setConfirmInput] = useState(initialConfirm);
 
     const onPassChange = useCallback(
-        (newPassword) => {
+        (newPassword: any) => {
             setPasswordInput(newPassword);
             onPasswordChange({ password: newPassword, confirm: confirmInput });
         },
@@ -67,7 +67,7 @@ export const ChangePasswordForm: React.FC<React.PropsWithChildren<ChangePassword
     );
 
     const onConfirmChange = useCallback(
-        (newConfirm) => {
+        (newConfirm: any) => {
             setConfirmInput(newConfirm);
             onPasswordChange({ password: passwordInput, confirm: newConfirm });
         },

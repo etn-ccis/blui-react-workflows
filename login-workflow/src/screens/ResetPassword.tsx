@@ -31,7 +31,7 @@ const useDialogStyles = makeStyles(sharedDialogStyles);
  *
  * @category Component
  */
-export const ResetPassword: React.FC<React.PropsWithChildren<unknown>> = () => {
+export const ResetPassword: React.FC<React.PropsWithChildren<React.PropsWithChildren<unknown>>> = () => {
     const { t } = useLanguageLocale();
     const navigate = useNavigate();
     const { routes } = useRoutes();

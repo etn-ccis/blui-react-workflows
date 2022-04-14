@@ -37,7 +37,7 @@ const useStyles = makeStyles((theme: Theme) =>
  *
  * @category Component
  */
-export const ContactSupportContent: React.FC<React.PropsWithChildren<unknown>> = () => {
+export const ContactSupportContent: React.FC<React.PropsWithChildren<React.PropsWithChildren<unknown>>> = () => {
     const { t } = useLanguageLocale();
     const theme = useTheme();
     const classes = useStyles();
@@ -79,7 +79,7 @@ export const ContactSupportContent: React.FC<React.PropsWithChildren<unknown>> =
  *
  * @category Component
  */
-export const ContactSupport: React.FC<React.PropsWithChildren<unknown>> = () => {
+export const ContactSupport: React.FC<React.PropsWithChildren<React.PropsWithChildren<unknown>>> = () => {
     const { t } = useLanguageLocale();
     const navigate = useNavigate();
     const classes = useDialogStyles();

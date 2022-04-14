@@ -18,7 +18,7 @@ export type CreatePasswordProps = {
  *
  * @category Component
  */
-export const CreatePassword: React.FC<React.PropsWithChildren<CreatePasswordProps>> = (props) => {
+export const CreatePassword: React.FC<React.PropsWithChildren<React.PropsWithChildren<CreatePasswordProps>>> = (props) => {
     const { onPasswordChanged, initialPassword = '', onSubmit } = props;
     const { t } = useLanguageLocale();
 

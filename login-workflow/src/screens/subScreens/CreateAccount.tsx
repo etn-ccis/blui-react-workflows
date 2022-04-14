@@ -25,7 +25,7 @@ export type CreateAccountProps = {
  *
  * @category Component
  */
-export const CreateAccount: React.FC<React.PropsWithChildren<CreateAccountProps>> = (props) => {
+export const CreateAccount: React.FC<React.PropsWithChildren<React.PropsWithChildren<CreateAccountProps>>> = (props) => {
     const { initialEmail, onEmailChanged, onSubmit } = props;
     const classes = useDialogStyles();
     const { t } = useLanguageLocale();

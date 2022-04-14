@@ -13,7 +13,7 @@ import VisibilityOff from '@mui/icons-material/VisibilityOff';
  *
  * @category Component
  */
-export const SecureTextField: React.FC<React.PropsWithChildren<TextFieldProps>> = (props) => {
+export const SecureTextField: React.FC<React.PropsWithChildren<React.PropsWithChildren<TextFieldProps>>> = (props) => {
     const [showPassword, setShowPassword] = useState(false);
 
     return (

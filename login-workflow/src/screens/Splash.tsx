@@ -34,7 +34,7 @@ const useStyles = makeStyles(() =>
  *
  * @category Component
  */
-export const Splash: React.FC<React.PropsWithChildren<SplashProps>> = (props) => {
+export const Splash: React.FC<React.PropsWithChildren<React.PropsWithChildren<SplashProps>>> = (props) => {
     const { mainImage } = props;
     const theme = useTheme();
     const classes = useStyles();
