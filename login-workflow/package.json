@@ -26,7 +26,7 @@
     "prettier": "@brightlayer-ui/prettier-config",
     "dependencies": {
         "i18next-browser-languagedetector": "^6.1.0",
-        "@brightlayer-ui/react-auth-shared": "^3.6.2-beta.0",
+        "@brightlayer-ui/react-auth-shared": "^3.6.2",
         "dompurify": "^2.2.9"
     },
     "peerDependencies": {
