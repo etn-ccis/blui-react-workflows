@@ -26,7 +26,7 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 ### Updated
 
--   Import material-ui components via default imports instead of named imports to reduce overall bundle size ([#85](https://github.com/brightlayer-ui/react-themes/issues/85))
+-   Import material-ui components via default imports instead of named imports to reduce overall bundle size ([#85](https://github.com/brightlayer-ui/react-workflows/issues/85))
 
 ### Fixed
 
