@@ -12,6 +12,7 @@ jobs:
       - run: cd login-workflow && yarn initialize && yarn install:dependencies && yarn link:workflow && cd example && yarn && yarn build
       - uses: FirebaseExtended/action-hosting-deploy@v0
         with:
+          entryPoint: "./login-workflow"
           repoToken: '${{ secrets.GITHUB_TOKEN }}'
           firebaseServiceAccount: '${{ secrets.FIREBASE_SERVICE_ACCOUNT_BLUI_REACT_LOGIN }}'
           expires: 2d
