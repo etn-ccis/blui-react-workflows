@@ -18,7 +18,6 @@ import DialogActions from '@mui/material/DialogActions';
 import Button from '@mui/material/Button';
 import Grid from '@mui/material/Grid';
 import { useTheme } from '@mui/material/styles';
-import makeStyles from '@mui/styles/makeStyles';
 import Divider from '@mui/material/Divider';
 import useMediaQuery from '@mui/material/useMediaQuery';
 import { ChangePasswordForm } from './ChangePasswordForm';
@@ -27,9 +26,7 @@ import { SimpleDialog } from '../SimpleDialog';
 import { FinishState } from '../FinishState';
 import CheckCircle from '@mui/icons-material/CheckCircle';
 import { defaultPasswordRequirements } from '../../constants';
-import clsx from 'clsx';
-import { sharedDialogStyles } from '../../styles';
-const useDialogStyles = makeStyles(sharedDialogStyles);
+import { DialgButtonStyles, DialogActionsStyles, DialogContentStyles, DialogTitleStyles } from '../../styles';
 
 /**
  * Component that renders a change password form in a modal dialog. This dialog is automatically
@@ -44,7 +41,6 @@ export const ChangePasswordModal: React.FC<React.PropsWithChildren<React.PropsWi
     const accountUIActions = useAccountUIActions();
     const securityHelper = useSecurityActions();
     const theme = useTheme();
-    const sharedClasses = useDialogStyles();
     const matchesSM = useMediaQuery(theme.breakpoints.down('sm'));
 
     const passwordRef = useRef(null);
@@ -159,12 +155,10 @@ export const ChangePasswordModal: React.FC<React.PropsWithChildren<React.PropsWi
             }}
         >
             {errorDialog}
-            <DialogTitle className={sharedClasses.dialogTitle}>{t('blui:CHANGE_PASSWORD.PASSWORD')}</DialogTitle>
-            <DialogContent className={sharedClasses.dialogContent} style={{ flex: '1 1 auto' }}>
-                {body}
-            </DialogContent>
+            <DialogTitle sx={DialogTitleStyles}>{t('blui:CHANGE_PASSWORD.PASSWORD')}</DialogTitle>
+            <DialogContent sx={{ ...DialogContentStyles(theme), flex: '1 1 auto' }}>{body}</DialogContent>
             <Divider style={{ marginTop: theme.spacing(2) }} />
-            <DialogActions className={sharedClasses.dialogActions}>
+            <DialogActions sx={DialogActionsStyles(theme)}>
                 <Grid
                     container
                     direction="row"
@@ -176,7 +170,7 @@ export const ChangePasswordModal: React.FC<React.PropsWithChildren<React.PropsWi
                         <Button
                             variant="outlined"
                             color="primary"
-                            className={sharedClasses.dialogButton}
+                            sx={DialgButtonStyles()}
                             onClick={(): void => securityHelper.hideChangePassword()}
                         >
                             {t('blui:ACTIONS.BACK')}
@@ -185,7 +179,7 @@ export const ChangePasswordModal: React.FC<React.PropsWithChildren<React.PropsWi
                     <Button
                         variant="contained"
                         disableElevation
-                        className={clsx(sharedClasses.dialogButton, { [sharedClasses.fullWidth]: success })}
+                        sx={DialgButtonStyles(true)}
                         disabled={
                             transitState.transitInProgress ||
                             (!success && (currentPassword === '' || !areValidMatchingPasswords()))

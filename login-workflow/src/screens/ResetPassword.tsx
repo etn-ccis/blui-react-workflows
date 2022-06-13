@@ -17,14 +17,11 @@ import Divider from '@mui/material/Divider';
 import Typography from '@mui/material/Typography';
 import Grid from '@mui/material/Grid';
 import { useTheme } from '@mui/material/styles';
-import makeStyles from '@mui/styles/makeStyles';
 import { BrandedCardContainer, SimpleDialog, FinishState, ChangePasswordForm } from '../components';
 import { defaultPasswordRequirements } from '../constants';
 import CheckCircle from '@mui/icons-material/CheckCircle';
 import Error from '@mui/icons-material/Error';
-import clsx from 'clsx';
-import { sharedDialogStyles } from '../styles';
-const useDialogStyles = makeStyles(sharedDialogStyles);
+import { DialgButtonStyles, DialogActionsStyles, DialogContentStyles, DialogTitleStyles } from '../styles';
 
 /**
  * Renders a screen stack which handles the reset password flow (deep link from email).
@@ -36,7 +33,6 @@ export const ResetPassword: React.FC<React.PropsWithChildren<React.PropsWithChil
     const navigate = useNavigate();
     const { routes } = useRoutes();
     const theme = useTheme();
-    const classes = useDialogStyles();
     const accountUIState = useAccountUIState();
     const accountUIActions = useAccountUIActions();
     const { code, email } = useQueryString();
@@ -178,11 +174,11 @@ export const ResetPassword: React.FC<React.PropsWithChildren<React.PropsWithChil
                         {t('blui:FORMS.RESET_PASSWORD')}
                     </Typography>
                 }
-                className={classes.dialogTitle}
+                sx={DialogTitleStyles(theme)}
             />
-            <CardContent className={classes.dialogContent}>{getBody()}</CardContent>
+            <CardContent sx={DialogContentStyles(theme)}>{getBody()}</CardContent>
             <Divider />
-            <CardActions className={classes.dialogActions}>
+            <CardActions sx={DialogActionsStyles(theme)}>
                 <Grid
                     container
                     direction="row"
@@ -195,7 +191,7 @@ export const ResetPassword: React.FC<React.PropsWithChildren<React.PropsWithChil
                             variant="outlined"
                             color="primary"
                             onClick={(): void => navigate(routes.LOGIN)}
-                            className={classes.dialogButton}
+                            sx={DialgButtonStyles()}
                         >
                             {t('blui:ACTIONS.BACK')}
                         </Button>
@@ -207,7 +203,7 @@ export const ResetPassword: React.FC<React.PropsWithChildren<React.PropsWithChil
                             disabled={!canContinue()}
                             color="primary"
                             onClick={onContinue}
-                            className={clsx(classes.dialogButton, { [classes.fullWidth]: setPasswordTransitSuccess })}
+                            sx={DialgButtonStyles(true)}
                         >
                             {setPasswordTransitSuccess ? t('blui:ACTIONS.DONE') : t('blui:ACTIONS.OKAY')}
                         </Button>

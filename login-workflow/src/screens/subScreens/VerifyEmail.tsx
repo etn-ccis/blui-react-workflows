@@ -5,9 +5,7 @@ import Typography from '@mui/material/Typography';
 import TextField from '@mui/material/TextField';
 import Divider from '@mui/material/Divider';
 import { useTheme } from '@mui/material/styles';
-import makeStyles from '@mui/styles/makeStyles';
-import { sharedDialogStyles } from '../../styles';
-const useDialogStyles = makeStyles(sharedDialogStyles);
+import { FullDividerStyles } from '../../styles';
 
 export type VerifyEmailProps = {
     initialCode?: string;
@@ -30,7 +28,6 @@ export type VerifyEmailProps = {
 export const VerifyEmail: React.FC<React.PropsWithChildren<React.PropsWithChildren<VerifyEmailProps>>> = (props) => {
     const { initialCode, onVerifyCodeChanged, onResendVerificationEmail, onSubmit } = props;
     const theme = useTheme();
-    const classes = useDialogStyles();
     const { t } = useLanguageLocale();
 
     const [verifyCode, setVerifyCode] = React.useState(initialCode ?? '');
@@ -46,7 +43,7 @@ export const VerifyEmail: React.FC<React.PropsWithChildren<React.PropsWithChildr
     return (
         <>
             <Typography>{t('blui:SELF_REGISTRATION.VERIFY_EMAIL.MESSAGE')}</Typography>
-            <Divider className={classes.fullDivider} />
+            <Divider sx={FullDividerStyles(theme)} />
             <TextField
                 id="code"
                 label={t('blui:SELF_REGISTRATION.VERIFY_EMAIL.VERIFICATION')}

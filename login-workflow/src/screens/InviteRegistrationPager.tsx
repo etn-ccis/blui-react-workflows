@@ -22,7 +22,6 @@ import Divider from '@mui/material/Divider';
 import Typography from '@mui/material/Typography';
 import MobileStepper from '@mui/material/MobileStepper';
 import { useTheme } from '@mui/material/styles';
-import makeStyles from '@mui/styles/makeStyles';
 import { BrandedCardContainer, FinishState, SimpleDialog } from '../components';
 import { emptyAccountDetailInformation } from './SelfRegistrationPager';
 import { AcceptEula } from './subScreens/AcceptEula';
@@ -32,10 +31,17 @@ import { RegistrationComplete } from './subScreens/RegistrationComplete';
 import { ExistingAccountComplete } from './subScreens/ExistingAccountComplete';
 import Error from '@mui/icons-material/Error';
 
-import clsx from 'clsx';
 import { CustomRegistrationDetailsGroup, RegistrationPage } from '../types';
-import { sharedDialogStyles } from '../styles';
-const useDialogStyles = makeStyles(sharedDialogStyles);
+import {
+    DialgButtonStyles,
+    DialogActionsStyles,
+    DialogContentStyles,
+    DialogTitleStyles,
+    StepperDotStyles,
+    StepperStyles,
+    TextFieldStyles,
+} from '../styles';
+import Box from '@mui/material/Box';
 
 /**
  * Container component that manages the transition between screens for the
@@ -47,7 +53,6 @@ export const InviteRegistrationPager: React.FC<React.PropsWithChildren<React.Pro
     const { t } = useLanguageLocale();
     const navigate = useNavigate();
     const { routes } = useRoutes();
-    const sharedClasses = useDialogStyles();
     const theme = useTheme();
     const registrationState = useRegistrationUIState();
     const registrationActions = useRegistrationUIActions();
@@ -218,7 +223,7 @@ export const InviteRegistrationPager: React.FC<React.PropsWithChildren<React.Pro
                         }
                     />
                     {FirstCustomPage && (
-                        <div className={sharedClasses.textField}>
+                        <Box sx={TextFieldStyles(theme)}>
                             <FirstCustomPage
                                 onDetailsChanged={(details: CustomAccountDetails, valid: boolean): void => {
                                     setCustomAccountDetails({ ...customAccountDetails, 0: { values: details, valid } });
@@ -227,7 +232,7 @@ export const InviteRegistrationPager: React.FC<React.PropsWithChildren<React.Pro
                                 // eslint-disable-next-line @typescript-eslint/no-use-before-define
                                 onSubmit={customAccountDetails[0]?.valid ? (): void => advancePage(1) : undefined}
                             />
-                        </div>
+                        </Box>
                     )}
                 </AccountDetailsWrapper>
             ),
@@ -344,7 +349,7 @@ export const InviteRegistrationPager: React.FC<React.PropsWithChildren<React.Pro
                 variant={'contained'}
                 disableElevation
                 color={'primary'}
-                className={clsx(sharedClasses.dialogButton, { [sharedClasses.fullWidth]: true })}
+                sx={DialgButtonStyles(true)}
                 onClick={(): void => advancePage(1)}
             >
                 {t('blui:ACTIONS.CONTINUE')}
@@ -363,7 +368,7 @@ export const InviteRegistrationPager: React.FC<React.PropsWithChildren<React.Pro
                         color="primary"
                         disabled={!canGoBackProgress()}
                         onClick={(): void => advancePage(-1)}
-                        className={sharedClasses.dialogButton}
+                        sx={DialgButtonStyles()}
                     >
                         {isFirstStep ? t('blui:ACTIONS.CANCEL') : t('blui:ACTIONS.BACK')}
                     </Button>
@@ -375,12 +380,12 @@ export const InviteRegistrationPager: React.FC<React.PropsWithChildren<React.Pro
                         disableElevation
                         disabled={!canProgress()}
                         onClick={(): void => advancePage(1)}
-                        className={sharedClasses.dialogButton}
+                        sx={DialgButtonStyles()}
                     >
                         {t('blui:ACTIONS.NEXT')}
                     </Button>
                 }
-                classes={{ root: sharedClasses.stepper, dot: sharedClasses.stepperDot }}
+                sx={{ ...StepperStyles, '& .MuiMobileStepper-dot': StepperDotStyles }}
             />
         );
     }
@@ -425,29 +430,27 @@ export const InviteRegistrationPager: React.FC<React.PropsWithChildren<React.Pro
                         {pageTitle()}
                     </Typography>
                 }
-                className={sharedClasses.dialogTitle}
+                sx={DialogTitleStyles(theme)}
             />
             {!accountAlreadyExists && validationSuccess && !isValidationInTransit ? (
                 <>
-                    <CardContent className={sharedClasses.dialogContent}>
-                        {RegistrationPages[currentPage].pageBody}
-                    </CardContent>
+                    <CardContent sx={DialogContentStyles(theme)}>{RegistrationPages[currentPage].pageBody}</CardContent>
                     <Divider />
-                    <CardActions className={sharedClasses.dialogActions}>{buttonArea}</CardActions>
+                    <CardActions sx={DialogActionsStyles(theme)}>{buttonArea}</CardActions>
                 </>
             ) : accountAlreadyExists ? (
                 <>
-                    <CardContent className={sharedClasses.dialogContent}>
+                    <CardContent sx={DialogContentStyles(theme)}>
                         <ExistingAccountComplete />
                     </CardContent>
                     <Divider />
-                    <CardActions className={sharedClasses.dialogActions}>
+                    <CardActions sx={DialogActionsStyles(theme)}>
                         <Button
                             variant="contained"
                             color="primary"
                             disableElevation
                             onClick={(): void => navigate(routes.LOGIN)}
-                            className={sharedClasses.dialogButton}
+                            sx={DialgButtonStyles()}
                         >
                             {t('blui:ACTIONS.CONTINUE')}
                         </Button>

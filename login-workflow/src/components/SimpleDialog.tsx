@@ -6,9 +6,8 @@ import DialogTitle from '@mui/material/DialogTitle';
 import DialogContent from '@mui/material/DialogContent';
 import DialogActions from '@mui/material/DialogActions';
 import { useLanguageLocale } from '@brightlayer-ui/react-auth-shared';
-import makeStyles from '@mui/styles/makeStyles';
-import { sharedDialogStyles } from '../styles';
-const useDialogStyles = makeStyles(sharedDialogStyles);
+import { useTheme } from '@mui/material/styles';
+import { DialgButtonStyles, DialogActionsStyles, DialogContentStyles, DialogTitleStyles } from '../styles';
 
 export type SimpleDialogProps = DialogProps & {
     title: string;
@@ -28,17 +27,17 @@ export type SimpleDialogProps = DialogProps & {
  */
 export const SimpleDialog: React.FC<React.PropsWithChildren<React.PropsWithChildren<SimpleDialogProps>>> = (props) => {
     const { title, body, ...dialogProps } = props;
-    const classes = useDialogStyles();
     const { t } = useLanguageLocale();
+    const theme = useTheme();
 
     return (
         <Dialog {...dialogProps}>
-            <DialogTitle className={classes.dialogTitle}>{title}</DialogTitle>
-            <DialogContent className={classes.dialogContent} style={{ flex: '1 1 auto' }}>
+            <DialogTitle sx={DialogTitleStyles(theme)}>{title}</DialogTitle>
+            <DialogContent sx={{ ...DialogContentStyles(theme), flex: '1 1 auto' }}>
                 <Typography>{body}</Typography>
             </DialogContent>
-            <DialogActions className={classes.dialogActions}>
-                <Button variant="text" color="primary" onClick={dialogProps.onClose} className={classes.dialogButton}>
+            <DialogActions sx={DialogActionsStyles(theme)}>
+                <Button variant="text" color="primary" onClick={dialogProps.onClose} sx={DialgButtonStyles()}>
                     {t('blui:ACTIONS.OKAY').toUpperCase()}
                 </Button>
             </DialogActions>

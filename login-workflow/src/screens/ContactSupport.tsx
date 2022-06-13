@@ -12,9 +12,7 @@ import createStyles from '@mui/styles/createStyles';
 import makeStyles from '@mui/styles/makeStyles';
 import { BrandedCardContainer } from '../components';
 import ChatBubbleOutline from '@mui/icons-material/ChatBubbleOutline';
-import clsx from 'clsx';
-import { sharedDialogStyles } from '../styles';
-const useDialogStyles = makeStyles(sharedDialogStyles);
+import { DialgButtonStyles, DialogActionsStyles, DialogContentStyles, DialogTitleStyles } from '../styles';
 
 const useStyles = makeStyles((theme: Theme) =>
     createStyles({
@@ -82,24 +80,24 @@ export const ContactSupportContent: React.FC<React.PropsWithChildren<React.Props
 export const ContactSupport: React.FC<React.PropsWithChildren<React.PropsWithChildren<unknown>>> = () => {
     const { t } = useLanguageLocale();
     const navigate = useNavigate();
-    const classes = useDialogStyles();
+    const theme = useTheme();
 
     return (
         <BrandedCardContainer>
             <CardHeader
                 title={<Typography variant={'h6'}>{t('blui:USER_MENU.CONTACT_US')}</Typography>}
-                className={classes.dialogTitle}
+                sx={DialogTitleStyles(theme)}
             />
-            <CardContent className={classes.dialogContent}>
+            <CardContent sx={DialogContentStyles(theme)}>
                 <ContactSupportContent />
             </CardContent>
             <Divider />
-            <CardActions className={classes.dialogActions}>
+            <CardActions sx={DialogActionsStyles(theme)}>
                 <Button
                     variant="contained"
                     color="primary"
                     disableElevation
-                    className={clsx(classes.dialogButton, { [classes.fullWidth]: true })}
+                    sx={DialgButtonStyles(true)}
                     onClick={(): void => navigate(-1)}
                 >
                     {t('blui:ACTIONS.OKAY')}
