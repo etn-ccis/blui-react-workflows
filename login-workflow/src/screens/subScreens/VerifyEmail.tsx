@@ -43,7 +43,7 @@ export const VerifyEmail: React.FC<React.PropsWithChildren<React.PropsWithChildr
     return (
         <>
             <Typography>{t('blui:SELF_REGISTRATION.VERIFY_EMAIL.MESSAGE')}</Typography>
-            <Divider sx={FullDividerStyles(theme)} />
+            <Divider sx={FullDividerStyles} />
             <TextField
                 id="code"
                 label={t('blui:SELF_REGISTRATION.VERIFY_EMAIL.VERIFICATION')}
@@ -62,7 +62,7 @@ export const VerifyEmail: React.FC<React.PropsWithChildren<React.PropsWithChildr
                 color={'primary'}
                 disableElevation
                 onClick={(): void => onResendVerificationEmail()}
-                style={{ marginTop: theme.spacing(2) }}
+                sx={{ mt: 2 }}
             >
                 {t('blui:SELF_REGISTRATION.VERIFY_EMAIL.RESEND')}
             </Button>

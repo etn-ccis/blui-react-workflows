@@ -203,7 +203,7 @@ export const ResetPassword: React.FC<React.PropsWithChildren<React.PropsWithChil
                             disabled={!canContinue()}
                             color="primary"
                             onClick={onContinue}
-                            sx={DialgButtonStyles(true)}
+                            sx={DialgButtonStyles(setPasswordTransitSuccess)}
                         >
                             {setPasswordTransitSuccess ? t('blui:ACTIONS.DONE') : t('blui:ACTIONS.OKAY')}
                         </Button>

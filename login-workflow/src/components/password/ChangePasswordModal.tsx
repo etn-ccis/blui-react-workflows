@@ -158,7 +158,7 @@ export const ChangePasswordModal: React.FC<React.PropsWithChildren<React.PropsWi
             <DialogTitle sx={DialogTitleStyles}>{t('blui:CHANGE_PASSWORD.PASSWORD')}</DialogTitle>
             <DialogContent sx={{ ...DialogContentStyles(theme), flex: '1 1 auto' }}>{body}</DialogContent>
             <Divider style={{ marginTop: theme.spacing(2) }} />
-            <DialogActions sx={DialogActionsStyles(theme)}>
+            <DialogActions sx={DialogActionsStyles}>
                 <Grid
                     container
                     direction="row"
@@ -179,7 +179,7 @@ export const ChangePasswordModal: React.FC<React.PropsWithChildren<React.PropsWi
                     <Button
                         variant="contained"
                         disableElevation
-                        sx={DialgButtonStyles(true)}
+                        sx={DialgButtonStyles(success)}
                         disabled={
                             transitState.transitInProgress ||
                             (!success && (currentPassword === '' || !areValidMatchingPasswords()))

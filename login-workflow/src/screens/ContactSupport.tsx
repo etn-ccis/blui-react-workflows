@@ -8,25 +8,20 @@ import CardHeader from '@mui/material/CardHeader';
 import Divider from '@mui/material/Divider';
 import Typography from '@mui/material/Typography';
 import { Theme, useTheme } from '@mui/material/styles';
-import createStyles from '@mui/styles/createStyles';
-import makeStyles from '@mui/styles/makeStyles';
 import { BrandedCardContainer } from '../components';
 import ChatBubbleOutline from '@mui/icons-material/ChatBubbleOutline';
 import { DialgButtonStyles, DialogActionsStyles, DialogContentStyles, DialogTitleStyles } from '../styles';
+import Box from '@mui/material/Box';
 
-const useStyles = makeStyles((theme: Theme) =>
-    createStyles({
-        link: {
-            fontWeight: 600,
-            color: theme.palette.primary.main,
-            textTransform: 'none',
-            textDecoration: 'none',
-            '&:visited': {
-                color: theme.palette.primary.main,
-            },
-        },
-    })
-);
+const LinkStyles = (theme: Theme) => ({
+    fontWeight: 600,
+    color: theme.palette.primary.main,
+    textTransform: 'none',
+    textDecoration: 'none',
+    '&:visited': {
+        color: theme.palette.primary.main,
+    },
+});
 
 /**
  * Content for the Contact Us screen. This is exported separately
@@ -38,32 +33,31 @@ const useStyles = makeStyles((theme: Theme) =>
 export const ContactSupportContent: React.FC<React.PropsWithChildren<React.PropsWithChildren<unknown>>> = () => {
     const { t } = useLanguageLocale();
     const theme = useTheme();
-    const classes = useStyles();
     const { contactPhone, contactEmail } = useInjectedUIContext();
 
     return (
         <>
-            <div style={{ fontSize: 70, marginBottom: theme.spacing(4), textAlign: 'center' }}>
+            <Box sx={{ fontSize: 70, mb: theme.spacing(4), textAlign: 'center' }}>
                 <ChatBubbleOutline fontSize={'inherit'} color={'primary'} />
-            </div>
-            <Typography variant={'body1'} style={{ marginBottom: theme.spacing(1) }}>
+            </Box>
+            <Typography variant={'body1'} sx={{ mb: theme.spacing(1) }}>
                 {t('blui:CONTACT_SUPPORT.GENERAL_QUESTIONS')}
             </Typography>
             <Typography>
                 {t('blui:CONTACT_SUPPORT.SUPPORT_MESSAGE')}
-                <a href={`mailto:${contactEmail}`} className={classes.link}>
+                <Box component="a" href={`mailto:${contactEmail}`} sx={LinkStyles}>
                     {contactEmail}
-                </a>
+                </Box>
                 .
             </Typography>
-            <Typography variant={'body1'} style={{ marginTop: theme.spacing(4), marginBottom: theme.spacing(1) }}>
+            <Typography variant={'body1'} sx={{ mt: theme.spacing(4), mb: theme.spacing(1) }}>
                 {t('blui:CONTACT_SUPPORT.EMERGENCY_SUPPORT')}
             </Typography>
             <Typography>
                 {t('blui:CONTACT_SUPPORT.TECHNICAL_ASSISTANCE')}
-                <a href={`tel:${contactPhone}`} className={classes.link}>
+                <Box component="a" href={`tel:${contactPhone}`} sx={LinkStyles}>
                     {contactPhone}
-                </a>
+                </Box>
                 .
             </Typography>
         </>

@@ -77,7 +77,7 @@ export const ChangePasswordForm: React.FC<React.PropsWithChildren<React.PropsWit
         <>
             <Typography>{description || t('blui:CHANGE_PASSWORD.PASSWORD_INFO')}</Typography>
 
-            <Divider sx={FullDividerStyles(theme)} />
+            <Divider sx={FullDividerStyles} />
 
             {children}
             <SecureTextField
@@ -87,7 +87,7 @@ export const ChangePasswordForm: React.FC<React.PropsWithChildren<React.PropsWit
                 label={passwordLabel || t('blui:FORMS.PASSWORD')}
                 value={passwordInput}
                 onChange={(evt: ChangeEvent<HTMLInputElement>): void => onPassChange(evt.target.value)}
-                sx={TextFieldStyles(theme)}
+                sx={TextFieldStyles}
                 onKeyPress={(e): void => {
                     if (e.key === 'Enter' && confirmRef.current) {
                         confirmRef.current.focus();
@@ -100,7 +100,7 @@ export const ChangePasswordForm: React.FC<React.PropsWithChildren<React.PropsWit
                 name="confirm"
                 inputRef={confirmRef}
                 label={confirmLabel || t('blui:FORMS.CONFIRM_PASSWORD')}
-                sx={TextFieldStyles(theme)}
+                sx={TextFieldStyles}
                 value={confirmInput}
                 onChange={(evt: ChangeEvent<HTMLInputElement>): void => onConfirmChange(evt.target.value)}
                 onKeyPress={(e): void => {

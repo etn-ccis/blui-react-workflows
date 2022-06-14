@@ -426,7 +426,7 @@ export const InviteRegistrationPager: React.FC<React.PropsWithChildren<React.Pro
             {errorDialog}
             <CardHeader
                 title={
-                    <Typography variant={'h6'} style={{ fontWeight: 600 }}>
+                    <Typography variant={'h6'} sx={{ fontWeight: 600 }}>
                         {pageTitle()}
                     </Typography>
                 }
@@ -460,7 +460,7 @@ export const InviteRegistrationPager: React.FC<React.PropsWithChildren<React.Pro
                 <></>
             ) : (
                 <FinishState
-                    icon={<Error color={'error'} style={{ fontSize: 100, marginBottom: theme.spacing(2) }} />}
+                    icon={<Error color={'error'} sx={{ fontSize: 100, mb: 2}} />}
                     title={t('blui:MESSAGES.FAILURE')}
                     description={validationTransitErrorMessage}
                 />

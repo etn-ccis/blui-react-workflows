@@ -31,7 +31,7 @@ export const AccountDetailsWrapper: React.FC<
     return (
         <>
             <Typography>{description}</Typography>
-            <Divider sx={FullDividerStyles(theme)} />
+            <Divider sx={FullDividerStyles} />
             {props.children}
         </>
     );

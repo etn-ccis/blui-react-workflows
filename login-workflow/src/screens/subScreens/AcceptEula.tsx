@@ -5,6 +5,7 @@ import FormControlLabel from '@mui/material/FormControlLabel';
 import Checkbox from '@mui/material/Checkbox';
 import { useTheme } from '@mui/material/styles';
 import DOMPurify from 'dompurify';
+import Box from '@mui/material/Box';
 
 export type AcceptEulaProps = {
     eulaAccepted: boolean;
@@ -43,10 +44,10 @@ export const AcceptEula: React.FC<React.PropsWithChildren<React.PropsWithChildre
         <>
             {!htmlEula && <Typography style={{ flex: '1 1 0px', overflow: 'auto' }}>{eulaContentInternals}</Typography>}
             {htmlEula && (
-                <div
-                    style={{ flex: '1 1 0px', overflow: 'auto' }}
+                <Box
+                    sx={{ flex: '1 1 0px', overflow: 'auto' }}
                     dangerouslySetInnerHTML={{ __html: DOMPurify.sanitize(eulaContentInternals) }}
-                ></div>
+                ></Box>
             )}
             <FormControlLabel
                 control={
