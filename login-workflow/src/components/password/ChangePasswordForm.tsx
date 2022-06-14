@@ -77,7 +77,7 @@ export const ChangePasswordForm: React.FC<React.PropsWithChildren<React.PropsWit
         <>
             <Typography>{description || t('blui:CHANGE_PASSWORD.PASSWORD_INFO')}</Typography>
 
-            <Divider sx={FullDividerStyles} />
+            <Divider sx={FullDividerStyles(theme)} />
 
             {children}
             <SecureTextField

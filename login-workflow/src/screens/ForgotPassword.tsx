@@ -31,7 +31,6 @@ import {
 } from '../styles';
 import Box from '@mui/material/Box';
 
-
 const LinkStyles = (theme: Theme) => ({
     fontWeight: 600,
     color: theme.palette.primary.main,
@@ -128,14 +127,14 @@ export const ForgotPassword: React.FC<React.PropsWithChildren<React.PropsWithChi
                     <Trans i18nKey={'blui:FORGOT_PASSWORD.INSTRUCTIONS_ALT'} values={{ phone: contactPhone }}>
                         Please enter your email, we will respond in <b>one business day</b>. For urgent issues please
                         call{' '}
-                        <Box component='a' href={`tel:${contactPhone}`} sx={LinkStyles}>
+                        <Box component="a" href={`tel:${contactPhone}`} sx={LinkStyles}>
                             {contactPhone}
                         </Box>
                         .
                     </Trans>
                 </Typography>
 
-                <Divider sx={FullDividerStyles} />
+                <Divider sx={FullDividerStyles(theme)} />
 
                 <TextField
                     id="email"

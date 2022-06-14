@@ -43,7 +43,7 @@ export const VerifyEmail: React.FC<React.PropsWithChildren<React.PropsWithChildr
     return (
         <>
             <Typography>{t('blui:SELF_REGISTRATION.VERIFY_EMAIL.MESSAGE')}</Typography>
-            <Divider sx={FullDividerStyles} />
+            <Divider sx={FullDividerStyles(theme)} />
             <TextField
                 id="code"
                 label={t('blui:SELF_REGISTRATION.VERIFY_EMAIL.VERIFICATION')}

@@ -38,7 +38,7 @@ export const CreateAccount: React.FC<React.PropsWithChildren<React.PropsWithChil
     return (
         <>
             <Typography>{t('blui:SELF_REGISTRATION.INSTRUCTIONS')}</Typography>
-            <Divider sx={FullDividerStyles} />
+            <Divider sx={FullDividerStyles(theme)} />
             <TextField
                 id="email"
                 label={t('blui:LABELS.EMAIL')}

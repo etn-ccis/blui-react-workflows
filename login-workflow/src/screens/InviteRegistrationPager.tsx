@@ -460,7 +460,7 @@ export const InviteRegistrationPager: React.FC<React.PropsWithChildren<React.Pro
                 <></>
             ) : (
                 <FinishState
-                    icon={<Error color={'error'} sx={{ fontSize: 100, mb: 2}} />}
+                    icon={<Error color={'error'} sx={{ fontSize: 100, mb: 2 }} />}
                     title={t('blui:MESSAGES.FAILURE')}
                     description={validationTransitErrorMessage}
                 />
