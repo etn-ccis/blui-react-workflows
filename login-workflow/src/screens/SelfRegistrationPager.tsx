@@ -499,7 +499,7 @@ export const SelfRegistrationPager: React.FC<React.PropsWithChildren<React.Props
                         {t('blui:ACTIONS.NEXT')}
                     </Button>
                 }
-                sx={{ ...StepperStyles, '& .MuiMobileStepper-dot': StepperDotStyles }}
+                sx={{ ...StepperStyles, '& .MuiMobileStepper-dot': StepperDotStyles(theme) }}
             />
         );
     }

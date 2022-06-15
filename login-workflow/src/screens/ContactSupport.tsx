@@ -45,7 +45,7 @@ export const ContactSupportContent: React.FC<React.PropsWithChildren<React.Props
             </Typography>
             <Typography>
                 {t('blui:CONTACT_SUPPORT.SUPPORT_MESSAGE')}
-                <Box component="a" href={`mailto:${contactEmail}`} sx={LinkStyles}>
+                <Box component="a" href={`mailto:${contactEmail}`} sx={LinkStyles(theme)}>
                     {contactEmail}
                 </Box>
                 .
@@ -55,7 +55,7 @@ export const ContactSupportContent: React.FC<React.PropsWithChildren<React.Props
             </Typography>
             <Typography>
                 {t('blui:CONTACT_SUPPORT.TECHNICAL_ASSISTANCE')}
-                <Box component="a" href={`tel:${contactPhone}`} sx={LinkStyles}>
+                <Box component="a" href={`tel:${contactPhone}`} sx={LinkStyles(theme)}>
                     {contactPhone}
                 </Box>
                 .

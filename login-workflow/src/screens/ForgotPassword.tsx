@@ -19,8 +19,6 @@ import Typography from '@mui/material/Typography';
 import Grid from '@mui/material/Grid';
 import TextField from '@mui/material/TextField';
 import { Theme, useTheme } from '@mui/material/styles';
-import createStyles from '@mui/styles/createStyles';
-import makeStyles from '@mui/styles/makeStyles';
 import CheckCircle from '@mui/icons-material/CheckCircle';
 import {
     DialgButtonStyles,
@@ -127,7 +125,7 @@ export const ForgotPassword: React.FC<React.PropsWithChildren<React.PropsWithChi
                     <Trans i18nKey={'blui:FORGOT_PASSWORD.INSTRUCTIONS_ALT'} values={{ phone: contactPhone }}>
                         Please enter your email, we will respond in <b>one business day</b>. For urgent issues please
                         call{' '}
-                        <Box component="a" href={`tel:${contactPhone}`} sx={LinkStyles}>
+                        <Box component="a" href={`tel:${contactPhone}`} sx={LinkStyles(theme)}>
                             {contactPhone}
                         </Box>
                         .

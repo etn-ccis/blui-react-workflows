@@ -25,58 +25,12 @@ import Close from '@mui/icons-material/Close';
 import stackedEatonLogo from '../assets/images/eaton_stacked_logo.png';
 import cyberBadge from '../assets/images/cybersecurity_certified.png';
 import * as Colors from '@brightlayer-ui/colors';
-import clsx from 'clsx';
+import Box from '@mui/material/Box';
 
 const HELPER_TEXT_HEIGHT = 22;
 
 const useStyles = makeStyles((theme: Theme) =>
     createStyles({
-        emailFormField: {
-            marginBottom: `${(parseInt(theme.spacing(4)) + HELPER_TEXT_HEIGHT).toString()}px`,
-            '&$hasError': {
-                marginBottom: theme.spacing(4),
-            },
-            [theme.breakpoints.down('sm')]: {
-                marginBottom: `${(parseInt(theme.spacing(3)) + HELPER_TEXT_HEIGHT).toString()}px`,
-                '&$hasError': {
-                    marginBottom: theme.spacing(3),
-                },
-            },
-        },
-        passwordFormField: {
-            marginBottom: `${(parseInt(theme.spacing(3)) + HELPER_TEXT_HEIGHT).toString()}px`,
-            // marginBottom: theme.spacing(3) + HELPER_TEXT_HEIGHT,
-            '&$hasError': {
-                marginBottom: theme.spacing(3),
-            },
-        },
-        buttonRow: {
-            marginBottom: theme.spacing(5),
-            flexWrap: 'nowrap',
-            [theme.breakpoints.down('sm')]: {
-                flexWrap: 'wrap',
-                flexDirection: 'column',
-                justifyContent: 'center',
-            },
-        },
-        errorMessageBox: {
-            width: '100%',
-            backgroundColor: (loginErrorDisplayConfig: LoginErrorDisplayConfig) =>
-                loginErrorDisplayConfig.backgroundColor || theme.palette.error.main,
-            borderRadius: 4,
-            padding: 16,
-            color: (loginErrorDisplayConfig: LoginErrorDisplayConfig) =>
-                loginErrorDisplayConfig.fontColor || Colors.white[50],
-            marginBottom: 16,
-            marginTop: (loginErrorDisplayConfig: LoginErrorDisplayConfig) =>
-                loginErrorDisplayConfig.position !== 'bottom' ? 0 : theme.spacing(-1),
-        },
-        errorBoxDismissIcon: {
-            '&:hover': {
-                cursor: 'pointer',
-            },
-            float: 'right',
-        },
         cyberBadge: {
             alignSelf: 'center',
             maxWidth: '30%',
@@ -231,17 +185,32 @@ export const Login: React.FC<React.PropsWithChildren<React.PropsWithChildren<unk
 
     const errorMessageBox: JSX.Element =
         !isInvalidCredentials && hasTransitError && transitErrorMessage && showErrorMessageBox ? (
-            <div className={classes.errorMessageBox}>
+            <Box
+                sx={{
+                    width: '100%',
+                    backgroundColor: loginErrorDisplayConfig.backgroundColor || theme.palette.error.main,
+                    borderRadius: 4,
+                    p: 16,
+                    color: loginErrorDisplayConfig.fontColor || Colors.white[50],
+                    mb: 16,
+                    mt: loginErrorDisplayConfig.position !== 'bottom' ? 0 : -1,
+                }}
+            >
                 {loginErrorDisplayConfig.dismissible !== false && (
                     <Close
-                        className={classes.errorBoxDismissIcon}
+                    sx={{
+                        '&:hover': {
+                            cursor: 'pointer',
+                        },
+                        float: 'right',
+                    }}
                         onClick={(): void => {
                             setShowErrorMessageBox(false);
                         }}
                     />
                 )}
                 <Typography variant="body2">{t(transitErrorMessage)}</Typography>
-            </div>
+            </Box>
         ) : (
             <></>
         );
@@ -359,9 +328,18 @@ export const Login: React.FC<React.PropsWithChildren<React.PropsWithChildren<unk
                         id="email"
                         name={loginType === 'username' ? 'username' : 'email'}
                         type={loginType === 'username' ? 'text' : 'email'}
-                        className={clsx(classes.emailFormField, {
-                            [classes.hasError]: isInvalidCredentials || hasEmailError(),
-                        })}
+                        sx={{
+                            mb:
+                                isInvalidCredentials || hasEmailError()
+                                    ? 4
+                                    : `${(parseInt(theme.spacing(4)) + HELPER_TEXT_HEIGHT).toString()}px`,
+                            [theme.breakpoints.down('sm')]: {
+                                mb:
+                                    isInvalidCredentials || hasEmailError()
+                                        ? 3
+                                        : `${(parseInt(theme.spacing(3)) + HELPER_TEXT_HEIGHT).toString()}px`,
+                            },
+                        }}
                         value={emailInput}
                         onChange={(evt: ChangeEvent<HTMLInputElement>): void => {
                             const { value } = evt.target;
@@ -385,7 +363,10 @@ export const Login: React.FC<React.PropsWithChildren<React.PropsWithChildren<unk
                         id="password"
                         name="password"
                         label={t('blui:LABELS.PASSWORD')}
-                        className={clsx(classes.passwordFormField, { [classes.hasError]: isInvalidCredentials })}
+                        sx={{ mb :isInvalidCredentials
+                                ? 3
+                                : `${(parseInt(theme.spacing(3)) + HELPER_TEXT_HEIGHT).toString()}px`
+                        }}
                         value={passwordInput}
                         onChange={(evt: ChangeEvent<HTMLInputElement>): void => {
                             setPasswordInput(evt.target.value);
@@ -406,7 +387,15 @@ export const Login: React.FC<React.PropsWithChildren<React.PropsWithChildren<unk
                         direction="row"
                         alignItems="center"
                         justifyContent="space-between"
-                        className={classes.buttonRow}
+                        sx={{
+                            mb: 5,
+                            flexWrap: 'nowrap',
+                            [theme.breakpoints.down('sm')]: {
+                                flexWrap: 'wrap',
+                                flexDirection: 'column',
+                                justifyContent: 'center',
+                            },
+                        }}
                     >
                         {showRememberMe && (
                             <FormControlLabel
@@ -463,7 +452,10 @@ export const Login: React.FC<React.PropsWithChildren<React.PropsWithChildren<unk
                     {loginFooter && typeof loginFooter === 'function' && loginFooter(null)}
                     {loginFooter && typeof loginFooter !== 'function' && loginFooter}
                     {showCybersecurityBadge && (
-                        <img src={cyberBadge} className={classes.cyberBadge} alt="CyberSecurity Certification Badge" />
+                        <Box component='img' src={cyberBadge} sx={{
+                            alignSelf: 'center',
+                            maxWidth: '30%',
+                        }} alt="CyberSecurity Certification Badge" />
                     )}
                 </div>
             </form>

@@ -385,7 +385,7 @@ export const InviteRegistrationPager: React.FC<React.PropsWithChildren<React.Pro
                         {t('blui:ACTIONS.NEXT')}
                     </Button>
                 }
-                sx={{ ...StepperStyles, '& .MuiMobileStepper-dot': StepperDotStyles }}
+                sx={{ ...StepperStyles, '& .MuiMobileStepper-dot': StepperDotStyles(theme) }}
             />
         );
     }

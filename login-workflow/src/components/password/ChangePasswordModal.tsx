@@ -155,10 +155,10 @@ export const ChangePasswordModal: React.FC<React.PropsWithChildren<React.PropsWi
             }}
         >
             {errorDialog}
-            <DialogTitle sx={DialogTitleStyles}>{t('blui:CHANGE_PASSWORD.PASSWORD')}</DialogTitle>
+            <DialogTitle sx={DialogTitleStyles(theme)}>{t('blui:CHANGE_PASSWORD.PASSWORD')}</DialogTitle>
             <DialogContent sx={{ ...DialogContentStyles(theme), flex: '1 1 auto' }}>{body}</DialogContent>
             <Divider style={{ marginTop: theme.spacing(2) }} />
-            <DialogActions sx={DialogActionsStyles}>
+            <DialogActions sx={DialogActionsStyles(theme)}>
                 <Grid
                     container
                     direction="row"

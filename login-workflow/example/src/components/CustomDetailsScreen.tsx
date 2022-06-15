@@ -47,7 +47,7 @@ export const CustomDetailsScreen: React.FC<React.PropsWithChildren<AccountDetail
                 label={'Currency (Optional)'}
                 value={currency}
                 placeholder={'Enter your favorite currency'}
-                sx={TextFieldStyles}
+                sx={TextFieldStyles(theme)}
                 onChange={(evt): void => setCurrency(evt.target.value)}
                 onKeyPress={(e): void => {
                     if (e.key === 'Enter' && onSubmit) onSubmit();
