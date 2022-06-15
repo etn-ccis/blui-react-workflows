@@ -109,7 +109,7 @@ export const ForgotPassword: React.FC<React.PropsWithChildren<React.PropsWithChi
     if (accountUIState.forgotPassword.transitSuccess) {
         body = (
             <FinishState
-                icon={<CheckCircle color={'primary'} sx={{ fontSize: 100, mb: theme.spacing(2) }} />}
+                icon={<CheckCircle color={'primary'} sx={{ fontSize: 100, mb: 2 }} />}
                 title={t('blui:MESSAGES.EMAIL_SENT')}
                 description={
                     <Trans i18nKey={'blui:FORGOT_PASSWORD.LINK_SENT_ALT'} values={{ email: emailInput }}>

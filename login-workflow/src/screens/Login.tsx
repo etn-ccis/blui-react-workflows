@@ -216,8 +216,8 @@ export const Login: React.FC<React.PropsWithChildren<React.PropsWithChildren<unk
                 onClick={(): void => setDebugMode(!debugMode)}
                 sx={{
                     position: 'absolute',
-                    top: 3,
-                    right: 3,
+                    top: theme.spacing(3),
+                    right: theme.spacing(3),
                 }}
             >{`DEBUG`}</Button>
         );

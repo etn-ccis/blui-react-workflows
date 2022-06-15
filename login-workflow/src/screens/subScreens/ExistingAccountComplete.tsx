@@ -16,7 +16,7 @@ export const ExistingAccountComplete: React.FC<React.PropsWithChildren<React.Pro
 
     return (
         <FinishState
-            icon={<Person color={'primary'} sx={{ fontSize: 100, mb: theme.spacing(2) }} />}
+            icon={<Person color={'primary'} sx={{ fontSize: 100, mb: 2 }} />}
             title={t('blui:MESSAGES.WELCOME')}
             description={t('blui:REGISTRATION.SUCCESS_EXISTING')}
         />

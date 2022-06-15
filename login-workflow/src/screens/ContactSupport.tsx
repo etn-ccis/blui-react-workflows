@@ -37,10 +37,10 @@ export const ContactSupportContent: React.FC<React.PropsWithChildren<React.Props
 
     return (
         <>
-            <Box sx={{ fontSize: 70, mb: theme.spacing(4), textAlign: 'center' }}>
+            <Box sx={{ fontSize: 70, mb: 4, textAlign: 'center' }}>
                 <ChatBubbleOutline fontSize={'inherit'} color={'primary'} />
             </Box>
-            <Typography variant={'body1'} sx={{ mb: theme.spacing(1) }}>
+            <Typography variant={'body1'} sx={{ mb: 1 }}>
                 {t('blui:CONTACT_SUPPORT.GENERAL_QUESTIONS')}
             </Typography>
             <Typography>
@@ -50,7 +50,7 @@ export const ContactSupportContent: React.FC<React.PropsWithChildren<React.Props
                 </Box>
                 .
             </Typography>
-            <Typography variant={'body1'} sx={{ mt: theme.spacing(4), mb: theme.spacing(1) }}>
+            <Typography variant={'body1'} sx={{ mt: 4, mb: 1 }}>
                 {t('blui:CONTACT_SUPPORT.EMERGENCY_SUPPORT')}
             </Typography>
             <Typography>
