@@ -3,7 +3,6 @@ import { useLanguageLocale } from '@brightlayer-ui/react-auth-shared';
 import Typography from '@mui/material/Typography';
 import FormControlLabel from '@mui/material/FormControlLabel';
 import Checkbox from '@mui/material/Checkbox';
-import { useTheme } from '@mui/material/styles';
 import DOMPurify from 'dompurify';
 import Box from '@mui/material/Box';
 
@@ -31,7 +30,6 @@ export type AcceptEulaProps = {
 export const AcceptEula: React.FC<React.PropsWithChildren<React.PropsWithChildren<AcceptEulaProps>>> = (props) => {
     const { eulaAccepted, eulaContent, onEulaChanged, loadEula, htmlEula, eulaError } = props;
     const { t } = useLanguageLocale();
-    const theme = useTheme();
 
     const eulaContentInternals = eulaContent ?? eulaError ?? t('blui:REGISTRATION.EULA.LOADING');
 

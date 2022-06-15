@@ -16,7 +16,7 @@ import TextField from '@mui/material/TextField';
 import Grid from '@mui/material/Grid';
 import FormControlLabel from '@mui/material/FormControlLabel';
 import Checkbox from '@mui/material/Checkbox';
-import { Theme, useTheme } from '@mui/material/styles';
+import { SxProps, Theme, useTheme } from '@mui/material/styles';
 import { BrandedCardContainer, SimpleDialog, SecureTextField } from '../components';
 import Close from '@mui/icons-material/Close';
 import stackedEatonLogo from '../assets/images/eaton_stacked_logo.png';
@@ -26,7 +26,7 @@ import Box from '@mui/material/Box';
 
 const HELPER_TEXT_HEIGHT = 22;
 
-const LinkStyles = (theme: Theme) => ({
+const LinkStyles = (theme: Theme): SxProps<Theme> => ({
     fontWeight: 600,
     textTransform: 'none',
     textDecoration: 'none',
@@ -36,10 +36,10 @@ const LinkStyles = (theme: Theme) => ({
     },
 });
 
-const LinksWrapperStyles = (theme: Theme) => ({
+const LinksWrapperStyles = {
     textAlign: 'center',
     pb: 4,
-});
+};
 
 /**
  * Login screen with loading and error states, as well as "remember me" functionality to store a user's email between logins.

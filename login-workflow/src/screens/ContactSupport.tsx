@@ -7,13 +7,13 @@ import CardContent from '@mui/material/CardContent';
 import CardHeader from '@mui/material/CardHeader';
 import Divider from '@mui/material/Divider';
 import Typography from '@mui/material/Typography';
-import { Theme, useTheme } from '@mui/material/styles';
+import { SxProps, Theme, useTheme } from '@mui/material/styles';
 import { BrandedCardContainer } from '../components';
 import ChatBubbleOutline from '@mui/icons-material/ChatBubbleOutline';
 import { DialogButtonStyles, DialogActionsStyles, DialogContentStyles, DialogTitleStyles } from '../styles';
 import Box from '@mui/material/Box';
 
-const LinkStyles = (theme: Theme) => ({
+const LinkStyles = (theme: Theme): SxProps<Theme> => ({
     fontWeight: 600,
     color: theme.palette.primary.main,
     textTransform: 'none',

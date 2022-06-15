@@ -1,6 +1,5 @@
 import React from 'react';
 import { useLanguageLocale } from '@brightlayer-ui/react-auth-shared';
-import { useTheme } from '@mui/material/styles';
 import { FinishState } from '../../components';
 import Person from '@mui/icons-material/Person';
 
@@ -12,7 +11,6 @@ import Person from '@mui/icons-material/Person';
  */
 export const ExistingAccountComplete: React.FC<React.PropsWithChildren<React.PropsWithChildren<unknown>>> = () => {
     const { t } = useLanguageLocale();
-    const theme = useTheme();
 
     return (
         <FinishState

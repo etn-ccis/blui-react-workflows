@@ -18,7 +18,7 @@ import Divider from '@mui/material/Divider';
 import Typography from '@mui/material/Typography';
 import Grid from '@mui/material/Grid';
 import TextField from '@mui/material/TextField';
-import { Theme, useTheme } from '@mui/material/styles';
+import { SxProps, Theme, useTheme } from '@mui/material/styles';
 import CheckCircle from '@mui/icons-material/CheckCircle';
 import {
     DialogButtonStyles,
@@ -29,7 +29,7 @@ import {
 } from '../styles';
 import Box from '@mui/material/Box';
 
-const LinkStyles = (theme: Theme) => ({
+const LinkStyles = (theme: Theme): SxProps<Theme> => ({
     fontWeight: 600,
     color: theme.palette.primary.main,
     textTransform: 'none',

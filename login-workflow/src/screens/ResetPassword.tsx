@@ -142,7 +142,6 @@ export const ResetPassword: React.FC<React.PropsWithChildren<React.PropsWithChil
             t,
             canContinue,
             onContinue,
-            theme,
             verifySuccess,
             verifyIsInTransit,
             verifyComplete,
