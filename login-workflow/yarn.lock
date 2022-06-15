@@ -1022,10 +1022,10 @@
   resolved "https://registry.yarnpkg.com/@brightlayer-ui/react-auth-shared/-/react-auth-shared-3.6.2.tgz#e59863aa156f6c64f0cc8297bce37d0232b8463c"
   integrity sha512-O6Bif8LbHdu4qjmIxfwNzvhDUYi9EgOpkiVjkzYgRp+XECdEA1mL3tbWk3vr+JPtFhx8Ju80VR9RIbKIa1Tr9g==
 
-"@brightlayer-ui/react-components@^6.1.0-alpha.0":
-  version "6.1.0-alpha.0"
-  resolved "https://registry.yarnpkg.com/@brightlayer-ui/react-components/-/react-components-6.1.0-alpha.0.tgz#128f49c8febac8de9e69018bee1f993e5070f504"
-  integrity sha512-D0L9dS/NChVdAQSVDmoGqw6dkSlo93GVKl4YwIotnpn/WBh/lamDS8v45pze9eu+HHuR8gI2P06zM42ZowptsA==
+"@brightlayer-ui/react-components@^6.1.0-alpha.1":
+  version "6.1.0-alpha.1"
+  resolved "https://registry.yarnpkg.com/@brightlayer-ui/react-components/-/react-components-6.1.0-alpha.1.tgz#abb5b3ee53afac53058e1441076b6a1513600ba0"
+  integrity sha512-gRYK1HRfsy+bS1PXEuyFnLzhK7Tld//85iOnHB6KJKR07i3xbaKzIxpZWGwjl77uEIxAFKsCscihp3UR2/b7tA==
   dependencies:
     "@brightlayer-ui/colors" "3.0.1"
     "@emotion/css" "^11.9.0"

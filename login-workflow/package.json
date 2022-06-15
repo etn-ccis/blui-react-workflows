@@ -31,7 +31,7 @@
     },
     "peerDependencies": {
         "@brightlayer-ui/colors": "^3.0.0",
-        "@brightlayer-ui/react-components": "^6.1.0-alpha.0",
+        "@brightlayer-ui/react-components": "^6.1.0-alpha.1",
         "@emotion/react": "^11.7.1",
         "@emotion/styled": "^11.6.0",
         "@mui/icons-material": "^5.3.1",
@@ -71,7 +71,7 @@
         "@babel/preset-typescript": "^7.14.5",
         "@brightlayer-ui/eslint-config": "^3.0.0",
         "@brightlayer-ui/prettier-config": "^1.0.3",
-        "@brightlayer-ui/react-components": "^6.1.0-alpha.0",
+        "@brightlayer-ui/react-components": "^6.1.0-alpha.1",
         "@brightlayer-ui/react-themes": "^7.0.0",
         "@emotion/css": "^11.9.0",
         "@emotion/react": "^11.7.1",
