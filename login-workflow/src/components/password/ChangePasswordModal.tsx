@@ -91,7 +91,7 @@ export const ChangePasswordModal: React.FC<React.PropsWithChildren<React.PropsWi
     if (success) {
         body = (
             <FinishState
-                icon={<CheckCircle color={'primary'} style={{ fontSize: 100, marginBottom: theme.spacing(2) }} />}
+                icon={<CheckCircle color={'primary'} sx={{ fontSize: 100, mb: 2 }} />}
                 title={t('blui:CHANGE_PASSWORD.PASSWORD_CHANGED')}
                 description={t('blui:CHANGE_PASSWORD.SUCCESS_MESSAGE')}
             />
@@ -157,14 +157,14 @@ export const ChangePasswordModal: React.FC<React.PropsWithChildren<React.PropsWi
             {errorDialog}
             <DialogTitle sx={DialogTitleStyles(theme)}>{t('blui:CHANGE_PASSWORD.PASSWORD')}</DialogTitle>
             <DialogContent sx={{ ...DialogContentStyles(theme), flex: '1 1 auto' }}>{body}</DialogContent>
-            <Divider style={{ marginTop: theme.spacing(2) }} />
+            <Divider sx={{ mt: 2 }} />
             <DialogActions sx={DialogActionsStyles(theme)}>
                 <Grid
                     container
                     direction="row"
                     alignItems="center"
                     justifyContent="space-between"
-                    style={{ width: '100%' }}
+                    sx={{ width: '100%' }}
                 >
                     {!success && (
                         <Button

@@ -3,9 +3,11 @@ import { useInjectedUIContext, useLanguageLocale } from '@brightlayer-ui/react-a
 import { PasswordRequirementsCheck } from './PasswordRequirementsCheck';
 import { defaultPasswordRequirements } from '../../constants';
 import Box from '@mui/material/Box';
+import { SxProps, Theme } from '@mui/material/styles';
 
 export type PasswordRequirementsProps = HTMLAttributes<HTMLDivElement> & {
     passwordText: string;
+    sx?: SxProps<Theme>;
 };
 
 /**

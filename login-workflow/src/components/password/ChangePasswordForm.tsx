@@ -94,7 +94,7 @@ export const ChangePasswordForm: React.FC<React.PropsWithChildren<React.PropsWit
                     }
                 }}
             />
-            <PasswordRequirements style={{ marginTop: theme.spacing(2) }} passwordText={passwordInput} />
+            <PasswordRequirements sx={{ mt: 2 }} passwordText={passwordInput} />
             <SecureTextField
                 id="confirm"
                 name="confirm"

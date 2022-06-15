@@ -116,9 +116,7 @@ export const ResetPassword: React.FC<React.PropsWithChildren<React.PropsWithChil
             verifySuccess && !verifyIsInTransit ? (
                 setPasswordTransitSuccess ? (
                     <FinishState
-                        icon={
-                            <CheckCircle color={'primary'} style={{ fontSize: 100, marginBottom: theme.spacing(2) }} />
-                        }
+                        icon={<CheckCircle color={'primary'} sx={{ fontSize: 100, mb: 2 }} />}
                         title={t('blui:PASSWORD_RESET.SUCCESS_MESSAGE')}
                         description={t('blui:CHANGE_PASSWORD.SUCCESS_MESSAGE')}
                     />
@@ -135,7 +133,7 @@ export const ResetPassword: React.FC<React.PropsWithChildren<React.PropsWithChil
                 <></>
             ) : (
                 <FinishState
-                    icon={<Error color={'error'} style={{ fontSize: 100, marginBottom: theme.spacing(2) }} />}
+                    icon={<Error color={'error'} sx={{ fontSize: 100, mb: 2 }} />}
                     title={t('blui:MESSAGES.FAILURE')}
                     description={validationTransitErrorMessage}
                 />
@@ -170,7 +168,7 @@ export const ResetPassword: React.FC<React.PropsWithChildren<React.PropsWithChil
             {errorDialog}
             <CardHeader
                 title={
-                    <Typography variant={'h6'} style={{ fontWeight: 600 }}>
+                    <Typography variant={'h6'} sx={{ fontWeight: 600 }}>
                         {t('blui:FORMS.RESET_PASSWORD')}
                     </Typography>
                 }
@@ -184,7 +182,7 @@ export const ResetPassword: React.FC<React.PropsWithChildren<React.PropsWithChil
                     direction="row"
                     alignItems="center"
                     justifyContent="space-between"
-                    style={{ width: '100%' }}
+                    sx={{ width: '100%' }}
                 >
                     {!setPasswordTransitSuccess && (
                         <Button

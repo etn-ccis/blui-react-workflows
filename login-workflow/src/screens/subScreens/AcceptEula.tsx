@@ -42,7 +42,7 @@ export const AcceptEula: React.FC<React.PropsWithChildren<React.PropsWithChildre
 
     return (
         <>
-            {!htmlEula && <Typography style={{ flex: '1 1 0px', overflow: 'auto' }}>{eulaContentInternals}</Typography>}
+            {!htmlEula && <Typography sx={{ flex: '1 1 0px', overflow: 'auto' }}>{eulaContentInternals}</Typography>}
             {htmlEula && (
                 <Box
                     sx={{ flex: '1 1 0px', overflow: 'auto' }}
@@ -61,7 +61,7 @@ export const AcceptEula: React.FC<React.PropsWithChildren<React.PropsWithChildre
                     />
                 }
                 label={t('blui:REGISTRATION.EULA.AGREE_TERMS')}
-                style={{ flex: '0 0 auto', marginRight: 0, marginTop: theme.spacing(2) }}
+                sx={{ flex: '0 0 auto', mr: 0, mt: 2 }}
             />
         </>
     );

@@ -542,7 +542,7 @@ export const SelfRegistrationPager: React.FC<React.PropsWithChildren<React.Props
             {errorDialog}
             <CardHeader
                 title={
-                    <Typography variant={'h6'} style={{ fontWeight: 600 }}>
+                    <Typography variant={'h6'} sx={{ fontWeight: 600 }}>
                         {pageTitle()}
                     </Typography>
                 }

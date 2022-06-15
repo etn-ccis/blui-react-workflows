@@ -22,14 +22,14 @@ export const CustomRegistrationSuccessScreen: React.FC<React.PropsWithChildren<C
         <>
             <CardHeader
                 title={
-                    <Typography variant={'h6'} style={{ fontWeight: 600 }}>
+                    <Typography variant={'h6'} sx={{ fontWeight: 600 }}>
                         Custom Registration Success Screen
                     </Typography>
                 }
-                style={{ padding: matchesXS ? '16px 24px 0 24px' : '32px 24px 0 24px' }}
+                sx={{ p: matchesXS ? '16px 24px 0 24px' : '32px 24px 0 24px' }}
             />
             <CardContent
-                style={{
+                sx={{
                     flex: '1 1 0px',
                     overflow: 'auto',
                     display: 'flex',
@@ -37,23 +37,23 @@ export const CustomRegistrationSuccessScreen: React.FC<React.PropsWithChildren<C
                     justifyContent: 'center',
                     alignItems: 'center',
                     height: '100%',
-                    padding: '16px 24px',
+                    p: '16px 24px',
                 }}
             >
                 <EmptyState
-                    icon={<Person color={'primary'} style={{ fontSize: 100 }} />}
+                    icon={<Person color={'primary'} sx={{ fontSize: 100 }} />}
                     title={`Congratulations ${props.registrationData?.accountDetails?.firstName || ''}${' '}
                 ${props.registrationData?.accountDetails?.lastName || ''}!`}
                     description={'You made it to the custom registration success screen!'}
                 />
             </CardContent>
             <Divider />
-            <CardActions style={{ padding: '24px', justifyContent: 'flex-end' }}>
+            <CardActions sx={{ p: 3, justifyContent: 'flex-end' }}>
                 <Button
                     variant={'contained'}
                     disableElevation
                     color={'primary'}
-                    style={{ width: '100%' }}
+                    sx={{ width: '100%' }}
                     component={Link}
                     to={'/custom-login-route'}
                 >
@@ -71,14 +71,14 @@ export const CustomAccountAlreadyExistsScreen: React.FC<React.PropsWithChildren<
         <>
             <CardHeader
                 title={
-                    <Typography variant={'h6'} style={{ fontWeight: 600 }}>
+                    <Typography variant={'h6'} sx={{ fontWeight: 600 }}>
                         Custom Account Already Exists Screen
                     </Typography>
                 }
-                style={{ padding: matchesXS ? '16px 24px 0 24px' : '32px 24px 0 24px' }}
+                sx={{ p: matchesXS ? '16px 24px 0 24px' : '32px 24px 0 24px' }}
             />
             <CardContent
-                style={{
+                sx={{
                     flex: '1 1 0px',
                     overflow: 'auto',
                     display: 'flex',
@@ -86,22 +86,22 @@ export const CustomAccountAlreadyExistsScreen: React.FC<React.PropsWithChildren<
                     justifyContent: 'center',
                     alignItems: 'center',
                     height: '100%',
-                    padding: '16px 24px',
+                    p: '16px 24px',
                 }}
             >
                 <EmptyState
-                    icon={<Person color={'primary'} style={{ fontSize: 100 }} />}
+                    icon={<Person color={'primary'} sx={{ fontSize: 100 }} />}
                     title={'Congratulations!'}
                     description={'You made it to the custom account already exists success screen!'}
                 />
             </CardContent>
             <Divider />
-            <CardActions style={{ padding: '24px', justifyContent: 'flex-end' }}>
+            <CardActions sx={{ p: 3, justifyContent: 'flex-end' }}>
                 <Button
                     variant={'contained'}
                     disableElevation
                     color={'primary'}
-                    style={{ width: '100%' }}
+                    sx={{ width: '100%' }}
                     component={Link}
                     to={'/custom-login-route'}
                 >
