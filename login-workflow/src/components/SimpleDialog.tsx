@@ -7,7 +7,7 @@ import DialogContent from '@mui/material/DialogContent';
 import DialogActions from '@mui/material/DialogActions';
 import { useLanguageLocale } from '@brightlayer-ui/react-auth-shared';
 import { useTheme } from '@mui/material/styles';
-import { DialgButtonStyles, DialogActionsStyles, DialogContentStyles, DialogTitleStyles } from '../styles';
+import { DialogButtonStyles, DialogActionsStyles, DialogContentStyles, DialogTitleStyles } from '../styles';
 
 export type SimpleDialogProps = DialogProps & {
     title: string;
@@ -37,7 +37,7 @@ export const SimpleDialog: React.FC<React.PropsWithChildren<React.PropsWithChild
                 <Typography>{body}</Typography>
             </DialogContent>
             <DialogActions sx={DialogActionsStyles(theme)}>
-                <Button variant="text" color="primary" onClick={dialogProps.onClose} sx={DialgButtonStyles()}>
+                <Button variant="text" color="primary" onClick={dialogProps.onClose} sx={DialogButtonStyles()}>
                     {t('blui:ACTIONS.OKAY').toUpperCase()}
                 </Button>
             </DialogActions>

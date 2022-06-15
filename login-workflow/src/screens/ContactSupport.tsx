@@ -10,7 +10,7 @@ import Typography from '@mui/material/Typography';
 import { Theme, useTheme } from '@mui/material/styles';
 import { BrandedCardContainer } from '../components';
 import ChatBubbleOutline from '@mui/icons-material/ChatBubbleOutline';
-import { DialgButtonStyles, DialogActionsStyles, DialogContentStyles, DialogTitleStyles } from '../styles';
+import { DialogButtonStyles, DialogActionsStyles, DialogContentStyles, DialogTitleStyles } from '../styles';
 import Box from '@mui/material/Box';
 
 const LinkStyles = (theme: Theme) => ({
@@ -91,7 +91,7 @@ export const ContactSupport: React.FC<React.PropsWithChildren<React.PropsWithChi
                     variant="contained"
                     color="primary"
                     disableElevation
-                    sx={DialgButtonStyles(true)}
+                    sx={DialogButtonStyles(true)}
                     onClick={(): void => navigate(-1)}
                 >
                     {t('blui:ACTIONS.OKAY')}

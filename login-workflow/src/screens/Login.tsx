@@ -229,8 +229,8 @@ export const Login: React.FC<React.PropsWithChildren<React.PropsWithChildren<unk
             <Box
                 sx={{
                     backgroundColor: Colors.yellow[500],
-                    padding: 1,
-                    marginBottom: 2,
+                    p: 1,
+                    mb: 2,
                 }}
             >
                 <Typography variant={'h6'} align={'center'}>

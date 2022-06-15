@@ -26,7 +26,7 @@ export const DialogActionsStyles = (theme: Theme) => ({
     },
 });
 
-export const DialgButtonStyles = (fullWidth = false) => ({
+export const DialogButtonStyles = (fullWidth = false) => ({
     width: fullWidth ? '100%' : 100,
 });
 

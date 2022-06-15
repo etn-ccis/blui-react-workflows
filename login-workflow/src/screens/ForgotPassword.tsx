@@ -21,7 +21,7 @@ import TextField from '@mui/material/TextField';
 import { Theme, useTheme } from '@mui/material/styles';
 import CheckCircle from '@mui/icons-material/CheckCircle';
 import {
-    DialgButtonStyles,
+    DialogButtonStyles,
     DialogActionsStyles,
     DialogContentStyles,
     DialogTitleStyles,
@@ -177,7 +177,7 @@ export const ForgotPassword: React.FC<React.PropsWithChildren<React.PropsWithChi
                             variant="outlined"
                             color="primary"
                             onClick={(): void => navigate(-1)}
-                            sx={DialgButtonStyles()}
+                            sx={DialogButtonStyles()}
                         >
                             {t('blui:ACTIONS.BACK')}
                         </Button>
@@ -188,7 +188,7 @@ export const ForgotPassword: React.FC<React.PropsWithChildren<React.PropsWithChi
                         disabled={!canContinue()}
                         color="primary"
                         onClick={onContinue}
-                        sx={DialgButtonStyles(finished)}
+                        sx={DialogButtonStyles(finished)}
                     >
                         {accountUIState.forgotPassword.transitSuccess ? t('blui:ACTIONS.DONE') : t('blui:ACTIONS.OKAY')}
                     </Button>

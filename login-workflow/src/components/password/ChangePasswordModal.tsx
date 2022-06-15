@@ -26,7 +26,7 @@ import { SimpleDialog } from '../SimpleDialog';
 import { FinishState } from '../FinishState';
 import CheckCircle from '@mui/icons-material/CheckCircle';
 import { defaultPasswordRequirements } from '../../constants';
-import { DialgButtonStyles, DialogActionsStyles, DialogContentStyles, DialogTitleStyles } from '../../styles';
+import { DialogButtonStyles, DialogActionsStyles, DialogContentStyles, DialogTitleStyles } from '../../styles';
 
 /**
  * Component that renders a change password form in a modal dialog. This dialog is automatically
@@ -170,7 +170,7 @@ export const ChangePasswordModal: React.FC<React.PropsWithChildren<React.PropsWi
                         <Button
                             variant="outlined"
                             color="primary"
-                            sx={DialgButtonStyles()}
+                            sx={DialogButtonStyles()}
                             onClick={(): void => securityHelper.hideChangePassword()}
                         >
                             {t('blui:ACTIONS.BACK')}
@@ -179,7 +179,7 @@ export const ChangePasswordModal: React.FC<React.PropsWithChildren<React.PropsWi
                     <Button
                         variant="contained"
                         disableElevation
-                        sx={DialgButtonStyles(success)}
+                        sx={DialogButtonStyles(success)}
                         disabled={
                             transitState.transitInProgress ||
                             (!success && (currentPassword === '' || !areValidMatchingPasswords()))

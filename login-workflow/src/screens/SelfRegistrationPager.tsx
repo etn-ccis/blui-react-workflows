@@ -31,7 +31,7 @@ import { RegistrationComplete } from './subScreens/RegistrationComplete';
 import { ExistingAccountComplete } from './subScreens/ExistingAccountComplete';
 import { CustomRegistrationDetailsGroup, RegistrationPage } from '../types';
 import {
-    DialgButtonStyles,
+    DialogButtonStyles,
     DialogActionsStyles,
     DialogContentStyles,
     DialogTitleStyles,
@@ -450,7 +450,7 @@ export const SelfRegistrationPager: React.FC<React.PropsWithChildren<React.Props
             <Button
                 variant={'contained'}
                 color={'primary'}
-                sx={DialgButtonStyles(true)}
+                sx={DialogButtonStyles(true)}
                 disableElevation
                 onClick={(): void => navigate(routes.LOGIN)}
             >
@@ -463,7 +463,7 @@ export const SelfRegistrationPager: React.FC<React.PropsWithChildren<React.Props
                 variant={'contained'}
                 color={'primary'}
                 disableElevation
-                sx={DialgButtonStyles(true)}
+                sx={DialogButtonStyles(true)}
                 onClick={(): void => advancePage(1)}
             >
                 {t('blui:ACTIONS.CONTINUE')}
@@ -482,7 +482,7 @@ export const SelfRegistrationPager: React.FC<React.PropsWithChildren<React.Props
                         color="primary"
                         disabled={!canGoBackProgress()}
                         onClick={(): void => advancePage(-1)}
-                        sx={DialgButtonStyles()}
+                        sx={DialogButtonStyles()}
                     >
                         {isFirstStep ? t('blui:ACTIONS.CANCEL') : t('blui:ACTIONS.BACK')}
                     </Button>
@@ -494,7 +494,7 @@ export const SelfRegistrationPager: React.FC<React.PropsWithChildren<React.Props
                         disableElevation
                         disabled={!canProgress()}
                         onClick={(): void => advancePage(1)}
-                        sx={DialgButtonStyles()}
+                        sx={DialogButtonStyles()}
                     >
                         {t('blui:ACTIONS.NEXT')}
                     </Button>

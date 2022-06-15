@@ -21,7 +21,7 @@ import { BrandedCardContainer, SimpleDialog, FinishState, ChangePasswordForm } f
 import { defaultPasswordRequirements } from '../constants';
 import CheckCircle from '@mui/icons-material/CheckCircle';
 import Error from '@mui/icons-material/Error';
-import { DialgButtonStyles, DialogActionsStyles, DialogContentStyles, DialogTitleStyles } from '../styles';
+import { DialogButtonStyles, DialogActionsStyles, DialogContentStyles, DialogTitleStyles } from '../styles';
 
 /**
  * Renders a screen stack which handles the reset password flow (deep link from email).
@@ -189,7 +189,7 @@ export const ResetPassword: React.FC<React.PropsWithChildren<React.PropsWithChil
                             variant="outlined"
                             color="primary"
                             onClick={(): void => navigate(routes.LOGIN)}
-                            sx={DialgButtonStyles()}
+                            sx={DialogButtonStyles()}
                         >
                             {t('blui:ACTIONS.BACK')}
                         </Button>
@@ -201,7 +201,7 @@ export const ResetPassword: React.FC<React.PropsWithChildren<React.PropsWithChil
                             disabled={!canContinue()}
                             color="primary"
                             onClick={onContinue}
-                            sx={DialgButtonStyles(setPasswordTransitSuccess)}
+                            sx={DialogButtonStyles(setPasswordTransitSuccess)}
                         >
                             {setPasswordTransitSuccess ? t('blui:ACTIONS.DONE') : t('blui:ACTIONS.OKAY')}
                         </Button>

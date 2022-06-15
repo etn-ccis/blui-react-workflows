@@ -33,7 +33,7 @@ import Error from '@mui/icons-material/Error';
 
 import { CustomRegistrationDetailsGroup, RegistrationPage } from '../types';
 import {
-    DialgButtonStyles,
+    DialogButtonStyles,
     DialogActionsStyles,
     DialogContentStyles,
     DialogTitleStyles,
@@ -349,7 +349,7 @@ export const InviteRegistrationPager: React.FC<React.PropsWithChildren<React.Pro
                 variant={'contained'}
                 disableElevation
                 color={'primary'}
-                sx={DialgButtonStyles(true)}
+                sx={DialogButtonStyles(true)}
                 onClick={(): void => advancePage(1)}
             >
                 {t('blui:ACTIONS.CONTINUE')}
@@ -368,7 +368,7 @@ export const InviteRegistrationPager: React.FC<React.PropsWithChildren<React.Pro
                         color="primary"
                         disabled={!canGoBackProgress()}
                         onClick={(): void => advancePage(-1)}
-                        sx={DialgButtonStyles()}
+                        sx={DialogButtonStyles()}
                     >
                         {isFirstStep ? t('blui:ACTIONS.CANCEL') : t('blui:ACTIONS.BACK')}
                     </Button>
@@ -380,7 +380,7 @@ export const InviteRegistrationPager: React.FC<React.PropsWithChildren<React.Pro
                         disableElevation
                         disabled={!canProgress()}
                         onClick={(): void => advancePage(1)}
-                        sx={DialgButtonStyles()}
+                        sx={DialogButtonStyles()}
                     >
                         {t('blui:ACTIONS.NEXT')}
                     </Button>
@@ -450,7 +450,7 @@ export const InviteRegistrationPager: React.FC<React.PropsWithChildren<React.Pro
                             color="primary"
                             disableElevation
                             onClick={(): void => navigate(routes.LOGIN)}
-                            sx={DialgButtonStyles()}
+                            sx={DialogButtonStyles()}
                         >
                             {t('blui:ACTIONS.CONTINUE')}
                         </Button>
