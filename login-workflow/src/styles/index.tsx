@@ -43,7 +43,7 @@ export const StepperStyles = {
     p: 0,
 };
 
-export const StepperDotStyles = (theme: Theme): SxProps<Theme> => ({
+export const StepperDotStyles = (theme: Theme): any => ({
     m: `0px ${theme.spacing(0.5)}`,
 });
 
