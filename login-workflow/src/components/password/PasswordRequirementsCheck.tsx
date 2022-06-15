@@ -29,7 +29,6 @@ export const PasswordRequirementsCheck: React.FC<
                 sx={{
                     fontWeight: 400,
                     lineHeight: 1.2,
-                    opacity: props.isChecked ? 0.5 : 1,
                 }}
             >
                 {label}
