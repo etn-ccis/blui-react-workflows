@@ -7,7 +7,6 @@ import {
     useAccountUIState,
     useInjectedUIContext,
     AccountActions,
-    LoginErrorDisplayConfig,
     EMAIL_REGEX,
 } from '@brightlayer-ui/react-auth-shared';
 import { Link } from 'react-router-dom';
@@ -17,118 +16,30 @@ import TextField from '@mui/material/TextField';
 import Grid from '@mui/material/Grid';
 import FormControlLabel from '@mui/material/FormControlLabel';
 import Checkbox from '@mui/material/Checkbox';
-import { Theme, useTheme } from '@mui/material/styles';
-import createStyles from '@mui/styles/createStyles';
-import makeStyles from '@mui/styles/makeStyles';
+import { SxProps, Theme, useTheme } from '@mui/material/styles';
 import { BrandedCardContainer, SimpleDialog, SecureTextField } from '../components';
 import Close from '@mui/icons-material/Close';
 import stackedEatonLogo from '../assets/images/eaton_stacked_logo.png';
 import cyberBadge from '../assets/images/cybersecurity_certified.png';
 import * as Colors from '@brightlayer-ui/colors';
-import clsx from 'clsx';
+import Box from '@mui/material/Box';
 
 const HELPER_TEXT_HEIGHT = 22;
 
-const useStyles = makeStyles((theme: Theme) =>
-    createStyles({
-        emailFormField: {
-            marginBottom: `${(parseInt(theme.spacing(4)) + HELPER_TEXT_HEIGHT).toString()}px`,
-            '&$hasError': {
-                marginBottom: theme.spacing(4),
-            },
-            [theme.breakpoints.down('sm')]: {
-                marginBottom: `${(parseInt(theme.spacing(3)) + HELPER_TEXT_HEIGHT).toString()}px`,
-                '&$hasError': {
-                    marginBottom: theme.spacing(3),
-                },
-            },
-        },
-        passwordFormField: {
-            marginBottom: `${(parseInt(theme.spacing(3)) + HELPER_TEXT_HEIGHT).toString()}px`,
-            // marginBottom: theme.spacing(3) + HELPER_TEXT_HEIGHT,
-            '&$hasError': {
-                marginBottom: theme.spacing(3),
-            },
-        },
-        buttonRow: {
-            marginBottom: theme.spacing(5),
-            flexWrap: 'nowrap',
-            [theme.breakpoints.down('sm')]: {
-                flexWrap: 'wrap',
-                flexDirection: 'column',
-                justifyContent: 'center',
-            },
-        },
-        errorMessageBox: {
-            width: '100%',
-            backgroundColor: (loginErrorDisplayConfig: LoginErrorDisplayConfig) =>
-                loginErrorDisplayConfig.backgroundColor || theme.palette.error.main,
-            borderRadius: 4,
-            padding: 16,
-            color: (loginErrorDisplayConfig: LoginErrorDisplayConfig) =>
-                loginErrorDisplayConfig.fontColor || Colors.white[50],
-            marginBottom: 16,
-            marginTop: (loginErrorDisplayConfig: LoginErrorDisplayConfig) =>
-                loginErrorDisplayConfig.position !== 'bottom' ? 0 : theme.spacing(-1),
-        },
-        errorBoxDismissIcon: {
-            '&:hover': {
-                cursor: 'pointer',
-            },
-            float: 'right',
-        },
-        cyberBadge: {
-            alignSelf: 'center',
-            maxWidth: '30%',
-        },
-        debugButton: {
-            position: 'absolute',
-            top: theme.spacing(3),
-            right: theme.spacing(3),
-        },
-        debugMessage: {
-            backgroundColor: Colors.yellow[500],
-            padding: theme.spacing(1),
-            marginBottom: theme.spacing(2),
-        },
-        formContent: {
-            padding: `${theme.spacing(4)} ${theme.spacing(8)}`,
-            display: 'flex',
-            flexDirection: 'column',
-            [theme.breakpoints.down('sm')]: {
-                padding: `${theme.spacing(4)} ${theme.spacing(4)}`,
-            },
-        },
-        link: {
-            fontWeight: 600,
-            textTransform: 'none',
-            textDecoration: 'none',
-            color: theme.palette.primary.main,
-            '&:visited': {
-                color: 'inherit',
-            },
-        },
-        linksWrapper: {
-            textAlign: 'center',
-            paddingBottom: theme.spacing(4),
-        },
-        largeIcon: {
-            width: 60,
-            height: 60,
-            color: theme.palette.text.secondary,
-        },
-        rememberMeCheckbox: {
-            [theme.breakpoints.down('sm')]: {
-                marginRight: 0,
-            },
-        },
-        hasError: {},
-        productLogo: {
-            maxWidth: '100%',
-            maxHeight: 80,
-        },
-    })
-);
+const LinkStyles = (theme: Theme): SxProps<Theme> => ({
+    fontWeight: 600,
+    textTransform: 'none',
+    textDecoration: 'none',
+    color: theme.palette.primary.main,
+    '&:visited': {
+        color: 'inherit',
+    },
+});
+
+const LinksWrapperStyles = {
+    textAlign: 'center',
+    pb: 4,
+};
 
 /**
  * Login screen with loading and error states, as well as "remember me" functionality to store a user's email between logins.
@@ -146,7 +57,6 @@ export const Login: React.FC<React.PropsWithChildren<React.PropsWithChildren<unk
     const { routes } = useRoutes();
     const theme = useTheme();
     const { loginErrorDisplayConfig = { mode: 'dialog' }, ...otherUIContext } = useInjectedUIContext();
-    const classes = useStyles(loginErrorDisplayConfig);
     const {
         showRememberMe = true,
         allowDebugMode = false,
@@ -157,9 +67,14 @@ export const Login: React.FC<React.PropsWithChildren<React.PropsWithChildren<unk
         projectImage,
         loginFooter,
         loginHeader = (
-            <div style={{ marginBottom: theme.spacing(6) }}>
-                <img className={classes.productLogo} src={projectImage || stackedEatonLogo} alt="logo" />
-            </div>
+            <Box sx={{ mb: 6 }}>
+                <Box
+                    component="img"
+                    sx={{ maxWidth: '100%', maxHeight: 80 }}
+                    src={projectImage || stackedEatonLogo}
+                    alt="logo"
+                />
+            </Box>
         ),
         loginType = 'email',
         loginActions,
@@ -231,26 +146,41 @@ export const Login: React.FC<React.PropsWithChildren<React.PropsWithChildren<unk
 
     const errorMessageBox: JSX.Element =
         !isInvalidCredentials && hasTransitError && transitErrorMessage && showErrorMessageBox ? (
-            <div className={classes.errorMessageBox}>
+            <Box
+                sx={{
+                    width: '100%',
+                    backgroundColor: loginErrorDisplayConfig.backgroundColor || theme.palette.error.main,
+                    borderRadius: 4,
+                    p: 16,
+                    color: loginErrorDisplayConfig.fontColor || Colors.white[50],
+                    mb: 16,
+                    mt: loginErrorDisplayConfig.position !== 'bottom' ? 0 : -1,
+                }}
+            >
                 {loginErrorDisplayConfig.dismissible !== false && (
                     <Close
-                        className={classes.errorBoxDismissIcon}
+                        sx={{
+                            '&:hover': {
+                                cursor: 'pointer',
+                            },
+                            float: 'right',
+                        }}
                         onClick={(): void => {
                             setShowErrorMessageBox(false);
                         }}
                     />
                 )}
                 <Typography variant="body2">{t(transitErrorMessage)}</Typography>
-            </div>
+            </Box>
         ) : (
             <></>
         );
 
     const contactEatonRepresentative: JSX.Element = showContactSupport ? (
         <Typography variant="body2" color={'primary'}>
-            <Link className={classes.link} to={routes.SUPPORT}>
+            <Box component={Link} sx={LinkStyles(theme)} to={routes.SUPPORT}>
                 {t('blui:MESSAGES.CONTACT')}
-            </Link>
+            </Box>
         </Typography>
     ) : (
         <></>
@@ -268,10 +198,10 @@ export const Login: React.FC<React.PropsWithChildren<React.PropsWithChildren<unk
     let createAccountOption: JSX.Element = <></>;
     if (showSelfRegistration) {
         createAccountOption = (
-            <Typography variant="body2" color={'primary'} style={{ marginBottom: theme.spacing(4) }}>
-                <Link className={classes.link} to={routes.REGISTER_SELF}>
+            <Typography variant="body2" color={'primary'} sx={{ mb: 4 }}>
+                <Box component={Link} sx={LinkStyles(theme)} to={routes.REGISTER_SELF}>
                     {t('blui:ACTIONS.CREATE_ACCOUNT')}
-                </Link>
+                </Box>
             </Typography>
         );
     }
@@ -284,7 +214,11 @@ export const Login: React.FC<React.PropsWithChildren<React.PropsWithChildren<unk
                 variant={'contained'}
                 color={'primary'}
                 onClick={(): void => setDebugMode(!debugMode)}
-                className={classes.debugButton}
+                sx={{
+                    position: 'absolute',
+                    top: theme.spacing(3),
+                    right: theme.spacing(3),
+                }}
             >{`DEBUG`}</Button>
         );
     }
@@ -292,42 +226,56 @@ export const Login: React.FC<React.PropsWithChildren<React.PropsWithChildren<unk
     let debugMessage: JSX.Element = <></>;
     if (debugMode) {
         debugMessage = (
-            <div className={classes.debugMessage}>
+            <Box
+                sx={{
+                    backgroundColor: Colors.yellow[500],
+                    p: 1,
+                    mb: 2,
+                }}
+            >
                 <Typography variant={'h6'} align={'center'}>
                     DEBUG MODE
                 </Typography>
-            </div>
+            </Box>
         );
     }
 
     const debugLinks = !debugMode ? null : (
-        <div className={classes.linksWrapper}>
+        <Box sx={LinksWrapperStyles}>
             <Typography variant="body2">
-                <Link className={classes.link} to={`${routes.REGISTER_INVITE}?code=DEBUG_VALIDATION_CODE_DEADBEEF`}>
+                <Box
+                    component={Link}
+                    sx={LinkStyles(theme)}
+                    to={`${routes.REGISTER_INVITE}?code=DEBUG_VALIDATION_CODE_DEADBEEF`}
+                >
                     [Test Invite Register]
-                </Link>
+                </Box>
             </Typography>
             <Typography variant="body2">
-                <Link className={classes.link} to={routes.REGISTER_SELF}>
+                <Box component={Link} sx={LinkStyles(theme)} to={routes.REGISTER_SELF}>
                     [Test Self Register]
-                </Link>
+                </Box>
             </Typography>
             <Typography variant="body2">
-                <Link className={classes.link} to={`${routes.FORGOT_PASSWORD}`}>
+                <Box component={Link} sx={LinkStyles(theme)} to={`${routes.FORGOT_PASSWORD}`}>
                     [Test Forgot Password]
-                </Link>
+                </Box>
             </Typography>
             <Typography variant="body2">
-                <Link className={classes.link} to={`${routes.RESET_PASSWORD}?code=DEBUG_VALIDATION_CODE_DEADBEEF`}>
+                <Box
+                    component={Link}
+                    sx={LinkStyles(theme)}
+                    to={`${routes.RESET_PASSWORD}?code=DEBUG_VALIDATION_CODE_DEADBEEF`}
+                >
                     [Test Reset Password Email]
-                </Link>
+                </Box>
             </Typography>
             <Typography variant="body2">
-                <Link className={classes.link} to={`${routes.SUPPORT}`}>
+                <Box component={Link} sx={LinkStyles(theme)} to={`${routes.SUPPORT}`}>
                     [Test Contact Support]
-                </Link>
+                </Box>
             </Typography>
-        </div>
+        </Box>
     );
 
     return (
@@ -343,7 +291,16 @@ export const Login: React.FC<React.PropsWithChildren<React.PropsWithChildren<unk
                     loginTapped();
                 }}
             >
-                <div className={classes.formContent}>
+                <Box
+                    sx={{
+                        p: `${theme.spacing(4)} ${theme.spacing(8)}`,
+                        display: 'flex',
+                        flexDirection: 'column',
+                        [theme.breakpoints.down('sm')]: {
+                            p: `${theme.spacing(4)} ${theme.spacing(4)}`,
+                        },
+                    }}
+                >
                     {loginHeader && typeof loginHeader === 'function' && loginHeader(null)}
                     {loginHeader && typeof loginHeader !== 'function' && loginHeader}
 
@@ -359,9 +316,18 @@ export const Login: React.FC<React.PropsWithChildren<React.PropsWithChildren<unk
                         id="email"
                         name={loginType === 'username' ? 'username' : 'email'}
                         type={loginType === 'username' ? 'text' : 'email'}
-                        className={clsx(classes.emailFormField, {
-                            [classes.hasError]: isInvalidCredentials || hasEmailError(),
-                        })}
+                        sx={{
+                            mb:
+                                isInvalidCredentials || hasEmailError()
+                                    ? 4
+                                    : `${(parseInt(theme.spacing(4)) + HELPER_TEXT_HEIGHT).toString()}px`,
+                            [theme.breakpoints.down('sm')]: {
+                                mb:
+                                    isInvalidCredentials || hasEmailError()
+                                        ? 3
+                                        : `${(parseInt(theme.spacing(3)) + HELPER_TEXT_HEIGHT).toString()}px`,
+                            },
+                        }}
                         value={emailInput}
                         onChange={(evt: ChangeEvent<HTMLInputElement>): void => {
                             const { value } = evt.target;
@@ -385,7 +351,11 @@ export const Login: React.FC<React.PropsWithChildren<React.PropsWithChildren<unk
                         id="password"
                         name="password"
                         label={t('blui:LABELS.PASSWORD')}
-                        className={clsx(classes.passwordFormField, { [classes.hasError]: isInvalidCredentials })}
+                        sx={{
+                            mb: isInvalidCredentials
+                                ? 3
+                                : `${(parseInt(theme.spacing(3)) + HELPER_TEXT_HEIGHT).toString()}px`,
+                        }}
                         value={passwordInput}
                         onChange={(evt: ChangeEvent<HTMLInputElement>): void => {
                             setPasswordInput(evt.target.value);
@@ -406,11 +376,23 @@ export const Login: React.FC<React.PropsWithChildren<React.PropsWithChildren<unk
                         direction="row"
                         alignItems="center"
                         justifyContent="space-between"
-                        className={classes.buttonRow}
+                        sx={{
+                            mb: 5,
+                            flexWrap: 'nowrap',
+                            [theme.breakpoints.down('sm')]: {
+                                flexWrap: 'wrap',
+                                flexDirection: 'column',
+                                justifyContent: 'center',
+                            },
+                        }}
                     >
                         {showRememberMe && (
                             <FormControlLabel
-                                className={classes.rememberMeCheckbox}
+                                sx={{
+                                    [theme.breakpoints.down('sm')]: {
+                                        mr: 0,
+                                    },
+                                }}
                                 control={
                                     <Checkbox
                                         color="primary"
@@ -431,7 +413,7 @@ export const Login: React.FC<React.PropsWithChildren<React.PropsWithChildren<unk
                                     : !EMAIL_REGEX.test(emailInput) || !passwordInput
                             }
                             color="primary"
-                            style={{ width: showRememberMe ? 150 : '100%' }}
+                            sx={{ width: showRememberMe ? 150 : '100%' }}
                         >
                             {t('blui:ACTIONS.LOG_IN')}
                         </Button>
@@ -440,32 +422,37 @@ export const Login: React.FC<React.PropsWithChildren<React.PropsWithChildren<unk
                     {loginActions && typeof loginActions === 'function' && loginActions(null)}
                     {loginActions && typeof loginActions !== 'function' && loginActions}
 
-                    <div className={showLinks ? classes.linksWrapper : undefined}>
+                    <Box sx={showLinks ? LinksWrapperStyles : undefined}>
                         {enableResetPassword && (
                             <Typography variant="body2" color={'primary'}>
-                                <Link className={classes.link} to={routes.FORGOT_PASSWORD}>
+                                <Box component={Link} sx={LinkStyles(theme)} to={routes.FORGOT_PASSWORD}>
                                     {t('blui:LABELS.FORGOT_PASSWORD')}
-                                </Link>
+                                </Box>
                             </Typography>
                         )}
                         {(showContactSupport || showSelfRegistration) && (
-                            <Typography
-                                variant="body2"
-                                style={{ marginTop: enableResetPassword ? theme.spacing(4) : 0 }}
-                            >
+                            <Typography variant="body2" sx={{ mt: enableResetPassword ? 4 : 0 }}>
                                 {t('blui:LABELS.NEED_ACCOUNT')}
                             </Typography>
                         )}
 
                         {createAccountOption}
                         {contactEatonRepresentative}
-                    </div>
+                    </Box>
                     {loginFooter && typeof loginFooter === 'function' && loginFooter(null)}
                     {loginFooter && typeof loginFooter !== 'function' && loginFooter}
                     {showCybersecurityBadge && (
-                        <img src={cyberBadge} className={classes.cyberBadge} alt="CyberSecurity Certification Badge" />
+                        <Box
+                            component="img"
+                            src={cyberBadge}
+                            sx={{
+                                alignSelf: 'center',
+                                maxWidth: '30%',
+                            }}
+                            alt="CyberSecurity Certification Badge"
+                        />
                     )}
-                </div>
+                </Box>
             </form>
         </BrandedCardContainer>
     );

@@ -18,27 +18,26 @@ import Divider from '@mui/material/Divider';
 import Typography from '@mui/material/Typography';
 import Grid from '@mui/material/Grid';
 import TextField from '@mui/material/TextField';
-import { Theme, useTheme } from '@mui/material/styles';
-import createStyles from '@mui/styles/createStyles';
-import makeStyles from '@mui/styles/makeStyles';
+import { SxProps, Theme, useTheme } from '@mui/material/styles';
 import CheckCircle from '@mui/icons-material/CheckCircle';
-import clsx from 'clsx';
-import { sharedDialogStyles } from '../styles';
-const useDialogStyles = makeStyles(sharedDialogStyles);
+import {
+    DialogButtonStyles,
+    DialogActionsStyles,
+    DialogContentStyles,
+    DialogTitleStyles,
+    FullDividerStyles,
+} from '../styles';
+import Box from '@mui/material/Box';
 
-const useStyles = makeStyles((theme: Theme) =>
-    createStyles({
-        link: {
-            fontWeight: 600,
-            color: theme.palette.primary.main,
-            textTransform: 'none',
-            textDecoration: 'none',
-            '&:visited': {
-                color: theme.palette.primary.main,
-            },
-        },
-    })
-);
+const LinkStyles = (theme: Theme): SxProps<Theme> => ({
+    fontWeight: 600,
+    color: theme.palette.primary.main,
+    textTransform: 'none',
+    textDecoration: 'none',
+    '&:visited': {
+        color: theme.palette.primary.main,
+    },
+});
 
 /**
  * Renders the screen for Forgot Password where a user enters their
@@ -49,8 +48,6 @@ const useStyles = makeStyles((theme: Theme) =>
 export const ForgotPassword: React.FC<React.PropsWithChildren<React.PropsWithChildren<unknown>>> = () => {
     const { t } = useLanguageLocale();
     const navigate = useNavigate();
-    const classes = useStyles();
-    const sharedClasses = useDialogStyles();
     const theme = useTheme();
     const accountUIState = useAccountUIState();
     const accountUIActions = useAccountUIActions();
@@ -112,7 +109,7 @@ export const ForgotPassword: React.FC<React.PropsWithChildren<React.PropsWithChi
     if (accountUIState.forgotPassword.transitSuccess) {
         body = (
             <FinishState
-                icon={<CheckCircle color={'primary'} style={{ fontSize: 100, marginBottom: theme.spacing(2) }} />}
+                icon={<CheckCircle color={'primary'} sx={{ fontSize: 100, mb: 2 }} />}
                 title={t('blui:MESSAGES.EMAIL_SENT')}
                 description={
                     <Trans i18nKey={'blui:FORGOT_PASSWORD.LINK_SENT_ALT'} values={{ email: emailInput }}>
@@ -128,14 +125,14 @@ export const ForgotPassword: React.FC<React.PropsWithChildren<React.PropsWithChi
                     <Trans i18nKey={'blui:FORGOT_PASSWORD.INSTRUCTIONS_ALT'} values={{ phone: contactPhone }}>
                         Please enter your email, we will respond in <b>one business day</b>. For urgent issues please
                         call{' '}
-                        <a href={`tel:${contactPhone}`} className={classes.link}>
+                        <Box component="a" href={`tel:${contactPhone}`} sx={LinkStyles(theme)}>
                             {contactPhone}
-                        </a>
+                        </Box>
                         .
                     </Trans>
                 </Typography>
 
-                <Divider className={sharedClasses.fullDivider} />
+                <Divider sx={FullDividerStyles(theme)} />
 
                 <TextField
                     id="email"
@@ -159,28 +156,28 @@ export const ForgotPassword: React.FC<React.PropsWithChildren<React.PropsWithChi
             {errorDialog}
             <CardHeader
                 title={
-                    <Typography variant={'h6'} style={{ fontWeight: 600 }}>
+                    <Typography variant={'h6'} sx={{ fontWeight: 600 }}>
                         {t('blui:HEADER.FORGOT_PASSWORD')}
                     </Typography>
                 }
-                className={sharedClasses.dialogTitle}
+                sx={DialogTitleStyles(theme)}
             />
-            <CardContent className={sharedClasses.dialogContent}>{body}</CardContent>
+            <CardContent sx={DialogContentStyles(theme)}>{body}</CardContent>
             <Divider />
-            <CardActions className={sharedClasses.dialogActions}>
+            <CardActions sx={DialogActionsStyles(theme)}>
                 <Grid
                     container
                     direction="row"
                     alignItems="center"
                     justifyContent="space-between"
-                    style={{ width: '100%' }}
+                    sx={{ width: '100%' }}
                 >
                     {!finished && (
                         <Button
                             variant="outlined"
                             color="primary"
                             onClick={(): void => navigate(-1)}
-                            className={sharedClasses.dialogButton}
+                            sx={DialogButtonStyles()}
                         >
                             {t('blui:ACTIONS.BACK')}
                         </Button>
@@ -191,7 +188,7 @@ export const ForgotPassword: React.FC<React.PropsWithChildren<React.PropsWithChi
                         disabled={!canContinue()}
                         color="primary"
                         onClick={onContinue}
-                        className={clsx(sharedClasses.dialogButton, { [sharedClasses.fullWidth]: finished })}
+                        sx={DialogButtonStyles(finished)}
                     >
                         {accountUIState.forgotPassword.transitSuccess ? t('blui:ACTIONS.DONE') : t('blui:ACTIONS.OKAY')}
                     </Button>

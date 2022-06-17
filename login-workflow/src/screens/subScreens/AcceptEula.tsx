@@ -3,8 +3,8 @@ import { useLanguageLocale } from '@brightlayer-ui/react-auth-shared';
 import Typography from '@mui/material/Typography';
 import FormControlLabel from '@mui/material/FormControlLabel';
 import Checkbox from '@mui/material/Checkbox';
-import { useTheme } from '@mui/material/styles';
 import DOMPurify from 'dompurify';
+import Box from '@mui/material/Box';
 
 export type AcceptEulaProps = {
     eulaAccepted: boolean;
@@ -30,7 +30,6 @@ export type AcceptEulaProps = {
 export const AcceptEula: React.FC<React.PropsWithChildren<React.PropsWithChildren<AcceptEulaProps>>> = (props) => {
     const { eulaAccepted, eulaContent, onEulaChanged, loadEula, htmlEula, eulaError } = props;
     const { t } = useLanguageLocale();
-    const theme = useTheme();
 
     const eulaContentInternals = eulaContent ?? eulaError ?? t('blui:REGISTRATION.EULA.LOADING');
 
@@ -41,12 +40,12 @@ export const AcceptEula: React.FC<React.PropsWithChildren<React.PropsWithChildre
 
     return (
         <>
-            {!htmlEula && <Typography style={{ flex: '1 1 0px', overflow: 'auto' }}>{eulaContentInternals}</Typography>}
+            {!htmlEula && <Typography sx={{ flex: '1 1 0px', overflow: 'auto' }}>{eulaContentInternals}</Typography>}
             {htmlEula && (
-                <div
-                    style={{ flex: '1 1 0px', overflow: 'auto' }}
+                <Box
+                    sx={{ flex: '1 1 0px', overflow: 'auto' }}
                     dangerouslySetInnerHTML={{ __html: DOMPurify.sanitize(eulaContentInternals) }}
-                ></div>
+                ></Box>
             )}
             <FormControlLabel
                 control={
@@ -60,7 +59,7 @@ export const AcceptEula: React.FC<React.PropsWithChildren<React.PropsWithChildre
                     />
                 }
                 label={t('blui:REGISTRATION.EULA.AGREE_TERMS')}
-                style={{ flex: '0 0 auto', marginRight: 0, marginTop: theme.spacing(2) }}
+                sx={{ flex: '0 0 auto', mr: 0, mt: 2 }}
             />
         </>
     );

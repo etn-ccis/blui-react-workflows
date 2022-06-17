@@ -3,9 +3,8 @@ import { EMAIL_REGEX, useLanguageLocale } from '@brightlayer-ui/react-auth-share
 import Typography from '@mui/material/Typography';
 import TextField from '@mui/material/TextField';
 import Divider from '@mui/material/Divider';
-import makeStyles from '@mui/styles/makeStyles';
-import { sharedDialogStyles } from '../../styles';
-const useDialogStyles = makeStyles(sharedDialogStyles);
+import { FullDividerStyles } from '../../styles';
+import { useTheme } from '@mui/material/styles';
 
 const isValidEmail = (text: string): boolean => new RegExp(EMAIL_REGEX).test(text);
 
@@ -29,8 +28,8 @@ export const CreateAccount: React.FC<React.PropsWithChildren<React.PropsWithChil
     props
 ) => {
     const { initialEmail, onEmailChanged, onSubmit } = props;
-    const classes = useDialogStyles();
     const { t } = useLanguageLocale();
+    const theme = useTheme();
 
     const [emailInput, setEmailInput] = useState(initialEmail ?? '');
 
@@ -39,7 +38,7 @@ export const CreateAccount: React.FC<React.PropsWithChildren<React.PropsWithChil
     return (
         <>
             <Typography>{t('blui:SELF_REGISTRATION.INSTRUCTIONS')}</Typography>
-            <Divider className={classes.fullDivider} />
+            <Divider sx={FullDividerStyles(theme)} />
             <TextField
                 id="email"
                 label={t('blui:LABELS.EMAIL')}
