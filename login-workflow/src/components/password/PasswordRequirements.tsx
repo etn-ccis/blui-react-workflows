@@ -2,9 +2,12 @@ import React, { HTMLAttributes } from 'react';
 import { useInjectedUIContext, useLanguageLocale } from '@brightlayer-ui/react-auth-shared';
 import { PasswordRequirementsCheck } from './PasswordRequirementsCheck';
 import { defaultPasswordRequirements } from '../../constants';
+import Box from '@mui/material/Box';
+import { SxProps, Theme } from '@mui/material/styles';
 
 export type PasswordRequirementsProps = HTMLAttributes<HTMLDivElement> & {
     passwordText: string;
+    sx?: SxProps<Theme>;
 };
 
 /**
@@ -17,12 +20,12 @@ export type PasswordRequirementsProps = HTMLAttributes<HTMLDivElement> & {
 export const PasswordRequirements: React.FC<
     React.PropsWithChildren<React.PropsWithChildren<PasswordRequirementsProps>>
 > = (props) => {
-    const { passwordText, ...divProps } = props;
+    const { passwordText, ...otherProps } = props;
     const { t } = useLanguageLocale();
     const { passwordRequirements = defaultPasswordRequirements(t) } = useInjectedUIContext();
 
     return (
-        <div {...divProps}>
+        <Box {...otherProps}>
             {passwordRequirements.map((req, ind) => (
                 <PasswordRequirementsCheck
                     key={`password_requirement_${ind}`}
@@ -30,6 +33,6 @@ export const PasswordRequirements: React.FC<
                     isChecked={new RegExp(req.regex).test(passwordText)}
                 />
             ))}
-        </div>
+        </Box>
     );
 };

@@ -15,20 +15,20 @@ export const ExamplePreAuth: React.FC<React.PropsWithChildren<unknown>> = () => 
                 <img src={logo} className="App-logo" alt="logo" />
                 <p>Welcome to the example pre-auth screen.</p>
                 {!securityState.isAuthenticatedUser && (
-                    <Typography variant={'h6'} style={{ marginBottom: 24 }}>
+                    <Typography variant={'h6'} sx={{ mb: 3 }}>
                         Try as you might, but you are not authenticated at this time and therefore cannot access any
                         guarded routes.
                     </Typography>
                 )}
                 {securityState.isAuthenticatedUser && (
-                    <Typography variant={'h6'} style={{ marginBottom: 24 }}>
+                    <Typography variant={'h6'} sx={{ mb: 3 }}>
                         You are currently authenticated and should be able to access guarded routes.
                     </Typography>
                 )}
                 <Button variant={'contained'} component={Link} to={'/custom-login-route'}>
                     Navigate to Log In
                 </Button>
-                <Button variant={'contained'} component={Link} to={'/home'} style={{ marginTop: 16 }}>
+                <Button variant={'contained'} component={Link} to={'/home'} sx={{ mt: 2 }}>
                     Navigate to Home (Guarded Route)
                 </Button>
             </header>

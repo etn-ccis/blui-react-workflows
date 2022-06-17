@@ -23,7 +23,7 @@ export const ExampleHome: React.FC<React.PropsWithChildren<unknown>> = () => {
                 <Button variant={'contained'} onClick={securityHelper.showChangePassword}>
                     Change Password
                 </Button>
-                <Button variant={'contained'} onClick={logOut} style={{ marginTop: 16 }}>
+                <Button variant={'contained'} onClick={logOut} sx={{ mt: 2 }}>
                     Log Out
                 </Button>
             </header>

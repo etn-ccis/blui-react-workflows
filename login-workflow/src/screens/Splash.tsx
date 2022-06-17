@@ -1,30 +1,12 @@
 import React from 'react';
 import CardContent from '@mui/material/CardContent';
-import { useTheme } from '@mui/material/styles';
-import createStyles from '@mui/styles/createStyles';
-import makeStyles from '@mui/styles/makeStyles';
 import { BrandedCardContainer } from '../components';
 import CircularProgress from '@mui/material/CircularProgress';
+import Box from '@mui/material/Box';
 
 type SplashProps = {
     mainImage?: string | number;
 };
-
-const useStyles = makeStyles(() =>
-    createStyles({
-        content: {
-            flex: '1 1 0px',
-            display: 'flex',
-            alignItems: 'center',
-            justifyContent: 'center',
-            flexDirection: 'column',
-        },
-        image: {
-            maxWidth: '100%',
-            maxHeight: 80,
-        },
-    })
-);
 
 /**
  * Renders the splash screen displayed while loading the initial
@@ -36,16 +18,30 @@ const useStyles = makeStyles(() =>
  */
 export const Splash: React.FC<React.PropsWithChildren<React.PropsWithChildren<SplashProps>>> = (props) => {
     const { mainImage } = props;
-    const theme = useTheme();
-    const classes = useStyles();
 
     return (
         <BrandedCardContainer>
-            <CardContent className={classes.content}>
+            <CardContent
+                sx={{
+                    flex: '1 1 0px',
+                    display: 'flex',
+                    alignItems: 'center',
+                    justifyContent: 'center',
+                    flexDirection: 'column',
+                }}
+            >
                 {mainImage && (
-                    <div style={{ paddingBottom: theme.spacing(6) }}>
-                        <img src={`${mainImage}`} className={classes.image} alt="product logo" />
-                    </div>
+                    <Box sx={{ pb: 6 }}>
+                        <Box
+                            component="img"
+                            src={`${mainImage}`}
+                            sx={{
+                                maxWidth: '100%',
+                                maxHeight: 80,
+                            }}
+                            alt="product logo"
+                        />
+                    </Box>
                 )}
                 <CircularProgress size={mainImage ? 40 : 70} variant={'indeterminate'} />
             </CardContent>

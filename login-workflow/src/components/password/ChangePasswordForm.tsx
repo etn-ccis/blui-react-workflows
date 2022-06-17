@@ -3,11 +3,9 @@ import { useLanguageLocale } from '@brightlayer-ui/react-auth-shared';
 import Typography from '@mui/material/Typography';
 import Divider from '@mui/material/Divider';
 import { useTheme } from '@mui/material/styles';
-import makeStyles from '@mui/styles/makeStyles';
 import { SecureTextField } from '../SecureTextField';
 import { PasswordRequirements } from './PasswordRequirements';
-import { sharedDialogStyles } from '../../styles';
-const useDialogStyles = makeStyles(sharedDialogStyles);
+import { FullDividerStyles, TextFieldStyles } from '../../styles';
 
 export type ChangePasswordFormProps = {
     onPasswordChange: (passwords: { password: string; confirm: string }) => void;
@@ -54,7 +52,6 @@ export const ChangePasswordForm: React.FC<React.PropsWithChildren<React.PropsWit
     } = props;
     const { t } = useLanguageLocale();
     const theme = useTheme();
-    const sharedClasses = useDialogStyles();
 
     // Local State
     const [passwordInput, setPasswordInput] = useState(initialPassword);
@@ -80,7 +77,7 @@ export const ChangePasswordForm: React.FC<React.PropsWithChildren<React.PropsWit
         <>
             <Typography>{description || t('blui:CHANGE_PASSWORD.PASSWORD_INFO')}</Typography>
 
-            <Divider className={sharedClasses.fullDivider} />
+            <Divider sx={FullDividerStyles(theme)} />
 
             {children}
             <SecureTextField
@@ -90,20 +87,20 @@ export const ChangePasswordForm: React.FC<React.PropsWithChildren<React.PropsWit
                 label={passwordLabel || t('blui:FORMS.PASSWORD')}
                 value={passwordInput}
                 onChange={(evt: ChangeEvent<HTMLInputElement>): void => onPassChange(evt.target.value)}
-                className={sharedClasses.textField}
+                sx={TextFieldStyles(theme)}
                 onKeyPress={(e): void => {
                     if (e.key === 'Enter' && confirmRef.current) {
                         confirmRef.current.focus();
                     }
                 }}
             />
-            <PasswordRequirements style={{ marginTop: theme.spacing(2) }} passwordText={passwordInput} />
+            <PasswordRequirements sx={{ mt: 2 }} passwordText={passwordInput} />
             <SecureTextField
                 id="confirm"
                 name="confirm"
                 inputRef={confirmRef}
                 label={confirmLabel || t('blui:FORMS.CONFIRM_PASSWORD')}
-                className={sharedClasses.textField}
+                sx={TextFieldStyles(theme)}
                 value={confirmInput}
                 onChange={(evt: ChangeEvent<HTMLInputElement>): void => onConfirmChange(evt.target.value)}
                 onKeyPress={(e): void => {
