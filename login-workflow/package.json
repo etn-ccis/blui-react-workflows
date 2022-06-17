@@ -100,6 +100,7 @@
         "eslint-config-prettier": "^8.3.0",
         "eslint-plugin-react": "^7.29.4",
         "eslint-plugin-react-hooks": "^4.4.0",
+        "firebase-tools": "^11.0.1",
         "i18next": "^20.3.1",
         "identity-obj-proxy": "^3.0.0",
         "jest": "27.5.1",
