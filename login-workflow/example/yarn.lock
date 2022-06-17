@@ -1089,10 +1089,10 @@
   resolved "https://registry.yarnpkg.com/@brightlayer-ui/prettier-config/-/prettier-config-1.0.3.tgz#e40a7ae7435c6fd5118acbf249080e0aa81e93af"
   integrity sha512-EYm3+V7Qd+oYEF+8FadsXAZqXryEHHbGnrV1BMp9selhABjceqUqXPVE4Sn3SKWQdBNJ3En2A3EzgrzRbvRTaw==
 
-"@brightlayer-ui/react-components@^6.1.0-beta.0":
-  version "6.1.0-beta.0"
-  resolved "https://registry.yarnpkg.com/@brightlayer-ui/react-components/-/react-components-6.1.0-beta.0.tgz#b779913b127f51d7269f12e0a52e34e452712717"
-  integrity sha512-y3bsrZ5Uu/rFgAZGSM+1O6BhO/R+OlOzzp3LtvRmhJzLdYTeN+0jBiJQfkBnPnSQSESiCpAzM+Mg4uiFZPYcNQ==
+"@brightlayer-ui/react-components@^6.1.0-beta.1":
+  version "6.1.0-beta.1"
+  resolved "https://registry.yarnpkg.com/@brightlayer-ui/react-components/-/react-components-6.1.0-beta.1.tgz#419255bc6ba38de256329389dc6d1865a607de3a"
+  integrity sha512-hFFbQju08+yOlL3K74+Ys4GmYguh4XPwZ9usePwc+RQoRH3J8An7CRt5lFPHGUGDWEaY5VZxXY60BbuNJfF0QA==
   dependencies:
     "@brightlayer-ui/colors" "3.0.1"
     "@emotion/css" "^11.9.0"
