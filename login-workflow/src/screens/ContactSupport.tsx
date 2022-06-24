@@ -7,28 +7,21 @@ import CardContent from '@mui/material/CardContent';
 import CardHeader from '@mui/material/CardHeader';
 import Divider from '@mui/material/Divider';
 import Typography from '@mui/material/Typography';
-import { Theme, useTheme } from '@mui/material/styles';
-import createStyles from '@mui/styles/createStyles';
-import makeStyles from '@mui/styles/makeStyles';
+import { SxProps, Theme, useTheme } from '@mui/material/styles';
 import { BrandedCardContainer } from '../components';
 import ChatBubbleOutline from '@mui/icons-material/ChatBubbleOutline';
-import clsx from 'clsx';
-import { sharedDialogStyles } from '../styles';
-const useDialogStyles = makeStyles(sharedDialogStyles);
+import { DialogButtonStyles, DialogActionsStyles, DialogContentStyles, DialogTitleStyles } from '../styles';
+import Box from '@mui/material/Box';
 
-const useStyles = makeStyles((theme: Theme) =>
-    createStyles({
-        link: {
-            fontWeight: 600,
-            color: theme.palette.primary.main,
-            textTransform: 'none',
-            textDecoration: 'none',
-            '&:visited': {
-                color: theme.palette.primary.main,
-            },
-        },
-    })
-);
+const LinkStyles = (theme: Theme): SxProps<Theme> => ({
+    fontWeight: 600,
+    color: theme.palette.primary.main,
+    textTransform: 'none',
+    textDecoration: 'none',
+    '&:visited': {
+        color: theme.palette.primary.main,
+    },
+});
 
 /**
  * Content for the Contact Us screen. This is exported separately
@@ -40,32 +33,31 @@ const useStyles = makeStyles((theme: Theme) =>
 export const ContactSupportContent: React.FC<React.PropsWithChildren<React.PropsWithChildren<unknown>>> = () => {
     const { t } = useLanguageLocale();
     const theme = useTheme();
-    const classes = useStyles();
     const { contactPhone, contactEmail } = useInjectedUIContext();
 
     return (
         <>
-            <div style={{ fontSize: 70, marginBottom: theme.spacing(4), textAlign: 'center' }}>
+            <Box sx={{ fontSize: 70, mb: 4, textAlign: 'center' }}>
                 <ChatBubbleOutline fontSize={'inherit'} color={'primary'} />
-            </div>
-            <Typography variant={'body1'} style={{ marginBottom: theme.spacing(1) }}>
+            </Box>
+            <Typography variant={'body1'} sx={{ mb: 1 }}>
                 {t('blui:CONTACT_SUPPORT.GENERAL_QUESTIONS')}
             </Typography>
             <Typography>
                 {t('blui:CONTACT_SUPPORT.SUPPORT_MESSAGE')}
-                <a href={`mailto:${contactEmail}`} className={classes.link}>
+                <Box component="a" href={`mailto:${contactEmail}`} sx={LinkStyles(theme)}>
                     {contactEmail}
-                </a>
+                </Box>
                 .
             </Typography>
-            <Typography variant={'body1'} style={{ marginTop: theme.spacing(4), marginBottom: theme.spacing(1) }}>
+            <Typography variant={'body1'} sx={{ mt: 4, mb: 1 }}>
                 {t('blui:CONTACT_SUPPORT.EMERGENCY_SUPPORT')}
             </Typography>
             <Typography>
                 {t('blui:CONTACT_SUPPORT.TECHNICAL_ASSISTANCE')}
-                <a href={`tel:${contactPhone}`} className={classes.link}>
+                <Box component="a" href={`tel:${contactPhone}`} sx={LinkStyles(theme)}>
                     {contactPhone}
-                </a>
+                </Box>
                 .
             </Typography>
         </>
@@ -82,24 +74,24 @@ export const ContactSupportContent: React.FC<React.PropsWithChildren<React.Props
 export const ContactSupport: React.FC<React.PropsWithChildren<React.PropsWithChildren<unknown>>> = () => {
     const { t } = useLanguageLocale();
     const navigate = useNavigate();
-    const classes = useDialogStyles();
+    const theme = useTheme();
 
     return (
         <BrandedCardContainer>
             <CardHeader
                 title={<Typography variant={'h6'}>{t('blui:USER_MENU.CONTACT_US')}</Typography>}
-                className={classes.dialogTitle}
+                sx={DialogTitleStyles(theme)}
             />
-            <CardContent className={classes.dialogContent}>
+            <CardContent sx={DialogContentStyles(theme)}>
                 <ContactSupportContent />
             </CardContent>
             <Divider />
-            <CardActions className={classes.dialogActions}>
+            <CardActions sx={DialogActionsStyles(theme)}>
                 <Button
                     variant="contained"
                     color="primary"
                     disableElevation
-                    className={clsx(classes.dialogButton, { [classes.fullWidth]: true })}
+                    sx={DialogButtonStyles(true)}
                     onClick={(): void => navigate(-1)}
                 >
                     {t('blui:ACTIONS.OKAY')}

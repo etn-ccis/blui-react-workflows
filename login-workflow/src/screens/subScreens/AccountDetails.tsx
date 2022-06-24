@@ -3,9 +3,8 @@ import Typography from '@mui/material/Typography';
 import TextField from '@mui/material/TextField';
 import Divider from '@mui/material/Divider';
 import { useLanguageLocale, AccountDetailInformation, useInjectedUIContext } from '@brightlayer-ui/react-auth-shared';
-import makeStyles from '@mui/styles/makeStyles';
-import { sharedDialogStyles } from '../../styles';
-const useDialogStyles = makeStyles(sharedDialogStyles);
+import { useTheme } from '@mui/material/styles';
+import { FullDividerStyles, TextFieldStyles } from '../../styles';
 
 export type AccountDetailsWrapperProps = {
     description?: string;
@@ -27,12 +26,12 @@ export const AccountDetailsWrapper: React.FC<
 > = (props) => {
     const { t } = useLanguageLocale();
     const { description = t('blui:REGISTRATION.INSTRUCTIONS.ACCOUNT_DETAILS') } = props;
-    const classes = useDialogStyles();
+    const theme = useTheme();
 
     return (
         <>
             <Typography>{description}</Typography>
-            <Divider className={classes.fullDivider} />
+            <Divider sx={FullDividerStyles(theme)} />
             {props.children}
         </>
     );
@@ -50,8 +49,8 @@ export const AccountDetails: React.FC<React.PropsWithChildren<React.PropsWithChi
     props
 ) => {
     const { onDetailsChanged, initialDetails, onSubmit } = props;
-    const classes = useDialogStyles();
     const { t } = useLanguageLocale();
+    const theme = useTheme();
 
     const firstRef = useRef<any>(null);
     const lastRef = useRef<any>(null);
@@ -98,7 +97,7 @@ export const AccountDetails: React.FC<React.PropsWithChildren<React.PropsWithChi
                     if (e.key === 'Enter' && onSubmit) onSubmit();
                 }}
                 variant="filled"
-                className={classes.textField}
+                sx={TextFieldStyles(theme)}
                 inputProps={{ maxLength: lastNameLengthLimit }}
             />
         </>

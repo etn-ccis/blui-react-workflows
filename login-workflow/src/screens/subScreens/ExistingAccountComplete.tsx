@@ -1,6 +1,5 @@
 import React from 'react';
 import { useLanguageLocale } from '@brightlayer-ui/react-auth-shared';
-import { useTheme } from '@mui/material/styles';
 import { FinishState } from '../../components';
 import Person from '@mui/icons-material/Person';
 
@@ -12,11 +11,10 @@ import Person from '@mui/icons-material/Person';
  */
 export const ExistingAccountComplete: React.FC<React.PropsWithChildren<React.PropsWithChildren<unknown>>> = () => {
     const { t } = useLanguageLocale();
-    const theme = useTheme();
 
     return (
         <FinishState
-            icon={<Person color={'primary'} style={{ fontSize: 100, marginBottom: theme.spacing(2) }} />}
+            icon={<Person color={'primary'} sx={{ fontSize: 100, mb: 2 }} />}
             title={t('blui:MESSAGES.WELCOME')}
             description={t('blui:REGISTRATION.SUCCESS_EXISTING')}
         />

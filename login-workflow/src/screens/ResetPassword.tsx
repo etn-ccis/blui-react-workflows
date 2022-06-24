@@ -17,14 +17,11 @@ import Divider from '@mui/material/Divider';
 import Typography from '@mui/material/Typography';
 import Grid from '@mui/material/Grid';
 import { useTheme } from '@mui/material/styles';
-import makeStyles from '@mui/styles/makeStyles';
 import { BrandedCardContainer, SimpleDialog, FinishState, ChangePasswordForm } from '../components';
 import { defaultPasswordRequirements } from '../constants';
 import CheckCircle from '@mui/icons-material/CheckCircle';
 import Error from '@mui/icons-material/Error';
-import clsx from 'clsx';
-import { sharedDialogStyles } from '../styles';
-const useDialogStyles = makeStyles(sharedDialogStyles);
+import { DialogButtonStyles, DialogActionsStyles, DialogContentStyles, DialogTitleStyles } from '../styles';
 
 /**
  * Renders a screen stack which handles the reset password flow (deep link from email).
@@ -36,7 +33,6 @@ export const ResetPassword: React.FC<React.PropsWithChildren<React.PropsWithChil
     const navigate = useNavigate();
     const { routes } = useRoutes();
     const theme = useTheme();
-    const classes = useDialogStyles();
     const accountUIState = useAccountUIState();
     const accountUIActions = useAccountUIActions();
     const { code, email } = useQueryString();
@@ -120,9 +116,7 @@ export const ResetPassword: React.FC<React.PropsWithChildren<React.PropsWithChil
             verifySuccess && !verifyIsInTransit ? (
                 setPasswordTransitSuccess ? (
                     <FinishState
-                        icon={
-                            <CheckCircle color={'primary'} style={{ fontSize: 100, marginBottom: theme.spacing(2) }} />
-                        }
+                        icon={<CheckCircle color={'primary'} sx={{ fontSize: 100, mb: 2 }} />}
                         title={t('blui:PASSWORD_RESET.SUCCESS_MESSAGE')}
                         description={t('blui:CHANGE_PASSWORD.SUCCESS_MESSAGE')}
                     />
@@ -139,7 +133,7 @@ export const ResetPassword: React.FC<React.PropsWithChildren<React.PropsWithChil
                 <></>
             ) : (
                 <FinishState
-                    icon={<Error color={'error'} style={{ fontSize: 100, marginBottom: theme.spacing(2) }} />}
+                    icon={<Error color={'error'} sx={{ fontSize: 100, mb: 2 }} />}
                     title={t('blui:MESSAGES.FAILURE')}
                     description={validationTransitErrorMessage}
                 />
@@ -148,7 +142,6 @@ export const ResetPassword: React.FC<React.PropsWithChildren<React.PropsWithChil
             t,
             canContinue,
             onContinue,
-            theme,
             verifySuccess,
             verifyIsInTransit,
             verifyComplete,
@@ -174,28 +167,28 @@ export const ResetPassword: React.FC<React.PropsWithChildren<React.PropsWithChil
             {errorDialog}
             <CardHeader
                 title={
-                    <Typography variant={'h6'} style={{ fontWeight: 600 }}>
+                    <Typography variant={'h6'} sx={{ fontWeight: 600 }}>
                         {t('blui:FORMS.RESET_PASSWORD')}
                     </Typography>
                 }
-                className={classes.dialogTitle}
+                sx={DialogTitleStyles(theme)}
             />
-            <CardContent className={classes.dialogContent}>{getBody()}</CardContent>
+            <CardContent sx={DialogContentStyles(theme)}>{getBody()}</CardContent>
             <Divider />
-            <CardActions className={classes.dialogActions}>
+            <CardActions sx={DialogActionsStyles(theme)}>
                 <Grid
                     container
                     direction="row"
                     alignItems="center"
                     justifyContent="space-between"
-                    style={{ width: '100%' }}
+                    sx={{ width: '100%' }}
                 >
                     {!setPasswordTransitSuccess && (
                         <Button
                             variant="outlined"
                             color="primary"
                             onClick={(): void => navigate(routes.LOGIN)}
-                            className={classes.dialogButton}
+                            sx={DialogButtonStyles()}
                         >
                             {t('blui:ACTIONS.BACK')}
                         </Button>
@@ -207,7 +200,7 @@ export const ResetPassword: React.FC<React.PropsWithChildren<React.PropsWithChil
                             disabled={!canContinue()}
                             color="primary"
                             onClick={onContinue}
-                            className={clsx(classes.dialogButton, { [classes.fullWidth]: setPasswordTransitSuccess })}
+                            sx={DialogButtonStyles(setPasswordTransitSuccess)}
                         >
                             {setPasswordTransitSuccess ? t('blui:ACTIONS.DONE') : t('blui:ACTIONS.OKAY')}
                         </Button>

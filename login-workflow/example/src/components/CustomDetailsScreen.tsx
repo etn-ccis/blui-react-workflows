@@ -1,20 +1,14 @@
 import React, { useEffect, useRef, useState } from 'react';
-import { Theme } from '@mui/material/styles';
-import createStyles from '@mui/styles/createStyles';
-import makeStyles from '@mui/styles/makeStyles';
+import { Theme, useTheme } from '@mui/material/styles';
 import TextField from '@mui/material/TextField';
 import { AccountDetailsFormProps } from '@brightlayer-ui/react-auth-workflow';
 
-export const useStyles = makeStyles((theme: Theme) =>
-    createStyles({
-        textField: {
-            marginTop: theme.spacing(4),
-            [theme.breakpoints.down('sm')]: {
-                marginTop: theme.spacing(3),
-            },
-        },
-    })
-);
+export const TextFieldStyles = (theme: Theme) => ({
+    mt: 4,
+    [theme.breakpoints.down('sm')]: {
+        mt: 3,
+    },
+});
 
 export const CustomDetailsScreen: React.FC<React.PropsWithChildren<AccountDetailsFormProps>> = (props) => {
     const { onDetailsChanged, initialDetails, onSubmit } = props;
@@ -23,8 +17,7 @@ export const CustomDetailsScreen: React.FC<React.PropsWithChildren<AccountDetail
 
     const countryRef = useRef<any>(null);
     const currencyRef = useRef<any>(null);
-
-    const styles = useStyles();
+    const theme = useTheme();
 
     useEffect((): void => {
         // validation checks
@@ -54,7 +47,7 @@ export const CustomDetailsScreen: React.FC<React.PropsWithChildren<AccountDetail
                 label={'Currency (Optional)'}
                 value={currency}
                 placeholder={'Enter your favorite currency'}
-                className={styles.textField}
+                sx={TextFieldStyles(theme)}
                 onChange={(evt): void => setCurrency(evt.target.value)}
                 onKeyPress={(e): void => {
                     if (e.key === 'Enter' && onSubmit) onSubmit();
@@ -68,11 +61,10 @@ export const CustomDetailsScreenTwo: React.FC<React.PropsWithChildren<AccountDet
     const { onDetailsChanged, initialDetails, onSubmit } = props;
     const [company, setCompany] = useState(initialDetails ? initialDetails.company : '');
     const [role, setRole] = useState(initialDetails ? initialDetails.role : '');
+    const theme = useTheme();
 
     const companyRef = useRef<any>(null);
     const roleRef = useRef<any>(null);
-
-    const styles = useStyles();
 
     useEffect((): void => {
         onDetailsChanged({ company, role }, true);
@@ -100,7 +92,7 @@ export const CustomDetailsScreenTwo: React.FC<React.PropsWithChildren<AccountDet
                 label={'Job Title'}
                 value={role}
                 placeholder={'Enter your job title'}
-                className={styles.textField}
+                sx={TextFieldStyles(theme)}
                 onChange={(evt): void => setRole(evt.target.value)}
                 onKeyPress={(e): void => {
                     if (e.key === 'Enter' && onSubmit) onSubmit();

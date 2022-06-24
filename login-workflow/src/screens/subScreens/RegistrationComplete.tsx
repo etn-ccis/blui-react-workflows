@@ -1,7 +1,6 @@
 import React from 'react';
 import { useLanguageLocale } from '@brightlayer-ui/react-auth-shared';
 import { Trans } from 'react-i18next';
-import { useTheme } from '@mui/material/styles';
 import { FinishState } from '../../components';
 import CheckCircle from '@mui/icons-material/CheckCircle';
 
@@ -28,11 +27,10 @@ export const RegistrationComplete: React.FC<
 > = (props) => {
     const { firstName, lastName, email, organization } = props;
     const { t } = useLanguageLocale();
-    const theme = useTheme();
 
     return (
         <FinishState
-            icon={<CheckCircle color={'primary'} style={{ fontSize: 100, marginBottom: theme.spacing(2) }} />}
+            icon={<CheckCircle color={'primary'} sx={{ fontSize: 100, mb: 2 }} />}
             title={`${t('blui:MESSAGES.WELCOME')}, ${firstName} ${lastName}!`}
             description={
                 <Trans

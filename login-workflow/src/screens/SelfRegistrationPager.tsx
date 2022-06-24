@@ -29,11 +29,18 @@ import { CreatePassword as CreatePasswordScreen } from './subScreens/CreatePassw
 import { AccountDetails as AccountDetailsScreen, AccountDetailsWrapper } from './subScreens/AccountDetails';
 import { RegistrationComplete } from './subScreens/RegistrationComplete';
 import { ExistingAccountComplete } from './subScreens/ExistingAccountComplete';
-import clsx from 'clsx';
 import { CustomRegistrationDetailsGroup, RegistrationPage } from '../types';
-import makeStyles from '@mui/styles/makeStyles';
-import { sharedDialogStyles } from '../styles';
-const useDialogStyles = makeStyles(sharedDialogStyles);
+import {
+    DialogButtonStyles,
+    DialogActionsStyles,
+    DialogContentStyles,
+    DialogTitleStyles,
+    StepperDotStyles,
+    StepperStyles,
+    TextFieldStyles,
+} from '../styles';
+import { useTheme } from '@mui/material/styles';
+import Box from '@mui/material/Box';
 
 export const emptyAccountDetailInformation: AccountDetailInformation = {
     firstName: '',
@@ -50,11 +57,11 @@ export const SelfRegistrationPager: React.FC<React.PropsWithChildren<React.Props
     const { t } = useLanguageLocale();
     const navigate = useNavigate();
     const { routes } = useRoutes();
-    const sharedClasses = useDialogStyles();
     const registrationActions = useRegistrationUIActions();
     const registrationState = useRegistrationUIState();
     const injectedUIContext = useInjectedUIContext();
     const { code, email: urlEmail } = useQueryString();
+    const theme = useTheme();
 
     // Local State
     const [currentPage, setCurrentPage] = useState(0);
@@ -294,7 +301,7 @@ export const SelfRegistrationPager: React.FC<React.PropsWithChildren<React.Props
                         }
                     />
                     {FirstCustomPage && (
-                        <div className={sharedClasses.textField}>
+                        <Box sx={TextFieldStyles(theme)}>
                             <FirstCustomPage
                                 onDetailsChanged={(details: CustomAccountDetails, valid: boolean): void => {
                                     setCustomAccountDetails({ ...customAccountDetails, 0: { values: details, valid } });
@@ -303,7 +310,7 @@ export const SelfRegistrationPager: React.FC<React.PropsWithChildren<React.Props
                                 // eslint-disable-next-line @typescript-eslint/no-use-before-define
                                 onSubmit={customAccountDetails[0]?.valid ? (): void => advancePage(1) : undefined}
                             />
-                        </div>
+                        </Box>
                     )}
                 </AccountDetailsWrapper>
             ),
@@ -443,7 +450,7 @@ export const SelfRegistrationPager: React.FC<React.PropsWithChildren<React.Props
             <Button
                 variant={'contained'}
                 color={'primary'}
-                className={clsx(sharedClasses.dialogButton, { [sharedClasses.fullWidth]: true })}
+                sx={DialogButtonStyles(true)}
                 disableElevation
                 onClick={(): void => navigate(routes.LOGIN)}
             >
@@ -456,7 +463,7 @@ export const SelfRegistrationPager: React.FC<React.PropsWithChildren<React.Props
                 variant={'contained'}
                 color={'primary'}
                 disableElevation
-                className={clsx(sharedClasses.dialogButton, { [sharedClasses.fullWidth]: true })}
+                sx={DialogButtonStyles(true)}
                 onClick={(): void => advancePage(1)}
             >
                 {t('blui:ACTIONS.CONTINUE')}
@@ -475,7 +482,7 @@ export const SelfRegistrationPager: React.FC<React.PropsWithChildren<React.Props
                         color="primary"
                         disabled={!canGoBackProgress()}
                         onClick={(): void => advancePage(-1)}
-                        className={sharedClasses.dialogButton}
+                        sx={DialogButtonStyles()}
                     >
                         {isFirstStep ? t('blui:ACTIONS.CANCEL') : t('blui:ACTIONS.BACK')}
                     </Button>
@@ -487,12 +494,12 @@ export const SelfRegistrationPager: React.FC<React.PropsWithChildren<React.Props
                         disableElevation
                         disabled={!canProgress()}
                         onClick={(): void => advancePage(1)}
-                        className={sharedClasses.dialogButton}
+                        sx={DialogButtonStyles()}
                     >
                         {t('blui:ACTIONS.NEXT')}
                     </Button>
                 }
-                classes={{ root: sharedClasses.stepper, dot: sharedClasses.stepperDot }}
+                sx={{ ...StepperStyles, '& .MuiMobileStepper-dot': StepperDotStyles(theme) }}
             />
         );
     }
@@ -535,17 +542,17 @@ export const SelfRegistrationPager: React.FC<React.PropsWithChildren<React.Props
             {errorDialog}
             <CardHeader
                 title={
-                    <Typography variant={'h6'} style={{ fontWeight: 600 }}>
+                    <Typography variant={'h6'} sx={{ fontWeight: 600 }}>
                         {pageTitle()}
                     </Typography>
                 }
-                className={sharedClasses.dialogTitle}
+                sx={DialogTitleStyles(theme)}
             />
-            <CardContent className={sharedClasses.dialogContent}>
+            <CardContent sx={DialogContentStyles(theme)}>
                 {accountAlreadyExists ? <ExistingAccountComplete /> : RegistrationPages[currentPage].pageBody}
             </CardContent>
             <Divider />
-            <CardActions className={sharedClasses.dialogActions}>{buttonArea}</CardActions>
+            <CardActions sx={DialogActionsStyles(theme)}>{buttonArea}</CardActions>
         </BrandedCardContainer>
     );
 };

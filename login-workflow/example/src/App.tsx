@@ -23,7 +23,7 @@ import Button from '@mui/material/Button';
 import { useTranslation } from 'react-i18next';
 import { Navigate, Route } from 'react-router-dom';
 import { ExamplePreAuth } from './screens/ExamplePreAuth';
-import { AppBar, Toolbar, Typography } from '@mui/material';
+import { AppBar, Box, Toolbar, Typography } from '@mui/material';
 import { Outlet } from 'react-router';
 
 // Uncomment these lines to add your app-specific translation resource
@@ -50,7 +50,7 @@ export const AuthUIConfiguration: React.FC<React.PropsWithChildren<unknown>> = (
             contactPhone={'1-800-123-4567'}
             projectImage={productLogo}
             loginFooter={
-                <div style={{ display: 'flex', alignItems: 'center' }}>
+                <Box sx={{ display: 'flex', alignItems: 'center' }}>
                     <Button
                         color={'inherit'}
                         onClick={(): void => {
@@ -91,7 +91,7 @@ export const AuthUIConfiguration: React.FC<React.PropsWithChildren<unknown>> = (
                     >
                         {`${t('BUTTONLABEL')}-PT`}
                     </Button>
-                </div>
+                </Box>
             }
             // loginType={'username'}
             // Uncomment this line to see how to add custom form fields to the registration screens
