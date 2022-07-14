@@ -60,7 +60,7 @@ jobs:
         - checkout
         - restore_cache:
             keys:
-                - v3-dependencies-{{ checksum "yarn.lock" }}
+                - v2-dependencies-{{ checksum "login-workflow/yarn.lock" }}
         - run:
             name: Install Dependencies
             command: |
@@ -70,7 +70,7 @@ jobs:
             paths:
                 - ~/.cache
                 - node_modules
-            key: v3-dependencies-{{ checksum "yarn.lock" }}
+            key: v2-dependencies-{{ checksum "login-workflow/yarn.lock" }}
         - run:
             name: Cypress E2E Tests
             command: |
