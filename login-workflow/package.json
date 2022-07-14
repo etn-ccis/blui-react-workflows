@@ -21,7 +21,9 @@
         "update:submodule": "git submodule update --remote",
         "generate:licenses": "npm-license-crawler -onlyDirectDependencies -json LICENSES.json",
         "precommit": "yarn prettier && yarn lint && yarn test && yarn build",
-        "coverage": "yarn test --coverage --watchAll=false --no-cache"
+        "coverage": "yarn test --coverage --watchAll=false --no-cache",
+        "cy:stage": "yarn initialize && yarn install:dependencies && yarn link:workflow",
+        "cytest": "cd example && yarn start-server-and-test start http://localhost:3000 cy:run"
     },
     "prettier": "@brightlayer-ui/prettier-config",
     "dependencies": {
@@ -91,7 +93,6 @@
         "@typescript-eslint/parser": "^5.17.0",
         "babel-jest": "^27.5.1",
         "clsx": "^1.1.1",
-        "codecov": "^3.8.2",
         "date-fns": "^2.22.1",
         "enzyme": "^3.11.0",
         "enzyme-adapter-react-16": "^1.15.6",

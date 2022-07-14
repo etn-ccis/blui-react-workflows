@@ -1,6 +1,6 @@
 version: 2.1
 orbs:
-    codecov: codecov/codecov@1.1.3
+    codecov: codecov/codecov@3.2.2
     gh: circleci/github-cli@1.0.3
     browser-tools: circleci/browser-tools@1.2.4
 jobs:
@@ -49,8 +49,42 @@ jobs:
           paths:
             - login-workflow/dist
             - login-workflow/coverage
+
+  cypress_tests:
+    working_directory: ~/login-workflow
+    parallelism: 2
+    docker:
+        - image: cimg/node:14.19.0-browsers
+    resource_class: large
+    steps:
+        - checkout
+        - restore_cache:
+            keys:
+                - v3-dependencies-{{ checksum "yarn.lock" }}
+        - run:
+            name: Install Dependencies
+            command: |
+                yarn install --frozen-lockfile
+        - save_cache:
+            name: Save Cache
+            paths:
+                - ~/.cache
+                - node_modules
+            key: v3-dependencies-{{ checksum "yarn.lock" }}
+        - run:
+            name: Cypress E2E Tests
+            command: |
+                yarn cy:stage
+                yarn cytest
+        - store_artifacts:
+            path: cypress/screenshots
+        - persist_to_workspace:
+            root: .
+            paths:
+                - login-workflow/cypress-coverage
+
   coverage_report:
-        working_directory: ~/react-native-component-library
+        working_directory: ~/login-workflow
         docker:
             - image: cimg/node:14.19.0-browsers
         steps:
@@ -59,7 +93,10 @@ jobs:
                 at: .
             - codecov/upload:
                 file: './login-workflow/coverage/clover.xml'
-                token: e4c45889-a27d-46ae-abd6-e0b15a8a7b57
+                token: CODECOV_TOKEN
+            - codecov/upload:
+                file: './login-workflow/cypress-coverage/clover.xml'
+                token: CODECOV_TOKEN
 
   publish_login_workflow:
     docker:
@@ -94,6 +131,14 @@ workflows:
   react_workflows:
     jobs:
       - build_login_workflow
+      - cypress_tests:
+          requires:
+            - build_login_workflow
+          filters:
+            branches:
+              only:
+                # - master
+                # - dev
       - publish_login_workflow:
           requires:
             - build_login_workflow
@@ -112,6 +157,7 @@ workflows:
       - coverage_report:
                    requires:
                         - build_login_workflow
+                        - cypress_tests
                    filters:
                         branches:
                             only:
