@@ -60,12 +60,26 @@ jobs:
         - checkout
         - restore_cache:
             keys:
+                - v2-dependencies-{{ checksum "login-workflow/yarn.lock" }}
+        - restore_cache:
+            keys:
                 - v2-dependencies-{{ checksum "login-workflow/example/yarn.lock" }}
+        - run:
+            name: Install Dependencies
+            command: |
+              cd login-workflow
+              yarn install --frozen-lockfile
         - run:
             name: Install Dependencies
             command: |
               cd login-workflow/example
               yarn install --frozen-lockfile
+        - save_cache:
+            name: Save Cache
+            paths:
+                - ~/.cache
+                - node_modules
+            key: v2-dependencies-{{ checksum "login-workflow/yarn.lock" }}
         - save_cache:
             name: Save Cache
             paths:
