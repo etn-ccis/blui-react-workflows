@@ -51,7 +51,7 @@ jobs:
             - login-workflow/coverage
 
   cypress_tests:
-    working_directory: ~/login-workflow
+    working_directory: ~/login-workflow/example
     parallelism: 2
     docker:
         - image: cimg/node:14.19.0-browsers
@@ -60,17 +60,18 @@ jobs:
         - checkout
         - restore_cache:
             keys:
-                - v2-dependencies-{{ checksum "login-workflow/yarn.lock" }}
+                - v2-dependencies-{{ checksum "login-workflow/example/yarn.lock" }}
         - run:
             name: Install Dependencies
             command: |
-                yarn install --frozen-lockfile
+              cd login-workflow/example
+              yarn install --frozen-lockfile
         - save_cache:
             name: Save Cache
             paths:
                 - ~/.cache
                 - node_modules
-            key: v2-dependencies-{{ checksum "login-workflow/yarn.lock" }}
+            key: v2-dependencies-{{ checksum "login-workflow/example/yarn.lock" }}
         - run:
             name: Cypress E2E Tests
             command: |
