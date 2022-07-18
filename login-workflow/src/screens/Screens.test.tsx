@@ -1,6 +1,6 @@
 import React from 'react';
 import 'regenerator-runtime/runtime';
-import { render, screen, cleanup } from '@testing-library/react';
+import { render, cleanup } from '@testing-library/react';
 import { AcceptEula } from './subScreens/AcceptEula';
 import { AccountDetails } from './subScreens/AccountDetails';
 import { CreateAccount } from './subScreens/CreateAccount';
@@ -34,7 +34,6 @@ import LanguageDetector from 'i18next-browser-languagedetector';
 
 import { createTheme, ThemeProvider } from '@mui/material/styles';
 import * as BLUIThemes from '@brightlayer-ui/react-themes';
-import { createRoot } from 'react-dom/client';
 
 const theme = createTheme(BLUIThemes.blue);
 afterEach(cleanup);
