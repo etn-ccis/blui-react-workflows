@@ -119,7 +119,6 @@ describe('CreatePassword tests', () => {
 
 describe('ExistingAccountComplete tests', () => {
     it('renders without crashing', () => {
-
         render(
             <ThemeProvider theme={theme}>
                 <ExistingAccountComplete />
@@ -130,7 +129,6 @@ describe('ExistingAccountComplete tests', () => {
 
 describe('RegistrationComplete tests', () => {
     it('renders without crashing', () => {
-
         render(
             <ThemeProvider theme={theme}>
                 <RegistrationComplete
