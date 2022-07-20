@@ -25,7 +25,6 @@ describe('login screen authentication actions', () => {
         cy.contains('Remember Me').click();
         cy.contains('Log In').should('be.enabled').click();
         cy.visit('http://localhost:3000/');
-        cy.getLocalStorage('remember_me_data')
-        .should('equal', '{"user":"test@test.com","rememberMe":true}');
+        cy.getLocalStorage('remember_me_data').should('equal', '{"user":"test@test.com","rememberMe":true}');
     });
 });
