@@ -116,6 +116,7 @@ describe('AuthGuard authenticated tests', () => {
     });
 });
 
+// TODO: Removed this test from running and will be covered by UI tests.
 xdescribe('SecureTextField tests', () => {
     it('renders without crashing', () => {
         // const div = document.createElement('div');
