@@ -23,13 +23,9 @@ describe('login authentication actions', () => {
     it('should toggle password visibility on-off', () => {
         cy.get('#password').click().type('Test321!');
         cy.get('[data-testid="VisibilityOffIcon"]').click();
-        cy.get('#password')
-        .invoke('prop','type')
-        .should('contain', 'text')
+        cy.get('#password').invoke('prop', 'type').should('contain', 'text');
         cy.get('[data-testid="VisibilityIcon"]').click();
-        cy.get('#password')
-        .invoke('prop','type')
-        .should('contain', 'password')
+        cy.get('#password').invoke('prop', 'type').should('contain', 'password');
     });
 
     it('should remember me', () => {
