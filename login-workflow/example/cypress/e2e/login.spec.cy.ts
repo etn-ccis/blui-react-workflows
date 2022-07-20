@@ -1,4 +1,5 @@
 /// <reference types="cypress" />
+/// <reference types="cypress-localstorage-commands" />
 
 describe('login screen authentication actions', () => {
     beforeEach(() => {
@@ -24,7 +25,7 @@ describe('login screen authentication actions', () => {
         cy.get('#password').click().type('Test321!');
         cy.contains('Remember Me').click();
         cy.contains('Log In').should('be.enabled').click();
-        cy.visit('http://localhost:3000/');
+        cy.contains('Log Out').should('be.enabled').click();
         cy.getLocalStorage('remember_me_data').should('equal', '{"user":"test@test.com","rememberMe":true}');
     });
 });
