@@ -8,7 +8,7 @@ describe('login authentication actions', () => {
 
     it('should display contact us modal', () => {
         cy.contains('Contact an Eaton').click();
-        cy.contains('Contact Us')
+        cy.contains('Contact Us');
     });
 
     it('should display login page when contact us is selected', () => {
