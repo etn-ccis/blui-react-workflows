@@ -121,7 +121,7 @@
         "coverageDirectory": "./coverage/",
         "collectCoverage": true,
         "coverageReporters": [
-            "json",
+            "clover",
             "lcov",
             "html"
         ],
