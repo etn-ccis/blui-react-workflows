@@ -113,9 +113,11 @@ jobs:
                 at: .
             - codecov/upload:
                 file: './login-workflow/coverage/clover.xml'
+                flags: unit_tests
                 token: CODECOV_TOKEN
             - codecov/upload:
                 file: './login-workflow/cypress-coverage/clover.xml'
+                flags: ui_tests
                 token: CODECOV_TOKEN
 
   publish_login_workflow:

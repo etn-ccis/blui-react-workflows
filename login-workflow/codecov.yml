@@ -20,3 +20,31 @@ comment:
   behavior: default
   require_changes: no
 - "::login-workflow/"         # move root   e.g., "path/" => "after/path/"
+flag_management:
+  default_rules:
+    carryforward: true
+    statuses:
+      - type: project
+        target: auto
+        threshold: 30%
+      - type: patch
+        target: 80%
+  individual_flags: # exceptions to the default rules above, stated flag by flag
+    - name: unit_tests  #fill in your own flag name
+      paths: 
+      - ./login-workflow/src
+      carryforward: true
+      statuses:
+        - type: project
+          target: 20%
+        - type: patch
+          target: 80%
+    - name: ui_tests
+      paths: 
+      - ./login-workflow/example/src
+      carryforward: true
+      statuses:
+      - type: project
+        target: 20%
+      - type: patch
+        target: 80%
