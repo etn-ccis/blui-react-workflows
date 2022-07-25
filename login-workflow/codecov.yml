@@ -19,7 +19,7 @@ comment:
   layout: "reach,diff,flags,tree"
   behavior: default
   require_changes: no
-- "::login-workflow/"         # move root   e.g., "path/" => "after/path/"
+# - "::login-workflow/"         # move root   e.g., "path/" => "after/path/"
 flag_management:
   default_rules:
     carryforward: true
