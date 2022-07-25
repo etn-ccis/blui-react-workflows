@@ -159,8 +159,8 @@ workflows:
           filters:
             branches:
               only:
-                # - master
-                # - dev
+                - master
+                - dev
       - publish_login_workflow:
           requires:
             - build_login_workflow
@@ -183,4 +183,4 @@ workflows:
                    filters:
                         branches:
                             only:
-                                # - master
+                                - master
