@@ -21,7 +21,9 @@
         "update:submodule": "git submodule update --remote",
         "generate:licenses": "npm-license-crawler -onlyDirectDependencies -json LICENSES.json",
         "precommit": "yarn prettier && yarn lint && yarn test && yarn build",
-        "coverage": "yarn test --coverage --watchAll=false --no-cache"
+        "coverage": "yarn test --coverage --watchAll=false --no-cache",
+        "cy:stage": "yarn initialize && yarn install:dependencies && yarn link:workflow",
+        "cytest": "cd example && yarn start-server-and-test start http://localhost:3000 cy:run"
     },
     "prettier": "@brightlayer-ui/prettier-config",
     "dependencies": {
@@ -79,6 +81,8 @@
         "@mui/icons-material": "^5.3.1",
         "@mui/material": "^5.4.1",
         "@mui/styles": "^5.4.1",
+        "@testing-library/jest-dom": "^5.16.4",
+        "@testing-library/react": "^13.3.0",
         "@types/color": "^3.0.1",
         "@types/dompurify": "^2.2.2",
         "@types/enzyme": "^3.10.8",
@@ -91,7 +95,6 @@
         "@typescript-eslint/parser": "^5.17.0",
         "babel-jest": "^27.5.1",
         "clsx": "^1.1.1",
-        "codecov": "^3.8.2",
         "date-fns": "^2.22.1",
         "enzyme": "^3.11.0",
         "enzyme-adapter-react-16": "^1.15.6",
@@ -118,7 +121,7 @@
         "coverageDirectory": "./coverage/",
         "collectCoverage": true,
         "coverageReporters": [
-            "json",
+            "clover",
             "lcov",
             "html"
         ],

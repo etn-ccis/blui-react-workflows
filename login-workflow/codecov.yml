@@ -19,4 +19,32 @@ comment:
   layout: "reach,diff,flags,tree"
   behavior: default
   require_changes: no
-- "::login-workflow/"         # move root   e.g., "path/" => "after/path/"
+# - "::login-workflow/"     # move root   e.g., "path/" => "after/path/" leaving this here for now, it might need turned on later
+flag_management:
+  default_rules:
+    carryforward: true
+    statuses:
+      - type: project
+        target: auto
+        threshold: 30%
+      - type: patch
+        target: 80%
+  individual_flags:
+    - name: unit_tests
+      paths: 
+      - ./login-workflow/src
+      carryforward: true
+      statuses:
+        - type: project
+          target: 20%
+        - type: patch
+          target: 80%
+    - name: ui_tests
+      paths: 
+      - ./login-workflow/example/src
+      carryforward: true
+      statuses:
+      - type: project
+        target: 20%
+      - type: patch
+        target: 80%

@@ -37,5 +37,5 @@
 #### Misc.
 1. User can cancel/close any sub-task (forgot password, forgot password email, invite register and create account).
 
-### Unit Test Count
-25
+### Automated Test Count
+72
