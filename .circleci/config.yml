@@ -156,8 +156,8 @@ workflows:
       - cypress_tests:
           requires:
             - build_login_workflow
-          filters:
-            branches:
+          # filters:
+          #   branches:
               # only:
               #   - master
               #   - dev
@@ -180,7 +180,7 @@ workflows:
                    requires:
                         - build_login_workflow
                         - cypress_tests
-                   filters:
-                        branches:
-                            only:
+                  #  filters:
+                  #       branches:
+                  #           only:
                                 # - master
