@@ -83,6 +83,10 @@
     },
     "prettier": "@brightlayer-ui/prettier-config",
     "nyc": {
+        "exclude": [
+            "src/serviceWorker.ts"
+        ],
+        "excludeAfterRemap": true,
         "report-dir": "../cypress-coverage"
     }
 }
