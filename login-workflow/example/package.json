@@ -67,7 +67,7 @@
         "@cypress/code-coverage": "^3.10.0",
         "@cypress/instrument-cra": "^1.4.0",
         "@emotion/css": "^11.9.0",
-        "@typescript-eslint/eslint-plugin": "^5.17.0",
+        "@typescript-eslint/eslint-plugin": "^5.38.0",
         "@typescript-eslint/parser": "^5.17.0",
         "babel-plugin-istanbul": "^6.1.1",
         "cypress": "^10.8.0",
