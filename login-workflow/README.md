@@ -19,7 +19,7 @@ yarn add @brightlayer-ui/react-auth-workflow
 ```
 
 # Integration
-You have two options for using this package in your application. You can manually integrate the package into an existing project, or you can start a project using the `/example` project provided in the package. 
+You have two options for using this package in your application. You can manually integrate the package into an existing project, or you can start a project using the `/example` project. 
 
 To integrate the package into an existing project, read our [Existing Project Integration ](https://github.com/brightlayer-ui/react-workflows/tree/master/login-workflow/docs/existing-project-integration.md) instructions. Even if you are starting from scratch, it may be useful for you to refer to the example project while getting started.
 
