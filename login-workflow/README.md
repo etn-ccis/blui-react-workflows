@@ -106,3 +106,7 @@ yarn generate:licenses
 ## Browser Support
 
 Brightlayer UI Login Workflow will work with any modern browser. For details refer to our [Browser Support](https://brightlayer-ui.github.io/development/frameworks-web/react#browser-support) documentation.
+
+## Customizing the Workflow
+
+The workflow allows for some customizations. For details refer to our [Customization](docs/customization.md) documentation.
