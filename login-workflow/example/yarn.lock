@@ -1372,10 +1372,10 @@
   resolved "https://registry.yarnpkg.com/@bcoe/v8-coverage/-/v8-coverage-0.2.3.tgz#75a2e8b51cb758a7553d6804a5932d7aace75c39"
   integrity sha512-0hYQ8SB4Db5zvZB4axdMHGwEaQjkZzFjQiN9LVYvIFB2nSUHW9tYpxWriPrWDASIxiaXax83REcLxuSdnGPZtw==
 
-"@brightlayer-ui/colors@3.0.1", "@brightlayer-ui/colors@^3.0.0", "@brightlayer-ui/colors@^3.0.1":
-  version "3.0.1"
-  resolved "https://registry.yarnpkg.com/@brightlayer-ui/colors/-/colors-3.0.1.tgz#f085acf6b6b4266a01798c78bc25841d15e44b3e"
-  integrity sha512-AE9F6FN1EQWMoqFTak6q8MN3wg9et2u2SUs6HjYhcS3GVSHjMWVSsuJZ2aD5Lu9409Gfi6pBHDWsJZ5PyeLsdQ==
+"@brightlayer-ui/colors@^3.0.0", "@brightlayer-ui/colors@^3.0.1", "@brightlayer-ui/colors@^3.1.1":
+  version "3.1.1"
+  resolved "https://registry.yarnpkg.com/@brightlayer-ui/colors/-/colors-3.1.1.tgz#7bc86498e30172c410ba4c3237149b16a2eed4c6"
+  integrity sha512-fV10E5JDuVGDQ0gCY3pEfDwUo1+lvDFC5pmOAAGpN7YDramS6ggUpJ/LmYavKAudw7FNcaJnPi7tsQWJjvv/7w==
   dependencies:
     "@brightlayer-ui/types" "^2.0.0"
 
@@ -1399,12 +1399,12 @@
   resolved "https://registry.yarnpkg.com/@brightlayer-ui/prettier-config/-/prettier-config-1.0.3.tgz#e40a7ae7435c6fd5118acbf249080e0aa81e93af"
   integrity sha512-EYm3+V7Qd+oYEF+8FadsXAZqXryEHHbGnrV1BMp9selhABjceqUqXPVE4Sn3SKWQdBNJ3En2A3EzgrzRbvRTaw==
 
-"@brightlayer-ui/react-components@^6.1.0-beta.1":
-  version "6.1.0-beta.1"
-  resolved "https://registry.yarnpkg.com/@brightlayer-ui/react-components/-/react-components-6.1.0-beta.1.tgz#419255bc6ba38de256329389dc6d1865a607de3a"
-  integrity sha512-hFFbQju08+yOlL3K74+Ys4GmYguh4XPwZ9usePwc+RQoRH3J8An7CRt5lFPHGUGDWEaY5VZxXY60BbuNJfF0QA==
+"@brightlayer-ui/react-components@^6.1.0":
+  version "6.1.0"
+  resolved "https://registry.yarnpkg.com/@brightlayer-ui/react-components/-/react-components-6.1.0.tgz#e9e612623d34b5e688d77cfc806b9effcd1d2ebc"
+  integrity sha512-8nM2EX52EQG0eFsyJMw33rciz38rxvWepCoEjkL6hUaCAyOAT5anCrQMtOW6h0X6n9VI932U6WFf87bD4OLZGg==
   dependencies:
-    "@brightlayer-ui/colors" "3.0.1"
+    "@brightlayer-ui/colors" "^3.1.1"
     "@emotion/css" "^11.9.0"
     "@seznam/compose-react-refs" "^1.0.6"
     color "^4.2.1"
