@@ -68,7 +68,7 @@
         "@cypress/instrument-cra": "^1.4.0",
         "@emotion/css": "^11.10.0",
         "@typescript-eslint/eslint-plugin": "^5.38.0",
-        "@typescript-eslint/parser": "^5.17.0",
+        "@typescript-eslint/parser": "^5.41.0",
         "babel-plugin-istanbul": "^6.1.1",
         "cypress": "^10.8.0",
         "cypress-localstorage-commands": "^2.2.1",
