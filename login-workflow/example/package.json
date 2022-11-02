@@ -4,7 +4,7 @@
     "private": true,
     "dependencies": {
         "@brightlayer-ui/colors": "^3.0.1",
-        "@brightlayer-ui/icons-mui": "^3.0.0",
+        "@brightlayer-ui/icons-mui": "^3.2.0",
         "@brightlayer-ui/react-components": "^6.1.0",
         "@brightlayer-ui/react-themes": "^7.0.0",
         "@emotion/react": "^11.7.1",
