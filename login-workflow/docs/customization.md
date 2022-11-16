@@ -20,12 +20,8 @@ If there are routes that you would like to be available without logging in (such
 ```tsx
 <AuthNavigationContainer
     extraRoutes={[
-        <Route path={'/new-route'}>
-            {/* Route Content */}
-        </Route>,
-        <Route path={'/new-route-two'}>
-            {/* Route Content */}
-        </Route>,
+        <Route path={'/new-route'}>{/* Route Content */}</Route>,
+        <Route path={'/new-route-two'}>{/* Route Content */}</Route>,
     ]}
     routeConfig={{ SUPPORT: '/custom-support-url' }}
 >
@@ -88,3 +84,34 @@ In the case when a user already has an existing account, a separate success scre
 ```tsx
 accountAlreadyExistsScreen={() => <MyAccountAlreadyExistsScreen />}
 ```
+
+#### Custom Login Error Message
+
+You can customize the login error message display using the `loginErrorDisplayConfig` prop on the `AuthUIContextProvider`. This message is returned by the `AuthUIActions` `login` method. If you prefer to use a dialog or a message box to display your login error message you must use a custom error message. The example project uses the `'LOGIN.INVALID_CREDENTIALS'` translation when throwing an error. This displays as follows:
+
+![default login error display](https://raw.githubusercontent.com/brightlayer-ui/react-workflows/master/login-workflow/media/default-login-error.png)
+
+##### Usage
+
+```tsx
+// <AuthUIContextProvider
+      loginErrorDisplayConfig={{mode: 'message-box'}}
+// />
+```
+
+```tsx
+// AuthUIActions.tsx
+
+logIn: async (email: string, password: string, rememberMe: boolean): Promise<void> => {
+    ...
+    // example app default
+    throw new Error('LOGIN.INVALID_CREDENTIALS');
+
+    // custom error message
+    throw new Error('My Custom Login Error');
+    ...
+
+},
+```
+
+For more details, read the [full API details](https://github.com/brightlayer-ui/react-auth-shared/blob/master/docs/API.md#loginerrordisplayconfig)
