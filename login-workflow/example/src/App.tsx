@@ -33,10 +33,10 @@ i18n.addResourceBundle('fr', 'app', { BUTTONLABEL: 'Changez de Langue' });
 
 // Uncomment these lines to override workflow strings / translations
 i18n.addResourceBundle('en', 'blui', { ACTIONS: { CREATE_ACCOUNT: 'Register now!' } }, true, true);
-i18n.addResourceBundle('es', 'blui', { ACTIONS: { CREATE_ACCOUNT: '¡Regístrate ahora!' } }, true, true);
-i18n.addResourceBundle('fr', 'blui', { ACTIONS: { CREATE_ACCOUNT: `S'inscrire maintenant!` } }, true, true);
+// i18n.addResourceBundle('es', 'blui', { ACTIONS: { CREATE_ACCOUNT: '¡Regístrate ahora!' } }, true, true);
+// i18n.addResourceBundle('fr', 'blui', { ACTIONS: { CREATE_ACCOUNT: `S'inscrire maintenant!` } }, true, true);
 
-export const AuthUIConfiguration: React.FC<React.PropsWithChildren<unknown>> = (props) => {
+export const AuthUIConfiguration: React.FC<React.PropsWithChildren> = (props) => {
     const securityContextActions = useSecurityActions();
     const { t } = useTranslation();
 
@@ -121,7 +121,7 @@ export const AuthUIConfiguration: React.FC<React.PropsWithChildren<unknown>> = (
     );
 };
 
-export const MySharedWrapper: React.FC<React.PropsWithChildren<unknown>> = () => (
+export const MySharedWrapper: React.FC<React.PropsWithChildren> = () => (
     <>
         <AppBar>
             <Toolbar>
@@ -140,7 +140,7 @@ export const MyAppRoutes = (
     </>
 );
 
-export const App: React.FC<React.PropsWithChildren<unknown>> = () => (
+export const App: React.FC<React.PropsWithChildren> = () => (
     <SecurityContextProvider>
         <AuthUIConfiguration>
             <AuthNavigationContainer

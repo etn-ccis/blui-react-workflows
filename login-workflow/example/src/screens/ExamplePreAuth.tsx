@@ -6,7 +6,7 @@ import Typography from '@mui/material/Typography';
 import { useSecurityState } from '@brightlayer-ui/react-auth-shared';
 import { Link } from 'react-router-dom';
 
-export const ExamplePreAuth: React.FC<React.PropsWithChildren<unknown>> = () => {
+export const ExamplePreAuth: React.FC<React.PropsWithChildren> = () => {
     const securityState = useSecurityState();
 
     return (
