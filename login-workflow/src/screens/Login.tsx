@@ -49,7 +49,7 @@ const LinksWrapperStyles = {
  *
  * @category Component
  */
-export const Login: React.FC<React.PropsWithChildren<React.PropsWithChildren<unknown>>> = () => {
+export const Login: React.FC<React.PropsWithChildren<React.PropsWithChildren>> = () => {
     const securityState = useSecurityState();
     const { t } = useLanguageLocale();
     const authUIActions = useAccountUIActions();

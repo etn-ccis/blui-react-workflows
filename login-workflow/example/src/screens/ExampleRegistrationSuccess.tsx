@@ -64,7 +64,7 @@ export const CustomRegistrationSuccessScreen: React.FC<React.PropsWithChildren<C
     );
 };
 
-export const CustomAccountAlreadyExistsScreen: React.FC<React.PropsWithChildren<unknown>> = () => {
+export const CustomAccountAlreadyExistsScreen: React.FC<React.PropsWithChildren> = () => {
     const matchesXS = useMediaQuery('(max-width:600px)');
 
     return (

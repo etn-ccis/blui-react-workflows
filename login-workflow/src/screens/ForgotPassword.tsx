@@ -45,7 +45,7 @@ const LinkStyles = (theme: Theme): SxProps<Theme> => ({
  *
  * @category Component
  */
-export const ForgotPassword: React.FC<React.PropsWithChildren<React.PropsWithChildren<unknown>>> = () => {
+export const ForgotPassword: React.FC<React.PropsWithChildren<React.PropsWithChildren>> = () => {
     const { t } = useLanguageLocale();
     const navigate = useNavigate();
     const theme = useTheme();
