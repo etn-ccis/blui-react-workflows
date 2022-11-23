@@ -244,10 +244,19 @@ export const SelfRegistrationPager: React.FC<React.PropsWithChildren<React.Props
                     initialEmail={email}
                     onEmailChanged={setEmail}
                     // eslint-disable-next-line @typescript-eslint/no-use-before-define
-                    onSubmit={email.length > 0 ? (): void => advancePage(1) : undefined}
+                    onSubmit={(): void => advancePage(1)}
                 />
             ),
-            canGoForward: email.length > 0,
+            canGoForward: true,
+            canGoBack: true,
+        },
+        {
+            name: 'User Accounts Details',
+            pageTitle: 'User Accounts Details',
+            pageBody: (
+                <div>Here goes new component</div>
+            ),
+            canGoForward: true,
             canGoBack: true,
         },
         {
@@ -427,8 +436,6 @@ export const SelfRegistrationPager: React.FC<React.PropsWithChildren<React.Props
             // Check > 0 so advancing backwards does not risk going into the completion block
             if (currentPage === RegistrationPages.length - 2 && !registrationSuccess && canProgress() && delta > 0) {
                 void attemptRegistration();
-            } else if (currentPage === CreateAccountPage && !codeRequestIsInTransit && canProgress() && delta > 0) {
-                void requestCode();
             } else if (currentPage === VerifyEmailPage && !isValidationInTransit && canProgress() && delta > 0) {
                 void validateCode();
             } else {
