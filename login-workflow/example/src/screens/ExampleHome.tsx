@@ -5,7 +5,7 @@ import { useSecurityActions } from '@brightlayer-ui/react-auth-shared';
 import { LocalStorage } from '../store/local-storage';
 import Button from '@mui/material/Button';
 
-export const ExampleHome: React.FC<React.PropsWithChildren<unknown>> = () => {
+export const ExampleHome: React.FC<React.PropsWithChildren> = () => {
     const securityHelper = useSecurityActions();
 
     const logOut = (): void => {

@@ -9,7 +9,7 @@ import Person from '@mui/icons-material/Person';
  *
  * @category Component
  */
-export const ExistingAccountComplete: React.FC<React.PropsWithChildren<React.PropsWithChildren<unknown>>> = () => {
+export const ExistingAccountComplete: React.FC<React.PropsWithChildren<React.PropsWithChildren>> = () => {
     const { t } = useLanguageLocale();
 
     return (

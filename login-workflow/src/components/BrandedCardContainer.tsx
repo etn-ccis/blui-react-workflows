@@ -13,7 +13,7 @@ import Box from '@mui/material/Box';
  *
  * @category Component
  */
-export const BrandedBackground: React.FC<React.PropsWithChildren<React.PropsWithChildren<unknown>>> = (props) => {
+export const BrandedBackground: React.FC<React.PropsWithChildren<React.PropsWithChildren>> = (props) => {
     const { background } = useInjectedUIContext();
     const theme = useTheme();
 

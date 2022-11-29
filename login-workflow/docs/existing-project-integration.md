@@ -1,6 +1,6 @@
 # Integrating Into an Existing Project
 
-To start integrating this package into an existing application, you must first have an application. We recommend using the [Brightlayer UI CLI](https://www.npmjs.com/package/@brightlayer-ui/cli) to initialize your project. 
+To start integrating this package into an existing application, you must first have an application. We recommend using the [Brightlayer UI CLI](https://www.npmjs.com/package/@brightlayer-ui/cli) to initialize your project.
 
 #### Installation and Setup
 
@@ -15,9 +15,9 @@ yarn add @brightlayer-ui/react-auth-workflow
 This package also has a number of peer dependency requirements that you will also need to install in your project. To install the latest version of all of these peer dependencies, run the following command in your project root:
 
 ```
-npm install --save @mui/material @emotion/react @emotion/styled @mui/styles @brightlayer-ui/colors @brightlayer-ui/react-components date-fns i18next react-dom react-i18next react-router-dom
+npm install --save @mui/material @emotion/react @emotion/styled @brightlayer-ui/colors @brightlayer-ui/react-components date-fns i18next react-dom react-i18next react-router-dom
 // or
-yarn add @mui/material @emotion/react @emotion/styled @mui/styles @brightlayer-ui/colors @brightlayer-ui/react-components date-fns i18next react-dom react-i18next react-router-dom
+yarn add @mui/material @emotion/react @emotion/styled @brightlayer-ui/colors @brightlayer-ui/react-components date-fns i18next react-dom react-i18next react-router-dom
 ```
 
 #### Implement AuthUIActions and RegistrationUIActions
@@ -41,7 +41,6 @@ import { ProjectRegistrationUIActions } from './src/actions/RegistrationUIAction
 #### Setting Up the Application Structure
 
 1. In the root app file (generally App.tsx), add the following imports to the top of the file:
-    
 
 ```tsx
 import {
@@ -68,6 +67,7 @@ import {
 ```
 
 #### Configuring Your Routes
+
 `YourRoutingSetup` must be a collection of `<Route>` elements that define the route structure for your main application, e.g.,:
 
 ```tsx
@@ -77,7 +77,7 @@ import {
         <Route path={'subpage'} element={<SubPage />} />
         <Route path={'subpage/nested'} element={<NestedSubpage />} />
         {/* Redirect any other routes to home page */}
-        <Route path={'*'} element={<Navigate to={''} />} /> 
+        <Route path={'*'} element={<Navigate to={''} />} />
     </>
 </AuthNavigationContainer>
 ```
@@ -132,11 +132,11 @@ export const AuthUIConfiguration = (props) => {
             {props.children}
         </AuthUIContextProvider>
     );
-}
+};
 ```
 
 You can skip passing the `projectImage` property if you don't have one yet.
 
-You can read more about customizing the `AuthUIContextProvider` in the [Customization Guide](https://github.com/brightlayer-ui/react-workflows/tree/master/login-workflow/docs/customization.md) 
+You can read more about customizing the `AuthUIContextProvider` in the [Customization Guide](https://github.com/brightlayer-ui/react-workflows/tree/master/login-workflow/docs/customization.md)
 
 The various configuration options are explained in more detail in the [API](https://github.com/brightlayer-ui/react-workflows/tree/master/login-workflow/docs/API.md) documentation.

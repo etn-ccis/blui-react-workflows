@@ -49,7 +49,7 @@ import Box from '@mui/material/Box';
  *
  * @category Component
  */
-export const InviteRegistrationPager: React.FC<React.PropsWithChildren<React.PropsWithChildren<unknown>>> = () => {
+export const InviteRegistrationPager: React.FC<React.PropsWithChildren<React.PropsWithChildren>> = () => {
     const { t } = useLanguageLocale();
     const navigate = useNavigate();
     const { routes } = useRoutes();

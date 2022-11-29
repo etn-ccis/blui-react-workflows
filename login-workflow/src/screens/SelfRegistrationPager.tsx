@@ -53,7 +53,7 @@ export const emptyAccountDetailInformation: AccountDetailInformation = {
  *
  * @category Component
  */
-export const SelfRegistrationPager: React.FC<React.PropsWithChildren<React.PropsWithChildren<unknown>>> = () => {
+export const SelfRegistrationPager: React.FC<React.PropsWithChildren<React.PropsWithChildren>> = () => {
     const { t } = useLanguageLocale();
     const navigate = useNavigate();
     const { routes } = useRoutes();

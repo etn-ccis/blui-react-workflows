@@ -30,7 +30,7 @@ const LinkStyles = (theme: Theme): SxProps<Theme> => ({
  *
  * @category Component
  */
-export const ContactSupportContent: React.FC<React.PropsWithChildren<React.PropsWithChildren<unknown>>> = () => {
+export const ContactSupportContent: React.FC<React.PropsWithChildren<React.PropsWithChildren>> = () => {
     const { t } = useLanguageLocale();
     const theme = useTheme();
     const { contactPhone, contactEmail } = useInjectedUIContext();
@@ -71,7 +71,7 @@ export const ContactSupportContent: React.FC<React.PropsWithChildren<React.Props
  *
  * @category Component
  */
-export const ContactSupport: React.FC<React.PropsWithChildren<React.PropsWithChildren<unknown>>> = () => {
+export const ContactSupport: React.FC<React.PropsWithChildren<React.PropsWithChildren>> = () => {
     const { t } = useLanguageLocale();
     const navigate = useNavigate();
     const theme = useTheme();
