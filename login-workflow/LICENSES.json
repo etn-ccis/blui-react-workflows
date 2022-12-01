@@ -1,14 +1,56 @@
 {
-    "@brightlayer-ui/react-auth-shared@3.5.0": {
+    "@brightlayer-ui/icons-mui@3.2.0": {
+        "licenses": "BSD-3-Clause",
+        "repository": "https://github.com/brightlayer-ui/icons",
+        "licenseUrl": "https://github.com/brightlayer-ui/icons/raw/master/LICENSE",
+        "parents": "example"
+    },
+    "@brightlayer-ui/react-auth-shared@3.7.3": {
         "licenses": "BSD-3-Clause",
         "repository": "https://github.com/brightlayer-ui/react-auth-shared/tree/master",
         "licenseUrl": "https://github.com/brightlayer-ui/react-auth-shared/tree/master/raw/master/LICENSE.md",
         "parents": "@brightlayer-ui/react-auth-workflow"
     },
-    "dompurify@2.2.7": {
+    "@testing-library/user-event@14.4.3": {
+        "licenses": "MIT",
+        "repository": "https://github.com/testing-library/user-event",
+        "licenseUrl": "https://github.com/testing-library/user-event/raw/master/LICENSE",
+        "parents": "example"
+    },
+    "@types/node@17.0.45": {
+        "licenses": "MIT",
+        "repository": "https://github.com/DefinitelyTyped/DefinitelyTyped",
+        "licenseUrl": "https://github.com/DefinitelyTyped/DefinitelyTyped/raw/master/LICENSE",
+        "parents": "example"
+    },
+    "dompurify@2.4.1": {
         "licenses": "(MPL-2.0 OR Apache-2.0)",
         "repository": "https://github.com/cure53/DOMPurify",
         "licenseUrl": "https://github.com/cure53/DOMPurify/raw/master/LICENSE",
         "parents": "@brightlayer-ui/react-auth-workflow"
+    },
+    "i18next-browser-languagedetector@6.1.8": {
+        "licenses": "MIT",
+        "repository": "https://github.com/i18next/i18next-browser-languageDetector",
+        "licenseUrl": "https://github.com/i18next/i18next-browser-languageDetector/raw/master/LICENSE",
+        "parents": "@brightlayer-ui/react-auth-workflow"
+    },
+    "react-app-polyfill@3.0.0": {
+        "licenses": "MIT",
+        "repository": "https://github.com/facebook/create-react-app",
+        "licenseUrl": "https://github.com/facebook/create-react-app/raw/master/LICENSE",
+        "parents": "example"
+    },
+    "react-i18next@12.0.0": {
+        "licenses": "MIT",
+        "repository": "https://github.com/i18next/react-i18next",
+        "licenseUrl": "https://github.com/i18next/react-i18next/raw/master/LICENSE",
+        "parents": "example"
+    },
+    "react-scripts@5.0.1": {
+        "licenses": "MIT",
+        "repository": "https://github.com/facebook/create-react-app",
+        "licenseUrl": "https://github.com/facebook/create-react-app/raw/master/LICENSE",
+        "parents": "example"
     }
 }
