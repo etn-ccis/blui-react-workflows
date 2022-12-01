@@ -8,5 +8,5 @@ module.exports = {
     },
     getCacheKey() {
         return 'svgTransform';
-    }
+    },
 };
