@@ -1,6 +1,7 @@
 import React from 'react';
 import 'regenerator-runtime/runtime';
 import { render, cleanup } from '@testing-library/react';
+import '@testing-library/jest-dom';
 import { BrandedCardContainer } from './BrandedCardContainer';
 import { FinishState } from './FinishState';
 import CheckCircle from '@mui/icons-material/CheckCircle';

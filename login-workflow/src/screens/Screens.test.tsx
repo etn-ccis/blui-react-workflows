@@ -1,6 +1,7 @@
 import React from 'react';
 import 'regenerator-runtime/runtime';
 import { render, cleanup } from '@testing-library/react';
+import '@testing-library/jest-dom';
 import { AcceptEula } from './subScreens/AcceptEula';
 import { AccountDetails } from './subScreens/AccountDetails';
 import { CreateAccount } from './subScreens/CreateAccount';
