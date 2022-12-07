@@ -9,7 +9,7 @@
         "@brightlayer-ui/react-themes": "^7.1.0-alpha.0",
         "@emotion/react": "^11.7.1",
         "@emotion/styled": "^11.10.4",
-        "@mui/icons-material": "^5.10.15",
+        "@mui/icons-material": "^5.10.16",
         "@mui/material": "^5.10.15",
         "@testing-library/jest-dom": "^5.0.0",
         "@testing-library/react": "^13.3.0",
