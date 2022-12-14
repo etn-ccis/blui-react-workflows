@@ -1,7 +1,7 @@
 import React from 'react';
 import 'regenerator-runtime/runtime';
-import Enzyme from 'enzyme';
-import Adapter from 'enzyme-adapter-react-16';
+import { render, cleanup } from '@testing-library/react';
+import '@testing-library/jest-dom';
 import { AcceptEula } from './subScreens/AcceptEula';
 import { AccountDetails } from './subScreens/AccountDetails';
 import { CreateAccount } from './subScreens/CreateAccount';
@@ -35,11 +35,9 @@ import LanguageDetector from 'i18next-browser-languagedetector';
 
 import { createTheme, ThemeProvider } from '@mui/material/styles';
 import * as BLUIThemes from '@brightlayer-ui/react-themes';
-import { createRoot } from 'react-dom/client';
 
 const theme = createTheme(BLUIThemes.blue);
-
-Enzyme.configure({ adapter: new Adapter() });
+afterEach(cleanup);
 
 void i18n
     .use(initReactI18next)
@@ -65,92 +63,73 @@ void i18n
 
 describe('AcceptEula tests', () => {
     it('renders without crashing', () => {
-        const div = document.createElement('div');
         const onEulaChanged = jest.fn();
-        const root = createRoot(div);
 
-        root.render(
+        render(
             <ThemeProvider theme={theme}>
                 <AcceptEula eulaAccepted={false} loadEula={(): void => {}} onEulaChanged={onEulaChanged} />
             </ThemeProvider>
         );
-        root.unmount();
     });
 });
 
 describe('AccountDetails tests', () => {
     it('renders without crashing', () => {
-        const div = document.createElement('div');
-        const root = createRoot(div);
         const authUIActions = jest.fn();
         const registrationUIActions = jest.fn();
         const onDetailsChanged = jest.fn();
 
-        root.render(
+        render(
             <ThemeProvider theme={theme}>
                 <AuthUIContextProvider authActions={authUIActions} registrationActions={registrationUIActions}>
                     <AccountDetails onDetailsChanged={onDetailsChanged} />
                 </AuthUIContextProvider>
             </ThemeProvider>
         );
-        root.unmount();
     });
 });
 
 describe('CreateAccount tests', () => {
     it('renders without crashing', () => {
-        const div = document.createElement('div');
-        const root = createRoot(div);
         const onEmailChanged = jest.fn();
 
-        root.render(
+        render(
             <ThemeProvider theme={theme}>
                 <CreateAccount onEmailChanged={onEmailChanged} />
             </ThemeProvider>
         );
-        root.unmount();
     });
 });
 
 describe('CreatePassword tests', () => {
     it('renders without crashing', () => {
-        const div = document.createElement('div');
-        const root = createRoot(div);
         const onPasswordChanged = jest.fn();
         const authUIActions = jest.fn();
         const registrationUIActions = jest.fn();
 
-        root.render(
+        render(
             <ThemeProvider theme={theme}>
                 <AuthUIContextProvider authActions={authUIActions} registrationActions={registrationUIActions}>
                     <CreatePassword onPasswordChanged={onPasswordChanged} />
                 </AuthUIContextProvider>
             </ThemeProvider>
         );
-        root.unmount();
     });
 });
 
 describe('ExistingAccountComplete tests', () => {
     it('renders without crashing', () => {
-        const div = document.createElement('div');
-        const root = createRoot(div);
-
-        root.render(
+        render(
             <ThemeProvider theme={theme}>
                 <ExistingAccountComplete />
             </ThemeProvider>
         );
-        root.unmount();
     });
 });
 
 describe('RegistrationComplete tests', () => {
     it('renders without crashing', () => {
-        const div = document.createElement('div');
-        const root = createRoot(div);
-
-        root.render(
+        render(
             <ThemeProvider theme={theme}>
                 <RegistrationComplete
                     firstName={'Betty'}
@@ -160,18 +139,15 @@ describe('RegistrationComplete tests', () => {
                 />
             </ThemeProvider>
         );
-        root.unmount();
     });
 });
 
 describe('VerifyEmail tests', () => {
     it('renders without crashing', () => {
-        const div = document.createElement('div');
-        const root = createRoot(div);
         const onVerifyCodeChanged = jest.fn();
         const onResendVerificationEmail = jest.fn();
 
-        root.render(
+        render(
             <ThemeProvider theme={theme}>
                 <VerifyEmail
                     onVerifyCodeChanged={onVerifyCodeChanged}
@@ -179,25 +155,21 @@ describe('VerifyEmail tests', () => {
                 />
             </ThemeProvider>
         );
-        root.unmount();
     });
 });
 
 describe('ContactSupport tests', () => {
     it('renders without crashing', () => {
-        const div = document.createElement('div');
-        const root = createRoot(div);
         const authUIActions = jest.fn();
         const registrationUIActions = jest.fn();
 
-        root.render(
+        render(
             <ThemeProvider theme={theme}>
                 <AuthUIContextProvider authActions={authUIActions} registrationActions={registrationUIActions}>
                     <ContactSupport />
                 </AuthUIContextProvider>
             </ThemeProvider>
         );
-        root.unmount();
     });
 });
 
@@ -209,8 +181,6 @@ jest.mock('@brightlayer-ui/react-auth-shared', () => ({
 
 describe('ForgotPassword tests', () => {
     it('renders without crashing', () => {
-        const div = document.createElement('div');
-        const root = createRoot(div);
         const authUIActions = jest.fn();
         const registrationUIActions = jest.fn();
         const accountUIActions = {
@@ -223,7 +193,7 @@ describe('ForgotPassword tests', () => {
         };
         const accountUIDispatch = jest.fn();
 
-        root.render(
+        render(
             <ThemeProvider theme={theme}>
                 <AccountUIActionContext.Provider value={{ actions: accountUIActions, dispatch: accountUIDispatch }}>
                     <AuthUIContextProvider authActions={authUIActions} registrationActions={registrationUIActions}>
@@ -232,7 +202,6 @@ describe('ForgotPassword tests', () => {
                 </AccountUIActionContext.Provider>
             </ThemeProvider>
         );
-        root.unmount();
     });
 });
 
@@ -244,8 +213,6 @@ jest.mock('@brightlayer-ui/react-auth-shared', () => ({
 
 describe('Login tests', () => {
     it('renders without crashing', () => {
-        const div = document.createElement('div');
-        const root = createRoot(div);
         const authUIActions = jest.fn();
         const registrationUIActions = jest.fn();
         const accountUIActions = {
@@ -267,7 +234,7 @@ describe('Login tests', () => {
             SUPPORT: '/support',
         };
 
-        root.render(
+        render(
             <ThemeProvider theme={theme}>
                 <BrowserRouter>
                     <RoutingContext.Provider value={{ routes: defaultRoutes }}>
@@ -287,7 +254,6 @@ describe('Login tests', () => {
                 </BrowserRouter>
             </ThemeProvider>
         );
-        root.unmount();
     });
 });
 
@@ -386,26 +352,21 @@ jest.mock('@brightlayer-ui/react-auth-shared', () => ({
 
 describe('Splash tests', () => {
     it('renders without crashing', () => {
-        const div = document.createElement('div');
-        const root = createRoot(div);
         const authUIActions = jest.fn();
         const registrationUIActions = jest.fn();
 
-        root.render(
+        render(
             <ThemeProvider theme={theme}>
                 <AuthUIContextProvider authActions={authUIActions} registrationActions={registrationUIActions}>
                     <Splash />
                 </AuthUIContextProvider>
             </ThemeProvider>
         );
-        root.unmount();
     });
 });
 
 describe('ResetPassword tests', () => {
     it('renders without crashing', () => {
-        const div = document.createElement('div');
-        const root = createRoot(div);
         const authUIActions = jest.fn();
         const registrationUIActions = jest.fn();
         const defaultRoutes = {
@@ -426,7 +387,7 @@ describe('ResetPassword tests', () => {
         };
         const authDispatch = jest.fn();
 
-        root.render(
+        render(
             <ThemeProvider theme={theme}>
                 <BrowserRouter>
                     <RoutingContext.Provider value={{ routes: defaultRoutes }}>
@@ -442,6 +403,5 @@ describe('ResetPassword tests', () => {
                 </BrowserRouter>
             </ThemeProvider>
         );
-        root.unmount();
     });
 });

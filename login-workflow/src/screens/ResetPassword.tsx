@@ -28,7 +28,7 @@ import { DialogButtonStyles, DialogActionsStyles, DialogContentStyles, DialogTit
  *
  * @category Component
  */
-export const ResetPassword: React.FC<React.PropsWithChildren<React.PropsWithChildren<unknown>>> = () => {
+export const ResetPassword: React.FC<React.PropsWithChildren<React.PropsWithChildren>> = () => {
     const { t } = useLanguageLocale();
     const navigate = useNavigate();
     const { routes } = useRoutes();

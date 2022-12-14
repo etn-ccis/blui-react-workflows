@@ -35,7 +35,7 @@ import { DialogButtonStyles, DialogActionsStyles, DialogContentStyles, DialogTit
  *
  * @category Component
  */
-export const ChangePasswordModal: React.FC<React.PropsWithChildren<React.PropsWithChildren<unknown>>> = () => {
+export const ChangePasswordModal: React.FC<React.PropsWithChildren<React.PropsWithChildren>> = () => {
     const { t } = useLanguageLocale();
     const securityState = useSecurityState();
     const accountUIActions = useAccountUIActions();
