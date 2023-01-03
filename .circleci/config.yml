@@ -137,17 +137,6 @@ jobs:
           command:  |
             cd login-workflow && yarn publish:package -b $CIRCLE_BRANCH
 
-  tag_login_workflow:
-    docker:
-      - image: cimg/node:14.19.0-browsers
-    steps:
-      - checkout
-      - gh/setup
-      - run:
-          name: Tag @brightlayer-ui/react-auth-workflow
-          command:  |
-            cd login-workflow && yarn tag:package -b $CIRCLE_BRANCH -s -blui-react-auth-workflow
-
 workflows:
   version: 2
   react_workflows:
@@ -169,13 +158,6 @@ workflows:
               only:
                 - master
                 - dev
-      - tag_login_workflow:
-          requires:
-            - publish_login_workflow
-          filters:
-            branches:
-              only:
-                - master
       - coverage_report:
                    requires:
                         - build_login_workflow
