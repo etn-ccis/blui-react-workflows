@@ -29,7 +29,7 @@ You need to implement the backend networking for all networking within react-aut
 3. Create two files in the new `actions` directory: `AuthUIActions.tsx` and `RegistrationUIActions.tsx`
     - The first file you created, `AuthUIActions.tsx`, will handle the implementation of the authentication related actions (such as login and forgot password).
     - The second file you created, `RegistrationActions.tsx`, will handle the implementation of the registration related actions (such as loading the EULA and registration by invitation).
-    - You can copy these files directly from the [example](https://github.com/brightlayer-ui/react-workflows/tree/master/login-workflow/example) project as a starting point and then update the implementation details if you choose.
+    - You can copy these files directly from the [example](https://github.com/etn-ccis/blui-react-workflows/tree/master/login-workflow/example) project as a starting point and then update the implementation details if you choose.
 4. You might also want to copy over the `example/src/store` and `example/src/constants` folders from react-auth-workflow for the purposes of compiling with the mock `AuthUIActions` and `RegistrationUIActions` before you write your own implementation. These sample implementations make use of the browser LocalStorage, but you may want to use a different approach in order to follow best practices for cybersecurity.
 5. Import the actions in your root app file (usually App.tsx):
 
@@ -137,6 +137,6 @@ export const AuthUIConfiguration = (props) => {
 
 You can skip passing the `projectImage` property if you don't have one yet.
 
-You can read more about customizing the `AuthUIContextProvider` in the [Customization Guide](https://github.com/brightlayer-ui/react-workflows/tree/master/login-workflow/docs/customization.md)
+You can read more about customizing the `AuthUIContextProvider` in the [Customization Guide](https://github.com/etn-ccis/blui-react-workflows/tree/master/login-workflow/docs/customization.md)
 
-The various configuration options are explained in more detail in the [API](https://github.com/brightlayer-ui/react-workflows/tree/master/login-workflow/docs/API.md) documentation.
+The various configuration options are explained in more detail in the [API](https://github.com/etn-ccis/blui-react-workflows/tree/master/login-workflow/docs/API.md) documentation.

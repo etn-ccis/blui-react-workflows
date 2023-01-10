@@ -9,7 +9,7 @@ The Login screen supports some simple customization (via the `AuthUIContextProvi
 -   You can customize the background of the workflow using the `background` prop including the color, tile image, etc.
 -   You can disable and hide various aspects of the workflow using the following props: `enableInviteRegistration`, `enableResetPassword`, `showContactSupport`, `showCybersecurityBadge`, `showRememberMe`, `showSelfRegistration`.
 
-For more details, read the [full API details](https://github.com/brightlayer-ui/react-auth-shared/tree/master/docs/API.md).
+For more details, read the [full API details](https://github.com/etn-ccis/blui-react-auth-shared/tree/master/docs/API.md).
 
 ## Additional Routes
 
@@ -31,7 +31,7 @@ If there are routes that you would like to be available without logging in (such
 
 You can also customize the URL used for the default routes by passing a configuration object to the `routeConfig` prop.
 
-For more details, read the [full API details](https://github.com/brightlayer-ui/react-auth-shared/tree/master/docs/API.md).
+For more details, read the [full API details](https://github.com/etn-ccis/blui-react-auth-shared/tree/master/docs/API.md).
 
 ## Registration Details
 
@@ -91,7 +91,7 @@ You can customize how login error messages are displayed using the `loginErrorDi
 
 If there is an error with credentials (i.e., wrong email or password), you should throw the `'LOGIN.INVALID_CREDENTIALS'` which will show input errors below those fields (this is the only error that should ever be shown in this style):
 
-![default login error display](https://raw.githubusercontent.com/brightlayer-ui/react-workflows/master/login-workflow/media/default-login-error.png)
+![default login error display](https://raw.githubusercontent.com/etn-ccis/blui-react-workflows/master/login-workflow/media/default-login-error.png)
 
 ##### Usage
 
@@ -116,4 +116,4 @@ logIn: async (email: string, password: string, rememberMe: boolean): Promise<voi
 },
 ```
 
-For more details, read the [full API details](https://github.com/brightlayer-ui/react-auth-shared/blob/master/docs/API.md#loginerrordisplayconfig)
+For more details, read the [full API details](https://github.com/etn-ccis/blui-react-auth-shared/blob/master/docs/API.md#loginerrordisplayconfig)
