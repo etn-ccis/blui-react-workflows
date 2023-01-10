@@ -1,7 +1,7 @@
 # API
 This document outlines the various exports and configuration options for the React Auth Workflow package.
 
-The majority of the types and export used in this package come from @brightlayer-ui/react-auth-shared. You can read about those exported objects and functions in their [API](https://github.com/brightlayer-ui/react-auth-shared/tree/master/docs/API.md) documentation.
+The majority of the types and export used in this package come from @brightlayer-ui/react-auth-shared. You can read about those exported objects and functions in their [API](https://github.com/etn-ccis/blui-react-auth-shared/tree/master/docs/API.md) documentation.
 
 ## Components
 
