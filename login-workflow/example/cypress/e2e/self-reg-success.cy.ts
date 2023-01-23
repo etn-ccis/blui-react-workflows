@@ -21,7 +21,7 @@ describe('self register successful registration', () => {
         cy.get('#first').click().type('fName');
         cy.get('#last').click().type('lName');
         cy.contains('Next').should('be.enabled').click();
-        cy.get('[data-test="frame"]').should('contain', 'Welcome, fName lName');
+        cy.get('[data-testid="blui-empty-state-root"]').should('contain', 'Welcome, fName lName');
         cy.contains('Continue').should('be.enabled').click();
         cy.contains('Log In');
     });

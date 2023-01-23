@@ -36,7 +36,7 @@ describe('self register account details', () => {
         cy.get('#first').click().type('fName');
         cy.get('#last').click().type('lName');
         cy.contains('Next').should('be.enabled').click();
-        cy.get('[data-test="frame"]').should('contain', 'Welcome, fName lName');
+        cy.get('[data-testid="blui-empty-state-root"]').should('contain', 'Welcome, fName lName');
     });
 
     it('should not allow user to submit invalid account details', () => {
