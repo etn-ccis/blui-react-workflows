@@ -10,7 +10,7 @@ describe('forgot password actions', () => {
         cy.contains('Forgot your password?').click();
         cy.get('#email').click().type('test@test.com');
         cy.contains('Okay').should('be.enabled').click();
-        cy.get('[data-test="frame"]').should('contain', 'Email Sent');
+        cy.get('[data-testid="blui-empty-state-root"]').should('contain', 'Email Sent');
         cy.contains('Done').should('be.enabled').click();
     });
 

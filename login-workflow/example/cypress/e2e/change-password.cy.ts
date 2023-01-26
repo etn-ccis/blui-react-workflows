@@ -15,7 +15,7 @@ describe('change password actions', () => {
         cy.get('#password').click().type('Test321!');
         cy.get('#confirm').click().type('Test321!');
         cy.contains('Okay').should('be.enabled').click();
-        cy.get('[data-test="frame"]').should('contain', 'Your password was successfully updated!');
+        cy.get('[data-testid="blui-empty-state-root"]').should('contain', 'Your password was successfully updated!');
         cy.contains('Log In').should('be.enabled').click();
     });
 

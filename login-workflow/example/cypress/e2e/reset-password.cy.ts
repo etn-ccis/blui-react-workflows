@@ -7,7 +7,7 @@ describe('reset password actions', () => {
     });
 
     it('should display modal and reset password', () => {
-        cy.get('.MuiCardHeader-root').should('contain', 'Reset Password');
+        cy.contains('Reset Password');
         cy.get('#password').invoke('prop', 'type').should('contain', 'password');
         cy.get('#password').click().type('Test321!');
         cy.get('[data-testid="VisibilityOffIcon"]').first().click();
@@ -17,7 +17,7 @@ describe('reset password actions', () => {
         cy.get('[data-testid="VisibilityOffIcon"]').click();
         cy.get('#confirm').invoke('prop', 'type').should('contain', 'text');
         cy.contains('Okay').should('be.enabled').click();
-        cy.get('[data-test="frame"]').should('contain', 'Your password was successfully reset');
+        cy.get('[data-testid="blui-empty-state-root"]').should('contain', 'Your password was successfully reset');
         cy.contains('Done').should('be.enabled').click();
     });
 
