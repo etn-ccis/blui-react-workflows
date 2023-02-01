@@ -1061,9 +1061,9 @@
     color "^4.2.3"
 
 "@brightlayer-ui/react-themes@^7.1.0-alpha.0":
-  version "7.1.0-alpha.0"
-  resolved "https://registry.yarnpkg.com/@brightlayer-ui/react-themes/-/react-themes-7.1.0-alpha.0.tgz#745079123cd321eaad689fe92b53c6fd2a7d0c4a"
-  integrity sha512-j9RS3puo4AttidbTPtLtGxpszr1TrVq3M+iNh2gT4Lk5LGyMwE0+jcSVZrlTqZZ8rIqZUG6vGg0ElD0CsGfI4w==
+  version "7.1.0"
+  resolved "https://registry.yarnpkg.com/@brightlayer-ui/react-themes/-/react-themes-7.1.0.tgz#09519522ab192cdb16c47c2d15ccd238d0fc8c5e"
+  integrity sha512-zAESyIZJmGAcRDHwX2nB26gsloQ53Kx9FGb4I4bPdDf3Ragbaio/Is03/3CRCim5qCVwjcDqq/iy4iDqg1Q9BQ==
   dependencies:
     "@brightlayer-ui/colors" "^3.0.0"
     "@fontsource/open-sans" "^4.2.2"
