@@ -1051,9 +1051,9 @@
   integrity sha512-ef9i4PHfvkjbvSkKDrUIBSWbrsRVpHSPesxkRfd+rEimIpXdW+dLRVT6j3x4Ht1QRGvJa9m6IsNuvA4zzNE9JQ==
 
 "@brightlayer-ui/react-components@^6.1.2-alpha.0":
-  version "6.1.2-alpha.0"
-  resolved "https://registry.yarnpkg.com/@brightlayer-ui/react-components/-/react-components-6.1.2-alpha.0.tgz#6fe48c2d300e1618f3ef8fdb409504a8c5637082"
-  integrity sha512-Rpv5Zx8OlzKSjDNEvXL7uhjeLBuaLWMTKT2rqzrL7wY3Y14Vc8NkVfIQ0EWqGMLg5wVpH8fL9KDhQSl62C4fwg==
+  version "6.2.0"
+  resolved "https://registry.yarnpkg.com/@brightlayer-ui/react-components/-/react-components-6.2.0.tgz#07e7a28a9459fd84099cfb2b64bc2188ae3e9a12"
+  integrity sha512-/9HcgkUwKbDKgI3aI2KA22lym0x9AT+w5/M6/ket6j6oaqPCarMy0IRbAwaSO7as+Dcvp+FrTZjrDi0NYXyfqQ==
   dependencies:
     "@brightlayer-ui/colors" "^3.1.1"
     "@emotion/css" "^11.10.5"
