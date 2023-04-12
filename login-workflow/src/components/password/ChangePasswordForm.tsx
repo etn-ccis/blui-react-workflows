@@ -17,6 +17,7 @@ export type ChangePasswordFormProps = {
     passwordRef?: MutableRefObject<any>;
     confirmRef?: MutableRefObject<any>;
     onSubmit?: () => void;
+    isInvalidConfirmPassword?: boolean;
 };
 
 /**
@@ -48,6 +49,7 @@ export const ChangePasswordForm: React.FC<React.PropsWithChildren<React.PropsWit
         children,
         passwordRef,
         confirmRef,
+        isInvalidConfirmPassword,
         onSubmit,
     } = props;
     const { t } = useLanguageLocale();
@@ -72,6 +74,8 @@ export const ChangePasswordForm: React.FC<React.PropsWithChildren<React.PropsWit
         },
         [setConfirmInput, onPasswordChange, passwordInput]
     );
+
+    const isInvalidConfirmPasswordField = document.activeElement === confirmRef.current && isInvalidConfirmPassword;
 
     return (
         <>
@@ -106,6 +110,8 @@ export const ChangePasswordForm: React.FC<React.PropsWithChildren<React.PropsWit
                 onKeyPress={(e): void => {
                     if (e.key === 'Enter' && onSubmit) onSubmit();
                 }}
+                error={isInvalidConfirmPasswordField}
+                helperText={isInvalidConfirmPasswordField ? t('blui:CHANGE_PASSWORD.CONFIRM_PASSWORD_ERROR') : ''}
             />
         </>
     );
