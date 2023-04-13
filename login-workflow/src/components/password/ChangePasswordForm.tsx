@@ -59,6 +59,7 @@ export const ChangePasswordForm: React.FC<React.PropsWithChildren<React.PropsWit
     // Local State
     const [passwordInput, setPasswordInput] = useState(initialPassword);
     const [confirmInput, setConfirmInput] = useState(initialConfirm);
+    const [shouldValidateConfirmPassword, setShouldValidateConfirmPassword] = useState(false);
 
     const onPassChange = useCallback(
         (newPassword: any) => {
@@ -76,7 +77,10 @@ export const ChangePasswordForm: React.FC<React.PropsWithChildren<React.PropsWit
         [setConfirmInput, onPasswordChange, passwordInput]
     );
 
-    const isInvalidConfirmPasswordField = document.activeElement === confirmRef.current && isInvalidConfirmPassword;
+    const hasConfirmPasswordError = useCallback(
+        (): boolean => shouldValidateConfirmPassword && confirmInput.length !== 0 && isInvalidConfirmPassword,
+        [shouldValidateConfirmPassword, confirmInput, isInvalidConfirmPassword]
+    );
 
     return (
         <>
@@ -111,9 +115,10 @@ export const ChangePasswordForm: React.FC<React.PropsWithChildren<React.PropsWit
                 onKeyPress={(e): void => {
                     if (e.key === 'Enter' && onSubmit) onSubmit();
                 }}
-                error={isInvalidConfirmPasswordField}
-                helperText={isInvalidConfirmPasswordField ? t('blui:FORMS.PASS_MATCH_ERROR') : ''}
+                error={hasConfirmPasswordError()}
+                helperText={hasConfirmPasswordError() ? t('blui:FORMS.PASS_MATCH_ERROR') : ''}
                 icon={!isInvalidConfirmPassword && <CheckCircleOutlinedIcon color="success" />}
+                onBlur={() => setShouldValidateConfirmPassword(true)}
             />
         </>
     );
