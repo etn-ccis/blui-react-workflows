@@ -118,7 +118,7 @@ export const ChangePasswordForm: React.FC<React.PropsWithChildren<React.PropsWit
                 error={hasConfirmPasswordError()}
                 helperText={hasConfirmPasswordError() ? t('blui:FORMS.PASS_MATCH_ERROR') : ''}
                 icon={!isInvalidConfirmPassword && <CheckCircleOutlinedIcon color="success" />}
-                onBlur={() => setShouldValidateConfirmPassword(true)}
+                onBlur={(): void => setShouldValidateConfirmPassword(true)}
             />
         </>
     );
