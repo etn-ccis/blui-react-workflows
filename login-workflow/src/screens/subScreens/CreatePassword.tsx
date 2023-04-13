@@ -59,6 +59,7 @@ export const CreatePassword: React.FC<React.PropsWithChildren<React.PropsWithChi
             initialConfirm={initialPassword}
             onPasswordChange={updateFields}
             onSubmit={onSubmit}
+            isInvalidConfirmPassword={!areValidMatchingPasswords()}
         />
     );
 };

@@ -127,6 +127,7 @@ export const ResetPassword: React.FC<React.PropsWithChildren<React.PropsWithChil
                         passwordLabel={t('blui:LABELS.NEW_PASSWORD')}
                         onPasswordChange={updateFields}
                         onSubmit={canContinue() ? onContinue : undefined}
+                        isInvalidConfirmPassword={!areValidMatchingPasswords()}
                     />
                 )
             ) : !verifyComplete ? (
