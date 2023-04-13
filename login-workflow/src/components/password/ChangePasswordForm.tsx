@@ -6,6 +6,7 @@ import { useTheme } from '@mui/material/styles';
 import { SecureTextField } from '../SecureTextField';
 import { PasswordRequirements } from './PasswordRequirements';
 import { FullDividerStyles, TextFieldStyles } from '../../styles';
+import CheckCircleOutlinedIcon from '@mui/icons-material/CheckCircleOutlined';
 
 export type ChangePasswordFormProps = {
     onPasswordChange: (passwords: { password: string; confirm: string }) => void;
@@ -111,7 +112,8 @@ export const ChangePasswordForm: React.FC<React.PropsWithChildren<React.PropsWit
                     if (e.key === 'Enter' && onSubmit) onSubmit();
                 }}
                 error={isInvalidConfirmPasswordField}
-                helperText={isInvalidConfirmPasswordField ? t('blui:CHANGE_PASSWORD.CONFIRM_PASSWORD_ERROR') : ''}
+                helperText={isInvalidConfirmPasswordField ? t('blui:FORMS.PASS_MATCH_ERROR') : ''}
+                icon={!isInvalidConfirmPassword && <CheckCircleOutlinedIcon color="success" />}
             />
         </>
     );
