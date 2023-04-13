@@ -111,7 +111,6 @@ export const ChangePasswordModal: React.FC<React.PropsWithChildren<React.PropsWi
                         return;
                     void changePassword();
                 }}
-                isInvalidConfirmPassword={!areValidMatchingPasswords()}
             >
                 <SecureTextField
                     id="current-password"

@@ -18,7 +18,6 @@ export type ChangePasswordFormProps = {
     passwordRef?: MutableRefObject<any>;
     confirmRef?: MutableRefObject<any>;
     onSubmit?: () => void;
-    isInvalidConfirmPassword?: boolean;
 };
 
 /**
@@ -50,7 +49,6 @@ export const ChangePasswordForm: React.FC<React.PropsWithChildren<React.PropsWit
         children,
         passwordRef,
         confirmRef,
-        isInvalidConfirmPassword,
         onSubmit,
     } = props;
     const { t } = useLanguageLocale();
@@ -78,8 +76,8 @@ export const ChangePasswordForm: React.FC<React.PropsWithChildren<React.PropsWit
     );
 
     const hasConfirmPasswordError = useCallback(
-        (): boolean => shouldValidateConfirmPassword && confirmInput.length !== 0 && isInvalidConfirmPassword,
-        [shouldValidateConfirmPassword, confirmInput, isInvalidConfirmPassword]
+        (): boolean => shouldValidateConfirmPassword && confirmInput.length !== 0 && confirmInput !== passwordInput,
+        [shouldValidateConfirmPassword, confirmInput, passwordInput]
     );
 
     return (
@@ -117,7 +115,10 @@ export const ChangePasswordForm: React.FC<React.PropsWithChildren<React.PropsWit
                 }}
                 error={hasConfirmPasswordError()}
                 helperText={hasConfirmPasswordError() ? t('blui:FORMS.PASS_MATCH_ERROR') : ''}
-                icon={!isInvalidConfirmPassword && <CheckCircleOutlinedIcon color="success" />}
+                icon={
+                    confirmInput.length !== 0 &&
+                    confirmInput === passwordInput && <CheckCircleOutlinedIcon color="success" />
+                }
                 onBlur={(): void => setShouldValidateConfirmPassword(true)}
             />
         </>
