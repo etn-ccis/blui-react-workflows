@@ -6,13 +6,6 @@ import defaultBackgroundImage from '../../assets/images/background.svg';
 import { useInjectedUIContext } from '@brightlayer-ui/react-auth-shared';
 import Box from '@mui/material/Box';
 
-/**
- * Component that renders a blue textured background and centers its children in the screen.
- *
- * @param children the content to render on the blue background
- *
- * @category Component
- */
 export type StepperCardProps = {
     loading?: boolean;
     backgroundImage?: string;
@@ -25,6 +18,14 @@ export type StepperCardProps = {
  * Component that renders a card centered on a blue textured background.
  *
  * @param loading if true a loading spinner will be displayed blocking the content
+ *
+ * @param backgroundImage will be displayed in the background instead of `defaultBackgroundImage`
+ *
+ * @param sx will override the styles for StepperCard root
+ *
+ * @param cardStyles will override the styles for `Card` component
+ *
+ * @param loaderComponent will be displayed instead of `Spinner`
  *
  * @category Component
  */
