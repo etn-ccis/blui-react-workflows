@@ -1,8 +1,8 @@
-import React from 'react';
+import React, { ReactNode } from 'react';
 import Card from '@mui/material/Card';
-import { useTheme } from '@mui/material/styles';
+import { SxProps, Theme, useTheme } from '@mui/material/styles';
 import { Spinner } from '../Spinner';
-import backgroundImage from '../../assets/images/background.svg';
+import defaultBackgroundImage from '../../assets/images/background.svg';
 import { useInjectedUIContext } from '@brightlayer-ui/react-auth-shared';
 import Box from '@mui/material/Box';
 
@@ -13,31 +13,12 @@ import Box from '@mui/material/Box';
  *
  * @category Component
  */
-const BrandedBackground: React.FC<React.PropsWithChildren<React.PropsWithChildren>> = (props) => {
-    const { background } = useInjectedUIContext();
-    const theme = useTheme();
-
-    return (
-        <Box
-            sx={{
-                height: '100%',
-                width: '100%',
-                backgroundColor:
-                    theme.palette.mode === 'light' ? theme.palette.primary.main : theme.palette.primary.dark,
-                backgroundImage: `url(${backgroundImage})`,
-                display: 'flex',
-                alignItems: 'center',
-                justifyContent: 'center',
-            }}
-            style={background || {}}
-        >
-            {props.children}
-        </Box>
-    );
-};
-
-export type BrandedCardContainerProps = {
+export type StepperCardProps = {
     loading?: boolean;
+    backgroundImage?: string;
+    sx?: SxProps<Theme>;
+    cardStyles?: SxProps<Theme>;
+    loaderComponent?: ReactNode;
 };
 
 /**
@@ -47,14 +28,34 @@ export type BrandedCardContainerProps = {
  *
  * @category Component
  */
-export const StepperCard: React.FC<React.PropsWithChildren<React.PropsWithChildren<BrandedCardContainerProps>>> = (
-    props
-) => {
-    const { children, loading, ...otherProps } = props;
+export const StepperCard: React.FC<React.PropsWithChildren<React.PropsWithChildren<StepperCardProps>>> = (props) => {
+    const {
+        children,
+        loading,
+        backgroundImage,
+        sx,
+        cardStyles,
+        loaderComponent = <Spinner visible={loading} />,
+        ...otherProps
+    } = props;
+    const { background } = useInjectedUIContext();
     const theme = useTheme();
 
     return (
-        <BrandedBackground {...otherProps}>
+        <Box
+            sx={{
+                height: '100%',
+                width: '100%',
+                backgroundColor: theme.palette.mode === 'light' ? 'primary.main' : 'primary.dark',
+                backgroundImage: backgroundImage ? `url(${backgroundImage})` : `url(${defaultBackgroundImage})`,
+                display: 'flex',
+                alignItems: 'center',
+                justifyContent: 'center',
+                ...sx,
+            }}
+            style={background || {}}
+            {...otherProps}
+        >
             <Card
                 sx={{
                     width: '100%',
@@ -70,11 +71,12 @@ export const StepperCard: React.FC<React.PropsWithChildren<React.PropsWithChildr
                         maxHeight: 'none',
                         borderRadius: 0,
                     },
+                    ...cardStyles,
                 }}
             >
-                <Spinner visible={loading} />
+                {loaderComponent}
                 {children}
             </Card>
-        </BrandedBackground>
+        </Box>
     );
 };
