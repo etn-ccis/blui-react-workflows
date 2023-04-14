@@ -1,5 +1,5 @@
 import React, { ChangeEvent, useState, useCallback, MutableRefObject } from 'react';
-import { useLanguageLocale } from '@brightlayer-ui/react-auth-shared';
+import { useInjectedUIContext, useLanguageLocale } from '@brightlayer-ui/react-auth-shared';
 import Typography from '@mui/material/Typography';
 import Divider from '@mui/material/Divider';
 import { useTheme } from '@mui/material/styles';
@@ -7,6 +7,7 @@ import { SecureTextField } from '../SecureTextField';
 import { PasswordRequirements } from './PasswordRequirements';
 import { FullDividerStyles, TextFieldStyles } from '../../styles';
 import CheckCircleOutlinedIcon from '@mui/icons-material/CheckCircleOutlined';
+import { defaultPasswordRequirements } from '../../constants';
 
 export type ChangePasswordFormProps = {
     onPasswordChange: (passwords: { password: string; confirm: string }) => void;
@@ -58,6 +59,7 @@ export const ChangePasswordForm: React.FC<React.PropsWithChildren<React.PropsWit
     const [passwordInput, setPasswordInput] = useState(initialPassword);
     const [confirmInput, setConfirmInput] = useState(initialConfirm);
     const [shouldValidateConfirmPassword, setShouldValidateConfirmPassword] = useState(false);
+    const [shouldValidatePassword, setShouldValidatePassword] = useState(false);
 
     const onPassChange = useCallback(
         (newPassword: any) => {
@@ -80,6 +82,15 @@ export const ChangePasswordForm: React.FC<React.PropsWithChildren<React.PropsWit
         [shouldValidateConfirmPassword, confirmInput, passwordInput]
     );
 
+    const { passwordRequirements = defaultPasswordRequirements(t) } = useInjectedUIContext();
+
+    const isValidPassword = useCallback((): boolean => {
+        for (let i = 0; i < passwordRequirements.length; i++) {
+            if (!new RegExp(passwordRequirements[i].regex).test(passwordInput)) return false;
+        }
+        return true;
+    }, [passwordRequirements, passwordInput]);
+
     return (
         <>
             <Typography>{description || t('blui:CHANGE_PASSWORD.PASSWORD_INFO')}</Typography>
@@ -100,6 +111,8 @@ export const ChangePasswordForm: React.FC<React.PropsWithChildren<React.PropsWit
                         confirmRef.current.focus();
                     }
                 }}
+                error={shouldValidatePassword && !isValidPassword()}
+                onBlur={(): void => setShouldValidatePassword(true)}
             />
             <PasswordRequirements sx={{ mt: 2 }} passwordText={passwordInput} />
             <SecureTextField
