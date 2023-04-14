@@ -148,7 +148,6 @@ export const ResetPassword: React.FC<React.PropsWithChildren<React.PropsWithChil
             validationTransitErrorMessage,
             setPasswordTransitSuccess,
             updateFields,
-            areValidMatchingPasswords,
         ]
     );
 
