@@ -26,8 +26,4 @@ import { StepperCard } from '@brightlayer-ui/react-auth-workflow';
 | cardStyles | Style overrides for `Card` component |  SxProps<Theme>  | no       |    |
 | loaderComponent | Loader to be displayer  |  ReactNode  | no       | `<Spinner />`   |
 
-
-
-
-
 </div>
