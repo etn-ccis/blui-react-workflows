@@ -9,7 +9,7 @@ import {
 } from '@brightlayer-ui/react-auth-shared';
 import { Trans } from 'react-i18next';
 import { useNavigate } from 'react-router-dom';
-import { BrandedCardContainer, SimpleDialog, FinishState } from '../components';
+import { StepperCard, SimpleDialog, FinishState } from '../components';
 import Button from '@mui/material/Button';
 import CardActions from '@mui/material/CardActions';
 import CardContent from '@mui/material/CardContent';
@@ -152,7 +152,7 @@ export const ForgotPassword: React.FC<React.PropsWithChildren<React.PropsWithChi
     }
 
     return (
-        <BrandedCardContainer loading={isInTransit}>
+        <StepperCard loading={isInTransit}>
             {errorDialog}
             <CardHeader
                 title={
@@ -194,6 +194,6 @@ export const ForgotPassword: React.FC<React.PropsWithChildren<React.PropsWithChi
                     </Button>
                 </Grid>
             </CardActions>
-        </BrandedCardContainer>
+        </StepperCard>
     );
 };

@@ -2,7 +2,7 @@ import React from 'react';
 import 'regenerator-runtime/runtime';
 import { render, cleanup } from '@testing-library/react';
 import '@testing-library/jest-dom';
-import { BrandedCardContainer } from './BrandedCardContainer';
+import { StepperCard } from './StepperCard';
 import { FinishState } from './FinishState';
 import CheckCircle from '@mui/icons-material/CheckCircle';
 import { AuthGuard } from './AuthGuard';
@@ -49,7 +49,7 @@ void i18n
         },
     });
 
-describe('BrandedCardContainer tests', () => {
+describe('StepperCard tests', () => {
     it('renders without crashing', () => {
         const authUIActions = jest.fn();
         const registrationUIActions = jest.fn();
@@ -57,7 +57,7 @@ describe('BrandedCardContainer tests', () => {
         render(
             <ThemeProvider theme={theme}>
                 <AuthUIContextProvider authActions={authUIActions} registrationActions={registrationUIActions}>
-                    <BrandedCardContainer loading={false} />
+                    <StepperCard loading={false} />
                 </AuthUIContextProvider>
             </ThemeProvider>
         );

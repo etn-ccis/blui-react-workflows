@@ -1,4 +1,4 @@
-export { BrandedCardContainer } from './BrandedCardContainer';
+export * from './StepperCard';
 export { AuthGuard } from './AuthGuard';
 export { SecureTextField } from './SecureTextField';
 export { SimpleDialog } from './SimpleDialog';

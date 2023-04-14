@@ -17,7 +17,7 @@ import Grid from '@mui/material/Grid';
 import FormControlLabel from '@mui/material/FormControlLabel';
 import Checkbox from '@mui/material/Checkbox';
 import { SxProps, Theme, useTheme } from '@mui/material/styles';
-import { BrandedCardContainer, SimpleDialog, SecureTextField } from '../components';
+import { StepperCard, SimpleDialog, SecureTextField } from '../components';
 import Close from '@mui/icons-material/Close';
 import stackedEatonLogo from '../assets/images/eaton_stacked_logo.png';
 import cyberBadge from '../assets/images/cybersecurity_certified.png';
@@ -279,7 +279,7 @@ export const Login: React.FC<React.PropsWithChildren<React.PropsWithChildren>> =
     );
 
     return (
-        <BrandedCardContainer loading={transitState.transitInProgress}>
+        <StepperCard loading={transitState.transitInProgress}>
             {!isInvalidCredentials &&
                 (loginErrorDisplayConfig.mode === 'dialog' || loginErrorDisplayConfig.mode === 'both') &&
                 transitErrorMessage &&
@@ -454,6 +454,6 @@ export const Login: React.FC<React.PropsWithChildren<React.PropsWithChildren>> =
                     )}
                 </Box>
             </form>
-        </BrandedCardContainer>
+        </StepperCard>
     );
 };

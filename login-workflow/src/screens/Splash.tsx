@@ -1,6 +1,6 @@
 import React from 'react';
 import CardContent from '@mui/material/CardContent';
-import { BrandedCardContainer } from '../components';
+import { StepperCard } from '../components';
 import CircularProgress from '@mui/material/CircularProgress';
 import Box from '@mui/material/Box';
 
@@ -20,7 +20,7 @@ export const Splash: React.FC<React.PropsWithChildren<React.PropsWithChildren<Sp
     const { mainImage } = props;
 
     return (
-        <BrandedCardContainer>
+        <StepperCard>
             <CardContent
                 sx={{
                     flex: '1 1 0px',
@@ -45,6 +45,6 @@ export const Splash: React.FC<React.PropsWithChildren<React.PropsWithChildren<Sp
                 )}
                 <CircularProgress size={mainImage ? 40 : 70} variant={'indeterminate'} />
             </CardContent>
-        </BrandedCardContainer>
+        </StepperCard>
     );
 };

@@ -1,8 +1,8 @@
 import React from 'react';
 import Card from '@mui/material/Card';
 import { useTheme } from '@mui/material/styles';
-import { Spinner } from './Spinner';
-import backgroundImage from '../assets/images/background.svg';
+import { Spinner } from '../Spinner';
+import backgroundImage from '../../assets/images/background.svg';
 import { useInjectedUIContext } from '@brightlayer-ui/react-auth-shared';
 import Box from '@mui/material/Box';
 
@@ -13,7 +13,7 @@ import Box from '@mui/material/Box';
  *
  * @category Component
  */
-export const BrandedBackground: React.FC<React.PropsWithChildren<React.PropsWithChildren>> = (props) => {
+const BrandedBackground: React.FC<React.PropsWithChildren<React.PropsWithChildren>> = (props) => {
     const { background } = useInjectedUIContext();
     const theme = useTheme();
 
@@ -47,9 +47,9 @@ export type BrandedCardContainerProps = {
  *
  * @category Component
  */
-export const BrandedCardContainer: React.FC<
-    React.PropsWithChildren<React.PropsWithChildren<BrandedCardContainerProps>>
-> = (props) => {
+export const StepperCard: React.FC<React.PropsWithChildren<React.PropsWithChildren<BrandedCardContainerProps>>> = (
+    props
+) => {
     const { children, loading, ...otherProps } = props;
     const theme = useTheme();
 
