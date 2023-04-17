@@ -8,9 +8,20 @@ The `<StepperCard>` component is used to display the Material UI's [`Card`](http
 
 ```tsx
 import { StepperCard } from '@brightlayer-ui/react-auth-workflow';
+import CardActions from '@mui/material/CardActions';
+import CardContent from '@mui/material/CardContent';
+import CardHeader from '@mui/material/CardHeader';
+import Typography from '@mui/material/Typography';
+import Button from '@mui/material/Button';
 
 <StepperCard>
-    {/* Main content to go in the StepperCard */}
+    <CardHeader title={<Typography>Title</Typography>}/>
+    <CardContent>
+        {/* Main content to go in the CardContent */}
+    </CardContent>
+    <CardActions>
+        <Button>Okay</Button>
+    </CardActions>
 </StepperCard>;
 ```
 
@@ -21,10 +32,10 @@ import { StepperCard } from '@brightlayer-ui/react-auth-workflow';
 | Prop Name | Description                    | Type      | Required | Default |
 | --------- | ------------------------------ | --------- | -------- | ------- |
 | loading   | Prop to set `Spinner` visible  |  boolean  | no       | false   |
-| backgroundImage | Prop to set background image |  string  | no       |    |
+| backgroundImage | Prop to set background image |  string  | no       | [defaultBackgroundImage](https://github.com/etn-ccis/blui-react-workflows/blob/master/login-workflow/src/assets/images/background.svg)   |
 | sx | Style overrides for `StepperCard` |  SxProps<Theme>  | no       |    |
 | cardStyles | Style overrides for `Card` component |  SxProps<Theme>  | no       |    |
-| cardProps | Props to pass to `Card` component |  CardProps  | no       |    |
+| CardProps | Props to pass to `Card` component |  CardProps  | no       |    |
 | loaderComponent | Loader to be displayer  |  ReactNode  | no       | `<Spinner />`   |
 
 </div>
