@@ -35,7 +35,7 @@ import Button from '@mui/material/Button';
 | backgroundImage | Prop to set background image |  string  | no       | [defaultBackgroundImage](https://github.com/etn-ccis/blui-react-workflows/blob/master/login-workflow/src/assets/images/background.svg)   |
 | sx | Style overrides for `StepperCard` |  SxProps<Theme>  | no       |    |
 | cardStyles | Style overrides for `Card` component |  SxProps<Theme>  | no       |    |
-| CardProps | Props to pass to `Card` component |  CardProps  | no       |    |
+| cardProps | Props to pass to `Card` component |  CardProps  | no       |    |
 | loaderComponent | Loader to be displayer  |  ReactNode  | no       | `<Spinner />`   |
 
 </div>

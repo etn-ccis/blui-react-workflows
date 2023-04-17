@@ -11,7 +11,7 @@ export type StepperCardProps = BoxProps & {
     backgroundImage?: string;
     sx?: SxProps<Theme>;
     cardStyles?: SxProps<Theme>;
-    CardProps?: CardProps;
+    cardProps?: CardProps;
     loaderComponent?: ReactNode;
 };
 
@@ -39,7 +39,7 @@ export const StepperCard: React.FC<React.PropsWithChildren<StepperCardProps>> = 
         backgroundImage,
         sx,
         cardStyles,
-        CardProps,
+        cardProps,
         loaderComponent = <Spinner visible={loading} />,
         ...otherProps
     } = props;
@@ -78,7 +78,7 @@ export const StepperCard: React.FC<React.PropsWithChildren<StepperCardProps>> = 
                     },
                     ...cardStyles,
                 }}
-                {...CardProps}
+                {...cardProps}
             >
                 {loaderComponent}
                 {children}
