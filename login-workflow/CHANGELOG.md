@@ -10,6 +10,7 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 ### Added
 
 -   Componentize `StepperCard` and added documentation.
+-   Confirm password field error state message in `ChangePasswordForm`.
 
 ## v3.1.1 (December 14, 2022)
 
