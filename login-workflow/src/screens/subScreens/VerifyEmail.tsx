@@ -5,7 +5,7 @@ import TextField from '@mui/material/TextField';
 import Divider from '@mui/material/Divider';
 import { useTheme } from '@mui/material/styles';
 import { FullDividerStyles } from '../../styles';
-import Stack from '@mui/material/Stack';
+import Box from '@mui/material/Box';
 
 export type VerifyEmailProps = {
     initialCode?: string;
@@ -57,16 +57,18 @@ export const VerifyEmail: React.FC<React.PropsWithChildren<React.PropsWithChildr
                 }}
                 variant="filled"
             />
-            <Stack flexDirection={'row'} sx={{ mt: 2 }}>
-                <Typography>{t('blui:SELF_REGISTRATION.VERIFY_EMAIL.VERIFICATION_CODE_PROMPT')}</Typography>
+            <Box component={'span'} sx={{ mt: 2 }}>
+                <Typography sx={{ display: 'inline' }}>
+                    {t('blui:SELF_REGISTRATION.VERIFY_EMAIL.VERIFICATION_CODE_PROMPT')}
+                </Typography>
                 <Typography
+                    sx={{ display: 'inline', '&:hover': { cursor: 'pointer' } }}
                     onClick={(): void => onResendVerificationEmail()}
                     color="primary"
-                    style={{ cursor: 'pointer' }}
                 >
                     &nbsp;<u>{t('blui:ACTIONS.RESEND')}</u>
                 </Typography>
-            </Stack>
+            </Box>
         </>
     );
 };
