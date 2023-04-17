@@ -2,15 +2,15 @@ import React from 'react';
 import { useLanguageLocale, useInjectedUIContext } from '@brightlayer-ui/react-auth-shared';
 import { useNavigate } from 'react-router-dom';
 import Button from '@mui/material/Button';
-import CardActions from '@mui/material/CardActions';
-import CardContent from '@mui/material/CardContent';
-import CardHeader from '@mui/material/CardHeader';
+import CardActions, { CardActionsProps } from '@mui/material/CardActions';
+import CardContent, { CardContentProps } from '@mui/material/CardContent';
+import CardHeader, { CardHeaderProps } from '@mui/material/CardHeader';
 import Divider from '@mui/material/Divider';
-import Typography from '@mui/material/Typography';
+import Typography, { TypographyProps } from '@mui/material/Typography';
 import { SxProps, Theme, useTheme } from '@mui/material/styles';
-import { BrandedCardContainer } from '../components';
+import { BrandedCardContainer } from '../../components';
 import ChatBubbleOutline from '@mui/icons-material/ChatBubbleOutline';
-import { DialogButtonStyles, DialogActionsStyles, DialogContentStyles, DialogTitleStyles } from '../styles';
+import { DialogButtonStyles, DialogActionsStyles, DialogContentStyles, DialogTitleStyles } from '../../styles';
 import Box from '@mui/material/Box';
 
 const LinkStyles = (theme: Theme): SxProps<Theme> => ({
@@ -64,6 +64,17 @@ export const ContactSupportContent: React.FC<React.PropsWithChildren<React.Props
     );
 };
 
+export type ContactSupportProps = {
+    title?: string;
+    titleProps?: TypographyProps;
+    actions?: JSX.Element | JSX.Element[];
+    divider?: boolean;
+    contactSupportContent?: JSX.Element;
+    cardHeaderProps?: CardHeaderProps;
+    cardContentProps?: CardContentProps;
+    cardActionsProps?: CardActionsProps;
+};
+
 /**
  * Container that renders a screen with contact information for
  * support with the application. Contact information is pulled
@@ -71,31 +82,49 @@ export const ContactSupportContent: React.FC<React.PropsWithChildren<React.Props
  *
  * @category Component
  */
-export const ContactSupport: React.FC<React.PropsWithChildren<React.PropsWithChildren>> = () => {
+
+export const ContactSupport: React.FC<ContactSupportProps> = (props) => {
     const { t } = useLanguageLocale();
     const navigate = useNavigate();
     const theme = useTheme();
+    const {
+        title = t('blui:USER_MENU.CONTACT_US'),
+        titleProps,
+        actions = (
+            <Button
+                variant="contained"
+                color="primary"
+                disableElevation
+                sx={DialogButtonStyles(true)}
+                onClick={(): void => navigate(-1)}
+            >
+                {t('blui:ACTIONS.OKAY')}
+            </Button>
+        ),
+        divider = true,
+        contactSupportContent = <ContactSupportContent />,
+        cardHeaderProps,
+        cardContentProps,
+        cardActionsProps,
+    } = props;
 
     return (
         <BrandedCardContainer>
             <CardHeader
-                title={<Typography variant={'h6'}>{t('blui:USER_MENU.CONTACT_US')}</Typography>}
+                title={
+                    <Typography variant={'h6'} {...titleProps}>
+                        {title}
+                    </Typography>
+                }
                 sx={DialogTitleStyles(theme)}
+                {...cardHeaderProps}
             />
-            <CardContent sx={DialogContentStyles(theme)}>
-                <ContactSupportContent />
+            <CardContent sx={DialogContentStyles(theme)} {...cardContentProps}>
+                {contactSupportContent}
             </CardContent>
-            <Divider />
-            <CardActions sx={DialogActionsStyles(theme)}>
-                <Button
-                    variant="contained"
-                    color="primary"
-                    disableElevation
-                    sx={DialogButtonStyles(true)}
-                    onClick={(): void => navigate(-1)}
-                >
-                    {t('blui:ACTIONS.OKAY')}
-                </Button>
+            {divider ? <Divider /> : undefined}
+            <CardActions sx={DialogActionsStyles(theme)} {...cardActionsProps}>
+                {actions}
             </CardActions>
         </BrandedCardContainer>
     );
