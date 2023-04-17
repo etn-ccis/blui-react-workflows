@@ -1,5 +1,5 @@
 import React, { ReactNode } from 'react';
-import Card from '@mui/material/Card';
+import Card, { CardProps } from '@mui/material/Card';
 import { SxProps, Theme, useTheme } from '@mui/material/styles';
 import { Spinner } from '../Spinner';
 import defaultBackgroundImage from '../../assets/images/background.svg';
@@ -11,6 +11,7 @@ export type StepperCardProps = {
     backgroundImage?: string;
     sx?: SxProps<Theme>;
     cardStyles?: SxProps<Theme>;
+    cardProps?: CardProps;
     loaderComponent?: ReactNode;
 };
 
@@ -25,6 +26,8 @@ export type StepperCardProps = {
  *
  * @param cardStyles will override the styles for `Card` component
  *
+ * @param cardProps will be the props passed to `Card` component
+ *
  * @param loaderComponent will be displayed instead of `Spinner`
  *
  * @category Component
@@ -36,6 +39,7 @@ export const StepperCard: React.FC<React.PropsWithChildren<React.PropsWithChildr
         backgroundImage,
         sx,
         cardStyles,
+        cardProps,
         loaderComponent = <Spinner visible={loading} />,
         ...otherProps
     } = props;
@@ -74,6 +78,7 @@ export const StepperCard: React.FC<React.PropsWithChildren<React.PropsWithChildr
                     },
                     ...cardStyles,
                 }}
+                {...cardProps}
             >
                 {loaderComponent}
                 {children}
