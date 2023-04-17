@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import React, { ReactNode, useState } from 'react';
 import TextField, { TextFieldProps } from '@mui/material/TextField';
 import InputAdornment from '@mui/material/InputAdornment';
 import IconButton from '@mui/material/IconButton';
@@ -13,7 +13,10 @@ import VisibilityOff from '@mui/icons-material/VisibilityOff';
  *
  * @category Component
  */
-export const SecureTextField: React.FC<React.PropsWithChildren<React.PropsWithChildren<TextFieldProps>>> = (props) => {
+export const SecureTextField: React.FC<
+    React.PropsWithChildren<React.PropsWithChildren<TextFieldProps>> & { icon?: ReactNode }
+> = (props) => {
+    const { icon } = props;
     const [showPassword, setShowPassword] = useState(false);
 
     return (
@@ -24,6 +27,11 @@ export const SecureTextField: React.FC<React.PropsWithChildren<React.PropsWithCh
             InputProps={{
                 endAdornment: (
                     <InputAdornment position="end">
+                        {icon && (
+                            <IconButton aria-label="Toggle password visibility" edge="end" size="large">
+                                {icon}
+                            </IconButton>
+                        )}
                         <IconButton
                             aria-label="Toggle password visibility"
                             onClick={(): void => setShowPassword(!showPassword)}
