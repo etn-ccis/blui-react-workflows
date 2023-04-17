@@ -1,11 +1,11 @@
 import React, { useEffect } from 'react';
 import { useLanguageLocale } from '@brightlayer-ui/react-auth-shared';
-import Button from '@mui/material/Button';
 import Typography from '@mui/material/Typography';
 import TextField from '@mui/material/TextField';
 import Divider from '@mui/material/Divider';
 import { useTheme } from '@mui/material/styles';
 import { FullDividerStyles } from '../../styles';
+import Stack from '@mui/material/Stack';
 
 export type VerifyEmailProps = {
     initialCode?: string;
@@ -57,15 +57,16 @@ export const VerifyEmail: React.FC<React.PropsWithChildren<React.PropsWithChildr
                 }}
                 variant="filled"
             />
-            <Button
-                variant={'contained'}
-                color={'primary'}
-                disableElevation
-                onClick={(): void => onResendVerificationEmail()}
-                sx={{ mt: 2 }}
-            >
-                {t('blui:SELF_REGISTRATION.VERIFY_EMAIL.RESEND')}
-            </Button>
+            <Stack flexDirection={'row'} sx={{ mt: 2 }}>
+                <Typography>{t('blui:SELF_REGISTRATION.VERIFY_EMAIL.VERIFICATION_CODE_PROMPT')}</Typography>
+                <Typography
+                    onClick={(): void => onResendVerificationEmail()}
+                    color="primary"
+                    style={{ cursor: 'pointer' }}
+                >
+                    &nbsp;<u>{t('blui:ACTIONS.RESEND')}</u>
+                </Typography>
+            </Stack>
         </>
     );
 };
