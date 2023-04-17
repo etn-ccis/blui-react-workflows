@@ -4,14 +4,14 @@ import { SxProps, Theme, useTheme } from '@mui/material/styles';
 import { Spinner } from '../Spinner';
 import defaultBackgroundImage from '../../assets/images/background.svg';
 import { useInjectedUIContext } from '@brightlayer-ui/react-auth-shared';
-import Box from '@mui/material/Box';
+import Box, { BoxProps } from '@mui/material/Box';
 
-export type StepperCardProps = {
+export type StepperCardProps = BoxProps & {
     loading?: boolean;
     backgroundImage?: string;
     sx?: SxProps<Theme>;
     cardStyles?: SxProps<Theme>;
-    cardProps?: CardProps;
+    CardProps?: CardProps;
     loaderComponent?: ReactNode;
 };
 
@@ -26,20 +26,20 @@ export type StepperCardProps = {
  *
  * @param cardStyles will override the styles for `Card` component
  *
- * @param cardProps will be the props passed to `Card` component
+ * @param CardProps will be the props passed to `Card` component
  *
  * @param loaderComponent will be displayed instead of `Spinner`
  *
  * @category Component
  */
-export const StepperCard: React.FC<React.PropsWithChildren<React.PropsWithChildren<StepperCardProps>>> = (props) => {
+export const StepperCard: React.FC<React.PropsWithChildren<StepperCardProps>> = (props) => {
     const {
         children,
         loading,
         backgroundImage,
         sx,
         cardStyles,
-        cardProps,
+        CardProps,
         loaderComponent = <Spinner visible={loading} />,
         ...otherProps
     } = props;
@@ -78,7 +78,7 @@ export const StepperCard: React.FC<React.PropsWithChildren<React.PropsWithChildr
                     },
                     ...cardStyles,
                 }}
-                {...cardProps}
+                {...CardProps}
             >
                 {loaderComponent}
                 {children}
