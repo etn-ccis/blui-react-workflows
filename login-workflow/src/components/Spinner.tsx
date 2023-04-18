@@ -13,8 +13,8 @@ export type SpinnerProps = BoxProps & {
  *
  * @category Component
  */
-export const Spinner: React.FC<React.PropsWithChildren<React.PropsWithChildren<SpinnerProps>>> = (props) => {
-    const { visible } = props;
+export const Spinner: React.FC<SpinnerProps> = (props) => {
+    const { visible, ...otherProps } = props;
     const theme = useTheme();
 
     return visible ? (
@@ -32,6 +32,7 @@ export const Spinner: React.FC<React.PropsWithChildren<React.PropsWithChildren<S
                 justifyContent: 'center',
                 flexDirection: 'column',
             }}
+            {...otherProps}
         >
             <CircularProgress size={70} variant={'indeterminate'} />
         </Box>
