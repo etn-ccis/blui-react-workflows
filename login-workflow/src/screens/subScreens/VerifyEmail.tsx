@@ -62,9 +62,10 @@ export const VerifyEmail: React.FC<React.PropsWithChildren<React.PropsWithChildr
                     {t('blui:SELF_REGISTRATION.VERIFY_EMAIL.VERIFICATION_CODE_PROMPT')}
                 </Typography>
                 <Typography
-                    sx={{ display: 'inline', '&:hover': { cursor: 'pointer' } }}
+                    sx={{ display: 'inline', textTransform: 'initial', '&:hover': { cursor: 'pointer' } }}
                     onClick={(): void => onResendVerificationEmail()}
                     color="primary"
+                    variant={'button'}
                 >
                     &nbsp;<u>{t('blui:ACTIONS.RESEND')}</u>
                 </Typography>
