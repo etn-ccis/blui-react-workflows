@@ -58,7 +58,6 @@ export const StepperCard: React.FC<React.PropsWithChildren<StepperCardProps>> = 
         backgroundImage,
         cardStyles,
         CardProps,
-        slots = {},
         slotProps = {},
         loaderComponent = <Spinner visible={loading} {...slotProps.loader} />,
         classes = {},
