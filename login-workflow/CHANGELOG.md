@@ -11,6 +11,10 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 -   Confirm password field error state message in `ChangePasswordForm`.
 
+### Changed
+
+-   Changed the verification code styles for the self registration workflow.
+
 ## v3.1.1 (December 14, 2022)
 
 ### Changed
