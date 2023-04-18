@@ -4,7 +4,7 @@ import { useNavigate } from 'react-router-dom';
 import Button from '@mui/material/Button';
 import CardActions, { CardActionsProps } from '@mui/material/CardActions';
 import CardContent, { CardContentProps } from '@mui/material/CardContent';
-import CardHeader, { CardHeaderProps } from '@mui/material/CardHeader';
+import CardHeader, { CardHeaderProps as CardHeaderPropsType } from '@mui/material/CardHeader';
 import Divider from '@mui/material/Divider';
 import Typography, { TypographyProps } from '@mui/material/Typography';
 import { useTheme } from '@mui/material/styles';
@@ -32,7 +32,7 @@ export type ContactSupportProps = {
     actions?: JSX.Element | JSX.Element[];
     divider?: boolean;
     contactSupportContent?: JSX.Element;
-    cardHeaderProps?: CardHeaderProps;
+    CardHeaderProps?: CardHeaderPropsType;
     cardContentProps?: CardContentProps;
     cardActionsProps?: CardActionsProps;
     phoneNumber?: string;
@@ -97,7 +97,7 @@ export const ContactSupport: React.FC<React.PropsWithChildren<ContactSupportProp
         ),
         divider = true,
         contactSupportContent,
-        cardHeaderProps,
+        CardHeaderProps,
         cardContentProps,
         cardActionsProps,
         phoneNumber = contactPhone,
@@ -130,7 +130,7 @@ export const ContactSupport: React.FC<React.PropsWithChildren<ContactSupportProp
                     }
                     sx={DialogTitleStyles(theme)}
                     className={cx(defaultClasses.cardHeader, classes.cardHeader)}
-                    {...cardHeaderProps}
+                    {...CardHeaderProps}
                 />
             )}
             {!hideContactSupportContent && (
