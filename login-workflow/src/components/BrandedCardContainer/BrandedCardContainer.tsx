@@ -18,7 +18,7 @@ export type BrandedCardContainerProps = BoxProps & {
     backgroundImage?: string;
     cardStyles?: SxProps<Theme>;
     CardProps?: CardPropsType;
-    loaderComponent?: ReactNode;
+    LoaderComponent?: ReactNode;
     classes?: BrandedCardContainerClasses;
     slots?: { card?: React.ElementType; loader?: React.ElementType };
     slotProps?: {
@@ -49,7 +49,7 @@ const useUtilityClasses = (ownerState: BrandedCardContainerProps): Record<Brande
  *
  * @param CardProps will be the props passed to `Card` component
  *
- * @param loaderComponent will be displayed instead of `Spinner`
+ * @param LoaderComponent will be displayed instead of `Spinner`
  *
  * @param classes for default style overrides
  *
@@ -64,7 +64,7 @@ export const BrandedCardContainer: React.FC<React.PropsWithChildren<BrandedCardC
         CardProps,
         slots = {},
         slotProps = {},
-        loaderComponent = <Spinner visible={loading} component={slots.loader} {...slotProps.loader} />,
+        LoaderComponent = <Spinner visible={loading} component={slots.loader} {...slotProps.loader} />,
         classes = {},
         className: userClassName,
         ...otherProps
@@ -110,7 +110,7 @@ export const BrandedCardContainer: React.FC<React.PropsWithChildren<BrandedCardC
                 {...CardProps}
                 {...slotProps.card}
             >
-                {loaderComponent}
+                {LoaderComponent}
                 {children}
             </Card>
         </Box>

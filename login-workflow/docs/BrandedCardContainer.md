@@ -15,10 +15,8 @@ import Typography from '@mui/material/Typography';
 import Button from '@mui/material/Button';
 
 <BrandedCardContainer>
-    <CardHeader title={<Typography>Title</Typography>}/>
-    <CardContent>
-        {/* Main content to go in the CardContent */}
-    </CardContent>
+    <CardHeader title={<Typography>Title</Typography>} />
+    <CardContent>{/* Main content to go in the CardContent */}</CardContent>
     <CardActions>
         <Button>Okay</Button>
     </CardActions>
@@ -29,17 +27,16 @@ import Button from '@mui/material/Button';
 
 <div style="overflow: auto">
 
-| Prop Name | Description                    | Type      | Required | Default |
-| --------- | ------------------------------ | --------- | -------- | ------- |
-| loading   | Prop to set `Spinner` visible  |  `boolean`  | no       | false   |
-| classes   | Style overrides                | `BrandedCardContainerClasses`            | no       |           |
-| backgroundImage | Prop to set background image |  `string`  | no       | [defaultBackgroundImage](https://github.com/etn-ccis/blui-react-workflows/blob/master/login-workflow/src/assets/images/background.svg)   |
-| cardStyles | Style overrides for `Card` component |  `SxProps<Theme>`  | no       |    |
-| CardProps | Props to pass to `Card` component |  `CardProps`  | no       |    |
-| loaderComponent | Loader to be displayed  |  `ReactNode`  | no       | `<Spinner />`   |
-| slots | Prop used for each slot in `BrandedCardContainer`  |  `{card: React.ElementType; loader: React.ElementType}`  | no      | {}  |
-| slotProps | Props applied to each slot  | `{card: CardProps; loader: SpinnerProps}`  | no       | {}   |
-
+| Prop Name       | Description                                       | Type                                                   | Required | Default                                                                                                                                |
+| --------------- | ------------------------------------------------- | ------------------------------------------------------ | -------- | -------------------------------------------------------------------------------------------------------------------------------------- |
+| loading         | Prop to set `Spinner` visible                     | `boolean`                                              | no       | false                                                                                                                                  |
+| classes         | Style overrides                                   | `BrandedCardContainerClasses`                          | no       |                                                                                                                                        |
+| backgroundImage | Prop to set background image                      | `string`                                               | no       | [defaultBackgroundImage](https://github.com/etn-ccis/blui-react-workflows/blob/master/login-workflow/src/assets/images/background.svg) |
+| cardStyles      | Style overrides for `Card` component              | `SxProps<Theme>`                                       | no       |                                                                                                                                        |
+| CardProps       | Props to pass to `Card` component                 | `CardProps`                                            | no       |                                                                                                                                        |
+| LoaderComponent | Loader to be displayed                            | `ReactNode`                                            | no       | `<Spinner />`                                                                                                                          |
+| slots           | Prop used for each slot in `BrandedCardContainer` | `{card: React.ElementType; loader: React.ElementType}` | no       | {}                                                                                                                                     |
+| slotProps       | Props applied to each slot                        | `{card: CardProps; loader: SpinnerProps}`              | no       | {}                                                                                                                                     |
 
 </div>
 
@@ -57,9 +54,9 @@ You can override the default styles used by Brightlayer UI by:
 
 <Box>
 
-| Name  | Global CSS Class                | Description                         |
-| ----- | ------------------------------- | ----------------------------------- |
-| root  | .BluiBrandedCardContainer-root  | Styles applied to the root element  |
-| card  | .BluiBrandedCardContainer-card  | Styles applied to the card element  |
+| Name | Global CSS Class               | Description                        |
+| ---- | ------------------------------ | ---------------------------------- |
+| root | .BluiBrandedCardContainer-root | Styles applied to the root element |
+| card | .BluiBrandedCardContainer-card | Styles applied to the card element |
 
 </Box>
