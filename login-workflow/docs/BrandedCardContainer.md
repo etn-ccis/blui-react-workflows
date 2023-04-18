@@ -2,7 +2,7 @@
 
 The `<BrandedCardContainer>` component is used to display the Material UI's [`Card`](https://mui.com/material-ui/api/card/) component at the center of the screen.
 
-<img width='100%' alt="Stepper Card" src="../media/contact_support.png">
+<img width='100%' alt="Branded Card Container" src="../media/contact_support.png">
 
 ## Usage
 
