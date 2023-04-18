@@ -7,29 +7,24 @@ import CardContent, { CardContentProps } from '@mui/material/CardContent';
 import CardHeader, { CardHeaderProps } from '@mui/material/CardHeader';
 import Divider from '@mui/material/Divider';
 import Typography, { TypographyProps } from '@mui/material/Typography';
-import { SxProps, Theme, useTheme } from '@mui/material/styles';
+import { useTheme } from '@mui/material/styles';
 import { BrandedCardContainer } from '../../components';
 import ChatBubbleOutline from '@mui/icons-material/ChatBubbleOutline';
 import { DialogButtonStyles, DialogActionsStyles, DialogContentStyles, DialogTitleStyles } from '../../styles';
 import Box from '@mui/material/Box';
+import { unstable_composeClasses as composeClasses } from '@mui/base';
+import { ContactSupportClassKey, getContactSupportUtilityClass, ContactSupportClasses } from './ContactSupportClasses';
+import { cx } from '@emotion/css';
 
-const LinkStyles = (theme: Theme): SxProps<Theme> => ({
+const LinkStyles = {
     fontWeight: 600,
-    color: theme.palette.primary.main,
+    color: 'primary.main',
     textTransform: 'none',
     textDecoration: 'none',
     '&:visited': {
-        color: theme.palette.primary.main,
+        color: 'primary.main',
     },
-});
-
-/**
- * Content for the Contact Us screen. This is exported separately
- * in the event that a user wishes to build another area in their
- * main application where users can view this information.
- *
- * @category Component
- */
+};
 
 export type ContactSupportProps = {
     title?: string;
@@ -56,10 +51,23 @@ export type ContactSupportProps = {
     hideContactSupportTechnicalAssistance?: boolean;
     hideActions?: boolean;
     showInCard?: boolean;
+    classes?: ContactSupportClasses;
+};
+
+const useUtilityClasses = (ownerState: ContactSupportProps): Record<ContactSupportClassKey, string> => {
+    const { classes } = ownerState;
+
+    const slots = {
+        cardHeader: ['cardHeader'],
+        cardContent: ['cardContent'],
+        cardActions: ['cardActions'],
+    };
+
+    return composeClasses(slots, getContactSupportUtilityClass, classes);
 };
 
 /**
- * Container that renders a screen with contact information for
+ * Component renders a screen with contact information for
  * support with the application. Contact information is pulled
  * from the context passed into the workflow.
  *
@@ -71,6 +79,7 @@ export const ContactSupport: React.FC<React.PropsWithChildren<ContactSupportProp
     const navigate = useNavigate();
     const theme = useTheme();
     const { contactPhone, contactEmail } = useInjectedUIContext();
+    const defaultClasses = useUtilityClasses(props);
 
     const {
         title = t('blui:USER_MENU.CONTACT_US'),
@@ -107,6 +116,7 @@ export const ContactSupport: React.FC<React.PropsWithChildren<ContactSupportProp
         hideContactSupportTechnicalAssistance = false,
         hideActions = false,
         showInCard = true,
+        classes = {},
     } = props;
 
     const ContactSupportContent = () => (
@@ -119,11 +129,16 @@ export const ContactSupport: React.FC<React.PropsWithChildren<ContactSupportProp
                         </Typography>
                     }
                     sx={DialogTitleStyles(theme)}
+                    className={cx(defaultClasses.cardHeader, classes.cardHeader)}
                     {...cardHeaderProps}
                 />
             )}
             {!hideContactSupportContent && (
-                <CardContent sx={DialogContentStyles(theme)} {...cardContentProps}>
+                <CardContent
+                    sx={DialogContentStyles(theme)}
+                    className={cx(defaultClasses.cardContent, classes.cardContent)}
+                    {...cardContentProps}
+                >
                     {contactSupportContent ? (
                         contactSupportContent
                     ) : (
@@ -139,7 +154,7 @@ export const ContactSupport: React.FC<React.PropsWithChildren<ContactSupportProp
                             {!hideContactSupportMessage && (
                                 <Typography>
                                     {contactSupportMessage}
-                                    <Box component="a" href={`mailto:${emailId}`} sx={LinkStyles(theme)}>
+                                    <Box component="a" href={`mailto:${emailId}`} sx={LinkStyles}>
                                         {emailId}
                                     </Box>
                                     .
@@ -153,7 +168,7 @@ export const ContactSupport: React.FC<React.PropsWithChildren<ContactSupportProp
                             {!hideContactSupportTechnicalAssistance && (
                                 <Typography>
                                     {contactSupportTechnicalAssistance}
-                                    <Box component="a" href={`tel:${phoneNumber}`} sx={LinkStyles(theme)}>
+                                    <Box component="a" href={`tel:${phoneNumber}`} sx={LinkStyles}>
                                         {phoneNumber}
                                     </Box>
                                     .
@@ -165,7 +180,11 @@ export const ContactSupport: React.FC<React.PropsWithChildren<ContactSupportProp
             )}
             {divider ? <Divider /> : undefined}
             {!hideActions && (
-                <CardActions sx={DialogActionsStyles(theme)} {...cardActionsProps}>
+                <CardActions
+                    sx={DialogActionsStyles(theme)}
+                    className={cx(defaultClasses.cardActions, classes.cardActions)}
+                    {...cardActionsProps}
+                >
                     {actions}
                 </CardActions>
             )}
