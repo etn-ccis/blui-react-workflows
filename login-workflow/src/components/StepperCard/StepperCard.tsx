@@ -55,6 +55,7 @@ export const StepperCard: React.FC<React.PropsWithChildren<StepperCardProps>> = 
         CardProps,
         loaderComponent = <Spinner visible={loading} />,
         classes = {},
+        className: userClassName,
         ...otherProps
     } = props;
     const { background } = useInjectedUIContext();
@@ -73,7 +74,7 @@ export const StepperCard: React.FC<React.PropsWithChildren<StepperCardProps>> = 
                 justifyContent: 'center',
             }}
             style={background || {}}
-            className={cx(defaultClasses.root, classes.root)}
+            className={cx(defaultClasses.root, classes.root, userClassName)}
             {...otherProps}
         >
             <Card
