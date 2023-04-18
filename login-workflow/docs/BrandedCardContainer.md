@@ -38,7 +38,7 @@ import Button from '@mui/material/Button';
 | CardProps | Props to pass to `Card` component |  `CardProps`  | no       |    |
 | loaderComponent | Loader to be displayed  |  `ReactNode`  | no       | `<Spinner />`   |
 | slots | Prop used for each slot in `BrandedCardContainer`  |  `{card: React.ElementType; loader: React.ElementType}`  | no      | {}  |
-| slotProps | Props applied to each slot  | `{card: CardProps; loader: React.PropsWithChildren}`  | no       | {}   |
+| slotProps | Props applied to each slot  | `{card: CardProps; loader: SpinnerProps}`  | no       | {}   |
 
 
 </div>
