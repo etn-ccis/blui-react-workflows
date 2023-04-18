@@ -6,16 +6,20 @@ import defaultBackgroundImage from '../../assets/images/background.svg';
 import { useInjectedUIContext } from '@brightlayer-ui/react-auth-shared';
 import Box, { BoxProps } from '@mui/material/Box';
 import { unstable_composeClasses as composeClasses } from '@mui/base';
-import { getStepperCardUtilityClass, StepperCardClassKey, StepperCardClasses } from './StepperCardClasses';
+import {
+    getBrandedCardContainerUtilityClass,
+    BrandedCardContainerClassKey,
+    BrandedCardContainerClasses,
+} from './BrandedCardContainerClasses';
 import { cx } from '@emotion/css';
 
-export type StepperCardProps = BoxProps & {
+export type BrandedCardContainerProps = BoxProps & {
     loading?: boolean;
     backgroundImage?: string;
     cardStyles?: SxProps<Theme>;
     CardProps?: CardPropsType;
     loaderComponent?: ReactNode;
-    classes?: StepperCardClasses;
+    classes?: BrandedCardContainerClasses;
     slots?: { card?: React.ElementType; loader?: React.ElementType };
     slotProps?: {
         card?: CardPropsType;
@@ -23,7 +27,7 @@ export type StepperCardProps = BoxProps & {
     };
 };
 
-const useUtilityClasses = (ownerState: StepperCardProps): Record<StepperCardClassKey, string> => {
+const useUtilityClasses = (ownerState: BrandedCardContainerProps): Record<BrandedCardContainerClassKey, string> => {
     const { classes } = ownerState;
 
     const slots = {
@@ -31,7 +35,7 @@ const useUtilityClasses = (ownerState: StepperCardProps): Record<StepperCardClas
         card: ['card'],
     };
 
-    return composeClasses(slots, getStepperCardUtilityClass, classes);
+    return composeClasses(slots, getBrandedCardContainerUtilityClass, classes);
 };
 
 /**
@@ -51,7 +55,7 @@ const useUtilityClasses = (ownerState: StepperCardProps): Record<StepperCardClas
  *
  * @category Component
  */
-export const StepperCard: React.FC<React.PropsWithChildren<StepperCardProps>> = (props) => {
+export const BrandedCardContainer: React.FC<React.PropsWithChildren<BrandedCardContainerProps>> = (props) => {
     const {
         children,
         loading,

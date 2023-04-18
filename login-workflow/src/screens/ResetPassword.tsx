@@ -17,7 +17,7 @@ import Divider from '@mui/material/Divider';
 import Typography from '@mui/material/Typography';
 import Grid from '@mui/material/Grid';
 import { useTheme } from '@mui/material/styles';
-import { StepperCard, SimpleDialog, FinishState, ChangePasswordForm } from '../components';
+import { BrandedCardContainer, SimpleDialog, FinishState, ChangePasswordForm } from '../components';
 import { defaultPasswordRequirements } from '../constants';
 import CheckCircle from '@mui/icons-material/CheckCircle';
 import Error from '@mui/icons-material/Error';
@@ -163,7 +163,7 @@ export const ResetPassword: React.FC<React.PropsWithChildren<React.PropsWithChil
     );
 
     return (
-        <StepperCard loading={verifyIsInTransit || setPasswordIsInTransit}>
+        <BrandedCardContainer loading={verifyIsInTransit || setPasswordIsInTransit}>
             {errorDialog}
             <CardHeader
                 title={
@@ -207,6 +207,6 @@ export const ResetPassword: React.FC<React.PropsWithChildren<React.PropsWithChil
                     )}
                 </Grid>
             </CardActions>
-        </StepperCard>
+        </BrandedCardContainer>
     );
 };

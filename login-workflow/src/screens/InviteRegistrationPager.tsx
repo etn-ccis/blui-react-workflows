@@ -22,7 +22,7 @@ import Divider from '@mui/material/Divider';
 import Typography from '@mui/material/Typography';
 import MobileStepper from '@mui/material/MobileStepper';
 import { useTheme } from '@mui/material/styles';
-import { StepperCard, FinishState, SimpleDialog } from '../components';
+import { BrandedCardContainer, FinishState, SimpleDialog } from '../components';
 import { emptyAccountDetailInformation } from './SelfRegistrationPager';
 import { AcceptEula } from './subScreens/AcceptEula';
 import { CreatePassword as CreatePasswordScreen } from './subScreens/CreatePassword';
@@ -404,25 +404,25 @@ export const InviteRegistrationPager: React.FC<React.PropsWithChildren<React.Pro
     // Custom "Account Already Exists"
     if (accountAlreadyExists && customAccountAlreadyExists) {
         return (
-            <StepperCard loading={registrationIsInTransit || isValidationInTransit}>
+            <BrandedCardContainer loading={registrationIsInTransit || isValidationInTransit}>
                 {typeof customAccountAlreadyExists === 'function' && customAccountAlreadyExists(undefined)}
                 {typeof customAccountAlreadyExists !== 'function' && customAccountAlreadyExists}
-            </StepperCard>
+            </BrandedCardContainer>
         );
     }
     // Custom Success Screen
     else if (isLastStep && !accountAlreadyExists && validationSuccess && !isValidationInTransit && customSuccess) {
         return (
-            <StepperCard loading={registrationIsInTransit || isValidationInTransit}>
+            <BrandedCardContainer loading={registrationIsInTransit || isValidationInTransit}>
                 {typeof customSuccess === 'function' &&
                     customSuccess({ accountDetails: accountDetails, email: validationEmail })}
                 {typeof customSuccess !== 'function' && customSuccess}
-            </StepperCard>
+            </BrandedCardContainer>
         );
     }
     // Default Screens
     return (
-        <StepperCard loading={registrationIsInTransit || isValidationInTransit}>
+        <BrandedCardContainer loading={registrationIsInTransit || isValidationInTransit}>
             {errorDialog}
             <CardHeader
                 title={
@@ -465,6 +465,6 @@ export const InviteRegistrationPager: React.FC<React.PropsWithChildren<React.Pro
                     description={validationTransitErrorMessage}
                 />
             )}
-        </StepperCard>
+        </BrandedCardContainer>
     );
 };

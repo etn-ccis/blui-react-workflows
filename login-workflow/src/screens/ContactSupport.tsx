@@ -8,7 +8,7 @@ import CardHeader from '@mui/material/CardHeader';
 import Divider from '@mui/material/Divider';
 import Typography from '@mui/material/Typography';
 import { SxProps, Theme, useTheme } from '@mui/material/styles';
-import { StepperCard } from '../components';
+import { BrandedCardContainer } from '../components';
 import ChatBubbleOutline from '@mui/icons-material/ChatBubbleOutline';
 import { DialogButtonStyles, DialogActionsStyles, DialogContentStyles, DialogTitleStyles } from '../styles';
 import Box from '@mui/material/Box';
@@ -77,7 +77,7 @@ export const ContactSupport: React.FC<React.PropsWithChildren<React.PropsWithChi
     const theme = useTheme();
 
     return (
-        <StepperCard>
+        <BrandedCardContainer>
             <CardHeader
                 title={<Typography variant={'h6'}>{t('blui:USER_MENU.CONTACT_US')}</Typography>}
                 sx={DialogTitleStyles(theme)}
@@ -97,6 +97,6 @@ export const ContactSupport: React.FC<React.PropsWithChildren<React.PropsWithChi
                     {t('blui:ACTIONS.OKAY')}
                 </Button>
             </CardActions>
-        </StepperCard>
+        </BrandedCardContainer>
     );
 };

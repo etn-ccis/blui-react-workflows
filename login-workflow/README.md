@@ -114,4 +114,4 @@ The workflow allows for some customizations. For details refer to our [Customiza
 
 ## Components
 
-- [Stepper Card](`https://github.com/etn-ccis/blui-react-workflows/blob/master/login-workflow/docs/StepperCard.md`)
+- [Branded Card Container](`https://github.com/etn-ccis/blui-react-workflows/blob/master/login-workflow/docs/BrandedCardContainer.md`)
