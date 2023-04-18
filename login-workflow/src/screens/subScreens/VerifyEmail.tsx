@@ -57,17 +57,18 @@ export const VerifyEmail: React.FC<React.PropsWithChildren<React.PropsWithChildr
                 }}
                 variant="filled"
             />
-            <Box component={'span'} sx={{ mt: 2 }}>
-                <Typography sx={{ display: 'inline' }}>
+            <Box sx={{ mt: 2 }}>
+                <Typography>
                     {t('blui:SELF_REGISTRATION.VERIFY_EMAIL.VERIFICATION_CODE_PROMPT')}
-                </Typography>
-                <Typography
-                    sx={{ display: 'inline', textTransform: 'initial', '&:hover': { cursor: 'pointer' } }}
-                    onClick={(): void => onResendVerificationEmail()}
-                    color="primary"
-                    variant={'button'}
-                >
-                    &nbsp;<u>{t('blui:ACTIONS.RESEND')}</u>
+                    <Typography
+                        sx={{ fontSize: 'inherit', textTransform: 'initial' }}
+                        onClick={(): void => onResendVerificationEmail()}
+                        color="primary"
+                        variant={'button'}
+                    >
+                        {' '}
+                        <u>{t('blui:ACTIONS.RESEND')}</u>
+                    </Typography>
                 </Typography>
             </Box>
         </>
