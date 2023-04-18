@@ -16,6 +16,10 @@ export type StepperCardProps = BoxProps & {
     CardProps?: CardPropsType;
     loaderComponent?: ReactNode;
     classes?: StepperCardClasses;
+    slots?: { card?: string };
+    slotProps?: {
+        card?: CardPropsType;
+    };
 };
 
 const useUtilityClasses = (ownerState: StepperCardProps): Record<StepperCardClassKey, string> => {
@@ -56,6 +60,8 @@ export const StepperCard: React.FC<React.PropsWithChildren<StepperCardProps>> = 
         loaderComponent = <Spinner visible={loading} />,
         classes = {},
         className: userClassName,
+        slots = {},
+        slotProps = {},
         ...otherProps
     } = props;
     const { background } = useInjectedUIContext();
@@ -95,7 +101,9 @@ export const StepperCard: React.FC<React.PropsWithChildren<StepperCardProps>> = 
                     ...cardStyles,
                 }}
                 className={cx(defaultClasses.card, classes.card)}
+                slot={slots.card}
                 {...CardProps}
+                {...slotProps.card}
             >
                 {loaderComponent}
                 {children}

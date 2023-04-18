@@ -37,6 +37,9 @@ import Button from '@mui/material/Button';
 | cardStyles | Style overrides for `Card` component |  `SxProps<Theme>`  | no       |    |
 | CardProps | Props to pass to `Card` component |  `CardProps`  | no       |    |
 | loaderComponent | Loader to be displayed  |  `ReactNode`  | no       | `<Spinner />`   |
+| slots | Prop used for each slot in `StepperCard`  |  `{card: string}`  | no      | {}  |
+| slotProps | Props applied to each slot  | `{card: CardProps}`  | no       | {}   |
+
 
 </div>
 
