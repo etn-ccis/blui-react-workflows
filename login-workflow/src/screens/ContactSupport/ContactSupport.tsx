@@ -106,10 +106,11 @@ export const ContactSupport: React.FC<React.PropsWithChildren<ContactSupportProp
         hideContactSupportEmergency = false,
         hideContactSupportTechnicalAssistance = false,
         hideActions = false,
+        showInCard = true,
     } = props;
 
-    return (
-        <BrandedCardContainer>
+    const ContactSupportContent = () => (
+        <>
             {!hideTitle && (
                 <CardHeader
                     title={
@@ -168,6 +169,14 @@ export const ContactSupport: React.FC<React.PropsWithChildren<ContactSupportProp
                     {actions}
                 </CardActions>
             )}
+        </>
+    );
+
+    return showInCard ? (
+        <BrandedCardContainer>
+            <ContactSupportContent />
         </BrandedCardContainer>
+    ) : (
+        <ContactSupportContent />
     );
 };
