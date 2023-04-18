@@ -1,18 +1,32 @@
 import React, { ReactNode } from 'react';
-import Card, { CardProps } from '@mui/material/Card';
+import Card, { CardProps as CardPropsType } from '@mui/material/Card';
 import { SxProps, Theme, useTheme } from '@mui/material/styles';
 import { Spinner } from '../Spinner';
 import defaultBackgroundImage from '../../assets/images/background.svg';
 import { useInjectedUIContext } from '@brightlayer-ui/react-auth-shared';
 import Box, { BoxProps } from '@mui/material/Box';
+import { unstable_composeClasses as composeClasses } from '@mui/base';
+import { getStepperCardUtilityClass, StepperCardClassKey, StepperCardClasses } from './StepperCardClasses';
+import { cx } from '@emotion/css';
 
 export type StepperCardProps = BoxProps & {
     loading?: boolean;
     backgroundImage?: string;
-    sx?: SxProps<Theme>;
     cardStyles?: SxProps<Theme>;
-    cardProps?: CardProps;
+    CardProps?: CardPropsType;
     loaderComponent?: ReactNode;
+    classes?: StepperCardClasses;
+};
+
+const useUtilityClasses = (ownerState: StepperCardProps): Record<StepperCardClassKey, string> => {
+    const { classes } = ownerState;
+
+    const slots = {
+        root: ['root'],
+        card: ['card'],
+    };
+
+    return composeClasses(slots, getStepperCardUtilityClass, classes);
 };
 
 /**
@@ -22,13 +36,13 @@ export type StepperCardProps = BoxProps & {
  *
  * @param backgroundImage will be displayed in the background instead of `defaultBackgroundImage`
  *
- * @param sx will override the styles for StepperCard root
- *
  * @param cardStyles will override the styles for `Card` component
  *
  * @param CardProps will be the props passed to `Card` component
  *
  * @param loaderComponent will be displayed instead of `Spinner`
+ *
+ * @param classes for default style overrides
  *
  * @category Component
  */
@@ -37,14 +51,15 @@ export const StepperCard: React.FC<React.PropsWithChildren<StepperCardProps>> = 
         children,
         loading,
         backgroundImage,
-        sx,
         cardStyles,
-        cardProps,
+        CardProps,
         loaderComponent = <Spinner visible={loading} />,
+        classes = {},
         ...otherProps
     } = props;
     const { background } = useInjectedUIContext();
     const theme = useTheme();
+    const defaultClasses = useUtilityClasses(props);
 
     return (
         <Box
@@ -56,9 +71,9 @@ export const StepperCard: React.FC<React.PropsWithChildren<StepperCardProps>> = 
                 display: 'flex',
                 alignItems: 'center',
                 justifyContent: 'center',
-                ...sx,
             }}
             style={background || {}}
+            className={cx(defaultClasses.root, classes.root)}
             {...otherProps}
         >
             <Card
@@ -78,7 +93,8 @@ export const StepperCard: React.FC<React.PropsWithChildren<StepperCardProps>> = 
                     },
                     ...cardStyles,
                 }}
-                {...cardProps}
+                className={cx(defaultClasses.card, classes.card)}
+                {...CardProps}
             >
                 {loaderComponent}
                 {children}

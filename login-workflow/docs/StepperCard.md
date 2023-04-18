@@ -31,11 +31,32 @@ import Button from '@mui/material/Button';
 
 | Prop Name | Description                    | Type      | Required | Default |
 | --------- | ------------------------------ | --------- | -------- | ------- |
-| loading   | Prop to set `Spinner` visible  |  boolean  | no       | false   |
-| backgroundImage | Prop to set background image |  string  | no       | [defaultBackgroundImage](https://github.com/etn-ccis/blui-react-workflows/blob/master/login-workflow/src/assets/images/background.svg)   |
-| sx | Style overrides for `StepperCard` |  SxProps<Theme>  | no       |    |
-| cardStyles | Style overrides for `Card` component |  SxProps<Theme>  | no       |    |
-| cardProps | Props to pass to `Card` component |  CardProps  | no       |    |
-| loaderComponent | Loader to be displayer  |  ReactNode  | no       | `<Spinner />`   |
+| loading   | Prop to set `Spinner` visible  |  `boolean`  | no       | false   |
+| classes   | Style overrides                | `StepperCardClasses`            | no       |           |
+| backgroundImage | Prop to set background image |  `string`  | no       | [defaultBackgroundImage](https://github.com/etn-ccis/blui-react-workflows/blob/master/login-workflow/src/assets/images/background.svg)   |
+| cardStyles | Style overrides for `Card` component |  `SxProps<Theme>`  | no       |    |
+| CardProps | Props to pass to `Card` component |  `CardProps`  | no       |    |
+| loaderComponent | Loader to be displayed  |  `ReactNode`  | no       | `<Spinner />`   |
 
 </div>
+
+Any other props supplied will be provided to the root element ([`<Box>`](https://mui.com/material-ui/api/box/)).
+
+### Style Overrides
+
+You can override the default styles used by Brightlayer UI by:
+
+-   using the `sx` prop
+-   passing a `classes` prop with keys from the Name column below
+-   using the Global CSS Class in your main stylesheet
+
+<p>For more details on styling options check out our <a href={`https://github.com/etn-ccis/blui-react-component-library/blob/master/docs/src/shared/markdown/StyleOverridesGuide.md`}>Styling Guide</a>.</p>
+
+<Box>
+
+| Name  | Global CSS Class        | Description                         |
+| ----- | ----------------------- | ----------------------------------- |
+| root  | .BluiStepperCard-root  | Styles applied to the root element  |
+| card  | .BluiStepperCard-card  | Styles applied to the card element  |
+
+</Box>
