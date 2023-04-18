@@ -60,7 +60,7 @@ export const StepperCard: React.FC<React.PropsWithChildren<StepperCardProps>> = 
         CardProps,
         slots = {},
         slotProps = {},
-        loaderComponent,
+        loaderComponent = <Spinner visible={loading} component={slots.loader} {...slotProps.loader} />,
         classes = {},
         className: userClassName,
         ...otherProps
@@ -68,7 +68,6 @@ export const StepperCard: React.FC<React.PropsWithChildren<StepperCardProps>> = 
     const { background } = useInjectedUIContext();
     const theme = useTheme();
     const defaultClasses = useUtilityClasses(props);
-    const CardComponent = slots.card ? slots.card : Card;
 
     return (
         <Box
@@ -85,7 +84,7 @@ export const StepperCard: React.FC<React.PropsWithChildren<StepperCardProps>> = 
             className={cx(defaultClasses.root, classes.root, userClassName)}
             {...otherProps}
         >
-            <CardComponent
+            <Card
                 sx={{
                     width: '100%',
                     height: '100%',
@@ -103,18 +102,13 @@ export const StepperCard: React.FC<React.PropsWithChildren<StepperCardProps>> = 
                     ...cardStyles,
                 }}
                 className={cx(defaultClasses.card, classes.card)}
+                component={slots.card}
                 {...CardProps}
                 {...slotProps.card}
             >
-                {loaderComponent ? (
-                    loaderComponent
-                ) : slots.loader ? (
-                    <slots.loader />
-                ) : (
-                    <Spinner visible={loading} {...slotProps.loader} />
-                )}
+                {loaderComponent}
                 {children}
-            </CardComponent>
+            </Card>
         </Box>
     );
 };

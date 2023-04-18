@@ -1,9 +1,9 @@
 import React from 'react';
 import CircularProgress from '@mui/material/CircularProgress';
 import { useTheme } from '@mui/material/styles';
-import Box from '@mui/material/Box';
+import Box, { BoxProps } from '@mui/material/Box';
 
-export type SpinnerProps = {
+export type SpinnerProps = BoxProps & {
     visible?: boolean;
 };
 /**
