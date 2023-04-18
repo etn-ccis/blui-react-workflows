@@ -1,7 +1,7 @@
 import React, { ReactNode } from 'react';
 import Card, { CardProps as CardPropsType } from '@mui/material/Card';
 import { SxProps, Theme, useTheme } from '@mui/material/styles';
-import { Spinner } from '../Spinner';
+import { Spinner, SpinnerProps } from '../Spinner';
 import defaultBackgroundImage from '../../assets/images/background.svg';
 import { useInjectedUIContext } from '@brightlayer-ui/react-auth-shared';
 import Box, { BoxProps } from '@mui/material/Box';
@@ -19,7 +19,7 @@ export type StepperCardProps = BoxProps & {
     slots?: { card?: React.ElementType; loader?: React.ElementType };
     slotProps?: {
         card?: CardPropsType;
-        loader?: React.PropsWithChildren;
+        loader?: SpinnerProps;
     };
 };
 
@@ -58,8 +58,9 @@ export const StepperCard: React.FC<React.PropsWithChildren<StepperCardProps>> = 
         backgroundImage,
         cardStyles,
         CardProps,
+        slots = {},
         slotProps = {},
-        loaderComponent = <Spinner visible={loading} {...slotProps.loader} />,
+        loaderComponent,
         classes = {},
         className: userClassName,
         ...otherProps
@@ -67,6 +68,7 @@ export const StepperCard: React.FC<React.PropsWithChildren<StepperCardProps>> = 
     const { background } = useInjectedUIContext();
     const theme = useTheme();
     const defaultClasses = useUtilityClasses(props);
+    const CardComponent = slots.card ? slots.card : Card;
 
     return (
         <Box
@@ -83,7 +85,7 @@ export const StepperCard: React.FC<React.PropsWithChildren<StepperCardProps>> = 
             className={cx(defaultClasses.root, classes.root, userClassName)}
             {...otherProps}
         >
-            <Card
+            <CardComponent
                 sx={{
                     width: '100%',
                     height: '100%',
@@ -104,9 +106,15 @@ export const StepperCard: React.FC<React.PropsWithChildren<StepperCardProps>> = 
                 {...CardProps}
                 {...slotProps.card}
             >
-                {loaderComponent}
+                {loaderComponent ? (
+                    loaderComponent
+                ) : slots.loader ? (
+                    <slots.loader />
+                ) : (
+                    <Spinner visible={loading} {...slotProps.loader} />
+                )}
                 {children}
-            </Card>
+            </CardComponent>
         </Box>
     );
 };

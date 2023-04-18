@@ -3,7 +3,7 @@ import CircularProgress from '@mui/material/CircularProgress';
 import { useTheme } from '@mui/material/styles';
 import Box from '@mui/material/Box';
 
-type SpinnerProps = {
+export type SpinnerProps = {
     visible?: boolean;
 };
 /**
