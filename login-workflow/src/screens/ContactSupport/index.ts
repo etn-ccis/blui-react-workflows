@@ -1,1 +1,1 @@
-export { ContactSupportContent, ContactSupport } from './ContactSupport';
+export * from './ContactSupport';

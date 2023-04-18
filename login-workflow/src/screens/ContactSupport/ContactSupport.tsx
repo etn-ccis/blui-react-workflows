@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { ReactNode } from 'react';
 import { useLanguageLocale, useInjectedUIContext } from '@brightlayer-ui/react-auth-shared';
 import { useNavigate } from 'react-router-dom';
 import Button from '@mui/material/Button';
@@ -30,39 +30,6 @@ const LinkStyles = (theme: Theme): SxProps<Theme> => ({
  *
  * @category Component
  */
-export const ContactSupportContent: React.FC<React.PropsWithChildren<React.PropsWithChildren>> = () => {
-    const { t } = useLanguageLocale();
-    const theme = useTheme();
-    const { contactPhone, contactEmail } = useInjectedUIContext();
-
-    return (
-        <>
-            <Box sx={{ fontSize: 70, mb: 4, textAlign: 'center' }}>
-                <ChatBubbleOutline fontSize={'inherit'} color={'primary'} />
-            </Box>
-            <Typography variant={'body1'} sx={{ mb: 1 }}>
-                {t('blui:CONTACT_SUPPORT.GENERAL_QUESTIONS')}
-            </Typography>
-            <Typography>
-                {t('blui:CONTACT_SUPPORT.SUPPORT_MESSAGE')}
-                <Box component="a" href={`mailto:${contactEmail}`} sx={LinkStyles(theme)}>
-                    {contactEmail}
-                </Box>
-                .
-            </Typography>
-            <Typography variant={'body1'} sx={{ mt: 4, mb: 1 }}>
-                {t('blui:CONTACT_SUPPORT.EMERGENCY_SUPPORT')}
-            </Typography>
-            <Typography>
-                {t('blui:CONTACT_SUPPORT.TECHNICAL_ASSISTANCE')}
-                <Box component="a" href={`tel:${contactPhone}`} sx={LinkStyles(theme)}>
-                    {contactPhone}
-                </Box>
-                .
-            </Typography>
-        </>
-    );
-};
 
 export type ContactSupportProps = {
     title?: string;
@@ -73,6 +40,22 @@ export type ContactSupportProps = {
     cardHeaderProps?: CardHeaderProps;
     cardContentProps?: CardContentProps;
     cardActionsProps?: CardActionsProps;
+    phoneNumber?: string;
+    emailId?: string;
+    contactSupportQuestion?: string;
+    contactSupportMessage?: string;
+    contactSupportEmergency?: string;
+    contactSupportTechnicalAssistance?: string;
+    contactSupportIcon?: ReactNode;
+    hideTitle?: boolean;
+    hideContactSupportContent?: boolean;
+    hideContactSupportIcon?: boolean;
+    hideContactSupportQuestion?: boolean;
+    hideContactSupportMessage?: boolean;
+    hideContactSupportEmergency?: boolean;
+    hideContactSupportTechnicalAssistance?: boolean;
+    hideActions?: boolean;
+    showInCard?: boolean;
 };
 
 /**
@@ -83,10 +66,12 @@ export type ContactSupportProps = {
  * @category Component
  */
 
-export const ContactSupport: React.FC<ContactSupportProps> = (props) => {
+export const ContactSupport: React.FC<React.PropsWithChildren<ContactSupportProps>> = (props) => {
     const { t } = useLanguageLocale();
     const navigate = useNavigate();
     const theme = useTheme();
+    const { contactPhone, contactEmail } = useInjectedUIContext();
+
     const {
         title = t('blui:USER_MENU.CONTACT_US'),
         titleProps,
@@ -102,30 +87,87 @@ export const ContactSupport: React.FC<ContactSupportProps> = (props) => {
             </Button>
         ),
         divider = true,
-        contactSupportContent = <ContactSupportContent />,
+        contactSupportContent,
         cardHeaderProps,
         cardContentProps,
         cardActionsProps,
+        phoneNumber = contactPhone,
+        emailId = contactEmail,
+        contactSupportQuestion = t('blui:CONTACT_SUPPORT.GENERAL_QUESTIONS'),
+        contactSupportMessage = t('blui:CONTACT_SUPPORT.SUPPORT_MESSAGE'),
+        contactSupportEmergency = t('blui:CONTACT_SUPPORT.EMERGENCY_SUPPORT'),
+        contactSupportTechnicalAssistance = t('blui:CONTACT_SUPPORT.TECHNICAL_ASSISTANCE'),
+        contactSupportIcon = <ChatBubbleOutline fontSize={'inherit'} color={'primary'} />,
+        hideTitle = false,
+        hideContactSupportContent = false,
+        hideContactSupportIcon = false,
+        hideContactSupportQuestion = false,
+        hideContactSupportMessage = false,
+        hideContactSupportEmergency = false,
+        hideContactSupportTechnicalAssistance = false,
+        hideActions = false,
     } = props;
 
     return (
         <BrandedCardContainer>
-            <CardHeader
-                title={
-                    <Typography variant={'h6'} {...titleProps}>
-                        {title}
-                    </Typography>
-                }
-                sx={DialogTitleStyles(theme)}
-                {...cardHeaderProps}
-            />
-            <CardContent sx={DialogContentStyles(theme)} {...cardContentProps}>
-                {contactSupportContent}
-            </CardContent>
+            {!hideTitle && (
+                <CardHeader
+                    title={
+                        <Typography variant={'h6'} {...titleProps}>
+                            {title}
+                        </Typography>
+                    }
+                    sx={DialogTitleStyles(theme)}
+                    {...cardHeaderProps}
+                />
+            )}
+            {!hideContactSupportContent && (
+                <CardContent sx={DialogContentStyles(theme)} {...cardContentProps}>
+                    {contactSupportContent ? (
+                        contactSupportContent
+                    ) : (
+                        <>
+                            {!hideContactSupportIcon && (
+                                <Box sx={{ fontSize: 70, mb: 4, textAlign: 'center' }}>{contactSupportIcon}</Box>
+                            )}
+                            {!hideContactSupportQuestion && (
+                                <Typography variant={'body1'} sx={{ mb: 1 }}>
+                                    {contactSupportQuestion}
+                                </Typography>
+                            )}
+                            {!hideContactSupportMessage && (
+                                <Typography>
+                                    {contactSupportMessage}
+                                    <Box component="a" href={`mailto:${emailId}`} sx={LinkStyles(theme)}>
+                                        {emailId}
+                                    </Box>
+                                    .
+                                </Typography>
+                            )}
+                            {!hideContactSupportEmergency && (
+                                <Typography variant={'body1'} sx={{ mt: 4, mb: 1 }}>
+                                    {contactSupportEmergency}
+                                </Typography>
+                            )}
+                            {!hideContactSupportTechnicalAssistance && (
+                                <Typography>
+                                    {contactSupportTechnicalAssistance}
+                                    <Box component="a" href={`tel:${phoneNumber}`} sx={LinkStyles(theme)}>
+                                        {phoneNumber}
+                                    </Box>
+                                    .
+                                </Typography>
+                            )}
+                        </>
+                    )}
+                </CardContent>
+            )}
             {divider ? <Divider /> : undefined}
-            <CardActions sx={DialogActionsStyles(theme)} {...cardActionsProps}>
-                {actions}
-            </CardActions>
+            {!hideActions && (
+                <CardActions sx={DialogActionsStyles(theme)} {...cardActionsProps}>
+                    {actions}
+                </CardActions>
+            )}
         </BrandedCardContainer>
     );
 };
