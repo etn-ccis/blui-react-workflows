@@ -55,7 +55,7 @@ const useUtilityClasses = (ownerState: BrandedCardContainerProps): Record<Brande
  *
  * @category Component
  */
-export const BrandedCardContainer: React.FC<React.PropsWithChildren<BrandedCardContainerProps>> = (props) => {
+export const BrandedCardContainer: React.FC<BrandedCardContainerProps> = (props) => {
     const {
         children,
         loading,
