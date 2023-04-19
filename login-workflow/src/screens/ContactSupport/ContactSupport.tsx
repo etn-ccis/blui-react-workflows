@@ -10,9 +10,9 @@ import Typography, { TypographyProps } from '@mui/material/Typography';
 import { useTheme } from '@mui/material/styles';
 import { unstable_composeClasses as composeClasses } from '@mui/base';
 import { cx } from '@emotion/css';
+import ChatBubbleOutline from '@mui/icons-material/ChatBubbleOutline';
 import { useLanguageLocale, useInjectedUIContext } from '@brightlayer-ui/react-auth-shared';
 import { BrandedCardContainer } from '../../components';
-import ChatBubbleOutline from '@mui/icons-material/ChatBubbleOutline';
 import { DialogButtonStyles, DialogActionsStyles, DialogContentStyles, DialogTitleStyles } from '../../styles';
 import { ContactSupportClassKey, getContactSupportUtilityClass, ContactSupportClasses } from './ContactSupportClasses';
 
@@ -52,6 +52,11 @@ export type ContactSupportProps = {
     hideActions?: boolean;
     showInCard?: boolean;
     classes?: ContactSupportClasses;
+    slots?: { cardHeader?: React.ElementType; cardContent?: React.ElementType };
+    slotProps?: {
+        cardHeader?: CardHeaderPropsType;
+        cardContent?: CardContentPropsType;
+    };
 };
 
 const useUtilityClasses = (ownerState: ContactSupportProps): Record<ContactSupportClassKey, string> => {
@@ -117,9 +122,11 @@ export const ContactSupport: React.FC<React.PropsWithChildren<ContactSupportProp
         hideActions = false,
         showInCard = true,
         classes = {},
+        slots = {},
+        slotProps = {},
     } = props;
 
-    const ContactSupportContentRenderer = () => (
+    const ContactSupportContentRenderer = (): JSX.Element => (
         <>
             {!hideTitle && (
                 <CardHeader
@@ -130,14 +137,18 @@ export const ContactSupport: React.FC<React.PropsWithChildren<ContactSupportProp
                     }
                     sx={DialogTitleStyles(theme)}
                     className={cx(defaultClasses.cardHeader, classes.cardHeader)}
+                    component={slots.cardHeader}
                     {...CardHeaderProps}
+                    {...slotProps.cardHeader}
                 />
             )}
             {!hideContactSupportContent && (
                 <CardContent
                     sx={DialogContentStyles(theme)}
                     className={cx(defaultClasses.cardContent, classes.cardContent)}
+                    component={slots.cardContent}
                     {...CardContentProps}
+                    {...slotProps.cardContent}
                 >
                     {ContactSupportContent ? (
                         ContactSupportContent
