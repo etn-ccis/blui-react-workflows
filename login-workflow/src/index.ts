@@ -14,3 +14,5 @@ export { ContactSupportContent } from './screens/ContactSupport';
 export * from '@brightlayer-ui/react-auth-shared';
 
 export * from './components';
+
+export * from './screens';
