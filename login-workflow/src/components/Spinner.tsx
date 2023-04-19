@@ -1,9 +1,9 @@
 import React from 'react';
 import CircularProgress from '@mui/material/CircularProgress';
 import { useTheme } from '@mui/material/styles';
-import Box from '@mui/material/Box';
+import Box, { BoxProps } from '@mui/material/Box';
 
-type SpinnerProps = {
+export type SpinnerProps = BoxProps & {
     visible?: boolean;
 };
 /**
@@ -13,8 +13,8 @@ type SpinnerProps = {
  *
  * @category Component
  */
-export const Spinner: React.FC<React.PropsWithChildren<React.PropsWithChildren<SpinnerProps>>> = (props) => {
-    const { visible } = props;
+export const Spinner: React.FC<SpinnerProps> = (props) => {
+    const { visible, ...otherProps } = props;
     const theme = useTheme();
 
     return visible ? (
@@ -32,6 +32,7 @@ export const Spinner: React.FC<React.PropsWithChildren<React.PropsWithChildren<S
                 justifyContent: 'center',
                 flexDirection: 'column',
             }}
+            {...otherProps}
         >
             <CircularProgress size={70} variant={'indeterminate'} />
         </Box>

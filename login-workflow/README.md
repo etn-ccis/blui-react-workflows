@@ -111,3 +111,7 @@ Brightlayer UI Login Workflow will work with any modern browser. For details ref
 ## Customizing the Workflow
 
 The workflow allows for some customizations. For details refer to our [Customization](https://github.com/etn-ccis/blui-react-workflows/blob/master/login-workflow/docs/customization.md) documentation.
+
+## Components
+
+- [Branded Card Container](`https://github.com/etn-ccis/blui-react-workflows/blob/master/login-workflow/docs/BrandedCardContainer.md`)

@@ -22,7 +22,7 @@ describe('Language spanish', () => {
         cy.contains('Verificar correo electrónico');
         cy.get('#code-label').should('contain', 'Código de verificación');
         cy.get('#code').click().type('123');
-        cy.contains('Reenviar correo electrónico de verificación').should('be.enabled').click();
+        cy.contains('Enviar de nuevo').click();
         cy.contains('Siguiente').should('be.enabled').click();
         cy.contains('Crear contraseña');
         cy.get('#password').click().type('Test321!');

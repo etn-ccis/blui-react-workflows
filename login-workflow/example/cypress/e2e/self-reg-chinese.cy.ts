@@ -1,7 +1,7 @@
 /// <reference types="cypress" />
 /// <reference types="cypress-localstorage-commands" />
 
-describe('Language spanish', () => {
+describe('Language chinese', () => {
     beforeEach(() => {
         cy.visit('http://localhost:3000/custom-login-route');
     });
@@ -20,7 +20,7 @@ describe('Language spanish', () => {
         cy.contains('验证邮箱');
         cy.get('#code-label').should('contain', '验证码');
         cy.get('#code').click().type('123');
-        cy.contains('重新发送验证邮件').should('be.enabled').click();
+        cy.contains('重新发送').click();
         cy.contains('下一步').should('be.enabled').click();
         cy.contains('创建密码');
         cy.get('#password').click().type('Test321!');

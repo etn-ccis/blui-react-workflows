@@ -160,11 +160,12 @@ describe('ChangePasswordForm tests', () => {
     it('renders without crashing', () => {
         const authUIActions = jest.fn();
         const registrationUIActions = jest.fn();
+        const ref = { current: {} };
 
         render(
             <ThemeProvider theme={theme}>
                 <AuthUIContextProvider authActions={authUIActions} registrationActions={registrationUIActions}>
-                    <ChangePasswordForm onPasswordChange={(): void => {}} />
+                    <ChangePasswordForm onPasswordChange={(): void => {}} confirmRef={ref} />
                 </AuthUIContextProvider>
             </ThemeProvider>
         );

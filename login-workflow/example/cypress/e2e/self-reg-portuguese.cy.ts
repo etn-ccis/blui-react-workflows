@@ -1,7 +1,7 @@
 /// <reference types="cypress" />
 /// <reference types="cypress-localstorage-commands" />
 
-describe('Language spanish', () => {
+describe('Language portuguese', () => {
     beforeEach(() => {
         cy.visit('http://localhost:3000/custom-login-route');
     });
@@ -20,7 +20,7 @@ describe('Language spanish', () => {
         cy.contains('Verificar E-mail');
         cy.get('#code-label').should('contain', 'Código de verificação');
         cy.get('#code').click().type('123');
-        cy.contains('Reenviar e-mail').should('be.enabled').click();
+        cy.contains('Envie novamente').click();
         cy.contains('Próximo').should('be.enabled').click();
         cy.contains('Criar palavra-passe');
         cy.get('#password').click().type('Test321!');
