@@ -115,3 +115,4 @@ The workflow allows for some customizations. For details refer to our [Customiza
 ## Components
 
 - [Branded Card Container](`https://github.com/etn-ccis/blui-react-workflows/blob/master/login-workflow/docs/BrandedCardContainer.md`)
+- [Contact Support](`https://github.com/etn-ccis/blui-react-workflows/blob/master/login-workflow/docs/ContactSupport.md`)
