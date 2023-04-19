@@ -7,12 +7,12 @@ import CardActions, { CardActionsProps as CardActionsPropsType } from '@mui/mate
 import CardContent, { CardContentProps as CardContentPropsType } from '@mui/material/CardContent';
 import CardHeader, { CardHeaderProps as CardHeaderPropsType } from '@mui/material/CardHeader';
 import Typography, { TypographyProps } from '@mui/material/Typography';
-import { useTheme } from '@mui/material/styles';
+import { SxProps, Theme, useTheme } from '@mui/material/styles';
 import { unstable_composeClasses as composeClasses } from '@mui/base';
 import { cx } from '@emotion/css';
 import ChatBubbleOutline from '@mui/icons-material/ChatBubbleOutline';
 import { useLanguageLocale, useInjectedUIContext } from '@brightlayer-ui/react-auth-shared';
-import { BrandedCardContainer } from '../../components';
+import { BrandedCardContainer, BrandedCardContainerProps as BrandedCardContainerPropsType } from '../../components';
 import { DialogButtonStyles, DialogActionsStyles, DialogContentStyles, DialogTitleStyles } from '../../styles';
 import { ContactSupportClassKey, getContactSupportUtilityClass, ContactSupportClasses } from './ContactSupportClasses';
 
@@ -51,6 +51,8 @@ export type ContactSupportProps = {
     hideContactSupportTechnicalAssistance?: boolean;
     hideActions?: boolean;
     showInCard?: boolean;
+    BrandedCardContainerProps?: BrandedCardContainerPropsType;
+    BrandedCardContainerStyles?: SxProps<Theme>;
     classes?: ContactSupportClasses;
     slots?: { cardHeader?: React.ElementType; cardContent?: React.ElementType };
     slotProps?: {
@@ -121,6 +123,8 @@ export const ContactSupport: React.FC<React.PropsWithChildren<ContactSupportProp
         hideContactSupportTechnicalAssistance = false,
         hideActions = false,
         showInCard = true,
+        BrandedCardContainerProps,
+        BrandedCardContainerStyles,
         classes = {},
         slots = {},
         slotProps = {},
@@ -203,7 +207,7 @@ export const ContactSupport: React.FC<React.PropsWithChildren<ContactSupportProp
     );
 
     return showInCard ? (
-        <BrandedCardContainer>
+        <BrandedCardContainer sx={{ ...BrandedCardContainerStyles }} {...BrandedCardContainerProps}>
             <ContactSupportContentRenderer />
         </BrandedCardContainer>
     ) : (
