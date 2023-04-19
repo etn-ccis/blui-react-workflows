@@ -189,7 +189,7 @@ export const ContactSupport: React.FC<React.PropsWithChildren<ContactSupportProp
                     )}
                 </CardContent>
             )}
-            {divider ? <Divider /> : undefined}
+            {divider && <Divider />}
             {!hideActions && (
                 <CardActions
                     sx={DialogActionsStyles(theme)}
