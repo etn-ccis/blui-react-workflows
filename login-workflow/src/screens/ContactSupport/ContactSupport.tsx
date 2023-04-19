@@ -1,20 +1,20 @@
 import React, { ReactNode } from 'react';
-import { useLanguageLocale, useInjectedUIContext } from '@brightlayer-ui/react-auth-shared';
 import { useNavigate } from 'react-router-dom';
 import Button from '@mui/material/Button';
-import CardActions, { CardActionsProps } from '@mui/material/CardActions';
-import CardContent, { CardContentProps } from '@mui/material/CardContent';
-import CardHeader, { CardHeaderProps as CardHeaderPropsType } from '@mui/material/CardHeader';
+import Box from '@mui/material/Box';
 import Divider from '@mui/material/Divider';
+import CardActions, { CardActionsProps as CardActionsPropsType } from '@mui/material/CardActions';
+import CardContent, { CardContentProps as CardContentPropsType } from '@mui/material/CardContent';
+import CardHeader, { CardHeaderProps as CardHeaderPropsType } from '@mui/material/CardHeader';
 import Typography, { TypographyProps } from '@mui/material/Typography';
 import { useTheme } from '@mui/material/styles';
+import { unstable_composeClasses as composeClasses } from '@mui/base';
+import { cx } from '@emotion/css';
+import { useLanguageLocale, useInjectedUIContext } from '@brightlayer-ui/react-auth-shared';
 import { BrandedCardContainer } from '../../components';
 import ChatBubbleOutline from '@mui/icons-material/ChatBubbleOutline';
 import { DialogButtonStyles, DialogActionsStyles, DialogContentStyles, DialogTitleStyles } from '../../styles';
-import Box from '@mui/material/Box';
-import { unstable_composeClasses as composeClasses } from '@mui/base';
 import { ContactSupportClassKey, getContactSupportUtilityClass, ContactSupportClasses } from './ContactSupportClasses';
-import { cx } from '@emotion/css';
 
 const LinkStyles = {
     fontWeight: 600,
@@ -28,20 +28,20 @@ const LinkStyles = {
 
 export type ContactSupportProps = {
     title?: string;
-    titleProps?: TypographyProps;
-    actions?: JSX.Element | JSX.Element[];
+    TitleProps?: TypographyProps;
+    Actions?: JSX.Element | JSX.Element[];
     divider?: boolean;
-    contactSupportContent?: JSX.Element;
+    ContactSupportContent?: JSX.Element;
     CardHeaderProps?: CardHeaderPropsType;
-    cardContentProps?: CardContentProps;
-    cardActionsProps?: CardActionsProps;
+    CardContentProps?: CardContentPropsType;
+    CardActionsProps?: CardActionsPropsType;
     phoneNumber?: string;
     emailId?: string;
     contactSupportQuestion?: string;
     contactSupportMessage?: string;
     contactSupportEmergency?: string;
     contactSupportTechnicalAssistance?: string;
-    contactSupportIcon?: ReactNode;
+    ContactSupportIcon?: ReactNode;
     hideTitle?: boolean;
     hideContactSupportContent?: boolean;
     hideContactSupportIcon?: boolean;
@@ -83,8 +83,8 @@ export const ContactSupport: React.FC<React.PropsWithChildren<ContactSupportProp
 
     const {
         title = t('blui:USER_MENU.CONTACT_US'),
-        titleProps,
-        actions = (
+        TitleProps,
+        Actions = (
             <Button
                 variant="contained"
                 color="primary"
@@ -96,17 +96,17 @@ export const ContactSupport: React.FC<React.PropsWithChildren<ContactSupportProp
             </Button>
         ),
         divider = true,
-        contactSupportContent,
+        ContactSupportContent,
         CardHeaderProps,
-        cardContentProps,
-        cardActionsProps,
+        CardContentProps,
+        CardActionsProps,
         phoneNumber = contactPhone,
         emailId = contactEmail,
         contactSupportQuestion = t('blui:CONTACT_SUPPORT.GENERAL_QUESTIONS'),
         contactSupportMessage = t('blui:CONTACT_SUPPORT.SUPPORT_MESSAGE'),
         contactSupportEmergency = t('blui:CONTACT_SUPPORT.EMERGENCY_SUPPORT'),
         contactSupportTechnicalAssistance = t('blui:CONTACT_SUPPORT.TECHNICAL_ASSISTANCE'),
-        contactSupportIcon = <ChatBubbleOutline fontSize={'inherit'} color={'primary'} />,
+        ContactSupportIcon = <ChatBubbleOutline fontSize={'inherit'} color={'primary'} />,
         hideTitle = false,
         hideContactSupportContent = false,
         hideContactSupportIcon = false,
@@ -119,12 +119,12 @@ export const ContactSupport: React.FC<React.PropsWithChildren<ContactSupportProp
         classes = {},
     } = props;
 
-    const ContactSupportContent = () => (
+    const ContactSupportContentRenderer = () => (
         <>
             {!hideTitle && (
                 <CardHeader
                     title={
-                        <Typography variant={'h6'} {...titleProps}>
+                        <Typography variant={'h6'} {...TitleProps}>
                             {title}
                         </Typography>
                     }
@@ -137,14 +137,14 @@ export const ContactSupport: React.FC<React.PropsWithChildren<ContactSupportProp
                 <CardContent
                     sx={DialogContentStyles(theme)}
                     className={cx(defaultClasses.cardContent, classes.cardContent)}
-                    {...cardContentProps}
+                    {...CardContentProps}
                 >
-                    {contactSupportContent ? (
-                        contactSupportContent
+                    {ContactSupportContent ? (
+                        ContactSupportContent
                     ) : (
                         <>
                             {!hideContactSupportIcon && (
-                                <Box sx={{ fontSize: 70, mb: 4, textAlign: 'center' }}>{contactSupportIcon}</Box>
+                                <Box sx={{ fontSize: 70, mb: 4, textAlign: 'center' }}>{ContactSupportIcon}</Box>
                             )}
                             {!hideContactSupportQuestion && (
                                 <Typography variant={'body1'} sx={{ mb: 1 }}>
@@ -183,9 +183,9 @@ export const ContactSupport: React.FC<React.PropsWithChildren<ContactSupportProp
                 <CardActions
                     sx={DialogActionsStyles(theme)}
                     className={cx(defaultClasses.cardActions, classes.cardActions)}
-                    {...cardActionsProps}
+                    {...CardActionsProps}
                 >
-                    {actions}
+                    {Actions}
                 </CardActions>
             )}
         </>
@@ -193,9 +193,9 @@ export const ContactSupport: React.FC<React.PropsWithChildren<ContactSupportProp
 
     return showInCard ? (
         <BrandedCardContainer>
-            <ContactSupportContent />
+            <ContactSupportContentRenderer />
         </BrandedCardContainer>
     ) : (
-        <ContactSupportContent />
+        <ContactSupportContentRenderer />
     );
 };
