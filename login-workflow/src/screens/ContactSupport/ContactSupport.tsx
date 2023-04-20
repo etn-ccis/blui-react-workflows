@@ -26,6 +26,17 @@ const LinkStyles = {
     },
 };
 
+export type ContactSupportHiddenElements = {
+    title?: boolean;
+    contactSupportContent?: boolean;
+    contactSupportIcon?: boolean;
+    contactSupportQuestion?: boolean;
+    contactSupportMessage?: boolean;
+    contactSupportEmergency?: boolean;
+    contactSupportTechnicalAssistance?: boolean;
+    actions?: boolean;
+};
+
 export type ContactSupportProps = {
     title?: string;
     TitleProps?: TypographyProps;
@@ -42,17 +53,10 @@ export type ContactSupportProps = {
     contactSupportEmergency?: string;
     contactSupportTechnicalAssistance?: string;
     ContactSupportIcon?: ReactNode;
-    hideTitle?: boolean;
-    hideContactSupportContent?: boolean;
-    hideContactSupportIcon?: boolean;
-    hideContactSupportQuestion?: boolean;
-    hideContactSupportMessage?: boolean;
-    hideContactSupportEmergency?: boolean;
-    hideContactSupportTechnicalAssistance?: boolean;
-    hideActions?: boolean;
     showInCard?: boolean;
     BrandedCardContainerProps?: BrandedCardContainerPropsType;
     BrandedCardContainerStyles?: SxProps<Theme>;
+    hiddenElements?: ContactSupportHiddenElements;
     classes?: ContactSupportClasses;
     slots?: { cardHeader?: React.ElementType; cardContent?: React.ElementType };
     slotProps?: {
@@ -114,14 +118,7 @@ export const ContactSupport: React.FC<React.PropsWithChildren<ContactSupportProp
         contactSupportEmergency = t('blui:CONTACT_SUPPORT.EMERGENCY_SUPPORT'),
         contactSupportTechnicalAssistance = t('blui:CONTACT_SUPPORT.TECHNICAL_ASSISTANCE'),
         ContactSupportIcon = <ChatBubbleOutline fontSize={'inherit'} color={'primary'} />,
-        hideTitle = false,
-        hideContactSupportContent = false,
-        hideContactSupportIcon = false,
-        hideContactSupportQuestion = false,
-        hideContactSupportMessage = false,
-        hideContactSupportEmergency = false,
-        hideContactSupportTechnicalAssistance = false,
-        hideActions = false,
+        hiddenElements = {},
         showInCard = true,
         BrandedCardContainerProps,
         BrandedCardContainerStyles,
@@ -132,7 +129,7 @@ export const ContactSupport: React.FC<React.PropsWithChildren<ContactSupportProp
 
     const ContactSupportContentRenderer = (): JSX.Element => (
         <>
-            {!hideTitle && (
+            {!hiddenElements.title && (
                 <CardHeader
                     title={
                         <Typography variant={'h6'} {...TitleProps}>
@@ -146,7 +143,7 @@ export const ContactSupport: React.FC<React.PropsWithChildren<ContactSupportProp
                     {...slotProps.cardHeader}
                 />
             )}
-            {!hideContactSupportContent && (
+            {!hiddenElements.contactSupportContent && (
                 <CardContent
                     sx={DialogContentStyles(theme)}
                     className={cx(defaultClasses.cardContent, classes.cardContent)}
@@ -158,15 +155,15 @@ export const ContactSupport: React.FC<React.PropsWithChildren<ContactSupportProp
                         ContactSupportContent
                     ) : (
                         <>
-                            {!hideContactSupportIcon && (
+                            {!hiddenElements.contactSupportIcon && (
                                 <Box sx={{ fontSize: 70, mb: 4, textAlign: 'center' }}>{ContactSupportIcon}</Box>
                             )}
-                            {!hideContactSupportQuestion && (
+                            {!hiddenElements.contactSupportQuestion && (
                                 <Typography variant={'body1'} sx={{ mb: 1 }}>
                                     {contactSupportQuestion}
                                 </Typography>
                             )}
-                            {!hideContactSupportMessage && (
+                            {!hiddenElements.contactSupportMessage && (
                                 <Typography>
                                     {contactSupportMessage}
                                     <Box component="a" href={`mailto:${emailId}`} sx={LinkStyles}>
@@ -175,12 +172,12 @@ export const ContactSupport: React.FC<React.PropsWithChildren<ContactSupportProp
                                     .
                                 </Typography>
                             )}
-                            {!hideContactSupportEmergency && (
+                            {!hiddenElements.contactSupportEmergency && (
                                 <Typography variant={'body1'} sx={{ mt: 4, mb: 1 }}>
                                     {contactSupportEmergency}
                                 </Typography>
                             )}
-                            {!hideContactSupportTechnicalAssistance && (
+                            {!hiddenElements.contactSupportTechnicalAssistance && (
                                 <Typography>
                                     {contactSupportTechnicalAssistance}
                                     <Box component="a" href={`tel:${phoneNumber}`} sx={LinkStyles}>
@@ -194,7 +191,7 @@ export const ContactSupport: React.FC<React.PropsWithChildren<ContactSupportProp
                 </CardContent>
             )}
             {divider && <Divider />}
-            {!hideActions && (
+            {!hiddenElements.actions && (
                 <CardActions
                     sx={DialogActionsStyles(theme)}
                     className={cx(defaultClasses.cardActions, classes.cardActions)}
