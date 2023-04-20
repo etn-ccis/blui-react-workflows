@@ -26,6 +26,7 @@ import { ContactSupport } from '@brightlayer-ui/react-auth-workflow';
 | CardHeaderProps                       | Props to pass to `CardHeader`                             | `CardHeaderProps`                                                 | no       |                                                                               |
 | CardContentProps                      | Props to pass to `CardContent`                            | `CardContentProps`                                                | no       |                                                                               |
 | CardActionsProps                      | Props to pass to `CardActions`                            | `CardActionsProps`                                                | no       |                                                                               |
+| BrandedCardContainerProps             | Props to pass to `BrandedCardContainer`                   | `BrandedCardContainerProps`                                       | no       |                                                                               |
 | phoneNumber                           | The text to override contact phone number                 | `string`                                                          | no       | "1-800-123-4567"                                                              |
 | emailId                               | The text to override contact email id                     | `string`                                                          | no       | "something@email.com"                                                         |
 | contactSupportQuestion                | The text to override contact support question             | `string`                                                          | no       | "General Questions"                                                           |
@@ -33,20 +34,50 @@ import { ContactSupport } from '@brightlayer-ui/react-auth-workflow';
 | contactSupportEmergency               | The text to override contact support emergency support    | `string`                                                          | no       | "Emergency Support"                                                           |
 | contactSupportTechnicalAssistance     | The text to override contact support technical assistance | `string`                                                          | no       | "For technical support, please call 1-800-123-4567."                          |
 | ContactSupportIcon                    | A component to render the icon                            | `ReactNode`                                                       | no       | `<ChatBubbleOutline />`                                                       |
-| hideTitle                             | Prop to hide `title`                                      | `boolean`                                                         | no       | `false`                                                                       |
-| hideContactSupportContent             | Prop to hide `ContactSupportContent`                      | `boolean`                                                         | no       | `false`                                                                       |
-| hideContactSupportIcon                | Prop to hide `ContactSupportIcon`                         | `boolean`                                                         | no       | `false`                                                                       |
-| hideContactSupportQuestion            | Prop to hide `contactSupportQuestion`                     | `boolean`                                                         | no       | `false`                                                                       |
-| hideContactSupportMessage             | Prop to hide `contactSupportMessage`                      | `boolean`                                                         | no       | `false`                                                                       |
-| hideContactSupportEmergency           | Prop to hide `contactSupportEmergency`                    | `boolean`                                                         | no       | `false`                                                                       |
-| hideContactSupportTechnicalAssistance | Prop to hide `contactSupportTechnicalAssistance`          | `boolean`                                                         | no       | `false`                                                                       |
-| hideActions                           | Prop to hide `Actions`                                    | `boolean`                                                         | no       | `false`                                                                       |
+| hiddenElements                        | Props to hide various elements of the component           | `ContactSupportHiddenElements`                                    | no       | {}                                                                            |
 | showInCard                            | Prop to wrap `ContactSupport` in `BrandedCardContainer`   | `boolean`                                                         | no       | `true`                                                                        |
 | classes                               | Style overrides                                           | `ContactSupportClasses`                                           | no       | {}                                                                            |
 | slots                                 | Prop used for each slot in `ContactSupport`               | `{cardHeader: React.ElementType; cardContent: React.ElementType}` | no       | {}                                                                            |
 | slotProps                             | Props applied to each slot                                | `{cardHeader: CardHeaderProps; cardContent: CardContentProps}`    | no       | {}                                                                            |
 
 </div>
+
+### ContactSupportHiddenElements
+
+ContactSupportHiddenElements is a prop used in the ContactSupport component to control the visibility of various elements within the component. To use ContactSupportHiddenElements, simply pass an object with the keys corresponding to the elements you want to hide set to true. If a key is not present or is set to false, the corresponding element will be visible.
+
+#### Available Keys
+
+The following keys can be used within the ContactSupportHiddenElements object:
+
+| Key Name                            | Description                                                             |
+| ----------------------------------- | ----------------------------------------------------------------------- |
+| `title`                             | Hides the title of the contact support component.                       |
+| `contactSupportContent`             | Hides the main content of the contact support component.                |
+| `contactSupportIcon`                | Hides the contact support icon.                                         |
+| `contactSupportQuestion`            | Hides the general questions text.                                       |
+| `contactSupportMessage`             | Hides the contact support message.                                      |
+| `contactSupportEmergency`           | Hides the emergency support text.                                       |
+| `contactSupportTechnicalAssistance` | Hides the technical assistance text.                                    |
+| `actions`                           | Hides the actions (e.g., buttons) within the contact support component. |
+
+#### Example
+
+Here's an example of how to use the ContactSupportHiddenElements prop to hide the title and actions in the ContactSupport component:
+
+```import { ContactSupport } from '...';
+
+const App = () => (
+    <ContactSupport
+      hiddenElements={{
+        title: true,
+        actions: true
+      }}
+    />
+);
+```
+
+In this example, the ContactSupport component will be rendered without the title and actions (e.g., buttons). The other elements will remain visible as their corresponding keys are not set to true in the hiddenElements object.
 
 ### Style Overrides
 
@@ -65,6 +96,5 @@ You can override the default styles used by Brightlayer UI by:
 | cardHeader  | .BluiContactSupport-cardHeader  | Styles applied to the card header element   |
 | cardContent | .BluiContactSupport-cardContent | Styles applied to the card content element  |
 | cardActions | .BluiContactSupport-cardActions | Styles applied to the card actions element  |
-
 
 </Box>

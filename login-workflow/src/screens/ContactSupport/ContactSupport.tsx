@@ -7,7 +7,7 @@ import CardActions, { CardActionsProps as CardActionsPropsType } from '@mui/mate
 import CardContent, { CardContentProps as CardContentPropsType } from '@mui/material/CardContent';
 import CardHeader, { CardHeaderProps as CardHeaderPropsType } from '@mui/material/CardHeader';
 import Typography, { TypographyProps } from '@mui/material/Typography';
-import { SxProps, Theme, useTheme } from '@mui/material/styles';
+import { useTheme } from '@mui/material/styles';
 import { unstable_composeClasses as composeClasses } from '@mui/base';
 import { cx } from '@emotion/css';
 import ChatBubbleOutline from '@mui/icons-material/ChatBubbleOutline';
@@ -55,7 +55,6 @@ export type ContactSupportProps = {
     ContactSupportIcon?: ReactNode;
     showInCard?: boolean;
     BrandedCardContainerProps?: BrandedCardContainerPropsType;
-    BrandedCardContainerStyles?: SxProps<Theme>;
     hiddenElements?: ContactSupportHiddenElements;
     classes?: ContactSupportClasses;
     slots?: { cardHeader?: React.ElementType; cardContent?: React.ElementType };
@@ -121,7 +120,6 @@ export const ContactSupport: React.FC<React.PropsWithChildren<ContactSupportProp
         hiddenElements = {},
         showInCard = true,
         BrandedCardContainerProps,
-        BrandedCardContainerStyles,
         classes = {},
         slots = {},
         slotProps = {},
@@ -204,7 +202,7 @@ export const ContactSupport: React.FC<React.PropsWithChildren<ContactSupportProp
     );
 
     return showInCard ? (
-        <BrandedCardContainer sx={{ ...BrandedCardContainerStyles }} {...BrandedCardContainerProps}>
+        <BrandedCardContainer {...BrandedCardContainerProps}>
             <ContactSupportContentRenderer />
         </BrandedCardContainer>
     ) : (
