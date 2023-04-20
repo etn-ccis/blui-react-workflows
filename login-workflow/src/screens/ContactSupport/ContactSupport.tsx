@@ -77,9 +77,50 @@ const useUtilityClasses = (ownerState: ContactSupportProps): Record<ContactSuppo
 };
 
 /**
- * Component renders a screen with contact information for
- * support with the application. Contact information is pulled
- * from the context passed into the workflow.
+ * Component renders a screen with contact information for support with the application.
+ * Contact information is pulled from the context passed into the workflow.
+ *
+ * @param title to display in the header
+ *
+ * @param TitleProps Props to pass to title
+ *
+ * @param Actions to display inside `CardActions`
+ *
+ * @param divider which appears above `Actions`
+ *
+ * @param ContactSupportContent to display the contact support content
+ *
+ * @param CardHeaderProps Props to pass to `CardHeader`
+ *
+ * @param CardContentProps Props to pass to `CardContent`
+ *
+ * @param CardActionsProps Props to pass to `CardActions`
+ *
+ * @param BrandedCardContainerProps Props to pass to `BrandedCardContainer`
+ *
+ * @param phoneNumber to override contact phone number
+ *
+ * @param emailId to override contact email id
+ *
+ * @param contactSupportQuestion to override contact support question
+ *
+ * @param contactSupportMessage to override contact support message
+ *
+ * @param contactSupportEmergency to override contact support emergency support
+ *
+ * @param contactSupportTechnicalAssistance to override contact support technical assistance
+ *
+ * @param ContactSupportIcon to render the icon
+ *
+ * @param hiddenElements to hide various elements of the component
+ *
+ * @param showInCard to wrap `ContactSupport` in `BrandedCardContainer`
+ *
+ * @param classes for default style overrides
+ *
+ * @param slots used for each slot in `ContactSupport`
+ *
+ * @param slotProps applied to each slot
  *
  * @category Component
  */
