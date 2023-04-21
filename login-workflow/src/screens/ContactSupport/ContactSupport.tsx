@@ -12,7 +12,6 @@ import { unstable_composeClasses as composeClasses } from '@mui/base';
 import { cx } from '@emotion/css';
 import ChatBubbleOutline from '@mui/icons-material/ChatBubbleOutline';
 import { useLanguageLocale, useInjectedUIContext } from '@brightlayer-ui/react-auth-shared';
-import { BrandedCardContainer, BrandedCardContainerProps as BrandedCardContainerPropsType } from '../../components';
 import { DialogButtonStyles, DialogActionsStyles, DialogContentStyles, DialogTitleStyles } from '../../styles';
 import { ContactSupportClassKey, getContactSupportUtilityClass, ContactSupportClasses } from './ContactSupportClasses';
 
@@ -53,8 +52,6 @@ export type ContactSupportProps = {
     contactSupportEmergency?: string;
     contactSupportTechnicalAssistance?: string;
     ContactSupportIcon?: ReactNode;
-    showInCard?: boolean;
-    BrandedCardContainerProps?: BrandedCardContainerPropsType;
     hiddenElements?: ContactSupportHiddenElements;
     classes?: ContactSupportClasses;
     slots?: { cardHeader?: React.ElementType; cardContent?: React.ElementType };
@@ -96,8 +93,6 @@ const useUtilityClasses = (ownerState: ContactSupportProps): Record<ContactSuppo
  *
  * @param CardActionsProps Props to pass to `CardActions`
  *
- * @param BrandedCardContainerProps Props to pass to `BrandedCardContainer`
- *
  * @param phoneNumber to override contact phone number
  *
  * @param emailId to override contact email id
@@ -114,8 +109,6 @@ const useUtilityClasses = (ownerState: ContactSupportProps): Record<ContactSuppo
  *
  * @param hiddenElements to hide various elements of the component
  *
- * @param showInCard to wrap `ContactSupport` in `BrandedCardContainer`
- *
  * @param classes for default style overrides
  *
  * @param slots used for each slot in `ContactSupport`
@@ -125,7 +118,7 @@ const useUtilityClasses = (ownerState: ContactSupportProps): Record<ContactSuppo
  * @category Component
  */
 
-export const ContactSupport: React.FC<React.PropsWithChildren<ContactSupportProps>> = (props) => {
+export const ContactSupport: React.FC<ContactSupportProps> = (props) => {
     const { t } = useLanguageLocale();
     const navigate = useNavigate();
     const theme = useTheme();
@@ -159,14 +152,12 @@ export const ContactSupport: React.FC<React.PropsWithChildren<ContactSupportProp
         contactSupportTechnicalAssistance = t('blui:CONTACT_SUPPORT.TECHNICAL_ASSISTANCE'),
         ContactSupportIcon = <ChatBubbleOutline fontSize={'inherit'} color={'primary'} />,
         hiddenElements = {},
-        showInCard = true,
-        BrandedCardContainerProps,
         classes = {},
         slots = {},
         slotProps = {},
     } = props;
 
-    const ContactSupportContentRenderer = (): JSX.Element => (
+    return (
         <>
             {!hiddenElements.title && (
                 <CardHeader
@@ -240,13 +231,5 @@ export const ContactSupport: React.FC<React.PropsWithChildren<ContactSupportProp
                 </CardActions>
             )}
         </>
-    );
-
-    return showInCard ? (
-        <BrandedCardContainer {...BrandedCardContainerProps}>
-            <ContactSupportContentRenderer />
-        </BrandedCardContainer>
-    ) : (
-        <ContactSupportContentRenderer />
     );
 };
