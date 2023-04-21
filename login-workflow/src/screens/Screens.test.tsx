@@ -63,11 +63,15 @@ void i18n
 
 describe('AcceptEula tests', () => {
     it('renders without crashing', () => {
-        const onEulaChanged = jest.fn();
+        const onEulaCheckboxChanged = jest.fn();
 
         render(
             <ThemeProvider theme={theme}>
-                <AcceptEula eulaAccepted={false} loadEula={(): void => {}} onEulaChanged={onEulaChanged} />
+                <AcceptEula
+                    eulaAccepted={false}
+                    loadEula={(): void => {}}
+                    onEulaCheckboxChanged={onEulaCheckboxChanged}
+                />
             </ThemeProvider>
         );
     });

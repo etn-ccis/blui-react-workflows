@@ -13,7 +13,7 @@ import { cx } from '@emotion/css';
 export type AcceptEulaProps = {
     eulaAccepted: boolean;
     eulaContent?: string;
-    onEulaChanged: (accepted: boolean) => void;
+    onEulaCheckboxChanged: (accepted: boolean) => void;
     loadEula: () => Promise<void> | void;
     htmlEula?: boolean;
     eulaError?: string;
@@ -54,7 +54,7 @@ const useUtilityClasses = (ownerState: AcceptEulaProps): Record<AcceptEulaClassK
  *
  * @param eulaContent the content to render for the EULA. Can be a plain string or HTML
  *
- * @param onEulaChanged function to call when the state of the checkbox is changed
+ * @param onEulaCheckboxChanged function to call when the state of the checkbox is changed
  *
  * @param loadEula function to call to retrieve the eulaContent
  *
@@ -92,7 +92,7 @@ export const AcceptEula: React.FC<AcceptEulaProps> = (props) => {
     const {
         eulaAccepted,
         eulaContent,
-        onEulaChanged,
+        onEulaCheckboxChanged,
         loadEula,
         htmlEula,
         eulaError,
@@ -150,7 +150,7 @@ export const AcceptEula: React.FC<AcceptEulaProps> = (props) => {
                             checked={eulaAccepted}
                             disabled={!eulaContent}
                             onChange={(event: React.ChangeEvent<HTMLInputElement>): void =>
-                                onEulaChanged(event.target.checked)
+                                onEulaCheckboxChanged(event.target.checked)
                             }
                         />
                     )

@@ -14,7 +14,7 @@ const [eulaAccepted, setEulaAccepted] = useState(false);
 
 <AcceptEula 
     eulaAccepted={eulaAccepted} 
-    onEulaChanged={setEulaAccepted} 
+    onEulaCheckboxChanged={setEulaAccepted} 
     loadEula={()=>{ // ...Load the Eula if we do not yet have the content }} 
 />
 ```
@@ -27,7 +27,7 @@ const [eulaAccepted, setEulaAccepted] = useState(false);
 | ------------------------ | ---------------------------------------------------------- | -------------------------------------------------------------------------------------------------------- | -------- | ------------------------------------------------- |
 | eulaAccepted             | Prop to check the checkbox                                 | `boolean`                                                                                                | yes      |                                                   |
 | eulaContent              | The content to render for the EULA                         | `string`                                                                                                 | no       |                                                   | 
-| onEulaChanged            | Function to call when the state of the checkbox is changed | `function`                                                                                               | yes      |                                                   |
+| onEulaCheckboxChanged            | Function to call when the state of the checkbox is changed | `function`                                                                                               | yes      |                                                   |
 | loadEula                 | Function to call to retrieve the eulaContent               | `function`                                                                                               | yes      |                                                   |
 | htmlEula                 | Prop to render EULA as HTML                                | `boolean`                                                                                                | no       |                                                   |
 | eulaError                | Error message if the EULA fails to load                    | `string`                                                                                                 | no       |                                                   |

@@ -226,7 +226,7 @@ export const SelfRegistrationPager: React.FC<React.PropsWithChildren<React.Props
             pageBody: (
                 <AcceptEula
                     eulaAccepted={eulaAccepted}
-                    onEulaChanged={setEulaAccepted}
+                    onEulaCheckboxChanged={setEulaAccepted}
                     loadEula={loadAndCacheEula}
                     htmlEula={injectedUIContext.htmlEula ?? false}
                     eulaError={loadEulaTransitErrorMessage}
