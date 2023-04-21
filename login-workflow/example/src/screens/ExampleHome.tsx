@@ -4,6 +4,7 @@ import './Home.css';
 import { useSecurityActions } from '@brightlayer-ui/react-auth-shared';
 import { LocalStorage } from '../store/local-storage';
 import Button from '@mui/material/Button';
+import { ContactSupportSubscreen } from '@brightlayer-ui/react-auth-workflow';
 
 export const ExampleHome: React.FC<React.PropsWithChildren> = () => {
     const securityHelper = useSecurityActions();
@@ -15,6 +16,7 @@ export const ExampleHome: React.FC<React.PropsWithChildren> = () => {
 
     return (
         <div className="App">
+            <ContactSupportSubscreen />
             <header className="App-header">
                 <img src={logo} className="App-logo" alt="logo" />
                 <p>

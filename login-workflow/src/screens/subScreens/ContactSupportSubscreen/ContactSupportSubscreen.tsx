@@ -13,7 +13,11 @@ import { cx } from '@emotion/css';
 import ChatBubbleOutline from '@mui/icons-material/ChatBubbleOutline';
 import { useLanguageLocale, useInjectedUIContext } from '@brightlayer-ui/react-auth-shared';
 import { DialogButtonStyles, DialogActionsStyles, DialogContentStyles, DialogTitleStyles } from '../../../styles';
-import { ContactSupportClassKey, getContactSupportUtilityClass, ContactSupportClasses } from './ContactSupportClasses';
+import {
+    ContactSupportClassKey,
+    getContactSupportUtilityClass,
+    ContactSupportClasses,
+} from './ContactSupportSubscreenClasses';
 
 const LinkStyles = {
     fontWeight: 600,
@@ -111,14 +115,14 @@ const useUtilityClasses = (ownerState: ContactSupportProps): Record<ContactSuppo
  *
  * @param classes for default style overrides
  *
- * @param slots used for each slot in `ContactSupport`
+ * @param slots used for each slot in `ContactSupportSubscreen`
  *
  * @param slotProps applied to each slot
  *
  * @category Component
  */
 
-export const ContactSupport: React.FC<ContactSupportProps> = (props) => {
+export const ContactSupportSubscreen: React.FC<ContactSupportProps> = (props) => {
     const { t } = useLanguageLocale();
     const navigate = useNavigate();
     const theme = useTheme();

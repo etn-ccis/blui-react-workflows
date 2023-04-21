@@ -1,15 +1,15 @@
 # Contact Support
 
-The `<ContactSupport>` component is used to display the support information needed by user.
+The `<ContactSupportSubscreen>` component is used to display the support information needed by user.
 
 <img width='100%' alt="Stepper Card" src="../media/contact_support.png">
 
 ## Usage
 
 ```tsx
-import { ContactSupport } from '@brightlayer-ui/react-auth-workflow';
+import { ContactSupportSubscreen } from '@brightlayer-ui/react-auth-workflow';
 
-<ContactSupport />
+<ContactSupportSubscreen />
 ```
 
 ## API
@@ -35,14 +35,14 @@ import { ContactSupport } from '@brightlayer-ui/react-auth-workflow';
 | ContactSupportIcon                    | A component to render the icon                            | `ReactNode`                                                       | no       | `<ChatBubbleOutline />`                                                       |
 | hiddenElements                        | Props to hide various elements of the component           | `ContactSupportHiddenElements`                                    | no       | {}                                                                            |
 | classes                               | Style overrides                                           | `ContactSupportClasses`                                           | no       | {}                                                                            |
-| slots                                 | Prop used for each slot in `ContactSupport`               | `{cardHeader: React.ElementType; cardContent: React.ElementType}` | no       | {}                                                                            |
+| slots                                 | Prop used for each slot in `ContactSupportSubscreen`               | `{cardHeader: React.ElementType; cardContent: React.ElementType}` | no       | {}                                                                            |
 | slotProps                             | Props applied to each slot                                | `{cardHeader: CardHeaderProps; cardContent: CardContentProps}`    | no       | {}                                                                            |
 
 </div>
 
 ### ContactSupportHiddenElements
 
-ContactSupportHiddenElements is a prop used in the ContactSupport component to control the visibility of various elements within the component. To use ContactSupportHiddenElements, simply pass an object with the keys corresponding to the elements you want to hide set to true. If a key is not present or is set to false, the corresponding element will be visible.
+ContactSupportHiddenElements is a prop used in the ContactSupportSubscreen component to control the visibility of various elements within the component. To use ContactSupportHiddenElements, simply pass an object with the keys corresponding to the elements you want to hide set to true. If a key is not present or is set to false, the corresponding element will be visible.
 
 #### Available Keys
 
@@ -61,12 +61,12 @@ The following keys can be used within the ContactSupportHiddenElements object:
 
 #### Example
 
-Here's an example of how to use the ContactSupportHiddenElements prop to hide the title and actions in the ContactSupport component:
+Here's an example of how to use the ContactSupportHiddenElements prop to hide the title and actions in the ContactSupportSubscreen component:
 
-```import { ContactSupport } from '...';
+```import { ContactSupportSubscreen } from '...';
 
 const App = () => (
-    <ContactSupport
+    <ContactSupportSubscreen
       hiddenElements={{
         title: true,
         actions: true
@@ -75,7 +75,7 @@ const App = () => (
 );
 ```
 
-In this example, the ContactSupport component will be rendered without the title and actions (e.g., buttons). The other elements will remain visible as their corresponding keys are not set to true in the hiddenElements object.
+In this example, the ContactSupportSubscreen component will be rendered without the title and actions (e.g., buttons). The other elements will remain visible as their corresponding keys are not set to true in the hiddenElements object.
 
 ### Style Overrides
 

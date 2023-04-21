@@ -9,7 +9,7 @@ import { CreatePassword } from './subScreens/CreatePassword';
 import { ExistingAccountComplete } from './subScreens/ExistingAccountComplete';
 import { RegistrationComplete } from './subScreens/RegistrationComplete';
 import { VerifyEmail } from './subScreens/VerifyEmail';
-import { ContactSupport } from './subScreens/ContactSupport';
+import { ContactSupportSubscreen } from './subScreens/ContactSupportSubscreen';
 import {
     AccountUIActionContext,
     // AccountUIActionContext,
@@ -158,7 +158,7 @@ describe('VerifyEmail tests', () => {
     });
 });
 
-describe('ContactSupport tests', () => {
+describe('ContactSupportSubscreen tests', () => {
     it('renders without crashing', () => {
         const authUIActions = jest.fn();
         const registrationUIActions = jest.fn();
@@ -166,7 +166,7 @@ describe('ContactSupport tests', () => {
         render(
             <ThemeProvider theme={theme}>
                 <AuthUIContextProvider authActions={authUIActions} registrationActions={registrationUIActions}>
-                    <ContactSupport />
+                    <ContactSupportSubscreen />
                 </AuthUIContextProvider>
             </ThemeProvider>
         );
