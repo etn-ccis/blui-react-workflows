@@ -1,7 +1,7 @@
 import generateUtilityClass from '@mui/material/generateUtilityClass';
 import generateUtilityClasses from '@mui/material/generateUtilityClasses';
 
-export type ContactSupportClasses = {
+export type ContactSupportSubscreenClasses = {
     /** Styles applied to the card header. */
     cardHeader?: string;
     /** Styles applied to the card content. */
@@ -10,16 +10,15 @@ export type ContactSupportClasses = {
     cardActions?: string;
 };
 
-export type ContactSupportClassKey = keyof ContactSupportClasses;
+export type ContactSupportSubscreenClassKey = keyof ContactSupportSubscreenClasses;
 
-export function getContactSupportUtilityClass(slot: string): string {
-    return generateUtilityClass('BluiContactSupport', slot);
+export function getContactSupportSubscreenUtilityClass(slot: string): string {
+    return generateUtilityClass('BluiContactSupportSubscreen', slot);
 }
 
-const contactSupportClasses: ContactSupportClasses = generateUtilityClasses('BluiContactSupport', [
-    'cardHeader',
-    'cardContent',
-    'cardActions',
-]);
+const contactSupportSubscreenClasses: ContactSupportSubscreenClasses = generateUtilityClasses(
+    'BluiContactSupportSubscreen',
+    ['cardHeader', 'cardContent', 'cardActions']
+);
 
-export default contactSupportClasses;
+export default contactSupportSubscreenClasses;

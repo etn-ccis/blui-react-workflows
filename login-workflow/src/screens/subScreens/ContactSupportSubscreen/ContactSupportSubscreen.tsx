@@ -14,9 +14,9 @@ import ChatBubbleOutline from '@mui/icons-material/ChatBubbleOutline';
 import { useLanguageLocale, useInjectedUIContext } from '@brightlayer-ui/react-auth-shared';
 import { DialogButtonStyles, DialogActionsStyles, DialogContentStyles, DialogTitleStyles } from '../../../styles';
 import {
-    ContactSupportClassKey,
-    getContactSupportUtilityClass,
-    ContactSupportClasses,
+    ContactSupportSubscreenClassKey,
+    getContactSupportSubscreenUtilityClass,
+    ContactSupportSubscreenClasses,
 } from './ContactSupportSubscreenClasses';
 
 const LinkStyles = {
@@ -29,35 +29,35 @@ const LinkStyles = {
     },
 };
 
-export type ContactSupportHiddenElements = {
+export type ContactSupportSubscreenHiddenElements = {
     title?: boolean;
-    contactSupportContent?: boolean;
-    contactSupportIcon?: boolean;
-    contactSupportQuestion?: boolean;
-    contactSupportMessage?: boolean;
-    contactSupportEmergency?: boolean;
-    contactSupportTechnicalAssistance?: boolean;
+    contactSupportSubscreenContent?: boolean;
+    contactSupportSubscreenIcon?: boolean;
+    contactSupportSubscreenQuestion?: boolean;
+    contactSupportSubscreenMessage?: boolean;
+    contactSupportSubscreenEmergency?: boolean;
+    contactSupportSubscreenTechnicalAssistance?: boolean;
     actions?: boolean;
 };
 
-export type ContactSupportProps = {
+export type ContactSupportSubscreenProps = {
     title?: string;
     TitleProps?: TypographyProps;
     Actions?: JSX.Element | JSX.Element[];
     divider?: boolean;
-    ContactSupportContent?: JSX.Element;
+    ContactSupportSubscreenContent?: JSX.Element;
     CardHeaderProps?: CardHeaderPropsType;
     CardContentProps?: CardContentPropsType;
     CardActionsProps?: CardActionsPropsType;
     phoneNumber?: string;
     emailId?: string;
-    contactSupportQuestion?: string;
-    contactSupportMessage?: string;
-    contactSupportEmergency?: string;
-    contactSupportTechnicalAssistance?: string;
-    ContactSupportIcon?: ReactNode;
-    hiddenElements?: ContactSupportHiddenElements;
-    classes?: ContactSupportClasses;
+    contactSupportSubscreenQuestion?: string;
+    contactSupportSubscreenMessage?: string;
+    contactSupportSubscreenEmergency?: string;
+    contactSupportSubscreenTechnicalAssistance?: string;
+    ContactSupportSubscreenIcon?: ReactNode;
+    hiddenElements?: ContactSupportSubscreenHiddenElements;
+    classes?: ContactSupportSubscreenClasses;
     slots?: { cardHeader?: React.ElementType; cardContent?: React.ElementType };
     slotProps?: {
         cardHeader?: CardHeaderPropsType;
@@ -65,7 +65,9 @@ export type ContactSupportProps = {
     };
 };
 
-const useUtilityClasses = (ownerState: ContactSupportProps): Record<ContactSupportClassKey, string> => {
+const useUtilityClasses = (
+    ownerState: ContactSupportSubscreenProps
+): Record<ContactSupportSubscreenClassKey, string> => {
     const { classes } = ownerState;
 
     const slots = {
@@ -74,7 +76,7 @@ const useUtilityClasses = (ownerState: ContactSupportProps): Record<ContactSuppo
         cardActions: ['cardActions'],
     };
 
-    return composeClasses(slots, getContactSupportUtilityClass, classes);
+    return composeClasses(slots, getContactSupportSubscreenUtilityClass, classes);
 };
 
 /**
@@ -89,7 +91,7 @@ const useUtilityClasses = (ownerState: ContactSupportProps): Record<ContactSuppo
  *
  * @param divider which appears above `Actions`
  *
- * @param ContactSupportContent to display the contact support content
+ * @param ContactSupportSubscreenContent to display the contact support content
  *
  * @param CardHeaderProps Props to pass to `CardHeader`
  *
@@ -101,15 +103,15 @@ const useUtilityClasses = (ownerState: ContactSupportProps): Record<ContactSuppo
  *
  * @param emailId to override contact email id
  *
- * @param contactSupportQuestion to override contact support question
+ * @param contactSupportSubscreenQuestion to override contact support question
  *
- * @param contactSupportMessage to override contact support message
+ * @param contactSupportSubscreenMessage to override contact support message
  *
- * @param contactSupportEmergency to override contact support emergency support
+ * @param contactSupportSubscreenEmergency to override contact support emergency support
  *
- * @param contactSupportTechnicalAssistance to override contact support technical assistance
+ * @param contactSupportSubscreenTechnicalAssistance to override contact support technical assistance
  *
- * @param ContactSupportIcon to render the icon
+ * @param ContactSupportSubscreenIcon to render the icon
  *
  * @param hiddenElements to hide various elements of the component
  *
@@ -122,7 +124,7 @@ const useUtilityClasses = (ownerState: ContactSupportProps): Record<ContactSuppo
  * @category Component
  */
 
-export const ContactSupportSubscreen: React.FC<ContactSupportProps> = (props) => {
+export const ContactSupportSubscreen: React.FC<ContactSupportSubscreenProps> = (props) => {
     const { t } = useLanguageLocale();
     const navigate = useNavigate();
     const theme = useTheme();
@@ -144,17 +146,17 @@ export const ContactSupportSubscreen: React.FC<ContactSupportProps> = (props) =>
             </Button>
         ),
         divider = true,
-        ContactSupportContent,
+        ContactSupportSubscreenContent,
         CardHeaderProps,
         CardContentProps,
         CardActionsProps,
         phoneNumber = contactPhone,
         emailId = contactEmail,
-        contactSupportQuestion = t('blui:CONTACT_SUPPORT.GENERAL_QUESTIONS'),
-        contactSupportMessage = t('blui:CONTACT_SUPPORT.SUPPORT_MESSAGE'),
-        contactSupportEmergency = t('blui:CONTACT_SUPPORT.EMERGENCY_SUPPORT'),
-        contactSupportTechnicalAssistance = t('blui:CONTACT_SUPPORT.TECHNICAL_ASSISTANCE'),
-        ContactSupportIcon = <ChatBubbleOutline fontSize={'inherit'} color={'primary'} />,
+        contactSupportSubscreenQuestion = t('blui:CONTACT_SUPPORT.GENERAL_QUESTIONS'),
+        contactSupportSubscreenMessage = t('blui:CONTACT_SUPPORT.SUPPORT_MESSAGE'),
+        contactSupportSubscreenEmergency = t('blui:CONTACT_SUPPORT.EMERGENCY_SUPPORT'),
+        contactSupportSubscreenTechnicalAssistance = t('blui:CONTACT_SUPPORT.TECHNICAL_ASSISTANCE'),
+        ContactSupportSubscreenIcon = <ChatBubbleOutline fontSize={'inherit'} color={'primary'} />,
         hiddenElements = {},
         classes = {},
         slots = {},
@@ -177,7 +179,7 @@ export const ContactSupportSubscreen: React.FC<ContactSupportProps> = (props) =>
                     {...slotProps.cardHeader}
                 />
             )}
-            {!hiddenElements.contactSupportContent && (
+            {!hiddenElements.contactSupportSubscreenContent && (
                 <CardContent
                     sx={DialogContentStyles(theme)}
                     className={cx(defaultClasses.cardContent, classes.cardContent)}
@@ -185,35 +187,37 @@ export const ContactSupportSubscreen: React.FC<ContactSupportProps> = (props) =>
                     {...CardContentProps}
                     {...slotProps.cardContent}
                 >
-                    {ContactSupportContent ? (
-                        ContactSupportContent
+                    {ContactSupportSubscreenContent ? (
+                        ContactSupportSubscreenContent
                     ) : (
                         <>
-                            {!hiddenElements.contactSupportIcon && (
-                                <Box sx={{ fontSize: 70, mb: 4, textAlign: 'center' }}>{ContactSupportIcon}</Box>
+                            {!hiddenElements.contactSupportSubscreenIcon && (
+                                <Box sx={{ fontSize: 70, mb: 4, textAlign: 'center' }}>
+                                    {ContactSupportSubscreenIcon}
+                                </Box>
                             )}
-                            {!hiddenElements.contactSupportQuestion && (
+                            {!hiddenElements.contactSupportSubscreenQuestion && (
                                 <Typography variant={'body1'} sx={{ mb: 1 }}>
-                                    {contactSupportQuestion}
+                                    {contactSupportSubscreenQuestion}
                                 </Typography>
                             )}
-                            {!hiddenElements.contactSupportMessage && (
+                            {!hiddenElements.contactSupportSubscreenMessage && (
                                 <Typography>
-                                    {contactSupportMessage}
+                                    {contactSupportSubscreenMessage}
                                     <Box component="a" href={`mailto:${emailId}`} sx={LinkStyles}>
                                         {emailId}
                                     </Box>
                                     .
                                 </Typography>
                             )}
-                            {!hiddenElements.contactSupportEmergency && (
+                            {!hiddenElements.contactSupportSubscreenEmergency && (
                                 <Typography variant={'body1'} sx={{ mt: 4, mb: 1 }}>
-                                    {contactSupportEmergency}
+                                    {contactSupportSubscreenEmergency}
                                 </Typography>
                             )}
-                            {!hiddenElements.contactSupportTechnicalAssistance && (
+                            {!hiddenElements.contactSupportSubscreenTechnicalAssistance && (
                                 <Typography>
-                                    {contactSupportTechnicalAssistance}
+                                    {contactSupportSubscreenTechnicalAssistance}
                                     <Box component="a" href={`tel:${phoneNumber}`} sx={LinkStyles}>
                                         {phoneNumber}
                                     </Box>
