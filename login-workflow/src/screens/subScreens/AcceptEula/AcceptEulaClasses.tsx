@@ -2,7 +2,7 @@ import generateUtilityClass from '@mui/material/generateUtilityClass';
 import generateUtilityClasses from '@mui/material/generateUtilityClasses';
 
 export type AcceptEulaClasses = {
-    loaderText?: string;
+    loader?: string;
     eulaContent?: string;
     termsAndConditions?: string;
 };
@@ -14,7 +14,7 @@ export function getAcceptEulaUtilityClass(slot: string): string {
 }
 
 const acceptEulaClasses: AcceptEulaClasses = generateUtilityClasses('BluiAcceptEula', [
-    'loaderText',
+    'loader',
     'eulaContent',
     'termsAndConditions',
 ]);
