@@ -1,6 +1,6 @@
 # Accept Eula
 
-The `<AcceptEula>` component that renders a screen displaying the EULA and requests acceptance via a checkbox.
+The `<ViewEulaSubscreen>` component that renders a screen displaying the EULA and requests acceptance via a checkbox.
 
 <img width='100%' alt="Accept Eula" src="../media/accept_eula.png">
 
@@ -8,11 +8,11 @@ The `<AcceptEula>` component that renders a screen displaying the EULA and reque
 
 ```tsx
 import { useState } from 'react';
-import { AcceptEula } from '@brightlayer-ui/react-auth-workflow';
+import { ViewEulaSubscreen } from '@brightlayer-ui/react-auth-workflow';
 
 const [eulaAccepted, setEulaAccepted] = useState(false);
 
-<AcceptEula 
+<ViewEulaSubscreen 
     eulaAccepted={eulaAccepted} 
     onEulaCheckboxChanged={setEulaAccepted} 
     loadEula={()=>{ // ...Load the Eula if we do not yet have the content }} 

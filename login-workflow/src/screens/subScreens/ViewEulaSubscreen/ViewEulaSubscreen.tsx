@@ -6,7 +6,7 @@ import Checkbox from '@mui/material/Checkbox';
 import { Theme, SxProps } from '@mui/material/styles';
 import DOMPurify from 'dompurify';
 import Box, { BoxProps } from '@mui/material/Box';
-import { AcceptEulaClasses, AcceptEulaClassKey, getAcceptEulaUtilityClass } from './AcceptEulaClasses';
+import { AcceptEulaClasses, AcceptEulaClassKey, getAcceptEulaUtilityClass } from './ViewEulaSubscreenClasses';
 import { unstable_composeClasses as composeClasses } from '@mui/base';
 import { cx } from '@emotion/css';
 
@@ -24,7 +24,7 @@ export type AcceptEulaProps = {
     classes?: AcceptEulaClasses;
     slots?: { loader?: React.ElementType; eulaContent?: React.ElementType; termsAndConditions?: React.ElementType };
     slotProps?: {
-        loader?: () => void | {};
+        loader?: any;
         eulaContent?: BoxProps;
         termsAndConditions?: FormControlLabelProps;
     };
@@ -72,7 +72,7 @@ const useUtilityClasses = (ownerState: AcceptEulaProps): Record<AcceptEulaClassK
  * @category Component
  */
 
-export const AcceptEula: React.FC<AcceptEulaProps> = (props) => {
+export const ViewEulaSubscreen: React.FC<AcceptEulaProps> = (props) => {
     const { t } = useLanguageLocale();
     const {
         eulaAccepted,

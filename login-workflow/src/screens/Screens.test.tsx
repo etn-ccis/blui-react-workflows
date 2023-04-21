@@ -2,7 +2,7 @@ import React from 'react';
 import 'regenerator-runtime/runtime';
 import { render, cleanup } from '@testing-library/react';
 import '@testing-library/jest-dom';
-import { AcceptEula } from './subScreens/AcceptEula';
+import { ViewEulaSubscreen } from './subScreens/ViewEulaSubscreen';
 import { AccountDetails } from './subScreens/AccountDetails';
 import { CreateAccount } from './subScreens/CreateAccount';
 import { CreatePassword } from './subScreens/CreatePassword';
@@ -61,13 +61,13 @@ void i18n
         },
     });
 
-describe('AcceptEula tests', () => {
+describe('ViewEulaSubscreen tests', () => {
     it('renders without crashing', () => {
         const onEulaCheckboxChanged = jest.fn();
 
         render(
             <ThemeProvider theme={theme}>
-                <AcceptEula
+                <ViewEulaSubscreen
                     eulaAccepted={false}
                     loadEula={(): void => {}}
                     onEulaCheckboxChanged={onEulaCheckboxChanged}

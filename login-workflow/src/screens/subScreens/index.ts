@@ -1,2 +1,2 @@
-export * from './AcceptEula';
+export * from './ViewEulaSubscreen';
 export * from './ContactSupportSubscreen';

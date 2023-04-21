@@ -24,7 +24,7 @@ import MobileStepper from '@mui/material/MobileStepper';
 import { useTheme } from '@mui/material/styles';
 import { BrandedCardContainer, FinishState, SimpleDialog } from '../components';
 import { emptyAccountDetailInformation } from './SelfRegistrationPager';
-import { AcceptEula } from './subScreens/AcceptEula';
+import { ViewEulaSubscreen } from './subScreens/ViewEulaSubscreen';
 import { CreatePassword as CreatePasswordScreen } from './subScreens/CreatePassword';
 import { AccountDetails as AccountDetailsScreen, AccountDetailsWrapper } from './subScreens/AccountDetails';
 import { RegistrationComplete } from './subScreens/RegistrationComplete';
@@ -177,7 +177,7 @@ export const InviteRegistrationPager: React.FC<React.PropsWithChildren<React.Pro
             name: 'Eula',
             pageTitle: t('blui:REGISTRATION.STEPS.LICENSE'),
             pageBody: (
-                <AcceptEula
+                <ViewEulaSubscreen
                     eulaAccepted={eulaAccepted}
                     onEulaCheckboxChanged={setEulaAccepted}
                     loadEula={loadAndCacheEula}

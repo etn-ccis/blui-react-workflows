@@ -115,5 +115,5 @@ The workflow allows for some customizations. For details refer to our [Customiza
 ## Components
 
 - [Branded Card Container](`https://github.com/etn-ccis/blui-react-workflows/blob/master/login-workflow/docs/BrandedCardContainer.md`)
-- [Accept Eula](`https://github.com/etn-ccis/blui-react-workflows/blob/master/login-workflow/docs/AcceptEula.md`)
+- [Accept Eula](`https://github.com/etn-ccis/blui-react-workflows/blob/master/login-workflow/docs/ViewEulaSubscreen.md`)
 - [Contact Support Subscreen](`https://github.com/etn-ccis/blui-react-workflows/blob/master/login-workflow/docs/ContactSupportSubscreen.md`)
