@@ -9,6 +9,7 @@ import { CreatePassword } from './subScreens/CreatePassword';
 import { ExistingAccountComplete } from './subScreens/ExistingAccountComplete';
 import { RegistrationComplete } from './subScreens/RegistrationComplete';
 import { VerifyEmail } from './subScreens/VerifyEmail';
+import { ContactSupport } from './subScreens/ContactSupport';
 import {
     AccountUIActionContext,
     // AccountUIActionContext,
@@ -18,7 +19,6 @@ import {
     // RegistrationActionContext,
     // RegistrationActionsCreator,
 } from '@brightlayer-ui/react-auth-shared';
-import { ContactSupport } from './ContactSupport';
 import { ForgotPassword } from './ForgotPassword';
 // import { InviteRegistrationPager } from './InviteRegistrationPager';
 import { BrowserRouter } from 'react-router-dom';

@@ -9,7 +9,7 @@ import { ForgotPassword } from '../screens/ForgotPassword';
 import { ResetPassword } from '../screens/ResetPassword';
 import { InviteRegistrationPager } from '../screens/InviteRegistrationPager';
 import { SelfRegistrationPager } from '../screens/SelfRegistrationPager';
-import { ContactSupport } from '../screens/ContactSupport';
+import { ContactSupport } from '../screens/subScreens/ContactSupport';
 import { Login } from '../screens/Login';
 
 export type RouteConfig = {
