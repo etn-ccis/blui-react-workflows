@@ -13,7 +13,7 @@ export const ExistingAccountComplete: React.FC<React.PropsWithChildren<React.Pro
     const { t } = useLanguageLocale();
 
     return (
-        <FinishState            
+        <FinishState
             icon={<Person color={'primary'} sx={{ fontSize: 100, mb: 2 }} />}
             title={t('blui:MESSAGES.WELCOME')}
             description={t('blui:REGISTRATION.SUCCESS_EXISTING')}

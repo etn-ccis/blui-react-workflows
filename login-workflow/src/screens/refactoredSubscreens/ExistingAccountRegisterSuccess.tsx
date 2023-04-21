@@ -1,8 +1,8 @@
-import React from 'react';
+import React, { useCallback } from 'react';
 import { useLanguageLocale } from '@brightlayer-ui/react-auth-shared';
 import { FinishState } from '../../components';
 import Person from '@mui/icons-material/Person';
-import { BrandedCardContainer, BrandedCardContainerProps } from '../../components/BrandedCardContainer';
+import { BrandedCardContainer } from '../../components/BrandedCardContainer';
 import Divider from '@mui/material/Divider';
 import CardHeader from '@mui/material/CardHeader';
 import Typography from '@mui/material/Typography';
@@ -21,13 +21,12 @@ import { useNavigate } from 'react-router-dom';
  * @category Component
  */
 
-type ExistingAccountRegisterSuccessProps = BrandedCardContainerProps & {
-    showInCard?: boolean;
+type ExistingAccountRegisterSuccessProps = {
     cardTitle?: string;
     messageIcon?: JSX.Element;
     messageTitle?: string;
     messageBody?: string;
-    actions?: JSX.Element | JSX.Element[];
+    cardActions?: JSX.Element | JSX.Element[];
 };
 
 export const ExistingAccountRegisterSuccess: React.FC<ExistingAccountRegisterSuccessProps> = (props) => {
@@ -41,7 +40,7 @@ export const ExistingAccountRegisterSuccess: React.FC<ExistingAccountRegisterSuc
         messageIcon = <Person color={'primary'} sx={{ fontSize: 100, mb: 2 }} />,
         messageTitle = t('blui:MESSAGES.WELCOME'),
         messageBody = t('blui:REGISTRATION.SUCCESS_EXISTING'),
-        actions = (
+        cardActions = (
             <Button
                 variant={'contained'}
                 color={'primary'}
@@ -52,7 +51,6 @@ export const ExistingAccountRegisterSuccess: React.FC<ExistingAccountRegisterSuc
                 {t('blui:ACTIONS.CONTINUE')}
             </Button>
         ),
-        showInCard = true,
     } = props;
 
     const ExistingAccountSuccessRenderer = (): JSX.Element => (
@@ -69,15 +67,13 @@ export const ExistingAccountRegisterSuccess: React.FC<ExistingAccountRegisterSuc
                 <FinishState icon={messageIcon} title={messageTitle} description={messageBody} />
             </CardContent>
             <Divider />
-            <CardActions sx={DialogActionsStyles(theme)}>{actions}</CardActions>
+            <CardActions sx={DialogActionsStyles(theme)}>{cardActions}</CardActions>
         </>
     );
 
-    return showInCard ? (
+    return (
         <BrandedCardContainer>
             <ExistingAccountSuccessRenderer />
         </BrandedCardContainer>
-    ) : (
-        <ExistingAccountSuccessRenderer />
     );
 };
