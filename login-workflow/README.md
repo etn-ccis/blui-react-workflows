@@ -125,4 +125,4 @@ The workflow allows for some customizations. For details refer to our [Customiza
 
 -   [Branded Card Container](`https://github.com/etn-ccis/blui-react-workflows/blob/master/login-workflow/docs/BrandedCardContainer.md`)
 
--   [ExistingAccountRegisterSuccess](`https://github.com/etn-ccis/blui-react-workflows/blob/master/login-workflow/docs/ExistingAccountRegisterSuccess.md`)
+-   [ExistingAccountRegisterSuccessSubscreen](`https://github.com/etn-ccis/blui-react-workflows/blob/master/login-workflow/docs/ExistingAccountRegisterSuccessSubscreen.md`)

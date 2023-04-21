@@ -21,7 +21,7 @@ import { useNavigate } from 'react-router-dom';
  * @category Component
  */
 
-type ExistingAccountRegisterSuccessProps = {
+type ExistingAccountRegisterSuccessSubscreenProps = {
     cardTitle?: string;
     messageIcon?: JSX.Element;
     messageTitle?: string;
@@ -29,7 +29,9 @@ type ExistingAccountRegisterSuccessProps = {
     cardActions?: JSX.Element | JSX.Element[];
 };
 
-export const ExistingAccountRegisterSuccess: React.FC<ExistingAccountRegisterSuccessProps> = (props) => {
+export const ExistingAccountRegisterSuccessSubscreen: React.FC<ExistingAccountRegisterSuccessSubscreenProps> = (
+    props
+) => {
     const { t } = useLanguageLocale();
     const theme = useTheme();
     const { routes } = useRoutes();
@@ -55,14 +57,7 @@ export const ExistingAccountRegisterSuccess: React.FC<ExistingAccountRegisterSuc
 
     const ExistingAccountSuccessRenderer = (): JSX.Element => (
         <>
-            <CardHeader
-                title={
-                    <Typography variant={'h6'} sx={{ fontWeight: 600 }}>
-                        {cardTitle}
-                    </Typography>
-                }
-                sx={DialogTitleStyles(theme)}
-            />
+            <CardHeader title={<Typography variant={'h6'}>{cardTitle}</Typography>} sx={DialogTitleStyles(theme)} />
             <CardContent sx={DialogContentStyles(theme)}>
                 <FinishState icon={messageIcon} title={messageTitle} description={messageBody} />
             </CardContent>

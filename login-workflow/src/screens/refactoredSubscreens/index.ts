@@ -1,1 +1,1 @@
-export * from './ExistingAccountRegisterSuccess';
+export * from './ExistingAccountRegisterSuccessSubScreen';

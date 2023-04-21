@@ -1,15 +1,15 @@
-# ExistingAccountRegisterSuccess
+# ExistingAccountRegisterSuccessSubscreen
 
-The `<ExistingAccountRegisterSuccess>` component is used to display message, when user trying to register an account which is already exists.
+The `<ExistingAccountRegisterSuccessSubscreen>` component is used to display message, when user trying to register an account which is already exists.
 
 <img width='100%' alt="Existing Account Screen" src="../media/existing_account.png">
 
 ## Usage
 
 ```tsx
-import { ExistingAccountRegisterSuccess } from '@brightlayer-ui/react-auth-workflow';
+import { ExistingAccountRegisterSuccessSubscreen } from '@brightlayer-ui/react-auth-workflow';
 
-<ExistingAccountRegisterSuccess />;
+<ExistingAccountRegisterSuccessSubscreen />;
 ```
 
 ## API
@@ -28,10 +28,10 @@ import { ExistingAccountRegisterSuccess } from '@brightlayer-ui/react-auth-workf
 
 ## Example
 
-Here's an example of how to use the ExistingAccountRegisterSuccess.
+Here's an example of how to use the ExistingAccountRegisterSuccessSubscreen.
 
 ```tsx
-import { ExistingAccountRegisterSuccess } from '@brightlayer-ui/react-auth-workflow';
+import { ExistingAccountRegisterSuccessSubscreen } from '@brightlayer-ui/react-auth-workflow';
 
-const App = () => <ExistingAccountRegisterSuccess />;
+const App = () => <ExistingAccountRegisterSuccessSubscreen />;
 ```
