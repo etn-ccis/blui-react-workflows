@@ -38,7 +38,7 @@ const [eulaAccepted, setEulaAccepted] = useState(false);
 | loaderText               | Text to display when EULA is loading                           | `string`                                                                                                 | no       | "Loading End User License Agreement..."           |
 | LoaderTextProps          | Props to pass to the loader content                        | `TypographyProps`                                                                                        | no       |                                                   |
 | loaderStyles             | Prop to override the loader styles                         | `SxProps<Theme>`                                                                                         | no       |                                                   |
-| classes                  | Style overrides                                            | `AcceptEulaClasses`                                                                                      | no       |                                                   |
+| classes                  | Style overrides                                            | `ViewEulaSubscreenClasses`                                                                                      | no       |                                                   |
 | slots                    | Prop used for each slot in `BrandedCardContainer`          | `{loaderText: React.ElementType; eulaContent: React.ElementType; termsAndConditions: React.ElementType}` | no       | {}                                                |
 | slotProps                | Props applied to each slot                                 | `{loaderText: TypographyProps; eulaContent: BoxProps; termsAndConditions: FormControlLabelProps}`        | no       | {}                                                |
 
@@ -58,8 +58,8 @@ You can override the default styles used by Brightlayer UI by:
 
 | Name               | Global CSS Class                   | Description                                     |
 | ------------------ | ---------------------------------- | ----------------------------------------------- |
-| loaderText         | .BluiAcceptEula-loaderText         | Styles applied to the loader text element       |
-| eulaContent        | .BluiAcceptEula-eulaContent        | Styles applied to the eula content element      |
-| termsAndConditions | .BluiAcceptEula-termsAndConditions | Styles applied to the terms and content element |
+| loaderText         | .BluiViewEulaSubscreen-loaderText         | Styles applied to the loader text element       |
+| eulaContent        | .BluiViewEulaSubscreen-eulaContent        | Styles applied to the eula content element      |
+| termsAndConditions | .BluiViewEulaSubscreen-termsAndConditions | Styles applied to the terms and content element |
 
 </Box>

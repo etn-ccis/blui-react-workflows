@@ -6,11 +6,15 @@ import Checkbox from '@mui/material/Checkbox';
 import { Theme, SxProps } from '@mui/material/styles';
 import DOMPurify from 'dompurify';
 import Box, { BoxProps } from '@mui/material/Box';
-import { AcceptEulaClasses, AcceptEulaClassKey, getAcceptEulaUtilityClass } from './ViewEulaSubscreenClasses';
+import {
+    ViewEulaSubscreenClasses,
+    ViewEulaSubscreenClassKey,
+    getViewEulaSubscreenUtilityClass,
+} from './ViewEulaSubscreenClasses';
 import { unstable_composeClasses as composeClasses } from '@mui/base';
 import { cx } from '@emotion/css';
 
-export type AcceptEulaProps = {
+export type ViewEulaSubscreenProps = {
     eulaAccepted: boolean;
     eulaContent?: string;
     onEulaCheckboxChanged: (accepted: boolean) => void;
@@ -21,7 +25,7 @@ export type AcceptEulaProps = {
     termsAndConditionsStyles?: SxProps<Theme>;
     eulaContentStyles?: SxProps<Theme>;
     loaderStyles?: SxProps<Theme>;
-    classes?: AcceptEulaClasses;
+    classes?: ViewEulaSubscreenClasses;
     slots?: { loader?: React.ElementType; eulaContent?: React.ElementType; termsAndConditions?: React.ElementType };
     slotProps?: {
         loader?: any;
@@ -30,7 +34,7 @@ export type AcceptEulaProps = {
     };
 };
 
-const useUtilityClasses = (ownerState: AcceptEulaProps): Record<AcceptEulaClassKey, string> => {
+const useUtilityClasses = (ownerState: ViewEulaSubscreenProps): Record<ViewEulaSubscreenClassKey, string> => {
     const { classes } = ownerState;
 
     const slots = {
@@ -39,7 +43,7 @@ const useUtilityClasses = (ownerState: AcceptEulaProps): Record<AcceptEulaClassK
         termsAndConditions: ['termsAndConditions'],
     };
 
-    return composeClasses(slots, getAcceptEulaUtilityClass, classes);
+    return composeClasses(slots, getViewEulaSubscreenUtilityClass, classes);
 };
 
 /**
@@ -72,7 +76,7 @@ const useUtilityClasses = (ownerState: AcceptEulaProps): Record<AcceptEulaClassK
  * @category Component
  */
 
-export const ViewEulaSubscreen: React.FC<AcceptEulaProps> = (props) => {
+export const ViewEulaSubscreen: React.FC<ViewEulaSubscreenProps> = (props) => {
     const { t } = useLanguageLocale();
     const {
         eulaAccepted,
