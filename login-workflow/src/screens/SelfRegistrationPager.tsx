@@ -375,7 +375,7 @@ export const SelfRegistrationPager: React.FC<React.PropsWithChildren<React.Props
         ])
         // Remove the CreatePassword screen if so configured
         .filter((page) => {
-            if (page.name === 'CreatePassword' && !injectedUIContext.enableCreatePassword) return false;
+            if (page.name === 'CreatePassword' && !(injectedUIContext.enableCreatePassword ?? true)) return false;
             return true;
         });
 
