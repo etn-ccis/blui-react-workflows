@@ -413,7 +413,7 @@ export const SelfRegistrationPager: React.FC<React.PropsWithChildren<React.Props
     // If the email is validated successfully, go to the create password screen (or account details)
     useEffect(() => {
         if (currentPage === VerifyEmailPage && validationSuccess) {
-            setCurrentPage(injectedUIContext.enableCreatePassword ? CreatePasswordPage : AccountDetailsPage);
+            setCurrentPage(injectedUIContext.enableCreatePassword ?? true ? CreatePasswordPage : AccountDetailsPage);
         }
         // eslint-disable-next-line react-hooks/exhaustive-deps
     }, [validationSuccess]);
