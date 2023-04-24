@@ -46,6 +46,7 @@ export const AuthUIConfiguration: React.FC<React.PropsWithChildren> = (props) =>
             registrationActions={ProjectRegistrationUIActions}
             allowDebugMode={true}
             htmlEula={false}
+            enableCreatePassword={true}            
             contactEmail={'something@email.com'}
             contactPhone={'1-800-123-4567'}
             projectImage={productLogo}
