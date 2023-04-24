@@ -4,7 +4,7 @@ import generateUtilityClasses from '@mui/material/generateUtilityClasses';
 export type ViewEulaSubscreenClasses = {
     loader?: string;
     eulaContent?: string;
-    termsAndConditions?: string;
+    checkboxLabel?: string;
 };
 
 export type ViewEulaSubscreenClassKey = keyof ViewEulaSubscreenClasses;
@@ -16,7 +16,7 @@ export function getViewEulaSubscreenUtilityClass(slot: string): string {
 const viewEulaSubscreenClasses: ViewEulaSubscreenClasses = generateUtilityClasses('BluiViewEulaSubscreen', [
     'loader',
     'eulaContent',
-    'termsAndConditions',
+    'checkboxLabel',
 ]);
 
 export default viewEulaSubscreenClasses;

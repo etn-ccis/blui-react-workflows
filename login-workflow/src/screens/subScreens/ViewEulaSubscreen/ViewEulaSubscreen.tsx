@@ -26,11 +26,11 @@ export type ViewEulaSubscreenProps = {
     eulaContentStyles?: SxProps<Theme>;
     loaderStyles?: SxProps<Theme>;
     classes?: ViewEulaSubscreenClasses;
-    slots?: { loader?: React.ElementType; eulaContent?: React.ElementType; termsAndConditions?: React.ElementType };
+    slots?: { loader?: React.ElementType; eulaContent?: React.ElementType; checkboxLabel?: React.ElementType };
     slotProps?: {
         loader?: any;
         eulaContent?: BoxProps;
-        termsAndConditions?: FormControlLabelProps;
+        checkboxLabel?: FormControlLabelProps;
     };
 };
 
@@ -40,7 +40,7 @@ const useUtilityClasses = (ownerState: ViewEulaSubscreenProps): Record<ViewEulaS
     const slots = {
         loader: ['loader'],
         eulaContent: ['eulaContent'],
-        termsAndConditions: ['termsAndConditions'],
+        checkboxLabel: ['checkboxLabel'],
     };
 
     return composeClasses(slots, getViewEulaSubscreenUtilityClass, classes);
@@ -95,7 +95,7 @@ export const ViewEulaSubscreen: React.FC<ViewEulaSubscreenProps> = (props) => {
     } = props;
 
     const defaultClasses = useUtilityClasses(props);
-    const TermsAndConditions = slots.termsAndConditions ?? FormControlLabel;
+    const CheckboxLabel = slots.checkboxLabel ?? FormControlLabel;
     const eulaContentInternals = eulaContent ?? eulaError ?? t('blui:REGISTRATION.EULA.LOADING');
     const Loader = slots.loader ?? Typography;
 
@@ -124,7 +124,7 @@ export const ViewEulaSubscreen: React.FC<ViewEulaSubscreenProps> = (props) => {
                     {...slotProps.eulaContent}
                 ></Box>
             )}
-            <TermsAndConditions
+            <CheckboxLabel
                 control={
                     <Checkbox
                         color={'primary'}
@@ -137,8 +137,8 @@ export const ViewEulaSubscreen: React.FC<ViewEulaSubscreenProps> = (props) => {
                 }
                 label={agreeTerms}
                 sx={{ flex: '0 0 auto', mr: 0, mt: 2, ...termsAndConditionsStyles }}
-                className={cx(defaultClasses.termsAndConditions, classes.termsAndConditions)}
-                {...slotProps.termsAndConditions}
+                className={cx(defaultClasses.checkboxLabel, classes.checkboxLabel)}
+                {...slotProps.checkboxLabel}
             />
         </>
     );
