@@ -7,7 +7,7 @@ The Login screen supports some simple customization (via the `AuthUIContextProvi
 -   You can pass in a custom header that will appear above the login form using the `loginHeader` prop. By default, we render your `productImage`.
 -   You can pass in a custom footer that will appear below the login form and registration links with any content you like (such as links to Privacy Policy, Terms of Service, etc.) using the `loginFooter` prop.
 -   You can customize the background of the workflow using the `background` prop including the color, tile image, etc.
--   You can disable and hide various aspects of the workflow using the following props: `enableInviteRegistration`, `enableResetPassword`, `showContactSupport`, `showCybersecurityBadge`, `showRememberMe`, `showSelfRegistration`.
+-   You can disable and hide various aspects of the workflow using the following props: `enableInviteRegistration`, `enableResetPassword`, `enableCreatePassword`, `showContactSupport`, `showCybersecurityBadge`, `showRememberMe`, `showSelfRegistration`.
 
 For more details, read the [full API details](https://github.com/etn-ccis/blui-react-auth-shared/tree/master/docs/API.md).
 

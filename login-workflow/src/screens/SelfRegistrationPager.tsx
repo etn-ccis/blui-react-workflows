@@ -372,12 +372,19 @@ export const SelfRegistrationPager: React.FC<React.PropsWithChildren<React.Props
                 canGoForward: true,
                 canGoBack: false,
             },
-        ]);
+        ])
+        // Remove the CreatePassword screen if so configured
+        .filter((page) => {
+            if (page.name === 'CreatePassword' && !injectedUIContext.enableCreatePassword) return false;
+            return true;
+        });
+
     const isLastStep = currentPage === RegistrationPages.length - 1;
     const isFirstStep = currentPage === 0;
     const CreateAccountPage = RegistrationPages.findIndex((item) => item.name === 'CreateAccount');
     const VerifyEmailPage = RegistrationPages.findIndex((item) => item.name === 'VerifyEmail');
     const CreatePasswordPage = RegistrationPages.findIndex((item) => item.name === 'CreatePassword');
+    const AccountDetailsPage = RegistrationPages.findIndex((item) => item.name === 'AccountDetails');
     const CompletePage = RegistrationPages.length - 1;
 
     // If there is a code and it is not confirmed, go to the verify screen
@@ -403,10 +410,10 @@ export const SelfRegistrationPager: React.FC<React.PropsWithChildren<React.Props
         // eslint-disable-next-line react-hooks/exhaustive-deps
     }, [codeRequestSuccess]);
 
-    // If the email is validated successfully, go to the create password screen
+    // If the email is validated successfully, go to the create password screen (or account details)
     useEffect(() => {
         if (currentPage === VerifyEmailPage && validationSuccess) {
-            setCurrentPage(CreatePasswordPage);
+            setCurrentPage(injectedUIContext.enableCreatePassword ? CreatePasswordPage : AccountDetailsPage);
         }
         // eslint-disable-next-line react-hooks/exhaustive-deps
     }, [validationSuccess]);

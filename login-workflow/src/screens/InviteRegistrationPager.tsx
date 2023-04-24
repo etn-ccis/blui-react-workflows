@@ -294,7 +294,12 @@ export const InviteRegistrationPager: React.FC<React.PropsWithChildren<React.Pro
                 canGoForward: true,
                 canGoBack: false,
             },
-        ]);
+        ])
+        // Remove the CreatePassword screen if so configured
+        .filter((page) => {
+            if (page.name === 'CreatePassword' && !injectedUIContext.enableCreatePassword) return false;
+            return true;
+        });
 
     const isLastStep = currentPage === RegistrationPages.length - 1;
     const isFirstStep = currentPage === 0;
