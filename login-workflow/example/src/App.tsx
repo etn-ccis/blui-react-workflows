@@ -49,7 +49,6 @@ export const AuthUIConfiguration: React.FC<React.PropsWithChildren> = (props) =>
             contactEmail={'something@email.com'}
             contactPhone={'1-800-123-4567'}
             projectImage={productLogo}
-            enableCreatePassword={false}
             loginFooter={
                 <Box sx={{ display: 'flex', alignItems: 'center' }}>
                     <Button
