@@ -10,7 +10,6 @@ import {
     CustomAccountDetails,
     RegistrationActions,
 } from '@brightlayer-ui/react-auth-shared';
-import i18n from '../translations/i18n';
 import { useNavigate } from 'react-router-dom';
 import { useRoutes } from '../contexts/RoutingContext';
 import { useQueryString } from '../hooks/useQueryString';

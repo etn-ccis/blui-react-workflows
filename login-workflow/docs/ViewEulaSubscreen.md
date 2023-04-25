@@ -1,8 +1,8 @@
-# Accept Eula
+# View Eula Subscreen
 
 The `<ViewEulaSubscreen>` component that renders a screen displaying the EULA and requests acceptance via a checkbox.
 
-<img width='100%' alt="Accept Eula" src="../media/accept_eula.png">
+<img width='100%' alt="View Eula Subscreen" src="../media/view_eula_subscreen.png">
 
 ## Usage
 
@@ -15,7 +15,7 @@ const [eulaAccepted, setEulaAccepted] = useState(false);
 <ViewEulaSubscreen 
     eulaAccepted={eulaAccepted} 
     onEulaCheckboxChanged={setEulaAccepted} 
-    loadEula={()=>{ // ...Load the Eula if we do not yet have the content }} 
+    loadEulaAction={()=>{ // ...Load the Eula if we do not yet have the content }} 
 />
 ```
 
@@ -23,24 +23,17 @@ const [eulaAccepted, setEulaAccepted] = useState(false);
 
 <div style="overflow: auto">
 
-| Prop Name                | Description                                                | Type                                                                                                     | Required | Default                                           |
-| ------------------------ | ---------------------------------------------------------- | -------------------------------------------------------------------------------------------------------- | -------- | ------------------------------------------------- |
-| eulaAccepted             | Prop to check the checkbox                                 | `boolean`                                                                                                | yes      |                                                   |
-| eulaContent              | The content to render for the EULA                         | `string`                                                                                                 | no       |                                                   | 
-| onEulaCheckboxChanged            | Function to call when the state of the checkbox is changed | `function`                                                                                               | yes      |                                                   |
-| loadEula                 | Function to call to retrieve the eulaContent               | `function`                                                                                               | yes      |                                                   |
-| htmlEula                 | Prop to render EULA as HTML                                | `boolean`                                                                                                | no       |                                                   |
-| eulaError                | Error message if the EULA fails to load                    | `string`                                                                                                 | no       |                                                   |
-| agreeTerms               | Prop to override terms and conditions text                 | `string`                                                                                                 | no       | "I have read and agree to the Terms & Conditions" | 
-| termsAndConditionsStyles | Prop to override terms and conditions styles               | `SxProps<Theme>`                                                                                         | no       |                                                   |
-| eulaContentStyles        | Prop to override eula content styles                       | `SxProps<Theme>`                                                                                         | no       |                                                   |
-| EulaContentProps         | Props to pass to the eula content                          | `BoxProps`                                                                                               | no       |                                                   |
-| loaderText               | Text to display when EULA is loading                           | `string`                                                                                                 | no       | "Loading End User License Agreement..."           |
-| LoaderTextProps          | Props to pass to the loader content                        | `TypographyProps`                                                                                        | no       |                                                   |
-| loaderStyles             | Prop to override the loader styles                         | `SxProps<Theme>`                                                                                         | no       |                                                   |
-| classes                  | Style overrides                                            | `ViewEulaSubscreenClasses`                                                                                      | no       |                                                   |
-| slots                    | Prop used for each slot in `BrandedCardContainer`          | `{loaderText: React.ElementType; eulaContent: React.ElementType; termsAndConditions: React.ElementType}` | no       | {}                                                |
-| slotProps                | Props applied to each slot                                 | `{loaderText: TypographyProps; eulaContent: BoxProps; termsAndConditions: FormControlLabelProps}`        | no       | {}                                                |
+| Prop Name                | Description                                                                  | Type                                                                                            | Required | Default                                           |
+| ------------------------ | -----------------------------------------------------------------------------| ------------------------------------------------------------------------------------------------| -------- | ------------------------------------------------- |
+| eulaAccepted             | Check for the checkbox to accept eula terms and conditions                   | `boolean`                                                                                       | yes      |                                                   |
+| onEulaCheckboxChanged    | Function to call when the state of the checkbox is changed                   | `function`                                                                                      | yes      |                                                   |
+| loadEulaAction           | Function which when called returns promise to retrieve eula content or error | `function`                                                                                      | yes      | "Loading End User License Agreement..."           |
+| htmlEula                 | Allow the EULA to be displayed as HTML or Text                               | `boolean`                                                                                       | no       |                                                   |
+| eulaError                | Error message if the EULA fails to load                                      | `string`                                                                                        | no       |                                                   |
+| agreeTerms               | Overrides terms and conditions checkbox label                                | `string`                                                                                        | no       | "I have read and agree to the Terms & Conditions" | 
+| classes                  | Style overrides                                                              | `ViewEulaSubscreenClasses`                                                                      | no       |                                                   |
+| slots                    | Prop used for each slot in `ViewEulaSubscreen`                               | `{loader: React.ElementType; eulaContent: React.ElementType; checkboxLabel: React.ElementType}` | no       | {}                                                |
+| slotProps                | Props applied to each slot                                                   | `{loader: any; eulaContent: BoxProps; checkboxLabel: FormControlLabelProps}`                    | no       | {}                                                |
 
 </div>
 
@@ -56,9 +49,9 @@ You can override the default styles used by Brightlayer UI by:
 
 <Box>
 
-| Name               | Global CSS Class                   | Description                                     |
-| ------------------ | ---------------------------------- | ----------------------------------------------- |
-| loaderText         | .BluiViewEulaSubscreen-loaderText         | Styles applied to the loader text element       |
+| Name               | Global CSS Class                          | Description                                     |
+| ------------------ | ----------------------------------------- | ----------------------------------------------- |
+| loader             | .BluiViewEulaSubscreen-loader             | Styles applied to the loader element            |
 | eulaContent        | .BluiViewEulaSubscreen-eulaContent        | Styles applied to the eula content element      |
 | termsAndConditions | .BluiViewEulaSubscreen-termsAndConditions | Styles applied to the terms and content element |
 
