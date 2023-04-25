@@ -102,6 +102,7 @@ export const ViewEulaSubscreen: React.FC<ViewEulaSubscreenProps> = (props) => {
 
     useEffect(() => {
         void loadAndCacheEula();
+        // eslint-disable-next-line react-hooks/exhaustive-deps
     }, []);
 
     return (
