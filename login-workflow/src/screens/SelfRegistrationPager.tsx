@@ -124,18 +124,6 @@ export const SelfRegistrationPager: React.FC<React.PropsWithChildren<React.Props
         }
     }, [code, urlEmail, setVerificationCode, setEmail]);
 
-    // Load the Eula if we do not yet have the content
-    const loadAndCacheEula = useCallback(async (): Promise<void> => {
-        if (!eulaContent) {
-            try {
-                const eulaText = await registrationActions.actions.loadEULA(i18n.language);
-                setEulaContent(eulaText);
-            } catch {
-                // do nothing
-            }
-        }
-    }, [eulaContent, setEulaContent, registrationActions]);
-
     // Send the verification email
     const requestCode = useCallback(async (): Promise<void> => {
         registrationActions.dispatch(RegistrationActions.requestRegistrationCodeReset());
@@ -227,10 +215,10 @@ export const SelfRegistrationPager: React.FC<React.PropsWithChildren<React.Props
                 <ViewEulaSubscreen
                     eulaAccepted={eulaAccepted}
                     onEulaCheckboxChanged={setEulaAccepted}
-                    loadEula={loadAndCacheEula}
                     htmlEula={injectedUIContext.htmlEula ?? false}
                     eulaError={loadEulaTransitErrorMessage}
                     eulaContent={eulaContent}
+                    loadEulaAction={registrationActions.actions.loadEULA}
                 />
             ),
             canGoForward: eulaAccepted,

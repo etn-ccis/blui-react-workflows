@@ -123,18 +123,6 @@ export const InviteRegistrationPager: React.FC<React.PropsWithChildren<React.Pro
         }
     }, [registrationState.inviteRegistration.validationTransit, validationCode, validateCode, validationEmail]); // eslint-disable-line react-hooks/exhaustive-deps
 
-    // Load the Eula if we don't have it yet
-    const loadAndCacheEula = useCallback(async (): Promise<void> => {
-        if (!eulaContent) {
-            try {
-                const eulaText = await registrationActions.actions.loadEULA(i18n.language);
-                setEulaContent(eulaText);
-            } catch {
-                // do nothing
-            }
-        }
-    }, [eulaContent, setEulaContent, registrationActions]);
-
     // Make the call to the register API
     const attemptRegistration = useCallback(async (): Promise<void> => {
         setHasAcknowledgedError(false);
@@ -180,7 +168,7 @@ export const InviteRegistrationPager: React.FC<React.PropsWithChildren<React.Pro
                 <ViewEulaSubscreen
                     eulaAccepted={eulaAccepted}
                     onEulaCheckboxChanged={setEulaAccepted}
-                    loadEula={loadAndCacheEula}
+                    loadEulaAction={registrationActions.actions.loadEULA}
                     htmlEula={injectedUIContext.htmlEula ?? false}
                     eulaError={loadEulaTransitErrorMessage}
                     eulaContent={eulaContent}

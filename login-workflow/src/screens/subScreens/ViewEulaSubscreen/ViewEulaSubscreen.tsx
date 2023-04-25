@@ -1,4 +1,4 @@
-import React, { useEffect } from 'react';
+import React, { useCallback, useEffect, useState } from 'react';
 import { useLanguageLocale } from '@brightlayer-ui/react-auth-shared';
 import Typography from '@mui/material/Typography';
 import FormControlLabel, { FormControlLabelProps } from '@mui/material/FormControlLabel';
@@ -13,16 +13,17 @@ import {
 } from './ViewEulaSubscreenClasses';
 import { unstable_composeClasses as composeClasses } from '@mui/base';
 import { cx } from '@emotion/css';
+import i18n from '../../../translations/i18n';
 
 export type ViewEulaSubscreenProps = {
     eulaAccepted: boolean;
     eulaContent?: string;
     onEulaCheckboxChanged: (accepted: boolean) => void;
-    loadEula: () => Promise<void> | void;
+    loadEulaAction: (language: string) => Promise<string>;
     htmlEula?: boolean;
     eulaError?: string;
     agreeTerms?: string;
-    termsAndConditionsStyles?: SxProps<Theme>;
+    checkboxLabelStyles?: SxProps<Theme>;
     eulaContentStyles?: SxProps<Theme>;
     loaderStyles?: SxProps<Theme>;
     classes?: ViewEulaSubscreenClasses;
@@ -63,7 +64,7 @@ const useUtilityClasses = (ownerState: ViewEulaSubscreenProps): Record<ViewEulaS
  *
  * @param agreeTerms to override terms and conditions text
  *
- * @param termsAndConditionsStyles to override terms and conditions styles
+ * @param checkboxLabelStyles to override terms and conditions styles
  *
  * @param eulaContentStyles to override eula content styles
  *
@@ -80,28 +81,41 @@ export const ViewEulaSubscreen: React.FC<ViewEulaSubscreenProps> = (props) => {
     const { t } = useLanguageLocale();
     const {
         eulaAccepted,
-        eulaContent,
         onEulaCheckboxChanged,
-        loadEula,
         htmlEula,
         eulaError,
         agreeTerms = t('blui:REGISTRATION.EULA.AGREE_TERMS'),
-        termsAndConditionsStyles,
+        checkboxLabelStyles,
         eulaContentStyles,
         loaderStyles,
         classes = {},
         slots = {},
         slotProps = {},
+        loadEulaAction,
     } = props;
 
     const defaultClasses = useUtilityClasses(props);
     const CheckboxLabel = slots.checkboxLabel ?? FormControlLabel;
-    const eulaContentInternals = eulaContent ?? eulaError ?? t('blui:REGISTRATION.EULA.LOADING');
     const Loader = slots.loader ?? Typography;
+    const [eulaState, setEulaState] = useState<string>();
+    const [isEulaLoaded, setIsEulaLoaded] = useState(false);
+
+    // Load the Eula if we don't have it yet
+    const loadAndCacheEula = useCallback(async (): Promise<void> => {
+        if (!eulaState) {
+            setEulaState(t('blui:REGISTRATION.EULA.LOADING'));
+            try {
+                const eulaText = await loadEulaAction(i18n.language);
+                setEulaState(eulaText);
+                setIsEulaLoaded(true);
+            } catch {
+                setEulaState(eulaError);
+            }
+        }
+    }, [eulaState, setEulaState, loadEulaAction]);
 
     useEffect(() => {
-        void loadEula();
-        // eslint-disable-next-line react-hooks/exhaustive-deps
+        loadAndCacheEula();
     }, []);
 
     return (
@@ -112,7 +126,7 @@ export const ViewEulaSubscreen: React.FC<ViewEulaSubscreenProps> = (props) => {
                     className={cx(defaultClasses.loader, classes.loader)}
                     {...slotProps.loader}
                 >
-                    {eulaContentInternals}
+                    {eulaState}
                 </Loader>
             )}
             {htmlEula && (
@@ -120,7 +134,7 @@ export const ViewEulaSubscreen: React.FC<ViewEulaSubscreenProps> = (props) => {
                     sx={{ flex: '1 1 0px', overflow: 'auto', ...eulaContentStyles }}
                     className={cx(defaultClasses.eulaContent, classes.eulaContent)}
                     component={slots.eulaContent}
-                    dangerouslySetInnerHTML={{ __html: DOMPurify.sanitize(eulaContentInternals) }}
+                    dangerouslySetInnerHTML={{ __html: DOMPurify.sanitize(eulaState) }}
                     {...slotProps.eulaContent}
                 ></Box>
             )}
@@ -129,14 +143,14 @@ export const ViewEulaSubscreen: React.FC<ViewEulaSubscreenProps> = (props) => {
                     <Checkbox
                         color={'primary'}
                         checked={eulaAccepted}
-                        disabled={!eulaContent}
+                        disabled={!isEulaLoaded}
                         onChange={(event: React.ChangeEvent<HTMLInputElement>): void =>
                             onEulaCheckboxChanged(event.target.checked)
                         }
                     />
                 }
                 label={agreeTerms}
-                sx={{ flex: '0 0 auto', mr: 0, mt: 2, ...termsAndConditionsStyles }}
+                sx={{ flex: '0 0 auto', mr: 0, mt: 2, ...checkboxLabelStyles }}
                 className={cx(defaultClasses.checkboxLabel, classes.checkboxLabel)}
                 {...slotProps.checkboxLabel}
             />
