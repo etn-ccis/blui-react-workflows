@@ -69,7 +69,6 @@ export const SelfRegistrationPager: React.FC<React.PropsWithChildren<React.Props
     const [password, setPassword] = useState('');
     const [accountDetails, setAccountDetails] = useState<(AccountDetailInformation & { valid: boolean }) | null>(null);
     const [customAccountDetails, setCustomAccountDetails] = useState<CustomRegistrationDetailsGroup | null>({});
-    const [eulaContent, setEulaContent] = useState<string>();
     const [accountAlreadyExists, setAccountAlreadyExists] = useState<boolean>(false);
     const [hasAcknowledgedError, setHasAcknowledgedError] = useState(false);
 
@@ -217,7 +216,6 @@ export const SelfRegistrationPager: React.FC<React.PropsWithChildren<React.Props
                     onEulaCheckboxChanged={setEulaAccepted}
                     htmlEula={injectedUIContext.htmlEula ?? false}
                     eulaError={loadEulaTransitErrorMessage}
-                    eulaContent={eulaContent}
                     loadEulaAction={registrationActions.actions.loadEULA}
                 />
             ),

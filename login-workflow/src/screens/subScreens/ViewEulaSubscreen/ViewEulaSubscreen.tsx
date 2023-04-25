@@ -17,7 +17,6 @@ import i18n from '../../../translations/i18n';
 
 export type ViewEulaSubscreenProps = {
     eulaAccepted: boolean;
-    eulaContent?: string;
     onEulaCheckboxChanged: (accepted: boolean) => void;
     loadEulaAction: (language: string) => Promise<string>;
     htmlEula?: boolean;

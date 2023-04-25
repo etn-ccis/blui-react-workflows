@@ -68,7 +68,6 @@ export const InviteRegistrationPager: React.FC<React.PropsWithChildren<React.Pro
     const [password, setPassword] = useState('');
     const [accountDetails, setAccountDetails] = useState<(AccountDetailInformation & { valid: boolean }) | null>(null);
     const [customAccountDetails, setCustomAccountDetails] = useState<CustomRegistrationDetailsGroup | null>({});
-    const [eulaContent, setEulaContent] = useState<string>();
     const [currentPage, setCurrentPage] = useState(0);
     const [accountAlreadyExists, setAccountAlreadyExists] = React.useState<boolean>(false);
 
@@ -171,7 +170,6 @@ export const InviteRegistrationPager: React.FC<React.PropsWithChildren<React.Pro
                     loadEulaAction={registrationActions.actions.loadEULA}
                     htmlEula={injectedUIContext.htmlEula ?? false}
                     eulaError={loadEulaTransitErrorMessage}
-                    eulaContent={eulaContent}
                 />
             ),
             canGoForward: eulaAccepted,
