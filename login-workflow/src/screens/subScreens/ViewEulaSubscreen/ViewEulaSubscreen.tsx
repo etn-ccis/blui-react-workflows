@@ -96,22 +96,22 @@ export const ViewEulaSubscreen: React.FC<ViewEulaSubscreenProps> = (props) => {
     const defaultClasses = useUtilityClasses(props);
     const CheckboxLabel = slots.checkboxLabel ?? FormControlLabel;
     const Loader = slots.loader ?? Typography;
-    const [eulaState, setEulaState] = useState<string>();
+    const [eulaContent, setEulaContent] = useState<string>();
     const [isEulaLoaded, setIsEulaLoaded] = useState(false);
 
     // Load the Eula if we don't have it yet
     const loadAndCacheEula = useCallback(async (): Promise<void> => {
-        if (!eulaState) {
-            setEulaState(t('blui:REGISTRATION.EULA.LOADING'));
+        if (!eulaContent) {
+            setEulaContent(t('blui:REGISTRATION.EULA.LOADING'));
             try {
                 const eulaText = await loadEulaAction(i18n.language);
-                setEulaState(eulaText);
+                setEulaContent(eulaText);
                 setIsEulaLoaded(true);
             } catch {
-                setEulaState(eulaError);
+                setEulaContent(eulaError);
             }
         }
-    }, [eulaState, setEulaState, loadEulaAction]);
+    }, [eulaContent, setEulaContent, loadEulaAction]);
 
     useEffect(() => {
         loadAndCacheEula();
@@ -125,7 +125,7 @@ export const ViewEulaSubscreen: React.FC<ViewEulaSubscreenProps> = (props) => {
                     className={cx(defaultClasses.loader, classes.loader)}
                     {...slotProps.loader}
                 >
-                    {eulaState}
+                    {eulaContent}
                 </Loader>
             )}
             {htmlEula && (
@@ -133,7 +133,7 @@ export const ViewEulaSubscreen: React.FC<ViewEulaSubscreenProps> = (props) => {
                     sx={{ flex: '1 1 0px', overflow: 'auto', ...eulaContentStyles }}
                     className={cx(defaultClasses.eulaContent, classes.eulaContent)}
                     component={slots.eulaContent}
-                    dangerouslySetInnerHTML={{ __html: DOMPurify.sanitize(eulaState) }}
+                    dangerouslySetInnerHTML={{ __html: DOMPurify.sanitize(eulaContent) }}
                     {...slotProps.eulaContent}
                 ></Box>
             )}
