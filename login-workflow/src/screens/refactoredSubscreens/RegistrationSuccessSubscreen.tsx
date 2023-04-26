@@ -1,11 +1,11 @@
 import React from 'react';
 import { useLanguageLocale } from '@brightlayer-ui/react-auth-shared';
 import { Trans } from 'react-i18next';
-import { BrandedCardContainer, BrandedCardContainerProps, FinishState } from '../../components';
+import { FinishState } from '../../components';
 import CheckCircle from '@mui/icons-material/CheckCircle';
 import Typography from '@mui/material/Typography';
 
-export type RegistrationSuccessSubscreenProps = BrandedCardContainerProps & {
+export type RegistrationSuccessSubscreenProps = {
     firstName: string;
     lastName: string;
     email: string;
@@ -39,7 +39,7 @@ export const RegistrationSuccessSubscreen: React.FC<RegistrationSuccessSubscreen
         messageBody = 'blui:REGISTRATION.SUCCESS_MESSAGE_ALT',
     } = props;
 
-    const finishState = (
+    return (
         <FinishState
             icon={messageIcon}
             title={messageTitle}
@@ -53,6 +53,4 @@ export const RegistrationSuccessSubscreen: React.FC<RegistrationSuccessSubscreen
             }
         />
     );
-
-    return <BrandedCardContainer>{finishState}</BrandedCardContainer>;
 };
