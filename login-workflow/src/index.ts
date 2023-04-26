@@ -13,3 +13,5 @@ export * from '@brightlayer-ui/react-auth-shared';
 
 export * from './screens';
 export * from './components';
+
+export * from './screens';
