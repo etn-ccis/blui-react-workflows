@@ -1,6 +1,6 @@
 import React, { useEffect } from 'react';
 import { BrowserRouter, Navigate, Route, Routes } from 'react-router-dom';
-import { AuthUIInternalStore, useSecurityState, useInjectedUIContext } from '@brightlayer-ui/react-auth-shared';
+import { AuthUIInternalStore, useSecurityState, useInjectedUIContext } from '../auth-shared';
 import { Splash as SplashScreen } from '../screens/Splash';
 import { ChangePasswordModal, AuthGuard, BrandedCardContainer } from '../components';
 import { RoutingContext } from '../contexts/RoutingContext';

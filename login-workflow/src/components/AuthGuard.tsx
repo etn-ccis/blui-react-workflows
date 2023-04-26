@@ -1,5 +1,5 @@
 import React, { useEffect } from 'react';
-import { useSecurityState } from '@brightlayer-ui/react-auth-shared';
+import { useSecurityState } from '../auth-shared';
 import { Outlet, useLocation, useNavigate } from 'react-router-dom';
 import { useRoutes } from '../contexts/RoutingContext';
 

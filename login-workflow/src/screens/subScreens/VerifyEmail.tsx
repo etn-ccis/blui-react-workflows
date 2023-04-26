@@ -1,11 +1,11 @@
 import React, { useEffect } from 'react';
-import { useLanguageLocale } from '@brightlayer-ui/react-auth-shared';
 import Typography from '@mui/material/Typography';
 import TextField from '@mui/material/TextField';
 import Divider from '@mui/material/Divider';
 import { useTheme } from '@mui/material/styles';
 import { FullDividerStyles } from '../../styles';
 import Box from '@mui/material/Box';
+import { useLanguageLocale } from '../../auth-shared';
 
 export type VerifyEmailProps = {
     initialCode?: string;

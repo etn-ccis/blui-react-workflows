@@ -10,12 +10,7 @@ import { SecureTextField } from './SecureTextField';
 import { SimpleDialog } from './SimpleDialog';
 import { Spinner } from './Spinner';
 import { ChangePasswordForm, PasswordRequirements, PasswordRequirementsCheck, ChangePasswordModal } from './password';
-import {
-    AuthUIContextProvider,
-    SecurityContextProvider,
-    AccountUIActionContext,
-    translations,
-} from '@brightlayer-ui/react-auth-shared';
+import { AuthUIContextProvider, SecurityContextProvider, AccountUIActionContext, translations } from '../auth-shared';
 import { createTheme, ThemeProvider } from '@mui/material/styles';
 import * as BLUIThemes from '@brightlayer-ui/react-themes';
 
@@ -74,9 +69,9 @@ describe('FinishState tests', () => {
     });
 });
 
-jest.mock('@brightlayer-ui/react-auth-shared', () => ({
+jest.mock('../auth-shared', () => ({
     // @ts-ignore
-    ...jest.requireActual('@brightlayer-ui/react-auth-shared'),
+    ...jest.requireActual('../auth-shared'),
     useRoutes: jest.fn().mockReturnValue({ LOGIN: 'login' }),
     useSecurityState: jest.fn().mockReturnValue({ isAuthenticatedUser: false }),
 }));
@@ -101,9 +96,9 @@ describe('AuthGuard unauthenticated tests', () => {
     });
 });
 
-jest.mock('@brightlayer-ui/react-auth-shared', () => ({
+jest.mock('../auth-shared', () => ({
     // @ts-ignore
-    ...jest.requireActual('@brightlayer-ui/react-auth-shared'),
+    ...jest.requireActual('../auth-shared'),
     useSecurityState: jest.fn().mockReturnValue({ isAuthenticatedUser: true }),
 }));
 
@@ -172,9 +167,9 @@ describe('ChangePasswordForm tests', () => {
     });
 });
 
-jest.mock('@brightlayer-ui/react-auth-shared', () => ({
+jest.mock('../auth-shared', () => ({
     // @ts-ignore
-    ...jest.requireActual('@brightlayer-ui/react-auth-shared'),
+    ...jest.requireActual('../auth-shared'),
     useSecurityState: jest.fn().mockReturnValue({ isShowingChangePassword: true }),
     initialTransitState: jest.fn().mockReturnValue({ transitSuccess: true }),
 }));
@@ -207,9 +202,9 @@ describe('ChangePasswordModal transitSuccess=true tests', () => {
     });
 });
 
-jest.mock('@brightlayer-ui/react-auth-shared', () => ({
+jest.mock('../auth-shared', () => ({
     // @ts-ignore
-    ...jest.requireActual('@brightlayer-ui/react-auth-shared'),
+    ...jest.requireActual('../auth-shared'),
     useSecurityState: jest.fn().mockReturnValue({ isShowingChangePassword: true }),
     initialTransitState: jest.fn().mockReturnValue({ transitSuccess: false }),
 }));

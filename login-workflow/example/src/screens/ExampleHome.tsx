@@ -1,7 +1,7 @@
 import React from 'react';
 import logo from './logo.svg';
 import './Home.css';
-import { useSecurityActions } from '@brightlayer-ui/react-auth-shared';
+import { useSecurityActions } from '@brightlayer-ui/react-auth-workflow';
 import { LocalStorage } from '../store/local-storage';
 import Button from '@mui/material/Button';
 

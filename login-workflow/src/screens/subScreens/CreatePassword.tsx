@@ -1,5 +1,5 @@
 import React, { useState, useCallback, useEffect, useRef } from 'react';
-import { useLanguageLocale, useInjectedUIContext } from '@brightlayer-ui/react-auth-shared';
+import { useInjectedUIContext, useLanguageLocale } from '../../auth-shared';
 import { ChangePasswordForm } from '../../components';
 import { defaultPasswordRequirements } from '../../constants';
 

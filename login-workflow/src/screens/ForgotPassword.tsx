@@ -6,7 +6,7 @@ import {
     AccountActions,
     EMAIL_REGEX,
     useInjectedUIContext,
-} from '@brightlayer-ui/react-auth-shared';
+} from '../auth-shared';
 import { Trans } from 'react-i18next';
 import { useNavigate } from 'react-router-dom';
 import { BrandedCardContainer, SimpleDialog, FinishState } from '../components';

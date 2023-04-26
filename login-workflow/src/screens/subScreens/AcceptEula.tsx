@@ -1,10 +1,10 @@
 import React, { useEffect } from 'react';
-import { useLanguageLocale } from '@brightlayer-ui/react-auth-shared';
 import Typography from '@mui/material/Typography';
 import FormControlLabel from '@mui/material/FormControlLabel';
 import Checkbox from '@mui/material/Checkbox';
 import DOMPurify from 'dompurify';
 import Box from '@mui/material/Box';
+import { useLanguageLocale } from '../../auth-shared';
 
 export type AcceptEulaProps = {
     eulaAccepted: boolean;

@@ -5,7 +5,7 @@ import {
     UPPER_CASE_REGEX,
     LOWER_CASE_REGEX,
     SPECIAL_CHAR_REGEX,
-} from '@brightlayer-ui/react-auth-shared';
+} from '../auth-shared';
 
 export const defaultPasswordRequirements = (t: (input: string) => string): PasswordRequirement[] => [
     {

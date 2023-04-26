@@ -1,16 +1,5 @@
 import React, { useState, useEffect, useCallback, ComponentType } from 'react';
 import i18n from '../translations/i18n';
-import {
-    useLanguageLocale,
-    useRegistrationUIActions,
-    useRegistrationUIState,
-    useInjectedUIContext,
-    RegistrationActions,
-    AccountDetailInformation,
-    CustomRegistrationForm,
-    CustomAccountDetails,
-    AccountDetailsFormProps,
-} from '@brightlayer-ui/react-auth-shared';
 import { useNavigate } from 'react-router-dom';
 import { useQueryString } from '../hooks/useQueryString';
 import { useRoutes } from '../contexts/RoutingContext';
@@ -41,6 +30,17 @@ import {
 } from '../styles';
 import { useTheme } from '@mui/material/styles';
 import Box from '@mui/material/Box';
+import {
+    AccountDetailInformation,
+    AccountDetailsFormProps,
+    CustomAccountDetails,
+    CustomRegistrationForm,
+    RegistrationActions,
+    useInjectedUIContext,
+    useLanguageLocale,
+    useRegistrationUIActions,
+    useRegistrationUIState,
+} from '../auth-shared';
 
 export const emptyAccountDetailInformation: AccountDetailInformation = {
     firstName: '',
