@@ -1,8 +1,7 @@
-import React, { useCallback } from 'react';
+import React from 'react';
 import { useLanguageLocale } from '@brightlayer-ui/react-auth-shared';
 import { FinishState } from '../../components';
 import Person from '@mui/icons-material/Person';
-import { BrandedCardContainer } from '../../components/BrandedCardContainer';
 import Divider from '@mui/material/Divider';
 import CardHeader from '@mui/material/CardHeader';
 import Typography from '@mui/material/Typography';
@@ -21,7 +20,7 @@ import { useNavigate } from 'react-router-dom';
  * @category Component
  */
 
-type ExistingAccountRegisterSuccessSubscreenProps = {
+export type ExistingAccountRegisterSuccessSubscreenProps = {
     cardTitle?: string;
     messageIcon?: JSX.Element;
     messageTitle?: string;
@@ -55,7 +54,7 @@ export const ExistingAccountRegisterSuccessSubscreen: React.FC<ExistingAccountRe
         ),
     } = props;
 
-    const ExistingAccountSuccessRenderer = (): JSX.Element => (
+    return (
         <>
             <CardHeader title={<Typography variant={'h6'}>{cardTitle}</Typography>} sx={DialogTitleStyles(theme)} />
             <CardContent sx={DialogContentStyles(theme)}>
@@ -64,11 +63,5 @@ export const ExistingAccountRegisterSuccessSubscreen: React.FC<ExistingAccountRe
             <Divider />
             <CardActions sx={DialogActionsStyles(theme)}>{cardActions}</CardActions>
         </>
-    );
-
-    return (
-        <BrandedCardContainer>
-            <ExistingAccountSuccessRenderer />
-        </BrandedCardContainer>
     );
 };
