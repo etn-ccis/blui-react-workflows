@@ -10,7 +10,6 @@ import {
     CustomAccountDetails,
     RegistrationActions,
 } from '@brightlayer-ui/react-auth-shared';
-import i18n from '../translations/i18n';
 import { useNavigate } from 'react-router-dom';
 import { useRoutes } from '../contexts/RoutingContext';
 import { useQueryString } from '../hooks/useQueryString';
@@ -24,7 +23,7 @@ import MobileStepper from '@mui/material/MobileStepper';
 import { useTheme } from '@mui/material/styles';
 import { BrandedCardContainer, FinishState, SimpleDialog } from '../components';
 import { emptyAccountDetailInformation } from './SelfRegistrationPager';
-import { AcceptEula } from './subScreens/AcceptEula';
+import { ViewEulaSubscreen } from './subScreens/ViewEulaSubscreen';
 import { CreatePassword as CreatePasswordScreen } from './subScreens/CreatePassword';
 import { AccountDetails as AccountDetailsScreen, AccountDetailsWrapper } from './subScreens/AccountDetails';
 import { RegistrationComplete } from './subScreens/RegistrationComplete';
@@ -68,7 +67,6 @@ export const InviteRegistrationPager: React.FC<React.PropsWithChildren<React.Pro
     const [password, setPassword] = useState('');
     const [accountDetails, setAccountDetails] = useState<(AccountDetailInformation & { valid: boolean }) | null>(null);
     const [customAccountDetails, setCustomAccountDetails] = useState<CustomRegistrationDetailsGroup | null>({});
-    const [eulaContent, setEulaContent] = useState<string>();
     const [currentPage, setCurrentPage] = useState(0);
     const [accountAlreadyExists, setAccountAlreadyExists] = React.useState<boolean>(false);
 
@@ -123,18 +121,6 @@ export const InviteRegistrationPager: React.FC<React.PropsWithChildren<React.Pro
         }
     }, [registrationState.inviteRegistration.validationTransit, validationCode, validateCode, validationEmail]); // eslint-disable-line react-hooks/exhaustive-deps
 
-    // Load the Eula if we don't have it yet
-    const loadAndCacheEula = useCallback(async (): Promise<void> => {
-        if (!eulaContent) {
-            try {
-                const eulaText = await registrationActions.actions.loadEULA(i18n.language);
-                setEulaContent(eulaText);
-            } catch {
-                // do nothing
-            }
-        }
-    }, [eulaContent, setEulaContent, registrationActions]);
-
     // Make the call to the register API
     const attemptRegistration = useCallback(async (): Promise<void> => {
         setHasAcknowledgedError(false);
@@ -177,13 +163,12 @@ export const InviteRegistrationPager: React.FC<React.PropsWithChildren<React.Pro
             name: 'Eula',
             pageTitle: t('blui:REGISTRATION.STEPS.LICENSE'),
             pageBody: (
-                <AcceptEula
+                <ViewEulaSubscreen
                     eulaAccepted={eulaAccepted}
-                    onEulaChanged={setEulaAccepted}
-                    loadEula={loadAndCacheEula}
+                    onEulaCheckboxChanged={setEulaAccepted}
+                    loadEulaAction={registrationActions.actions.loadEULA}
                     htmlEula={injectedUIContext.htmlEula ?? false}
                     eulaError={loadEulaTransitErrorMessage}
-                    eulaContent={eulaContent}
                 />
             ),
             canGoForward: eulaAccepted,
@@ -294,7 +279,12 @@ export const InviteRegistrationPager: React.FC<React.PropsWithChildren<React.Pro
                 canGoForward: true,
                 canGoBack: false,
             },
-        ]);
+        ])
+        // Remove the CreatePassword screen if so configured
+        .filter((page) => {
+            if (page.name === 'CreatePassword' && !(injectedUIContext.enableCreatePassword ?? true)) return false;
+            return true;
+        });
 
     const isLastStep = currentPage === RegistrationPages.length - 1;
     const isFirstStep = currentPage === 0;

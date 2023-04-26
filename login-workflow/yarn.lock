@@ -1045,10 +1045,10 @@
   resolved "https://registry.yarnpkg.com/@brightlayer-ui/prettier-config/-/prettier-config-1.0.3.tgz#e40a7ae7435c6fd5118acbf249080e0aa81e93af"
   integrity sha512-EYm3+V7Qd+oYEF+8FadsXAZqXryEHHbGnrV1BMp9selhABjceqUqXPVE4Sn3SKWQdBNJ3En2A3EzgrzRbvRTaw==
 
-"@brightlayer-ui/react-auth-shared@^3.7.4":
-  version "3.7.4"
-  resolved "https://registry.yarnpkg.com/@brightlayer-ui/react-auth-shared/-/react-auth-shared-3.7.4.tgz#f0d0b931867bf90e42994c2dfff313b7a8a2b996"
-  integrity sha512-ef9i4PHfvkjbvSkKDrUIBSWbrsRVpHSPesxkRfd+rEimIpXdW+dLRVT6j3x4Ht1QRGvJa9m6IsNuvA4zzNE9JQ==
+"@brightlayer-ui/react-auth-shared@^4.0.0-alpha.0":
+  version "4.0.0-alpha.0"
+  resolved "https://registry.yarnpkg.com/@brightlayer-ui/react-auth-shared/-/react-auth-shared-4.0.0-alpha.0.tgz#a11d55bb5f83bf87bebfd525acc2667e2029e4b4"
+  integrity sha512-TZJxxhb5i3cDdZbaPXL+qwLzedbgs/U5IlymR9ELc1dDuN8GMLePQnEI7o9LLu0AjzUYtm3fq19U/oM3HEqCwQ==
 
 "@brightlayer-ui/react-components@^6.1.2-alpha.0":
   version "6.2.0"
@@ -9254,9 +9254,9 @@ verror@1.10.0:
     extsprintf "^1.2.0"
 
 vm2@^3.9.8:
-  version "3.9.16"
-  resolved "https://registry.yarnpkg.com/vm2/-/vm2-3.9.16.tgz#0fbc2a265f7bf8b837cea6f4a908f88a3f93b8e6"
-  integrity sha512-3T9LscojNTxdOyG+e8gFeyBXkMlOBYDoF6dqZbj+MPVHi9x10UfiTAJIobuchRCp3QvC+inybTbMJIUrLsig0w==
+  version "3.9.17"
+  resolved "https://registry.yarnpkg.com/vm2/-/vm2-3.9.17.tgz#251b165ff8a0e034942b5181057305e39570aeab"
+  integrity sha512-AqwtCnZ/ERcX+AVj9vUsphY56YANXxRuqMb7GsDtAr0m0PcQX3u0Aj3KWiXM0YAHy7i6JEeHrwOnwXbGYgRpAw==
   dependencies:
     acorn "^8.7.0"
     acorn-walk "^8.2.0"
