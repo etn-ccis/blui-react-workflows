@@ -4,7 +4,7 @@ import TextField from '@mui/material/TextField';
 import Divider from '@mui/material/Divider';
 import { FullDividerStyles } from '../../styles';
 import { useTheme } from '@mui/material/styles';
-import { useLanguageLocale } from '../../auth-shared';
+import { EMAIL_REGEX, useLanguageLocale } from '../../auth-shared';
 
 const isValidEmail = (text: string): boolean => new RegExp(EMAIL_REGEX).test(text);
 

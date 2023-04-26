@@ -4,7 +4,7 @@ import TextField from '@mui/material/TextField';
 import Divider from '@mui/material/Divider';
 import { useTheme } from '@mui/material/styles';
 import { FullDividerStyles, TextFieldStyles } from '../../styles';
-import { useInjectedUIContext, useLanguageLocale } from '../../auth-shared';
+import { AccountDetailInformation, useInjectedUIContext, useLanguageLocale } from '../../auth-shared';
 
 export type AccountDetailsWrapperProps = {
     description?: string;
