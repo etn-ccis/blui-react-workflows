@@ -53,6 +53,10 @@ const useUtilityClasses = (ownerState: BrandedCardContainerProps): Record<Brande
  *
  * @param classes for default style overrides
  *
+ * @param slots used for each slot in `BrandedCardContainer`
+ *
+ * @param slotProps applied to each slot
+ *
  * @category Component
  */
 export const BrandedCardContainer: React.FC<BrandedCardContainerProps> = (props) => {

@@ -2,14 +2,14 @@ import React, { useEffect } from 'react';
 import { BrowserRouter, Navigate, Route, Routes } from 'react-router-dom';
 import { AuthUIInternalStore, useSecurityState, useInjectedUIContext } from '@brightlayer-ui/react-auth-shared';
 import { Splash as SplashScreen } from '../screens/Splash';
-import { ChangePasswordModal, AuthGuard } from '../components';
+import { ChangePasswordModal, AuthGuard, BrandedCardContainer } from '../components';
 import { RoutingContext } from '../contexts/RoutingContext';
 import { GuestGuard } from '../components/GuestGuard';
 import { ForgotPassword } from '../screens/ForgotPassword';
 import { ResetPassword } from '../screens/ResetPassword';
 import { InviteRegistrationPager } from '../screens/InviteRegistrationPager';
 import { SelfRegistrationPager } from '../screens/SelfRegistrationPager';
-import { ContactSupport } from '../screens/ContactSupport';
+import { ContactSupportSubscreen } from '../screens/subScreens/ContactSupportSubscreen';
 import { Login } from '../screens/Login';
 
 export type RouteConfig = {
@@ -143,7 +143,15 @@ export const AuthNavigationContainer: React.FC<
                             <Route
                                 path={routes.SUPPORT}
                                 element={
-                                    <GuestGuard>{showContactSupport ? <ContactSupport /> : RedirectToLogin}</GuestGuard>
+                                    <GuestGuard>
+                                        {showContactSupport ? (
+                                            <BrandedCardContainer>
+                                                <ContactSupportSubscreen />
+                                            </BrandedCardContainer>
+                                        ) : (
+                                            RedirectToLogin
+                                        )}
+                                    </GuestGuard>
                                 }
                             />
                         </>

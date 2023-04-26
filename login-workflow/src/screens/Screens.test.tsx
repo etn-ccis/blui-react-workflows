@@ -2,13 +2,14 @@ import React from 'react';
 import 'regenerator-runtime/runtime';
 import { render, cleanup } from '@testing-library/react';
 import '@testing-library/jest-dom';
-import { AcceptEula } from './subScreens/AcceptEula';
+import { ViewEulaSubscreen } from './subScreens/ViewEulaSubscreen';
 import { AccountDetails } from './subScreens/AccountDetails';
 import { CreateAccount } from './subScreens/CreateAccount';
 import { CreatePassword } from './subScreens/CreatePassword';
 import { ExistingAccountComplete } from './subScreens/ExistingAccountComplete';
 import { RegistrationComplete } from './subScreens/RegistrationComplete';
 import { VerifyEmail } from './subScreens/VerifyEmail';
+import { ContactSupportSubscreen } from './subScreens/ContactSupportSubscreen';
 import {
     AccountUIActionContext,
     // AccountUIActionContext,
@@ -18,7 +19,6 @@ import {
     // RegistrationActionContext,
     // RegistrationActionsCreator,
 } from '@brightlayer-ui/react-auth-shared';
-import { ContactSupport } from './ContactSupport';
 import { ForgotPassword } from './ForgotPassword';
 // import { InviteRegistrationPager } from './InviteRegistrationPager';
 import { BrowserRouter } from 'react-router-dom';
@@ -61,13 +61,17 @@ void i18n
         },
     });
 
-describe('AcceptEula tests', () => {
+describe('ViewEulaSubscreen tests', () => {
     it('renders without crashing', () => {
-        const onEulaChanged = jest.fn();
+        const onEulaCheckboxChanged = jest.fn();
 
         render(
             <ThemeProvider theme={theme}>
-                <AcceptEula eulaAccepted={false} loadEula={(): void => {}} onEulaChanged={onEulaChanged} />
+                <ViewEulaSubscreen
+                    eulaAccepted={false}
+                    loadEula={(): void => {}}
+                    onEulaCheckboxChanged={onEulaCheckboxChanged}
+                />
             </ThemeProvider>
         );
     });
@@ -158,7 +162,7 @@ describe('VerifyEmail tests', () => {
     });
 });
 
-describe('ContactSupport tests', () => {
+describe('ContactSupportSubscreen tests', () => {
     it('renders without crashing', () => {
         const authUIActions = jest.fn();
         const registrationUIActions = jest.fn();
@@ -166,7 +170,7 @@ describe('ContactSupport tests', () => {
         render(
             <ThemeProvider theme={theme}>
                 <AuthUIContextProvider authActions={authUIActions} registrationActions={registrationUIActions}>
-                    <ContactSupport />
+                    <ContactSupportSubscreen />
                 </AuthUIContextProvider>
             </ThemeProvider>
         );

@@ -1,6 +1,6 @@
 {
     "name": "@brightlayer-ui/react-auth-workflow",
-    "version": "3.2.0",
+    "version": "4.0.0-alpha.1",
     "author": "Brightlayer UI <brightlayer-ui@eaton.com> (https://github.com/brightlayer-ui)",
     "license": "BSD-3-Clause",
     "description": "Re-usable workflow components for Authentication and Registration within Eaton applications.",
@@ -27,7 +27,7 @@
     },
     "prettier": "@brightlayer-ui/prettier-config",
     "dependencies": {
-        "@brightlayer-ui/react-auth-shared": "^3.7.4",
+        "@brightlayer-ui/react-auth-shared": "^4.0.0-alpha.0",
         "dompurify": "^2.2.9",
         "i18next-browser-languagedetector": "^6.1.0"
     },

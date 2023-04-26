@@ -1,5 +1,4 @@
 import React, { useState, useEffect, useCallback, ComponentType } from 'react';
-import i18n from '../translations/i18n';
 import {
     useLanguageLocale,
     useRegistrationUIActions,
@@ -23,7 +22,7 @@ import Typography from '@mui/material/Typography';
 import MobileStepper from '@mui/material/MobileStepper';
 import { BrandedCardContainer, SimpleDialog } from '../components';
 import { CreateAccount as CreateAccountScreen } from './subScreens/CreateAccount';
-import { AcceptEula } from './subScreens/AcceptEula';
+import { ViewEulaSubscreen } from './subScreens/ViewEulaSubscreen';
 import { VerifyEmail as VerifyEmailScreen } from './subScreens/VerifyEmail';
 import { CreatePassword as CreatePasswordScreen } from './subScreens/CreatePassword';
 import { AccountDetails as AccountDetailsScreen, AccountDetailsWrapper } from './subScreens/AccountDetails';
@@ -69,7 +68,6 @@ export const SelfRegistrationPager: React.FC<React.PropsWithChildren<React.Props
     const [password, setPassword] = useState('');
     const [accountDetails, setAccountDetails] = useState<(AccountDetailInformation & { valid: boolean }) | null>(null);
     const [customAccountDetails, setCustomAccountDetails] = useState<CustomRegistrationDetailsGroup | null>({});
-    const [eulaContent, setEulaContent] = useState<string>();
     const [accountAlreadyExists, setAccountAlreadyExists] = useState<boolean>(false);
     const [hasAcknowledgedError, setHasAcknowledgedError] = useState(false);
 
@@ -123,18 +121,6 @@ export const SelfRegistrationPager: React.FC<React.PropsWithChildren<React.Props
             }
         }
     }, [code, urlEmail, setVerificationCode, setEmail]);
-
-    // Load the Eula if we do not yet have the content
-    const loadAndCacheEula = useCallback(async (): Promise<void> => {
-        if (!eulaContent) {
-            try {
-                const eulaText = await registrationActions.actions.loadEULA(i18n.language);
-                setEulaContent(eulaText);
-            } catch {
-                // do nothing
-            }
-        }
-    }, [eulaContent, setEulaContent, registrationActions]);
 
     // Send the verification email
     const requestCode = useCallback(async (): Promise<void> => {
@@ -224,13 +210,12 @@ export const SelfRegistrationPager: React.FC<React.PropsWithChildren<React.Props
             name: 'Eula',
             pageTitle: t('blui:REGISTRATION.STEPS.LICENSE'),
             pageBody: (
-                <AcceptEula
+                <ViewEulaSubscreen
                     eulaAccepted={eulaAccepted}
-                    onEulaChanged={setEulaAccepted}
-                    loadEula={loadAndCacheEula}
+                    onEulaCheckboxChanged={setEulaAccepted}
                     htmlEula={injectedUIContext.htmlEula ?? false}
                     eulaError={loadEulaTransitErrorMessage}
-                    eulaContent={eulaContent}
+                    loadEulaAction={registrationActions.actions.loadEULA}
                 />
             ),
             canGoForward: eulaAccepted,
@@ -372,12 +357,19 @@ export const SelfRegistrationPager: React.FC<React.PropsWithChildren<React.Props
                 canGoForward: true,
                 canGoBack: false,
             },
-        ]);
+        ])
+        // Remove the CreatePassword screen if so configured
+        .filter((page) => {
+            if (page.name === 'CreatePassword' && !(injectedUIContext.enableCreatePassword ?? true)) return false;
+            return true;
+        });
+
     const isLastStep = currentPage === RegistrationPages.length - 1;
     const isFirstStep = currentPage === 0;
     const CreateAccountPage = RegistrationPages.findIndex((item) => item.name === 'CreateAccount');
     const VerifyEmailPage = RegistrationPages.findIndex((item) => item.name === 'VerifyEmail');
     const CreatePasswordPage = RegistrationPages.findIndex((item) => item.name === 'CreatePassword');
+    const AccountDetailsPage = RegistrationPages.findIndex((item) => item.name === 'AccountDetails');
     const CompletePage = RegistrationPages.length - 1;
 
     // If there is a code and it is not confirmed, go to the verify screen
@@ -403,10 +395,10 @@ export const SelfRegistrationPager: React.FC<React.PropsWithChildren<React.Props
         // eslint-disable-next-line react-hooks/exhaustive-deps
     }, [codeRequestSuccess]);
 
-    // If the email is validated successfully, go to the create password screen
+    // If the email is validated successfully, go to the create password screen (or account details)
     useEffect(() => {
         if (currentPage === VerifyEmailPage && validationSuccess) {
-            setCurrentPage(CreatePasswordPage);
+            setCurrentPage(injectedUIContext.enableCreatePassword ?? true ? CreatePasswordPage : AccountDetailsPage);
         }
         // eslint-disable-next-line react-hooks/exhaustive-deps
     }, [validationSuccess]);
