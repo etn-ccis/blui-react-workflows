@@ -80,7 +80,7 @@ export const BrandedCardContainer: React.FC<BrandedCardContainerProps> = (props)
     return (
         <Box
             sx={{
-                height: '100%',
+                height: '100vh',
                 width: '100%',
                 backgroundColor: theme.palette.mode === 'light' ? 'primary.main' : 'primary.dark',
                 backgroundImage: backgroundImage ? `url(${backgroundImage})` : `url(${defaultBackgroundImage})`,
