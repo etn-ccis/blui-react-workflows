@@ -1,5 +1,4 @@
 import React from 'react';
-import { useLanguageLocale } from '@brightlayer-ui/react-auth-shared';
 import { FinishState } from '../../components';
 import Person from '@mui/icons-material/Person';
 import Divider from '@mui/material/Divider';
@@ -12,6 +11,7 @@ import CardActions from '@mui/material/CardActions';
 import Button from '@mui/material/Button';
 import { useRoutes } from '../../contexts/RoutingContext';
 import { useNavigate } from 'react-router-dom';
+import { useLanguageLocale } from '../../auth-shared';
 
 /**
  * Component that renders a screen displaying success for creating an account for
