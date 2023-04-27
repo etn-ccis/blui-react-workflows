@@ -10,15 +10,7 @@ import { ExistingAccountComplete } from './subScreens/ExistingAccountComplete';
 import { RegistrationComplete } from './subScreens/RegistrationComplete';
 import { VerifyEmail } from './subScreens/VerifyEmail';
 import { ContactSupportSubscreen } from './subScreens/ContactSupportSubscreen';
-import {
-    AccountUIActionContext,
-    // AccountUIActionContext,
-    AuthUIContextProvider,
-    SecurityContextProvider,
-    translations,
-    // RegistrationActionContext,
-    // RegistrationActionsCreator,
-} from '@brightlayer-ui/react-auth-shared';
+import { AccountUIActionContext, AuthUIContextProvider, SecurityContextProvider, translations } from '../auth-shared';
 import { ForgotPassword } from './ForgotPassword';
 // import { InviteRegistrationPager } from './InviteRegistrationPager';
 import { BrowserRouter } from 'react-router-dom';
@@ -177,9 +169,9 @@ describe('ContactSupportSubscreen tests', () => {
     });
 });
 
-jest.mock('@brightlayer-ui/react-auth-shared', () => ({
+jest.mock('../auth-shared', () => ({
     // @ts-ignore
-    ...jest.requireActual('@brightlayer-ui/react-auth-shared'),
+    ...jest.requireActual('../auth-shared'),
     useAccountUIActions: jest.fn().mockReturnValue(() => {}),
 }));
 
@@ -209,9 +201,9 @@ describe('ForgotPassword tests', () => {
     });
 });
 
-jest.mock('@brightlayer-ui/react-auth-shared', () => ({
+jest.mock('../auth-shared', () => ({
     // @ts-ignore
-    ...jest.requireActual('@brightlayer-ui/react-auth-shared'),
+    ...jest.requireActual('../auth-shared'),
     useSecurityState: jest.fn().mockReturnValue({}),
 }));
 
@@ -278,9 +270,9 @@ jest.mock('react-router-dom', () => ({
     useLocation: jest.fn().mockReturnValue('test-location'),
 }));
 
-jest.mock('@brightlayer-ui/react-auth-shared', () => ({
+jest.mock('../auth-shared', () => ({
     // @ts-ignore
-    ...jest.requireActual('@brightlayer-ui/react-auth-shared'),
+    ...jest.requireActual('../auth-shared'),
     useRegistrationUIActions: jest.fn().mockReturnValue(() => ({
         actions: {
             loadEULA: jest.fn(),

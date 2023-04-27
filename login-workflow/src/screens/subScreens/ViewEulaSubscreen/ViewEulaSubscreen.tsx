@@ -1,5 +1,4 @@
 import React, { useCallback, useEffect, useState } from 'react';
-import { useLanguageLocale } from '@brightlayer-ui/react-auth-shared';
 import Typography from '@mui/material/Typography';
 import FormControlLabel, { FormControlLabelProps } from '@mui/material/FormControlLabel';
 import Checkbox from '@mui/material/Checkbox';
@@ -13,6 +12,7 @@ import {
     ViewEulaSubscreenClassKey,
     getViewEulaSubscreenUtilityClass,
 } from './ViewEulaSubscreenClasses';
+import { useLanguageLocale } from '../../../auth-shared';
 
 export type ViewEulaSubscreenProps = {
     eulaAccepted: boolean;

@@ -1,5 +1,5 @@
 import React, { ChangeEvent, useState, useCallback, MutableRefObject } from 'react';
-import { useInjectedUIContext, useLanguageLocale } from '@brightlayer-ui/react-auth-shared';
+import { useInjectedUIContext, useLanguageLocale } from '../../auth-shared';
 import Typography from '@mui/material/Typography';
 import Divider from '@mui/material/Divider';
 import { useTheme } from '@mui/material/styles';

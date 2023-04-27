@@ -5,7 +5,7 @@ import {
     useAccountUIActions,
     AccountActions,
     useInjectedUIContext,
-} from '@brightlayer-ui/react-auth-shared';
+} from '../auth-shared';
 import { useQueryString } from '../hooks/useQueryString';
 import { useRoutes } from '../contexts/RoutingContext';
 import { useNavigate } from 'react-router-dom';

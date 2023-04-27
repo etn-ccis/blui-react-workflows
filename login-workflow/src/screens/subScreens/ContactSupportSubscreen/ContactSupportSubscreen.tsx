@@ -11,13 +11,13 @@ import { useTheme } from '@mui/material/styles';
 import { unstable_composeClasses as composeClasses } from '@mui/base';
 import { cx } from '@emotion/css';
 import ChatBubbleOutline from '@mui/icons-material/ChatBubbleOutline';
-import { useLanguageLocale, useInjectedUIContext } from '@brightlayer-ui/react-auth-shared';
 import { DialogButtonStyles, DialogActionsStyles, DialogContentStyles, DialogTitleStyles } from '../../../styles';
 import {
     ContactSupportSubscreenClassKey,
     getContactSupportSubscreenUtilityClass,
     ContactSupportSubscreenClasses,
 } from './ContactSupportSubscreenClasses';
+import { useInjectedUIContext, useLanguageLocale } from '../../../auth-shared';
 
 const LinkStyles = {
     fontWeight: 600,

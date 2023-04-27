@@ -1,9 +1,9 @@
 import React from 'react';
-import { useLanguageLocale } from '@brightlayer-ui/react-auth-shared';
 import { Trans } from 'react-i18next';
 import { FinishState } from '../../components';
 import CheckCircle from '@mui/icons-material/CheckCircle';
 import Typography from '@mui/material/Typography';
+import { useLanguageLocale } from '../../auth-shared';
 
 export type RegistrationCompleteProps = {
     firstName: string;

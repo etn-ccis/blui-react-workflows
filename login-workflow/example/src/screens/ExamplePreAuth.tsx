@@ -3,7 +3,7 @@ import logo from './logo.svg';
 import './Home.css';
 import Button from '@mui/material/Button';
 import Typography from '@mui/material/Typography';
-import { useSecurityState } from '@brightlayer-ui/react-auth-shared';
+import { useSecurityState } from '@brightlayer-ui/react-auth-workflow';
 import { Link } from 'react-router-dom';
 
 export const ExamplePreAuth: React.FC<React.PropsWithChildren> = () => {

@@ -1,5 +1,5 @@
 import { ReactElement, useEffect } from 'react';
-import { useSecurityState } from '@brightlayer-ui/react-auth-shared';
+import { useSecurityState } from '../auth-shared';
 import { useLocation, useNavigate } from 'react-router-dom';
 
 type GuestGuardProps = {

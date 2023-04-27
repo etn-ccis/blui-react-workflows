@@ -9,7 +9,7 @@ import {
     CustomRegistrationForm,
     CustomAccountDetails,
     RegistrationActions,
-} from '@brightlayer-ui/react-auth-shared';
+} from '../auth-shared';
 import { useNavigate } from 'react-router-dom';
 import { useRoutes } from '../contexts/RoutingContext';
 import { useQueryString } from '../hooks/useQueryString';

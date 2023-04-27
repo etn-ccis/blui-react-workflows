@@ -8,7 +8,7 @@ import {
     useInjectedUIContext,
     AccountActions,
     EMAIL_REGEX,
-} from '@brightlayer-ui/react-auth-shared';
+} from '../auth-shared';
 import { Link } from 'react-router-dom';
 import Button from '@mui/material/Button';
 import Typography from '@mui/material/Typography';

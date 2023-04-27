@@ -3,7 +3,7 @@ import Card, { CardProps as CardPropsType } from '@mui/material/Card';
 import { SxProps, Theme, useTheme } from '@mui/material/styles';
 import { Spinner, SpinnerProps } from '../Spinner';
 import defaultBackgroundImage from '../../assets/images/background.svg';
-import { useInjectedUIContext } from '@brightlayer-ui/react-auth-shared';
+import { useInjectedUIContext } from '../../auth-shared';
 import Box, { BoxProps } from '@mui/material/Box';
 import { unstable_composeClasses as composeClasses } from '@mui/base';
 import {

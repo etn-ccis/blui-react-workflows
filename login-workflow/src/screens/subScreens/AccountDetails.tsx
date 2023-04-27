@@ -2,9 +2,9 @@ import React, { useEffect, useRef } from 'react';
 import Typography from '@mui/material/Typography';
 import TextField from '@mui/material/TextField';
 import Divider from '@mui/material/Divider';
-import { useLanguageLocale, AccountDetailInformation, useInjectedUIContext } from '@brightlayer-ui/react-auth-shared';
 import { useTheme } from '@mui/material/styles';
 import { FullDividerStyles, TextFieldStyles } from '../../styles';
+import { AccountDetailInformation, useInjectedUIContext, useLanguageLocale } from '../../auth-shared';
 
 export type AccountDetailsWrapperProps = {
     description?: string;

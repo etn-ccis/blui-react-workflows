@@ -10,7 +10,7 @@ import {
     transitFailed,
     useInjectedUIContext,
     AccountActions,
-} from '@brightlayer-ui/react-auth-shared';
+} from '../../auth-shared';
 import Dialog from '@mui/material/Dialog';
 import DialogTitle from '@mui/material/DialogTitle';
 import DialogContent from '@mui/material/DialogContent';
