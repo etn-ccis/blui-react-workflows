@@ -1,6 +1,7 @@
 import { useContext } from 'react';
 import { RegistrationWorkflowContext } from './context';
 import { RegistrationWorkflowContextProps } from './types';
+import { RegistrationWorkflowContextProvider } from './provider';
 
 /**
  * Hook to get the data of each registration workflow screen
@@ -16,3 +17,7 @@ export const useRegistrationWorkflowContext = (): RegistrationWorkflowContextPro
     }
     return context;
 };
+
+export type { RegistrationWorkflowContextProps };
+
+export { RegistrationWorkflowContextProvider };
