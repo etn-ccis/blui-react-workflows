@@ -1,3 +1,8 @@
+/**
+ * @packageDocumentation
+ * @module RegistrationWorkflowContext
+ */
+
 import { createContext } from 'react';
 import { RegistrationWorkflowContextProps } from './types';
 
