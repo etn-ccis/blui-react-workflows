@@ -3,7 +3,7 @@
  * @module RegistrationWorkflowContext
  */
 
-export type RegistrationWorkflowContextProps = {
+export type RegistrationWorkflowContextProviderProps = {
     currentScreen: number;
     totalScreens: number;
     nextScreen: (data: Record<string, unknown>) => void;
