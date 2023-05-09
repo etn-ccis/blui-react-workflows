@@ -1,3 +1,8 @@
+/**
+ * @packageDocumentation
+ * @module RegistrationWorkflowContext
+ */
+
 export type RegistrationWorkflowContextProps = {
     currentScreen: number;
     totalScreens: number;
