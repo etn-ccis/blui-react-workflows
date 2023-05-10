@@ -8,8 +8,8 @@ export type ScreenData = {
     CreateAccount: { emailAddress: string };
     VerifyCode: { code: string };
     CreatePassword: { password: string; confirmPassword: string };
-    AccountDetails: { firstName: string; lastName: string; extra: { [key: string]: boolean | string | number } };
-    Other: { [key: string]: { [key: string]: boolean | string | number } };
+    AccountDetails: { firstName: string; lastName: string; extra?: { [key: string]: boolean | string | number } };
+    Other?: { [key: string]: { [key: string]: boolean | string | number } };
 };
 
 export type IndividualScreenData =
