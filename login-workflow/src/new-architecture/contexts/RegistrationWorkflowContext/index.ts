@@ -1,6 +1,6 @@
 import { useContext } from 'react';
 import { RegistrationWorkflowContext } from './context';
-import { RegistrationWorkflowContextProviderProps } from './types';
+import { RegistrationWorkflowContextProps } from './types';
 import { RegistrationWorkflowContextProvider } from './provider';
 
 /**
@@ -10,7 +10,7 @@ import { RegistrationWorkflowContextProvider } from './provider';
  * @private
  * @internal
  */
-export const useRegistrationWorkflowContext = (): RegistrationWorkflowContextProviderProps => {
+export const useRegistrationWorkflowContext = (): RegistrationWorkflowContextProps => {
     const context = useContext(RegistrationWorkflowContext);
     if (context === null) {
         throw new Error('useRegistrationWorkflowContext must be used within an RegistrationContextProvider');
@@ -18,6 +18,6 @@ export const useRegistrationWorkflowContext = (): RegistrationWorkflowContextPro
     return context;
 };
 
-export type { RegistrationWorkflowContextProviderProps };
+export type { RegistrationWorkflowContextProps };
 
 export { RegistrationWorkflowContextProvider };

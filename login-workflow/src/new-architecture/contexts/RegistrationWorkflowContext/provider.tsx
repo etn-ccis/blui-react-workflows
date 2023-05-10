@@ -4,20 +4,20 @@
  */
 
 import React, { useMemo } from 'react';
-import { RegistrationWorkflowContextProviderProps } from './types';
+import { RegistrationWorkflowContextProps } from './types';
 import { RegistrationWorkflowContext } from './context';
 
 export const RegistrationWorkflowContextProvider: React.FC<
-    React.PropsWithChildren<RegistrationWorkflowContextProviderProps>
+    React.PropsWithChildren<RegistrationWorkflowContextProps>
 > = (props) => {
     // Extract the needed properties out
     // Context value will not change unless a sub function is changed
-    // NOTE: When adding new props to RegistrationWorkflowContextProviderProps be sure
+    // NOTE: When adding new props to RegistrationWorkflowContextProps be sure
     // to also add them here so the parameters are copied.
     const { currentScreen, totalScreens, nextScreen, previousScreen, screenData } = props;
 
     const memoizedProps = useMemo(() => {
-        const propsForContext: RegistrationWorkflowContextProviderProps = {
+        const propsForContext: RegistrationWorkflowContextProps = {
             currentScreen: currentScreen,
             totalScreens: totalScreens,
             nextScreen: nextScreen,
