@@ -1,6 +1,6 @@
 import { useContext } from 'react';
 import { RegistrationWorkflowContext } from './context';
-import { RegistrationWorkflowContextProviderProps } from './types';
+import { RegistrationWorkflowContextProps } from './types';
 
 /**
  * Hook to get the data of each registration workflow screen
@@ -9,7 +9,7 @@ import { RegistrationWorkflowContextProviderProps } from './types';
  * @private
  * @internal
  */
-export const useRegistrationWorkflowContext = (): RegistrationWorkflowContextProviderProps => {
+export const useRegistrationWorkflowContext = (): RegistrationWorkflowContextProps => {
     const context = useContext(RegistrationWorkflowContext);
     if (context === null) {
         throw new Error('useRegistrationWorkflowContext must be used within an RegistrationContextProvider');
