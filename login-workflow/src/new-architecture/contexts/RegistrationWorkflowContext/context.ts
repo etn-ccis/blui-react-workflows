@@ -4,6 +4,6 @@
  */
 
 import { createContext } from 'react';
-import { RegistrationWorkflowContextProviderProps } from './types';
+import { RegistrationWorkflowContextProps } from './types';
 
-export const RegistrationWorkflowContext = createContext<RegistrationWorkflowContextProviderProps | null>(null);
+export const RegistrationWorkflowContext = createContext<RegistrationWorkflowContextProps | null>(null);
