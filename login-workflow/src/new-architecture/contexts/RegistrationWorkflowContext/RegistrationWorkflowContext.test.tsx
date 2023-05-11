@@ -75,7 +75,8 @@ describe('RegistrationWorkflowContext', () => {
             return <Screen1 />;
         };
 
-        await (() =>
+        // eslint-disable-next-line
+        await ((): void =>
             expect(() =>
                 render(
                     <RegisterComponent>
@@ -84,6 +85,7 @@ describe('RegistrationWorkflowContext', () => {
                 )
             ).not.toThrowError('useRegistrationWorkflowContext must be used within an RegistrationContextProvider'));
 
+        // eslint-disable-next-line
         await ((): void =>
             expect(() => render(<CustomFlow />)).toThrowError(
                 'useRegistrationWorkflowContext must be used within an RegistrationContextProvider'
