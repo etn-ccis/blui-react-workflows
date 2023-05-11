@@ -3,34 +3,33 @@
  * @module RegistrationWorkflowContextProvider
  */
 
-import React, { useMemo } from 'react';
+import React, { useEffect } from 'react';
 import { RegistrationContextProviderProps } from './types';
 import { RegistrationContext } from './context';
-import { I18nextProvider } from 'react-i18next';
-import { i18nRegistrationInstance } from '../i18nInstance';
+import { I18nextProvider, useTranslation } from 'react-i18next';
+import { i18nRegistrationInstance } from './i18nRegistrationInstance';
+import Typography from '@mui/material/Typography';
 
 export const RegistrationContextProvider: React.FC<React.PropsWithChildren<RegistrationContextProviderProps>> = (
     props
 ) => {
-    // NOTE: When adding new props to RegistrationContextProviderProps be sure
-    // to also add them here so the parameters are copied.
-    const { actions, language, navigate, routeConfig, i18n = i18nRegistrationInstance } = props;
+    const { language, i18n = i18nRegistrationInstance } = props;
+    const { t } = useTranslation();
 
-    const memoizedProps = useMemo(() => {
-        const propsForContext: RegistrationContextProviderProps = {
-            actions: actions,
-            language: language,
-            navigate: navigate,
-            routeConfig: routeConfig,
-            i18n: i18n,
-        };
-
-        return propsForContext;
-    }, [actions, language, navigate, routeConfig, i18n]);
+    useEffect(() => {
+        void i18n.changeLanguage(language);
+        console.log('i18n: ', i18n, 'language: ', language);
+    }, [i18n, language]);
 
     return (
         <I18nextProvider i18n={i18n}>
-            <RegistrationContext.Provider value={memoizedProps}>{props.children}</RegistrationContext.Provider>
+            <RegistrationContext.Provider value={props}>
+                <>
+                    <Typography>{t('bluiRegistration:REGISTRATION.EULA.LOADING')}</Typography>
+                    <Typography>{t('bluiRegistration:REGISTRATION.STEPS.COMPLETE')}</Typography>
+                    {props.children}
+                </>
+            </RegistrationContext.Provider>
         </I18nextProvider>
     );
 };

@@ -20,25 +20,25 @@ import { routes } from './navigation/Routing';
 // } from './screens/ExampleRegistrationSuccess';
 
 // Imports for internationalization
-import i18n from 'i18next';
+// import i18n from 'i18next';
 // import Button from '@mui/material/Button';
 import { useTranslation } from 'react-i18next';
 import { Navigate, Route } from 'react-router-dom';
 import { ExamplePreAuth } from './screens/ExamplePreAuth';
-import { AppBar, Toolbar, Typography } from '@mui/material';
+import { AppBar, Button, Toolbar, Typography } from '@mui/material';
 import { Outlet } from 'react-router';
 
 // Uncomment these lines to add your app-specific translation resource
-i18n.addResourceBundle('en', 'app', { BUTTONLABEL: 'Change Language' });
-i18n.addResourceBundle('es', 'app', { BUTTONLABEL: '¡Cambia el idioma!' });
-i18n.addResourceBundle('fr', 'app', { BUTTONLABEL: 'Changez de Langue' });
+// i18n.addResourceBundle('en', 'app', { BUTTONLABEL: 'Change Language' });
+// i18n.addResourceBundle('es', 'app', { BUTTONLABEL: '¡Cambia el idioma!' });
+// i18n.addResourceBundle('fr', 'app', { BUTTONLABEL: 'Changez de Langue' });
 
 // Uncomment these lines to override workflow strings / translations
-i18n.addResourceBundle('en', 'blui', { ACTIONS: { CREATE_ACCOUNT: 'Register now!' } }, true, true);
+// i18n.addResourceBundle('en', 'blui', { ACTIONS: { CREATE_ACCOUNT: 'Register now!' } }, true, true);
 // i18n.addResourceBundle('es', 'blui', { ACTIONS: { CREATE_ACCOUNT: '¡Regístrate ahora!' } }, true, true);
 // i18n.addResourceBundle('fr', 'blui', { ACTIONS: { CREATE_ACCOUNT: `S'inscrire maintenant!` } }, true, true);
 
-i18nRegistrationInstance.addResourceBundle('kn', 'translation', { test: 'ಈಗ ನೋಂದಣಿ ಮಾಡಿ!' }, true, true);
+i18nRegistrationInstance.addResourceBundle('kn', 'bluiRegistration', { test: 'ಈಗ ನೋಂದಣಿ ಮಾಡಿ!' }, true, true);
 
 // const NewDemo = () => {
 //     const { t } = useTranslation();
@@ -71,31 +71,55 @@ const MockRouteConfig = {};
 export const AuthUIConfiguration: React.FC<React.PropsWithChildren> = () => {
     // const securityContextActions = useSecurityActions();
     const { t } = useTranslation();
-
-    // React.useEffect(() => {
-    //     (async (): Promise<any> => {
-    //         await i18nRegistrationInstance.changeLanguage('kn');
-    //     })();
-
-    //     return () => {
-    //         // this now gets called when the component unmounts
-    //     };
-    // }, [i18nRegistrationInstance]);
-
-    React.useEffect((): any => {
-        void i18n.changeLanguage('kn');
-    }, []);
+    const [language, setLanguage] = React.useState('en');
 
     return (
         <RegistrationContextProvider
-            i18n={i18nRegistrationInstance}
-            language={'fr'}
+            // i18n={i18nRegistrationInstance}
+            language={'en'}
             routeConfig={MockRouteConfig}
             navigate={(): void => {}}
         >
             <>
-                <Typography>{t('translation:test')}</Typography>
-                <Typography>{t('test')}</Typography>
+                <Typography sx={{ mb: 4 }}>Current Language: {language}</Typography>
+
+                <Typography>{t('bluiRegistration:REGISTRATION.EULA.LOADING')}</Typography>
+                <Typography>{t('bluiRegistration:REGISTRATION.STEPS.COMPLETE')}</Typography>
+                <Button
+                    onClick={(): void => {
+                        setLanguage('en');
+                    }}
+                    variant={'contained'}
+                    sx={{ mr: 1 }}
+                >
+                    {`Use "en"`}
+                </Button>
+                <Button
+                    onClick={(): void => {
+                        setLanguage('fr');
+                    }}
+                    variant={'contained'}
+                    sx={{ mr: 1 }}
+                >
+                    {`Use "fr"`}
+                </Button>
+                <Button
+                    onClick={(): void => {
+                        setLanguage('es');
+                    }}
+                    variant={'contained'}
+                    sx={{ mr: 1 }}
+                >
+                    {`Use "es"`}
+                </Button>
+                <Button
+                    onClick={(): void => {
+                        setLanguage('kn');
+                    }}
+                    variant={'contained'}
+                >
+                    {`Use "kn"`}
+                </Button>
             </>
         </RegistrationContextProvider>
         // <AuthUIContextProvider

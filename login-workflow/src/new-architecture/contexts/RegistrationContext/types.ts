@@ -37,5 +37,5 @@ export type RegistrationContextProviderProps = {
     language: string;
     navigate: (url: string) => void;
     routeConfig: RouteConfig;
-    i18n?: i18n; // this is here so the user can add languages / override strings in bulk
+    i18n?: i18n; // add languages / override strings in bulk
 };
