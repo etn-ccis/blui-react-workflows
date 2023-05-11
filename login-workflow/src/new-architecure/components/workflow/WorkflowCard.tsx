@@ -5,7 +5,7 @@ import { WorkflowCardHeaderProps } from './WorkflowCardHeader';
 import { WorkflowCardInstructionProps } from './WorkflowCardInstructions';
 import { useTheme } from '@mui/material/styles';
 import { useInjectedUIContext } from '../../../auth-shared';
-import defaultBackgroundImage from '../../assets/images/background.svg';
+import defaultBackgroundImage from '../../../assets/images/background.svg';
 import Card, { CardProps } from '@mui/material/Card';
 
 // import { cx } from '@emotion/css';
