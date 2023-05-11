@@ -11,8 +11,8 @@ export { default as i18n } from './translations/i18n';
 
 export * from './auth-shared';
 
-export * from './components';
-
 export * from './screens';
+
+export * from './components';
 
 export * from './new-architecture';
