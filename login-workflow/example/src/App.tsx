@@ -2,16 +2,18 @@ import React from 'react';
 import {
     SecurityContextProvider,
     AuthNavigationContainer,
-    AuthUIContextProvider,
-    useSecurityActions,
+    // AuthUIContextProvider,
+    // useSecurityActions,
     // RegistrationData,
+    i18nRegistrationInstance,
+    RegistrationContextProvider,
 } from '@brightlayer-ui/react-auth-workflow';
-import { ProjectAuthUIActions } from './actions/AuthUIActions';
-import { ProjectRegistrationUIActions } from './actions/RegistrationUIActions';
+// import { ProjectAuthUIActions } from './actions/AuthUIActions';
+// import { ProjectRegistrationUIActions } from './actions/RegistrationUIActions';
 import { ExampleHome } from './screens/ExampleHome';
 // import { CustomDetailsScreen, CustomDetailsScreenTwo } from './components/CustomDetailsScreen';
 import { routes } from './navigation/Routing';
-import productLogo from './assets/images/eaton_stacked_logo.png';
+// import productLogo from './assets/images/eaton_stacked_logo.png';
 // import {
 //     CustomAccountAlreadyExistsScreen,
 //     CustomRegistrationSuccessScreen,
@@ -19,11 +21,11 @@ import productLogo from './assets/images/eaton_stacked_logo.png';
 
 // Imports for internationalization
 import i18n from 'i18next';
-import Button from '@mui/material/Button';
+// import Button from '@mui/material/Button';
 import { useTranslation } from 'react-i18next';
 import { Navigate, Route } from 'react-router-dom';
 import { ExamplePreAuth } from './screens/ExamplePreAuth';
-import { AppBar, Box, Toolbar, Typography } from '@mui/material';
+import { AppBar, Toolbar, Typography } from '@mui/material';
 import { Outlet } from 'react-router';
 
 // Uncomment these lines to add your app-specific translation resource
@@ -36,88 +38,143 @@ i18n.addResourceBundle('en', 'blui', { ACTIONS: { CREATE_ACCOUNT: 'Register now!
 // i18n.addResourceBundle('es', 'blui', { ACTIONS: { CREATE_ACCOUNT: '¡Regístrate ahora!' } }, true, true);
 // i18n.addResourceBundle('fr', 'blui', { ACTIONS: { CREATE_ACCOUNT: `S'inscrire maintenant!` } }, true, true);
 
-export const AuthUIConfiguration: React.FC<React.PropsWithChildren> = (props) => {
-    const securityContextActions = useSecurityActions();
+i18nRegistrationInstance.addResourceBundle('kn', 'translation', { test: 'ಈಗ ನೋಂದಣಿ ಮಾಡಿ!' }, true, true);
+
+// const NewDemo = () => {
+//     const { t } = useTranslation();
+//     useEffect(() => {
+//         i18nRegistrationInstance.changeLanguage('kn');
+//     }, [i18nRegistrationInstance]);
+
+//     return <Typography>{t('registration:test')}</Typography>;
+// };
+
+// const RegistrationContextProvider = (props: any) => {
+//     const { i18nInstance = i18nRegistrationInstance } = props;
+
+//     return (
+//         <I18nextProvider i18n={i18nInstance}>
+//             <NewDemo />
+//         </I18nextProvider>
+//     );
+// };
+
+export type AccountDetails = {
+    firstName: string;
+    lastName: string;
+    extra?: { [key: string]: boolean | string | number };
+};
+
+// @TODO: this will need migrated to routing types when the routing
+const MockRouteConfig = {};
+
+export const AuthUIConfiguration: React.FC<React.PropsWithChildren> = () => {
+    // const securityContextActions = useSecurityActions();
     const { t } = useTranslation();
 
+    // React.useEffect(() => {
+    //     (async (): Promise<any> => {
+    //         await i18nRegistrationInstance.changeLanguage('kn');
+    //     })();
+
+    //     return () => {
+    //         // this now gets called when the component unmounts
+    //     };
+    // }, [i18nRegistrationInstance]);
+
+    React.useEffect((): any => {
+        void i18n.changeLanguage('kn');
+    }, []);
+
     return (
-        <AuthUIContextProvider
-            authActions={ProjectAuthUIActions(securityContextActions)}
-            registrationActions={ProjectRegistrationUIActions}
-            allowDebugMode={true}
-            htmlEula={false}
-            contactEmail={'something@email.com'}
-            contactPhone={'1-800-123-4567'}
-            projectImage={productLogo}
-            loginFooter={
-                <Box sx={{ display: 'flex', alignItems: 'center' }}>
-                    <Button
-                        color={'inherit'}
-                        onClick={(): void => {
-                            void i18n.changeLanguage('en');
-                        }}
-                    >
-                        {`${t('BUTTONLABEL')}-EN`}
-                    </Button>
-                    <Button
-                        color={'inherit'}
-                        onClick={(): void => {
-                            void i18n.changeLanguage('es');
-                        }}
-                    >
-                        {`${t('BUTTONLABEL')}-ES`}
-                    </Button>
-                    <Button
-                        color={'inherit'}
-                        onClick={(): void => {
-                            void i18n.changeLanguage('fr');
-                        }}
-                    >
-                        {`${t('BUTTONLABEL')}-FR`}
-                    </Button>
-                    <Button
-                        color={'inherit'}
-                        onClick={(): void => {
-                            void i18n.changeLanguage('zh');
-                        }}
-                    >
-                        {`${t('BUTTONLABEL')}-ZH`}
-                    </Button>
-                    <Button
-                        color={'inherit'}
-                        onClick={(): void => {
-                            void i18n.changeLanguage('pt');
-                        }}
-                    >
-                        {`${t('BUTTONLABEL')}-PT`}
-                    </Button>
-                </Box>
-            }
-            // loginType={'username'}
-            // Uncomment this line to see how to add custom form fields to the registration screens
-            // customAccountDetails={[
-            //     { component: CustomDetailsScreen },
-            //     {
-            //         component: CustomDetailsScreenTwo,
-            //         title: 'Job Info',
-            //         instructions: 'Enter your employment information below.',
-            //     },
-            // ]}
-            // registrationSuccessScreen={(registrationData: RegistrationData): JSX.Element => (
-            //     <CustomRegistrationSuccessScreen registrationData={registrationData} />
-            // )}
-            // accountAlreadyExistsScreen={(): JSX.Element => <CustomAccountAlreadyExistsScreen />}
-            // registrationConfig={{
-            //     firstName: {
-            //         maxLength: 30,
-            //     },
-            //     lastName: {
-            //         maxLength: 30,
-            //     },
-            // }}
+        <RegistrationContextProvider
+            i18n={i18nRegistrationInstance}
+            language={'fr'}
+            routeConfig={MockRouteConfig}
+            navigate={(): void => {}}
         >
-            {props.children}
-        </AuthUIContextProvider>
+            <>
+                <Typography>{t('translation:test')}</Typography>
+                <Typography>{t('test')}</Typography>
+            </>
+        </RegistrationContextProvider>
+        // <AuthUIContextProvider
+        //     authActions={ProjectAuthUIActions(securityContextActions)}
+        //     registrationActions={ProjectRegistrationUIActions}
+        //     allowDebugMode={true}
+        //     htmlEula={false}
+        //     contactEmail={'something@email.com'}
+        //     contactPhone={'1-800-123-4567'}
+        //     projectImage={productLogo}
+        //     loginFooter={
+        //         <Box sx={{ display: 'flex', alignItems: 'center' }}>
+        //             <Button
+        //                 color={'inherit'}
+        //                 onClick={(): void => {
+        //                     void i18n.changeLanguage('en');
+        //                 }}
+        //             >
+        //                 {`${t('BUTTONLABEL')}-EN`}
+        //             </Button>
+        //             <Button
+        //                 color={'inherit'}
+        //                 onClick={(): void => {
+        //                     void i18n.changeLanguage('es');
+        //                 }}
+        //             >
+        //                 {`${t('BUTTONLABEL')}-ES`}
+        //             </Button>
+        //             <Button
+        //                 color={'inherit'}
+        //                 onClick={(): void => {
+        //                     void i18n.changeLanguage('fr');
+        //                 }}
+        //             >
+        //                 {`${t('BUTTONLABEL')}-FR`}
+        //             </Button>
+        //             <Button
+        //                 color={'inherit'}
+        //                 onClick={(): void => {
+        //                     void i18n.changeLanguage('zh');
+        //                 }}
+        //             >
+        //                 {`${t('BUTTONLABEL')}-ZH`}
+        //             </Button>
+        //             <Button
+        //                 color={'inherit'}
+        //                 onClick={(): void => {
+        //                     void i18n.changeLanguage('pt');
+        //                 }}
+        //             >
+        //                 {`${t('BUTTONLABEL')}-PT`}
+        //             </Button>
+        //         </Box>
+        //     }
+        //     // loginType={'username'}
+        //     // Uncomment this line to see how to add custom form fields to the registration screens
+        //     // customAccountDetails={[
+        //     //     { component: CustomDetailsScreen },
+        //     //     {
+        //     //         component: CustomDetailsScreenTwo,
+        //     //         title: 'Job Info',
+        //     //         instructions: 'Enter your employment information below.',
+        //     //     },
+        //     // ]}
+        //     // registrationSuccessScreen={(registrationData: RegistrationData): JSX.Element => (
+        //     //     <CustomRegistrationSuccessScreen registrationData={registrationData} />
+        //     // )}
+        //     // accountAlreadyExistsScreen={(): JSX.Element => <CustomAccountAlreadyExistsScreen />}
+        //     // registrationConfig={{
+        //     //     firstName: {
+        //     //         maxLength: 30,
+        //     //     },
+        //     //     lastName: {
+        //     //         maxLength: 30,
+        //     //     },
+        //     // }}
+        // >
+        //     {props.children}
+        // </AuthUIContextProvider>
     );
 };
 
