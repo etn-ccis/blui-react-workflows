@@ -59,4 +59,32 @@ describe('RegistrationWorkflowContext', () => {
         // eslint-disable-next-line
         await ((): void => expect(values.result.current.screenData['Eula'].accepted).toBeTruthy());
     });
+
+    it('should throw error, when context value is null', () => {
+        const RegisterComponent: React.FC<React.PropsWithChildren<any>> = () => (
+            <RegistrationWorkflowContextProvider {...defaultProps} />
+        );
+
+        const CustomFlow: React.FC = () => {
+            const Screen1: React.FC = () => {
+                // eslint-disable-next-line
+                renderHook((): RegistrationWorkflowContextProps => useRegistrationWorkflowContext());
+                return <Typography>Screen 1</Typography>;
+            };
+
+            return <Screen1 />;
+        };
+
+        expect(() =>
+            render(
+                <RegisterComponent>
+                    <CustomFlow />
+                </RegisterComponent>
+            )
+        ).not.toThrowError('useRegistrationWorkflowContext must be used within an RegistrationContextProvider');
+
+        expect(() => render(<CustomFlow />)).toThrowError(
+            'useRegistrationWorkflowContext must be used within an RegistrationContextProvider'
+        );
+    });
 });
