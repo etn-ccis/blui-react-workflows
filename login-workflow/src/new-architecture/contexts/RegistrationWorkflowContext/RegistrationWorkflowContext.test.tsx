@@ -60,7 +60,7 @@ describe('RegistrationWorkflowContext', () => {
         await ((): void => expect(values.result.current.screenData['Eula'].accepted).toBeTruthy());
     });
 
-    it('should throw error, when context value is null', () => {
+    it('should throw error, when context value is null', async () => {
         const RegisterComponent: React.FC<React.PropsWithChildren<any>> = () => (
             <RegistrationWorkflowContextProvider {...defaultProps} />
         );
@@ -75,16 +75,18 @@ describe('RegistrationWorkflowContext', () => {
             return <Screen1 />;
         };
 
-        expect(() =>
-            render(
-                <RegisterComponent>
-                    <CustomFlow />
-                </RegisterComponent>
-            )
-        ).not.toThrowError('useRegistrationWorkflowContext must be used within an RegistrationContextProvider');
+        await (() =>
+            expect(() =>
+                render(
+                    <RegisterComponent>
+                        <CustomFlow />
+                    </RegisterComponent>
+                )
+            ).not.toThrowError('useRegistrationWorkflowContext must be used within an RegistrationContextProvider'));
 
-        expect(() => render(<CustomFlow />)).toThrowError(
-            'useRegistrationWorkflowContext must be used within an RegistrationContextProvider'
-        );
+        await ((): void =>
+            expect(() => render(<CustomFlow />)).toThrowError(
+                'useRegistrationWorkflowContext must be used within an RegistrationContextProvider'
+            ));
     });
 });
