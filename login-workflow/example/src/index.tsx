@@ -3,7 +3,7 @@ import { ThemeProvider, createTheme, StyledEngineProvider } from '@mui/material/
 import 'react-app-polyfill/stable';
 import React from 'react';
 import * as serviceWorker from './serviceWorker';
-import { App } from './App';
+import { AppTemp } from './AppTemp';
 import CssBaseline from '@mui/material/CssBaseline';
 import * as BLUIThemes from '@brightlayer-ui/react-themes';
 import '@brightlayer-ui/react-themes/open-sans';
@@ -19,7 +19,7 @@ root.render(
         <StyledEngineProvider injectFirst>
             <ThemeProvider theme={createTheme(BLUIThemes.blue)}>
                 <CssBaseline />
-                <App />
+                <AppTemp />
             </ThemeProvider>
         </StyledEngineProvider>
     </React.StrictMode>

@@ -33,8 +33,11 @@ const RenderWithTranslations: React.FC<React.PropsWithChildren<RegistrationConte
     return (
         <RegistrationContext.Provider value={props}>
             <>
+                {/* @TODO: The typography elements are only here for testing purposes.
+                Remove everything except for props.children from this component before publishing */}
                 <Typography>{t('bluiRegistration:REGISTRATION.EULA.LOADING')}</Typography>
                 <Typography>{t('bluiRegistration:REGISTRATION.STEPS.COMPLETE')}</Typography>
+                <Typography>{t('bluiRegistration:test')}</Typography>
                 {props.children}
             </>
         </RegistrationContext.Provider>
