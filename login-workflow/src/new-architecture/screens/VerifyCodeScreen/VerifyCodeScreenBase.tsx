@@ -2,10 +2,13 @@ import React, { useEffect } from 'react';
 import { useLanguageLocale } from '../../../auth-shared';
 import { useTheme } from '@mui/material/styles';
 import { VerifyCodeScreenProps } from './types'
-import { WorkflowCard } from '../../components/WorkflowCard/WorkflowCardPlaceholders';
-import { WorkflowCardHeader } from '../../components/WorkflowCard/WorkflowCardPlaceholders';
-import { WorkflowCardInstructions } from '../../components/WorkflowCard/WorkflowCardPlaceholders';
-import { WorkflowCardBody } from '../../components/WorkflowCard/WorkflowCardPlaceholders';
+import {
+    WorkflowCard,
+    WorkflowCardHeader,
+    WorkflowCardInstructions,
+    WorkflowCardBody,
+    WorkflowCardActions
+} from '../../components/WorkflowCard/WorkflowCardPlaceholders';
 import TextField from '@mui/material/TextField';
 import Box from '@mui/material/Box';
 import Typography from '@mui/material/Typography';
@@ -90,6 +93,7 @@ export const VerifyCodeScreenBase: React.FC<React.PropsWithChildren<React.PropsW
                     </Typography>
                 </Box>
             </WorkflowCardBody>
+            <WorkflowCardActions />
 
         </WorkflowCard>
 
