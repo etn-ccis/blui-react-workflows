@@ -3,7 +3,6 @@ import { BoxProps } from '@mui/material/Box';
 import { CardProps } from '@mui/material/Card';
 import { SxProps, Theme } from '@mui/material/styles';
 import { ReactNode } from 'react';
-import { BrandedCardContainerClasses } from '../../../components/BrandedCardContainer/BrandedCardContainerClasses';
 import { SpinnerProps } from '../../../components/Spinner';
 
 export type ErrorStateProps = {
@@ -17,7 +16,6 @@ export type WorkflowCardBaseProps = BoxProps & {
     cardStyles?: SxProps<Theme>;
     CardProps?: CardProps;
     LoaderComponent?: ReactNode;
-    classes?: BrandedCardContainerClasses;
     slots?: { card?: React.ElementType; loader?: React.ElementType };
     slotProps?: {
         card?: CardProps;
@@ -34,21 +32,20 @@ export type WorkflowCardInstructionProps = TypographyProps & {
     divider?: boolean;
 };
 
-type DataObject = { [key: string]: any };
+// type DataObject = { [key: string]: any };
 
 export type WorkflowCardActionsProps = CardActionsProps & {
-    canGoNext?: boolean | ((data: DataObject) => boolean);
-    canGoPrevious?: boolean | ((data: DataObject) => boolean);
+    canGoNext?: boolean | (() => boolean);
+    canGoPrevious?: boolean | (() => boolean);
     showPrevious?: boolean;
     showNext?: boolean;
     previousLabel?: string;
     nextLabel?: string;
-    onPrevious?: (data?: any) => void;
-    onNext?: (data?: any) => void;
+    onPrevious?: () => void;
+    onNext?: () => void;
     currentStep?: number;
     totalSteps?: number;
     fullWidthButton?: boolean;
-    data?: DataObject;
 };
 
 export type WorkflowCardProps = CardProps &

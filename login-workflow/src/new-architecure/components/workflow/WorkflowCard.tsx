@@ -3,16 +3,13 @@ import Box from '@mui/material/Box';
 import { useTheme } from '@mui/material/styles';
 import defaultBackgroundImage from '../../../assets/images/background.svg';
 import Card from '@mui/material/Card';
-import {
-    BrandedCardContainerClassKey,
-    getBrandedCardContainerUtilityClass,
-} from '../../../components/BrandedCardContainer/BrandedCardContainerClasses';
 import { Spinner } from '../../../components/Spinner';
-import { unstable_composeClasses as composeClasses } from '@mui/base';
 import { cx } from '@emotion/css';
-import { WorkflowCardBaseProps } from './WorkflowCardTypes';
+import { WorkflowCardBaseProps } from './WorkflowCard.types';
+import { getWorkflowCardUtilityClass, WorkflowCardClassKey } from './Utility';
+import { unstable_composeClasses as composeClasses } from '@mui/base';
 
-const useUtilityClasses = (ownerState: WorkflowCardBaseProps): Record<BrandedCardContainerClassKey, string> => {
+const useUtilityClasses = (ownerState: WorkflowCardBaseProps): Record<WorkflowCardClassKey, string> => {
     const { classes } = ownerState;
 
     const slots = {
@@ -20,22 +17,22 @@ const useUtilityClasses = (ownerState: WorkflowCardBaseProps): Record<BrandedCar
         card: ['card'],
     };
 
-    return composeClasses(slots, getBrandedCardContainerUtilityClass, classes);
+    return composeClasses(slots, getWorkflowCardUtilityClass, classes);
 };
 
 export const WorkflowCard: React.FC<WorkflowCardBaseProps> = (props) => {
     const {
         loading,
         background,
+        // eslint-disable-next-line @typescript-eslint/no-unused-vars
         error,
+        sx,
         children,
         cardStyles,
         CardProps,
         slots = {},
         slotProps = {},
         LoaderComponent = <Spinner visible={loading} component={slots.loader} {...slotProps.loader} />,
-        classes = {},
-        className: userClassName,
         ...otherCardProps
     } = props;
     const theme = useTheme();
@@ -43,36 +40,37 @@ export const WorkflowCard: React.FC<WorkflowCardBaseProps> = (props) => {
 
     return (
         <Box
-            sx={{
-                height: '100vh',
-                width: '100%',
-                backgroundColor: theme.palette.mode === 'light' ? 'primary.main' : 'primary.dark',
-                backgroundImage: background ? `url(${background})` : `url(${defaultBackgroundImage})`,
-                display: 'flex',
-                alignItems: 'center',
-                justifyContent: 'center',
-            }}
-            className={cx(defaultClasses.root, classes.root, userClassName)}
+            sx={[
+                {
+                    height: '100vh',
+                    width: '100%',
+                    backgroundColor: theme.palette.mode === 'light' ? 'primary.main' : 'primary.dark',
+                    backgroundImage: background ? `url(${background})` : `url(${defaultBackgroundImage})`,
+                    display: 'flex',
+                    alignItems: 'center',
+                    justifyContent: 'center',
+                },
+                ...(Array.isArray(sx) ? sx : [sx]),
+            ]}
+            className={cx(defaultClasses.root)}
             {...otherCardProps}
         >
             <Card
-                sx={{
-                    width: '100%',
-                    height: '100%',
-                    maxWidth: '450px',
-                    maxHeight: '730px',
-                    // overflow: 'auto',
-                    display: 'flex',
-                    flexDirection: 'column',
-                    position: 'relative',
-                    [theme.breakpoints.down('sm')]: {
-                        maxWidth: 'none',
-                        maxHeight: 'none',
-                        borderRadius: 0,
+                sx={[
+                    {
+                        width: '100%',
+                        height: '100%',
+                        maxWidth: '450px',
+                        maxHeight: '730px',
+                        display: 'flex',
+                        flexDirection: 'column',
+                        position: 'relative',
+                        borderRadius: { xs: 0, sm: 'inherit' },
+                        ...cardStyles,
                     },
-                    ...cardStyles,
-                }}
-                className={cx(defaultClasses.card, classes.card)}
+                    ...(Array.isArray(sx) ? sx : [sx]),
+                ]}
+                className={cx(defaultClasses.card)}
                 component={slots.card}
                 {...CardProps}
                 {...slotProps.card}
