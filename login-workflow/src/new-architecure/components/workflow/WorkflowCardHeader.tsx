@@ -1,23 +1,23 @@
 import React from 'react';
 import CardHeader from '@mui/material/CardHeader';
 import Typography from '@mui/material/Typography';
-import { useTheme } from '@mui/material/styles';
-import { WorkflowCardHeaderProps } from './WorkflowCardTypes';
+import { WorkflowCardHeaderProps } from './WorkflowCard.types';
 
 export const WorkflowCardHeader: React.FC<WorkflowCardHeaderProps> = (props) => {
-    const { title, ...cardHeaderProps } = props;
-    const theme = useTheme();
+    const { title, sx, ...cardHeaderProps } = props;
 
     return (
         <>
             <CardHeader
                 title={<Typography variant={'h6'}>{title}</Typography>}
-                sx={{
-                    p: `${theme.spacing(4)} ${theme.spacing(3)} 0 ${theme.spacing(3)}`,
-                    [theme.breakpoints.down('sm')]: {
-                        p: `${theme.spacing(2)} ${theme.spacing(2)} 0 ${theme.spacing(2)}`,
+                sx={[
+                    {
+                        pt: { md: 4, sm: 2 },
+                        px: { md: 3, sm: 2 },
+                        pb: 0,
                     },
-                }}
+                    ...(Array.isArray(sx) ? sx : [sx]),
+                ]}
                 {...cardHeaderProps}
             />
         </>
