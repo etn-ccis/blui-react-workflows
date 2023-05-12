@@ -5,7 +5,7 @@ import { Button, Typography } from '@mui/material';
 
 i18nRegistrationInstance.addResourceBundle('kn', 'bluiRegistration', { test: 'ಈಗ ನೋಂದಣಿ ಮಾಡಿ!' }, true, true);
 
-export const AppTemp: React.FC<React.PropsWithChildren> = () => {
+export const App: React.FC<React.PropsWithChildren> = () => {
     const [language, setLanguage] = React.useState('en');
 
     return (
