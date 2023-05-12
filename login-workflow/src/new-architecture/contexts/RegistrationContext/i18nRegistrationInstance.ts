@@ -1,6 +1,6 @@
 import i18next from 'i18next';
 import { dictionaries } from './dictionaries';
-import LanguageDetector from 'i18next-browser-languagedetector';
+// import LanguageDetector from 'i18next-browser-languagedetector';
 
 export const i18nRegistrationInstance = i18next.createInstance(
     {
