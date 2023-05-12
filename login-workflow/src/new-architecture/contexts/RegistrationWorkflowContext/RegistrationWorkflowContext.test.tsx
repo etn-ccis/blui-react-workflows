@@ -1,5 +1,6 @@
 import React from 'react';
-import { render, screen, cleanup, renderHook } from '@testing-library/react';
+import { render, screen, cleanup } from '@testing-library/react';
+import { renderHook } from '@testing-library/react-hooks';
 import '@testing-library/jest-dom';
 import { RegistrationWorkflowContextProps, useRegistrationWorkflowContext } from '.';
 import { RegistrationWorkflowContextProvider } from './provider';
@@ -60,35 +61,10 @@ describe('RegistrationWorkflowContext', () => {
         await ((): void => expect(values.result.current.screenData['Eula'].accepted).toBeTruthy());
     });
 
-    it('should throw error, when context value is null', async () => {
-        const RegisterComponent: React.FC<React.PropsWithChildren<any>> = () => (
-            <RegistrationWorkflowContextProvider {...defaultProps} />
+    it('should throw error, when context value is null', () => {
+        const { result } = renderHook(() => useRegistrationWorkflowContext());
+        expect(result.error.message).toBe(
+            'useRegistrationWorkflowContext must be used within an RegistrationContextProvider'
         );
-
-        const CustomFlow: React.FC = () => {
-            const Screen1: React.FC = () => {
-                // eslint-disable-next-line
-                renderHook((): RegistrationWorkflowContextProps => useRegistrationWorkflowContext());
-                return <Typography>Screen 1</Typography>;
-            };
-
-            return <Screen1 />;
-        };
-
-        // eslint-disable-next-line
-        await ((): void =>
-            expect(() =>
-                render(
-                    <RegisterComponent>
-                        <CustomFlow />
-                    </RegisterComponent>
-                )
-            ).not.toThrowError('useRegistrationWorkflowContext must be used within an RegistrationContextProvider'));
-
-        // eslint-disable-next-line
-        await ((): void =>
-            expect(() => render(<CustomFlow />)).toThrowError(
-                'useRegistrationWorkflowContext must be used within an RegistrationContextProvider'
-            ));
     });
 });

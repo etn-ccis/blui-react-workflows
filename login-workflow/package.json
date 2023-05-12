@@ -25,6 +25,7 @@
     },
     "prettier": "@brightlayer-ui/prettier-config",
     "dependencies": {
+        "@testing-library/react-hooks": "^8.0.1",
         "dompurify": "^2.2.9",
         "i18next-browser-languagedetector": "^6.1.0"
     },
@@ -76,7 +77,7 @@
         "@emotion/styled": "^11.6.0",
         "@mui/icons-material": "^5.3.1",
         "@mui/material": "^5.4.1",
-        "@testing-library/jest-dom": "^5.16.4",
+        "@testing-library/jest-dom": "^5.16.5",
         "@testing-library/react": "^13.3.0",
         "@types/color": "^3.0.1",
         "@types/dompurify": "^2.2.2",
