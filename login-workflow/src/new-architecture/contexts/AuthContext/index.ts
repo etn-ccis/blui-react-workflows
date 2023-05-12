@@ -3,7 +3,7 @@ import { AuthContext } from './context';
 import { AuthContextProps, AuthUIActions } from './types';
 
 /**
- * Hook to manage top level data in authentication workflow
+ * Hook to get top level data in authentication workflow
  *
  * @category Hooks
  * @private
