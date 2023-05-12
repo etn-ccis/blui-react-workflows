@@ -1,5 +1,6 @@
 import i18next from 'i18next';
 import { dictionaries } from './dictionaries';
+import LanguageDetector from 'i18next-browser-languagedetector';
 
 export const i18nRegistrationInstance = i18next.createInstance(
     {
@@ -7,6 +8,12 @@ export const i18nRegistrationInstance = i18next.createInstance(
         fallbackLng: 'en',
         ns: ['bluiRegistration'],
         defaultNS: 'bluiRegistration',
+        // load: 'languageOnly',
+        // detection: {
+        //     order: ['querystring', 'localStorage', 'navigator'],
+        //     caches: ['localStorage'],
+        //     lookupLocalStorage: 'blui-registration-i18nextLng',
+        // },
         react: { useSuspense: false },
         interpolation: { escapeValue: false },
         resources: {
