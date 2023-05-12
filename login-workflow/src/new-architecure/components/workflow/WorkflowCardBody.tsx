@@ -1,10 +1,10 @@
-import React, { PropsWithChildren } from 'react';
-import CardContent from '@mui/material/CardContent';
+import React from 'react';
+import CardContent, { CardContentProps } from '@mui/material/CardContent';
 import { useTheme } from '@mui/material/styles';
 
-export const WorkflowCardBody: React.FC<PropsWithChildren> = (props) => {
+export const WorkflowCardBody: React.FC<CardContentProps> = (props) => {
     const theme = useTheme();
-    const { children } = props;
+    const { children, ...cardContentProps } = props;
 
     return (
         <>
@@ -19,6 +19,7 @@ export const WorkflowCardBody: React.FC<PropsWithChildren> = (props) => {
                         p: `${theme.spacing(2)} ${theme.spacing(2)} ${theme.spacing(3)} ${theme.spacing(2)}`,
                     },
                 }}
+                {...cardContentProps}
             >
                 {children}
             </CardContent>

@@ -1,9 +1,6 @@
-import { Typography } from '@mui/material';
 import React from 'react';
-
-type ErrorStateProps = {
-    message?: string;
-};
+import { Typography } from '@mui/material';
+import { ErrorStateProps } from './WorkflowCardTypes';
 
 export const ErrorState: React.FC<ErrorStateProps> = (props) => {
     const { message } = props;

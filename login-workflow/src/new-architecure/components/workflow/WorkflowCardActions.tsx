@@ -3,32 +3,10 @@ import CardActions from '@mui/material/CardActions';
 import { Theme, useTheme } from '@mui/material/styles';
 import MobileStepper from '@mui/material/MobileStepper';
 import Button from '@mui/material/Button';
-import { useLanguageLocale } from '../../../auth-shared';
-
-type DataObject = { [key: string]: any };
-
-export type WorkflowCardActionsProps = {
-    canGoNext?: boolean | ((data: DataObject) => boolean);
-    canGoPrevious?: boolean | ((data: DataObject) => boolean);
-    showPrevious?: boolean;
-    showNext?: boolean;
-    previousLabel?: string;
-    nextLabel?: string;
-    onPrevious?: (data?: any) => void;
-    onNext?: (data?: any) => void;
-    currentStep?: number;
-    totalSteps?: number;
-    fullWidthButton?: boolean;
-    data?: DataObject;
-};
-
-const StepperDotStyles = (theme: Theme): any => ({
-    m: `0px ${theme.spacing(0.5)}`,
-});
+import { WorkflowCardActionsProps } from './WorkflowCardTypes';
 
 export const WorkflowCardActions: React.FC<WorkflowCardActionsProps> = (props) => {
     const theme = useTheme();
-    const { t } = useLanguageLocale();
     const {
         canGoNext,
         canGoPrevious,
@@ -42,7 +20,12 @@ export const WorkflowCardActions: React.FC<WorkflowCardActionsProps> = (props) =
         totalSteps,
         fullWidthButton,
         data,
+        ...cardActionsProps
     } = props;
+
+    const StepperDotStyles = (theme: Theme): any => ({
+        m: `0px ${theme.spacing(0.5)}`,
+    });
 
     return (
         <CardActions
@@ -53,6 +36,7 @@ export const WorkflowCardActions: React.FC<WorkflowCardActionsProps> = (props) =
                     p: 2,
                 },
             }}
+            {...cardActionsProps}
         >
             <MobileStepper
                 variant={'dots'}
@@ -70,7 +54,7 @@ export const WorkflowCardActions: React.FC<WorkflowCardActionsProps> = (props) =
                             onClick={(): void => onPrevious(data)}
                             sx={{ width: fullWidthButton ? '100%' : 100 }}
                         >
-                            {t(previousLabel)}
+                            {previousLabel}
                         </Button>
                     ) : null
                 }
@@ -84,7 +68,7 @@ export const WorkflowCardActions: React.FC<WorkflowCardActionsProps> = (props) =
                             onClick={(): void => onNext(data)}
                             sx={{ width: fullWidthButton ? '100%' : 100 }}
                         >
-                            {t(nextLabel)}
+                            {nextLabel}
                         </Button>
                     ) : null
                 }

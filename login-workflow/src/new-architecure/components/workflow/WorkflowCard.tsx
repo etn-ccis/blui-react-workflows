@@ -1,35 +1,16 @@
-import React, { ReactNode } from 'react';
-import Box, { BoxProps } from '@mui/material/Box';
-import { WorkflowCardActionsProps } from './WorkflowCardActions';
-import { WorkflowCardHeaderProps } from './WorkflowCardHeader';
-import { WorkflowCardInstructionProps } from './WorkflowCardInstructions';
-import { SxProps, Theme, useTheme } from '@mui/material/styles';
-import { useInjectedUIContext } from '../../../auth-shared';
+import React from 'react';
+import Box from '@mui/material/Box';
+import { useTheme } from '@mui/material/styles';
 import defaultBackgroundImage from '../../../assets/images/background.svg';
-import Card, { CardProps as CardPropsType } from '@mui/material/Card';
+import Card from '@mui/material/Card';
 import {
-    BrandedCardContainerClasses,
     BrandedCardContainerClassKey,
     getBrandedCardContainerUtilityClass,
 } from '../../../components/BrandedCardContainer/BrandedCardContainerClasses';
-import { Spinner, SpinnerProps } from '../../../components/Spinner';
+import { Spinner } from '../../../components/Spinner';
 import { unstable_composeClasses as composeClasses } from '@mui/base';
 import { cx } from '@emotion/css';
-
-type WorkflowCardBaseProps = BoxProps & {
-    loading?: boolean;
-    backgroundImage?: string; // card background
-    error?: boolean | string; // each screen should have an error state
-    cardStyles?: SxProps<Theme>;
-    CardProps?: CardPropsType;
-    LoaderComponent?: ReactNode;
-    classes?: BrandedCardContainerClasses;
-    slots?: { card?: React.ElementType; loader?: React.ElementType };
-    slotProps?: {
-        card?: CardPropsType;
-        loader?: SpinnerProps;
-    };
-};
+import { WorkflowCardBaseProps } from './WorkflowCardTypes';
 
 const useUtilityClasses = (ownerState: WorkflowCardBaseProps): Record<BrandedCardContainerClassKey, string> => {
     const { classes } = ownerState;
@@ -42,16 +23,10 @@ const useUtilityClasses = (ownerState: WorkflowCardBaseProps): Record<BrandedCar
     return composeClasses(slots, getBrandedCardContainerUtilityClass, classes);
 };
 
-type WorkflowCardProps = CardPropsType &
-    WorkflowCardHeaderProps &
-    WorkflowCardInstructionProps &
-    WorkflowCardActionsProps &
-    WorkflowCardBaseProps;
-
-export const WorkflowCard: React.FC<WorkflowCardProps> = (props) => {
+export const WorkflowCard: React.FC<WorkflowCardBaseProps> = (props) => {
     const {
         loading,
-        backgroundImage,
+        background,
         error,
         children,
         cardStyles,
@@ -61,10 +36,9 @@ export const WorkflowCard: React.FC<WorkflowCardProps> = (props) => {
         LoaderComponent = <Spinner visible={loading} component={slots.loader} {...slotProps.loader} />,
         classes = {},
         className: userClassName,
-        ...otherProps
+        ...otherCardProps
     } = props;
     const theme = useTheme();
-    const { background } = useInjectedUIContext();
     const defaultClasses = useUtilityClasses(props);
 
     return (
@@ -73,14 +47,13 @@ export const WorkflowCard: React.FC<WorkflowCardProps> = (props) => {
                 height: '100vh',
                 width: '100%',
                 backgroundColor: theme.palette.mode === 'light' ? 'primary.main' : 'primary.dark',
-                backgroundImage: backgroundImage ? `url(${backgroundImage})` : `url(${defaultBackgroundImage})`,
+                backgroundImage: background ? `url(${background})` : `url(${defaultBackgroundImage})`,
                 display: 'flex',
                 alignItems: 'center',
                 justifyContent: 'center',
             }}
-            style={background || {}}
             className={cx(defaultClasses.root, classes.root, userClassName)}
-            {...otherProps}
+            {...otherCardProps}
         >
             <Card
                 sx={{
@@ -88,7 +61,7 @@ export const WorkflowCard: React.FC<WorkflowCardProps> = (props) => {
                     height: '100%',
                     maxWidth: '450px',
                     maxHeight: '730px',
-                    overflow: 'auto',
+                    // overflow: 'auto',
                     display: 'flex',
                     flexDirection: 'column',
                     position: 'relative',
