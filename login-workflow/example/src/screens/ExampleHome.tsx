@@ -23,20 +23,21 @@ export const ExampleHome: React.FC<React.PropsWithChildren> = () => {
     };
 
     return (
-        <div className="App">
-            <header className="App-header">
-                <img src={logo} className="App-logo" alt="logo" />
-                <p>
-                    Edit <code>src/App.tsx</code> and save to reload.
-                </p>
-                <Button variant={'contained'} onClick={securityHelper.showChangePassword}>
-                    Change Password
-                </Button>
-                <Button variant={'contained'} onClick={logOut} sx={{ mt: 2 }}>
-                    Log Out
-                </Button>
-            </header>
-
+        <>
+            <div className="App">
+                <header className="App-header">
+                    <img src={logo} className="App-logo" alt="logo" />
+                    <p>
+                        Edit <code>src/App.tsx</code> and save to reload.
+                    </p>
+                    <Button variant={'contained'} onClick={securityHelper.showChangePassword}>
+                        Change Password
+                    </Button>
+                    <Button variant={'contained'} onClick={logOut} sx={{ mt: 2 }}>
+                        Log Out
+                    </Button>
+                </header>
+            </div>
             <WorkflowCard>
                 <WorkflowCardHeader title="Account Created!" />
                 {/* <WorkflowCardInstructions instructions="Please select a password. Make sure that your password meets the necessary complexity requirements outlined below." /> */}
@@ -60,6 +61,6 @@ export const ExampleHome: React.FC<React.PropsWithChildren> = () => {
                     // fullWidthButton={true}
                 />
             </WorkflowCard>
-        </div>
+        </>
     );
 };
