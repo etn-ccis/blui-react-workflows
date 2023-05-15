@@ -1121,7 +1121,7 @@
     "@seznam/compose-react-refs" "^1.0.6"
     color "^4.2.3"
 
-"@brightlayer-ui/react-themes@^7.1.0-alpha.0":
+"@brightlayer-ui/react-themes@^7.1.0":
   version "7.1.0"
   resolved "https://registry.yarnpkg.com/@brightlayer-ui/react-themes/-/react-themes-7.1.0.tgz#09519522ab192cdb16c47c2d15ccd238d0fc8c5e"
   integrity sha512-zAESyIZJmGAcRDHwX2nB26gsloQ53Kx9FGb4I4bPdDf3Ragbaio/Is03/3CRCim5qCVwjcDqq/iy4iDqg1Q9BQ==

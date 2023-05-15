@@ -42,11 +42,20 @@ export const I18nTestScreen: React.FC<React.PropsWithChildren> = () => {
             </Button>
             <Button
                 onClick={(): void => {
-                    auth.setLanguage('kn');
+                    auth.setLanguage('zh');
+                }}
+                variant={'contained'}
+                sx={{ mr: 1 }}
+            >
+                {`Use zh`}
+            </Button>
+            <Button
+                onClick={(): void => {
+                    auth.setLanguage('pt');
                 }}
                 variant={'contained'}
             >
-                {`Use kn`}
+                {`Use pt`}
             </Button>
         </>
     );

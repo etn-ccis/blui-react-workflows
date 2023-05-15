@@ -16,9 +16,7 @@ export const App = (): JSX.Element => {
                 setLanguage,
             }}
         >
-            <RouterProvider
-                router={createBrowserRouter(GetCustomRoutes(isAuthenticated), { basename: '/test-custom-basename' })}
-            />
+            <RouterProvider router={createBrowserRouter(GetCustomRoutes(isAuthenticated), { basename: '/' })} />
         </AuthContext.Provider>
     );
 };

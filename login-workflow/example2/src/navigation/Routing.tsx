@@ -1,12 +1,11 @@
 /* eslint-disable */
 import React from 'react';
-import { ContactUs } from '../screens/routing-test-screens/ContactUs';
-import { GuardedScreen } from '../screens/routing-test-screens/GuardedScreen';
-import { LoginScreen } from '../screens/routing-test-screens/LoginScreen';
 import { RouteConfig, ExperimentalAuthGuard, ExperimentalGuestGuard } from '@brightlayer-ui/react-auth-workflow';
-import { Navigate, RouterProvider, Routes, createBrowserRouter } from 'react-router-dom';
-import type { Router } from '@remix-run/router';
-import { RegistrationTestScreen } from '../screens/routing-test-screens/RegistrationTestScreen';
+import { Navigate, RouterProvider, createBrowserRouter } from 'react-router-dom';
+import { LoginScreen } from '../screens/new-architecture-test-screens/LoginScreen';
+import { RegistrationTestScreen } from '../screens/new-architecture-test-screens/RegistrationTestScreen';
+import { ContactUs } from '../screens/new-architecture-test-screens/ContactUs';
+import { GuardedScreen } from '../screens/new-architecture-test-screens/GuardedScreen';
 
 export const routes: RouteConfig = {
     LOGIN: '/custom-login-route',

@@ -34,7 +34,7 @@ export const RegistrationTestScreen = (): JSX.Element => {
                         icon={<Event fontSize={'inherit'} />}
                         title={'Registration and Registration i18n Screen Placeholder'}
                         description={
-                            'You should only be able to access this if you ARE NOT authenticated \n You should also be able to modify the language and see the entries at the top left change'
+                            'You should only be able to access this if you ARE NOT authenticated \n You should also be able to modify the language and see the 2 entries below change to the selected language'
                         }
                         actions={
                             <Box sx={{ display: 'flex', flexDirection: 'column', alignItems: 'center' }}>
