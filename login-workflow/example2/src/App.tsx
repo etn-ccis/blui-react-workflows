@@ -1,5 +1,5 @@
 import React, { useState } from 'react';
-import { AuthContext } from './contexts/AuthContextProvider';
+import { AppContext } from './contexts/AppContextProvider';
 import { createBrowserRouter, RouterProvider } from 'react-router-dom';
 import { GetCustomRoutes } from './navigation/Routing';
 
@@ -8,7 +8,7 @@ export const App = (): JSX.Element => {
     const [language, setLanguage] = useState('en');
 
     return (
-        <AuthContext.Provider
+        <AppContext.Provider
             value={{
                 isAuthenticated,
                 setIsAuthenticated,
@@ -17,6 +17,6 @@ export const App = (): JSX.Element => {
             }}
         >
             <RouterProvider router={createBrowserRouter(GetCustomRoutes(isAuthenticated), { basename: '/' })} />
-        </AuthContext.Provider>
+        </AppContext.Provider>
     );
 };

@@ -1,7 +1,7 @@
 import React from 'react';
 import { i18nRegistrationInstance, RegistrationContextProvider } from '@brightlayer-ui/react-auth-workflow';
 import { useNavigate } from 'react-router-dom';
-import { useAuth } from '../../contexts/AuthContextProvider';
+import { useApp } from '../../contexts/AppContextProvider';
 import { I18nTestScreen } from './I18nTestScreen';
 import Box from '@mui/material/Box';
 import { EmptyState } from '@brightlayer-ui/react-components';
@@ -12,7 +12,7 @@ import Event from '@mui/icons-material/Event';
 import AppBar from '@mui/material/AppBar';
 
 export const RegistrationTestScreen = (): JSX.Element => {
-    const { language } = useAuth();
+    const { language } = useApp();
     const navigate = useNavigate();
     return (
         <Box sx={{ display: 'flex', flexDirection: 'column', height: '100%' }}>

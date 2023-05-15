@@ -1,18 +1,18 @@
 import { createContext, useContext } from 'react';
 
-type AuthContextType = {
+type AppContextType = {
     isAuthenticated: boolean;
     setIsAuthenticated: (isAuthenticated: boolean) => void;
     language: string;
     setLanguage: (language: string) => void;
 };
 
-export const AuthContext = createContext<AuthContextType | null>(null);
+export const AppContext = createContext<AppContextType | null>(null);
 
-export const useAuth = (): AuthContextType => {
-    const context = useContext(AuthContext);
+export const useApp = (): AppContextType => {
+    const context = useContext(AppContext);
     if (context === null) {
-        throw new Error('useAuth must be used within a AuthContextProvider');
+        throw new Error('useApp must be used within a AppContextProvider');
     }
     return context;
 };

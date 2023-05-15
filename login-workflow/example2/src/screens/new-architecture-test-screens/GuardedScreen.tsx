@@ -3,9 +3,9 @@ import { AppBar, Toolbar, Typography, Box, Button } from '@mui/material';
 import { EmptyState } from '@brightlayer-ui/react-components';
 import Event from '@mui/icons-material/Event';
 import { useNavigate } from 'react-router';
-import { useAuth } from '../../contexts/AuthContextProvider';
+import { useApp } from '../../contexts/AppContextProvider';
 export const GuardedScreen = (): JSX.Element => {
-    const auth = useAuth();
+    const app = useApp();
     const navigate = useNavigate();
     return (
         <Box sx={{ display: 'flex', flexDirection: 'column', height: '100%' }}>
@@ -27,7 +27,7 @@ export const GuardedScreen = (): JSX.Element => {
                                 variant="contained"
                                 sx={{ width: 200 }}
                                 onClick={(): void => {
-                                    auth.setIsAuthenticated(false);
+                                    app.setIsAuthenticated(false);
                                 }}
                             >
                                 Logout

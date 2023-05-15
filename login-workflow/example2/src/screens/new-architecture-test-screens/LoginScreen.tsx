@@ -3,10 +3,10 @@ import { AppBar, Toolbar, Typography, Box, Button } from '@mui/material';
 import { EmptyState } from '@brightlayer-ui/react-components';
 import Event from '@mui/icons-material/Event';
 import { useNavigate } from 'react-router';
-import { useAuth } from '../../contexts/AuthContextProvider';
+import { useApp } from '../../contexts/AppContextProvider';
 // eslint-disable-next-line arrow-body-style
 export const LoginScreen = (): JSX.Element => {
-    const auth = useAuth();
+    const { setIsAuthenticated } = useApp();
     const navigate = useNavigate();
     return (
         <Box sx={{ display: 'flex', flexDirection: 'column', height: '100%' }}>
@@ -27,7 +27,7 @@ export const LoginScreen = (): JSX.Element => {
                             <Button
                                 variant="contained"
                                 sx={{ width: 200 }}
-                                onClick={(): void => auth.setIsAuthenticated(true)}
+                                onClick={(): void => setIsAuthenticated(true)}
                             >
                                 Login
                             </Button>
