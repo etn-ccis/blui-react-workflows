@@ -19,7 +19,7 @@
         "@types/react": "^18.0.31",
         "@types/react-dom": "^18.0.0",
         "date-fns": "^2.29.2",
-        "i18next": "^20.0.0",
+        "i18next": "^22.0.0",
         "react": "^18.2.0",
         "react-app-polyfill": "^3.0.0",
         "react-dom": "^18.0.0",
