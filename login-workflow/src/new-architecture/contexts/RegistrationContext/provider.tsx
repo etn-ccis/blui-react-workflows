@@ -23,9 +23,11 @@ export const RegistrationContextProvider: React.FC<React.PropsWithChildren<Regis
     return (
         <I18nextProvider i18n={i18n}>
             <RegistrationContext.Provider value={props}>
+                {/* @TODO: RIP out these next 3 lines once we have some stuff to test built out under the RegistrationContext */}
                 <Typography>{t('bluiRegistration:REGISTRATION.EULA.LOADING')}</Typography>
                 <Typography>{t('bluiRegistration:REGISTRATION.STEPS.COMPLETE')}</Typography>
                 <Typography>{t('bluiRegistration:test')}</Typography>
+                {props.children}
             </RegistrationContext.Provider>
         </I18nextProvider>
     );
