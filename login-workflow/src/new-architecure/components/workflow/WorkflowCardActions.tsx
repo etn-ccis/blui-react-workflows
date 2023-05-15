@@ -5,7 +5,6 @@ import Button from '@mui/material/Button';
 import { WorkflowCardActionsProps } from './WorkflowCard.types';
 import { getWorkflowCardActionsUtilityClass, WorkflowCardActionsClassKey } from './Utility';
 import { unstable_composeClasses as composeClasses } from '@mui/base';
-import { display } from '@mui/system';
 
 const useUtilityClasses = (ownerState: WorkflowCardActionsProps): Record<WorkflowCardActionsClassKey, string> => {
     const { classes } = ownerState;
