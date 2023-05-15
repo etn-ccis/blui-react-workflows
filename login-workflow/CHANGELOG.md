@@ -15,6 +15,7 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 -   Confirm password field error state message in `ChangePasswordForm`.
 -   Option to hide the Create Password screen during registration
 -   A `ExistingAccountRegisterSuccessSubscreen` component.
+-   A `RegistrationWorkflowContext` context, a `RegistrationWorkflowContextProvider` component and a `useRegistrationWorkflowContext` hook.
 
 ### Changed
 
