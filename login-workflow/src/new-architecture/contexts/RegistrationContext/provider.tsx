@@ -18,7 +18,6 @@ export const RegistrationContextProvider: React.FC<React.PropsWithChildren<Regis
 
     useEffect(() => {
         void i18n.changeLanguage(language);
-        console.log('i18n: ', i18n, 'language: ', language);
     }, [i18n, language]);
 
     return (

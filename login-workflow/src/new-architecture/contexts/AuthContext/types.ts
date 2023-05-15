@@ -6,7 +6,7 @@
 import { i18n } from 'i18next';
 import { RouteConfig } from '../../../routing/AuthNavigationContainer';
 
-export type AuthContextProps = {
+export type AuthContextProviderProps = {
     actions: () => AuthUIActions;
     language: string;
     navigate: (url: string) => void;

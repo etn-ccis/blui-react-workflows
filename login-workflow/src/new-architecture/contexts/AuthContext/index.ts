@@ -1,6 +1,6 @@
 import { useContext } from 'react';
 import { AuthContext } from './context';
-import { AuthContextProps, AuthUIActions } from './types';
+import { AuthContextProviderProps, AuthUIActions } from './types';
 
 /**
  * Hook to get top level data in authentication workflow
@@ -9,7 +9,7 @@ import { AuthContextProps, AuthUIActions } from './types';
  * @private
  * @internal
  */
-export const useAuthContext = (): AuthContextProps => {
+export const useAuthContext = (): AuthContextProviderProps => {
     const context = useContext(AuthContext);
     if (context === null) {
         throw new Error('useAuthContext must be used within AuthContextProvider');
@@ -17,4 +17,4 @@ export const useAuthContext = (): AuthContextProps => {
     return context;
 };
 
-export type { AuthContextProps, AuthUIActions };
+export type { AuthContextProviderProps, AuthUIActions };
