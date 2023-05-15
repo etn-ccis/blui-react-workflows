@@ -23,7 +23,6 @@ export { AuthUIContextProvider } from './contexts/AuthUIContextProvider';
 export type {
     AuthUIContextProviderProps,
     RegistrationUIActions,
-    AuthUIActions,
     CustomRegistrationForm,
     LoginErrorDisplayConfig,
 } from './contexts/AuthUIContextProvider';
