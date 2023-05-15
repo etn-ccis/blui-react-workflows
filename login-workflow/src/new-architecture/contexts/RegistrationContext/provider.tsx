@@ -8,7 +8,6 @@ import { RegistrationContextProviderProps } from './types';
 import { RegistrationContext } from './context';
 import { I18nextProvider } from 'react-i18next';
 import { i18nRegistrationInstance } from './i18nRegistrationInstance';
-import Typography from '@mui/material/Typography';
 
 export const RegistrationContextProvider: React.FC<React.PropsWithChildren<RegistrationContextProviderProps>> = (
     props
