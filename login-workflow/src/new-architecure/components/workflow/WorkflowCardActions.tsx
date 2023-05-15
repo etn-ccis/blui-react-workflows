@@ -3,9 +3,9 @@ import CardActions from '@mui/material/CardActions';
 import MobileStepper from '@mui/material/MobileStepper';
 import Button from '@mui/material/Button';
 import { WorkflowCardActionsProps } from './WorkflowCard.types';
-import { cx } from '@emotion/css';
 import { getWorkflowCardActionsUtilityClass, WorkflowCardActionsClassKey } from './Utility';
 import { unstable_composeClasses as composeClasses } from '@mui/base';
+import { display } from '@mui/system';
 
 const useUtilityClasses = (ownerState: WorkflowCardActionsProps): Record<WorkflowCardActionsClassKey, string> => {
     const { classes } = ownerState;
@@ -34,15 +34,18 @@ export const WorkflowCardActions: React.FC<WorkflowCardActionsProps> = (props) =
         totalSteps,
         fullWidthButton,
         sx,
-        ...cardActionsProps
+        ...otherCardActionsProps
     } = props;
     const defaultClasses = useUtilityClasses(props);
+
+    const showStepperDots = currentStep !== undefined && totalSteps !== undefined && !fullWidthButton;
 
     return (
         <CardActions
             sx={[{ justifyContent: 'flex-end', p: { sm: 2, md: 3 } }, ...(Array.isArray(sx) ? sx : [sx])]}
-            className={cx(defaultClasses.root)}
-            {...cardActionsProps}
+            className={defaultClasses.root}
+            data-testid={defaultClasses.root}
+            {...otherCardActionsProps}
         >
             <MobileStepper
                 variant={'dots'}
@@ -59,7 +62,8 @@ export const WorkflowCardActions: React.FC<WorkflowCardActionsProps> = (props) =
                             }
                             onClick={onPrevious}
                             sx={[{ width: fullWidthButton ? '100%' : 100 }, ...(Array.isArray(sx) ? sx : [sx])]}
-                            className={cx(defaultClasses.previousButton)}
+                            className={defaultClasses.previousButton}
+                            data-testid={defaultClasses.previousButton}
                         >
                             {previousLabel}
                         </Button>
@@ -74,17 +78,24 @@ export const WorkflowCardActions: React.FC<WorkflowCardActionsProps> = (props) =
                             disabled={canGoNext === false || (typeof canGoNext === 'function' && !canGoNext())}
                             onClick={onNext}
                             sx={[{ width: fullWidthButton ? '100%' : 100 }, ...(Array.isArray(sx) ? sx : [sx])]}
-                            className={cx(defaultClasses.nextButton)}
+                            className={defaultClasses.nextButton}
+                            data-testid={defaultClasses.nextButton}
                         >
                             {nextLabel}
                         </Button>
                     ) : null
                 }
                 sx={[
-                    { background: 'transparent', width: '100%', p: 0, '& .MuiMobileStepper-dot': { my: 0, mx: 0.5 } },
+                    {
+                        background: 'transparent',
+                        width: '100%',
+                        p: 0,
+                        '& .MuiMobileStepper-dot': showStepperDots ? { my: 0, mx: 0.5 } : { display: 'none' },
+                    },
                     ...(Array.isArray(sx) ? sx : [sx]),
                 ]}
-                className={cx(defaultClasses.stepper)}
+                className={defaultClasses.stepper}
+                data-testid={defaultClasses.stepper}
             />
         </CardActions>
     );

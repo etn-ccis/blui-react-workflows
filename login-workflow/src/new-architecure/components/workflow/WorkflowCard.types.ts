@@ -1,33 +1,24 @@
 import { CardActionsProps, CardHeaderProps, TypographyProps } from '@mui/material';
 import { BoxProps } from '@mui/material/Box';
 import { CardProps } from '@mui/material/Card';
-import { SxProps, Theme } from '@mui/material/styles';
 import { ReactNode } from 'react';
-import { SpinnerProps } from '../../../components/Spinner';
 
-export type ErrorStateProps = {
+export type ErrorStateProps = TypographyProps & {
     message?: string;
 };
 
 export type WorkflowCardBaseProps = BoxProps & {
     loading?: boolean;
-    background?: string; // card background
+    backgroundImage?: string; // card background
     error?: boolean | string; // each screen should have an error state
-    cardStyles?: SxProps<Theme>;
     CardProps?: CardProps;
     LoaderComponent?: ReactNode;
     slots?: { card?: React.ElementType; loader?: React.ElementType };
-    slotProps?: {
-        card?: CardProps;
-        loader?: SpinnerProps;
-    };
 };
 
-export type WorkflowCardHeaderProps = CardHeaderProps & {
-    title?: string;
-};
+export type WorkflowCardHeaderProps = CardHeaderProps;
 
-export type WorkflowCardInstructionProps = TypographyProps & {
+export type WorkflowCardInstructionProps = Omit<TypographyProps, 'children'> & {
     instructions?: string;
     divider?: boolean;
 };
