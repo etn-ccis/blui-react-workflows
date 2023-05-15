@@ -3,7 +3,6 @@ import { AppBar, Toolbar, Typography, Box, Button } from '@mui/material';
 import { EmptyState } from '@brightlayer-ui/react-components';
 import Event from '@mui/icons-material/Event';
 import { useNavigate } from 'react-router';
-// eslint-disable-next-line arrow-body-style
 export const ContactUs = (): JSX.Element => {
     const navigate = useNavigate();
     return (

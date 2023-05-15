@@ -1,11 +1,9 @@
 import React from 'react';
-import { AppBar, Toolbar, Typography, Box, Button, Divider } from '@mui/material';
+import { AppBar, Toolbar, Typography, Box, Button } from '@mui/material';
 import { EmptyState } from '@brightlayer-ui/react-components';
 import Event from '@mui/icons-material/Event';
 import { useNavigate } from 'react-router';
 import { useAuth } from '../../contexts/AuthContextProvider';
-import { I18nTestScreen } from './I18nTestScreen';
-// eslint-disable-next-line arrow-body-style
 export const GuardedScreen = (): JSX.Element => {
     const auth = useAuth();
     const navigate = useNavigate();
@@ -29,8 +27,6 @@ export const GuardedScreen = (): JSX.Element => {
                                 variant="contained"
                                 sx={{ width: 200 }}
                                 onClick={(): void => {
-                                    // eslint-disable-next-line no-console
-                                    console.log('settingAuthenticated to false');
                                     auth.setIsAuthenticated(false);
                                 }}
                             >
@@ -50,8 +46,6 @@ export const GuardedScreen = (): JSX.Element => {
                             >
                                 Go Login Route
                             </Button>
-                            <Divider sx={{ mt: 3, mb: 2 }} />
-                            <I18nTestScreen />
                         </Box>
                     }
                 />
