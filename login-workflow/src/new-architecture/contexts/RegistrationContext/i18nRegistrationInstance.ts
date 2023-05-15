@@ -20,31 +20,26 @@ export const i18nRegistrationInstance = i18next.createInstance(
             en: {
                 bluiRegistration: {
                     ...dictionaries.english.translation,
-                    test: 'test',
                 },
             },
             fr: {
                 bluiRegistration: {
                     ...dictionaries.french.translation,
-                    test: 'test, but french',
                 },
             },
             es: {
                 bluiRegistration: {
                     ...dictionaries.spanish.translation,
-                    test: 'test',
                 },
             },
             zh: {
                 bluiRegistration: {
                     ...dictionaries.chinese.translation,
-                    test: 'test',
                 },
             },
             pt: {
                 bluiRegistration: {
                     ...dictionaries.portuguese.translation,
-                    test: 'test',
                 },
             },
         },
