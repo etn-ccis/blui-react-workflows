@@ -5,3 +5,4 @@ export { SimpleDialog } from './SimpleDialog';
 export { Spinner } from './Spinner';
 export * from './FinishState';
 export * from './password';
+export * from '../new-architecure/components/workflow';
