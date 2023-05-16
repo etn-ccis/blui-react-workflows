@@ -1,5 +1,6 @@
 import { useContext } from 'react';
 import { AuthContext } from './context';
+import { AuthContextProvider } from './provider';
 import { AuthContextProviderProps, AuthUIActions } from './types';
 
 /**
@@ -18,3 +19,5 @@ export const useAuthContext = (): AuthContextProviderProps => {
 };
 
 export type { AuthContextProviderProps, AuthUIActions };
+
+export { AuthContext, AuthContextProvider };
