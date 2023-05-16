@@ -1,6 +1,5 @@
 import i18next from 'i18next';
 import { dictionaries } from './dictionaries';
-// import LanguageDetector from 'i18next-browser-languagedetector';
 
 export const i18nRegistrationInstance = i18next.createInstance(
     {
@@ -47,9 +46,9 @@ export const i18nRegistrationInstance = i18next.createInstance(
     // We must provide a function as second parameter, otherwise i18next errors
     // eslint-disable-next-line @typescript-eslint/no-unused-vars
     (err, _t) => {
-        // @TODO: Handle this error state more graciously
-        // eslint-disable-next-line no-console
-        if (err) return console.log(err);
+        if (err) {
+            throw new Error(`i18nRegistrationInstance error: ${err}`);
+        }
     }
 );
 
