@@ -26,6 +26,7 @@ export type WorkflowCardInstructionProps = Omit<TypographyProps, 'children'> & {
 // type DataObject = { [key: string]: any };
 
 export type WorkflowCardActionsProps = CardActionsProps & {
+    divider?: boolean;
     canGoNext?: boolean | (() => boolean);
     canGoPrevious?: boolean | (() => boolean);
     showPrevious?: boolean;
