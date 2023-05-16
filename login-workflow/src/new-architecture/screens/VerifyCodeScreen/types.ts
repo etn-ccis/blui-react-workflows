@@ -3,16 +3,16 @@ import { WorkflowCardProps } from '../../components/WorkflowCard/WorkflowCardPla
 export type VerifyCodeScreenProps = WorkflowCardProps & { 
         
     // used to test the input for valid formatting
-    codeValidator?: (code: string) => boolean | string; 
+    codeValidator?: (code: string) => boolean | string;
    
     // called when the resend link/button is clicked
-    onResend?: () => void;    
+    onResend?: () => void;
 
     // text to display ahead of the resend link/button
-    resendInstructions?: string; 
+    resendInstructions?: string;
 
     // label for the resend link/button
-    resendLabel?: string;    
+    resendLabel?: string;
 
     // used to pre-populate the data in the field when the screen loads
     initialValue?: string;
