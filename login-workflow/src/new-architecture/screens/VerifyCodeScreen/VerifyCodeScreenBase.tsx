@@ -1,6 +1,4 @@
-import React, { useCallback, useEffect } from 'react';
-import { useLanguageLocale } from '../../../auth-shared';
-import { useTheme } from '@mui/material/styles';
+import React, { useCallback } from 'react';
 import { VerifyCodeScreenProps } from './types';
 import { WorkflowCard } from '../../components/WorkflowCard';
 import { WorkflowCardActions } from '../../components/WorkflowCard/WorkflowCardActions';
@@ -14,7 +12,7 @@ import Typography from '@mui/material/Typography';
 /**
  * Component that renders a screen that prompts a user to enter the confirmation code
  * that was sent to the email address that they used to register.
- * 
+ *
  * @param codeValidator used to test the input for valid formatting
  * @param onResend function to call when the user clicks the 'resend code' button
  * @param resendInstructions text to display ahead of the resend link/button
@@ -24,12 +22,16 @@ import Typography from '@mui/material/Typography';
  * @category Component
  */
 
-export const VerifyCodeScreenBase: React.FC<React.PropsWithChildren<React.PropsWithChildren<VerifyCodeScreenProps>>> = (props) => {
-    const { codeValidator = (code: string): boolean | string => {
-        if (code?.length > 0) {
-            return true;
-        } return 'You must provide a valid code';
-    },
+export const VerifyCodeScreenBase: React.FC<React.PropsWithChildren<React.PropsWithChildren<VerifyCodeScreenProps>>> = (
+    props
+) => {
+    const {
+        codeValidator = (code: string): boolean | string => {
+            if (code?.length > 0) {
+                return true;
+            }
+            return 'You must provide a valid code';
+        },
         onResend,
         resendInstructions,
         resendLabel,
@@ -37,43 +39,54 @@ export const VerifyCodeScreenBase: React.FC<React.PropsWithChildren<React.PropsW
         initialValue,
         title,
         instructions,
-        ...actionProps
+        ...otherProps
     } = props;
 
-    const theme = useTheme();
-    const { t } = useLanguageLocale();
+    const actionsProps = {
+        divider: otherProps.divider,
+        canGoNext: otherProps.canGoNext,
+        canGoPrevious: otherProps.canGoPrevious,
+        showPrevious: otherProps.showPrevious,
+        showNext: otherProps.showNext,
+        previousLabel: otherProps.previousLabel,
+        nextLabel: otherProps.nextLabel,
+        onPrevious: otherProps.onPrevious,
+        onNext: otherProps.onNext,
+        currentStep: otherProps.currentStep,
+        totalSteps: otherProps.totalSteps,
+        fullWidthButton: otherProps.fullWidthButton,
+        // @TODO: should we extend the rest of the props (CardActionsProps) or should we set this up to take in each sections props separately e.g., workflowCardProps, actionsProps, etc.
+    };
 
     const [verifyCode, setVerifyCode] = React.useState(initialValue ?? '');
-    const [isCodeValid, setIsCodeValid] = React.useState(codeValidator(initialValue) ?? false)
-    const [codeError, setCodeError] = React.useState('')
+    const [shouldValidateCode, setShouldValidateCode] = React.useState(false);
+    const [isCodeValid, setIsCodeValid] = React.useState(codeValidator(initialValue) ?? false);
+    const [codeError, setCodeError] = React.useState('');
 
+    const handleVerifyCodeInputChange = useCallback(
+        (code: string) => {
+            setVerifyCode(code);
+            const validatorResponse = codeValidator(code);
 
-    const handleVerifyCodeInputChange = useCallback((code: string) => {
-        setVerifyCode(code);
-        // setIsCodeValid(codeValidator(code));
-
-        // check code validator return statement
-        const validatorResponse = codeValidator(code);
-
-        // if true set is code valid to true and set code error to empty string
-        if()
-
-        // then check if false and type of code validator return statement equals string set is code valid to false and set code error set to error statement
-
-        // else if false and type of code validator equals boolean set is code valid false and set code error empty string
-
-        //eslint-disable-next-line noconsole
-        console.log('isCodeValid',isCodeValid)
-    }, [
-        codeValidator,
-        verifyCode
-    ])
+            if (typeof validatorResponse === 'boolean' && validatorResponse === true) {
+                setIsCodeValid(true);
+                setCodeError('');
+            } else if (typeof validatorResponse === 'boolean' && validatorResponse === false) {
+                setIsCodeValid(false);
+                setCodeError('');
+            } else if (typeof validatorResponse === 'string') {
+                setIsCodeValid(false);
+                setCodeError(validatorResponse);
+            }
+        },
+        [codeValidator, verifyCode]
+    );
 
     return (
         <WorkflowCard>
             <WorkflowCardHeader title={title}></WorkflowCardHeader>
             <WorkflowCardBody>
-            <WorkflowCardInstructions divider={true} instructions={instructions}></WorkflowCardInstructions>
+                <WorkflowCardInstructions divider instructions={instructions}></WorkflowCardInstructions>
                 <TextField
                     label={verifyCodeInputLabel}
                     fullWidth
@@ -81,10 +94,13 @@ export const VerifyCodeScreenBase: React.FC<React.PropsWithChildren<React.PropsW
                     onChange={(evt): void => {
                         handleVerifyCodeInputChange(evt.target.value);
                     }}
-                    // onKeyPress={(e): void => {
-                    //     if (e.key === 'Enter' && onSubmit) onSubmit();
-                    // }}
+                    onKeyPress={(e): void => {
+                        if (e.key === 'Enter' && props.onNext) props.onNext();
+                    }}
                     variant="filled"
+                    error={shouldValidateCode && !isCodeValid}
+                    helperText={shouldValidateCode && codeError}
+                    onBlur={(): void => setShouldValidateCode(true)}
                 />
                 <Box sx={{ mt: 2 }}>
                     <Typography>
@@ -101,11 +117,7 @@ export const VerifyCodeScreenBase: React.FC<React.PropsWithChildren<React.PropsW
                     </Typography>
                 </Box>
             </WorkflowCardBody>
-            <WorkflowCardActions
-            {...actionProps}
-            ></WorkflowCardActions>
-
+            <WorkflowCardActions {...actionsProps} divider></WorkflowCardActions>
         </WorkflowCard>
-
     );
 };
