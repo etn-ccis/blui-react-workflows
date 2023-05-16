@@ -1,58 +1,22 @@
-import React from 'react';
-import { i18nRegistrationInstance, RegistrationContextProvider } from '@brightlayer-ui/react-auth-workflow';
+import React, { useState } from 'react';
+import { AppContext } from './contexts/AppContextProvider';
+import { createBrowserRouter, RouterProvider } from 'react-router-dom';
+import { GetCustomRoutes } from './navigation/Routing';
 
-import { Button, Typography } from '@mui/material';
-
-i18nRegistrationInstance.addResourceBundle('kn', 'bluiRegistration', { test: 'ಈಗ ನೋಂದಣಿ ಮಾಡಿ!' }, true, true);
-
-export const App: React.FC<React.PropsWithChildren> = () => {
-    const [language, setLanguage] = React.useState('en');
+export const App = (): JSX.Element => {
+    const [isAuthenticated, setIsAuthenticated] = useState(false);
+    const [language, setLanguage] = useState('en');
 
     return (
-        <RegistrationContextProvider
-            i18n={i18nRegistrationInstance}
-            language={language}
-            routeConfig={{}}
-            navigate={(): void => {}}
+        <AppContext.Provider
+            value={{
+                isAuthenticated,
+                setIsAuthenticated,
+                language,
+                setLanguage,
+            }}
         >
-            <>
-                <Typography sx={{ mb: 4 }}>Current Language: {language}</Typography>
-                <Button
-                    onClick={(): void => {
-                        setLanguage('en');
-                    }}
-                    variant={'contained'}
-                    sx={{ mr: 1 }}
-                >
-                    {`Use en`}
-                </Button>
-                <Button
-                    onClick={(): void => {
-                        setLanguage('fr');
-                    }}
-                    variant={'contained'}
-                    sx={{ mr: 1 }}
-                >
-                    {`Use fr`}
-                </Button>
-                <Button
-                    onClick={(): void => {
-                        setLanguage('es');
-                    }}
-                    variant={'contained'}
-                    sx={{ mr: 1 }}
-                >
-                    {`Use es`}
-                </Button>
-                <Button
-                    onClick={(): void => {
-                        setLanguage('kn');
-                    }}
-                    variant={'contained'}
-                >
-                    {`Use kn`}
-                </Button>
-            </>
-        </RegistrationContextProvider>
+            <RouterProvider router={createBrowserRouter(GetCustomRoutes(isAuthenticated), { basename: '/' })} />
+        </AppContext.Provider>
     );
 };
