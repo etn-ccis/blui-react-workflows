@@ -1,4 +1,4 @@
-import { WorkflowCardProps } from '../../components/WorkflowCard/WorkflowCardPlaceholders';
+import { WorkflowCardProps } from '../../components/WorkflowCard/WorkflowCard.types';
 
 export type VerifyCodeScreenProps = WorkflowCardProps & { 
         

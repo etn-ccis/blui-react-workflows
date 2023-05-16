@@ -1,14 +1,12 @@
-import React, { useEffect } from 'react';
+import React, { useCallback, useEffect } from 'react';
 import { useLanguageLocale } from '../../../auth-shared';
 import { useTheme } from '@mui/material/styles';
-import { VerifyCodeScreenProps } from './types'
-import {
-    WorkflowCard,
-    WorkflowCardHeader,
-    WorkflowCardInstructions,
-    WorkflowCardBody,
-    WorkflowCardActions
-} from '../../components/WorkflowCard/WorkflowCardPlaceholders';
+import { VerifyCodeScreenProps } from './types';
+import { WorkflowCard } from '../../components/WorkflowCard';
+import { WorkflowCardActions } from '../../components/WorkflowCard/WorkflowCardActions';
+import { WorkflowCardBody } from '../../components/WorkflowCard/WorkflowCardBody';
+import { WorkflowCardHeader } from '../../components/WorkflowCard/WorkflowCardHeader';
+import { WorkflowCardInstructions } from '../../components/WorkflowCard/WorkflowCardInstructions';
 import TextField from '@mui/material/TextField';
 import Box from '@mui/material/Box';
 import Typography from '@mui/material/Typography';
@@ -27,51 +25,61 @@ import Typography from '@mui/material/Typography';
  */
 
 export const VerifyCodeScreenBase: React.FC<React.PropsWithChildren<React.PropsWithChildren<VerifyCodeScreenProps>>> = (props) => {
-    const { codeValidator, onResend, resendInstructions, resendLabel, verifyCodeInputLabel, initialValue, ...otherProps } = props;
-    const workflowCardActionsProps = {
-        canGoNext: props.canGoNext,
-        canGoPrevious: props.canGoPrevious,
-        showPrevious: props.showPrevious,
-        showNext: props.showNext,
-        previousLabel: props.previousLabel,
-        nextLabel: props.nextLabel,
-        onPrevious: props.onPrevious,
-        onNext: props.onNext,
-        currentStep: props.currentStep,
-        totalSteps: props.totalSteps,
-        fullWidthButton: props.fullWidthButton,
-    }
+    const { codeValidator = (code: string): boolean | string => {
+        if (code?.length > 0) {
+            return true;
+        } return 'You must provide a valid code';
+    },
+        onResend,
+        resendInstructions,
+        resendLabel,
+        verifyCodeInputLabel,
+        initialValue,
+        title,
+        instructions,
+        ...actionProps
+    } = props;
 
-    const WorkflowCardBaseProps = {
-        loading: props.loading,
-        background: props.background, // card background
-        error: props.error,
-    }
     const theme = useTheme();
     const { t } = useLanguageLocale();
 
     const [verifyCode, setVerifyCode] = React.useState(initialValue ?? '');
     const [isCodeValid, setIsCodeValid] = React.useState(codeValidator(initialValue) ?? false)
+    const [codeError, setCodeError] = React.useState('')
 
-    useEffect(() => {
-        setVerifyCode(initialValue ?? '');
-    }, [initialValue]);
 
-    useEffect(() => {
-        codeValidator(verifyCode);
-    }, [verifyCode, codeValidator]);
+    const handleVerifyCodeInputChange = useCallback((code: string) => {
+        setVerifyCode(code);
+        // setIsCodeValid(codeValidator(code));
+
+        // check code validator return statement
+        const validatorResponse = codeValidator(code);
+
+        // if true set is code valid to true and set code error to empty string
+        if()
+
+        // then check if false and type of code validator return statement equals string set is code valid to false and set code error set to error statement
+
+        // else if false and type of code validator equals boolean set is code valid false and set code error empty string
+
+        //eslint-disable-next-line noconsole
+        console.log('isCodeValid',isCodeValid)
+    }, [
+        codeValidator,
+        verifyCode
+    ])
 
     return (
         <WorkflowCard>
-            <WorkflowCardHeader title={props.title}></WorkflowCardHeader>
-            <WorkflowCardInstructions instructions={props.instructions}></WorkflowCardInstructions>
+            <WorkflowCardHeader title={title}></WorkflowCardHeader>
             <WorkflowCardBody>
+            <WorkflowCardInstructions divider={true} instructions={instructions}></WorkflowCardInstructions>
                 <TextField
                     label={verifyCodeInputLabel}
                     fullWidth
                     value={verifyCode}
                     onChange={(evt): void => {
-                        setVerifyCode(evt.target.value);
+                        handleVerifyCodeInputChange(evt.target.value);
                     }}
                     // onKeyPress={(e): void => {
                     //     if (e.key === 'Enter' && onSubmit) onSubmit();
@@ -93,7 +101,9 @@ export const VerifyCodeScreenBase: React.FC<React.PropsWithChildren<React.PropsW
                     </Typography>
                 </Box>
             </WorkflowCardBody>
-            <WorkflowCardActions />
+            <WorkflowCardActions
+            {...actionProps}
+            ></WorkflowCardActions>
 
         </WorkflowCard>
 
