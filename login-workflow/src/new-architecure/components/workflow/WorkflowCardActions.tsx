@@ -5,7 +5,6 @@ import Button from '@mui/material/Button';
 import { WorkflowCardActionsProps } from './WorkflowCard.types';
 import { getWorkflowCardActionsUtilityClass, WorkflowCardActionsClassKey } from './Utility';
 import { unstable_composeClasses as composeClasses } from '@mui/base';
-import { display } from '@mui/system';
 
 const useUtilityClasses = (ownerState: WorkflowCardActionsProps): Record<WorkflowCardActionsClassKey, string> => {
     const { classes } = ownerState;
@@ -22,13 +21,13 @@ const useUtilityClasses = (ownerState: WorkflowCardActionsProps): Record<Workflo
 
 export const WorkflowCardActions: React.FC<WorkflowCardActionsProps> = (props) => {
     const {
-        canGoNext,
         canGoPrevious,
         showPrevious,
-        showNext,
         previousLabel,
-        nextLabel,
         onPrevious,
+        canGoNext,
+        showNext,
+        nextLabel,
         onNext,
         currentStep,
         totalSteps,
@@ -67,7 +66,9 @@ export const WorkflowCardActions: React.FC<WorkflowCardActionsProps> = (props) =
                         >
                             {previousLabel}
                         </Button>
-                    ) : null
+                    ) : (
+                        <Button />
+                    )
                 }
                 nextButton={
                     showNext ? (
@@ -83,7 +84,9 @@ export const WorkflowCardActions: React.FC<WorkflowCardActionsProps> = (props) =
                         >
                             {nextLabel}
                         </Button>
-                    ) : null
+                    ) : (
+                        <Button />
+                    )
                 }
                 sx={[
                     {

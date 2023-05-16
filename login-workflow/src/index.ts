@@ -14,5 +14,3 @@ export * from './auth-shared';
 export * from './screens';
 
 export * from './components';
-
-export * from './screens';
