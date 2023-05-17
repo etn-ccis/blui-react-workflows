@@ -5,7 +5,6 @@ import { RegistrationContextProvider } from './provider';
 import { useRegistrationContext } from './context';
 import { RegistrationContextProviderProps } from './types';
 import { renderHook } from '@testing-library/react-hooks';
-import { useTranslation } from 'react-i18next';
 import { i18nRegistrationInstance } from './i18nRegistrationInstance';
 
 afterEach(cleanup);
@@ -24,8 +23,8 @@ describe('RegistrationContextProvider', () => {
         expect(screen.getByText('Hello Registration')).toBeInTheDocument();
     });
 
-    it('should read values from the context', async () => {
-        const wrapper = ({ children }) => (
+    it('should read values from the context', () => {
+        const wrapper = ({ children }): JSX.Element => (
             <RegistrationContextProvider {...defaultProps}>{children}</RegistrationContextProvider>
         );
         const { result } = renderHook(() => useRegistrationContext(), { wrapper });
@@ -33,8 +32,8 @@ describe('RegistrationContextProvider', () => {
         expect(result.current.language).toBe('en');
     });
 
-    it('should set values in the context', async () => {
-        const wrapper = ({ children }) => (
+    it('should set values in the context', () => {
+        const wrapper = ({ children }): JSX.Element => (
             <RegistrationContextProvider {...defaultProps} language="es">
                 {children}
             </RegistrationContextProvider>

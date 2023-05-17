@@ -23,15 +23,17 @@ describe('AuthContextProvider', () => {
         expect(screen.getByText('Hello Auth')).toBeInTheDocument();
     });
 
-    it('should read values from the context', async () => {
-        const wrapper = ({ children }) => <AuthContextProvider {...defaultProps}>{children}</AuthContextProvider>;
+    it('should read values from the context', () => {
+        const wrapper = ({ children }): JSX.Element => (
+            <AuthContextProvider {...defaultProps}>{children}</AuthContextProvider>
+        );
         const { result } = renderHook(() => useAuthContext(), { wrapper });
 
         expect(result.current.language).toBe('en');
     });
 
-    it('should set values in the context', async () => {
-        const wrapper = ({ children }) => (
+    it('should set values in the context', () => {
+        const wrapper = ({ children }): JSX.Element => (
             <AuthContextProvider {...defaultProps} language="es">
                 {children}
             </AuthContextProvider>
