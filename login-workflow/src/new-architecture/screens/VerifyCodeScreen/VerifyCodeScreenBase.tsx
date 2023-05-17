@@ -79,7 +79,7 @@ export const VerifyCodeScreenBase: React.FC<React.PropsWithChildren<React.PropsW
                 setCodeError(validatorResponse);
             }
         },
-        [codeValidator, verifyCode]
+        [codeValidator]
     );
 
     return (
