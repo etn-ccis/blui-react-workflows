@@ -1,6 +1,6 @@
 /**
  * @packageDocumentation
- * @module RegistrationWorkflowContextProvider
+ * @module AuthContextProvider
  */
 
 import React, { useEffect } from 'react';
@@ -10,6 +10,7 @@ import { I18nextProvider } from 'react-i18next';
 import { i18nAuthInstance } from './i18nAuthInstance';
 
 export const AuthContextProvider: React.FC<React.PropsWithChildren<AuthContextProviderProps>> = (props) => {
+    const { children, ...authContextProps } = props;
     const { language, i18n = i18nAuthInstance } = props;
 
     useEffect(() => {
@@ -18,7 +19,7 @@ export const AuthContextProvider: React.FC<React.PropsWithChildren<AuthContextPr
 
     return (
         <I18nextProvider i18n={i18n}>
-            <AuthContext.Provider value={props}>{props.children}</AuthContext.Provider>
+            <AuthContext.Provider value={authContextProps}>{children}</AuthContext.Provider>
         </I18nextProvider>
     );
 };
