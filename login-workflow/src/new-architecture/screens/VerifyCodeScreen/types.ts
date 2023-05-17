@@ -1,10 +1,9 @@
 import { WorkflowCardProps } from '../../components/WorkflowCard/WorkflowCard.types';
 
-export type VerifyCodeScreenProps = WorkflowCardProps & { 
-        
+export type VerifyCodeScreenProps = WorkflowCardProps & {
     // used to test the input for valid formatting
     codeValidator?: (code: string) => boolean | string;
-   
+
     // called when the resend link/button is clicked
     onResend?: () => void;
 
@@ -19,4 +18,4 @@ export type VerifyCodeScreenProps = WorkflowCardProps & {
 
     // used to set the label for verify code input
     verifyCodeInputLabel?: string;
-}
+};
