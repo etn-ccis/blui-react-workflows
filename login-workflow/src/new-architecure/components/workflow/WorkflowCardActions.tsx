@@ -66,7 +66,7 @@ export const WorkflowCardActions: React.FC<WorkflowCardActionsProps> = (props) =
                         >
                             {previousLabel}
                         </Button>
-                    ) : (
+                    ) : fullWidthButton ? null : (
                         <Button />
                     )
                 }
@@ -84,7 +84,7 @@ export const WorkflowCardActions: React.FC<WorkflowCardActionsProps> = (props) =
                         >
                             {nextLabel}
                         </Button>
-                    ) : (
+                    ) : fullWidthButton ? null : (
                         <Button />
                     )
                 }
