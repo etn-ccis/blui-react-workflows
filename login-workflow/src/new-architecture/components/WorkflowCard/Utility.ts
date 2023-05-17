@@ -24,7 +24,3 @@ export type WorkflowCardActionsClassKey = keyof workflowCardActionsClasses;
 export function getWorkflowCardActionsUtilityClass(slot: string): string {
     return generateUtilityClass('BluiWorkflowCardActions', slot);
 }
-
-export function getUtilityClasses(componentName: string, slot: string) {
-    return generateUtilityClass(componentName, slot);
-}

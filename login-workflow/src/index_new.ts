@@ -1,1 +1,1 @@
-export * from './new-architecure';
+export * from './new-architecture';
