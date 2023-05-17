@@ -1,5 +1,5 @@
 import React from 'react';
-import { createTheme } from '@mui/material/styles';
+import { createTheme, ThemeProvider } from '@mui/material/styles';
 import '@testing-library/jest-dom';
 import { cleanup, render, screen } from '@testing-library/react';
 import * as BLUIThemes from '@brightlayer-ui/react-themes';
@@ -24,15 +24,29 @@ describe('WorkflowCard tests', () => {
     });
 });
 
+describe('WorkflowCard tests', () => {
+    it('renders without crashing', () => {
+        const darkTheme = createTheme({ palette: { mode: 'dark' } });
+        render(
+            <ThemeProvider theme={darkTheme}>
+                <WorkflowCard loading={false} error={false}>
+                    Test
+                </WorkflowCard>
+            </ThemeProvider>
+        );
+        expect(screen.getByText('Test')).toBeInTheDocument();
+    });
+});
+
 describe('WorkflowCardActions tests', () => {
     it('renders without crashing', () => {
         render(
             <WorkflowCardActions
-                canGoPrevious={true}
+                canGoPrevious={(): any => {}}
                 showPrevious={true}
                 previousLabel={'Back'}
                 onPrevious={(): void => {}}
-                canGoNext={true}
+                canGoNext={(): any => {}}
                 showNext={true}
                 nextLabel={'Next'}
                 onNext={(): void => {}}
@@ -109,11 +123,16 @@ describe('WorkflowCardBody tests', () => {
         expect(screen.getByText('Body')).toBeInTheDocument();
     });
 });
-
 describe('WorkflowCardHeader tests', () => {
     it('renders without crashing', () => {
         render(<WorkflowCardHeader title="Test" sx={{ color: 'red' }} />);
         expect(screen.getByText('Test')).toBeInTheDocument();
+    });
+});
+
+describe('WorkflowCardHeader tests', () => {
+    it('renders without crashing', () => {
+        render(<WorkflowCardHeader title={true} sx={{ color: 'red' }} />);
     });
 });
 
