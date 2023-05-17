@@ -10,7 +10,7 @@ import { i18nRegistrationInstance } from './i18nRegistrationInstance';
 
 afterEach(cleanup);
 
-const defaultProps = {
+const defaultProps: RegistrationContextProviderProps = {
     language: 'en',
     i18n: i18nRegistrationInstance,
     navigate: (): void => {},
@@ -24,60 +24,25 @@ describe('RegistrationContextProvider', () => {
         expect(screen.getByText('Hello Registration')).toBeInTheDocument();
     });
 
-    it('should set values in the context', async () => {
-        let values: {
-            result: { current: RegistrationContextProviderProps };
-        };
-
-        const RegisterComponent: React.FC<React.PropsWithChildren<any>> = () => (
-            <RegistrationContextProvider {...defaultProps} />
+    it('should read values from the context', async () => {
+        const wrapper = ({ children }) => (
+            <RegistrationContextProvider {...defaultProps}>{children}</RegistrationContextProvider>
         );
+        const { result } = renderHook(() => useRegistrationContext(), { wrapper });
 
-        const CustomFlow: React.FC = () => {
-            const Screen1: React.FC = () => {
-                // eslint-disable-next-line
-                values = renderHook((): RegistrationContextProviderProps => useRegistrationContext());
-                return <div>Screen 1</div>;
-            };
-
-            return (
-                <RegisterComponent>
-                    <Screen1 />
-                </RegisterComponent>
-            );
-        };
-
-        render(<CustomFlow />);
-        // eslint-disable-next-line
-        await ((): void => expect(values.result.current.language).toBe('en'));
+        expect(result.current.language).toBe('en');
     });
 
-    it('should read values from the context', async () => {
-        let values: {
-            result: { current: RegistrationContextProviderProps };
-        };
-
-        const RegisterComponent: React.FC<React.PropsWithChildren<any>> = () => (
-            <RegistrationContextProvider {...defaultProps} />
+    it('should set values in the context', async () => {
+        const wrapper = ({ children }) => (
+            <RegistrationContextProvider {...defaultProps} language="es">
+                {children}
+            </RegistrationContextProvider>
         );
+        const { result } = renderHook(() => useRegistrationContext(), { wrapper });
 
-        const CustomFlow: React.FC = () => {
-            const Screen1: React.FC = () => {
-                // eslint-disable-next-line
-                values = renderHook((): RegistrationContextProviderProps => useRegistrationContext());
-                return <div>Screen 1</div>;
-            };
-
-            return (
-                <RegisterComponent>
-                    <Screen1 />
-                </RegisterComponent>
-            );
-        };
-
-        render(<CustomFlow />);
-        // eslint-disable-next-line
-        await ((): void => expect(values.result.current.language).toBe('en'));
+        expect(result.current.language).not.toBe('en');
+        expect(result.current.language).toBe('es');
     });
 
     it('should render multiple children', () => {
@@ -90,31 +55,5 @@ describe('RegistrationContextProvider', () => {
 
         expect(screen.getByText('Child 1')).toBeInTheDocument();
         expect(screen.getByText('Child 2')).toBeInTheDocument();
-    });
-
-    it('should display correct language translations', async () => {
-        const RegisterComponent: React.FC<React.PropsWithChildren> = () => (
-            <RegistrationContextProvider {...defaultProps} />
-        );
-
-        const CustomFlow: React.FC = () => {
-            const Screen1: React.FC = () => {
-                const { t } = useTranslation();
-
-                // eslint-disable-next-line
-                renderHook((): RegistrationContextProviderProps => useRegistrationContext());
-                return <div>{t('bluiRegistration:REGISTRATION.EULA.LOADING')}</div>;
-            };
-
-            return (
-                <RegisterComponent>
-                    <Screen1 />
-                </RegisterComponent>
-            );
-        };
-
-        render(<CustomFlow />);
-        // eslint-disable-next-line
-        await ((): void => expect(screen.getByText('Loading End User License Agreement...')).toBeInTheDocument());
     });
 });
