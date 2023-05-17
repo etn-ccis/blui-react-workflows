@@ -5,7 +5,7 @@ import { VerifyCodeScreenBase } from './VerifyCodeScreenBase';
 
 afterEach(cleanup);
 
-describe('VerifyCodeScreenBase', () => {
+describe('Verify Code Screen Base', () => {
     let mockOnResend: any;
     let mockOnNext: any;
 
@@ -40,11 +40,11 @@ describe('VerifyCodeScreenBase', () => {
         expect(screen.getByText('Verify Email')).toBeInTheDocument();
         expect(screen.getByText('Verification code instructions')).toBeInTheDocument();
         expect(screen.getByText('Send Again')).toBeInTheDocument();
-        expect(screen.getByText('Didn\'t receive email?')).toBeInTheDocument();
+        expect(screen.getByText("Didn't receive email?")).toBeInTheDocument();
         expect(screen.getByText('Next')).toBeInTheDocument();
-        expect(screen.getByText(/Next/i)).toBeEnabled()
+        expect(screen.getByText(/Next/i)).toBeEnabled();
         expect(screen.getByText('Back')).toBeInTheDocument();
-        expect(screen.getByText(/Back/i)).toBeEnabled()
+        expect(screen.getByText(/Back/i)).toBeEnabled();
     });
 
     it('sets error state when code is too short', () => {
