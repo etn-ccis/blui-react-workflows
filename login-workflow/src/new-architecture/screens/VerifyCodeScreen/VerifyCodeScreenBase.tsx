@@ -63,16 +63,8 @@ export const VerifyCodeScreenBase: React.FC<React.PropsWithChildren<VerifyCodeSc
             setVerifyCode(code);
             const validatorResponse = codeValidator(code);
 
-            if (typeof validatorResponse === 'boolean' && validatorResponse === true) {
-                setIsCodeValid(true);
-                setCodeError('');
-            } else if (typeof validatorResponse === 'boolean' && validatorResponse === false) {
-                setIsCodeValid(false);
-                setCodeError('');
-            } else if (typeof validatorResponse === 'string') {
-                setIsCodeValid(false);
-                setCodeError(validatorResponse);
-            }
+            setIsCodeValid(typeof validatorResponse === 'boolean' ? validatorResponse : false);
+            setCodeError(typeof validatorResponse === 'string' ? validatorResponse : '');
         },
         [codeValidator, verifyCode]
     );
