@@ -3,6 +3,6 @@
  * @module AuthContext
  */
 import { createContext } from 'react';
-import { AuthContextProps } from './types';
+import { AuthContextProviderProps } from './types';
 
-export const AuthContext = createContext<AuthContextProps | null>(null);
+export const AuthContext = createContext<AuthContextProviderProps | null>(null);

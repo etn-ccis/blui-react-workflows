@@ -1,11 +1,17 @@
 /* eslint-disable */
 import React from 'react';
-import { RouteConfig, ExperimentalAuthGuard, ExperimentalGuestGuard } from '@brightlayer-ui/react-auth-workflow';
+import {
+    RouteConfig,
+    ExperimentalAuthGuard,
+    ExperimentalGuestGuard,
+    SecurityContextProvider,
+} from '@brightlayer-ui/react-auth-workflow';
 import { Navigate, RouterProvider, createBrowserRouter } from 'react-router-dom';
 import { LoginScreen } from '../screens/new-architecture-test-screens/LoginScreen';
 import { RegistrationTestScreen } from '../screens/new-architecture-test-screens/RegistrationTestScreen';
 import { ContactUs } from '../screens/new-architecture-test-screens/ContactUs';
 import { GuardedScreen } from '../screens/new-architecture-test-screens/GuardedScreen';
+import { AuthTestScreen } from '../screens';
 
 export const routes: RouteConfig = {
     LOGIN: '/custom-login-route',
@@ -44,6 +50,20 @@ export const GetCustomRoutes = (isAuthenticated: boolean) => {
                     fallbackComponent={<Navigate to={`/login`} />}
                 >
                     <RegistrationTestScreen />
+                </ExperimentalGuestGuard>
+            ),
+        },
+        // Non-Authenticated Route: accessible only if the user is NOT authenticated
+        {
+            path: `/auth-test`,
+            element: (
+                <ExperimentalGuestGuard
+                    isAuthenticated={isAuthenticated}
+                    fallbackComponent={<Navigate to={`/login`} />}
+                >
+                    <SecurityContextProvider>
+                        <AuthTestScreen />
+                    </SecurityContextProvider>
                 </ExperimentalGuestGuard>
             ),
         },
