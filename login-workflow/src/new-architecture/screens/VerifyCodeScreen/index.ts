@@ -1,2 +1,2 @@
 export * from './VerifyCodeScreenBase';
-export * from './types'
+export * from './types';

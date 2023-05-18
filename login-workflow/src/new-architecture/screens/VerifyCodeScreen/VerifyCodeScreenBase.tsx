@@ -22,11 +22,9 @@ import Typography from '@mui/material/Typography';
  * @category Component
  */
 
-export const VerifyCodeScreenBase: React.FC<React.PropsWithChildren<VerifyCodeScreenProps>> = (
-    props
-) => {
+export const VerifyCodeScreenBase: React.FC<React.PropsWithChildren<VerifyCodeScreenProps>> = (props) => {
     const {
-        codeValidator = (code: string): boolean | string => code?.length > 0 ? true : 'You must provide a valid code',
+        codeValidator = (code: string): boolean | string => (code?.length > 0 ? true : 'You must provide a valid code'),
         onResend,
         resendInstructions,
         resendLabel,
