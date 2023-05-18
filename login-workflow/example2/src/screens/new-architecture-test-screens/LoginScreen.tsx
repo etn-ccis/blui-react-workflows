@@ -48,6 +48,13 @@ export const LoginScreen = (): JSX.Element => {
                             <Button
                                 variant="contained"
                                 sx={{ width: 200, ml: 2 }}
+                                onClick={(): void => navigate('/auth-test')}
+                            >
+                                Test Auth
+                            </Button>
+                            <Button
+                                variant="contained"
+                                sx={{ width: 200, ml: 2 }}
                                 onClick={(): void => navigate('/contact-us')}
                             >
                                 Contact Us

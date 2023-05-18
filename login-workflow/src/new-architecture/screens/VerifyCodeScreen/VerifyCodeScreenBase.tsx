@@ -22,16 +22,9 @@ import Typography from '@mui/material/Typography';
  * @category Component
  */
 
-export const VerifyCodeScreenBase: React.FC<React.PropsWithChildren<React.PropsWithChildren<VerifyCodeScreenProps>>> = (
-    props
-) => {
+export const VerifyCodeScreenBase: React.FC<React.PropsWithChildren<VerifyCodeScreenProps>> = (props) => {
     const {
-        codeValidator = (code: string): boolean | string => {
-            if (code?.length > 0) {
-                return true;
-            }
-            return 'You must provide a valid code';
-        },
+        codeValidator = (code: string): boolean | string => (code?.length > 0 ? true : 'You must provide a valid code'),
         onResend,
         resendInstructions,
         resendLabel,
@@ -68,16 +61,8 @@ export const VerifyCodeScreenBase: React.FC<React.PropsWithChildren<React.PropsW
             setVerifyCode(code);
             const validatorResponse = codeValidator(code);
 
-            if (typeof validatorResponse === 'boolean' && validatorResponse === true) {
-                setIsCodeValid(true);
-                setCodeError('');
-            } else if (typeof validatorResponse === 'boolean' && validatorResponse === false) {
-                setIsCodeValid(false);
-                setCodeError('');
-            } else if (typeof validatorResponse === 'string') {
-                setIsCodeValid(false);
-                setCodeError(validatorResponse);
-            }
+            setIsCodeValid(typeof validatorResponse === 'boolean' ? validatorResponse : false);
+            setCodeError(typeof validatorResponse === 'string' ? validatorResponse : '');
         },
         [codeValidator]
     );
@@ -86,7 +71,7 @@ export const VerifyCodeScreenBase: React.FC<React.PropsWithChildren<React.PropsW
         <WorkflowCard>
             <WorkflowCardHeader title={title}></WorkflowCardHeader>
             <WorkflowCardBody>
-                <WorkflowCardInstructions divider instructions={instructions}></WorkflowCardInstructions>
+                <WorkflowCardInstructions divider instructions={instructions} />
                 <TextField
                     label={verifyCodeInputLabel}
                     fullWidth
