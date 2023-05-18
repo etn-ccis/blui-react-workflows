@@ -2,7 +2,6 @@ import React from 'react';
 import { createTheme, ThemeProvider } from '@mui/material/styles';
 import '@testing-library/jest-dom';
 import { cleanup, render, screen } from '@testing-library/react';
-import * as BLUIThemes from '@brightlayer-ui/react-themes';
 import { WorkflowCard } from './WorkflowCard';
 import { WorkflowCardActions } from './WorkflowCardActions';
 import { WorkflowCardBody } from './WorkflowCardBody';
@@ -10,7 +9,6 @@ import { WorkflowCardHeader } from './WorkflowCardHeader';
 import { WorkflowCardInstructions } from './WorkflowCardInstructions';
 import { ErrorState } from './ErrorState';
 
-const theme = createTheme(BLUIThemes.blue);
 afterEach(cleanup);
 
 describe('WorkflowCard tests', () => {
