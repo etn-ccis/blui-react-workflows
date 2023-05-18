@@ -22,7 +22,7 @@ import Typography from '@mui/material/Typography';
  * @category Component
  */
 
-export const VerifyCodeScreenBase: React.FC<React.PropsWithChildren<React.PropsWithChildren<VerifyCodeScreenProps>>> = (
+export const VerifyCodeScreenBase: React.FC<React.PropsWithChildren<VerifyCodeScreenProps>> = (
     props
 ) => {
     const {
