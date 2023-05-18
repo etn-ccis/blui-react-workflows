@@ -26,12 +26,7 @@ export const VerifyCodeScreenBase: React.FC<React.PropsWithChildren<VerifyCodeSc
     props
 ) => {
     const {
-        codeValidator = (code: string): boolean | string => {
-            if (code?.length > 0) {
-                return true;
-            }
-            return 'You must provide a valid code';
-        },
+        codeValidator = (code: string): boolean | string => code?.length > 0 ? true : 'You must provide a valid code',
         onResend,
         resendInstructions,
         resendLabel,
