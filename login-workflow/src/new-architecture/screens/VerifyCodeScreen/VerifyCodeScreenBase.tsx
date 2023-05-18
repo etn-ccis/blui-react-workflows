@@ -81,7 +81,7 @@ export const VerifyCodeScreenBase: React.FC<React.PropsWithChildren<VerifyCodeSc
         <WorkflowCard>
             <WorkflowCardHeader title={title}></WorkflowCardHeader>
             <WorkflowCardBody>
-                <WorkflowCardInstructions divider instructions={instructions}></WorkflowCardInstructions>
+                <WorkflowCardInstructions divider instructions={instructions} />
                 <TextField
                     label={verifyCodeInputLabel}
                     fullWidth
