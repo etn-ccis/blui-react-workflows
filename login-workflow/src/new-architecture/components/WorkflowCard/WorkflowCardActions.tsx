@@ -32,7 +32,7 @@ export const WorkflowCardActions: React.FC<WorkflowCardActionsProps> = (props) =
         onPrevious,
         onNext,
         currentStep,
-        totalSteps,
+        totalSteps = 5,
         fullWidthButton,
         sx,
         ...otherCardActionsProps
