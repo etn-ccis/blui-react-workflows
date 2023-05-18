@@ -8,23 +8,24 @@ import { FinishState } from '../../components';
 type SuccessScreenProps = WorkflowCardBaseProps & {
     title?: string;
     icon?: JSX.Element;
-    successMessageTitle?: string;
-    successMessage?: string;
+    messageTitle?: string;
+    message?: string;
     dismissButtonLabel?: string;
+    canDismiss?: boolean | (() => boolean);
     onDismiss?: () => void;
 };
 
 export const SuccessScreenBase: React.FC<SuccessScreenProps> = (props) => {
-    const { title, icon, successMessageTitle, successMessage, dismissButtonLabel, onDismiss } = props;
+    const { title, icon, messageTitle, message, dismissButtonLabel, canDismiss, onDismiss } = props;
     return (
         <WorkflowCard>
             <WorkflowCardHeader title={title} />
             <WorkflowCardBody>
-                <FinishState icon={icon} title={successMessageTitle} description={successMessage} />
+                <FinishState icon={icon} title={messageTitle} description={message} />
             </WorkflowCardBody>
             <Divider />
             <WorkflowCardActions
-                canGoNext={true}
+                canGoNext={canDismiss}
                 showNext={true}
                 nextLabel={dismissButtonLabel}
                 onNext={onDismiss}
