@@ -53,7 +53,7 @@ export const GetCustomRoutes = (isAuthenticated: boolean) => {
                 </ExperimentalGuestGuard>
             ),
         },
-        // Authenticated Route: accessible only if the user IS authenticated
+        // Non-Authenticated Route: accessible only if the user is NOT authenticated
         {
             path: `/auth-test`,
             element: (
