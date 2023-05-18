@@ -27,9 +27,7 @@ export const WorkflowCard: React.FC<WorkflowCardBaseProps> = (props) => {
         error,
         sx,
         children,
-        slots = {},
-        LoaderComponent = <Spinner visible={loading} component={slots.loader} />,
-        ...otherCardProps
+        ...otherBoxProps
     } = props;
     const theme = useTheme();
     const defaultClasses = useUtilityClasses(props);
@@ -50,7 +48,7 @@ export const WorkflowCard: React.FC<WorkflowCardBaseProps> = (props) => {
             ]}
             className={defaultClasses.root}
             data-testid={defaultClasses.root}
-            {...otherCardProps}
+            {...otherBoxProps}
         >
             <Card
                 sx={[
@@ -68,10 +66,11 @@ export const WorkflowCard: React.FC<WorkflowCardBaseProps> = (props) => {
                 ]}
                 className={defaultClasses.card}
                 data-testid={defaultClasses.card}
-                component={slots.card}
             >
-                {LoaderComponent}
-                {children}
+                <>
+                    <Spinner visible={loading} />
+                    {children}
+                </>
             </Card>
         </Box>
     );

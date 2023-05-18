@@ -1,7 +1,6 @@
 import { CardActionsProps, CardHeaderProps, TypographyProps } from '@mui/material';
 import { BoxProps } from '@mui/material/Box';
 import { CardProps } from '@mui/material/Card';
-import { ReactNode } from 'react';
 
 export type ErrorStateProps = TypographyProps & {
     message?: string;
@@ -11,9 +10,6 @@ export type WorkflowCardBaseProps = BoxProps & {
     loading?: boolean;
     backgroundImage?: string; // card background
     error?: boolean | string; // each screen should have an error state
-    CardProps?: CardProps;
-    LoaderComponent?: ReactNode;
-    slots?: { card?: React.ElementType; loader?: React.ElementType };
 };
 
 export type WorkflowCardHeaderProps = CardHeaderProps;
