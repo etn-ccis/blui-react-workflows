@@ -5,6 +5,8 @@ import Button from '@mui/material/Button';
 import { WorkflowCardActionsProps } from './WorkflowCard.types';
 import { getWorkflowCardActionsUtilityClass, WorkflowCardActionsClassKey } from './Utility';
 import { unstable_composeClasses as composeClasses } from '@mui/base';
+import Divider from '@mui/material/Divider';
+import Box from '@mui/material/Box';
 
 const useUtilityClasses = (ownerState: WorkflowCardActionsProps): Record<WorkflowCardActionsClassKey, string> => {
     const { classes } = ownerState;
@@ -21,16 +23,17 @@ const useUtilityClasses = (ownerState: WorkflowCardActionsProps): Record<Workflo
 
 export const WorkflowCardActions: React.FC<WorkflowCardActionsProps> = (props) => {
     const {
-        canGoNext,
+        divider,
         canGoPrevious,
         showPrevious,
-        showNext,
         previousLabel,
-        nextLabel,
         onPrevious,
+        canGoNext,
+        showNext,
+        nextLabel,
         onNext,
         currentStep,
-        totalSteps,
+        totalSteps = 5,
         fullWidthButton,
         sx,
         ...otherCardActionsProps
@@ -41,11 +44,23 @@ export const WorkflowCardActions: React.FC<WorkflowCardActionsProps> = (props) =
 
     return (
         <CardActions
-            sx={[{ justifyContent: 'flex-end', p: { sm: 2, md: 3 } }, ...(Array.isArray(sx) ? sx : [sx])]}
+            sx={[
+                { flexDirection: 'column', justifyContent: 'flex-end', p: { sm: 2, md: 3 } },
+                ...(Array.isArray(sx) ? sx : [sx]),
+            ]}
             className={defaultClasses.root}
             data-testid={defaultClasses.root}
             {...otherCardActionsProps}
         >
+            {divider ? (
+                <Divider
+                    sx={{
+                        width: { md: 'calc(100% + 3rem)', sm: 'calc(100% + 2rem)' },
+                        mb: 3,
+                        mx: { md: -3, sm: -2 },
+                    }}
+                />
+            ) : null}
             <MobileStepper
                 variant={'dots'}
                 position={'static'}
@@ -66,7 +81,9 @@ export const WorkflowCardActions: React.FC<WorkflowCardActionsProps> = (props) =
                         >
                             {previousLabel}
                         </Button>
-                    ) : null
+                    ) : (
+                        <Box sx={{ width: fullWidthButton ? 0 : 100 }} />
+                    )
                 }
                 nextButton={
                     showNext ? (
@@ -82,7 +99,9 @@ export const WorkflowCardActions: React.FC<WorkflowCardActionsProps> = (props) =
                         >
                             {nextLabel}
                         </Button>
-                    ) : null
+                    ) : (
+                        <Box sx={{ width: fullWidthButton ? 0 : 100 }} />
+                    )
                 }
                 sx={[
                     {
