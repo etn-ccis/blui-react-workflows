@@ -10,6 +10,8 @@ import { BasicDialog } from '../../components';
 import Button from '@mui/material/Button';
 import { SxProps, Theme, useTheme } from '@mui/material/styles';
 import Checkbox from '@mui/material/Checkbox';
+import Close from '@mui/icons-material/Close';
+import * as Colors from '@brightlayer-ui/colors';
 
 /**
  * Component that renders a login screen that prompts a user to enter a username and password to login.
@@ -113,6 +115,7 @@ export const LoginScreenBase: React.FC<React.PropsWithChildren<LoginScreenProps>
 
     const [hasAcknowledgedError, setHasAcknowledgedError] = React.useState(false);
     // const [debugMode, setDebugMode] = React.useState(false);
+    const [showErrorMessageBox, setShowErrorMessageBox] = React.useState(true);
 
     const handleUsernameInputChange = (value: string): void => {
         setUsername(value);
@@ -206,43 +209,52 @@ export const LoginScreenBase: React.FC<React.PropsWithChildren<LoginScreenProps>
     // eslint-disable-next-line no-console
     console.log('errorDialog: ', errorDialog);
 
-    // const errorMessageBox: JSX.Element =
-    //     !isInvalidCredentials && hasTransitError && transitErrorMessage && showErrorMessageBox ? (
-    //         <Box
-    //             sx={{
-    //                 width: '100%',
-    //                 backgroundColor: errorDisplayConfigProps.backgroundColor || theme.palette.error.main,
-    //                 borderRadius: 4,
-    //                 p: 16,
-    //                 color: errorDisplayConfigProps.fontColor || Colors.white[50],
-    //                 mb: 16,
-    //                 mt: errorDisplayConfigProps.position !== 'bottom' ? 0 : -1,
-    //             }}
-    //         >
-    //             {errorDisplayConfigProps.dismissible !== false && (
-    //                 <Close
-    //                     sx={{
-    //                         '&:hover': {
-    //                             cursor: 'pointer',
-    //                         },
-    //                         float: 'right',
-    //                     }}
-    //                     onClick={(): void => {
-    //                         setShowErrorMessageBox(false);
-    //                     }}
-    //                 />
-    //             )}
-    //             <Typography variant="body2">{t(transitErrorMessage)}</Typography>
-    //         </Box>
-    //     ) : (
-    //         <></>
-    //     );
+    const errorMessageBox: JSX.Element =
+        errorDisplayConfig.mode === 'message-box' || errorDisplayConfig.mode === 'both' ? (
+            <Box
+                sx={{
+                    width: '100%',
+                    backgroundColor: errorDisplayConfigProps.backgroundColor || theme.palette.error.main,
+                    borderRadius: 4,
+                    p: 2,
+                    color: errorDisplayConfigProps.fontColor || Colors.white[50],
+                    mb: 2,
+                    mt: errorDisplayConfigProps.position !== 'bottom' ? 0 : -1,
+                }}
+            >
+                {errorDisplayConfigProps.dismissible !== false && (
+                    <Close
+                        sx={{
+                            '&:hover': {
+                                cursor: 'pointer',
+                            },
+                            float: 'right',
+                        }}
+                        onClick={(): void => {
+                            setShowErrorMessageBox(false);
+                        }}
+                    />
+                )}
+                {errorDisplayConfigProps.error && typeof errorDisplayConfigProps.error === 'string' && (
+                    <Typography variant="body2">{errorDisplayConfigProps.error}</Typography>
+                )}
+                {errorDisplayConfigProps.error &&
+                    typeof errorDisplayConfigProps.error === 'boolean' &&
+                    !isUsernameValid && <Typography variant="body2">{usernameError}</Typography>}
+                {errorDisplayConfigProps.error &&
+                    typeof errorDisplayConfigProps.error === 'boolean' &&
+                    !isPasswordValid && <Typography variant="body2">{passwordError}</Typography>}
+            </Box>
+        ) : (
+            <></>
+        );
 
     return (
         <WorkflowCard>
             <WorkflowCardBody sx={{ py: { xs: 4, sm: 4, md: 4 }, px: { xs: 4, sm: 8, md: 8 } }}>
                 {header}
                 <Box sx={{ display: 'flex', maxWidth: '100%', mb: 6 }}>{projectImage}</Box>
+                {showErrorMessageBox && errorDisplayConfig.position === 'top' && errorMessageBox}
                 <Box
                     sx={{
                         display: 'flex',
@@ -287,7 +299,7 @@ export const LoginScreenBase: React.FC<React.PropsWithChildren<LoginScreenProps>
                         />
                     </Box>
                 </Box>
-
+                {showErrorMessageBox && errorDisplayConfig.position === 'bottom' && errorMessageBox}
                 <Box
                     sx={{
                         display: 'flex',

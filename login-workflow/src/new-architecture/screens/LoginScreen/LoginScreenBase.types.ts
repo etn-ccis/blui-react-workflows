@@ -10,6 +10,7 @@ import { WorkflowCardBaseProps } from '../../components/WorkflowCard/WorkflowCar
 // };
 
 export type LoginErrorDisplayConfiguration = {
+    error?: boolean | string;
     mode?: 'dialog' | 'message-box' | 'both' | 'none';
     dismissible?: boolean;
     position?: 'top' | 'bottom';

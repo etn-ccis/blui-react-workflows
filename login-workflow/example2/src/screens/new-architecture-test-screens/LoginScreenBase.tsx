@@ -80,8 +80,9 @@ export const LoginScreenBaseTest = (): JSX.Element => (
                     mode: 'both',
                     dismissible: true,
                     position: 'top',
-                    fontColor: 'white',
-                    backgroundColor: 'red',
+                    // fontColor: 'white',
+                    // backgroundColor: 'red',
+                    error: 'Invalid username or password.',
                 }}
                 showCyberSecurityBadge={true}
                 projectImage={<img src={EatonLogo} alt="logo" style={{ maxHeight: 80 }} />}
