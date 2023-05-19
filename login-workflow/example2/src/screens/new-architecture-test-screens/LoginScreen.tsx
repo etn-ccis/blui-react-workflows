@@ -26,42 +26,49 @@ export const LoginScreen = (): JSX.Element => {
                         <Box>
                             <Button
                                 variant="contained"
-                                sx={{ width: 200 }}
+                                sx={{ width: 180 }}
                                 onClick={(): void => setIsAuthenticated(true)}
                             >
                                 Login
                             </Button>
                             <Button
                                 variant="contained"
-                                sx={{ width: 200, ml: 2 }}
+                                sx={{ width: 180, ml: 2 }}
                                 onClick={(): void => navigate('/registration-test')}
                             >
                                 Test Registration
                             </Button>
                             <Button
                                 variant="contained"
-                                sx={{ width: 200, ml: 2 }}
+                                sx={{ width: 180, ml: 2 }}
                                 onClick={(): void => navigate('/verify-code-test')}
                             >
-                                Test Verify Code Screen
+                                Verify Code Screen
                             </Button>
                             <Button
                                 variant="contained"
-                                sx={{ width: 200, ml: 2 }}
+                                sx={{ width: 180, ml: 2 }}
                                 onClick={(): void => navigate('/auth-test')}
                             >
                                 Test Auth
                             </Button>
                             <Button
                                 variant="contained"
-                                sx={{ width: 200, ml: 2 }}
+                                sx={{ width: 180, ml: 2 }}
                                 onClick={(): void => navigate('/contact-us')}
                             >
                                 Contact Us
                             </Button>
                             <Button
                                 variant="contained"
-                                sx={{ width: 200, ml: 2 }}
+                                sx={{ width: 180, ml: 2 }}
+                                onClick={(): void => navigate('/success-screen')}
+                            >
+                                Success Screen Base
+                            </Button>
+                            <Button
+                                variant="contained"
+                                sx={{ width: 180, ml: 2 }}
                                 onClick={(): void => navigate('/guarded')}
                             >
                                 Go Guarded Route

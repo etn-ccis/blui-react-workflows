@@ -1,7 +1,6 @@
 import React from 'react';
-import 'regenerator-runtime/runtime';
-import { render, cleanup, screen } from '@testing-library/react';
 import '@testing-library/jest-dom';
+import { render, cleanup, screen } from '@testing-library/react';
 import { SuccessScreenBase } from './SuccessScreenBase';
 
 afterEach(cleanup);
@@ -12,8 +11,8 @@ describe('SuccessScreenBase tests', () => {
             <SuccessScreenBase
                 title="Test"
                 icon={<></>}
-                successMessageTitle="Welcome"
-                successMessage="This is welcome page"
+                messageTitle="Welcome"
+                message="This is welcome page"
                 dismissButtonLabel="Continue"
                 onDismiss={(): void => {}}
             />
