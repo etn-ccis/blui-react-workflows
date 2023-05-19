@@ -1,18 +1,18 @@
 import React, { useRef } from 'react';
-import { LoginScreenProps } from './types';
+import { LoginScreenProps } from './LoginScreenBase.types';
 import { WorkflowCard } from '../../components/WorkflowCard';
 import { WorkflowCardBody } from '../../components/WorkflowCard/WorkflowCardBody';
-import { WorkflowCardHeader } from '../../components/WorkflowCard/WorkflowCardHeader';
 import TextField from '@mui/material/TextField';
 import Box from '@mui/material/Box';
 import Typography from '@mui/material/Typography';
-import cyberSecurityBadge from '../../../assets/images/cyber-security-badge.png';
-import { SimpleDialog } from '../../components';
+import cyberSecurityBadge from '../../../assets/images/cybersecurity_certified.png';
+import { BasicDialog } from '../../components';
 import Button from '@mui/material/Button';
+import { SxProps, Theme, useTheme } from '@mui/material/styles';
+import Checkbox from '@mui/material/Checkbox';
 
 /**
  * Component that renders a login screen that prompts a user to enter a username and password to login.
- *
  *
  * @param usernameLabel label for the username field
  * @param usernameValidator function used to validate the username
@@ -44,6 +44,26 @@ import Button from '@mui/material/Button';
  * @category Component
  */
 
+// const HELPER_TEXT_HEIGHT = 22;
+
+const LinkStyles = (theme?: Theme): SxProps<Theme> => ({
+    fontWeight: 600,
+    textTransform: 'none',
+    textDecoration: 'none',
+    color: theme.palette.primary.main,
+    '&:visited': {
+        color: 'inherit',
+    },
+    '&:hover': {
+        cursor: 'pointer',
+    },
+});
+
+// const LinksWrapperStyles = {
+//     textAlign: 'center',
+//     pb: 4,
+// };
+
 export const LoginScreenBase: React.FC<React.PropsWithChildren<LoginScreenProps>> = (props) => {
     const {
         usernameLabel,
@@ -74,8 +94,12 @@ export const LoginScreenBase: React.FC<React.PropsWithChildren<LoginScreenProps>
         footer,
     } = props;
 
+    const theme = useTheme();
+
     const [username, setUsername] = React.useState<string>(initialUsernameValue || '');
     const [password, setPassword] = React.useState<string>('');
+    const [rememberMe, setRememberMe] = React.useState<boolean>(rememberMeInitialValue || false);
+
     const [shouldValidateUsername, setShouldValidateUsername] = React.useState<boolean>(false);
     const [shouldValidatePassword, setShouldValidatePassword] = React.useState<boolean>(false);
 
@@ -130,6 +154,7 @@ export const LoginScreenBase: React.FC<React.PropsWithChildren<LoginScreenProps>
 
     const handleRememberMeChanged = (value: boolean): void => {
         if (onRememberMeChanged) onRememberMeChanged(value);
+        setRememberMe(value);
         // eslint-disable-next-line no-console
         console.log('handleRememberMeChanged: ', value);
     };
@@ -162,7 +187,7 @@ export const LoginScreenBase: React.FC<React.PropsWithChildren<LoginScreenProps>
     console.log('errorDisplayConfigProps: ', errorDisplayConfigProps);
 
     const errorDialog = (
-        <SimpleDialog
+        <BasicDialog
             title={'Error!'}
             body={
                 (typeof usernameError === 'string' && usernameError) ||
@@ -215,9 +240,9 @@ export const LoginScreenBase: React.FC<React.PropsWithChildren<LoginScreenProps>
 
     return (
         <WorkflowCard>
-            <WorkflowCardBody>
-                <WorkflowCardHeader>{header}</WorkflowCardHeader>
-                <Box sx={{ display: 'flex', justifyContent: 'center' }}>{projectImage}</Box>
+            <WorkflowCardBody sx={{ py: { xs: 4, sm: 4, md: 4 }, px: { xs: 4, sm: 8, md: 8 } }}>
+                {header}
+                <Box sx={{ display: 'flex', maxWidth: '100%', mb: 6 }}>{projectImage}</Box>
                 <Box
                     sx={{
                         display: 'flex',
@@ -227,12 +252,12 @@ export const LoginScreenBase: React.FC<React.PropsWithChildren<LoginScreenProps>
                         width: '100%',
                     }}
                 >
-                    <Box sx={{ width: '100%', maxWidth: 400 }}>
+                    <Box sx={{ width: '100%' }}>
                         <TextField
                             fullWidth
                             id="username"
                             label={usernameLabel || 'Username'}
-                            variant="outlined"
+                            variant="filled"
                             value={username}
                             error={shouldValidateUsername && !isUsernameValid}
                             helperText={shouldValidateUsername && !isUsernameValid ? usernameError : ''}
@@ -241,15 +266,16 @@ export const LoginScreenBase: React.FC<React.PropsWithChildren<LoginScreenProps>
                                 if (e.key === 'Enter' && passwordField.current) passwordField.current.focus();
                             }}
                             onBlur={(): void => setShouldValidateUsername(true)}
+                            sx={{ mb: 6 }}
                         />
                     </Box>
-                    <Box sx={{ width: '100%', maxWidth: 400, marginTop: 2 }}>
+                    <Box sx={{ width: '100%' }}>
                         <TextField
                             fullWidth
                             inputRef={passwordField}
                             id="password"
                             label={passwordLabel || 'Password'}
-                            variant="outlined"
+                            variant="filled"
                             type="password"
                             value={password}
                             error={shouldValidatePassword && !isPasswordValid}
@@ -257,6 +283,7 @@ export const LoginScreenBase: React.FC<React.PropsWithChildren<LoginScreenProps>
                             onChange={(e: any): void => handlePasswordInputChange(e.target.value)}
                             onSubmit={(e: any): void => handleLoginSubmit(e.target.value)}
                             onBlur={(): void => setShouldValidatePassword(true)}
+                            sx={{ mb: 5 }}
                         />
                     </Box>
                 </Box>
@@ -268,28 +295,42 @@ export const LoginScreenBase: React.FC<React.PropsWithChildren<LoginScreenProps>
                         justifyContent: 'space-between',
                         alignItems: 'center',
                         width: '100%',
-                        marginTop: 2,
+                        mt: 2,
+                        mb: 5,
+                        flexWrap: 'nowrap',
+                        [theme.breakpoints.down('sm')]: {
+                            flexWrap: 'wrap',
+                            flexDirection: 'column',
+                            justifyContent: 'center',
+                        },
                     }}
                 >
                     {showRememberMe && (
-                        <Box sx={{ display: 'flex', alignItems: 'center' }}>
-                            <input
-                                type="checkbox"
-                                checked={rememberMeInitialValue}
-                                onChange={(e): void => handleRememberMeChanged(e.target.checked)}
+                        <Box
+                            sx={{
+                                display: 'flex',
+                                alignItems: 'center',
+                                mr: 1,
+                                [theme.breakpoints.down('sm')]: {
+                                    mr: 0,
+                                },
+                            }}
+                        >
+                            <Checkbox
+                                color="primary"
+                                checked={rememberMe}
+                                onChange={(e: any): void => handleRememberMeChanged(e.target.checked)}
                             />
-                            <Typography variant="body1" sx={{ marginLeft: 1 }}>
-                                {rememberMeLabel || 'Remember Me'}
-                            </Typography>
+                            <Typography variant="body1">{rememberMeLabel || 'Remember Me'}</Typography>
                         </Box>
                     )}
-                    <Box sx={{ display: 'flex', flex: 1, justifyContent: 'flex-end', maxWidth: 400, marginTop: 2 }}>
+                    <Box sx={{ display: 'flex', flex: 1, justifyContent: 'flex-end' }}>
                         <Button
                             onClick={handleLogin}
                             disabled={!isFormValid()}
                             variant="contained"
                             color="primary"
-                            sx={{ width: '100%', maxWidth: 400, marginTop: 2 }}
+                            sx={{ width: showRememberMe ? 150 : '100%' }}
                         >
                             {loginButtonLabel || 'Login'}
                         </Button>
@@ -297,25 +338,33 @@ export const LoginScreenBase: React.FC<React.PropsWithChildren<LoginScreenProps>
                 </Box>
 
                 {showForgotPassword && (
-                    <Box sx={{ display: 'flex', justifyContent: 'center', marginTop: 2 }}>
-                        <Typography variant="body1" sx={{ cursor: 'pointer' }} onClick={handleForgotPassword}>
+                    <Box sx={{ display: 'flex', justifyContent: 'center' }}>
+                        <Typography variant="body2" sx={LinkStyles(theme)} onClick={handleForgotPassword}>
                             {forgotPasswordLabel || 'Forgot Password?'}
                         </Typography>
                     </Box>
                 )}
 
                 {showSelfRegistration && (
-                    <Box sx={{ display: 'flex', justifyContent: 'center', marginTop: 2 }}>
-                        <Typography variant="body1">{selfRegisterInstructions || "Don't have an account?"}</Typography>
-                        <Typography variant="body1" sx={{ cursor: 'pointer' }} onClick={handleSelfRegister}>
+                    <Box
+                        sx={{
+                            display: 'flex',
+                            justifyContent: 'center',
+                            alignItems: 'center',
+                            flexDirection: 'column',
+                            marginTop: 4,
+                        }}
+                    >
+                        <Typography variant="body2">{selfRegisterInstructions || "Don't have an account?"}</Typography>
+                        <Typography variant="body2" sx={LinkStyles(theme)} onClick={handleSelfRegister}>
                             {selfRegisterButtonLabel || 'Self Register'}
                         </Typography>
                     </Box>
                 )}
 
                 {showContactSupport && (
-                    <Box sx={{ display: 'flex', justifyContent: 'center', marginTop: 2 }}>
-                        <Typography variant="body1" sx={{ cursor: 'pointer' }} onClick={handleContactSupport}>
+                    <Box sx={{ display: 'flex', justifyContent: 'center', marginTop: 4 }}>
+                        <Typography variant="body2" sx={LinkStyles(theme)} onClick={handleContactSupport}>
                             {contactSupportLabel || 'Contact Support'}
                         </Typography>
                     </Box>
@@ -325,11 +374,7 @@ export const LoginScreenBase: React.FC<React.PropsWithChildren<LoginScreenProps>
 
                 {showCyberSecurityBadge && (
                     <Box sx={{ display: 'flex', justifyContent: 'center', marginTop: 2 }}>
-                        <img
-                            src={cyberSecurityBadge}
-                            alt="Cyber Security Badge"
-                            style={{ width: '100px', height: '100px' }}
-                        />
+                        <img src={cyberSecurityBadge} alt="Cyber Security Badge" style={{ width: '100px' }} />
                     </Box>
                 )}
 

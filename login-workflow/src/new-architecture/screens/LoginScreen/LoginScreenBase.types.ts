@@ -9,7 +9,7 @@ import { WorkflowCardBaseProps } from '../../components/WorkflowCard/WorkflowCar
 //     slots?: { card?: React.ElementType; loader?: React.ElementType };
 // };
 
-export type LoginErrorDisplayConfig = {
+export type LoginErrorDisplayConfiguration = {
     mode?: 'dialog' | 'message-box' | 'both' | 'none';
     dismissible?: boolean;
     position?: 'top' | 'bottom';
@@ -53,7 +53,7 @@ export type LoginScreenProps = WorkflowCardBaseProps & {
     onContactSupport?: () => void;
 
     // configure visual customizations
-    errorDisplayConfig?: LoginErrorDisplayConfig;
+    errorDisplayConfig?: LoginErrorDisplayConfiguration;
     showCyberSecurityBadge?: boolean;
     projectImage?: React.ReactNode;
     header?: JSX.Element;

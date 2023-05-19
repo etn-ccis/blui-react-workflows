@@ -13,6 +13,7 @@ import { ContactUs } from '../screens/new-architecture-test-screens/ContactUs';
 import { GuardedScreen } from '../screens/new-architecture-test-screens/GuardedScreen';
 import { VerifyCodeScreenBaseTest } from '../screens/new-architecture-test-screens/VerifyCodeScreenBase';
 import { AuthTestScreen } from '../screens';
+import { LoginScreenBaseTest } from '../screens/new-architecture-test-screens/LoginScreenBase';
 
 export const routes: RouteConfig = {
     LOGIN: '/custom-login-route',
@@ -41,6 +42,11 @@ export const GetCustomRoutes = (isAuthenticated: boolean) => {
                     <LoginScreen />
                 </ExperimentalGuestGuard>
             ),
+        },
+        // Non-Authenticated Route: accessible only if the user is NOT authenticated
+        {
+            path: `/login-screen-base`,
+            element: <LoginScreenBaseTest />,
         },
         // Non-Authenticated Route: accessible only if the user is NOT authenticated
         {

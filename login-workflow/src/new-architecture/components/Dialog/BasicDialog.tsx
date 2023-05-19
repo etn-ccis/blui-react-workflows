@@ -37,7 +37,7 @@ export const DialogButtonStyles = (fullWidth = false): SxProps<Theme> => ({
     width: fullWidth ? '100%' : 100,
 });
 
-export type SimpleDialogProps = DialogProps & {
+export type BasicDialogProps = DialogProps & {
     title: string;
     body: string;
     onClose: () => void;
@@ -45,7 +45,7 @@ export type SimpleDialogProps = DialogProps & {
 };
 
 /**
- * Component that renders a simple dialog with a title, body description, and a close button.
+ * Component that renders a basic dialog with a title, body description, and a close button.
  *
  * @param title text to show in the title
  * @param body text to show in the body
@@ -55,7 +55,7 @@ export type SimpleDialogProps = DialogProps & {
  *
  * @category Component
  */
-export const SimpleDialog: React.FC<React.PropsWithChildren<React.PropsWithChildren<SimpleDialogProps>>> = (props) => {
+export const BasicDialog: React.FC<React.PropsWithChildren<React.PropsWithChildren<BasicDialogProps>>> = (props) => {
     const { title, body, dismissButtonText, ...dialogProps } = props;
     const theme = useTheme();
 
