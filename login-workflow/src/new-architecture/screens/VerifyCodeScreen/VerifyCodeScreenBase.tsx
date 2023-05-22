@@ -66,7 +66,8 @@ export const VerifyCodeScreenBase: React.FC<React.PropsWithChildren<VerifyCodeSc
                         handleVerifyCodeInputChange(evt.target.value);
                     }}
                     onKeyPress={(e): void => {
-                        if (e.key === 'Enter' && isCodeValid) actionsProps?.onNext?.();
+                        if (e.key === 'Enter' && verifyCode.length > 0 && isCodeValid && actionsProps.canGoNext)
+                            actionsProps?.onNext?.();
                     }}
                     variant="filled"
                     error={shouldValidateCode && !isCodeValid}
@@ -91,7 +92,7 @@ export const VerifyCodeScreenBase: React.FC<React.PropsWithChildren<VerifyCodeSc
             <WorkflowCardActions
                 {...actionsProps}
                 divider
-                canGoNext={isCodeValid && actionsProps.canGoNext}
+                canGoNext={verifyCode.length > 0 && isCodeValid && actionsProps.canGoNext}
             ></WorkflowCardActions>
         </WorkflowCard>
     );
