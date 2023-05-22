@@ -1,8 +1,6 @@
-import { WorkflowCardBaseProps } from '../../components/WorkflowCard/WorkflowCard.types';
+import { WorkflowCardProps } from '../../components/WorkflowCard/WorkflowCard.types';
 
-// WorkflowCardBaseProps = loading, background, error
-export type SuccessScreenProps = WorkflowCardBaseProps & {
-    title?: string;
+export type SuccessScreenProps = WorkflowCardProps & {
     icon?: JSX.Element;
     messageTitle?: string;
     message?: string;
