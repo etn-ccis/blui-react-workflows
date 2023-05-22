@@ -7,9 +7,9 @@ import { WorkflowFinishState } from '../../components';
 export const SuccessScreenBase: React.FC<SuccessScreenProps> = (props) => {
     const { icon, messageTitle, message } = props;
 
-    const cardBaseProps = props.WorkflowCardBaseProps;
-    const headerProps = props.WorkflowCardHeaderProps;
-    const actionsProps = props.WorkflowCardActionsProps;
+    const cardBaseProps = props.WorkflowCardBaseProps || {};
+    const headerProps = props.WorkflowCardHeaderProps || {};
+    const actionsProps = props.WorkflowCardActionsProps || {};
 
     return (
         <WorkflowCard {...cardBaseProps}>

@@ -32,10 +32,10 @@ export const VerifyCodeScreenBase: React.FC<React.PropsWithChildren<VerifyCodeSc
         initialValue,
     } = props;
 
-    const cardBaseProps = props.WorkflowCardBaseProps;
-    const headerProps = props.WorkflowCardHeaderProps;
-    const instructionsProps = props.WorkflowCardInstructionProps;
-    const actionsProps = props.WorkflowCardActionsProps;
+    const cardBaseProps = props.WorkflowCardBaseProps || {};
+    const headerProps = props.WorkflowCardHeaderProps || {};
+    const instructionsProps = props.WorkflowCardInstructionProps || {};
+    const actionsProps = props.WorkflowCardActionsProps || {};
 
     const [verifyCode, setVerifyCode] = React.useState(initialValue ?? '');
     const [shouldValidateCode, setShouldValidateCode] = React.useState(false);
@@ -66,7 +66,7 @@ export const VerifyCodeScreenBase: React.FC<React.PropsWithChildren<VerifyCodeSc
                         handleVerifyCodeInputChange(evt.target.value);
                     }}
                     onKeyPress={(e): void => {
-                        if (e.key === 'Enter' && actionsProps.onNext) actionsProps.onNext();
+                        if (e.key === 'Enter' && isCodeValid) actionsProps?.onNext?.();
                     }}
                     variant="filled"
                     error={shouldValidateCode && !isCodeValid}
