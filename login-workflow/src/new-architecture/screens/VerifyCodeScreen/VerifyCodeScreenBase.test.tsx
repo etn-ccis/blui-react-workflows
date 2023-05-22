@@ -132,7 +132,7 @@ describe('Verify Code Screen Base', () => {
         const { getByText } = render(
             <VerifyCodeScreenBase
                 WorkflowCardActionsProps={{
-                    onNext: mockOnNext,
+                    onNext: mockOnNext(),
                     showNext: true,
                     nextLabel: 'Next',
                     canGoNext: true,
