@@ -26,20 +26,23 @@ export const CreateAccountScreenBaseTest = (): JSX.Element => {
             </AppBar>
             <Box sx={{ flex: '1 1 0px' }}>
                 <CreateAccountScreenBase
-                    title={'Create an Account'}
-                    instructions={
-                        'To register for an Eaton account, enter the required information below. You will need to verify your email address to continue.'
-                    }
+                    WorkflowCardHeaderProps={{ title: 'Create an Account' }}
+                    WorkflowCardInstructionProps={{
+                        instructions:
+                            'To register for an Eaton account, enter the required information below. You will need to verify your email address to continue.',
+                    }}
                     initialValue={''}
                     emailLabel={'Email Address'}
-                    showNext={true}
-                    nextLabel="Next"
-                    canGoNext={false}
-                    showPrevious={true}
-                    previousLabel="Back"
-                    canGoPrevious={true}
-                    currentStep={1}
-                    totalSteps={6}
+                    WorkflowCardActionsProps={{
+                        showNext: true,
+                        nextLabel: 'Next',
+                        canGoNext: true,
+                        showPrevious: true,
+                        previousLabel: 'Back',
+                        canGoPrevious: true,
+                        currentStep: 1,
+                        totalSteps: 6,
+                    }}
                 />
             </Box>
         </Box>

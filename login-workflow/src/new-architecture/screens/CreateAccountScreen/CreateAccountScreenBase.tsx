@@ -23,26 +23,12 @@ export const CreateAccountScreenBase: React.FC<React.PropsWithChildren<CreateAcc
         emailValidator = (email: string): boolean | string => (email?.length > 2 ? true : 'Please enter a valid email'),
         emailLabel,
         initialValue,
-        title,
-        instructions,
-        ...otherProps
     } = props;
 
-    const actionsProps = {
-        divider: otherProps.divider,
-        canGoNext: otherProps.canGoNext,
-        canGoPrevious: otherProps.canGoPrevious,
-        showPrevious: otherProps.showPrevious,
-        showNext: otherProps.showNext,
-        previousLabel: otherProps.previousLabel,
-        nextLabel: otherProps.nextLabel,
-        onPrevious: otherProps.onPrevious,
-        onNext: otherProps.onNext,
-        currentStep: otherProps.currentStep,
-        totalSteps: otherProps.totalSteps,
-        fullWidthButton: otherProps.fullWidthButton,
-        // @TODO: should we extend the rest of the props (CardActionsProps) or should we set this up to take in each sections props separately e.g., workflowCardProps, actionsProps, etc.
-    };
+    const cardBaseProps = props.WorkflowCardBaseProps || {};
+    const headerProps = props.WorkflowCardHeaderProps || {};
+    const instructionsProps = props.WorkflowCardInstructionProps || {};
+    const actionsProps = props.WorkflowCardActionsProps || {};
 
     const [emailInput, setEmailInput] = React.useState(initialValue ? initialValue : '');
     const [isEmailValid, setIsEmailValid] = React.useState(emailValidator(initialValue) ?? false);
@@ -61,10 +47,10 @@ export const CreateAccountScreenBase: React.FC<React.PropsWithChildren<CreateAcc
     );
 
     return (
-        <WorkflowCard>
-            <WorkflowCardHeader title={title}></WorkflowCardHeader>
+        <WorkflowCard {...cardBaseProps}>
+            <WorkflowCardHeader {...headerProps}></WorkflowCardHeader>
             <WorkflowCardBody>
-                <WorkflowCardInstructions divider instructions={instructions} />
+                <WorkflowCardInstructions {...instructionsProps} divider />
                 <TextField
                     type="email"
                     label={emailLabel}
@@ -74,7 +60,9 @@ export const CreateAccountScreenBase: React.FC<React.PropsWithChildren<CreateAcc
                         handleEmailInputChange(evt.target.value);
                     }}
                     onKeyPress={(e): void => {
-                        if (e.key === 'Enter' && props.onNext) props.onNext();
+                        // if (e.key === 'Enter' && props.onNext) props.onNext();
+                        if (e.key === 'Enter' && emailInput.length > 2 && isEmailValid && actionsProps.canGoNext)
+                            actionsProps?.onNext?.();
                     }}
                     variant="filled"
                     error={shouldValidateEmail && !isEmailValid}
@@ -82,7 +70,11 @@ export const CreateAccountScreenBase: React.FC<React.PropsWithChildren<CreateAcc
                     onBlur={(): void => setShouldValidateEmail(true)}
                 />
             </WorkflowCardBody>
-            <WorkflowCardActions {...actionsProps} divider></WorkflowCardActions>
+            <WorkflowCardActions
+                {...actionsProps}
+                divider
+                canGoNext={emailInput.length > 2 && isEmailValid && actionsProps.canGoNext}
+            ></WorkflowCardActions>
         </WorkflowCard>
     );
 };
