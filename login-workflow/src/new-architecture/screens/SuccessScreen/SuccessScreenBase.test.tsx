@@ -9,12 +9,14 @@ describe('SuccessScreenBase tests', () => {
     it('renders without crashing', () => {
         render(
             <SuccessScreenBase
-                title="Test"
+                WorkflowCardHeaderProps={{ title: 'Test' }}
+                WorkflowCardActionsProps={{
+                    nextLabel: 'Continue',
+                    onNext: (): void => {},
+                }}
                 icon={<></>}
                 messageTitle="Welcome"
                 message="This is welcome page"
-                dismissButtonLabel="Continue"
-                onDismiss={(): void => {}}
             />
         );
         expect(screen.getByText('Test')).toBeInTheDocument();

@@ -30,26 +30,12 @@ export const VerifyCodeScreenBase: React.FC<React.PropsWithChildren<VerifyCodeSc
         resendLabel,
         verifyCodeInputLabel,
         initialValue,
-        title,
-        instructions,
-        ...otherProps
     } = props;
 
-    const actionsProps = {
-        divider: otherProps.divider,
-        canGoNext: otherProps.canGoNext,
-        canGoPrevious: otherProps.canGoPrevious,
-        showPrevious: otherProps.showPrevious,
-        showNext: otherProps.showNext,
-        previousLabel: otherProps.previousLabel,
-        nextLabel: otherProps.nextLabel,
-        onPrevious: otherProps.onPrevious,
-        onNext: otherProps.onNext,
-        currentStep: otherProps.currentStep,
-        totalSteps: otherProps.totalSteps,
-        fullWidthButton: otherProps.fullWidthButton,
-        // @TODO: should we extend the rest of the props (CardActionsProps) or should we set this up to take in each sections props separately e.g., workflowCardProps, actionsProps, etc.
-    };
+    const cardBaseProps = props.WorkflowCardBaseProps || {};
+    const headerProps = props.WorkflowCardHeaderProps || {};
+    const instructionsProps = props.WorkflowCardInstructionProps || {};
+    const actionsProps = props.WorkflowCardActionsProps || {};
 
     const [verifyCode, setVerifyCode] = React.useState(initialValue ?? '');
     const [shouldValidateCode, setShouldValidateCode] = React.useState(false);
@@ -68,10 +54,10 @@ export const VerifyCodeScreenBase: React.FC<React.PropsWithChildren<VerifyCodeSc
     );
 
     return (
-        <WorkflowCard>
-            <WorkflowCardHeader title={title}></WorkflowCardHeader>
+        <WorkflowCard {...cardBaseProps}>
+            <WorkflowCardHeader {...headerProps}></WorkflowCardHeader>
             <WorkflowCardBody>
-                <WorkflowCardInstructions divider instructions={instructions} />
+                <WorkflowCardInstructions {...instructionsProps} divider />
                 <TextField
                     label={verifyCodeInputLabel}
                     fullWidth
@@ -80,7 +66,8 @@ export const VerifyCodeScreenBase: React.FC<React.PropsWithChildren<VerifyCodeSc
                         handleVerifyCodeInputChange(evt.target.value);
                     }}
                     onKeyPress={(e): void => {
-                        if (e.key === 'Enter' && props.onNext) props.onNext();
+                        if (e.key === 'Enter' && verifyCode.length > 0 && isCodeValid && actionsProps.canGoNext)
+                            actionsProps?.onNext?.();
                     }}
                     variant="filled"
                     error={shouldValidateCode && !isCodeValid}
@@ -102,7 +89,11 @@ export const VerifyCodeScreenBase: React.FC<React.PropsWithChildren<VerifyCodeSc
                     </Typography>
                 </Box>
             </WorkflowCardBody>
-            <WorkflowCardActions {...actionsProps} divider></WorkflowCardActions>
+            <WorkflowCardActions
+                {...actionsProps}
+                divider
+                canGoNext={verifyCode.length > 0 && isCodeValid && actionsProps.canGoNext}
+            ></WorkflowCardActions>
         </WorkflowCard>
     );
 };
