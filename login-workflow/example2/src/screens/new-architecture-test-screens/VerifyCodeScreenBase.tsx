@@ -25,10 +25,11 @@ export const VerifyCodeScreenBaseTest = (): JSX.Element => {
             </AppBar>
             <Box sx={{ flex: '1 1 0px' }}>
                 <VerifyCodeScreenBase
-                    title={'Verify Email'}
-                    instructions={
-                        'A verification code has been sent to the email address you provided. Click the link or enter the code below to continue. This code is valid for 30 minutes.'
-                    }
+                    WorkflowCardHeaderProps={{ title: 'Verify Email' }}
+                    WorkflowCardInstructionProps={{
+                        instructions:
+                            'A verification code has been sent to the email address you provided. Click the link or enter the code below to continue. This code is valid for 30 minutes.',
+                    }}
                     codeValidator={(code: string): boolean | string => {
                         if (code?.length > 2) {
                             return true;
@@ -41,14 +42,16 @@ export const VerifyCodeScreenBaseTest = (): JSX.Element => {
                     //eslint-disable-next-line
                     onResend={(): void => console.log('resending verification code...')}
                     resendInstructions={"Didn't receive email?"}
-                    showNext={true}
-                    nextLabel="Next"
-                    canGoNext={false}
-                    showPrevious={true}
-                    previousLabel="Back"
-                    canGoPrevious={true}
-                    currentStep={2}
-                    totalSteps={6}
+                    WorkflowCardActionsProps={{
+                        showNext: true,
+                        nextLabel: 'Next',
+                        canGoNext: true,
+                        showPrevious: true,
+                        previousLabel: 'Back',
+                        canGoPrevious: true,
+                        currentStep: 2,
+                        totalSteps: 6,
+                    }}
                 />
             </Box>
         </Box>

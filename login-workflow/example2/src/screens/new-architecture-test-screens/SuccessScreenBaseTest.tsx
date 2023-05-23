@@ -8,13 +8,17 @@ export const SuccessScreenBaseTest: React.FC<SuccessScreenProps> = () => {
 
     return (
         <SuccessScreenBase
-            title="Account Created!"
+            WorkflowCardHeaderProps={{ title: 'Account Created!' }}
             icon={<CheckCircle color={'primary'} sx={{ fontSize: 100, mb: 2 }} />}
             messageTitle="Welcome, User person!"
             message="Your account has been successfully created with the email example@email.com. Your account has already been added to the Acme Co. organization. Press continue below to finish."
-            dismissButtonLabel="Continue"
-            canDismiss={true}
-            onDismiss={(): void => navigate('/login')}
+            WorkflowCardActionsProps={{
+                nextLabel: 'Continue',
+                showNext: true,
+                canGoNext: true,
+                onNext: (): void => navigate('/login'),
+                fullWidthButton: true,
+            }}
         />
     );
 };
