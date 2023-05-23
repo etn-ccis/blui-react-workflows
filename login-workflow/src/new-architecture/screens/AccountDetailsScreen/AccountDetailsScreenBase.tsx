@@ -1,4 +1,4 @@
-import React, { useEffect, useRef } from 'react';
+import React, { useCallback, useEffect, useRef } from 'react';
 import TextField from '@mui/material/TextField';
 import {
     WorkflowCard,
@@ -19,26 +19,12 @@ export const AccountDetailsScreenBase: React.FC<AccountDetailsScreenProps> = (pr
         initialLastName,
         lastNameValidator,
         lastNameTextFieldProps,
-        title,
-        instructions,
-        ...otherProps
     } = props;
 
-    const actionsProps = {
-        divider: otherProps.divider,
-        canGoNext: otherProps.canGoNext,
-        canGoPrevious: otherProps.canGoPrevious,
-        showPrevious: otherProps.showPrevious,
-        showNext: otherProps.showNext,
-        previousLabel: otherProps.previousLabel,
-        nextLabel: otherProps.nextLabel,
-        onPrevious: otherProps.onPrevious,
-        onNext: otherProps.onNext,
-        currentStep: otherProps.currentStep,
-        totalSteps: otherProps.totalSteps,
-        fullWidthButton: otherProps.fullWidthButton,
-        // @TODO: should we extend the rest of the props (CardActionsProps) or should we set this up to take in each sections props separately e.g., workflowCardProps, actionsProps, etc.
-    };
+    const cardBaseProps = props.WorkflowCardBaseProps || {};
+    const headerProps = props.WorkflowCardHeaderProps || {};
+    const instructionsProps = props.WorkflowCardInstructionProps || {};
+    const actionsProps = props.WorkflowCardActionsProps || {};
 
     const firstRef = useRef<any>(null);
     const lastRef = useRef<any>(null);
@@ -52,11 +38,47 @@ export const AccountDetailsScreenBase: React.FC<AccountDetailsScreenProps> = (pr
     const [showFirstNameError, setShowFirstNameError] = React.useState(false);
     const [showLastNameError, setShowLastNameError] = React.useState(false);
 
+    const [isFirstNameValid, setIsFirstNameValid] = React.useState(false);
+    const [isLastNameValid, setIsLastNameValid] = React.useState(false);
+    const [isFormValid, setIsFormValid] = React.useState(false);
+
+    const onFirstNameChange = useCallback(
+        (firstName: string) => {
+            setFirstNameInput(firstName);
+            const validatorResponse = firstNameValidator(firstName);
+
+            setIsFirstNameValid(typeof validatorResponse === 'boolean' ? validatorResponse : false);
+            setShowFirstNameError(typeof validatorResponse === 'boolean' ? false : true);
+            setFirstNameError(typeof validatorResponse === 'string' ? validatorResponse : '');
+        },
+        [firstNameValidator]
+    );
+
+    const onLastNameChange = useCallback(
+        (lastName: string) => {
+            setLastNameInput(lastName);
+            const validatorResponse = lastNameValidator(lastName);
+
+            setIsLastNameValid(typeof validatorResponse === 'boolean' ? validatorResponse : false);
+            setShowLastNameError(typeof validatorResponse === 'boolean' ? false : true);
+            setLastNameError(typeof validatorResponse === 'string' ? validatorResponse : '');
+        },
+        [lastNameValidator]
+    );
+
+    useEffect(() => {
+        setIsFormValid(isFirstNameValid && isLastNameValid);
+    }, [isFirstNameValid, isLastNameValid]);
+
+    const handleLastNameKeyPress = (e: any): void => {
+        if (e.key === 'Enter' && isFormValid && actionsProps.canGoNext) actionsProps.onNext();
+    };
+
     return (
-        <WorkflowCard>
-            <WorkflowCardHeader title={title} />
+        <WorkflowCard {...cardBaseProps}>
+            <WorkflowCardHeader {...headerProps} />
             <WorkflowCardBody>
-                <WorkflowCardInstructions instructions={instructions} divider />
+                <WorkflowCardInstructions {...instructionsProps} divider />
                 <TextField
                     id="first"
                     fullWidth
@@ -65,16 +87,7 @@ export const AccountDetailsScreenBase: React.FC<AccountDetailsScreenProps> = (pr
                     inputRef={firstRef}
                     label={firstNameLabel}
                     value={firstNameInput}
-                    onChange={(evt): void => {
-                        setFirstNameInput(evt.target.value);
-                        if (firstNameValidator(evt.target.value)) {
-                            setFirstNameError('Please enter a valid First Name');
-                            setShowFirstNameError(true);
-                        } else {
-                            setFirstNameError('');
-                            setShowFirstNameError(false);
-                        }
-                    }}
+                    onChange={(e): void => onFirstNameChange(e.target.value)}
                     onKeyPress={(e): void => {
                         if (e.key === 'Enter' && lastRef.current) lastRef.current.focus();
                     }}
@@ -92,24 +105,13 @@ export const AccountDetailsScreenBase: React.FC<AccountDetailsScreenProps> = (pr
                     inputRef={lastRef}
                     label={lastNameLabel}
                     value={lastNameInput}
-                    onChange={(evt): void => {
-                        setLastNameInput(evt.target.value);
-                        if (lastNameValidator(evt.target.value)) {
-                            setLastNameError('Please enter a valid Last Name');
-                            setShowLastNameError(true);
-                        } else {
-                            setLastNameError('');
-                            setShowLastNameError(false);
-                        }
-                    }}
-                    onKeyPress={(e): void => {
-                        // if (e.key === 'Enter' && onSubmit) onSubmit();
-                    }}
+                    onChange={(e): void => onLastNameChange(e.target.value)}
+                    onKeyPress={handleLastNameKeyPress}
                     error={showLastNameError}
                     helperText={lastNameError}
                 />
             </WorkflowCardBody>
-            <WorkflowCardActions {...actionsProps} divider />
+            <WorkflowCardActions {...actionsProps} canGoNext={actionsProps.canGoNext && isFormValid} divider />
         </WorkflowCard>
     );
 };

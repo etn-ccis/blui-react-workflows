@@ -5,31 +5,39 @@ import { useNavigate } from 'react-router';
 export const AccountDetailsScreenBaseTest: React.FC<AccountDetailsScreenProps> = () => {
     const navigate = useNavigate();
 
-    const nameValidator = (name: string): boolean => {
-        if (name.length < 3) {
+    const nameValidator = (name: string): boolean | string => {
+        if (name?.length > 2) {
             return true;
         }
-        return false;
+        return 'Please enter a valid First Name';
+    };
+
+    const goNext = (): boolean => {
+        // eslint-disable-next-line no-console
+        console.log('clicked');
+        return true;
     };
 
     return (
         <AccountDetailsScreenBase
-            title="Account Details!"
-            instructions="Enter your details below to complete account creation."
+            WorkflowCardHeaderProps={{ title: 'Account Details!' }}
+            WorkflowCardInstructionProps={{ instructions: 'Enter your details below to complete account creation.' }}
             firstNameLabel="First Name"
-            lastNameLabel="Last Name"
-            canGoPrevious={true}
-            showPrevious={true}
-            previousLabel="Back"
-            onPrevious={(): void => navigate('/login')}
-            canGoNext={false}
-            showNext={true}
-            nextLabel="Next"
-            onNext={(): void => {}}
-            totalSteps={5}
-            currentStep={2}
             firstNameValidator={nameValidator}
+            lastNameLabel="Last Name"
             lastNameValidator={nameValidator}
+            WorkflowCardActionsProps={{
+                canGoPrevious: true,
+                showPrevious: true,
+                previousLabel: 'Back',
+                onPrevious: (): void => navigate('/login'),
+                canGoNext: true,
+                showNext: true,
+                nextLabel: 'Next',
+                onNext: goNext,
+                totalSteps: 5,
+                currentStep: 2,
+            }}
         />
     );
 };
