@@ -13,11 +13,11 @@ export const AccountDetailsScreenBase: React.FC<AccountDetailsScreenProps> = (pr
     const {
         firstNameLabel,
         initialFirstName,
-        firstNameValidator,
+        firstNameValidator = (): boolean => true,
         firstNameTextFieldProps,
         lastNameLabel,
         initialLastName,
-        lastNameValidator,
+        lastNameValidator = (): boolean => true,
         lastNameTextFieldProps,
     } = props;
 
@@ -70,10 +70,6 @@ export const AccountDetailsScreenBase: React.FC<AccountDetailsScreenProps> = (pr
         setIsFormValid(isFirstNameValid && isLastNameValid);
     }, [isFirstNameValid, isLastNameValid]);
 
-    const handleLastNameKeyPress = (e: any): void => {
-        if (e.key === 'Enter' && isFormValid && actionsProps.canGoNext) actionsProps.onNext();
-    };
-
     return (
         <WorkflowCard {...cardBaseProps}>
             <WorkflowCardHeader {...headerProps} />
@@ -106,7 +102,9 @@ export const AccountDetailsScreenBase: React.FC<AccountDetailsScreenProps> = (pr
                     label={lastNameLabel}
                     value={lastNameInput}
                     onChange={(e): void => onLastNameChange(e.target.value)}
-                    onKeyPress={handleLastNameKeyPress}
+                    onKeyPress={(e): void => {
+                        if (e.key === 'Enter' && isFormValid && actionsProps.canGoNext) actionsProps.onNext();
+                    }}
                     error={showLastNameError}
                     helperText={lastNameError}
                 />
