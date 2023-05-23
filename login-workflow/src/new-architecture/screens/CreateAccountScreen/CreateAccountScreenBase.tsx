@@ -60,7 +60,6 @@ export const CreateAccountScreenBase: React.FC<React.PropsWithChildren<CreateAcc
                         handleEmailInputChange(evt.target.value);
                     }}
                     onKeyPress={(e): void => {
-                        // if (e.key === 'Enter' && props.onNext) props.onNext();
                         if (e.key === 'Enter' && emailInput.length > 2 && isEmailValid && actionsProps.canGoNext)
                             actionsProps?.onNext?.();
                     }}
