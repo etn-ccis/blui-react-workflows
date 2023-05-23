@@ -1,5 +1,5 @@
 import React, { useState } from 'react';
-import { RegistrationWorkflowContextProvider } from '../../contexts';
+import { IndividualScreenData, RegistrationWorkflowContextProvider } from '../../contexts';
 
 export type RegistrationWorkflowProps = {
     initialScreenIndex?: number;
@@ -31,22 +31,23 @@ export const RegistrationWorkflow: React.FC<React.PropsWithChildren<Registration
         },
     });
 
+    const handleScreenNavigation = (data: IndividualScreenData): void => {
+        setScreenData((oldData) => ({
+            ...oldData,
+            [data.screenId]: data.values,
+        }));
+    };
+
     return (
         <RegistrationWorkflowContextProvider
             currentScreen={currentScreen}
             totalScreens={totalScreens}
             nextScreen={(data): void => {
-                setScreenData((oldData) => ({
-                    ...oldData,
-                    [data.screenId]: data.values,
-                }));
+                handleScreenNavigation(data);
                 setCurrentScreen((i) => i + 1);
             }}
             previousScreen={(data): void => {
-                setScreenData((oldData) => ({
-                    ...oldData,
-                    [data.screenId]: data.values,
-                }));
+                handleScreenNavigation(data);
                 setCurrentScreen((i) => i - 1);
             }}
             screenData={screenData}
