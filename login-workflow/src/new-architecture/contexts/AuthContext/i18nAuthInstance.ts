@@ -7,6 +7,12 @@ export const i18nAuthInstance = i18next.createInstance(
         fallbackLng: 'en',
         ns: ['bluiAuth'],
         defaultNS: 'bluiAuth',
+        load: 'languageOnly',
+        detection: {
+            order: ['querystring', 'localStorage', 'navigator'],
+            caches: ['localStorage'],
+            lookupLocalStorage: 'blui-authentication-i18nextLng',
+        },
         react: { useSuspense: false },
         interpolation: { escapeValue: false },
         resources: {
