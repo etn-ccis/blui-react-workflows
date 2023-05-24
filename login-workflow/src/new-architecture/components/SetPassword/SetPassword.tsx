@@ -1,25 +1,11 @@
-import React, { ChangeEvent, useState, useCallback, MutableRefObject } from 'react';
-import Typography from '@mui/material/Typography';
-import Divider from '@mui/material/Divider';
+import React, { ChangeEvent, useState, useCallback } from 'react';
 import { useTheme } from '@mui/material/styles';
 import CheckCircleOutlinedIcon from '@mui/icons-material/CheckCircleOutlined';
 import { PasswordRequirements, SecureTextField } from '../../../components';
-import { FullDividerStyles, TextFieldStyles } from '../../../styles';
-import { defaultPasswordRequirements } from '../../../constants';
-import { PasswordRequirement, useLanguageLocale } from '../../../auth-shared';
-
-export type SetPasswordProps = {
-    onPasswordChange: (passwords: { password: string; confirm: string }) => void;
-    newPasswordLabel?: string;
-    initialNewPasswordValue?: string;
-    confirmPasswordLabel?: string;
-    initialConfirmPasswordValue?: string;
-    passwordRequirements?: PasswordRequirement[];
-    description?: string;
-    passwordRef?: MutableRefObject<any>;
-    confirmRef?: MutableRefObject<any>;
-    onSubmit?: () => void;
-};
+import { TextFieldStyles } from '../../../styles';
+import { useLanguageLocale } from '../../../auth-shared';
+import { SetPasswordProps } from './types';
+import { defaultPasswordRequirements } from '../../constants';
 
 /**
  * Component that renders a change password form with a new password and confirm password inputs.
@@ -31,7 +17,6 @@ export type SetPasswordProps = {
  * @param passwordRequirements Optional requirements to set password
  * @param newPasswordLabel Optional label for the new password field (default = 'Password')
  * @param confirmPasswordLabel Optional label for the confirm password field (default = 'Confirm')
- * @param description Optional text to replace the instructional text above the password fields.
  * @param passwordRef Optional ref to forward to the password input.
  * @param confirmRef Optional ref to forward to the confirm password input.
  * @param onSubmit Optional callback function to call when the mini form is submitted.
@@ -47,7 +32,6 @@ export const SetPassword: React.FC<React.PropsWithChildren<SetPasswordProps>> = 
         initialConfirmPasswordValue,
         passwordRequirements = defaultPasswordRequirements(t),
         onPasswordChange,
-        description,
         children,
         passwordRef,
         confirmRef,
@@ -91,16 +75,12 @@ export const SetPassword: React.FC<React.PropsWithChildren<SetPasswordProps>> = 
 
     return (
         <>
-            <Typography>{description || t('blui:CHANGE_PASSWORD.PASSWORD_INFO')}</Typography>
-
-            <Divider sx={FullDividerStyles(theme)} />
-
             {children}
             <SecureTextField
                 id="password"
                 name="password"
                 inputRef={passwordRef}
-                label={newPasswordLabel || t('blui:FORMS.PASSWORD')}
+                label={newPasswordLabel || t('bluiAuth:FORMS.PASSWORD')}
                 value={passwordInput}
                 onChange={(evt: ChangeEvent<HTMLInputElement>): void => onPassChange(evt.target.value)}
                 sx={TextFieldStyles(theme)}
@@ -117,7 +97,7 @@ export const SetPassword: React.FC<React.PropsWithChildren<SetPasswordProps>> = 
                 id="confirm"
                 name="confirm"
                 inputRef={confirmRef}
-                label={confirmPasswordLabel || t('blui:FORMS.CONFIRM_PASSWORD')}
+                label={confirmPasswordLabel || t('bluiAuth:FORMS.CONFIRM_PASSWORD')}
                 sx={TextFieldStyles(theme)}
                 value={confirmInput}
                 onChange={(evt: ChangeEvent<HTMLInputElement>): void => onConfirmChange(evt.target.value)}
@@ -125,7 +105,7 @@ export const SetPassword: React.FC<React.PropsWithChildren<SetPasswordProps>> = 
                     if (e.key === 'Enter' && onSubmit) onSubmit();
                 }}
                 error={hasConfirmPasswordError()}
-                helperText={hasConfirmPasswordError() ? t('blui:FORMS.PASS_MATCH_ERROR') : ''}
+                helperText={hasConfirmPasswordError() ? t('bluiAuth:FORMS.PASS_MATCH_ERROR') : ''}
                 icon={
                     confirmInput.length !== 0 && confirmInput === passwordInput ? (
                         <CheckCircleOutlinedIcon color="success" />
