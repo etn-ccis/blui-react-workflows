@@ -1,41 +1,26 @@
 import React from 'react';
-import { /*AppBar, Toolbar, Typography, Button,*/ Box } from '@mui/material';
-// import { useNavigate } from 'react-router';
+import { Box } from '@mui/material';
 import { LoginScreenBase } from '@brightlayer-ui/react-auth-workflow';
-// import { Spacer } from '@brightlayer-ui/react-components';
 import EatonLogo from '../../assets/images/eaton_stacked_logo.png';
+
+const EMAIL_REGEX = /^[A-Z0-9._%+'-]+@[A-Z0-9.-]+\.[A-Z]{2,}$/i;
+
 export const LoginScreenBaseTest = (): JSX.Element => (
     <Box sx={{ display: 'flex', flexDirection: 'column', height: '100%' }}>
-        {/* <AppBar position={'sticky'}>
-                <Toolbar sx={{ px: 2 }}>
-                    <Typography variant={'h6'} color={'inherit'}>
-                        Verify Code Screen
-                    </Typography>
-                    <Spacer />
-                    <Button
-                        variant="contained"
-                        color="secondary"
-                        sx={{ width: 200 }}
-                        onClick={(): void => navigate('/login')}
-                    >
-                        Go Login Route
-                    </Button>
-                </Toolbar>
-            </AppBar> */}
         <Box sx={{ flex: '1 1 0px' }}>
             <LoginScreenBase
                 usernameLabel="Email Address"
                 usernameValidator={(username: string): string | boolean => {
-                    if (username.length < 3) {
-                        return 'Email Address must be at least 3 characters';
+                    if (!EMAIL_REGEX.test(username)) {
+                        return 'Enter a valid email address';
                     }
                     return true;
                 }}
                 initialUsernameValue=""
                 passwordLabel="Password"
                 passwordValidator={(password: string): string | boolean => {
-                    if (password.length < 3) {
-                        return 'Password must be at least 3 characters';
+                    if (password.length < 2) {
+                        return 'Password must be at least 2 characters';
                     }
                     return true;
                 }}
@@ -77,7 +62,13 @@ export const LoginScreenBaseTest = (): JSX.Element => (
                     // position?: 'top' | 'bottom';
                     // fontColor?: string;
                     // backgroundColor?: string;
-                    mode: 'both',
+                    // dialogErrorConfig?: {
+                    // title?: string
+                    // content?: string | JSX.Element
+                    // acknowledgeButtonLabel?: string
+                    // onAcknowledgeError?: () => void
+                    // }
+                    mode: 'none',
                     dismissible: true,
                     position: 'top',
                     // fontColor: 'white',

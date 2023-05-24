@@ -1,17 +1,18 @@
-import React, { useRef } from 'react';
-import { LoginScreenProps } from './LoginScreenBase.types';
+import React, { useCallback, useRef, useState } from 'react';
+import { LoginScreenProps } from './types';
 import { WorkflowCard } from '../../components/WorkflowCard';
 import { WorkflowCardBody } from '../../components/WorkflowCard/WorkflowCardBody';
 import TextField from '@mui/material/TextField';
 import Box from '@mui/material/Box';
 import Typography from '@mui/material/Typography';
 import cyberSecurityBadge from '../../../assets/images/cybersecurity_certified.png';
-import { BasicDialog } from '../../components';
+import { /*BasicDialog,*/ PasswordTextField } from '../../components';
 import Button from '@mui/material/Button';
 import { SxProps, Theme, useTheme } from '@mui/material/styles';
 import Checkbox from '@mui/material/Checkbox';
 import Close from '@mui/icons-material/Close';
 import * as Colors from '@brightlayer-ui/colors';
+import { HELPER_TEXT_HEIGHT } from '../../utils/constants';
 
 /**
  * Component that renders a login screen that prompts a user to enter a username and password to login.
@@ -46,8 +47,6 @@ import * as Colors from '@brightlayer-ui/colors';
  * @category Component
  */
 
-// const HELPER_TEXT_HEIGHT = 22;
-
 const LinkStyles = (theme?: Theme): SxProps<Theme> => ({
     fontWeight: 600,
     textTransform: 'none',
@@ -60,11 +59,6 @@ const LinkStyles = (theme?: Theme): SxProps<Theme> => ({
         cursor: 'pointer',
     },
 });
-
-// const LinksWrapperStyles = {
-//     textAlign: 'center',
-//     pb: 4,
-// };
 
 export const LoginScreenBase: React.FC<React.PropsWithChildren<LoginScreenProps>> = (props) => {
     const {
@@ -107,59 +101,59 @@ export const LoginScreenBase: React.FC<React.PropsWithChildren<LoginScreenProps>
 
     const passwordField = useRef<any>(null);
 
-    const isUsernameValid = usernameValidator ? usernameValidator(username) : true;
-    const isPasswordValid = passwordValidator ? passwordValidator(password) : true;
+    const [isUsernameValid, setIsUsernameValid] = useState(usernameValidator ? usernameValidator(username) : true);
+    const [isPasswordValid, setIsPasswordValid] = useState(passwordValidator ? passwordValidator(password) : true);
 
-    const usernameError = isUsernameValid === true ? '' : isUsernameValid;
-    const passwordError = isPasswordValid === true ? '' : isPasswordValid;
+    const [usernameError, setUsernameError] = useState(isUsernameValid === true ? '' : isUsernameValid);
+    const [passwordError, setPasswordError] = useState(isPasswordValid === true ? '' : isPasswordValid);
 
     const [hasAcknowledgedError, setHasAcknowledgedError] = React.useState(false);
-    // const [debugMode, setDebugMode] = React.useState(false);
     const [showErrorMessageBox, setShowErrorMessageBox] = React.useState(true);
+    // const [debugMode, setDebugMode] = React.useState(false);
 
-    const handleUsernameInputChange = (value: string): void => {
-        setUsername(value);
-        setShouldValidateUsername(false);
-        // eslint-disable-next-line no-console
-        console.log('handleUsernameInputChange: ', value);
-    };
+    const handleUsernameInputChange = useCallback(
+        (value: string) => {
+            setUsername(value);
+            const validatorResponse = usernameValidator(value);
 
-    const handlePasswordInputChange = (value: string): void => {
-        setPassword(value);
-        setShouldValidatePassword(false);
-        // eslint-disable-next-line no-console
-        console.log('handlePasswordInputChange: ', value);
-    };
+            setIsUsernameValid(typeof validatorResponse === 'boolean' ? validatorResponse : false);
+            setUsernameError(typeof validatorResponse === 'string' ? validatorResponse : '');
+        },
+        [usernameValidator]
+    );
+
+    const handlePasswordInputChange = useCallback(
+        (value: string) => {
+            setPassword(value);
+            const validatorResponse = passwordValidator(value);
+
+            setIsPasswordValid(typeof validatorResponse === 'boolean' ? validatorResponse : false);
+            setPasswordError(typeof validatorResponse === 'string' ? validatorResponse : '');
+        },
+        [passwordValidator]
+    );
 
     const handleLogin = (): void => {
         if (onLogin) onLogin(username, password);
-        // eslint-disable-next-line no-console
-        console.log('handleLogin: ', username, password);
     };
 
     const handleForgotPassword = (): void => {
         if (onForgotPassword) onForgotPassword();
-        // eslint-disable-next-line no-console
-        console.log('handleForgotPassword: ');
     };
 
     const handleSelfRegister = (): void => {
         if (onSelfRegister) onSelfRegister();
-        // eslint-disable-next-line no-console
-        console.log('handleSelfRegister: ');
     };
 
     const handleContactSupport = (): void => {
         if (onContactSupport) onContactSupport();
-        // eslint-disable-next-line no-console
-        console.log('handleContactSupport: ');
     };
 
     const handleRememberMeChanged = (value: boolean): void => {
-        if (onRememberMeChanged) onRememberMeChanged(value);
-        setRememberMe(value);
-        // eslint-disable-next-line no-console
-        console.log('handleRememberMeChanged: ', value);
+        if (onRememberMeChanged) {
+            onRememberMeChanged(value);
+            setRememberMe(value);
+        }
     };
 
     const shouldValidate = (): boolean => shouldValidateUsername || shouldValidatePassword;
@@ -171,8 +165,7 @@ export const LoginScreenBase: React.FC<React.PropsWithChildren<LoginScreenProps>
         isPasswordValid;
 
     const handleLoginSubmit = (e: React.KeyboardEvent<HTMLDivElement>): void => {
-        // eslint-disable-next-line no-console
-        console.log('handleLoginSubmit: ', e);
+        setHasAcknowledgedError(false);
         if (e.key === 'Enter' && isFormValid()) {
             handleLogin();
         }
@@ -186,31 +179,35 @@ export const LoginScreenBase: React.FC<React.PropsWithChildren<LoginScreenProps>
         isFormValid,
     };
 
-    // eslint-disable-next-line no-console
-    console.log('errorDisplayConfigProps: ', errorDisplayConfigProps);
+    // const ErrorDialog = (): JSX.Element => {
+    //     const dialogTitle = errorDisplayConfigProps?.dialogErrorConfig?.title || 'Error!';
 
-    const errorDialog = (
-        <BasicDialog
-            title={'Error!'}
-            body={
-                (typeof usernameError === 'string' && usernameError) ||
-                (typeof passwordError === 'string' && passwordError)
-            }
-            open={
-                !hasAcknowledgedError &&
-                ((typeof usernameError === 'boolean' && usernameError) ||
-                    (typeof passwordError === 'boolean' && passwordError))
-            }
-            onClose={(): void => {
-                setHasAcknowledgedError(true);
-            }}
-        />
-    );
-    // eslint-disable-next-line no-console
-    console.log('errorDialog: ', errorDialog);
+    //     const dialogBody =
+    //         errorDisplayConfigProps?.dialogErrorConfig?.content ||
+    //         (typeof usernameError === 'string' && usernameError) ||
+    //         (typeof passwordError === 'string' && passwordError) ||
+    //         'An error has occurred.';
+
+    //     const isOpen =
+    //         !hasAcknowledgedError &&
+    //         ((typeof usernameError === 'boolean' && !isUsernameValid) ||
+    //             (typeof passwordError === 'boolean' && !isPasswordValid));
+
+    //     return (
+    //         <BasicDialog
+    //             title={dialogTitle}
+    //             body={dialogBody}
+    //             open={isOpen}
+    //             onClose={(): void => {
+    //                 errorDisplayConfig?.dialogErrorConfig?.onAcknowledgeError();
+    //                 setHasAcknowledgedError(true);
+    //             }}
+    //         />
+    //     );
+    // };
 
     const errorMessageBox: JSX.Element =
-        errorDisplayConfig.mode === 'message-box' || errorDisplayConfig.mode === 'both' ? (
+        (errorDisplayConfig.mode === 'message-box' || errorDisplayConfig.mode === 'both') && !hasAcknowledgedError ? (
             <Box
                 sx={{
                     width: '100%',
@@ -250,148 +247,172 @@ export const LoginScreenBase: React.FC<React.PropsWithChildren<LoginScreenProps>
         );
 
     return (
-        <WorkflowCard>
-            <WorkflowCardBody sx={{ py: { xs: 4, sm: 4, md: 4 }, px: { xs: 4, sm: 8, md: 8 } }}>
-                {header}
-                <Box sx={{ display: 'flex', maxWidth: '100%', mb: 6 }}>{projectImage}</Box>
-                {showErrorMessageBox && errorDisplayConfig.position === 'top' && errorMessageBox}
-                <Box
-                    sx={{
-                        display: 'flex',
-                        flexDirection: 'column',
-                        justifyContent: 'center',
-                        alignItems: 'center',
-                        width: '100%',
-                    }}
-                >
-                    <Box sx={{ width: '100%' }}>
-                        <TextField
-                            fullWidth
-                            id="username"
-                            label={usernameLabel || 'Username'}
-                            variant="filled"
-                            value={username}
-                            error={shouldValidateUsername && !isUsernameValid}
-                            helperText={shouldValidateUsername && !isUsernameValid ? usernameError : ''}
-                            onChange={(e): void => handleUsernameInputChange(e.target.value)}
-                            onSubmit={(e: any): void => {
-                                if (e.key === 'Enter' && passwordField.current) passwordField.current.focus();
-                            }}
-                            onBlur={(): void => setShouldValidateUsername(true)}
-                            sx={{ mb: 6 }}
-                        />
-                    </Box>
-                    <Box sx={{ width: '100%' }}>
-                        <TextField
-                            fullWidth
-                            inputRef={passwordField}
-                            id="password"
-                            label={passwordLabel || 'Password'}
-                            variant="filled"
-                            type="password"
-                            value={password}
-                            error={shouldValidatePassword && !isPasswordValid}
-                            helperText={shouldValidatePassword && !isPasswordValid ? passwordError : ''}
-                            onChange={(e: any): void => handlePasswordInputChange(e.target.value)}
-                            onSubmit={(e: any): void => handleLoginSubmit(e.target.value)}
-                            onBlur={(): void => setShouldValidatePassword(true)}
-                            sx={{ mb: 5 }}
-                        />
-                    </Box>
-                </Box>
-                {showErrorMessageBox && errorDisplayConfig.position === 'bottom' && errorMessageBox}
-                <Box
-                    sx={{
-                        display: 'flex',
-                        flexDirection: 'row',
-                        justifyContent: 'space-between',
-                        alignItems: 'center',
-                        width: '100%',
-                        mt: 2,
-                        mb: 5,
-                        flexWrap: 'nowrap',
-                        [theme.breakpoints.down('sm')]: {
-                            flexWrap: 'wrap',
-                            flexDirection: 'column',
-                            justifyContent: 'center',
-                        },
-                    }}
-                >
-                    {showRememberMe && (
-                        <Box
-                            sx={{
-                                display: 'flex',
-                                alignItems: 'center',
-                                mr: 1,
-                                [theme.breakpoints.down('sm')]: {
-                                    mr: 0,
-                                },
-                            }}
-                        >
-                            <Checkbox
-                                color="primary"
-                                checked={rememberMe}
-                                onChange={(e: any): void => handleRememberMeChanged(e.target.checked)}
-                            />
-                            <Typography variant="body1">{rememberMeLabel || 'Remember Me'}</Typography>
-                        </Box>
-                    )}
-                    <Box sx={{ display: 'flex', flex: 1, justifyContent: 'flex-end' }}>
-                        <Button
-                            onClick={handleLogin}
-                            disabled={!isFormValid()}
-                            variant="contained"
-                            color="primary"
-                            sx={{ width: showRememberMe ? 150 : '100%' }}
-                        >
-                            {loginButtonLabel || 'Login'}
-                        </Button>
-                    </Box>
-                </Box>
-
-                {showForgotPassword && (
-                    <Box sx={{ display: 'flex', justifyContent: 'center' }}>
-                        <Typography variant="body2" sx={LinkStyles(theme)} onClick={handleForgotPassword}>
-                            {forgotPasswordLabel || 'Forgot Password?'}
-                        </Typography>
-                    </Box>
-                )}
-
-                {showSelfRegistration && (
+        <>
+            <WorkflowCard>
+                <WorkflowCardBody sx={{ py: { xs: 4, sm: 4, md: 4 }, px: { xs: 4, sm: 8, md: 8 } }}>
+                    {header}
+                    <Box sx={{ display: 'flex', maxWidth: '100%', mb: 6.75 }}>{projectImage}</Box>
+                    {showErrorMessageBox && errorDisplayConfig.position === 'top' && errorMessageBox}
                     <Box
                         sx={{
                             display: 'flex',
+                            flexDirection: 'column',
                             justifyContent: 'center',
                             alignItems: 'center',
-                            flexDirection: 'column',
-                            marginTop: 4,
+                            width: '100%',
                         }}
                     >
-                        <Typography variant="body2">{selfRegisterInstructions || "Don't have an account?"}</Typography>
-                        <Typography variant="body2" sx={LinkStyles(theme)} onClick={handleSelfRegister}>
-                            {selfRegisterButtonLabel || 'Self Register'}
-                        </Typography>
+                        <Box
+                            sx={{
+                                width: '100%',
+                                mb:
+                                    username.length > 0 && !isUsernameValid && shouldValidateUsername
+                                        ? 4
+                                        : `${(parseInt(theme.spacing(4)) + HELPER_TEXT_HEIGHT).toString()}px`,
+                                [theme.breakpoints.down('sm')]: {
+                                    mb:
+                                        username.length > 0 && !isUsernameValid && shouldValidateUsername
+                                            ? 3
+                                            : `${(parseInt(theme.spacing(3)) + HELPER_TEXT_HEIGHT).toString()}px`,
+                                },
+                            }}
+                        >
+                            <TextField
+                                fullWidth
+                                id="username"
+                                label={usernameLabel || 'Username'}
+                                name="username"
+                                variant="filled"
+                                value={username}
+                                error={shouldValidateUsername && !isUsernameValid}
+                                helperText={shouldValidateUsername && !isUsernameValid ? usernameError : ''}
+                                onChange={(e): void => handleUsernameInputChange(e.target.value)}
+                                onSubmit={(e: any): void => {
+                                    if (e.key === 'Enter' && passwordField.current) passwordField.current.focus();
+                                }}
+                                onBlur={(): void => setShouldValidateUsername(true)}
+                            />
+                        </Box>
+                        <Box
+                            sx={{
+                                width: '100%',
+                                mb:
+                                    username.length > 0 && !isPasswordValid && shouldValidatePassword
+                                        ? 2
+                                        : `${(parseInt(theme.spacing(2)) + HELPER_TEXT_HEIGHT).toString()}px`,
+                            }}
+                        >
+                            <PasswordTextField
+                                fullWidth
+                                inputRef={passwordField}
+                                id="password"
+                                name="password"
+                                label={passwordLabel || 'Password'}
+                                variant="filled"
+                                value={password}
+                                error={shouldValidatePassword && !isPasswordValid}
+                                helperText={shouldValidatePassword && !isPasswordValid ? passwordError : ''}
+                                onChange={(e: any): void => handlePasswordInputChange(e.target.value)}
+                                onSubmit={(e: any): void => handleLoginSubmit(e.target.value)}
+                                onBlur={(): void => setShouldValidatePassword(true)}
+                            />
+                        </Box>
                     </Box>
-                )}
-
-                {showContactSupport && (
-                    <Box sx={{ display: 'flex', justifyContent: 'center', marginTop: 4 }}>
-                        <Typography variant="body2" sx={LinkStyles(theme)} onClick={handleContactSupport}>
-                            {contactSupportLabel || 'Contact Support'}
-                        </Typography>
+                    {showErrorMessageBox && errorDisplayConfig.position === 'bottom' && errorMessageBox}
+                    <Box
+                        sx={{
+                            display: 'flex',
+                            flexDirection: 'row',
+                            justifyContent: 'space-between',
+                            alignItems: 'center',
+                            width: '100%',
+                            mt: 2,
+                            mb: 5,
+                            flexWrap: 'nowrap',
+                            [theme.breakpoints.down('sm')]: {
+                                flexWrap: 'wrap',
+                                flexDirection: 'column',
+                                justifyContent: 'center',
+                            },
+                        }}
+                    >
+                        {showRememberMe && (
+                            <Box
+                                sx={{
+                                    display: 'flex',
+                                    alignItems: 'center',
+                                    mr: 1,
+                                    [theme.breakpoints.down('sm')]: {
+                                        mr: 0,
+                                    },
+                                }}
+                            >
+                                <Checkbox
+                                    color="primary"
+                                    checked={rememberMe}
+                                    onChange={(e: any): void => handleRememberMeChanged(e.target.checked)}
+                                />
+                                <Typography variant="body1">{rememberMeLabel || 'Remember Me'}</Typography>
+                            </Box>
+                        )}
+                        <Box sx={{ display: 'flex', flex: 1, justifyContent: 'flex-end' }}>
+                            <Button
+                                onClick={handleLogin}
+                                disabled={!isFormValid()}
+                                variant="contained"
+                                color="primary"
+                                sx={{ width: showRememberMe ? 150 : '100%' }}
+                            >
+                                {loginButtonLabel || 'Login'}
+                            </Button>
+                        </Box>
                     </Box>
-                )}
 
-                <Box sx={{ display: 'flex', justifyContent: 'center' }}>{footer}</Box>
+                    {showForgotPassword && (
+                        <Box sx={{ display: 'flex', justifyContent: 'center' }}>
+                            <Typography variant="body2" sx={LinkStyles(theme)} onClick={handleForgotPassword}>
+                                {forgotPasswordLabel || 'Forgot Password?'}
+                            </Typography>
+                        </Box>
+                    )}
 
-                {showCyberSecurityBadge && (
-                    <Box sx={{ display: 'flex', justifyContent: 'center', marginTop: 2 }}>
-                        <img src={cyberSecurityBadge} alt="Cyber Security Badge" style={{ width: '100px' }} />
-                    </Box>
-                )}
+                    {showSelfRegistration && (
+                        <Box
+                            sx={{
+                                display: 'flex',
+                                justifyContent: 'center',
+                                alignItems: 'center',
+                                flexDirection: 'column',
+                                marginTop: 4,
+                            }}
+                        >
+                            <Typography variant="body2">
+                                {selfRegisterInstructions || "Don't have an account?"}
+                            </Typography>
+                            <Typography variant="body2" sx={LinkStyles(theme)} onClick={handleSelfRegister}>
+                                {selfRegisterButtonLabel || 'Self Register'}
+                            </Typography>
+                        </Box>
+                    )}
 
-                {errorDialog}
-            </WorkflowCardBody>
-        </WorkflowCard>
+                    {showContactSupport && (
+                        <Box sx={{ display: 'flex', justifyContent: 'center', marginTop: 4 }}>
+                            <Typography variant="body2" sx={LinkStyles(theme)} onClick={handleContactSupport}>
+                                {contactSupportLabel || 'Contact Support'}
+                            </Typography>
+                        </Box>
+                    )}
+
+                    <Box sx={{ display: 'flex', justifyContent: 'center' }}>{footer}</Box>
+
+                    {showCyberSecurityBadge && (
+                        <Box sx={{ display: 'flex', justifyContent: 'center', marginTop: 2 }}>
+                            <img src={cyberSecurityBadge} alt="Cyber Security Badge" style={{ width: '100px' }} />
+                        </Box>
+                    )}
+                </WorkflowCardBody>
+            </WorkflowCard>
+            {/* <ErrorDialog /> */}
+        </>
     );
 };

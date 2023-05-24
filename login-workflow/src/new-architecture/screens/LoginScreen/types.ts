@@ -9,6 +9,13 @@ import { WorkflowCardBaseProps } from '../../components/WorkflowCard/WorkflowCar
 //     slots?: { card?: React.ElementType; loader?: React.ElementType };
 // };
 
+export type LoginErrorDialogConfiguration = {
+    title?: string;
+    content?: string;
+    acknowledgeButtonLabel?: string;
+    onAcknowledgeError?: () => void;
+};
+
 export type LoginErrorDisplayConfiguration = {
     error?: boolean | string;
     mode?: 'dialog' | 'message-box' | 'both' | 'none';
@@ -16,6 +23,7 @@ export type LoginErrorDisplayConfiguration = {
     position?: 'top' | 'bottom';
     fontColor?: string;
     backgroundColor?: string;
+    dialogErrorConfig?: LoginErrorDialogConfiguration;
 };
 
 // WorkflowCardBaseProps = loading, background, error

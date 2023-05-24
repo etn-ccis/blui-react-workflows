@@ -1,2 +1,2 @@
-export * from './LoginScreenBase.types';
+export * from './types';
 export * from './LoginScreenBase';
