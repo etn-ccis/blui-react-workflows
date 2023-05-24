@@ -21,20 +21,24 @@ describe('Verify Code Screen Base', () => {
     it('renders without crashing', () => {
         render(
             <VerifyCodeScreenBase
-                title={'Verify Email'}
-                instructions="Verification code instructions"
+                WorkflowCardHeaderProps={{ title: 'Verify Email' }}
+                WorkflowCardInstructionProps={{
+                    instructions: 'Verification code instructions',
+                }}
                 initialValue={'123'}
                 verifyCodeInputLabel={'Verification code input label'}
                 resendLabel="Send Again"
                 resendInstructions={"Didn't receive email?"}
-                showNext={true}
-                nextLabel="Next"
-                canGoNext={true}
-                showPrevious={true}
-                previousLabel="Back"
-                canGoPrevious={true}
-                currentStep={2}
-                totalSteps={6}
+                WorkflowCardActionsProps={{
+                    showNext: true,
+                    nextLabel: 'Next',
+                    canGoNext: true,
+                    showPrevious: true,
+                    previousLabel: 'Back',
+                    canGoPrevious: true,
+                    currentStep: 2,
+                    totalSteps: 6,
+                }}
             ></VerifyCodeScreenBase>
         );
         expect(screen.getByText('Verify Email')).toBeInTheDocument();
@@ -127,12 +131,14 @@ describe('Verify Code Screen Base', () => {
     it('calls onNext when the next button is clicked', () => {
         const { getByText } = render(
             <VerifyCodeScreenBase
-                onNext={mockOnNext}
-                showNext={true}
-                nextLabel="Next"
-                canGoNext={true}
-                currentStep={2}
-                totalSteps={6}
+                WorkflowCardActionsProps={{
+                    onNext: mockOnNext(),
+                    showNext: true,
+                    nextLabel: 'Next',
+                    canGoNext: true,
+                    currentStep: 2,
+                    totalSteps: 6,
+                }}
             />
         );
 
@@ -165,8 +171,8 @@ describe('Verify Code Screen Base', () => {
         const { getByText } = render(
             <VerifyCodeScreenBase
                 onResend={mockOnResend}
-                title="Title"
-                instructions="Instructions"
+                WorkflowCardHeaderProps={{ title: 'Title' }}
+                WorkflowCardInstructionProps={{ instructions: 'Instructions' }}
                 resendInstructions="Resend Instructions"
                 resendLabel="Resend"
             />

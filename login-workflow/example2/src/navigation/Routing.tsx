@@ -12,8 +12,8 @@ import { RegistrationTestScreen } from '../screens/new-architecture-test-screens
 import { ContactUs } from '../screens/new-architecture-test-screens/ContactUs';
 import { GuardedScreen } from '../screens/new-architecture-test-screens/GuardedScreen';
 import { VerifyCodeScreenBaseTest } from '../screens/new-architecture-test-screens/VerifyCodeScreenBase';
-import { AuthTestScreen } from '../screens';
 import { LoginScreenBaseTest } from '../screens/new-architecture-test-screens/LoginScreenBase';
+import { AuthTestScreen, SuccessScreenBaseTest } from '../screens';
 
 export const routes: RouteConfig = {
     LOGIN: '/custom-login-route',
@@ -96,6 +96,10 @@ export const GetCustomRoutes = (isAuthenticated: boolean) => {
         {
             path: '*',
             element: <Navigate to={`/login`} />,
+        },
+        {
+            path: `/success-screen`,
+            element: <SuccessScreenBaseTest />,
         },
     ];
     return customRoutes;
