@@ -9,6 +9,8 @@ import {
 } from '@brightlayer-ui/react-auth-workflow';
 import { ProjectAuthUIActions } from '../../actions/AuthUIActions';
 import { ProjectRegistrationUIActions } from '../../actions/RegistrationUIActions';
+import Button from '@mui/material/Button';
+import { useNavigate } from 'react-router';
 
 /**
  * Component that renders a screen displaying a form for creating a password.
@@ -25,6 +27,7 @@ export const SetPasswordScreen: React.FC<React.PropsWithChildren<any>> = () => {
     const confirmRef = useRef(null);
     const securityContextActions = useSecurityActions();
 
+    const navigate = useNavigate();
     const [passwordInput, setPasswordInput] = useState('');
     const [confirmInput, setConfirmInput] = useState('');
 
@@ -53,16 +56,21 @@ export const SetPasswordScreen: React.FC<React.PropsWithChildren<any>> = () => {
             authActions={ProjectAuthUIActions(securityContextActions)}
             registrationActions={ProjectRegistrationUIActions}
         >
-            <BrandedCardContainer>
-                <SetPassword
-                    passwordRef={passwordRef}
-                    confirmRef={confirmRef}
-                    initialNewPasswordValue={passwordInput}
-                    initialConfirmPasswordValue={confirmInput}
-                    onPasswordChange={updateFields}
-                    onSubmit={(): void => {}}
-                />
-            </BrandedCardContainer>
+            <>
+                <BrandedCardContainer>
+                    <SetPassword
+                        passwordRef={passwordRef}
+                        confirmRef={confirmRef}
+                        initialNewPasswordValue={passwordInput}
+                        initialConfirmPasswordValue={confirmInput}
+                        onPasswordChange={updateFields}
+                        onSubmit={(): void => {}}
+                    />
+                </BrandedCardContainer>
+                <Button variant="contained" sx={{ width: 200 }} onClick={(): void => navigate('/')}>
+                    Go to / route
+                </Button>
+            </>
         </AuthUIContextProvider>
     );
 };
