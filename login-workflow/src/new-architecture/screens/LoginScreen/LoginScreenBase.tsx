@@ -207,19 +207,19 @@ export const LoginScreenBase: React.FC<React.PropsWithChildren<LoginScreenProps>
     // };
 
     const errorMessageBox: JSX.Element =
-        (errorDisplayConfig.mode === 'message-box' || errorDisplayConfig.mode === 'both') && !hasAcknowledgedError ? (
+        (errorDisplayConfig?.mode === 'message-box' || errorDisplayConfig?.mode === 'both') && !hasAcknowledgedError ? (
             <Box
                 sx={{
                     width: '100%',
-                    backgroundColor: errorDisplayConfigProps.backgroundColor || theme.palette.error.main,
+                    backgroundColor: errorDisplayConfigProps?.backgroundColor || theme.palette.error.main,
                     borderRadius: 4,
                     p: 2,
-                    color: errorDisplayConfigProps.fontColor || Colors.white[50],
+                    color: errorDisplayConfigProps?.fontColor || Colors.white[50],
                     mb: 2,
-                    mt: errorDisplayConfigProps.position !== 'bottom' ? 0 : -1,
+                    mt: errorDisplayConfigProps?.position !== 'bottom' ? 0 : -1,
                 }}
             >
-                {errorDisplayConfigProps.dismissible !== false && (
+                {errorDisplayConfigProps?.dismissible !== false && (
                     <Close
                         sx={{
                             '&:hover': {
@@ -232,14 +232,14 @@ export const LoginScreenBase: React.FC<React.PropsWithChildren<LoginScreenProps>
                         }}
                     />
                 )}
-                {errorDisplayConfigProps.error && typeof errorDisplayConfigProps.error === 'string' && (
+                {errorDisplayConfigProps?.error && typeof errorDisplayConfigProps?.error === 'string' && (
                     <Typography variant="body2">{errorDisplayConfigProps.error}</Typography>
                 )}
-                {errorDisplayConfigProps.error &&
-                    typeof errorDisplayConfigProps.error === 'boolean' &&
+                {errorDisplayConfigProps?.error &&
+                    typeof errorDisplayConfigProps?.error === 'boolean' &&
                     !isUsernameValid && <Typography variant="body2">{usernameError}</Typography>}
-                {errorDisplayConfigProps.error &&
-                    typeof errorDisplayConfigProps.error === 'boolean' &&
+                {errorDisplayConfigProps?.error &&
+                    typeof errorDisplayConfigProps?.error === 'boolean' &&
                     !isPasswordValid && <Typography variant="body2">{passwordError}</Typography>}
             </Box>
         ) : (
@@ -252,7 +252,7 @@ export const LoginScreenBase: React.FC<React.PropsWithChildren<LoginScreenProps>
                 <WorkflowCardBody sx={{ py: { xs: 4, sm: 4, md: 4 }, px: { xs: 4, sm: 8, md: 8 } }}>
                     {header}
                     <Box sx={{ display: 'flex', maxWidth: '100%', mb: 6.75 }}>{projectImage}</Box>
-                    {showErrorMessageBox && errorDisplayConfig.position === 'top' && errorMessageBox}
+                    {showErrorMessageBox && errorDisplayConfig?.position === 'top' && errorMessageBox}
                     <Box
                         sx={{
                             display: 'flex',
@@ -318,7 +318,7 @@ export const LoginScreenBase: React.FC<React.PropsWithChildren<LoginScreenProps>
                             />
                         </Box>
                     </Box>
-                    {showErrorMessageBox && errorDisplayConfig.position === 'bottom' && errorMessageBox}
+                    {showErrorMessageBox && errorDisplayConfig?.position === 'bottom' && errorMessageBox}
                     <Box
                         sx={{
                             display: 'flex',
