@@ -326,7 +326,7 @@ export const LoginScreenBase: React.FC<React.PropsWithChildren<LoginScreenProps>
                             justifyContent: 'space-between',
                             alignItems: 'center',
                             width: '100%',
-                            mt: 2,
+                            mt: 1,
                             mb: 5,
                             flexWrap: 'nowrap',
                             [theme.breakpoints.down('sm')]: {
@@ -341,6 +341,7 @@ export const LoginScreenBase: React.FC<React.PropsWithChildren<LoginScreenProps>
                                 sx={{
                                     display: 'flex',
                                     alignItems: 'center',
+                                    ml: -1.5,
                                     mr: 1,
                                     [theme.breakpoints.down('sm')]: {
                                         mr: 0,
@@ -363,7 +364,7 @@ export const LoginScreenBase: React.FC<React.PropsWithChildren<LoginScreenProps>
                                 color="primary"
                                 sx={{ width: showRememberMe ? 150 : '100%' }}
                             >
-                                {loginButtonLabel || 'Login'}
+                                {loginButtonLabel || 'Log In'}
                             </Button>
                         </Box>
                     </Box>
@@ -371,7 +372,7 @@ export const LoginScreenBase: React.FC<React.PropsWithChildren<LoginScreenProps>
                     {showForgotPassword && (
                         <Box sx={{ display: 'flex', justifyContent: 'center' }}>
                             <Typography variant="body2" sx={LinkStyles(theme)} onClick={handleForgotPassword}>
-                                {forgotPasswordLabel || 'Forgot Password?'}
+                                {forgotPasswordLabel || 'Forgot your password?'}
                             </Typography>
                         </Box>
                     )}
@@ -386,11 +387,9 @@ export const LoginScreenBase: React.FC<React.PropsWithChildren<LoginScreenProps>
                                 marginTop: 4,
                             }}
                         >
-                            <Typography variant="body2">
-                                {selfRegisterInstructions || "Don't have an account?"}
-                            </Typography>
+                            <Typography variant="body2">{selfRegisterInstructions || 'Need an account?'}</Typography>
                             <Typography variant="body2" sx={LinkStyles(theme)} onClick={handleSelfRegister}>
-                                {selfRegisterButtonLabel || 'Self Register'}
+                                {selfRegisterButtonLabel || 'Register now!'}
                             </Typography>
                         </Box>
                     )}

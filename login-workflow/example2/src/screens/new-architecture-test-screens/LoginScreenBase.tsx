@@ -31,19 +31,19 @@ export const LoginScreenBaseTest = (): JSX.Element => (
                     // eslint-disable-next-line no-console
                     console.log('onRememberMeChanged', value);
                 }}
-                loginButtonLabel="Login"
+                loginButtonLabel="Log In"
                 onLogin={(username: string, password: string): void => {
                     // eslint-disable-next-line no-console
                     console.log('onLogin', username, password);
                 }}
                 showForgotPassword={true}
-                forgotPasswordLabel="Forgot Your Password?"
+                forgotPasswordLabel="Forgot your password?"
                 onForgotPassword={(): void => {
                     // eslint-disable-next-line no-console
                     console.log('onForgotPassword');
                 }}
                 showSelfRegistration={true}
-                selfRegisterButtonLabel="Register Now!"
+                selfRegisterButtonLabel="Register now!"
                 selfRegisterInstructions="Need an account?"
                 onSelfRegister={(): void => {
                     // eslint-disable-next-line no-console
