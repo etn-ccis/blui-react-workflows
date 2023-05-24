@@ -73,6 +73,13 @@ export const LoginScreen = (): JSX.Element => {
                             >
                                 Go Guarded Route
                             </Button>
+                            <Button
+                                variant="contained"
+                                sx={{ width: 180, ml: 2 }}
+                                onClick={(): void => navigate('/eula-screen-test')}
+                            >
+                                Eula Screen Test
+                            </Button>
                         </Box>
                     }
                 />
