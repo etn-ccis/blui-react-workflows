@@ -4,6 +4,11 @@ import { useNavigate } from 'react-router';
 import { CreateAccountScreenBase } from '@brightlayer-ui/react-auth-workflow';
 import { Spacer } from '@brightlayer-ui/react-components';
 
+const EMAIL_REGEX = /^[A-Z0-9._%+'-]+@[A-Z0-9.-]+\.[A-Z]{2,}$/i;
+
+const emailValidator = (email: string): boolean | string =>
+    new RegExp(EMAIL_REGEX).test(email) ? true : 'Please enter a valid email';
+
 export const CreateAccountScreenBaseTest = (): JSX.Element => {
     const navigate = useNavigate();
     return (
@@ -31,6 +36,7 @@ export const CreateAccountScreenBaseTest = (): JSX.Element => {
                         instructions:
                             'To register for an Eaton account, enter the required information below. You will need to verify your email address to continue.',
                     }}
+                    emailValidator={emailValidator}
                     initialValue={''}
                     emailLabel={'Email Address'}
                     WorkflowCardActionsProps={{

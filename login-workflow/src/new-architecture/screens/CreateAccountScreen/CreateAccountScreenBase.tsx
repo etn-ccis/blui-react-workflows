@@ -20,7 +20,8 @@ import TextField from '@mui/material/TextField';
 
 export const CreateAccountScreenBase: React.FC<React.PropsWithChildren<CreateAccountScreenProps>> = (props) => {
     const {
-        emailValidator = (email: string): boolean | string => (email?.length > 2 ? true : 'Please enter a valid email'),
+        // eslint-disable-next-line @typescript-eslint/no-unused-vars
+        emailValidator = (email: string): boolean | string => true,
         emailLabel,
         initialValue,
     } = props;
@@ -52,7 +53,7 @@ export const CreateAccountScreenBase: React.FC<React.PropsWithChildren<CreateAcc
             <WorkflowCardBody>
                 <WorkflowCardInstructions {...instructionsProps} divider />
                 <TextField
-                    type="email"
+                    type={'email'}
                     label={emailLabel}
                     fullWidth
                     value={emailInput}
@@ -60,7 +61,7 @@ export const CreateAccountScreenBase: React.FC<React.PropsWithChildren<CreateAcc
                         handleEmailInputChange(evt.target.value);
                     }}
                     onKeyPress={(e): void => {
-                        if (e.key === 'Enter' && emailInput.length > 2 && isEmailValid && actionsProps.canGoNext)
+                        if (e.key === 'Enter' && emailInput.length > 0 && isEmailValid && actionsProps.canGoNext)
                             actionsProps?.onNext?.();
                     }}
                     variant="filled"
@@ -72,7 +73,7 @@ export const CreateAccountScreenBase: React.FC<React.PropsWithChildren<CreateAcc
             <WorkflowCardActions
                 {...actionsProps}
                 divider
-                canGoNext={emailInput.length > 2 && isEmailValid && actionsProps.canGoNext}
+                canGoNext={emailInput.length > 0 && isEmailValid && actionsProps.canGoNext}
             ></WorkflowCardActions>
         </WorkflowCard>
     );
