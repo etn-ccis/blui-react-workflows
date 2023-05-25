@@ -1,14 +1,5 @@
 import { WorkflowCardBaseProps } from '../../components/WorkflowCard/WorkflowCard.types';
 
-// export type WorkflowCardBaseProps = BoxProps & {
-//     loading?: boolean;
-//     backgroundImage?: string; // card background
-//     error?: boolean | string; // each screen should have an error state
-//     CardProps?: CardProps;
-//     LoaderComponent?: ReactNode;
-//     slots?: { card?: React.ElementType; loader?: React.ElementType };
-// };
-
 export type LoginErrorDialogConfiguration = {
     title?: string;
     content?: string;
@@ -26,7 +17,6 @@ export type LoginErrorDisplayConfiguration = {
     dialogErrorConfig?: LoginErrorDialogConfiguration;
 };
 
-// WorkflowCardBaseProps = loading, background, error
 export type LoginScreenProps = WorkflowCardBaseProps & {
     // configure fields
     usernameLabel?: string;
@@ -43,7 +33,7 @@ export type LoginScreenProps = WorkflowCardBaseProps & {
 
     // configure Login
     loginButtonLabel?: string;
-    onLogin?: (username: string, password: string) => void; // boolean? error code/string?
+    onLogin?: (username: string, password: string) => void;
 
     // configure Forgot Password
     showForgotPassword?: boolean;

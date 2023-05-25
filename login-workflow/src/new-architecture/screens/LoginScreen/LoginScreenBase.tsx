@@ -370,7 +370,7 @@ export const LoginScreenBase: React.FC<React.PropsWithChildren<LoginScreenProps>
                     </Box>
 
                     {showForgotPassword && (
-                        <Box sx={{ display: 'flex', justifyContent: 'center' }}>
+                        <Box sx={{ display: 'flex', justifyContent: 'center', textAlign: 'center' }}>
                             <Typography variant="body2" sx={LinkStyles(theme)} onClick={handleForgotPassword}>
                                 {forgotPasswordLabel || 'Forgot your password?'}
                             </Typography>
@@ -385,6 +385,7 @@ export const LoginScreenBase: React.FC<React.PropsWithChildren<LoginScreenProps>
                                 alignItems: 'center',
                                 flexDirection: 'column',
                                 marginTop: 4,
+                                textAlign: 'center',
                             }}
                         >
                             <Typography variant="body2">{selfRegisterInstructions || 'Need an account?'}</Typography>
@@ -395,7 +396,7 @@ export const LoginScreenBase: React.FC<React.PropsWithChildren<LoginScreenProps>
                     )}
 
                     {showContactSupport && (
-                        <Box sx={{ display: 'flex', justifyContent: 'center', marginTop: 4 }}>
+                        <Box sx={{ display: 'flex', justifyContent: 'center', marginTop: 4, textAlign: 'center' }}>
                             <Typography variant="body2" sx={LinkStyles(theme)} onClick={handleContactSupport}>
                                 {contactSupportLabel || 'Contact Support'}
                             </Typography>
