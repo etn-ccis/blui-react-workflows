@@ -14,6 +14,7 @@ import { GuardedScreen } from '../screens/new-architecture-test-screens/GuardedS
 import { VerifyCodeScreenBaseTest } from '../screens/new-architecture-test-screens/VerifyCodeScreenBase';
 import { AuthTestScreen, SuccessScreenBaseTest } from '../screens';
 import { SetPasswordScreen } from '../screens/new-architecture-test-screens/SetPasswordScreen';
+import { CreatePasswordScreenTest } from '../screens/new-architecture-test-screens/CreatePasswordScreenTest';
 
 export const routes: RouteConfig = {
     LOGIN: '/custom-login-route',
@@ -79,6 +80,14 @@ export const GetCustomRoutes = (isAuthenticated: boolean) => {
             element: (
                 <SecurityContextProvider>
                     <SetPasswordScreen />
+                </SecurityContextProvider>
+            ),
+        },
+        {
+            path: `/create-password`,
+            element: (
+                <SecurityContextProvider>
+                    <CreatePasswordScreenTest />
                 </SecurityContextProvider>
             ),
         },
