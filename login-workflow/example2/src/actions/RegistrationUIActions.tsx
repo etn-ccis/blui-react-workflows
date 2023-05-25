@@ -3,15 +3,6 @@ import { RegistrationUIActions, AccountDetailInformation } from '@brightlayer-ui
 
 const sleep = (ms: number): Promise<void> => new Promise((resolve) => setTimeout(resolve, ms));
 
-function getRandomInt(max: number): number {
-    return Math.floor(Math.random() * Math.floor(max));
-}
-
-function isRandomFailure(): boolean {
-    const randomResponseNumber = getRandomInt(100);
-    return false; // randomResponseNumber < 90;
-}
-
 /**
  * Example implementation of [[RegistrationUIActions]] to start with during development.
  *
@@ -30,10 +21,6 @@ export const ProjectRegistrationUIActions: () => RegistrationUIActions = () => (
     loadEULA: async (language: string): Promise<string> => {
         await sleep(1000);
 
-        if (isRandomFailure()) {
-            throw new Error('Sorry, there was a problem sending your request.');
-        }
-
         if (!language.includes('en')) {
             return 'Other language EULA';
         }
@@ -51,9 +38,6 @@ export const ProjectRegistrationUIActions: () => RegistrationUIActions = () => (
      */
     requestRegistrationCode: async (email: string): Promise<void> => {
         await sleep(800);
-        if (isRandomFailure()) {
-            throw new Error('Sorry, there was a problem sending your request.');
-        }
     },
 
     /**
@@ -68,11 +52,7 @@ export const ProjectRegistrationUIActions: () => RegistrationUIActions = () => (
      */
     validateUserRegistrationRequest: async (validationCode: string, validationEmail?: string): Promise<boolean> => {
         await sleep(800);
-
-        if (isRandomFailure()) {
-            throw new Error('Sorry, there was a problem sending your request.');
-        }
-        return isRandomFailure();
+        return false;
     },
     /**
      * The user has been invited to register and has entered the necessary account and
@@ -97,12 +77,6 @@ export const ProjectRegistrationUIActions: () => RegistrationUIActions = () => (
     ): Promise<{ email: string; organizationName: string }> => {
         const email = 'example@email.com';
         const organizationName = 'Acme Co.';
-        const userInfo = { email, organizationName };
-
-        await sleep(1000);
-        if (isRandomFailure()) {
-            throw new Error('Sorry, there was a problem sending your request.');
-        }
-        return userInfo;
+        return { email, organizationName };
     },
 });
