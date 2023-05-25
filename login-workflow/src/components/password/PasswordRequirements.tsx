@@ -1,9 +1,9 @@
 import React, { HTMLAttributes } from 'react';
 import { useInjectedUIContext, useLanguageLocale } from '../../auth-shared';
 import { PasswordRequirementsCheck } from './PasswordRequirementsCheck';
-import { defaultPasswordRequirements } from '../../constants';
 import Box from '@mui/material/Box';
 import { SxProps, Theme } from '@mui/material/styles';
+import { defaultPasswordRequirements } from '../../new-architecture';
 
 export type PasswordRequirementsProps = HTMLAttributes<HTMLDivElement> & {
     passwordText: string;
