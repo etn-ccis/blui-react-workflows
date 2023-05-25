@@ -75,6 +75,8 @@ export const ProjectRegistrationUIActions: () => RegistrationUIActions = () => (
         validationCode: string,
         validationEmail?: string
     ): Promise<{ email: string; organizationName: string }> => {
+        await sleep(800);
+
         const email = 'example@email.com';
         const organizationName = 'Acme Co.';
         return { email, organizationName };
