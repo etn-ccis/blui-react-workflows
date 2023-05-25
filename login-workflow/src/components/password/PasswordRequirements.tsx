@@ -1,12 +1,13 @@
 import React, { HTMLAttributes } from 'react';
-import { useInjectedUIContext, useLanguageLocale } from '../../auth-shared';
+import { useLanguageLocale } from '../../auth-shared';
 import { PasswordRequirementsCheck } from './PasswordRequirementsCheck';
 import Box from '@mui/material/Box';
 import { SxProps, Theme } from '@mui/material/styles';
-import { defaultPasswordRequirements } from '../../new-architecture';
+import { defaultPasswordRequirements, PasswordRequirement } from '../../new-architecture';
 
 export type PasswordRequirementsProps = HTMLAttributes<HTMLDivElement> & {
     passwordText: string;
+    passwordRequirements?: PasswordRequirement[];
     sx?: SxProps<Theme>;
 };
 
@@ -17,13 +18,10 @@ export type PasswordRequirementsProps = HTMLAttributes<HTMLDivElement> & {
  *
  * @category Component
  */
-export const PasswordRequirements: React.FC<
-    React.PropsWithChildren<React.PropsWithChildren<PasswordRequirementsProps>>
-> = (props) => {
-    const { passwordText, ...otherProps } = props;
+export const PasswordRequirements: React.FC<React.PropsWithChildren<PasswordRequirementsProps>> = (props) => {
     const { t } = useLanguageLocale();
-    const { passwordRequirements = defaultPasswordRequirements(t) } = useInjectedUIContext();
 
+    const { passwordText, passwordRequirements = defaultPasswordRequirements(t), ...otherProps } = props;
     return (
         <Box {...otherProps}>
             {passwordRequirements.map((req, ind) => (

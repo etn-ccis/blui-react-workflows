@@ -93,7 +93,11 @@ export const SetPassword: React.FC<React.PropsWithChildren<SetPasswordProps>> = 
                 error={shouldValidatePassword && !isValidPassword()}
                 onBlur={(): void => setShouldValidatePassword(true)}
             />
-            <PasswordRequirements sx={{ mt: 2 }} passwordText={passwordInput} />
+            <PasswordRequirements
+                sx={{ mt: 2 }}
+                passwordText={passwordInput}
+                passwordRequirements={passwordRequirements}
+            />
             <SecureTextField
                 id="confirm"
                 data-testid="confirm"
@@ -110,7 +114,7 @@ export const SetPassword: React.FC<React.PropsWithChildren<SetPasswordProps>> = 
                 helperText={hasConfirmPasswordError() ? t('bluiAuth:FORMS.PASS_MATCH_ERROR') : ''}
                 icon={
                     confirmInput.length !== 0 && confirmInput === passwordInput ? (
-                        <CheckCircleOutlinedIcon color="success" />
+                        <CheckCircleOutlinedIcon data-testid="check" color="success" />
                     ) : undefined
                 }
                 onBlur={(): void => setShouldValidateConfirmPassword(true)}
