@@ -73,7 +73,7 @@ export const CreateAccountScreenBase: React.FC<React.PropsWithChildren<CreateAcc
             <WorkflowCardActions
                 {...actionsProps}
                 divider
-                canGoNext={isEmailValid && actionsProps.canGoNext}
+                canGoNext={emailInput.length > 0 && isEmailValid && actionsProps.canGoNext}
             ></WorkflowCardActions>
         </WorkflowCard>
     );
