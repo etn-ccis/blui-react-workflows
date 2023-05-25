@@ -5,11 +5,18 @@ import { useNavigate } from 'react-router';
 export const AccountDetailsScreenBaseTest: React.FC<AccountDetailsScreenProps> = () => {
     const navigate = useNavigate();
 
-    const nameValidator = (name: string): boolean | string => {
+    const firstNameValidator = (name: string): boolean | string => {
+        if (name?.length > 4) {
+            return true;
+        }
+        return 'First name must be at least 5 characters';
+    };
+
+    const lastNameValidator = (name: string): boolean | string => {
         if (name?.length > 2) {
             return true;
         }
-        return 'Please enter a valid First Name';
+        return 'Last name must be at least 3 characters';
     };
 
     const goNext = (): boolean => {
@@ -20,12 +27,12 @@ export const AccountDetailsScreenBaseTest: React.FC<AccountDetailsScreenProps> =
 
     return (
         <AccountDetailsScreenBase
-            WorkflowCardHeaderProps={{ title: 'Account Details!' }}
+            WorkflowCardHeaderProps={{ title: 'Account Details' }}
             WorkflowCardInstructionProps={{ instructions: 'Enter your details below to complete account creation.' }}
             firstNameLabel="First Name"
-            firstNameValidator={nameValidator}
+            firstNameValidator={firstNameValidator}
             lastNameLabel="Last Name"
-            lastNameValidator={nameValidator}
+            lastNameValidator={lastNameValidator}
             WorkflowCardActionsProps={{
                 canGoPrevious: true,
                 showPrevious: true,

@@ -13,11 +13,13 @@ export const AccountDetailsScreenBase: React.FC<AccountDetailsScreenProps> = (pr
     const {
         firstNameLabel,
         initialFirstName,
-        firstNameValidator = (): boolean => true,
+        firstNameValidator = (name: string): boolean | string =>
+            name?.length > 2 ? true : 'First name must be at least 3 characters',
         firstNameTextFieldProps,
         lastNameLabel,
         initialLastName,
-        lastNameValidator = (): boolean => true,
+        lastNameValidator = (name: string): boolean | string =>
+            name?.length > 2 ? true : 'Last name must be at least 3 characters',
         lastNameTextFieldProps,
     } = props;
 
@@ -26,8 +28,8 @@ export const AccountDetailsScreenBase: React.FC<AccountDetailsScreenProps> = (pr
     const instructionsProps = props.WorkflowCardInstructionProps || {};
     const actionsProps = props.WorkflowCardActionsProps || {};
 
-    const firstRef = useRef<any>(null);
-    const lastRef = useRef<any>(null);
+    const firstNameRef = useRef<any>(null);
+    const lastNameRef = useRef<any>(null);
 
     const [firstNameInput, setFirstNameInput] = React.useState(initialFirstName ? initialFirstName : '');
     const [lastNameInput, setLastNameInput] = React.useState(initialLastName ? initialLastName : '');
@@ -80,12 +82,12 @@ export const AccountDetailsScreenBase: React.FC<AccountDetailsScreenProps> = (pr
                     fullWidth
                     variant="filled"
                     {...firstNameTextFieldProps}
-                    inputRef={firstRef}
+                    inputRef={firstNameRef}
                     label={firstNameLabel}
                     value={firstNameInput}
                     onChange={(e): void => onFirstNameChange(e.target.value)}
                     onKeyPress={(e): void => {
-                        if (e.key === 'Enter' && lastRef.current) lastRef.current.focus();
+                        if (e.key === 'Enter' && lastNameRef.current) lastNameRef.current.focus();
                     }}
                     error={showFirstNameError}
                     helperText={firstNameError}
@@ -98,7 +100,7 @@ export const AccountDetailsScreenBase: React.FC<AccountDetailsScreenProps> = (pr
                         mt: { md: 4, sm: 3 },
                     }}
                     {...lastNameTextFieldProps}
-                    inputRef={lastRef}
+                    inputRef={lastNameRef}
                     label={lastNameLabel}
                     value={lastNameInput}
                     onChange={(e): void => onLastNameChange(e.target.value)}
