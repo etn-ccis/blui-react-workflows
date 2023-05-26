@@ -69,6 +69,13 @@ export const LoginScreen = (): JSX.Element => {
                             <Button
                                 variant="contained"
                                 sx={{ width: 180, ml: 2 }}
+                                onClick={(): void => navigate('/set-password')}
+                            >
+                                Set Password
+                            </Button>
+                            <Button
+                                variant="contained"
+                                sx={{ width: 180, ml: 2 }}
                                 onClick={(): void => navigate('/success-screen')}
                             >
                                 Success Screen Base
@@ -79,6 +86,13 @@ export const LoginScreen = (): JSX.Element => {
                                 onClick={(): void => navigate('/guarded')}
                             >
                                 Go Guarded Route
+                            </Button>
+                            <Button
+                                variant="contained"
+                                sx={{ width: 180, ml: 2 }}
+                                onClick={(): void => navigate('/create-account')}
+                            >
+                                Create Account
                             </Button>
                         </Box>
                     }

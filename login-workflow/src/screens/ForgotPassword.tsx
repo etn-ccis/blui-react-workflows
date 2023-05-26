@@ -4,7 +4,6 @@ import {
     useAccountUIState,
     useAccountUIActions,
     AccountActions,
-    EMAIL_REGEX,
     useInjectedUIContext,
 } from '../auth-shared';
 import { Trans } from 'react-i18next';
@@ -28,6 +27,7 @@ import {
     FullDividerStyles,
 } from '../styles';
 import Box from '@mui/material/Box';
+import { EMAIL_REGEX } from '../new-architecture';
 
 const LinkStyles = (theme: Theme): SxProps<Theme> => ({
     fontWeight: 600,
