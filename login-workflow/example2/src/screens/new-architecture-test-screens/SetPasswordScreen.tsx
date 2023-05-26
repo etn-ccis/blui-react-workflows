@@ -3,30 +3,15 @@ import {
     defaultPasswordRequirements,
     SetPassword,
     useLanguageLocale,
-    AuthUIContextProvider,
-    useSecurityActions,
-    BrandedCardContainer,
+    WorkflowCard,
 } from '@brightlayer-ui/react-auth-workflow';
-import { ProjectAuthUIActions } from '../../actions/AuthUIActions';
-import { ProjectRegistrationUIActions } from '../../actions/RegistrationUIActions';
 import Button from '@mui/material/Button';
 import { useNavigate } from 'react-router';
 
-/**
- * Component that renders a screen displaying a form for creating a password.
- *
- * @param initialPassword value to pre-populate the password and confirmation fields
- * @param onPasswordChanged function to call when the password or confirm fields change
- * @param onSubmit function to call when the mini form is submitted
- *
- * @category Component
- */
 export const SetPasswordScreen: React.FC<React.PropsWithChildren<any>> = () => {
     const { t } = useLanguageLocale();
     const passwordRef = useRef(null);
     const confirmRef = useRef(null);
-    const securityContextActions = useSecurityActions();
-
     const navigate = useNavigate();
     const [passwordInput, setPasswordInput] = useState('');
     const [confirmInput, setConfirmInput] = useState('');
@@ -52,25 +37,20 @@ export const SetPasswordScreen: React.FC<React.PropsWithChildren<any>> = () => {
     }, [setPasswordInput, passwordInput, confirmInput, areValidMatchingPasswords]);
 
     return (
-        <AuthUIContextProvider
-            authActions={ProjectAuthUIActions(securityContextActions)}
-            registrationActions={ProjectRegistrationUIActions}
-        >
-            <>
-                <BrandedCardContainer>
-                    <SetPassword
-                        passwordRef={passwordRef}
-                        confirmRef={confirmRef}
-                        initialNewPasswordValue={passwordInput}
-                        initialConfirmPasswordValue={confirmInput}
-                        onPasswordChange={updateFields}
-                        onSubmit={(): void => {}}
-                    />
-                </BrandedCardContainer>
-                <Button variant="contained" sx={{ width: 200 }} onClick={(): void => navigate('/')}>
-                    Go to / route
-                </Button>
-            </>
-        </AuthUIContextProvider>
+        <>
+            <WorkflowCard>
+                <SetPassword
+                    passwordRef={passwordRef}
+                    confirmRef={confirmRef}
+                    initialNewPasswordValue={passwordInput}
+                    initialConfirmPasswordValue={confirmInput}
+                    onPasswordChange={updateFields}
+                    onSubmit={(): void => {}}
+                />
+            </WorkflowCard>
+            <Button variant="contained" sx={{ width: 200 }} onClick={(): void => navigate('/')}>
+                Go to / route
+            </Button>
+        </>
     );
 };

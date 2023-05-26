@@ -1,5 +1,5 @@
 import React, { HTMLAttributes } from 'react';
-import { useInjectedUIContext, useLanguageLocale } from '../../auth-shared';
+import { useLanguageLocale } from '../../auth-shared';
 import { PasswordRequirementsCheck } from './PasswordRequirementsCheck';
 import Box from '@mui/material/Box';
 import { SxProps, Theme } from '@mui/material/styles';
@@ -22,7 +22,7 @@ export const PasswordRequirements: React.FC<
 > = (props) => {
     const { passwordText, ...otherProps } = props;
     const { t } = useLanguageLocale();
-    const { passwordRequirements = defaultPasswordRequirements(t) } = useInjectedUIContext();
+    const passwordRequirements = defaultPasswordRequirements(t);
 
     return (
         <Box {...otherProps}>
