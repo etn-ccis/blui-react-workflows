@@ -1,3 +1,4 @@
+import { TextFieldProps } from '@mui/material';
 import { WorkflowCardBaseProps } from '../../components/WorkflowCard/WorkflowCard.types';
 
 export type LoginErrorDialogConfiguration = {
@@ -20,9 +21,11 @@ export type LoginErrorDisplayConfiguration = {
 export type LoginScreenProps = WorkflowCardBaseProps & {
     // configure fields
     usernameLabel?: string;
+    usernameTextFieldProps?: TextFieldProps;
     usernameValidator?: (foo: string) => boolean | string;
     initialUsernameValue?: string;
     passwordLabel?: string;
+    passwordTextFieldProps?: TextFieldProps;
     passwordValidator?: (foo: string) => boolean | string;
 
     // configure Remember Me

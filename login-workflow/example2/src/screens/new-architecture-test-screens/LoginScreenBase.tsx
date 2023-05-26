@@ -16,6 +16,11 @@ export const LoginScreenBaseTest = (): JSX.Element => (
                     }
                     return true;
                 }}
+                usernameTextFieldProps={{
+                    inputProps: {
+                        maxLength: 30,
+                    },
+                }}
                 initialUsernameValue=""
                 passwordLabel="Password"
                 passwordValidator={(password: string): string | boolean => {

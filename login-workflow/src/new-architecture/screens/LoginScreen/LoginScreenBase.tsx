@@ -18,9 +18,11 @@ import { HELPER_TEXT_HEIGHT } from '../../utils/constants';
  * Component that renders a login screen that prompts a user to enter a username and password to login.
  *
  * @param usernameLabel label for the username field
+ * @param usernameTextFieldProps props to pass to the username text field
  * @param usernameValidator function used to validate the username
  * @param initialUsernameValue username used to pre-populate the field
  * @param passwordLabel label for the password field
+ * @param passwordTextFieldProps props to pass to the password text field
  * @param passwordValidator function used to validate the password
  * @param showRememberMe whether or not to show the 'remember me' checkbox
  * @param rememberMeLabel label for the 'remember me' checkbox
@@ -63,9 +65,11 @@ const LinkStyles = (theme?: Theme): SxProps<Theme> => ({
 export const LoginScreenBase: React.FC<React.PropsWithChildren<LoginScreenProps>> = (props) => {
     const {
         usernameLabel,
+        usernameTextFieldProps,
         usernameValidator,
         initialUsernameValue,
         passwordLabel,
+        passwordTextFieldProps,
         passwordValidator,
         showRememberMe,
         rememberMeLabel,
@@ -286,11 +290,22 @@ export const LoginScreenBase: React.FC<React.PropsWithChildren<LoginScreenProps>
                                 value={username}
                                 error={shouldValidateUsername && !isUsernameValid}
                                 helperText={shouldValidateUsername && !isUsernameValid ? usernameError : ''}
-                                onChange={(e): void => handleUsernameInputChange(e.target.value)}
+                                {...usernameTextFieldProps}
+                                onChange={(e): void => {
+                                    // eslint-disable-next-line no-unused-expressions
+                                    usernameTextFieldProps?.onChange && usernameTextFieldProps.onChange(e);
+                                    handleUsernameInputChange(e.target.value);
+                                }}
                                 onSubmit={(e: any): void => {
+                                    // eslint-disable-next-line no-unused-expressions
+                                    usernameTextFieldProps?.onSubmit && usernameTextFieldProps.onSubmit(e);
                                     if (e.key === 'Enter' && passwordField.current) passwordField.current.focus();
                                 }}
-                                onBlur={(): void => setShouldValidateUsername(true)}
+                                onBlur={(e): void => {
+                                    // eslint-disable-next-line no-unused-expressions
+                                    usernameTextFieldProps?.onBlur && usernameTextFieldProps.onBlur(e);
+                                    setShouldValidateUsername(true);
+                                }}
                             />
                         </Box>
                         <Box
@@ -312,9 +327,22 @@ export const LoginScreenBase: React.FC<React.PropsWithChildren<LoginScreenProps>
                                 value={password}
                                 error={shouldValidatePassword && !isPasswordValid}
                                 helperText={shouldValidatePassword && !isPasswordValid ? passwordError : ''}
-                                onChange={(e: any): void => handlePasswordInputChange(e.target.value)}
-                                onSubmit={(e: any): void => handleLoginSubmit(e.target.value)}
-                                onBlur={(): void => setShouldValidatePassword(true)}
+                                {...passwordTextFieldProps}
+                                onChange={(e: any): void => {
+                                    // eslint-disable-next-line no-unused-expressions
+                                    passwordTextFieldProps?.onChange && passwordTextFieldProps.onChange(e);
+                                    handlePasswordInputChange(e.target.value);
+                                }}
+                                onSubmit={(e: any): void => {
+                                    // eslint-disable-next-line no-unused-expressions
+                                    passwordTextFieldProps?.onSubmit && passwordTextFieldProps.onSubmit(e);
+                                    handleLoginSubmit(e.target.value);
+                                }}
+                                onBlur={(e): void => {
+                                    // eslint-disable-next-line no-unused-expressions
+                                    passwordTextFieldProps?.onBlur && passwordTextFieldProps.onBlur(e);
+                                    setShouldValidatePassword(true);
+                                }}
                             />
                         </Box>
                     </Box>
