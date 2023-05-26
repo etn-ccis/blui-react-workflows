@@ -4,8 +4,11 @@ import {
     SetPassword,
     useLanguageLocale,
     WorkflowCard,
+    WorkflowCardHeader,
+    WorkflowCardActions,
+    WorkflowCardBody,
+    WorkflowCardInstructions,
 } from '@brightlayer-ui/react-auth-workflow';
-import Button from '@mui/material/Button';
 import { useNavigate } from 'react-router';
 
 export const SetPasswordScreen: React.FC<React.PropsWithChildren<any>> = () => {
@@ -37,8 +40,14 @@ export const SetPasswordScreen: React.FC<React.PropsWithChildren<any>> = () => {
     }, [setPasswordInput, passwordInput, confirmInput, areValidMatchingPasswords]);
 
     return (
-        <>
-            <WorkflowCard>
+        <WorkflowCard>
+            <WorkflowCardHeader title="Create Password" />
+            <WorkflowCardInstructions
+                sx={{ px: 3 }}
+                divider
+                instructions="Please select a password. Make sure that your password meets the necessary complexity requirements outlined below."
+            />
+            <WorkflowCardBody>
                 <SetPassword
                     passwordRef={passwordRef}
                     confirmRef={confirmRef}
@@ -47,10 +56,13 @@ export const SetPasswordScreen: React.FC<React.PropsWithChildren<any>> = () => {
                     onPasswordChange={updateFields}
                     onSubmit={(): void => {}}
                 />
-            </WorkflowCard>
-            <Button variant="contained" sx={{ width: 200 }} onClick={(): void => navigate('/')}>
-                Go to / route
-            </Button>
-        </>
+            </WorkflowCardBody>
+            <WorkflowCardActions
+                showPrevious
+                fullWidthButton
+                previousLabel="Go to / route"
+                onPrevious={(): void => navigate('/')}
+            />
+        </WorkflowCard>
     );
 };
