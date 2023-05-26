@@ -6,13 +6,15 @@ import TextField from '@mui/material/TextField';
 import Box from '@mui/material/Box';
 import Typography from '@mui/material/Typography';
 import cyberSecurityBadge from '../../../assets/images/cybersecurity_certified.png';
-import { /*BasicDialog,*/ PasswordTextField } from '../../components';
+import { PasswordTextField } from '../../components';
 import Button from '@mui/material/Button';
 import { SxProps, Theme, useTheme } from '@mui/material/styles';
 import Checkbox from '@mui/material/Checkbox';
 import Close from '@mui/icons-material/Close';
 import * as Colors from '@brightlayer-ui/colors';
 import { HELPER_TEXT_HEIGHT } from '../../utils/constants';
+import { LoginScreenClassKey, getLoginScreenUtilityClass } from './utilityClasses';
+import { unstable_composeClasses as composeClasses } from '@mui/base';
 
 /**
  * Component that renders a login screen that prompts a user to enter a username and password to login.
@@ -62,6 +64,35 @@ const LinkStyles = (theme?: Theme): SxProps<Theme> => ({
     },
 });
 
+const useUtilityClasses = (ownerState: LoginScreenProps): Record<LoginScreenClassKey, string> => {
+    const { classes } = ownerState;
+
+    const slots = {
+        root: ['root'],
+        projectImageWrapper: ['projectImageWrapper'],
+        inputFieldsWrapper: ['inputFieldsWrapper'],
+        usernameTextField: ['usernameTextField'],
+        passwordTextField: ['passwordTextField'],
+        rememberMeLoginRowWrapper: ['rememberMeLoginRowWrapper'],
+        rememberMeWrapper: ['rememberMeWrapper'],
+        rememberMeCheckbox: ['rememberMeCheckbox'],
+        rememberMeLabel: ['rememberMeLabel'],
+        loginButtonWrapper: ['loginButtonWrapper'],
+        loginButton: ['loginButton'],
+        forgotPasswordWrapper: ['forgotPasswordWrapper'],
+        forgotPasswordLabel: ['forgotPasswordLabel'],
+        selfRegisterWrapper: ['selfRegisterWrapper'],
+        selfRegisterInstructionLabel: ['selfRegisterInstructionLabel'],
+        selfRegisterLabel: ['selfRegisterLabel'],
+        contactSupportWrapper: ['contactSupportWrapper'],
+        contactSupportLabel: ['contactSupportLabel'],
+        cyberSecurityBadgeWrapper: ['cyberSecurityBadgeWrapper'],
+        cyberSecurityBadge: ['cyberSecurityBadge'],
+    };
+
+    return composeClasses(slots, getLoginScreenUtilityClass, classes);
+};
+
 export const LoginScreenBase: React.FC<React.PropsWithChildren<LoginScreenProps>> = (props) => {
     const {
         usernameLabel,
@@ -95,6 +126,7 @@ export const LoginScreenBase: React.FC<React.PropsWithChildren<LoginScreenProps>
     } = props;
 
     const theme = useTheme();
+    const defaultClasses = useUtilityClasses(props);
 
     const [username, setUsername] = React.useState<string>(initialUsernameValue || '');
     const [password, setPassword] = React.useState<string>('');
@@ -252,10 +284,16 @@ export const LoginScreenBase: React.FC<React.PropsWithChildren<LoginScreenProps>
 
     return (
         <>
-            <WorkflowCard>
+            <WorkflowCard className={defaultClasses.root} data-testid={defaultClasses.root}>
                 <WorkflowCardBody sx={{ py: { xs: 4, sm: 4, md: 4 }, px: { xs: 4, sm: 8, md: 8 } }}>
                     {header}
-                    <Box sx={{ display: 'flex', maxWidth: '100%', mb: 6.75 }}>{projectImage}</Box>
+                    <Box
+                        sx={{ display: 'flex', maxWidth: '100%', mb: 6.75 }}
+                        className={defaultClasses.projectImageWrapper}
+                        data-testid={defaultClasses.projectImageWrapper}
+                    >
+                        {projectImage}
+                    </Box>
                     {showErrorMessageBox && errorDisplayConfig?.position === 'top' && errorMessageBox}
                     <Box
                         sx={{
@@ -265,6 +303,8 @@ export const LoginScreenBase: React.FC<React.PropsWithChildren<LoginScreenProps>
                             alignItems: 'center',
                             width: '100%',
                         }}
+                        className={defaultClasses.inputFieldsWrapper}
+                        data-testid={defaultClasses.inputFieldsWrapper}
                     >
                         <Box
                             sx={{
@@ -284,6 +324,8 @@ export const LoginScreenBase: React.FC<React.PropsWithChildren<LoginScreenProps>
                             <TextField
                                 fullWidth
                                 id="username"
+                                className={defaultClasses.usernameTextField}
+                                data-testid={defaultClasses.usernameTextField}
                                 label={usernameLabel || 'Username'}
                                 name="username"
                                 variant="filled"
@@ -321,6 +363,8 @@ export const LoginScreenBase: React.FC<React.PropsWithChildren<LoginScreenProps>
                                 fullWidth
                                 inputRef={passwordField}
                                 id="password"
+                                className={defaultClasses.passwordTextField}
+                                data-testid={defaultClasses.passwordTextField}
                                 name="password"
                                 label={passwordLabel || 'Password'}
                                 variant="filled"
@@ -363,6 +407,8 @@ export const LoginScreenBase: React.FC<React.PropsWithChildren<LoginScreenProps>
                                 justifyContent: 'center',
                             },
                         }}
+                        className={defaultClasses.rememberMeLoginRowWrapper}
+                        data-testid={defaultClasses.rememberMeLoginRowWrapper}
                     >
                         {showRememberMe && (
                             <Box
@@ -375,17 +421,33 @@ export const LoginScreenBase: React.FC<React.PropsWithChildren<LoginScreenProps>
                                         mr: 0,
                                     },
                                 }}
+                                className={defaultClasses.rememberMeWrapper}
+                                data-testid={defaultClasses.rememberMeWrapper}
                             >
                                 <Checkbox
                                     color="primary"
                                     checked={rememberMe}
                                     onChange={(e: any): void => handleRememberMeChanged(e.target.checked)}
+                                    className={defaultClasses.rememberMeCheckbox}
+                                    data-testid={defaultClasses.rememberMeCheckbox}
                                 />
-                                <Typography variant="body1">{rememberMeLabel || 'Remember Me'}</Typography>
+                                <Typography
+                                    variant="body1"
+                                    className={defaultClasses.rememberMeLabel}
+                                    data-testid={defaultClasses.rememberMeLabel}
+                                >
+                                    {rememberMeLabel || 'Remember Me'}
+                                </Typography>
                             </Box>
                         )}
-                        <Box sx={{ display: 'flex', flex: 1, justifyContent: 'flex-end' }}>
+                        <Box
+                            sx={{ display: 'flex', flex: 1, justifyContent: 'flex-end' }}
+                            className={defaultClasses.loginButtonWrapper}
+                            data-testid={defaultClasses.loginButtonWrapper}
+                        >
                             <Button
+                                className={defaultClasses.loginButton}
+                                data-testid={defaultClasses.loginButton}
                                 onClick={handleLogin}
                                 disabled={!isFormValid()}
                                 variant="contained"
@@ -398,8 +460,18 @@ export const LoginScreenBase: React.FC<React.PropsWithChildren<LoginScreenProps>
                     </Box>
 
                     {showForgotPassword && (
-                        <Box sx={{ display: 'flex', justifyContent: 'center', textAlign: 'center' }}>
-                            <Typography variant="body2" sx={LinkStyles(theme)} onClick={handleForgotPassword}>
+                        <Box
+                            sx={{ display: 'flex', justifyContent: 'center', textAlign: 'center' }}
+                            className={defaultClasses.forgotPasswordWrapper}
+                            data-testid={defaultClasses.forgotPasswordWrapper}
+                        >
+                            <Typography
+                                variant="body2"
+                                sx={LinkStyles(theme)}
+                                onClick={handleForgotPassword}
+                                className={defaultClasses.forgotPasswordLabel}
+                                data-testid={defaultClasses.forgotPasswordLabel}
+                            >
                                 {forgotPasswordLabel || 'Forgot your password?'}
                             </Typography>
                         </Box>
@@ -415,17 +487,41 @@ export const LoginScreenBase: React.FC<React.PropsWithChildren<LoginScreenProps>
                                 marginTop: 4,
                                 textAlign: 'center',
                             }}
+                            className={defaultClasses.selfRegisterWrapper}
+                            data-testid={defaultClasses.selfRegisterWrapper}
                         >
-                            <Typography variant="body2">{selfRegisterInstructions || 'Need an account?'}</Typography>
-                            <Typography variant="body2" sx={LinkStyles(theme)} onClick={handleSelfRegister}>
+                            <Typography
+                                variant="body2"
+                                className={defaultClasses.selfRegisterInstructionLabel}
+                                data-testid={defaultClasses.selfRegisterInstructionLabel}
+                            >
+                                {selfRegisterInstructions || 'Need an account?'}
+                            </Typography>
+                            <Typography
+                                variant="body2"
+                                sx={LinkStyles(theme)}
+                                onClick={handleSelfRegister}
+                                className={defaultClasses.selfRegisterLabel}
+                                data-testid={defaultClasses.selfRegisterLabel}
+                            >
                                 {selfRegisterButtonLabel || 'Register now!'}
                             </Typography>
                         </Box>
                     )}
 
                     {showContactSupport && (
-                        <Box sx={{ display: 'flex', justifyContent: 'center', marginTop: 4, textAlign: 'center' }}>
-                            <Typography variant="body2" sx={LinkStyles(theme)} onClick={handleContactSupport}>
+                        <Box
+                            sx={{ display: 'flex', justifyContent: 'center', marginTop: 4, textAlign: 'center' }}
+                            className={defaultClasses.contactSupportWrapper}
+                            data-testid={defaultClasses.contactSupportWrapper}
+                        >
+                            <Typography
+                                variant="body2"
+                                sx={LinkStyles(theme)}
+                                onClick={handleContactSupport}
+                                className={defaultClasses.contactSupportLabel}
+                                data-testid={defaultClasses.contactSupportLabel}
+                            >
                                 {contactSupportLabel || 'Contact Support'}
                             </Typography>
                         </Box>
@@ -434,8 +530,18 @@ export const LoginScreenBase: React.FC<React.PropsWithChildren<LoginScreenProps>
                     <Box sx={{ display: 'flex', justifyContent: 'center' }}>{footer}</Box>
 
                     {showCyberSecurityBadge && (
-                        <Box sx={{ display: 'flex', justifyContent: 'center', marginTop: 2 }}>
-                            <img src={cyberSecurityBadge} alt="Cyber Security Badge" style={{ width: '100px' }} />
+                        <Box
+                            sx={{ display: 'flex', justifyContent: 'center', marginTop: 2 }}
+                            className={defaultClasses.cyberSecurityBadgeWrapper}
+                            data-testid={defaultClasses.cyberSecurityBadgeWrapper}
+                        >
+                            <img
+                                className={defaultClasses.cyberSecurityBadge}
+                                data-testid={defaultClasses.cyberSecurityBadge}
+                                src={cyberSecurityBadge}
+                                alt="Cyber Security Badge"
+                                style={{ width: '100px' }}
+                            />
                         </Box>
                     )}
                 </WorkflowCardBody>
