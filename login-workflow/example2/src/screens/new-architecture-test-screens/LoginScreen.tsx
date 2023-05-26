@@ -80,6 +80,13 @@ export const LoginScreen = (): JSX.Element => {
                             >
                                 Go Guarded Route
                             </Button>
+                            <Button
+                                variant="contained"
+                                sx={{ width: 180, ml: 2 }}
+                                onClick={(): void => navigate('/create-account')}
+                            >
+                                Create Account
+                            </Button>
                         </Box>
                     }
                 />

@@ -12,6 +12,7 @@ import { RegistrationTestScreen } from '../screens/new-architecture-test-screens
 import { ContactUs } from '../screens/new-architecture-test-screens/ContactUs';
 import { GuardedScreen } from '../screens/new-architecture-test-screens/GuardedScreen';
 import { VerifyCodeScreenBaseTest } from '../screens/new-architecture-test-screens/VerifyCodeScreenBase';
+import { CreateAccountScreenBaseTest } from '../screens/new-architecture-test-screens/CreateAccountScreenBase';
 import { AuthTestScreen, SuccessScreenBaseTest } from '../screens';
 import { SetPasswordScreen } from '../screens/new-architecture-test-screens/SetPasswordScreen';
 
@@ -85,6 +86,10 @@ export const GetCustomRoutes = (isAuthenticated: boolean) => {
         {
             path: `/verify-code-test`,
             element: <VerifyCodeScreenBaseTest />,
+        },
+        {
+            path: `/create-account`,
+            element: <CreateAccountScreenBaseTest />,
         },
         // Authenticated Route: accessible only if the user IS authenticated
         {
