@@ -1,3 +1,4 @@
+/* eslint-disable */
 import React, { useState } from 'react';
 import { IndividualScreenData, RegistrationWorkflowContextProvider } from '../../contexts';
 
@@ -29,13 +30,30 @@ export const RegistrationWorkflow: React.FC<React.PropsWithChildren<Registration
             firstName: '',
             lastName: '',
         },
+        Other: {},
     });
 
     const handleScreenNavigation = (data: IndividualScreenData): void => {
-        setScreenData((oldData) => ({
-            ...oldData,
-            [data.screenId]: data.values,
-        }));
+        if (!Object.keys(screenData).includes(data.screenId)) {
+            setScreenData((oldData) => ({
+                ...oldData,
+                Other: { ...oldData.Other, [data.screenId]: data.values },
+            }));
+        } else if (Object.keys(screenData.Other).includes(data.screenId)) {
+            const screenId = data.screenId;
+            const Other = screenData.Other;
+            const { values } = data;
+            setScreenData((oldData) => ({
+                ...oldData,
+                /* @ts-ignore */
+                Other: { ...Other, [screenId]: { ...screenData.Other[screenId], ...values } },
+            }));
+        } else {
+            setScreenData((oldData) => ({
+                ...oldData,
+                [data.screenId]: data.values,
+            }));
+        }
     };
 
     return (

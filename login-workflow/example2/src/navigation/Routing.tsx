@@ -13,6 +13,7 @@ import { ContactUs } from '../screens/new-architecture-test-screens/ContactUs';
 import { GuardedScreen } from '../screens/new-architecture-test-screens/GuardedScreen';
 import { VerifyCodeScreenBaseTest } from '../screens/new-architecture-test-screens/VerifyCodeScreenBase';
 import { AuthTestScreen, SuccessScreenBaseTest } from '../screens';
+import { RegistrationWorkflowScreen } from '../screens/new-architecture-test-screens/RegistrationWorkflowScreen';
 
 export const routes: RouteConfig = {
     LOGIN: '/custom-login-route',
@@ -72,6 +73,10 @@ export const GetCustomRoutes = (isAuthenticated: boolean) => {
         {
             path: `/contact-us`,
             element: <ContactUs />,
+        },
+        {
+            path: `/registration-workflow`,
+            element: <RegistrationWorkflowScreen />,
         },
         {
             path: `/verify-code-test`,
