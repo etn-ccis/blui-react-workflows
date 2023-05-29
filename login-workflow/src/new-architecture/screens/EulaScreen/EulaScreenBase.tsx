@@ -1,5 +1,5 @@
 /** eslint-ignore */
-import React, { useCallback } from 'react';
+import React, { useCallback, useState } from 'react';
 import { EulaScreenProps } from './types';
 import { WorkflowCard } from '../../components/WorkflowCard';
 import { WorkflowCardActions } from '../../components/WorkflowCard/WorkflowCardActions';
@@ -8,6 +8,7 @@ import { WorkflowCardHeader } from '../../components/WorkflowCard/WorkflowCardHe
 import FormControlLabel from '@mui/material/FormControlLabel';
 import Checkbox from '@mui/material/Checkbox';
 import Box from '@mui/material/Box';
+import DOMPurify from 'dompurify';
 
 /**
  * Component that renders a screen displaying the EULA and requests acceptance via a checkbox.
@@ -21,50 +22,37 @@ import Box from '@mui/material/Box';
 
 export const EulaScreenBase: React.FC<React.PropsWithChildren<EulaScreenProps>> = (props) => {
     const {
-        onEulaAcceptedChange = (accepted: boolean): boolean => (accepted),
+        onEulaAcceptedChange = (accepted: boolean): boolean => accepted,
         eulaContent,
         checkboxLabel,
         htmlEula,
         initialCheckboxValue,
-        title,
-        instructions,
-        ...otherProps
     } = props;
 
-    const actionsProps = {
-        divider: otherProps.divider,
-        canGoNext: otherProps.canGoNext,
-        canGoPrevious: otherProps.canGoPrevious,
-        showPrevious: otherProps.showPrevious,
-        showNext: otherProps.showNext,
-        previousLabel: otherProps.previousLabel,
-        nextLabel: otherProps.nextLabel,
-        onPrevious: otherProps.onPrevious,
-        onNext: otherProps.onNext,
-        currentStep: otherProps.currentStep,
-        totalSteps: otherProps.totalSteps,
-        fullWidthButton: otherProps.fullWidthButton,
-        // @TODO: should we extend the rest of the props (CardActionsProps) or should we set this up to take in each sections props separately e.g., workflowCardProps, actionsProps, etc.
-    };
+    const cardBaseProps = props.WorkflowCardBaseProps || {};
+    const headerProps = props.WorkflowCardHeaderProps || {};
+    const actionsProps = props.WorkflowCardActionsProps || {};
 
-    const [eulaAccepted, setEulaAccepted] = React.useState(onEulaAcceptedChange(initialCheckboxValue) ?? false);
+    const [eulaAccepted, setEulaAccepted] = useState(onEulaAcceptedChange(initialCheckboxValue) ?? false);
 
     const handleEulaAcceptedChecked = useCallback(
         (accepted: boolean) => {
-            setEulaAccepted(onEulaAcceptedChange(accepted))
+            setEulaAccepted(onEulaAcceptedChange(accepted));
         },
         [onEulaAcceptedChange]
     );
-    
+
     return (
-        <WorkflowCard>
-            <WorkflowCardHeader title={title}></WorkflowCardHeader>
+        <WorkflowCard {...cardBaseProps}>
+            <WorkflowCardHeader {...headerProps}></WorkflowCardHeader>
             <WorkflowCardBody>
-                <Box
-                    sx={{ flex: '1 1 0px', overflow: 'auto' }}
-                >
-                    {eulaContent}
-                </Box>
+                {!htmlEula && <Box sx={{ flex: '1 1 0px', overflow: 'auto' }}>{eulaContent}</Box>}
+                {htmlEula && (
+                    <Box
+                        sx={{ flex: '1 1 0px', overflow: 'auto' }}
+                        dangerouslySetInnerHTML={{ __html: DOMPurify.sanitize(eulaContent as any) }}
+                    />
+                )}
                 <FormControlLabel
                     control={
                         <Checkbox
@@ -79,7 +67,11 @@ export const EulaScreenBase: React.FC<React.PropsWithChildren<EulaScreenProps>> 
                     sx={{ flex: '0 0 auto', mr: 0, mt: 2 }}
                 />
             </WorkflowCardBody>
-            <WorkflowCardActions {...actionsProps} divider></WorkflowCardActions>
+            <WorkflowCardActions
+                {...actionsProps}
+                divider
+                canGoNext={eulaAccepted && actionsProps.canGoNext}
+            ></WorkflowCardActions>
         </WorkflowCard>
     );
 };
