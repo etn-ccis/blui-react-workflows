@@ -34,24 +34,23 @@ export const RegistrationWorkflow: React.FC<React.PropsWithChildren<Registration
     });
 
     const handleScreenNavigation = (data: IndividualScreenData): void => {
-        if (!Object.keys(screenData).includes(data.screenId)) {
+        const { Other } = screenData;
+        const { screenId, values } = data;
+        if (!Object.keys(screenData).includes(screenId)) {
             setScreenData((oldData) => ({
                 ...oldData,
-                Other: { ...oldData.Other, [data.screenId]: data.values },
+                Other: { ...oldData.Other, [screenId]: values },
             }));
-        } else if (Object.keys(screenData.Other).includes(data.screenId)) {
-            const screenId = data.screenId;
-            const Other = screenData.Other;
-            const { values } = data;
+        } else if (Object.keys(Other).includes(screenId)) {
             setScreenData((oldData) => ({
                 ...oldData,
                 /* @ts-ignore */
-                Other: { ...Other, [screenId]: { ...screenData.Other[screenId], ...values } },
+                Other: { ...Other, [screenId]: { ...Other[screenId], ...values } },
             }));
         } else {
             setScreenData((oldData) => ({
                 ...oldData,
-                [data.screenId]: data.values,
+                [screenId]: values,
             }));
         }
     };
