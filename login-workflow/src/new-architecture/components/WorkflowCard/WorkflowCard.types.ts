@@ -36,8 +36,10 @@ export type WorkflowCardActionsProps = CardActionsProps & {
     fullWidthButton?: boolean;
 };
 
-export type WorkflowCardProps = CardProps &
-    WorkflowCardHeaderProps &
-    WorkflowCardInstructionProps &
-    WorkflowCardActionsProps &
-    WorkflowCardBaseProps;
+export type WorkflowCardProps = {
+    CardProps?: CardProps;
+    WorkflowCardBaseProps?: WorkflowCardBaseProps;
+    WorkflowCardHeaderProps?: WorkflowCardHeaderProps;
+    WorkflowCardInstructionProps?: WorkflowCardInstructionProps;
+    WorkflowCardActionsProps?: WorkflowCardActionsProps;
+};

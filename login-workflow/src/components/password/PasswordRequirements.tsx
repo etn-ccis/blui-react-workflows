@@ -1,12 +1,13 @@
 import React, { HTMLAttributes } from 'react';
-import { useInjectedUIContext, useLanguageLocale } from '../../auth-shared';
+import { useLanguageLocale } from '../../auth-shared';
 import { PasswordRequirementsCheck } from './PasswordRequirementsCheck';
-import { defaultPasswordRequirements } from '../../constants';
 import Box from '@mui/material/Box';
 import { SxProps, Theme } from '@mui/material/styles';
+import { defaultPasswordRequirements, PasswordRequirement } from '../../new-architecture';
 
 export type PasswordRequirementsProps = HTMLAttributes<HTMLDivElement> & {
     passwordText: string;
+    passwordRequirements?: PasswordRequirement[];
     sx?: SxProps<Theme>;
 };
 
@@ -14,15 +15,13 @@ export type PasswordRequirementsProps = HTMLAttributes<HTMLDivElement> & {
  * Component that renders all of the password requirement line items with check indicators.
  *
  * @param passwordText The string to conduct the complexity checks against
+ * @param passwordRequirements Optional requirements to set password
  *
  * @category Component
  */
-export const PasswordRequirements: React.FC<
-    React.PropsWithChildren<React.PropsWithChildren<PasswordRequirementsProps>>
-> = (props) => {
-    const { passwordText, ...otherProps } = props;
+export const PasswordRequirements: React.FC<React.PropsWithChildren<PasswordRequirementsProps>> = (props) => {
     const { t } = useLanguageLocale();
-    const { passwordRequirements = defaultPasswordRequirements(t) } = useInjectedUIContext();
+    const { passwordText, passwordRequirements = defaultPasswordRequirements(t), ...otherProps } = props;
 
     return (
         <Box {...otherProps}>
