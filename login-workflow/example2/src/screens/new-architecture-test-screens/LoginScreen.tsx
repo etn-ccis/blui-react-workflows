@@ -23,80 +23,80 @@ export const LoginScreen = (): JSX.Element => {
                     title={'Login Screen Placeholder'}
                     description={'You should only be able to access this if you are NOT authenticated'}
                     actions={
-                        <Box>
+                        <Box sx={{ display: 'flex', justifyContent: 'center', flexWrap: 'wrap' }}>
                             <Button
                                 variant="contained"
-                                sx={{ width: 180 }}
+                                sx={{ width: 200, m: 2 }}
                                 onClick={(): void => setIsAuthenticated(true)}
                             >
                                 Login
                             </Button>
                             <Button
                                 variant="contained"
-                                sx={{ width: 180, ml: 2 }}
+                                sx={{ width: 200, m: 2 }}
                                 onClick={(): void => navigate('/login-screen-base')}
                             >
                                 Test Login Screen Base
                             </Button>
                             <Button
                                 variant="contained"
-                                sx={{ width: 180, ml: 2 }}
+                                sx={{ width: 200, m: 2 }}
                                 onClick={(): void => navigate('/registration-test')}
                             >
                                 Test Registration
                             </Button>
                             <Button
                                 variant="contained"
-                                sx={{ width: 180, ml: 2 }}
+                                sx={{ width: 200, m: 2 }}
                                 onClick={(): void => navigate('/verify-code-test')}
                             >
                                 Verify Code Screen
                             </Button>
                             <Button
                                 variant="contained"
-                                sx={{ width: 180, ml: 2 }}
+                                sx={{ width: 200, m: 2 }}
                                 onClick={(): void => navigate('/auth-test')}
                             >
                                 Test Auth
                             </Button>
                             <Button
                                 variant="contained"
-                                sx={{ width: 180, ml: 2 }}
+                                sx={{ width: 200, m: 2 }}
                                 onClick={(): void => navigate('/contact-us')}
                             >
                                 Contact Us
                             </Button>
                             <Button
                                 variant="contained"
-                                sx={{ width: 180, ml: 2 }}
+                                sx={{ width: 200, m: 2 }}
                                 onClick={(): void => navigate('/registration-workflow')}
                             >
                                 Registration Workflow
                             </Button>
                             <Button
                                 variant="contained"
-                                sx={{ width: 180, ml: 2 }}
+                                sx={{ width: 200, m: 2 }}
                                 onClick={(): void => navigate('/set-password')}
                             >
                                 Set Password
                             </Button>
                             <Button
                                 variant="contained"
-                                sx={{ width: 180, ml: 2 }}
+                                sx={{ width: 200, m: 2 }}
                                 onClick={(): void => navigate('/success-screen')}
                             >
                                 Success Screen Base
                             </Button>
                             <Button
                                 variant="contained"
-                                sx={{ width: 180, ml: 2 }}
+                                sx={{ width: 200, m: 2 }}
                                 onClick={(): void => navigate('/guarded')}
                             >
                                 Go Guarded Route
                             </Button>
                             <Button
                                 variant="contained"
-                                sx={{ width: 180, ml: 2 }}
+                                sx={{ width: 200, m: 2 }}
                                 onClick={(): void => navigate('/create-account')}
                             >
                                 Create Account
