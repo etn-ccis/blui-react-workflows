@@ -13,7 +13,10 @@ import { ContactUs } from '../screens/new-architecture-test-screens/ContactUs';
 import { GuardedScreen } from '../screens/new-architecture-test-screens/GuardedScreen';
 import { VerifyCodeScreenBaseTest } from '../screens/new-architecture-test-screens/VerifyCodeScreenBase';
 import { EulaScreenBaseTest } from '../screens/new-architecture-test-screens/EulaScreenBase';
+import { LoginScreenBaseTest } from '../screens/new-architecture-test-screens/LoginScreenBase';
+import { CreateAccountScreenBaseTest } from '../screens/new-architecture-test-screens/CreateAccountScreenBase';
 import { AuthTestScreen, SuccessScreenBaseTest } from '../screens';
+import { SetPasswordScreen } from '../screens/new-architecture-test-screens/SetPasswordScreen';
 
 export const routes: RouteConfig = {
     LOGIN: '/custom-login-route',
@@ -42,6 +45,11 @@ export const GetCustomRoutes = (isAuthenticated: boolean) => {
                     <LoginScreen />
                 </ExperimentalGuestGuard>
             ),
+        },
+        // Non-Authenticated Route: accessible only if the user is NOT authenticated
+        {
+            path: `/login-screen-base`,
+            element: <LoginScreenBaseTest />,
         },
         // Non-Authenticated Route: accessible only if the user is NOT authenticated
         {
@@ -75,8 +83,20 @@ export const GetCustomRoutes = (isAuthenticated: boolean) => {
             element: <ContactUs />,
         },
         {
+            path: `/set-password`,
+            element: (
+                <SecurityContextProvider>
+                    <SetPasswordScreen />
+                </SecurityContextProvider>
+            ),
+        },
+        {
             path: `/verify-code-test`,
             element: <VerifyCodeScreenBaseTest />,
+        },
+        {
+            path: `/create-account`,
+            element: <CreateAccountScreenBaseTest />,
         },
         // Authenticated Route: accessible only if the user IS authenticated
         {

@@ -7,7 +7,6 @@ import {
     useAccountUIState,
     useInjectedUIContext,
     AccountActions,
-    EMAIL_REGEX,
 } from '../auth-shared';
 import { Link } from 'react-router-dom';
 import Button from '@mui/material/Button';
@@ -23,6 +22,7 @@ import stackedEatonLogo from '../assets/images/eaton_stacked_logo.png';
 import cyberBadge from '../assets/images/cybersecurity_certified.png';
 import * as Colors from '@brightlayer-ui/colors';
 import Box from '@mui/material/Box';
+import { EMAIL_REGEX } from '../new-architecture';
 
 const HELPER_TEXT_HEIGHT = 22;
 

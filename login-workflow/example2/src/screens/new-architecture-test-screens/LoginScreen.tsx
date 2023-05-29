@@ -34,6 +34,13 @@ export const LoginScreen = (): JSX.Element => {
                             <Button
                                 variant="contained"
                                 sx={{ width: 180, ml: 2 }}
+                                onClick={(): void => navigate('/login-screen-base')}
+                            >
+                                Test Login Screen Base
+                            </Button>
+                            <Button
+                                variant="contained"
+                                sx={{ width: 180, ml: 2 }}
                                 onClick={(): void => navigate('/registration-test')}
                             >
                                 Test Registration
@@ -62,6 +69,13 @@ export const LoginScreen = (): JSX.Element => {
                             <Button
                                 variant="contained"
                                 sx={{ width: 180, ml: 2 }}
+                                onClick={(): void => navigate('/set-password')}
+                            >
+                                Set Password
+                            </Button>
+                            <Button
+                                variant="contained"
+                                sx={{ width: 180, ml: 2 }}
                                 onClick={(): void => navigate('/success-screen')}
                             >
                                 Success Screen Base
@@ -76,9 +90,16 @@ export const LoginScreen = (): JSX.Element => {
                             <Button
                                 variant="contained"
                                 sx={{ width: 180, ml: 2 }}
+                                onClick={(): void => navigate('/create-account')}
+                            >
+                                Create Account
+                            </Button>
+                            <Button
+                                variant="contained"
+                                sx={{ width: 180, ml: 2 }}
                                 onClick={(): void => navigate('/eula-screen-test')}
                             >
-                                Eula Screen Test
+                               Eula Screen Test
                             </Button>
                         </Box>
                     }
