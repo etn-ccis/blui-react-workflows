@@ -3,9 +3,9 @@ import { useTheme } from '@mui/material/styles';
 import CheckCircleOutlinedIcon from '@mui/icons-material/CheckCircleOutlined';
 import { PasswordRequirements, SecureTextField } from '../../../components';
 import { TextFieldStyles } from '../../../styles';
-import { useLanguageLocale } from '../../../auth-shared';
 import { SetPasswordProps } from './types';
 import { defaultPasswordRequirements } from '../../constants';
+import { useLanguageLocale } from '../../hooks';
 
 /**
  * Component that renders a change password form with a new password and confirm password inputs.
@@ -27,9 +27,9 @@ export const SetPassword: React.FC<React.PropsWithChildren<SetPasswordProps>> = 
     const { t } = useLanguageLocale();
     const {
         newPasswordLabel,
-        initialNewPasswordValue,
+        initialNewPasswordValue = '',
         confirmPasswordLabel,
-        initialConfirmPasswordValue,
+        initialConfirmPasswordValue = '',
         passwordRequirements = defaultPasswordRequirements(t),
         onPasswordChange,
         children,
@@ -78,6 +78,7 @@ export const SetPassword: React.FC<React.PropsWithChildren<SetPasswordProps>> = 
             {children}
             <SecureTextField
                 id="password"
+                data-testid="password"
                 name="password"
                 inputRef={passwordRef}
                 label={newPasswordLabel || t('bluiAuth:FORMS.PASSWORD')}
@@ -92,9 +93,14 @@ export const SetPassword: React.FC<React.PropsWithChildren<SetPasswordProps>> = 
                 error={shouldValidatePassword && !isValidPassword()}
                 onBlur={(): void => setShouldValidatePassword(true)}
             />
-            <PasswordRequirements sx={{ mt: 2 }} passwordText={passwordInput} />
+            <PasswordRequirements
+                sx={{ mt: 2 }}
+                passwordText={passwordInput}
+                passwordRequirements={passwordRequirements}
+            />
             <SecureTextField
                 id="confirm"
+                data-testid="confirm"
                 name="confirm"
                 inputRef={confirmRef}
                 label={confirmPasswordLabel || t('bluiAuth:FORMS.CONFIRM_PASSWORD')}
@@ -108,7 +114,7 @@ export const SetPassword: React.FC<React.PropsWithChildren<SetPasswordProps>> = 
                 helperText={hasConfirmPasswordError() ? t('bluiAuth:FORMS.PASS_MATCH_ERROR') : ''}
                 icon={
                     confirmInput.length !== 0 && confirmInput === passwordInput ? (
-                        <CheckCircleOutlinedIcon color="success" />
+                        <CheckCircleOutlinedIcon data-testid="check" color="success" />
                     ) : undefined
                 }
                 onBlur={(): void => setShouldValidateConfirmPassword(true)}
