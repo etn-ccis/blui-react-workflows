@@ -91,6 +91,7 @@ export const AccountDetailsScreenBase: React.FC<AccountDetailsScreenProps> = (pr
                     }}
                     error={showFirstNameError}
                     helperText={firstNameError}
+                    sx={{ mb: { md: 0, sm: 1, xs: 4 } }}
                 />
                 <TextField
                     id="last"
