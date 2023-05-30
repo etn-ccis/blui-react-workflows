@@ -55,8 +55,8 @@ export const WorkflowCard: React.FC<WorkflowCardBaseProps> = (props) => {
                     {
                         width: '100%',
                         height: '100%',
-                        maxWidth: '450px',
-                        maxHeight: '730px',
+                        maxWidth: { sm: '450px', xs: 'none' },
+                        maxHeight: { sm: '730px', xs: 'none' },
                         display: 'flex',
                         flexDirection: 'column',
                         position: 'relative',
