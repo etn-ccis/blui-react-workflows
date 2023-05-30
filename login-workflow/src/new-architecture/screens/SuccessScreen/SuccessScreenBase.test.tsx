@@ -6,6 +6,10 @@ import { SuccessScreenBase } from './SuccessScreenBase';
 afterEach(cleanup);
 
 describe('SuccessScreenBase tests', () => {
+    it('rendering the screen without any props', () => {
+        render(<SuccessScreenBase />);
+    });
+
     it('renders without crashing', () => {
         render(
             <SuccessScreenBase

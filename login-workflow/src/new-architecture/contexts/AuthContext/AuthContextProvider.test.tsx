@@ -8,7 +8,7 @@ import { AuthContextProviderProps, useAuthContext } from '.';
 
 afterEach(cleanup);
 
-const defaultProps: AuthContextProviderProps = {
+export const defaultProps: AuthContextProviderProps = {
     language: 'en',
     i18n: i18nAuthInstance,
     navigate: (): void => {},

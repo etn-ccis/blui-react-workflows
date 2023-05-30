@@ -15,8 +15,6 @@
 
 import { english, french, spanish, chinese, portuguese } from './data/translations';
 
-export * from './constants';
-
 export * from './contexts/AccountUIContext';
 export * from './contexts/SecurityContextProvider';
 export { AuthUIContextProvider } from './contexts/AuthUIContextProvider';

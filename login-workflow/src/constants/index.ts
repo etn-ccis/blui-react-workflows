@@ -5,7 +5,7 @@ import {
     UPPER_CASE_REGEX,
     LOWER_CASE_REGEX,
     SPECIAL_CHAR_REGEX,
-} from '../auth-shared';
+} from '../new-architecture';
 
 export const defaultPasswordRequirements = (t: (input: string) => string): PasswordRequirement[] => [
     {

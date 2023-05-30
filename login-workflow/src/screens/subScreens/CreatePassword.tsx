@@ -1,7 +1,7 @@
 import React, { useState, useCallback, useEffect, useRef } from 'react';
 import { useInjectedUIContext, useLanguageLocale } from '../../auth-shared';
-import { ChangePasswordForm } from '../../components';
 import { defaultPasswordRequirements } from '../../constants';
+import { SetPassword } from '../../new-architecture/components/SetPassword';
 
 export type CreatePasswordProps = {
     onPasswordChanged: (password: string) => void;
@@ -21,7 +21,7 @@ export type CreatePasswordProps = {
 export const CreatePassword: React.FC<React.PropsWithChildren<React.PropsWithChildren<CreatePasswordProps>>> = (
     props
 ) => {
-    const { onPasswordChanged, initialPassword = '', onSubmit } = props;
+    const { onPasswordChanged, initialPassword = 'Test', onSubmit } = props;
     const { t } = useLanguageLocale();
 
     const passwordRef = useRef(null);
@@ -52,11 +52,11 @@ export const CreatePassword: React.FC<React.PropsWithChildren<React.PropsWithChi
     }, [onPasswordChanged, passwordInput, confirmInput, areValidMatchingPasswords]);
 
     return (
-        <ChangePasswordForm
+        <SetPassword
             passwordRef={passwordRef}
             confirmRef={confirmRef}
-            initialPassword={initialPassword}
-            initialConfirm={initialPassword}
+            initialNewPasswordValue={initialPassword}
+            initialConfirmPasswordValue={initialPassword}
             onPasswordChange={updateFields}
             onSubmit={onSubmit}
         />
