@@ -93,7 +93,7 @@ export const LoginScreen = (): JSX.Element => {
                                 onClick={(): void => navigate('/account-details-screen-test')}
                             >
                                 Test Account Details Screen
-                              </Button>
+                            </Button>
                             <Button
                                 variant="contained"
                                 sx={{ width: 180, ml: 2 }}
