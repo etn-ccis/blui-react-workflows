@@ -15,7 +15,6 @@ import { VerifyCodeScreenBaseTest } from '../screens/new-architecture-test-scree
 import { AuthTestScreen, SuccessScreenBaseTest, AccountDetailsScreenBaseTest } from '../screens';
 import { LoginScreenBaseTest } from '../screens/new-architecture-test-screens/LoginScreenBase';
 import { CreateAccountScreenBaseTest } from '../screens/new-architecture-test-screens/CreateAccountScreenBase';
-import { AuthTestScreen, SuccessScreenBaseTest } from '../screens';
 import { SetPasswordScreen } from '../screens/new-architecture-test-screens/SetPasswordScreen';
 
 export const routes: RouteConfig = {
