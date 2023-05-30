@@ -1,27 +1,15 @@
 /* eslint-disable */
 import React, { useState, useCallback, useEffect, useRef } from 'react';
-import {
-    defaultPasswordRequirements,
-    SetPassword,
-    useLanguageLocale,
-    AuthUIContextProvider,
-    useSecurityActions,
-    BrandedCardContainer,
-} from '@brightlayer-ui/react-auth-workflow';
-import { ProjectAuthUIActions } from '../../actions/AuthUIActions';
-import { ProjectRegistrationUIActions } from '../../actions/RegistrationUIActions';
+import { defaultPasswordRequirements, SetPassword, useLanguageLocale } from '@brightlayer-ui/react-auth-workflow';
 import { AppBar, Toolbar, Typography, Box, Button } from '@mui/material';
 import { useNavigate } from 'react-router';
 import { CreatePasswordScreenBase } from '@brightlayer-ui/react-auth-workflow';
 import { Spacer } from '@brightlayer-ui/react-components';
 export const CreatePasswordScreenTest = (): JSX.Element => {
-    const navigate = useNavigate();
     const { t } = useLanguageLocale();
     const passwordRef = useRef(null);
     const confirmRef = useRef(null);
-    const securityContextActions = useSecurityActions();
-
-    
+    const navigate = useNavigate();
     const [passwordInput, setPasswordInput] = useState('');
     const [confirmInput, setConfirmInput] = useState('');
 
@@ -44,12 +32,13 @@ export const CreatePasswordScreenTest = (): JSX.Element => {
     useEffect(() => {
         setPasswordInput(areValidMatchingPasswords() ? passwordInput : '');
     }, [setPasswordInput, passwordInput, confirmInput, areValidMatchingPasswords]);
+
     return (
         <Box sx={{ display: 'flex', flexDirection: 'column', height: '100%' }}>
             <AppBar position={'sticky'}>
                 <Toolbar sx={{ px: 2 }}>
                     <Typography variant={'h6'} color={'inherit'}>
-                       Create Password Screen
+                        Create Password Screen
                     </Typography>
                     <Spacer />
                     <Button
@@ -69,18 +58,23 @@ export const CreatePasswordScreenTest = (): JSX.Element => {
                         instructions:
                             'Please select a password. Make sure that your password meets the necessary complexity requirements outlined below.',
                     }}
-                    // PasswordProps={{
-                    //     passwordRef: passwordRef,
-                    //     confirmRef: confirmRef,
-                    //     initialNewPasswordValue:passwordInput,
-                    //     initialConfirmPasswordValue:confirmInput,
-                    //     onPasswordChange:updateFields,
-                    //     onSubmit?: () => void
-                    // }}
+                    PasswordProps={{
+                        passwordRef: passwordRef,
+                        confirmRef: confirmRef,
+                        initialNewPasswordValue: passwordInput,
+                        initialConfirmPasswordValue: confirmInput,
+                        onPasswordChange: updateFields,
+                        onSubmit: () => {
+                            console.log('submitting form...');
+                        },
+                    }}
                     WorkflowCardActionsProps={{
                         showNext: true,
                         nextLabel: 'Next',
-                        canGoNext: true,
+                        canGoNext:
+                            passwordInput !== '' && confirmInput !== '' && passwordInput === confirmInput
+                                ? true
+                                : false,
                         showPrevious: true,
                         previousLabel: 'Back',
                         canGoPrevious: true,
