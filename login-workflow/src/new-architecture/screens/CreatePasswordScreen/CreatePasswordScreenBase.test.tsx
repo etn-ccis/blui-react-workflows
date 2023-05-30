@@ -29,26 +29,30 @@ describe('Create Password Screen Base', () => {
         render(
             <CreatePasswordScreenBase
                 WorkflowCardHeaderProps={{ title: 'Create Password' }}
-                    WorkflowCardInstructionProps={{
-                        instructions:
-                            'Please select a password. Make sure that your password meets the necessary complexity requirements outlined below.',
-                    }}
-                    PasswordProps={defaultProps}
-                    WorkflowCardActionsProps={{
-                        showNext: true,
-                        nextLabel: 'Next',
-                        canGoNext:true,
-                        showPrevious: true,
-                        previousLabel: 'Back',
-                        canGoPrevious: true,
-                        currentStep: 2,
-                        totalSteps: 6,
-                        onNext: mockOnNext(),
-                    }}
+                WorkflowCardInstructionProps={{
+                    instructions:
+                        'Please select a password. Make sure that your password meets the necessary complexity requirements outlined below.',
+                }}
+                PasswordProps={defaultProps}
+                WorkflowCardActionsProps={{
+                    showNext: true,
+                    nextLabel: 'Next',
+                    canGoNext: true,
+                    showPrevious: true,
+                    previousLabel: 'Back',
+                    canGoPrevious: true,
+                    currentStep: 2,
+                    totalSteps: 6,
+                    onNext: mockOnNext(),
+                }}
             ></CreatePasswordScreenBase>
         );
         expect(screen.getByText('Create Password')).toBeInTheDocument();
-        expect(screen.getByText('Please select a password. Make sure that your password meets the necessary complexity requirements outlined below.')).toBeInTheDocument();
+        expect(
+            screen.getByText(
+                'Please select a password. Make sure that your password meets the necessary complexity requirements outlined below.'
+            )
+        ).toBeInTheDocument();
         expect(screen.getByText('Next')).toBeInTheDocument();
         expect(screen.getByText(/Next/i)).toBeEnabled();
         expect(screen.getByText('Back')).toBeInTheDocument();
