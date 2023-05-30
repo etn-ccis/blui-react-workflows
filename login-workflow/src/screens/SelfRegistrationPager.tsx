@@ -159,13 +159,17 @@ export const SelfRegistrationPager: React.FC<React.PropsWithChildren<React.Props
             if (hasRegistrationTransitError) registrationActions.dispatch(RegistrationActions.registerUserReset());
             setHasAcknowledgedError(false);
         }
-        return (): void => {
+        // eslint-disable-next-line react-hooks/exhaustive-deps
+    }, [hasAcknowledgedError]);
+
+    useEffect(
+        () => (): void => {
             registrationActions.dispatch(RegistrationActions.requestRegistrationCodeReset());
             registrationActions.dispatch(RegistrationActions.validateUserRegistrationReset());
             registrationActions.dispatch(RegistrationActions.registerUserReset());
-        };
-        // eslint-disable-next-line react-hooks/exhaustive-deps
-    }, [hasAcknowledgedError]);
+        },
+        [] // eslint-disable-line react-hooks/exhaustive-deps
+    );
 
     // Call the API to finish registration
     const attemptRegistration = useCallback(async (): Promise<void> => {
