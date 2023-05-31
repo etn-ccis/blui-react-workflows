@@ -20,6 +20,7 @@ import {
     ContactUs,
     RegistrationTestScreen,
     LoginScreen,
+    ResetPasswordScreen,
 } from '../screens';
 
 export const routes: RouteConfig = {
@@ -95,6 +96,14 @@ export const GetCustomRoutes = (isAuthenticated: boolean) => {
             element: (
                 <SecurityContextProvider>
                     <SetPasswordScreen />
+                </SecurityContextProvider>
+            ),
+        },
+        {
+            path: `/reset-password`,
+            element: (
+                <SecurityContextProvider>
+                    <ResetPasswordScreen />
                 </SecurityContextProvider>
             ),
         },

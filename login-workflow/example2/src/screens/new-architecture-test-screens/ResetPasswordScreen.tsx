@@ -7,8 +7,9 @@ import {
 import { AppBar, Toolbar, Typography, Box, Button } from '@mui/material';
 import { useNavigate } from 'react-router';
 import { Spacer } from '@brightlayer-ui/react-components';
+import { CheckCircle } from '@mui/icons-material';
 
-export const ResetPasswordScreenTest = (): JSX.Element => {
+export const ResetPasswordScreen = (): JSX.Element => {
     const { t } = useLanguageLocale();
     const passwordRef = useRef(null);
     const confirmRef = useRef(null);
@@ -64,11 +65,13 @@ export const ResetPasswordScreenTest = (): JSX.Element => {
                     }}
                     PasswordProps={{
                         passwordRef: passwordRef,
+                        newPasswordLabel: 'New Password',
                         confirmRef: confirmRef,
                         initialNewPasswordValue: passwordInput,
                         initialConfirmPasswordValue: confirmInput,
                         onPasswordChange: updateFields,
-                        onSubmit: () => {
+                        onSubmit: (): void => {
+                            // eslint-disable-next-line no-console
                             console.log('submitting form...');
                         },
                     }}
@@ -76,11 +79,35 @@ export const ResetPasswordScreenTest = (): JSX.Element => {
                         showNext: true,
                         nextLabel: 'Okay',
                         canGoNext: passwordInput !== '' && confirmInput !== '' && passwordInput === confirmInput,
-                        onNext: () => {
+                        onNext: (): void => {
                             setShowSuccessScreen(true);
                         },
                         showPrevious: true,
                         previousLabel: 'Back',
+                    }}
+                    slotProps={{
+                        SuccessScreen: {
+                            icon: <CheckCircle color="primary" sx={{ fontSize: 100 }} />,
+                            messageTitle: 'Your password was successfully reset.',
+                            message:
+                                'Your password has been reset successfully. To ensure your account security, you will need to log in to the application with your updated credentials.',
+                            onDismiss: (): void => {
+                                // eslint-disable-next-line no-console
+                                console.log('dismissing success screen...');
+                                navigate('/login');
+                            },
+                            WorkflowCardActionsProps: {
+                                showPrevious: false,
+                                fullWidthButton: true,
+                                showNext: true,
+                                nextLabel: 'Done',
+                                onNext: (): void => {
+                                    // eslint-disable-next-line no-console
+                                    console.log('dismissing success screen from ActionProps...');
+                                    navigate('/login');
+                                },
+                            },
+                        },
                     }}
                     showSuccessScreen={showSuccessScreen}
                 />
