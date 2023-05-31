@@ -4,4 +4,5 @@ export * from './LoginScreen';
 export * from './VerifyCodeScreen';
 export * from './SuccessScreen';
 export * from './CreatePasswordScreen';
+export * from './AccountDetailsScreen';
 export * from './CreateAccountScreen';

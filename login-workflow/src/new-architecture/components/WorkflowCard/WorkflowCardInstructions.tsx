@@ -9,7 +9,7 @@ export const WorkflowCardInstructions: React.FC<WorkflowCardInstructionProps> = 
     return (
         <>
             <Typography {...otherTypographyProps}>{instructions}</Typography>
-            {divider ? <Divider sx={{ mt: 5, mb: 4, mx: { md: -3, sm: -2 } }} /> : null}
+            {divider ? <Divider sx={{ mt: 5, mb: 4, mx: { md: -3, xs: -2 } }} /> : null}
         </>
     );
 };
