@@ -2,7 +2,7 @@ import React from 'react';
 import '@testing-library/jest-dom';
 import { cleanup, render, screen, fireEvent } from '@testing-library/react';
 import { CreatePasswordScreenBase } from './CreatePasswordScreenBase';
-import { SetPasswordProps } from '../../components/SetPassword/types';
+import { SetPasswordProps } from '../../components';
 
 afterEach(cleanup);
 

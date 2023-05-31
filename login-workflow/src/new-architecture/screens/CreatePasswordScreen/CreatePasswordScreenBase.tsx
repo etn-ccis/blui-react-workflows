@@ -1,10 +1,12 @@
 import React from 'react';
 import { CreatePasswordScreenProps } from './types';
-import { WorkflowCard } from '../../components/WorkflowCard';
-import { WorkflowCardActions } from '../../components/WorkflowCard/WorkflowCardActions';
-import { WorkflowCardBody } from '../../components/WorkflowCard/WorkflowCardBody';
-import { WorkflowCardHeader } from '../../components/WorkflowCard/WorkflowCardHeader';
-import { WorkflowCardInstructions } from '../../components/WorkflowCard/WorkflowCardInstructions';
+import {
+    WorkflowCard,
+    WorkflowCardActions,
+    WorkflowCardBody,
+    WorkflowCardHeader,
+    WorkflowCardInstructions,
+} from '../../components';
 import { SetPassword } from '../../components/SetPassword';
 
 export const CreatePasswordScreenBase: React.FC<React.PropsWithChildren<CreatePasswordScreenProps>> = (props) => {
@@ -16,12 +18,12 @@ export const CreatePasswordScreenBase: React.FC<React.PropsWithChildren<CreatePa
 
     return (
         <WorkflowCard {...cardBaseProps}>
-            <WorkflowCardHeader {...headerProps}></WorkflowCardHeader>
+            <WorkflowCardHeader {...headerProps} />
             <WorkflowCardBody>
                 <WorkflowCardInstructions {...instructionsProps} divider />
                 <SetPassword {...passwordProps} />
             </WorkflowCardBody>
-            <WorkflowCardActions {...actionsProps} divider></WorkflowCardActions>
+            <WorkflowCardActions {...actionsProps} divider />
         </WorkflowCard>
     );
 };

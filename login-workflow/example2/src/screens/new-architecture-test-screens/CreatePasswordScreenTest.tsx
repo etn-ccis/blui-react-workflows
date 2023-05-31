@@ -71,10 +71,7 @@ export const CreatePasswordScreenTest = (): JSX.Element => {
                     WorkflowCardActionsProps={{
                         showNext: true,
                         nextLabel: 'Next',
-                        canGoNext:
-                            passwordInput !== '' && confirmInput !== '' && passwordInput === confirmInput
-                                ? true
-                                : false,
+                        canGoNext: passwordInput !== '' && confirmInput !== '' && passwordInput === confirmInput,
                         showPrevious: true,
                         previousLabel: 'Back',
                         canGoPrevious: true,
