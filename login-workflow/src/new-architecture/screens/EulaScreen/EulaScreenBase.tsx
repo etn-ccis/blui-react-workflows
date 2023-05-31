@@ -17,6 +17,7 @@ import DOMPurify from 'dompurify';
  * @param htmlEula true if the EULA should be rendered as HTML
  * @param checkboxLabel label for the EULA checkbox
  * @param initialCheckboxValue used to pre-populate the checked/unchecked checkbox when the screen loads
+ * @param checkboxProps used to set checkbox props
  * @category Component
  */
 
@@ -27,6 +28,7 @@ export const EulaScreenBase: React.FC<React.PropsWithChildren<EulaScreenProps>> 
         checkboxLabel,
         htmlEula,
         initialCheckboxValue,
+        checkboxProps,
     } = props;
 
     const cardBaseProps = props.WorkflowCardBaseProps || {};
@@ -50,7 +52,7 @@ export const EulaScreenBase: React.FC<React.PropsWithChildren<EulaScreenProps>> 
                 {htmlEula && (
                     <Box
                         sx={{ flex: '1 1 0px', overflow: 'auto' }}
-                        dangerouslySetInnerHTML={{ __html: DOMPurify.sanitize(eulaContent as any) }}
+                        dangerouslySetInnerHTML={{ __html: DOMPurify.sanitize(eulaContent as string) }}
                     />
                 )}
                 <FormControlLabel
@@ -61,6 +63,7 @@ export const EulaScreenBase: React.FC<React.PropsWithChildren<EulaScreenProps>> 
                             onChange={(event: React.ChangeEvent<HTMLInputElement>): void =>
                                 handleEulaAcceptedChecked(event.target.checked)
                             }
+                            {...checkboxProps}
                         />
                     }
                     label={checkboxLabel}

@@ -99,7 +99,7 @@ export const LoginScreen = (): JSX.Element => {
                                 sx={{ width: 180, ml: 2 }}
                                 onClick={(): void => navigate('/eula-screen-test')}
                             >
-                               Eula Screen Test
+                                Eula Screen Test
                             </Button>
                         </Box>
                     }

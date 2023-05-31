@@ -8,39 +8,24 @@ import { Spacer } from '@brightlayer-ui/react-components';
 import { SAMPLE_EULA } from '../../constants/sampleEula';
 const sleep = (ms: number): Promise<void> => new Promise((resolve) => setTimeout(resolve, ms));
 
-function getRandomInt(max: number): number {
-    return Math.floor(Math.random() * Math.floor(max));
-}
-
-function isRandomFailure(): boolean {
-    /* eslint-disable-next-line @typescript-eslint/no-unused-vars */
-    const randomResponseNumber = getRandomInt(100);
-    return false; // randomResponseNumber < 90;
-}
 export const EulaScreenBaseTest = (): JSX.Element => {
     const navigate = useNavigate();
     const { t } = useLanguageLocale();
 
     const [eulaLoaded, setIsEulaLoaded] = useState(true);
-    const [eulaError, setIsEulaError] = useState(false);
     const [eulaContent, setEulaContent] = useState('');
 
-    const loadAndCacheEula = useCallback(async (): Promise<void> => {
+    const loadEula = useCallback(async (): Promise<void> => {
         if (!eulaContent) {
             setEulaContent(t('blui:REGISTRATION.EULA.LOADING'));
             await sleep(800);
-            if (isRandomFailure()) {
-                setIsEulaError(true);
-                throw new Error('Sorry, there was a problem sending your request.');
-            }
-
             setEulaContent(SAMPLE_EULA);
             setIsEulaLoaded(false);
         }
-    }, [eulaContent, setEulaContent, eulaError, t]);
+    }, [eulaContent, setEulaContent, t]);
 
     useEffect(() => {
-        void loadAndCacheEula();
+        void loadEula();
     }, []);
 
     return (
@@ -67,9 +52,9 @@ export const EulaScreenBaseTest = (): JSX.Element => {
                     eulaContent={eulaContent}
                     WorkflowCardBaseProps={{
                         loading: eulaLoaded,
-                        error: eulaError,
                     }}
                     checkboxLabel={'I have read and agree to the Terms & Conditions'}
+                    checkboxProps={{ disabled: false }}
                     initialCheckboxValue={false}
                     onEulaAcceptedChange={(accepted: boolean): boolean => accepted}
                     WorkflowCardActionsProps={{
