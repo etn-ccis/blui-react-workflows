@@ -15,12 +15,12 @@ export const SuccessScreenBase: React.FC<SuccessScreenProps> = (props) => {
         <WorkflowCard {...cardBaseProps}>
             <WorkflowCardHeader {...headerProps} />
             <WorkflowCardBody>
-                <WorkflowFinishState icon={icon} title={messageTitle || ''} description={message || ''} />
+                <WorkflowFinishState icon={icon} title={messageTitle} description={message} />
             </WorkflowCardBody>
             <Divider />
             <WorkflowCardActions
                 {...actionsProps}
-                nextLabel={dismissButtonLabel || actionsProps.nextLabel || 'Done'}
+                nextLabel={dismissButtonLabel || actionsProps.nextLabel}
                 canGoNext={canDismiss}
                 onNext={(): void => {
                     if (onDismiss) onDismiss();

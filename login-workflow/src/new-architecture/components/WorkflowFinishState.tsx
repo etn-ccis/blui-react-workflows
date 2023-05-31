@@ -31,7 +31,6 @@ export const WorkflowFinishState: React.FC<React.PropsWithChildren<React.PropsWi
             style={style}
         >
             <EmptyState
-                title=""
                 {...emptyStateProps}
                 classes={{
                     ...emptyStateClasses,
