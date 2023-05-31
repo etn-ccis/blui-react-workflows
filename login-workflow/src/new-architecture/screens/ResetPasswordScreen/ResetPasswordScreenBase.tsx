@@ -11,6 +11,23 @@ import {
 import { SuccessScreenBase } from '../SuccessScreen/SuccessScreenBase';
 import { SuccessScreenProps } from '../SuccessScreen';
 
+/**
+ * Component that renders a ResetPassword screen that allows a user to reset their password and shows a success message upon a successful password reset..
+ *
+ * @param showSuccessScreen boolean that determines whether to show the success screen or not
+ * @param slotProps props that will be passed to the SuccessScreen component
+ * @param PasswordProps props that will be passed to the SetPassword component
+ * @param SuccessScreen component that will be rendered when showSuccessScreen is true
+ * @param WorkflowCardBaseProps props that will be passed to the WorkflowCard component
+ * @param WorkflowCardHeaderProps props that will be passed to the WorkflowCardHeader component
+ * @param WorkflowCardInstructionProps props that will be passed to the WorkflowCardInstructions component
+ * @param WorkflowCardActionsProps props that will be passed to the WorkflowCardActions component
+ * @returns a React JSX Element that renders a ResetPassword screen
+ *
+ * @category Component
+ *
+ */
+
 export const ResetPasswordScreenBase: React.FC<React.PropsWithChildren<ResetPasswordScreenProps>> = (props) => {
     const cardBaseProps = props.WorkflowCardBaseProps || {};
     const headerProps = props.WorkflowCardHeaderProps || {};

@@ -5,7 +5,7 @@ import { SuccessScreenProps } from './types';
 import { WorkflowFinishState } from '../../components';
 
 export const SuccessScreenBase: React.FC<SuccessScreenProps> = (props) => {
-    const { icon, messageTitle, message, dismissButtonLabel, canDismiss, onDismiss } = props;
+    const { icon, messageTitle = '', message = '', dismissButtonLabel = '', canDismiss, onDismiss } = props;
 
     const cardBaseProps = props.WorkflowCardBaseProps || {};
     const headerProps = props.WorkflowCardHeaderProps || {};
@@ -15,7 +15,7 @@ export const SuccessScreenBase: React.FC<SuccessScreenProps> = (props) => {
         <WorkflowCard {...cardBaseProps}>
             <WorkflowCardHeader {...headerProps} />
             <WorkflowCardBody>
-                <WorkflowFinishState icon={icon} title={messageTitle} description={message} />
+                <WorkflowFinishState icon={icon} title={messageTitle || ''} description={message || ''} />
             </WorkflowCardBody>
             <Divider />
             <WorkflowCardActions

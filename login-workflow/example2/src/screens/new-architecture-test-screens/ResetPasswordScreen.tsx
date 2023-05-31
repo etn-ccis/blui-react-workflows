@@ -85,6 +85,16 @@ export const ResetPasswordScreen = (): JSX.Element => {
                         showPrevious: true,
                         previousLabel: 'Back',
                     }}
+                    // slots={{
+                    //     // eslint-disable-next-line
+                    //     SuccessScreen: (): JSX.Element => (
+                    //         <Box sx={{ display: 'flex', flexDirection: 'column', height: '100%' }}>
+                    //             <Typography variant={'h6'} color={'inherit'}>
+                    //                 Success Screen
+                    //             </Typography>
+                    //         </Box>
+                    //     ),
+                    // }}
                     slotProps={{
                         SuccessScreen: {
                             icon: <CheckCircle color="primary" sx={{ fontSize: 100 }} />,
