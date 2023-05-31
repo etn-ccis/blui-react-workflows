@@ -21,3 +21,5 @@ export const useRegistrationWorkflowContext = (): RegistrationWorkflowContextPro
 export type { RegistrationWorkflowContextProps };
 
 export { RegistrationWorkflowContextProvider };
+
+export * from './types';
