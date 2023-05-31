@@ -90,6 +90,13 @@ export const LoginScreen = (): JSX.Element => {
                             <Button
                                 variant="contained"
                                 sx={{ width: 180, ml: 2 }}
+                                onClick={(): void => navigate('/account-details-screen-test')}
+                            >
+                                Test Account Details Screen
+                            </Button>
+                            <Button
+                                variant="contained"
+                                sx={{ width: 180, ml: 2 }}
                                 onClick={(): void => navigate('/create-account')}
                             >
                                 Create Account

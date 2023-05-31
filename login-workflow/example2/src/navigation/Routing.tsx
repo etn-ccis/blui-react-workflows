@@ -12,10 +12,10 @@ import { RegistrationTestScreen } from '../screens/new-architecture-test-screens
 import { ContactUs } from '../screens/new-architecture-test-screens/ContactUs';
 import { GuardedScreen } from '../screens/new-architecture-test-screens/GuardedScreen';
 import { VerifyCodeScreenBaseTest } from '../screens/new-architecture-test-screens/VerifyCodeScreenBase';
+import { AuthTestScreen, SuccessScreenBaseTest, AccountDetailsScreenBaseTest } from '../screens';
 import { EulaScreenBaseTest } from '../screens/new-architecture-test-screens/EulaScreenBase';
 import { LoginScreenBaseTest } from '../screens/new-architecture-test-screens/LoginScreenBase';
 import { CreateAccountScreenBaseTest } from '../screens/new-architecture-test-screens/CreateAccountScreenBase';
-import { AuthTestScreen, SuccessScreenBaseTest } from '../screens';
 import { SetPasswordScreen } from '../screens/new-architecture-test-screens/SetPasswordScreen';
 
 export const routes: RouteConfig = {
@@ -93,6 +93,10 @@ export const GetCustomRoutes = (isAuthenticated: boolean) => {
         {
             path: `/verify-code-test`,
             element: <VerifyCodeScreenBaseTest />,
+        },
+        {
+            path: `/account-details-screen-test`,
+            element: <AccountDetailsScreenBaseTest />,
         },
         {
             path: `/create-account`,
