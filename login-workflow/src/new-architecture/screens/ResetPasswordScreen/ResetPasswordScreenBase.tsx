@@ -1,25 +1,37 @@
 import React from 'react';
 import { ResetPasswordScreenProps } from './types';
-import { WorkflowCard } from '../../components/WorkflowCard';
-import { WorkflowCardActions } from '../../components/WorkflowCard/WorkflowCardActions';
-import { WorkflowCardBody } from '../../components/WorkflowCard/WorkflowCardBody';
-import { WorkflowCardHeader } from '../../components/WorkflowCard/WorkflowCardHeader';
-import { WorkflowCardInstructions } from '../../components/WorkflowCard/WorkflowCardInstructions';
-// import { SetPassword } from '../../components/SetPassword';
+import {
+    WorkflowCard,
+    WorkflowCardHeader,
+    WorkflowCardBody,
+    WorkflowCardInstructions,
+    SetPassword,
+    WorkflowCardActions,
+} from '../../components';
+import { SuccessScreenBase } from '../SuccessScreen/SuccessScreenBase';
+import { SuccessScreenProps } from '../SuccessScreen';
 
 export const ResetPasswordScreenBase: React.FC<React.PropsWithChildren<ResetPasswordScreenProps>> = (props) => {
     const cardBaseProps = props.WorkflowCardBaseProps || {};
     const headerProps = props.WorkflowCardHeaderProps || {};
     const instructionsProps = props.WorkflowCardInstructionProps || {};
     const actionsProps = props.WorkflowCardActionsProps || {};
-    // const passwordProps = props.PasswordProps || { onPasswordChange: () => ({}) };
+    const passwordProps = props.PasswordProps || { onPasswordChange: () => ({}) };
+    const { showSuccessScreen, slots, slotProps } = props;
 
-    return (
+    const getSuccessScreen = (
+        _props: SuccessScreenProps,
+        SuccessScreen: (props: SuccessScreenProps) => JSX.Element
+    ): JSX.Element => (SuccessScreen ? SuccessScreen(_props) : <SuccessScreenBase {..._props} />);
+
+    return showSuccessScreen ? (
+        getSuccessScreen(slotProps.SuccessScreen, slots.SuccessScreen)
+    ) : (
         <WorkflowCard {...cardBaseProps}>
             <WorkflowCardHeader {...headerProps}></WorkflowCardHeader>
             <WorkflowCardBody>
                 <WorkflowCardInstructions {...instructionsProps} divider />
-                {/* <SetPassword {...passwordProps} /> */}
+                <SetPassword {...passwordProps} />
             </WorkflowCardBody>
             <WorkflowCardActions {...actionsProps} divider></WorkflowCardActions>
         </WorkflowCard>
