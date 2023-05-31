@@ -6,4 +6,8 @@ export * from './RegistrationTestScreen';
 export * from './AuthTestScreen';
 export * from './SuccessScreenBaseTest';
 export * from './RegistrationWorkflowScreen';
+export * from './AccountDetailsScreenBaseTest';
 export * from './CreateAccountScreenBase';
+export * from './SetPasswordScreen';
+export * from './LoginScreenBase';
+export * from './VerifyCodeScreenBase';
