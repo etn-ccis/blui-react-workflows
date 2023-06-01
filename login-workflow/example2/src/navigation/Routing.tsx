@@ -20,7 +20,7 @@ import {
     ContactUs,
     RegistrationTestScreen,
     LoginScreen,
-    CreatePasswordScreenTest
+    CreatePasswordScreenTest,
 } from '../screens';
 
 export const routes: RouteConfig = {
