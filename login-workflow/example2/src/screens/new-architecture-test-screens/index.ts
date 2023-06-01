@@ -11,3 +11,4 @@ export * from './CreateAccountScreenBase';
 export * from './SetPasswordScreen';
 export * from './LoginScreenBase';
 export * from './VerifyCodeScreenBase';
+export * from './ChangePasswordDialogTest';

@@ -20,6 +20,7 @@ import {
     ContactUs,
     RegistrationTestScreen,
     LoginScreen,
+    ChangePasswordDialogTest,
 } from '../screens';
 
 export const routes: RouteConfig = {
@@ -127,6 +128,10 @@ export const GetCustomRoutes = (isAuthenticated: boolean) => {
         {
             path: `/success-screen`,
             element: <SuccessScreenBaseTest />,
+        },
+        {
+            path: `/change-password-dialog`,
+            element: <ChangePasswordDialogTest />,
         },
     ];
     return customRoutes;
