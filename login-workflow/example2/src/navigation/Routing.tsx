@@ -7,16 +7,21 @@ import {
     SecurityContextProvider,
 } from '@brightlayer-ui/react-auth-workflow';
 import { Navigate, RouterProvider, createBrowserRouter } from 'react-router-dom';
-import { LoginScreen } from '../screens/new-architecture-test-screens/LoginScreen';
-import { RegistrationTestScreen } from '../screens/new-architecture-test-screens/RegistrationTestScreen';
-import { ContactUs } from '../screens/new-architecture-test-screens/ContactUs';
-import { GuardedScreen } from '../screens/new-architecture-test-screens/GuardedScreen';
-import { VerifyCodeScreenBaseTest } from '../screens/new-architecture-test-screens/VerifyCodeScreenBase';
-import { AuthTestScreen, SuccessScreenBaseTest, AccountDetailsScreenBaseTest } from '../screens';
-import { LoginScreenBaseTest } from '../screens/new-architecture-test-screens/LoginScreenBase';
-import { CreateAccountScreenBaseTest } from '../screens/new-architecture-test-screens/CreateAccountScreenBase';
-import { SetPasswordScreen } from '../screens/new-architecture-test-screens/SetPasswordScreen';
-import { CreatePasswordScreenTest } from '../screens/new-architecture-test-screens/CreatePasswordScreenTest';
+import {
+    AuthTestScreen,
+    SuccessScreenBaseTest,
+    AccountDetailsScreenBaseTest,
+    SetPasswordScreen,
+    LoginScreenBaseTest,
+    CreateAccountScreenBaseTest,
+    RegistrationWorkflowScreen,
+    VerifyCodeScreenBaseTest,
+    GuardedScreen,
+    ContactUs,
+    RegistrationTestScreen,
+    LoginScreen,
+    CreatePasswordScreenTest
+} from '../screens';
 
 export const routes: RouteConfig = {
     LOGIN: '/custom-login-route',
@@ -81,6 +86,10 @@ export const GetCustomRoutes = (isAuthenticated: boolean) => {
         {
             path: `/contact-us`,
             element: <ContactUs />,
+        },
+        {
+            path: `/registration-workflow`,
+            element: <RegistrationWorkflowScreen />,
         },
         {
             path: `/set-password`,
