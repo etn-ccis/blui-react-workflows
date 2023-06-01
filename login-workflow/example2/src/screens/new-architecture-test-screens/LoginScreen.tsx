@@ -94,6 +94,13 @@ export const LoginScreen = (): JSX.Element => {
                             >
                                 Create Account
                             </Button>
+                            <Button
+                                variant="contained"
+                                sx={{ width: 180, ml: 2 }}
+                                onClick={(): void => navigate('/forgot-password')}
+                            >
+                                Forgot Password
+                            </Button>
                         </Box>
                     }
                 />
