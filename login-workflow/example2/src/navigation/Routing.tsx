@@ -9,7 +9,7 @@ import {
 import { Navigate, RouterProvider, createBrowserRouter } from 'react-router-dom';
 import { LoginScreen } from '../screens/new-architecture-test-screens/LoginScreen';
 import { RegistrationTestScreen } from '../screens/new-architecture-test-screens/RegistrationTestScreen';
-import { ContactUs } from '../screens/new-architecture-test-screens/ContactUs';
+import { ContactScreenBaseTest } from '../screens/new-architecture-test-screens/ContactScreen';
 import { GuardedScreen } from '../screens/new-architecture-test-screens/GuardedScreen';
 import { VerifyCodeScreenBaseTest } from '../screens/new-architecture-test-screens/VerifyCodeScreenBase';
 import { AuthTestScreen, SuccessScreenBaseTest, AccountDetailsScreenBaseTest } from '../screens';
@@ -79,7 +79,7 @@ export const GetCustomRoutes = (isAuthenticated: boolean) => {
         // Accessible from anywhere
         {
             path: `/contact-us`,
-            element: <ContactUs />,
+            element: <ContactScreenBaseTest />,
         },
         {
             path: `/set-password`,
@@ -145,7 +145,7 @@ export const CustomRouterWithUnbiasedAuthGuard = ({
             // Accessible from anywhere
             {
                 path: `/contact-us`,
-                element: <ContactUs />,
+                element: <ContactScreenBaseTest />,
             },
             // Authenticated Route: accessible only if the user IS authenticated
             {
