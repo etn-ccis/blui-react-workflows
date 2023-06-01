@@ -21,7 +21,7 @@ import DOMPurify from 'dompurify';
  * @category Component
  */
 
-export const EulaScreenBase: React.FC<React.PropsWithChildren<EulaScreenProps>> = (props) => {
+export const EulaScreenBase: React.FC<EulaScreenProps> = (props) => {
     const {
         onEulaAcceptedChange = (accepted: boolean): boolean => accepted,
         eulaContent,
@@ -46,7 +46,7 @@ export const EulaScreenBase: React.FC<React.PropsWithChildren<EulaScreenProps>> 
 
     return (
         <WorkflowCard {...cardBaseProps}>
-            <WorkflowCardHeader {...headerProps}></WorkflowCardHeader>
+            <WorkflowCardHeader {...headerProps} />
             <WorkflowCardBody>
                 {!htmlEula && <Box sx={{ flex: '1 1 0px', overflow: 'auto' }}>{eulaContent}</Box>}
                 {htmlEula && (
@@ -70,11 +70,7 @@ export const EulaScreenBase: React.FC<React.PropsWithChildren<EulaScreenProps>> 
                     sx={{ flex: '0 0 auto', mr: 0, mt: 2 }}
                 />
             </WorkflowCardBody>
-            <WorkflowCardActions
-                {...actionsProps}
-                divider
-                canGoNext={eulaAccepted && actionsProps.canGoNext}
-            ></WorkflowCardActions>
+            <WorkflowCardActions divider {...actionsProps} canGoNext={eulaAccepted && actionsProps.canGoNext} />
         </WorkflowCard>
     );
 };
