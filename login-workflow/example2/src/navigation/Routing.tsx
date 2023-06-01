@@ -20,7 +20,7 @@ import {
     ContactUs,
     RegistrationTestScreen,
     LoginScreen,
-    EulaScreenBaseTest
+    EulaScreenBaseTest,
 } from '../screens';
 
 export const routes: RouteConfig = {
