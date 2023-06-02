@@ -21,7 +21,7 @@ import {
     RegistrationTestScreen,
     LoginScreen,
     CreatePasswordScreenTest,
-    EulaScreenBaseTest
+    EulaScreenBaseTest,
 } from '../screens';
 
 export const routes: RouteConfig = {
