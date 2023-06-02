@@ -6,16 +6,6 @@ import { ResetPasswordScreenBase } from './ResetPasswordScreenBase';
 afterEach(cleanup);
 
 describe('Forgot Password Screen Base', () => {
-    // let mockOnNext: any;
-
-    afterEach(() => {
-        jest.clearAllMocks();
-    });
-
-    beforeEach(() => {
-        // mockOnNext = jest.fn();
-    });
-
     it('renders without crashing', () => {
         render(
             <ResetPasswordScreenBase
