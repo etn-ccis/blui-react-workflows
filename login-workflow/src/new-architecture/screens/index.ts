@@ -6,3 +6,4 @@ export * from './SuccessScreen';
 export * from './CreatePasswordScreen';
 export * from './AccountDetailsScreen';
 export * from './CreateAccountScreen';
+export * from './ForgotPasswordScreen';
