@@ -12,3 +12,4 @@ export * from './RegistrationSuccessSubscreen';
 export * from './ResetPasswordScreen';
 export * from './SuccessScreen';
 export * from './VerifyCodeScreen';
+export * from './ForgotPasswordScreen';
