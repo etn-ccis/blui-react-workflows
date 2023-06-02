@@ -1,4 +1,3 @@
-import React from 'react';
 import { CardActionsProps, CardHeaderProps, TypographyProps } from '@mui/material';
 import { BoxProps } from '@mui/material/Box';
 import { CardProps } from '@mui/material/Card';
@@ -16,7 +15,7 @@ export type WorkflowCardBaseProps = BoxProps & {
 export type WorkflowCardHeaderProps = CardHeaderProps;
 
 export type WorkflowCardInstructionProps = TypographyProps & {
-    instructions?: string | React.ReactNode;
+    instructions?: string | JSX.Element;
     divider?: boolean;
 };
 

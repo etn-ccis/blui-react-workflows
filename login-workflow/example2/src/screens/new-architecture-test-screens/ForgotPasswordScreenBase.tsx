@@ -1,5 +1,5 @@
 import React, { useState } from 'react';
-import { Typography, Box } from '@mui/material';
+import { Box } from '@mui/material';
 import { useNavigate } from 'react-router';
 import { ForgotPasswordScreenBase, SuccessScreenBase } from '@brightlayer-ui/react-auth-workflow';
 import { CheckCircle } from '@mui/icons-material';
@@ -21,7 +21,7 @@ export const ForgotPasswordScreenBaseTest = (): JSX.Element => {
                     WorkflowCardHeaderProps={{ title: 'Forgot Password' }}
                     WorkflowCardInstructionProps={{
                         instructions: (
-                            <Typography component="div">
+                            <Box>
                                 Please enter the account email associated with the account.
                                 <Box sx={{ my: 3 }}>
                                     If this email has an account with Eaton, you will receive a response within{' '}
@@ -35,7 +35,7 @@ export const ForgotPasswordScreenBaseTest = (): JSX.Element => {
                                     1-800-123-4567
                                 </Box>
                                 .
-                            </Typography>
+                            </Box>
                         ),
                     }}
                     emailValidator={emailValidator}
@@ -63,13 +63,13 @@ export const ForgotPasswordScreenBaseTest = (): JSX.Element => {
                                 icon={<CheckCircle color={'primary'} sx={{ fontSize: 100, mb: 5 }} />}
                                 messageTitle="Email Sent"
                                 message={
-                                    <Typography component="div">
+                                    <Box component="div">
                                         A link to reset your password has been sent to{' '}
                                         <Box fontWeight="fontWeightBold" display="inline">
                                             {emailInput}
                                         </Box>
                                         <Box>.</Box>
-                                    </Typography>
+                                    </Box>
                                 }
                                 WorkflowCardActionsProps={{
                                     showNext: true,
