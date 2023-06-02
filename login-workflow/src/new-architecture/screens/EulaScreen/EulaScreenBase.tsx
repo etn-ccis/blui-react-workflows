@@ -1,10 +1,7 @@
 /** eslint-ignore */
 import React, { useCallback, useState } from 'react';
 import { EulaScreenProps } from './types';
-import { WorkflowCard } from '../../components/WorkflowCard';
-import { WorkflowCardActions } from '../../components/WorkflowCard/WorkflowCardActions';
-import { WorkflowCardBody } from '../../components/WorkflowCard/WorkflowCardBody';
-import { WorkflowCardHeader } from '../../components/WorkflowCard/WorkflowCardHeader';
+import { WorkflowCard, WorkflowCardActions, WorkflowCardBody, WorkflowCardHeader } from '../../components/WorkflowCard';
 import FormControlLabel from '@mui/material/FormControlLabel';
 import Checkbox from '@mui/material/Checkbox';
 import Box from '@mui/material/Box';
