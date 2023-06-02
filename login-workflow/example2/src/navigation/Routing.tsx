@@ -21,6 +21,7 @@ import {
     RegistrationTestScreen,
     LoginScreen,
     CreatePasswordScreenTest,
+    ForgotPasswordScreenBaseTest,
 } from '../screens';
 
 export const routes: RouteConfig = {
@@ -118,6 +119,10 @@ export const GetCustomRoutes = (isAuthenticated: boolean) => {
         {
             path: `/create-account`,
             element: <CreateAccountScreenBaseTest />,
+        },
+        {
+            path: `/forgot-password`,
+            element: <ForgotPasswordScreenBaseTest />,
         },
         // Authenticated Route: accessible only if the user IS authenticated
         {
