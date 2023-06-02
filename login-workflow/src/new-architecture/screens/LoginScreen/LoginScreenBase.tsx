@@ -348,6 +348,9 @@ export const LoginScreenBase: React.FC<React.PropsWithChildren<LoginScreenProps>
                                     usernameTextFieldProps?.onBlur && usernameTextFieldProps.onBlur(e);
                                     setShouldValidateUsername(true);
                                 }}
+                                onKeyPress={(e): void => {
+                                    if (e.key === 'Enter' && passwordField.current) passwordField.current.focus();
+                                }}
                             />
                         </Box>
                         <Box
@@ -380,12 +383,17 @@ export const LoginScreenBase: React.FC<React.PropsWithChildren<LoginScreenProps>
                                 onSubmit={(e: any): void => {
                                     // eslint-disable-next-line no-unused-expressions
                                     passwordTextFieldProps?.onSubmit && passwordTextFieldProps.onSubmit(e);
-                                    handleLoginSubmit(e.target.value);
+                                    handleLoginSubmit(e);
                                 }}
                                 onBlur={(e): void => {
                                     // eslint-disable-next-line no-unused-expressions
                                     passwordTextFieldProps?.onBlur && passwordTextFieldProps.onBlur(e);
                                     setShouldValidatePassword(true);
+                                }}
+                                onKeyPress={(e): void => {
+                                    // eslint-disable-next-line no-unused-expressions
+                                    passwordTextFieldProps?.onSubmit && passwordTextFieldProps.onSubmit(e);
+                                    handleLoginSubmit(e);
                                 }}
                             />
                         </Box>
