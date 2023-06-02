@@ -31,7 +31,7 @@ export const SimpleDialog: React.FC<React.PropsWithChildren<React.PropsWithChild
     const theme = useTheme();
 
     return (
-        <Dialog {...dialogProps}>
+        <Dialog data-testId="blui-simple-dialog" {...dialogProps}>
             <DialogTitle sx={DialogTitleStyles(theme)}>{title}</DialogTitle>
             <DialogContent sx={{ ...DialogContentStyles(theme), flex: '1 1 auto' }}>
                 <Typography>{body}</Typography>

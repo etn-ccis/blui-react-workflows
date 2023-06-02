@@ -68,7 +68,7 @@ export const ForgotPasswordScreenBase: React.FC<React.PropsWithChildren<ForgotPa
         const result = props.onNext(emailInput);
         setShowSuccessScreen(typeof result === 'boolean' && result);
         setShowErrorDialog(typeof result === 'string' ? result : '');
-        actionsProps.onNext();
+        actionsProps?.onNext?.();
     };
 
     return (
