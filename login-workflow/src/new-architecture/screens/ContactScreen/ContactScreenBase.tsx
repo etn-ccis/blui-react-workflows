@@ -41,7 +41,7 @@ export const ContactScreenBase: React.FC<ContactScreenProps> = (props) => {
         emailSupportTitle,
         emailSupportContent,
         phoneSupportTitle,
-        phoneSupportContent = (phone: string): string => '',
+        phoneSupportContent,
         contactEmail,
         contactPhone,
         dismissButtonLabel,
@@ -80,16 +80,32 @@ export const ContactScreenBase: React.FC<ContactScreenProps> = (props) => {
                         {`.`}
                     </Typography>
                 )}
-
-                {/* <Typography variant="body1"> {phoneSupportTitle}</Typography>
-                <Typography variant="body1"> {typeof phoneSupportContent === "string" ? phoneSupportContent : phoneSupportContent(contactPhone)}</Typography>
-                <Typography variant="body1" className="link">{contactPhone}</Typography> */}
+                <Typography variant="body1" sx={{ mt: 4, mb: 1 }}>
+                    {' '}
+                    {phoneSupportTitle}
+                </Typography>
+                {phoneSupportContent && (
+                    <Typography variant="body1">
+                        {' '}
+                        {typeof phoneSupportContent === 'string'
+                            ? phoneSupportContent
+                            : phoneSupportContent(contactPhone)}
+                    </Typography>
+                )}
+                {!phoneSupportContent && (
+                    <Typography variant="body1">
+                        {`For technical support, please call `}
+                        <Typography variant="button" sx={{ ...LinkStyles(theme), fontSize: 'inherit' }}>
+                            {contactPhone}
+                        </Typography>
+                        {`.`}
+                    </Typography>
+                )}
             </WorkflowCardBody>
             <Divider />
             <WorkflowCardActions
                 {...actionsProps}
                 nextLabel={dismissButtonLabel || actionsProps.nextLabel}
-                // canGoNext={true}
                 onNext={(): void => {
                     if (onDismiss) onDismiss();
                     if (actionsProps.onNext) actionsProps.onNext();

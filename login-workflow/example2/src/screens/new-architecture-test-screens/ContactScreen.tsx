@@ -21,7 +21,7 @@ export const ContactScreenBaseTest = (): JSX.Element => {
                     emailSupportTitle="General Questions"
                     // emailSupportContent={(email): string => `For questions, feedback, or support please email us at ${email}.`}
                     phoneSupportTitle="Emergency Support"
-                    phoneSupportContent={(phone): string => `For technical support, please call ${phone}.`}
+                    // phoneSupportContent={(phone): string => `For technical support, please call ${phone}.`}
                     contactEmail="something@email.com"
                     contactPhone="1-800-123-4567"
                     dismissButtonLabel="Okay"
