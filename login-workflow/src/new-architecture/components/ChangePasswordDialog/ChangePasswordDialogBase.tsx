@@ -7,13 +7,15 @@ import {
     DialogTitle,
     Divider,
     Grid,
+    Typography,
     useMediaQuery,
     useTheme,
 } from '@mui/material';
 import { ChangePasswordDialogProps } from './types';
 import { SetPassword } from '../SetPassword';
-import { useLanguageLocale } from '../../../auth-shared';
+import { initialTransitState, useAccountUIActions, useLanguageLocale, useSecurityActions } from '../../../auth-shared';
 import { WorkflowSecureTextField } from '../WorkflowSecureTextField';
+import { DialogButtonStyles } from '../../../styles';
 
 export const ChangePasswordDialogBase: React.FC<ChangePasswordDialogProps> = (props) => {
     const { sx } = props;
@@ -25,12 +27,18 @@ export const ChangePasswordDialogBase: React.FC<ChangePasswordDialogProps> = (pr
     const [currentPassword, setCurrentPassword] = useState('');
     const passwordRef = useRef(null);
 
+    const [transitState, setTransitState] = useState(initialTransitState);
+    const success = transitState.transitSuccess;
+
+    // const securityHelper = useSecurityActions();
+    // const accountUIActions = useAccountUIActions();
+
     return (
         <Dialog
             fullScreen={matchesSM ? true : false}
             // open={securityState.isShowingChangePassword}
             open={true}
-            maxWidth={'md'}
+            maxWidth={'xs'}
             // TransitionProps={{
             //     onExited: resetForm,
             // }}
@@ -62,19 +70,21 @@ export const ChangePasswordDialogBase: React.FC<ChangePasswordDialogProps> = (pr
                     ...(Array.isArray(sx) ? sx : [sx]),
                 ]}
             >
-                {/* {body} */}
-                <WorkflowSecureTextField
-                    id="current-password"
-                    label={t('blui:LABELS.CURRENT_PASSWORD')}
-                    value={currentPassword}
-                    onChange={(evt: ChangeEvent<HTMLInputElement>): void => setCurrentPassword(evt.target.value)}
-                    onKeyPress={(e): void => {
-                        if (e.key === 'Enter' && passwordRef.current) {
-                            passwordRef.current.focus();
-                        }
-                    }}
-                />
-                <SetPassword onPasswordChange={(): void => {}} />
+                <Typography>{t('blui:CHANGE_PASSWORD.PASSWORD_INFO')}</Typography>
+                <Divider sx={{ mt: 5, mb: 4, mx: { md: -3, xs: -2 } }} />
+                <SetPassword onPasswordChange={(): void => {}}>
+                    <WorkflowSecureTextField
+                        id="current-password"
+                        label={t('blui:LABELS.CURRENT_PASSWORD')}
+                        value={currentPassword}
+                        onChange={(evt: ChangeEvent<HTMLInputElement>): void => setCurrentPassword(evt.target.value)}
+                        onKeyPress={(e): void => {
+                            if (e.key === 'Enter' && passwordRef.current) {
+                                passwordRef.current.focus();
+                            }
+                        }}
+                    />
+                </SetPassword>
             </DialogContent>
             <Divider sx={{ mt: 2 }} />
             <DialogActions
@@ -86,44 +96,44 @@ export const ChangePasswordDialogBase: React.FC<ChangePasswordDialogProps> = (pr
                     ...(Array.isArray(sx) ? sx : [sx]),
                 ]}
             >
-                {/* <Grid
+                <Grid
                     container
                     direction="row"
                     alignItems="center"
                     justifyContent="space-between"
                     sx={{ width: '100%' }}
                 >
-                    {!success && (
-                        <Button
-                            variant="outlined"
-                            color="primary"
-                            sx={{ width: fullWidth ? '100%' : 100 }}
-                            onClick={(): void => securityHelper.hideChangePassword()}
-                        >
-                            {t('blui:ACTIONS.BACK')}
-                        </Button>
-                    )}
+                    {/* {!success && ( */}
+                    <Button
+                        variant="outlined"
+                        color="primary"
+                        sx={{ width: 100 }}
+                        // onClick={(): void => securityHelper.hideChangePassword()}
+                    >
+                        {t('blui:ACTIONS.BACK')}
+                    </Button>
+                    {/* )} */}
                     <Button
                         variant="contained"
                         disableElevation
-                        sx={DialogButtonStyles(success)}
-                        disabled={
-                            transitState.transitInProgress ||
-                            (!success && (currentPassword === '' || !areValidMatchingPasswords()))
-                        }
+                        sx={{ width: 100 }}
+                        // disabled={
+                        //     transitState.transitInProgress ||
+                        //     (!success && (currentPassword === '' || !areValidMatchingPasswords()))
+                        // }
                         color="primary"
-                        onClick={
-                            success
-                                ? (): void => {
-                                      accountUIActions.dispatch(AccountActions.logout());
-                                      securityHelper.onUserNotAuthenticated();
-                                  }
-                                : changePassword
-                        }
+                        // onClick={
+                        //     success
+                        //         ? (): void => {
+                        //               accountUIActions.dispatch(AccountActions.logout());
+                        //               securityHelper.onUserNotAuthenticated();
+                        //           }
+                        //         : changePassword
+                        // }
                     >
                         {success ? t('blui:ACTIONS.LOG_IN') : t('blui:ACTIONS.OKAY')}
                     </Button>
-                </Grid> */}
+                </Grid>
             </DialogActions>
         </Dialog>
     );
