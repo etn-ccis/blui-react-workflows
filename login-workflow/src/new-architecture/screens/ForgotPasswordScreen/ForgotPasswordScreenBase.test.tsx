@@ -5,7 +5,7 @@ import { ForgotPasswordScreenBase } from './ForgotPasswordScreenBase';
 
 afterEach(cleanup);
 
-describe('Create Account Screen Base', () => {
+describe('Forgot Password Screen Base', () => {
     let mockOnNext: any;
 
     afterEach(() => {
@@ -19,9 +19,9 @@ describe('Create Account Screen Base', () => {
     it('renders without crashing', () => {
         render(
             <ForgotPasswordScreenBase
-                WorkflowCardHeaderProps={{ title: 'Create Account' }}
+                WorkflowCardHeaderProps={{ title: 'Forgot Password' }}
                 WorkflowCardInstructionProps={{
-                    instructions: 'Create account instructions',
+                    instructions: 'Forgot Password instructions',
                 }}
                 initialEmailValue={'test@email.net'}
                 WorkflowCardActionsProps={{
@@ -36,8 +36,8 @@ describe('Create Account Screen Base', () => {
                 }}
             />
         );
-        expect(screen.getByText('Create Account')).toBeInTheDocument();
-        expect(screen.getByText('Create account instructions')).toBeInTheDocument();
+        expect(screen.getByText('Forgot Password')).toBeInTheDocument();
+        expect(screen.getByText('Forgot Password instructions')).toBeInTheDocument();
         expect(screen.getByText('Next')).toBeInTheDocument();
         expect(screen.getByText(/Next/i)).toBeEnabled();
         expect(screen.getByText('Back')).toBeInTheDocument();
