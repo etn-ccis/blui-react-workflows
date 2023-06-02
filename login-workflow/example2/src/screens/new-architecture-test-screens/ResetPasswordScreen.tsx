@@ -71,13 +71,16 @@ export const ResetPasswordScreen = (): JSX.Element => {
                         initialConfirmPasswordValue: confirmInput,
                         onPasswordChange: updateFields,
                         onSubmit: (): void => {
-                            // eslint-disable-next-line no-console
-                            console.log('submitting form...');
+                            if (passwordInput !== '' && confirmInput !== '' && passwordInput === confirmInput) {
+                                // eslint-disable-next-line no-console
+                                console.log('submitting form...');
+                                setShowSuccessScreen(true);
+                            }
                         },
                     }}
                     WorkflowCardActionsProps={{
                         showNext: true,
-                        nextLabel: 'Okay',
+                        nextLabel: 'Next',
                         canGoNext: passwordInput !== '' && confirmInput !== '' && passwordInput === confirmInput,
                         onNext: (): void => {
                             setShowSuccessScreen(true);
