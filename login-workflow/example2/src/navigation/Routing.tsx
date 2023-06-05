@@ -21,6 +21,7 @@ import {
     RegistrationTestScreen,
     LoginScreen,
     ChangePasswordDialogTest,
+    ResetPasswordScreen,
     CreatePasswordScreenTest,
     ForgotPasswordScreenBaseTest,
 } from '../screens';
@@ -98,6 +99,14 @@ export const GetCustomRoutes = (isAuthenticated: boolean) => {
             element: (
                 <SecurityContextProvider>
                     <SetPasswordScreen />
+                </SecurityContextProvider>
+            ),
+        },
+        {
+            path: `/reset-password`,
+            element: (
+                <SecurityContextProvider>
+                    <ResetPasswordScreen />
                 </SecurityContextProvider>
             ),
         },

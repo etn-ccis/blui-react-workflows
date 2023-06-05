@@ -13,4 +13,5 @@ export * from './SetPasswordScreen';
 export * from './LoginScreenBase';
 export * from './VerifyCodeScreenBase';
 export * from './ChangePasswordDialogTest';
+export * from './ResetPasswordScreen';
 export * from './CreatePasswordScreenTest';
