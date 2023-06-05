@@ -83,6 +83,13 @@ export const LoginScreen = (): JSX.Element => {
                             <Button
                                 variant="contained"
                                 sx={{ width: 200, m: 2 }}
+                                onClick={(): void => navigate('/reset-password')}
+                            >
+                                Reset Password
+                            </Button>
+                            <Button
+                                variant="contained"
+                                sx={{ width: 200, m: 2 }}
                                 onClick={(): void => navigate('/success-screen')}
                             >
                                 Success Screen Base
@@ -117,10 +124,17 @@ export const LoginScreen = (): JSX.Element => {
                             </Button>
                             <Button
                                 variant="contained"
-                                sx={{ width: 200, ml: 2 }}
+                                sx={{ width: 200, m: 2 }}
+                                onClick={(): void => navigate('/forgot-password')}
+                            >
+                                Forgot Password
+                            </Button>
+                            <Button
+                                variant="contained"
+                                sx={{ width: 200, m: 2 }}
                                 onClick={(): void => navigate('/eula-screen-test')}
                             >
-                                Eula Screen Test
+                                Eula Screen
                             </Button>
                         </Box>
                     }

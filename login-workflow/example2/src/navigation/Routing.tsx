@@ -20,8 +20,10 @@ import {
     ContactUs,
     RegistrationTestScreen,
     LoginScreen,
+    ResetPasswordScreen,
     CreatePasswordScreenTest,
-    EulaScreenBaseTest,
+    ForgotPasswordScreenBaseTest,
+    EulaScreenBaseTest
 } from '../screens';
 
 export const routes: RouteConfig = {
@@ -101,6 +103,14 @@ export const GetCustomRoutes = (isAuthenticated: boolean) => {
             ),
         },
         {
+            path: `/reset-password`,
+            element: (
+                <SecurityContextProvider>
+                    <ResetPasswordScreen />
+                </SecurityContextProvider>
+            ),
+        },
+        {
             path: `/create-password`,
             element: (
                 <SecurityContextProvider>
@@ -119,6 +129,10 @@ export const GetCustomRoutes = (isAuthenticated: boolean) => {
         {
             path: `/create-account`,
             element: <CreateAccountScreenBaseTest />,
+        },
+        {
+            path: `/forgot-password`,
+            element: <ForgotPasswordScreenBaseTest />,
         },
         // Authenticated Route: accessible only if the user IS authenticated
         {
