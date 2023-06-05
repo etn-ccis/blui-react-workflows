@@ -1,8 +1,10 @@
 import React from 'react';
-import { Divider, SxProps, Theme, Typography, useTheme } from '@mui/material';
+import { Divider, Typography } from '@mui/material';
 import { WorkflowCard, WorkflowCardActions, WorkflowCardBody, WorkflowCardHeader } from '../../components/WorkflowCard';
 import { ContactScreenProps } from './types';
-import Box from '@mui/material/Box';
+import Box, { BoxProps } from '@mui/material/Box';
+import { ContactScreenClassKey, getContactScreenUtilityClass } from './utilityClasses';
+import { unstable_composeClasses as composeClasses } from '@mui/base';
 
 /**
  * Component renders a screen with contact information for support with the application.
@@ -21,18 +23,37 @@ import Box from '@mui/material/Box';
  * @category Component
  */
 
-const LinkStyles = (theme?: Theme): SxProps<Theme> => ({
+const LinkStyles = {
     fontWeight: 600,
     textTransform: 'none',
     textDecoration: 'none',
-    color: theme.palette.primary.main,
+    color: 'primary.main',
     '&:visited': {
         color: 'inherit',
     },
     '&:hover': {
         cursor: 'pointer',
     },
-});
+};
+
+const useUtilityClasses = (ownerState: ContactScreenProps & BoxProps): Record<ContactScreenClassKey, string> => {
+    const { classes } = ownerState;
+
+    const slots = {
+        root: ['root'],
+        title: ['title'],
+        icon: ['icon'],
+        emailSupportTitle: ['emailSupportTitle'],
+        emailSupportContent: ['emailSupportContent'],
+        phoneSupportTitle: ['phoneSupportTitle'],
+        phoneSupportContent: ['phoneSupportContent'],
+        contactEmail: ['contactEmail'],
+        contactPhone: ['contactPhone'],
+        dismissButtonLabel: ['dismissButtonLabel'],
+    };
+
+    return composeClasses(slots, getContactScreenUtilityClass, classes);
+};
 
 export const ContactScreenBase: React.FC<ContactScreenProps> = (props) => {
     const {
@@ -48,23 +69,39 @@ export const ContactScreenBase: React.FC<ContactScreenProps> = (props) => {
         onDismiss,
     } = props;
 
-    const theme = useTheme();
+    const defaultClasses = useUtilityClasses(props);
 
     const cardBaseProps = props.WorkflowCardBaseProps || {};
     const headerProps = props.WorkflowCardHeaderProps || {};
     const actionsProps = props.WorkflowCardActionsProps || {};
 
     return (
-        <WorkflowCard {...cardBaseProps}>
-            <WorkflowCardHeader {...headerProps} title={title || headerProps.title} />
-            <Box sx={{ m: 3, mb: 5, textAlign: 'center' }}>{icon}</Box>
+        <WorkflowCard {...cardBaseProps} className={defaultClasses.root} data-testid={defaultClasses.root}>
+            <WorkflowCardHeader
+                {...headerProps}
+                className={defaultClasses.title}
+                data-testid={defaultClasses.title}
+                title={title || headerProps.title}
+            />
+            <Box sx={{ m: 3, mb: 5, textAlign: 'center' }} className={defaultClasses.icon}>
+                {icon}
+            </Box>
             <WorkflowCardBody>
-                <Typography variant="body1" sx={{ mb: 1 }}>
+                <Typography
+                    className={defaultClasses.emailSupportTitle}
+                    data-testid={defaultClasses.emailSupportTitle}
+                    variant="body1"
+                    sx={{ mb: 1 }}
+                >
                     {' '}
                     {emailSupportTitle}
                 </Typography>
                 {emailSupportContent && (
-                    <Typography variant="body1">
+                    <Typography
+                        className={defaultClasses.emailSupportContent}
+                        data-testid={defaultClasses.emailSupportContent}
+                        variant="body1"
+                    >
                         {' '}
                         {typeof emailSupportContent === 'string'
                             ? emailSupportContent
@@ -72,20 +109,38 @@ export const ContactScreenBase: React.FC<ContactScreenProps> = (props) => {
                     </Typography>
                 )}
                 {!emailSupportContent && (
-                    <Typography variant="body1">
+                    <Typography
+                        className={defaultClasses.emailSupportContent}
+                        data-testid={defaultClasses.emailSupportContent}
+                        variant="body1"
+                    >
                         {`For questions, feedback, or support please email us at `}
-                        <Typography variant="button" sx={{ ...LinkStyles(theme), fontSize: 'inherit' }}>
+                        <Typography
+                            className={defaultClasses.contactEmail}
+                            data-testid={defaultClasses.contactEmail}
+                            variant="button"
+                            sx={{ ...LinkStyles, fontSize: 'inherit' }}
+                        >
                             {contactEmail}
                         </Typography>
                         {`.`}
                     </Typography>
                 )}
-                <Typography variant="body1" sx={{ mt: 4, mb: 1 }}>
+                <Typography
+                    className={defaultClasses.phoneSupportTitle}
+                    data-testid={defaultClasses.phoneSupportTitle}
+                    variant="body1"
+                    sx={{ mt: 4, mb: 1 }}
+                >
                     {' '}
                     {phoneSupportTitle}
                 </Typography>
                 {phoneSupportContent && (
-                    <Typography variant="body1">
+                    <Typography
+                        className={defaultClasses.phoneSupportContent}
+                        data-testid={defaultClasses.phoneSupportContent}
+                        variant="body1"
+                    >
                         {' '}
                         {typeof phoneSupportContent === 'string'
                             ? phoneSupportContent
@@ -93,9 +148,18 @@ export const ContactScreenBase: React.FC<ContactScreenProps> = (props) => {
                     </Typography>
                 )}
                 {!phoneSupportContent && (
-                    <Typography variant="body1">
+                    <Typography
+                        className={defaultClasses.phoneSupportContent}
+                        data-testid={defaultClasses.phoneSupportContent}
+                        variant="body1"
+                    >
                         {`For technical support, please call `}
-                        <Typography variant="button" sx={{ ...LinkStyles(theme), fontSize: 'inherit' }}>
+                        <Typography
+                            className={defaultClasses.contactPhone}
+                            data-testid={defaultClasses.contactPhone}
+                            variant="button"
+                            sx={{ ...LinkStyles, fontSize: 'inherit' }}
+                        >
                             {contactPhone}
                         </Typography>
                         {`.`}
@@ -106,6 +170,7 @@ export const ContactScreenBase: React.FC<ContactScreenProps> = (props) => {
             <WorkflowCardActions
                 {...actionsProps}
                 nextLabel={dismissButtonLabel || actionsProps.nextLabel}
+                className={defaultClasses.dismissButtonLabel}
                 onNext={(): void => {
                     if (onDismiss) onDismiss();
                     if (actionsProps.onNext) actionsProps.onNext();
