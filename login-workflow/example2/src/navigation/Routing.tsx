@@ -23,7 +23,7 @@ import {
     ResetPasswordScreen,
     CreatePasswordScreenTest,
     ForgotPasswordScreenBaseTest,
-    EulaScreenBaseTest
+    EulaScreenBaseTest,
 } from '../screens';
 
 export const routes: RouteConfig = {
