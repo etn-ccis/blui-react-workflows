@@ -14,3 +14,4 @@ export * from './LoginScreenBase';
 export * from './VerifyCodeScreenBase';
 export * from './ResetPasswordScreen';
 export * from './CreatePasswordScreenTest';
+export * from './EulaScreenBase';

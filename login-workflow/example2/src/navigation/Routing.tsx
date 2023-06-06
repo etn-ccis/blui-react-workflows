@@ -23,6 +23,7 @@ import {
     ResetPasswordScreen,
     CreatePasswordScreenTest,
     ForgotPasswordScreenBaseTest,
+    EulaScreenBaseTest,
 } from '../screens';
 
 export const routes: RouteConfig = {
@@ -150,6 +151,10 @@ export const GetCustomRoutes = (isAuthenticated: boolean) => {
         {
             path: `/success-screen`,
             element: <SuccessScreenBaseTest />,
+        },
+        {
+            path: `/eula-screen-test`,
+            element: <EulaScreenBaseTest />,
         },
     ];
     return customRoutes;
