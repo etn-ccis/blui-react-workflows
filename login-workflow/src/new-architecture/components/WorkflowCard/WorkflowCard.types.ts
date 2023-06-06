@@ -14,8 +14,8 @@ export type WorkflowCardBaseProps = BoxProps & {
 
 export type WorkflowCardHeaderProps = CardHeaderProps;
 
-export type WorkflowCardInstructionProps = Omit<TypographyProps, 'children'> & {
-    instructions?: string;
+export type WorkflowCardInstructionProps = TypographyProps & {
+    instructions?: string | JSX.Element;
     divider?: boolean;
 };
 

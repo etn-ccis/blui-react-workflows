@@ -7,15 +7,24 @@ import {
     SecurityContextProvider,
 } from '@brightlayer-ui/react-auth-workflow';
 import { Navigate, RouterProvider, createBrowserRouter } from 'react-router-dom';
-import { LoginScreen } from '../screens/new-architecture-test-screens/LoginScreen';
-import { RegistrationTestScreen } from '../screens/new-architecture-test-screens/RegistrationTestScreen';
-import { ContactScreenBaseTest } from '../screens/new-architecture-test-screens/ContactScreen';
-import { GuardedScreen } from '../screens/new-architecture-test-screens/GuardedScreen';
-import { VerifyCodeScreenBaseTest } from '../screens/new-architecture-test-screens/VerifyCodeScreenBase';
-import { AuthTestScreen, SuccessScreenBaseTest, AccountDetailsScreenBaseTest } from '../screens';
-import { LoginScreenBaseTest } from '../screens/new-architecture-test-screens/LoginScreenBase';
-import { CreateAccountScreenBaseTest } from '../screens/new-architecture-test-screens/CreateAccountScreenBase';
-import { SetPasswordScreen } from '../screens/new-architecture-test-screens/SetPasswordScreen';
+import {
+    AuthTestScreen,
+    SuccessScreenBaseTest,
+    AccountDetailsScreenBaseTest,
+    SetPasswordScreen,
+    LoginScreenBaseTest,
+    CreateAccountScreenBaseTest,
+    RegistrationWorkflowScreen,
+    VerifyCodeScreenBaseTest,
+    GuardedScreen,
+    ContactScreenBaseTest,
+    RegistrationTestScreen,
+    LoginScreen,
+    ResetPasswordScreen,
+    CreatePasswordScreenTest,
+    ForgotPasswordScreenBaseTest,
+    EulaScreenBaseTest,
+} from '../screens';
 
 export const routes: RouteConfig = {
     LOGIN: '/custom-login-route',
@@ -82,10 +91,30 @@ export const GetCustomRoutes = (isAuthenticated: boolean) => {
             element: <ContactScreenBaseTest />,
         },
         {
+            path: `/registration-workflow`,
+            element: <RegistrationWorkflowScreen />,
+        },
+        {
             path: `/set-password`,
             element: (
                 <SecurityContextProvider>
                     <SetPasswordScreen />
+                </SecurityContextProvider>
+            ),
+        },
+        {
+            path: `/reset-password`,
+            element: (
+                <SecurityContextProvider>
+                    <ResetPasswordScreen />
+                </SecurityContextProvider>
+            ),
+        },
+        {
+            path: `/create-password`,
+            element: (
+                <SecurityContextProvider>
+                    <CreatePasswordScreenTest />
                 </SecurityContextProvider>
             ),
         },
@@ -100,6 +129,10 @@ export const GetCustomRoutes = (isAuthenticated: boolean) => {
         {
             path: `/create-account`,
             element: <CreateAccountScreenBaseTest />,
+        },
+        {
+            path: `/forgot-password`,
+            element: <ForgotPasswordScreenBaseTest />,
         },
         // Authenticated Route: accessible only if the user IS authenticated
         {
@@ -118,6 +151,10 @@ export const GetCustomRoutes = (isAuthenticated: boolean) => {
         {
             path: `/success-screen`,
             element: <SuccessScreenBaseTest />,
+        },
+        {
+            path: `/eula-screen-test`,
+            element: <EulaScreenBaseTest />,
         },
     ];
     return customRoutes;
