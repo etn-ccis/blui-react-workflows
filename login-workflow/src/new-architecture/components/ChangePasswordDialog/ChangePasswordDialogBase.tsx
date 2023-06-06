@@ -1,4 +1,4 @@
-import React, { ChangeEvent, useRef, useState } from 'react';
+import React, { useState } from 'react';
 import {
     Button,
     Dialog,
@@ -13,37 +13,26 @@ import {
 } from '@mui/material';
 import { ChangePasswordDialogProps } from './types';
 import { SetPassword } from '../SetPassword';
-import { initialTransitState, useAccountUIActions, useLanguageLocale, useSecurityActions } from '../../../auth-shared';
+import { useLanguageLocale } from '../../../auth-shared';
 import { WorkflowSecureTextField } from '../WorkflowSecureTextField';
-import { DialogButtonStyles } from '../../../styles';
+import { FullDividerStyles } from '../../../styles';
 
 export const ChangePasswordDialogBase: React.FC<ChangePasswordDialogProps> = (props) => {
-    const { sx } = props;
+    const { sx, open, currentPwdRef, enableButton, currentPasswordChange } = props;
     const theme = useTheme();
     const { t } = useLanguageLocale();
     const matchesSM = useMediaQuery(theme.breakpoints.down('sm'));
-    // const securityState = useSecurityState();
-
     const [currentPassword, setCurrentPassword] = useState('');
-    const passwordRef = useRef(null);
 
-    const [transitState, setTransitState] = useState(initialTransitState);
-    const success = transitState.transitSuccess;
+    const passwordProps = props.PasswordProps || { onPasswordChange: () => ({}) };
 
-    // const securityHelper = useSecurityActions();
-    // const accountUIActions = useAccountUIActions();
+    const handleChange = (event: any): void => {
+        setCurrentPassword(event.target.value);
+        currentPasswordChange(event.target.value);
+    };
 
     return (
-        <Dialog
-            fullScreen={matchesSM ? true : false}
-            // open={securityState.isShowingChangePassword}
-            open={true}
-            maxWidth={'xs'}
-            // TransitionProps={{
-            //     onExited: resetForm,
-            // }}
-        >
-            {/* {errorDialog} */}
+        <Dialog fullScreen={matchesSM ? true : false} open={open} maxWidth={'xs'}>
             <DialogTitle
                 sx={[
                     {
@@ -71,16 +60,18 @@ export const ChangePasswordDialogBase: React.FC<ChangePasswordDialogProps> = (pr
                 ]}
             >
                 <Typography>{t('blui:CHANGE_PASSWORD.PASSWORD_INFO')}</Typography>
-                <Divider sx={{ mt: 5, mb: 4, mx: { md: -3, xs: -2 } }} />
-                <SetPassword onPasswordChange={(): void => {}}>
+
+                <Divider sx={FullDividerStyles(theme)} />
+                <SetPassword {...passwordProps}>
                     <WorkflowSecureTextField
                         id="current-password"
                         label={t('blui:LABELS.CURRENT_PASSWORD')}
+                        inputRef={currentPwdRef}
                         value={currentPassword}
-                        onChange={(evt: ChangeEvent<HTMLInputElement>): void => setCurrentPassword(evt.target.value)}
+                        onChange={handleChange}
                         onKeyPress={(e): void => {
-                            if (e.key === 'Enter' && passwordRef.current) {
-                                passwordRef.current.focus();
+                            if (e.key === 'Enter' && passwordProps.passwordRef.current) {
+                                passwordProps.passwordRef.current.focus();
                             }
                         }}
                     />
@@ -103,35 +94,17 @@ export const ChangePasswordDialogBase: React.FC<ChangePasswordDialogProps> = (pr
                     justifyContent="space-between"
                     sx={{ width: '100%' }}
                 >
-                    {/* {!success && ( */}
-                    <Button
-                        variant="outlined"
-                        color="primary"
-                        sx={{ width: 100 }}
-                        // onClick={(): void => securityHelper.hideChangePassword()}
-                    >
+                    <Button variant="outlined" color="primary" sx={{ width: 100 }}>
                         {t('blui:ACTIONS.BACK')}
                     </Button>
-                    {/* )} */}
                     <Button
                         variant="contained"
                         disableElevation
                         sx={{ width: 100 }}
-                        // disabled={
-                        //     transitState.transitInProgress ||
-                        //     (!success && (currentPassword === '' || !areValidMatchingPasswords()))
-                        // }
+                        disabled={!enableButton}
                         color="primary"
-                        // onClick={
-                        //     success
-                        //         ? (): void => {
-                        //               accountUIActions.dispatch(AccountActions.logout());
-                        //               securityHelper.onUserNotAuthenticated();
-                        //           }
-                        //         : changePassword
-                        // }
                     >
-                        {success ? t('blui:ACTIONS.LOG_IN') : t('blui:ACTIONS.OKAY')}
+                        {t('blui:ACTIONS.OKAY')}
                     </Button>
                 </Grid>
             </DialogActions>

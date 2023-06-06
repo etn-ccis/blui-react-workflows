@@ -154,11 +154,11 @@ export const GetCustomRoutes = (isAuthenticated: boolean) => {
             element: <SuccessScreenBaseTest />,
         },
         {
-          path: `/change-password-dialog`,
+            path: `/change-password-dialog`,
             element: <ChangePasswordDialogTest />,
         },
-      {
-        path: `/eula-screen-test`,
+        {
+            path: `/eula-screen-test`,
             element: <EulaScreenBaseTest />,
         },
     ];
