@@ -136,6 +136,13 @@ export const LoginScreen = (): JSX.Element => {
                             >
                                 Forgot Password
                             </Button>
+                            <Button
+                                variant="contained"
+                                sx={{ width: 200, m: 2 }}
+                                onClick={(): void => navigate('/eula-screen-test')}
+                            >
+                                Eula Screen
+                            </Button>
                         </Box>
                     }
                 />
