@@ -11,6 +11,6 @@ export type CreateAccountScreenProps = WorkflowCardProps & {
     // used to test the input for valid formatting
     emailValidator?: (email: string) => boolean | string;
 
-    // props to pass to the username text field
-    usernameTextFieldProps?: TextFieldProps;
+    // props to pass to the email text field
+    emailTextFieldProps?: TextFieldProps;
 };
