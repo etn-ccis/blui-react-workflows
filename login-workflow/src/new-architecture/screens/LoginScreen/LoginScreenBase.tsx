@@ -51,18 +51,18 @@ import { unstable_composeClasses as composeClasses } from '@mui/base';
  * @category Component
  */
 
-const LinkStyles = (theme?: Theme): SxProps<Theme> => ({
+const LinkStyles = {
     fontWeight: 600,
     textTransform: 'none',
     textDecoration: 'none',
-    color: theme.palette.primary.main,
+    color: 'primary.main',
     '&:visited': {
         color: 'inherit',
     },
     '&:hover': {
         cursor: 'pointer',
     },
-});
+};
 
 const useUtilityClasses = (ownerState: LoginScreenProps): Record<LoginScreenClassKey, string> => {
     const { classes } = ownerState;
@@ -247,7 +247,7 @@ export const LoginScreenBase: React.FC<React.PropsWithChildren<LoginScreenProps>
             <Box
                 sx={{
                     width: '100%',
-                    backgroundColor: errorDisplayConfigProps?.backgroundColor || theme.palette.error.main,
+                    backgroundColor: errorDisplayConfigProps?.backgroundColor || 'error.main',
                     borderRadius: 4,
                     p: 2,
                     color: errorDisplayConfigProps?.fontColor || Colors.white[50],
@@ -475,7 +475,7 @@ export const LoginScreenBase: React.FC<React.PropsWithChildren<LoginScreenProps>
                         >
                             <Typography
                                 variant="body2"
-                                sx={LinkStyles(theme)}
+                                sx={LinkStyles}
                                 onClick={handleForgotPassword}
                                 className={defaultClasses.forgotPasswordLabel}
                                 data-testid={defaultClasses.forgotPasswordLabel}
@@ -507,7 +507,7 @@ export const LoginScreenBase: React.FC<React.PropsWithChildren<LoginScreenProps>
                             </Typography>
                             <Typography
                                 variant="body2"
-                                sx={LinkStyles(theme)}
+                                sx={LinkStyles}
                                 onClick={handleSelfRegister}
                                 className={defaultClasses.selfRegisterLabel}
                                 data-testid={defaultClasses.selfRegisterLabel}
@@ -525,7 +525,7 @@ export const LoginScreenBase: React.FC<React.PropsWithChildren<LoginScreenProps>
                         >
                             <Typography
                                 variant="body2"
-                                sx={LinkStyles(theme)}
+                                sx={LinkStyles}
                                 onClick={handleContactSupport}
                                 className={defaultClasses.contactSupportLabel}
                                 data-testid={defaultClasses.contactSupportLabel}
