@@ -8,7 +8,7 @@ import Typography from '@mui/material/Typography';
 import cyberSecurityBadge from '../../../assets/images/cybersecurity_certified.png';
 import { PasswordTextField } from '../../components';
 import Button from '@mui/material/Button';
-import { SxProps, Theme, useTheme } from '@mui/material/styles';
+import { useTheme } from '@mui/material/styles';
 import Checkbox from '@mui/material/Checkbox';
 import Close from '@mui/icons-material/Close';
 import * as Colors from '@brightlayer-ui/colors';

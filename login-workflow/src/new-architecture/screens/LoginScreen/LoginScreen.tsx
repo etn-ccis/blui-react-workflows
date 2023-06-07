@@ -1,23 +1,9 @@
-import React /*, { useCallback, useRef, useState } */ from 'react';
+import React from 'react';
 import { LoginScreenProps } from './types';
-// import { WorkflowCard } from '../../components/WorkflowCard';
-// import { WorkflowCardBody } from '../../components/WorkflowCard/WorkflowCardBody';
-// import TextField from '@mui/material/TextField';
-// import Box from '@mui/material/Box';
-// import Typography from '@mui/material/Typography';
-// import cyberSecurityBadge from '../../../assets/images/cybersecurity_certified.png';
-// import { PasswordTextField } from '../../components';
-// import Button from '@mui/material/Button';
-// import { SxProps, Theme, useTheme } from '@mui/material/styles';
-// import Checkbox from '@mui/material/Checkbox';
-// import Close from '@mui/icons-material/Close';
-// import * as Colors from '@brightlayer-ui/colors';
-// import { HELPER_TEXT_HEIGHT } from '../../utils/constants';
-import { LoginScreenClassKey, getLoginScreenUtilityClass } from './utilityClasses';
-import { unstable_composeClasses as composeClasses } from '@mui/base';
 import { LoginScreenBase } from './LoginScreenBase';
 import { useLanguageLocale } from '../../hooks';
-import CybersecurityBadge from './cybersecurity_certified.png';
+
+const EMAIL_REGEX = /^[A-Z0-9._%+'-]+@[A-Z0-9.-]+\.[A-Z]{2,}$/i;
 
 /**
  * Component that renders a login screen that prompts a user to enter a username and password to login.
@@ -54,64 +40,40 @@ import CybersecurityBadge from './cybersecurity_certified.png';
  * @category Component
  */
 
-const useUtilityClasses = (ownerState: LoginScreenProps): Record<LoginScreenClassKey, string> => {
-    const { classes } = ownerState;
-
-    const slots = {
-        root: ['root'],
-        projectImageWrapper: ['projectImageWrapper'],
-        inputFieldsWrapper: ['inputFieldsWrapper'],
-        usernameTextField: ['usernameTextField'],
-        passwordTextField: ['passwordTextField'],
-        rememberMeLoginRowWrapper: ['rememberMeLoginRowWrapper'],
-        rememberMeWrapper: ['rememberMeWrapper'],
-        rememberMeCheckbox: ['rememberMeCheckbox'],
-        rememberMeLabel: ['rememberMeLabel'],
-        loginButtonWrapper: ['loginButtonWrapper'],
-        loginButton: ['loginButton'],
-        forgotPasswordWrapper: ['forgotPasswordWrapper'],
-        forgotPasswordLabel: ['forgotPasswordLabel'],
-        selfRegisterWrapper: ['selfRegisterWrapper'],
-        selfRegisterInstructionLabel: ['selfRegisterInstructionLabel'],
-        selfRegisterLabel: ['selfRegisterLabel'],
-        contactSupportWrapper: ['contactSupportWrapper'],
-        contactSupportLabel: ['contactSupportLabel'],
-        cyberSecurityBadgeWrapper: ['cyberSecurityBadgeWrapper'],
-        cyberSecurityBadge: ['cyberSecurityBadge'],
-    };
-
-    return composeClasses(slots, getLoginScreenUtilityClass, classes);
-};
-
 export const LoginScreen: React.FC<React.PropsWithChildren<LoginScreenProps>> = (props) => {
     const { t } = useLanguageLocale();
     const {
         usernameLabel = t('bluiAuth:LABELS.EMAIL'),
         usernameTextFieldProps,
-        usernameValidator,
+        usernameValidator = (username: string): string | boolean => {
+            if (!EMAIL_REGEX.test(username)) {
+                return 'Enter a valid email address';
+            }
+            return true;
+        },
         initialUsernameValue,
         passwordLabel = t('bluiAuth:LABELS.PASSWORD'),
         passwordTextFieldProps,
         passwordValidator,
-        showRememberMe,
+        showRememberMe = true,
         rememberMeLabel = t('bluiAuth:ACTIONS.REMEMBER'),
-        rememberMeInitialValue,
+        rememberMeInitialValue = false,
         onRememberMeChanged,
         loginButtonLabel = t('bluiAuth:ACTIONS.LOG_IN'),
         onLogin,
-        showForgotPassword,
+        showForgotPassword = true,
         forgotPasswordLabel = t('bluiAuth:LABELS.FORGOT_PASSWORD'),
         onForgotPassword,
-        showSelfRegistration,
-        selfRegisterButtonLabel = t('bluiAuth:LABELS.NEED_ACCOUNT'),
-        selfRegisterInstructions = t('bluiAuth:LABELS.CREATE_ACCOUNT'),
+        showSelfRegistration = true,
+        selfRegisterInstructions = t('bluiAuth:LABELS.NEED_ACCOUNT'),
+        selfRegisterButtonLabel = t('bluiAuth:ACTIONS.CREATE_ACCOUNT'),
         onSelfRegister,
-        showContactSupport,
+        showContactSupport = true,
         contactSupportLabel = t('bluiAuth:MESSAGES.CONTACT'),
         onContactSupport,
         errorDisplayConfig,
-        showCyberSecurityBadge,
-        projectImage = CybersecurityBadge,
+        showCyberSecurityBadge = true,
+        projectImage,
         header,
         footer,
     } = props;
