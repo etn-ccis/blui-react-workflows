@@ -20,7 +20,7 @@ export * from './contexts/SecurityContextProvider';
 export { AuthUIContextProvider } from './contexts/AuthUIContextProvider';
 export type {
     AuthUIContextProviderProps,
-    RegistrationUIActions,
+    // RegistrationUIActions,
     // TODO: AuthUIActions is exported from the new-architecture, which is conflicting with this
     // AuthUIActions,
     CustomRegistrationForm,

@@ -1,7 +1,7 @@
 import { RegistrationContext } from './context';
 import { i18nRegistrationInstance } from './i18nRegistrationInstance';
-import { RegistrationContextProviderProps } from './types';
+import { RegistrationContextProviderProps, RegistrationUIActions } from './types';
 import { RegistrationContextProvider } from './provider';
 
-export type { RegistrationContextProviderProps };
+export type { RegistrationContextProviderProps, RegistrationUIActions };
 export { RegistrationContext, RegistrationContextProvider, i18nRegistrationInstance };
