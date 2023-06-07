@@ -1,15 +1,14 @@
-import React, { createRef, useCallback, useEffect, useRef, useState } from 'react';
+import React, { PropsWithChildren, useCallback, useEffect, useRef, useState } from 'react';
 import {
     ChangePasswordDialogBase,
     defaultPasswordRequirements,
     useLanguageLocale,
 } from '@brightlayer-ui/react-auth-workflow';
 
-export const ChangePasswordDialogTest: React.FC<React.PropsWithChildren> = () => {
+export const ChangePasswordDialogTest: React.FC<PropsWithChildren> = () => {
     const { t } = useLanguageLocale();
     const passwordRef = useRef(null);
     const confirmRef = useRef(null);
-    const currentPwdRef = createRef();
     const [passwordInput, setPasswordInput] = useState('');
     const [confirmInput, setConfirmInput] = useState('');
     const [currentInput, setCurrentInput] = useState('');
@@ -39,29 +38,30 @@ export const ChangePasswordDialogTest: React.FC<React.PropsWithChildren> = () =>
         setPasswordInput(areValidMatchingPasswords() ? passwordInput : '');
     }, [setPasswordInput, passwordInput, confirmInput, areValidMatchingPasswords]);
 
+    const checkPasswords =
+        passwordInput !== '' && confirmInput !== '' && currentInput !== '' && passwordInput === confirmInput;
+
+    const changePasswordSubmit = (): void => {
+        if (checkPasswords)
+            // eslint-disable-next-line no-console
+            console.log(passwordInput, currentInput);
+    };
+
     return (
         <ChangePasswordDialogBase
             open={true}
             PasswordProps={{
+                newPasswordLabel: 'New Password',
                 passwordRef: passwordRef,
                 confirmRef: confirmRef,
                 initialNewPasswordValue: passwordInput,
                 initialConfirmPasswordValue: confirmInput,
                 onPasswordChange: updateFields,
-                onSubmit: (): void => {
-                    // eslint-disable-next-line no-console
-                    console.log('submitting form...');
-                },
+                onSubmit: changePasswordSubmit,
             }}
-            enableButton={
-                passwordInput !== '' && confirmInput !== '' && currentInput !== '' && passwordInput === confirmInput
-            }
-            onSubmit={(): void => {
-                // eslint-disable-next-line no-console
-                console.log('Clicked');
-            }}
+            enableButton={checkPasswords}
+            onSubmit={changePasswordSubmit}
             currentPasswordChange={currentPasswordChange}
-            currentPwdRef={currentPwdRef}
         />
     );
 };

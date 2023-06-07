@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import React, { useEffect, useState } from 'react';
 import {
     Button,
     Dialog,
@@ -15,14 +15,14 @@ import { ChangePasswordDialogProps } from './types';
 import { SetPassword } from '../SetPassword';
 import { useLanguageLocale } from '../../../auth-shared';
 import { WorkflowSecureTextField } from '../WorkflowSecureTextField';
-import { FullDividerStyles } from '../../../styles';
 
 export const ChangePasswordDialogBase: React.FC<ChangePasswordDialogProps> = (props) => {
-    const { sx, open, currentPwdRef, enableButton, currentPasswordChange } = props;
+    const { sx, open, enableButton, currentPasswordChange, onSubmit } = props;
     const theme = useTheme();
-    const { t } = useLanguageLocale();
     const matchesSM = useMediaQuery(theme.breakpoints.down('sm'));
+    const { t } = useLanguageLocale();
     const [currentPassword, setCurrentPassword] = useState('');
+    const [buttonState, setButtonState] = useState(true);
 
     const passwordProps = props.PasswordProps || { onPasswordChange: () => ({}) };
 
@@ -30,6 +30,10 @@ export const ChangePasswordDialogBase: React.FC<ChangePasswordDialogProps> = (pr
         setCurrentPassword(event.target.value);
         currentPasswordChange(event.target.value);
     };
+
+    useEffect(() => {
+        setButtonState(!enableButton);
+    }, [enableButton]);
 
     return (
         <Dialog fullScreen={matchesSM ? true : false} open={open} maxWidth={'xs'}>
@@ -60,13 +64,11 @@ export const ChangePasswordDialogBase: React.FC<ChangePasswordDialogProps> = (pr
                 ]}
             >
                 <Typography>{t('blui:CHANGE_PASSWORD.PASSWORD_INFO')}</Typography>
-
-                <Divider sx={FullDividerStyles(theme)} />
+                <Divider sx={{ mt: 5, mb: 4, mx: { md: -3, xs: -2 } }} />
                 <SetPassword {...passwordProps}>
                     <WorkflowSecureTextField
                         id="current-password"
                         label={t('blui:LABELS.CURRENT_PASSWORD')}
-                        inputRef={currentPwdRef}
                         value={currentPassword}
                         onChange={handleChange}
                         onKeyPress={(e): void => {
@@ -101,8 +103,9 @@ export const ChangePasswordDialogBase: React.FC<ChangePasswordDialogProps> = (pr
                         variant="contained"
                         disableElevation
                         sx={{ width: 100 }}
-                        disabled={!enableButton}
+                        disabled={buttonState}
                         color="primary"
+                        onClick={onSubmit}
                     >
                         {t('blui:ACTIONS.OKAY')}
                     </Button>
