@@ -32,7 +32,7 @@ export const ResetPasswordScreen: React.FC<ResetPasswordScreenProps> = (props) =
     const [passwordInput, setPasswordInput] = useState('');
     const [confirmInput, setConfirmInput] = useState('');
     const [isLoading, setIsLoading] = useState(false);
-    const [showSuccessScreen, setShowSuccessScreen] = useState(false);
+    const [showSuccessScreen, setShowSuccessScreen] = useState(props.showSuccessScreen);
     const [showErrorDialog, setShowErrorDialog] = useState(false);
 
     const { code, email } = useQueryString();
@@ -77,6 +77,9 @@ export const ResetPasswordScreen: React.FC<ResetPasswordScreenProps> = (props) =
             previousLabel: 'Back',
             canGoNext: passwordInput !== '' && confirmInput !== '' && passwordInput === confirmInput,
         },
+        WorkflowCardBaseProps: workflowCardBaseProps = {
+            loading: isLoading,
+        },
     } = props;
 
     const passwordRequirements = defaultPasswordRequirements(t);
@@ -116,18 +119,13 @@ export const ResetPasswordScreen: React.FC<ResetPasswordScreenProps> = (props) =
                 errorDialog
             ) : (
                 <ResetPasswordScreenBase
-                    WorkflowCardBaseProps={{ loading: isLoading }}
+                    WorkflowCardBaseProps={workflowCardBaseProps}
                     WorkflowCardHeaderProps={workflowCardHeaderProps}
                     WorkflowCardInstructionProps={workflowCardInstructionProps}
                     WorkflowCardActionsProps={workflowCardActionsProps}
                     PasswordProps={{
                         ...passwordProps,
                         onPasswordChange: updateFields,
-                        onSubmit: (): void => {
-                            if (passwordInput !== '' && confirmInput !== '' && passwordInput === confirmInput) {
-                                setShowSuccessScreen(true);
-                            }
-                        },
                     }}
                     slotProps={{
                         SuccessScreen: {
