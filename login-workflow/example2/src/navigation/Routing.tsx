@@ -17,7 +17,7 @@ import {
     RegistrationWorkflowScreen,
     VerifyCodeScreenBaseTest,
     GuardedScreen,
-    ContactUs,
+    ContactScreenBaseTest,
     RegistrationTestScreen,
     LoginScreen,
     ResetPasswordScreen,
@@ -88,7 +88,7 @@ export const GetCustomRoutes = (isAuthenticated: boolean) => {
         // Accessible from anywhere
         {
             path: `/contact-us`,
-            element: <ContactUs />,
+            element: <ContactScreenBaseTest />,
         },
         {
             path: `/registration-workflow`,
@@ -182,7 +182,7 @@ export const CustomRouterWithUnbiasedAuthGuard = ({
             // Accessible from anywhere
             {
                 path: `/contact-us`,
-                element: <ContactUs />,
+                element: <ContactScreenBaseTest />,
             },
             // Authenticated Route: accessible only if the user IS authenticated
             {

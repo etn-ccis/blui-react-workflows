@@ -1,4 +1,4 @@
-export * from './ContactUs';
+export * from './ContactScreen';
 export * from './GuardedScreen';
 export * from './I18nTestScreen';
 export * from './LoginScreen';
