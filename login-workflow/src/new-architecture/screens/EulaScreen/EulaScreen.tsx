@@ -36,10 +36,10 @@ export const EulaScreen: React.FC<EulaFullScreenProps> = (props) => {
             } catch {
                 setEulaLoaded(false);
                 // TODO - Need better way to handle WorflowCard Error
-                console.log(t('bluiRegistration:REGISTRATION.FAILURE_MESSAGE'));
+                console.error(t('bluiRegistration:REGISTRATION.FAILURE_MESSAGE'));
             }
         }
-    }, [eulaContent, setEulaData, setEulaLoaded, actions]);
+    }, [eulaContent, language, actions, setEulaData, setEulaLoaded, t]);
 
     const onNext = useCallback(async (): Promise<void> => {
         setEulaLoaded(true);
@@ -51,10 +51,10 @@ export const EulaScreen: React.FC<EulaFullScreenProps> = (props) => {
                 values: { accepted: acceptedEula },
             });
         } catch {
-            console.log('Error while updating EULA acceptance...');
+            console.error('Error while updating EULA acceptance...');
         }
         setEulaLoaded(false);
-    }, [actions, setEulaAccepted, setEulaLoaded]);
+    }, [actions, nextScreen, setEulaAccepted, setEulaLoaded]);
 
     const onPrevious = useCallback(async (): Promise<void> => {
         setEulaLoaded(true);
@@ -66,14 +66,14 @@ export const EulaScreen: React.FC<EulaFullScreenProps> = (props) => {
                 values: { accepted: acceptedEula },
             });
         } catch {
-            console.log('Error while updating EULA acceptance...');
+            console.error('Error while updating EULA acceptance...');
         }
         setEulaLoaded(false);
-    }, [actions, setEulaAccepted, setEulaLoaded]);
+    }, [actions, previousScreen, setEulaAccepted, setEulaLoaded]);
 
     useEffect(() => {
-        loadAndCacheEula();
-    }, []);
+        void loadAndCacheEula();
+    }, [loadAndCacheEula]);
 
     return (
         <EulaScreenBase
@@ -96,10 +96,11 @@ export const EulaScreen: React.FC<EulaFullScreenProps> = (props) => {
                 currentStep: 0,
                 totalSteps: 6,
                 onNext: (): void => {
-                    onNext();
+                    void onNext();
                 },
                 onPrevious: (): void => {
-                    onPrevious(), navigate(routeConfig.LOGIN);
+                    void onPrevious();
+                    navigate(routeConfig.LOGIN);
                 },
             }}
         />
