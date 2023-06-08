@@ -9,41 +9,12 @@ import {
     i18nRegistrationInstance,
     RegistrationContextProvider,
     EulaScreen,
-    // useSecurityActions,
 } from '@brightlayer-ui/react-auth-workflow';
 import TextField from '@mui/material/TextField';
 import { useNavigate } from 'react-router-dom';
 import { useApp } from '../../contexts/AppContextProvider';
 import { ProjectRegistrationUIActions } from '../../actions/RegistrationUIActions';
-
-// const Screen1 = (): JSX.Element => {
-//     const regWorkflow = useRegistrationWorkflowContext();
-//     const { nextScreen, screenData } = regWorkflow;
-//     const [value, setValue] = useState(
-//         screenData['Other'] && screenData['Other']['TextField1'] ? screenData['Other']['TextField1'].test : ''
-//     );
-
-//     return (
-//         <WorkflowCard>
-//             <WorkflowCardHeader title="Screen 1" />
-//             <WorkflowCardBody>
-//                 <TextField
-//                     variant="outlined"
-//                     /* @ts-ignore */
-//                     defaultValue={value}
-//                     placeholder="Please enter text here"
-//                     onChange={(event): void => setValue(event.target.value)}
-//                     onBlur={(event): void => setValue(event.target.value)}
-//                 />
-//             </WorkflowCardBody>
-//             <WorkflowCardActions
-//                 showNext
-//                 nextLabel="Next"
-//                 onNext={(): void => nextScreen({ screenId: 'TextField1', values: { test: value } })}
-//             />
-//         </WorkflowCard>
-//     );
-// };
+import { routes } from '../../navigation/Routing';
 
 const Screen2 = (): JSX.Element => {
     const regWorkflow = useRegistrationWorkflowContext();
@@ -113,7 +84,7 @@ export const RegistrationWorkflowScreen = (): JSX.Element => {
         <RegistrationContextProvider
             i18n={i18nRegistrationInstance}
             language={language}
-            routeConfig={{}}
+            routeConfig={routes}
             navigate={navigate}
             actions={ProjectRegistrationUIActions}
         >
@@ -123,5 +94,5 @@ export const RegistrationWorkflowScreen = (): JSX.Element => {
                 <Screen3 />
             </RegistrationWorkflow>
         </RegistrationContextProvider>
-    )
+    );
 };

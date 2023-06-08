@@ -92,7 +92,11 @@ export const GetCustomRoutes = (isAuthenticated: boolean) => {
         },
         {
             path: `/registration-workflow`,
-            element: <SecurityContextProvider><RegistrationWorkflowScreen /></SecurityContextProvider>,
+            element: (
+                <SecurityContextProvider>
+                    <RegistrationWorkflowScreen />
+                </SecurityContextProvider>
+            ),
         },
         {
             path: `/set-password`,
