@@ -1,7 +1,8 @@
-import React from 'react';
+import React, { useEffect } from 'react';
 import { LoginScreenProps } from './types';
 import { LoginScreenBase } from './LoginScreenBase';
 import { useLanguageLocale } from '../../hooks';
+import { useAuthContext } from '../../contexts';
 
 const EMAIL_REGEX = /^[A-Z0-9._%+'-]+@[A-Z0-9.-]+\.[A-Z]{2,}$/i;
 
@@ -42,6 +43,13 @@ const EMAIL_REGEX = /^[A-Z0-9._%+'-]+@[A-Z0-9.-]+\.[A-Z]{2,}$/i;
 
 export const LoginScreen: React.FC<React.PropsWithChildren<LoginScreenProps>> = (props) => {
     const { t } = useLanguageLocale();
+    const auth = useAuthContext();
+    const { actions, navigate, routeConfig, rememberMeDetails } = auth;
+
+    useEffect(() => {
+        actions().initiateSecurity();
+    }, []);
+
     const {
         usernameLabel = t('bluiAuth:LABELS.EMAIL'),
         usernameTextFieldProps,
@@ -51,26 +59,33 @@ export const LoginScreen: React.FC<React.PropsWithChildren<LoginScreenProps>> = 
             }
             return true;
         },
-        initialUsernameValue,
+        initialUsernameValue = rememberMeDetails?.email || '',
         passwordLabel = t('bluiAuth:LABELS.PASSWORD'),
         passwordTextFieldProps,
-        passwordValidator,
+        passwordValidator = (): boolean => true,
         showRememberMe = true,
         rememberMeLabel = t('bluiAuth:ACTIONS.REMEMBER'),
-        rememberMeInitialValue = false,
+        rememberMeInitialValue = rememberMeDetails?.rememberMe,
         onRememberMeChanged,
         loginButtonLabel = t('bluiAuth:ACTIONS.LOG_IN'),
-        onLogin,
+        onLogin = (username: string, password: string, rememberMe: boolean): void => {
+            try {
+                actions().logIn(username, password, rememberMe);
+                props.onLogin?.(username, password, rememberMe);
+            } catch (error) {
+                console.log(error);
+            }
+        },
         showForgotPassword = true,
         forgotPasswordLabel = t('bluiAuth:LABELS.FORGOT_PASSWORD'),
-        onForgotPassword,
+        onForgotPassword = (): void => navigate(routeConfig.FORGOT_PASSWORD),
         showSelfRegistration = true,
         selfRegisterInstructions = t('bluiAuth:LABELS.NEED_ACCOUNT'),
         selfRegisterButtonLabel = t('bluiAuth:ACTIONS.CREATE_ACCOUNT'),
-        onSelfRegister,
+        onSelfRegister = (): void => navigate(routeConfig.REGISTER_SELF),
         showContactSupport = true,
         contactSupportLabel = t('bluiAuth:MESSAGES.CONTACT'),
-        onContactSupport,
+        onContactSupport = (): void => navigate(routeConfig.SUPPORT),
         errorDisplayConfig,
         showCyberSecurityBadge = true,
         projectImage,

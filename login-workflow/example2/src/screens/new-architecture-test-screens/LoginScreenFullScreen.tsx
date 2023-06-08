@@ -21,30 +21,34 @@ export const LoginScreenFullScreenTest = (): JSX.Element => {
                     routeConfig={{}}
                 >
                     <LoginScreen
-                        usernameTextFieldProps={{
-                            inputProps: {
-                                maxLength: 30,
-                            },
+                        onLogin={(username, password): void => {
+                            // eslint-disable-next-line no-console
+                            console.log('onLogin', username, password);
                         }}
-                        passwordTextFieldProps={{
-                            required: true,
-                        }}
+                        // usernameTextFieldProps={{
+                        //     inputProps: {
+                        //         maxLength: 30,
+                        //     },
+                        // }}
+                        // passwordTextFieldProps={{
+                        //     required: true,
+                        // }}
                         onRememberMeChanged={(value: boolean): void => {
                             // eslint-disable-next-line no-console
                             console.log('onRememberMeChanged', value);
                         }}
-                        onForgotPassword={(): void => {
-                            // eslint-disable-next-line no-console
-                            console.log('onForgotPassword');
-                        }}
-                        onSelfRegister={(): void => {
-                            // eslint-disable-next-line no-console
-                            console.log('onSelfRegister');
-                        }}
-                        onContactSupport={(): void => {
-                            // eslint-disable-next-line no-console
-                            console.log('onContactSupport');
-                        }}
+                        // onForgotPassword={(): void => {
+                        //     // eslint-disable-next-line no-console
+                        //     console.log('onForgotPassword');
+                        // }}
+                        // onSelfRegister={(): void => {
+                        //     // eslint-disable-next-line no-console
+                        //     console.log('onSelfRegister');
+                        // }}
+                        // onContactSupport={(): void => {
+                        //     // eslint-disable-next-line no-console
+                        //     console.log('onContactSupport');
+                        // }}
                         projectImage={<img src={EatonLogo} alt="logo" style={{ maxHeight: 80 }} />}
                     />
                 </AuthContextProvider>

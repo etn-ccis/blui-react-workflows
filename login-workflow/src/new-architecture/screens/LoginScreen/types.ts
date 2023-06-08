@@ -36,7 +36,7 @@ export type LoginScreenProps = WorkflowCardBaseProps & {
 
     // configure Login
     loginButtonLabel?: string;
-    onLogin?: (username: string, password: string) => void;
+    onLogin?: (username?: string, password?: string, rememberMe?: boolean) => void;
 
     // configure Forgot Password
     showForgotPassword?: boolean;
