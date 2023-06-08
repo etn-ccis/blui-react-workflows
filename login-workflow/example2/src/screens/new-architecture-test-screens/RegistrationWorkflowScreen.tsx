@@ -9,7 +9,7 @@ import {
     i18nRegistrationInstance,
     RegistrationContextProvider,
     EulaScreen,
-    useSecurityActions,
+    // useSecurityActions,
 } from '@brightlayer-ui/react-auth-workflow';
 import TextField from '@mui/material/TextField';
 import { useNavigate } from 'react-router-dom';

@@ -4,11 +4,11 @@ import { EulaScreenProps } from './types';
 import { useNavigate } from 'react-router';
 import { EulaScreenBase } from './EulaScreenBase';
 import { useLanguageLocale } from '../../hooks';
-import { RegistrationUIActions, RegistrationContextProviderProps } from '../../contexts/RegistrationContext/types';
 import {useRegistrationContext} from '../../contexts/RegistrationContext/context';
 
 // Constants
 import { SAMPLE_EULA } from '../../../constants';
+import { useRegistrationWorkflowContext } from '../../contexts';
 // import { useRegistrationUIActions } from '../../../auth-shared';
 const sleep = (ms: number): Promise<void> => new Promise((resolve) => setTimeout(resolve, ms));
 
@@ -23,6 +23,8 @@ export const EulaScreen: React.FC<EulaFullScreenProps> = (props) => {
     const navigate = useNavigate();
     const { t } = useLanguageLocale();
     const result = useRegistrationContext();
+    const regWorkflow = useRegistrationWorkflowContext();
+    const { nextScreen, screenData } = regWorkflow;
     // const UIActions = useRegistrationUIActions();
     const {
         title = t('bluiRegistration:REGISTRATION.STEPS.LICENSE'),
@@ -34,45 +36,27 @@ export const EulaScreen: React.FC<EulaFullScreenProps> = (props) => {
         checkboxProps,
     } = props;
 
-    const [eulaAccepted, setEulaAccepted] = useState(onEulaAcceptedChange(initialCheckboxValue) ?? false);
+    const [eulaAccepted, setEulaAccepted] = useState(screenData.Eula.accepted ?? false);
     const [eulaLoaded, setIsEulaLoaded] = useState(true);
-    const [eula, setEula] = useState(eulaContent || '');
+    const [eula, setEula] = useState(eulaContent || '');    
 
-    // const loadEula = useCallback(async (): Promise<void> => {
-    //     if (!eulaContent) {
-    //         setEula(t('blui:REGISTRATION.EULA.LOADING'));
-    //         await sleep(800);
-    //         setEula(SAMPLE_EULA);
-    //         setIsEulaLoaded(false);
-    //     }
-    // }, [eulaContent, setEula, t]);
-
-    // Load the Eula if we don't have it yet
-    const loadAndCacheEula = useCallback(async (): Promise<void> => {
-        // if (!eulaContent) {
-            // setEula(t('bluiRegistration:REGISTRATION.EULA.LOADING'));
-            // try {
-                console.log('esult.actions()', result.actions());
-                const eulaText = await result.actions().loadEula(result.language);
-                console.log('eula', eulaText)
-                setEula(eulaText);
-                setIsEulaLoaded(true);
-            // } catch {
-            //     // setEula(eulaError);
-            // }
-        // }
-    }, [eulaContent, setEula, t]);
+    const loadAndCacheEula = useCallback(async (): Promise<string> => {
+        // setEula('eulaText');
+        try {
+            const eulaData = await result.actions().loadEula(result.language);
+            if (eulaData) {
+                console.log(eulaData,'eulaData');
+            }
+            return eulaData;
+        } catch {
+            // do nothing
+            setIsEulaLoaded(false);
+        }
+    }, [setEula, result.language]);
 
     useEffect(() => {
-        void loadAndCacheEula();
+        loadAndCacheEula()
     }, []);
-
-    const handleEulaAcceptedChecked = useCallback(
-        (accepted: boolean) => {
-            setEulaAccepted(onEulaAcceptedChange(accepted));
-        },
-        [onEulaAcceptedChange]
-    );
 
     return (
         <EulaScreenBase
@@ -83,7 +67,7 @@ export const EulaScreen: React.FC<EulaFullScreenProps> = (props) => {
             }}
             checkboxLabel={checkboxLabel}
             checkboxProps={{ disabled: false }}
-            initialCheckboxValue={false}
+            initialCheckboxValue={eulaAccepted}
             onEulaAcceptedChange={(accepted: boolean): boolean => accepted}
             WorkflowCardActionsProps={{
                 showNext: true,
@@ -94,6 +78,12 @@ export const EulaScreen: React.FC<EulaFullScreenProps> = (props) => {
                 canGoPrevious: true,
                 currentStep: 0,
                 totalSteps: 6,
+                onNext:(): void =>{
+                    nextScreen({
+                        screenId: 'CreateAccount',
+                        values: screenData['CreateAccount'],
+                    })
+                }
             }}
         />
     );
