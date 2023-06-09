@@ -68,7 +68,7 @@ export const WorkflowCard: React.FC<WorkflowCardBaseProps> = (props) => {
                 data-testid={defaultClasses.card}
             >
                 <>
-                    <Spinner visible={loading} />
+                    <Spinner data-testid="blui-spinner" visible={loading} />
                     {children}
                 </>
             </Card>

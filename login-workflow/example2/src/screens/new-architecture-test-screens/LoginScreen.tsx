@@ -143,6 +143,13 @@ export const LoginScreen = (): JSX.Element => {
                             >
                                 Eula Screen
                             </Button>
+                            <Button
+                                variant="contained"
+                                sx={{ width: 200, m: 2 }}
+                                onClick={(): void => navigate('/reset-password-full-screen')}
+                            >
+                                Reset Password Full Screen
+                            </Button>
                         </Box>
                     }
                 />
