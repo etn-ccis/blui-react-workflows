@@ -1,6 +1,6 @@
 import React from 'react';
 import '@testing-library/jest-dom';
-import { cleanup, render, screen, RenderResult } from '@testing-library/react';
+import { cleanup, render, screen, RenderResult, fireEvent } from '@testing-library/react';
 import { EulaScreen } from './EulaScreen';
 import {
     RegistrationContextProvider,
@@ -22,8 +22,16 @@ const defaultProps: RegistrationContextProviderProps = {
 };
 
 describe('Eula Screen', () => {
+    let mockOnNext: any;
+    let mockOnPrevious: any;
+
     afterEach(() => {
         jest.clearAllMocks();
+    });
+
+    beforeEach(() => {
+        mockOnNext = jest.fn();
+        mockOnPrevious = jest.fn();
     });
 
     const renderer = (props?: EulaFullScreenProps): RenderResult =>
@@ -52,5 +60,41 @@ describe('Eula Screen', () => {
         renderer({ WorkflowCardBaseProps: { loading: true } });
 
         expect(screen.getByText('Loading End User License Agreement...')).toBeInTheDocument();
+    });
+
+    it('should call onNext, when Next button clicked', () => {
+        const { getByLabelText } = renderer({
+            WorkflowCardActionsProps: {
+                onNext: mockOnNext(),
+                showNext: true,
+                nextLabel: 'Next',
+            },
+        });
+
+        const checkboxLabel = getByLabelText('I have read and agree to the Terms & Conditions');
+        fireEvent.click(checkboxLabel);
+        fireEvent.change(checkboxLabel, { target: { accepted: true } });
+
+        const nextButton = screen.getByText('Next');
+        expect(nextButton).toBeInTheDocument();
+        expect(screen.getByText(/Next/i)).toBeEnabled();
+        fireEvent.click(nextButton);
+        expect(mockOnNext).toHaveBeenCalled();
+    });
+
+    it('should call onPrevious, when Back button clicked', () => {
+        renderer({
+            WorkflowCardActionsProps: {
+                onPrevious: mockOnPrevious(),
+                showPrevious: true,
+                previousLabel: 'Back',
+            },
+        });
+
+        const backButton = screen.getByText('Back');
+        expect(backButton).toBeInTheDocument();
+        expect(screen.getByText(/Back/i)).toBeEnabled();
+        fireEvent.click(backButton);
+        expect(mockOnPrevious).toHaveBeenCalled();
     });
 });
