@@ -13,7 +13,7 @@ describe('AccountDetailsScreenBase tests', () => {
                 onSubmit={undefined}
                 PasswordProps={{
                     onPasswordChange: function (passwords: { password: string; confirm: string }): void {
-                        throw new Error('Function not implemented.', passwords);
+                        throw new Error(JSON.stringify(passwords));
                     },
                     newPasswordLabel: '',
                     initialNewPasswordValue: '',
@@ -27,7 +27,7 @@ describe('AccountDetailsScreenBase tests', () => {
                     },
                 }}
                 currentPasswordChange={function (currentPassword: string): void {
-                    throw new Error('Function not implemented.', currentPassword);
+                    throw new Error(currentPassword);
                 }}
                 enableButton={false}
             />
