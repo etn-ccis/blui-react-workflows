@@ -45,12 +45,12 @@ export const ResetPasswordScreenBase: React.FC<React.PropsWithChildren<ResetPass
         getSuccessScreen(slotProps?.SuccessScreen, slots?.SuccessScreen)
     ) : (
         <WorkflowCard {...cardBaseProps}>
-            <WorkflowCardHeader {...headerProps}></WorkflowCardHeader>
+            <WorkflowCardHeader {...headerProps} />
             <WorkflowCardBody>
                 <WorkflowCardInstructions {...instructionsProps} divider />
                 <SetPassword {...passwordProps} />
             </WorkflowCardBody>
-            <WorkflowCardActions {...actionsProps} divider></WorkflowCardActions>
+            <WorkflowCardActions {...actionsProps} divider />
         </WorkflowCard>
     );
 };

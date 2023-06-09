@@ -14,6 +14,7 @@ import TextField from '@mui/material/TextField';
  * @param emailLabel label for the textfield
  * @param initialValue used to pre-populate the email input field
  * @param emailValidator used to test the input for valid formatting
+ * @param emailTextFieldProps props to pass to the email text field
  *
  * @category Component
  */
@@ -24,6 +25,7 @@ export const CreateAccountScreenBase: React.FC<React.PropsWithChildren<CreateAcc
         emailValidator = (email: string): boolean | string => true,
         emailLabel,
         initialValue,
+        emailTextFieldProps,
     } = props;
 
     const cardBaseProps = props.WorkflowCardBaseProps || {};
@@ -57,17 +59,24 @@ export const CreateAccountScreenBase: React.FC<React.PropsWithChildren<CreateAcc
                     label={emailLabel}
                     fullWidth
                     value={emailInput}
-                    onChange={(evt): void => {
-                        handleEmailInputChange(evt.target.value);
+                    variant="filled"
+                    error={shouldValidateEmail && !isEmailValid}
+                    helperText={shouldValidateEmail && emailError}
+                    {...emailTextFieldProps}
+                    onChange={(e): void => {
+                        // eslint-disable-next-line no-unused-expressions
+                        emailTextFieldProps?.onChange && emailTextFieldProps.onChange(e);
+                        handleEmailInputChange(e.target.value);
                     }}
                     onKeyPress={(e): void => {
                         if (e.key === 'Enter' && emailInput.length > 0 && isEmailValid && actionsProps.canGoNext)
                             actionsProps?.onNext?.();
                     }}
-                    variant="filled"
-                    error={shouldValidateEmail && !isEmailValid}
-                    helperText={shouldValidateEmail && emailError}
-                    onBlur={(): void => setShouldValidateEmail(true)}
+                    onBlur={(e): void => {
+                        // eslint-disable-next-line no-unused-expressions
+                        emailTextFieldProps?.onBlur && emailTextFieldProps.onBlur(e);
+                        setShouldValidateEmail(true);
+                    }}
                 />
             </WorkflowCardBody>
             <WorkflowCardActions
