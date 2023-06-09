@@ -15,3 +15,4 @@ export * from './VerifyCodeScreenBase';
 export * from './ResetPasswordScreen';
 export * from './CreatePasswordScreenTest';
 export * from './EulaScreenBase';
+export * from './ResetPasswordFullScreen';
