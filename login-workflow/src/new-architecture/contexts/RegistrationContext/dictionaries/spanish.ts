@@ -27,6 +27,12 @@ const resources: RegistrationLanguageFile = {
             FAILURE_MESSAGE: 'No pudimos completar su registro. Pulse continuar para terminar. ',
             UNKNOWN_EMAIL: 'Correo electrónico desconocido',
             UNKNOWN_ORGANIZATION: 'Organización desconocida',
+            CREATE_PASSWORD: {
+                PASSWORD_INFO:
+                    'Por favor, seleccione una contraseña. Asegúrese de que su contraseña cumple con los requisitos de complejidad necesarios que se describen a continuación. ',
+                PASSWORD: 'Contraseña',
+                CONFIRM_PASSWORD: 'Confirmar contraseña',
+            },
         },
         SELF_REGISTRATION: {
             INSTRUCTIONS: `Para registrarse para una cuenta Eaton, introduzca la información requerida abajo. Deberá verificar su dirección de correo electrónico para continuar.`,
@@ -36,6 +42,13 @@ const resources: RegistrationLanguageFile = {
                 VERIFICATION_CODE_PROMPT: '¿No recibiste un correo electrónico?',
                 VERIFICATION: 'Código de verificación',
             },
+        },
+        PASSWORD_REQUIREMENTS: {
+            LENGTH: '8-16 caracteres',
+            NUMBERS: 'Un número',
+            UPPER: 'Una letra mayúscula',
+            LOWER: 'Una letra minúscula',
+            SPECIAL: 'Un carácter especial',
         },
     },
 };

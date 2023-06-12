@@ -27,6 +27,12 @@ const resources: RegistrationLanguageFile = {
             FAILURE_MESSAGE: 'Foi impossível concluir o seu registo. Clique em continuar para concluir.',
             UNKNOWN_EMAIL: 'E-mail desconhecido',
             UNKNOWN_ORGANIZATION: 'Organização desconhecida',
+            CREATE_PASSWORD: {
+                PASSWORD_INFO:
+                    'Por favor selecione uma palavra-passe. Certifique-se de que sua senha atenda aos requisitos de complexidade necessários descritos abaixo.',
+                PASSWORD: 'Palavra-passe',
+                CONFIRM_PASSWORD: 'Confirmar palavra-passe',
+            },
         },
         SELF_REGISTRATION: {
             INSTRUCTIONS:
@@ -38,6 +44,13 @@ const resources: RegistrationLanguageFile = {
                 VERIFICATION_CODE_PROMPT: 'Não recebeu um e-mail?',
                 VERIFICATION: 'Código de verificação',
             },
+        },
+        PASSWORD_REQUIREMENTS: {
+            LENGTH: '8-16 caracteres',
+            NUMBERS: 'Um número',
+            UPPER: 'Uma letra maiúscula',
+            LOWER: 'Uma letra minúscula',
+            SPECIAL: 'Um caracter especial',
         },
     },
 };

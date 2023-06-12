@@ -30,7 +30,7 @@ export const SetPassword: React.FC<React.PropsWithChildren<SetPasswordProps>> = 
         initialNewPasswordValue = '',
         confirmPasswordLabel,
         initialConfirmPasswordValue = '',
-        passwordRequirements = defaultPasswordRequirements(t),
+        passwordRequirements = defaultPasswordRequirements(t, 'bluiAuth'),
         onPasswordChange,
         children,
         passwordRef,

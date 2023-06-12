@@ -16,25 +16,25 @@ export const UPPER_CASE_REGEX = /[A-Z]+/;
 export const LOWER_CASE_REGEX = /[a-z]+/;
 /////////////////////////////////////////////////////////////////////////////////////
 
-export const defaultPasswordRequirements = (t: (input: string) => string): PasswordRequirement[] => [
+export const defaultPasswordRequirements = (t: (input: string) => string, namespace: string): PasswordRequirement[] => [
     {
         regex: LENGTH_REGEX,
-        description: t('bluiAuth:PASSWORD_REQUIREMENTS.LENGTH'),
+        description: t(`${namespace}:PASSWORD_REQUIREMENTS.LENGTH`),
     },
     {
         regex: NUMBERS_REGEX,
-        description: t('bluiAuth:PASSWORD_REQUIREMENTS.NUMBERS'),
+        description: t(`${namespace}:PASSWORD_REQUIREMENTS.NUMBERS`),
     },
     {
         regex: UPPER_CASE_REGEX,
-        description: t('bluiAuth:PASSWORD_REQUIREMENTS.UPPER'),
+        description: t(`${namespace}:PASSWORD_REQUIREMENTS.UPPER`),
     },
     {
         regex: LOWER_CASE_REGEX,
-        description: t('bluiAuth:PASSWORD_REQUIREMENTS.LOWER'),
+        description: t(`${namespace}:PASSWORD_REQUIREMENTS.LOWER`),
     },
     {
         regex: SPECIAL_CHAR_REGEX,
-        description: t('bluiAuth:PASSWORD_REQUIREMENTS.SPECIAL'),
+        description: t(`${namespace}:PASSWORD_REQUIREMENTS.SPECIAL`),
     },
 ];

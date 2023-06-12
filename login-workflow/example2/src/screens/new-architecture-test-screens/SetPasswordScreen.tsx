@@ -19,7 +19,7 @@ export const SetPasswordScreen: React.FC<React.PropsWithChildren<any>> = () => {
     const [passwordInput, setPasswordInput] = useState('');
     const [confirmInput, setConfirmInput] = useState('');
 
-    const passwordRequirements = defaultPasswordRequirements(t);
+    const passwordRequirements = defaultPasswordRequirements(t, 'bluiAuth');
     const areValidMatchingPasswords = useCallback((): boolean => {
         for (let i = 0; i < passwordRequirements.length; i++) {
             if (!new RegExp(passwordRequirements[i].regex).test(passwordInput)) return false;

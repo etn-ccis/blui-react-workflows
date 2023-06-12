@@ -15,7 +15,7 @@ export const CreatePasswordScreenTest = (): JSX.Element => {
     const [passwordInput, setPasswordInput] = useState('');
     const [confirmInput, setConfirmInput] = useState('');
 
-    const passwordRequirements = defaultPasswordRequirements(t);
+    const passwordRequirements = defaultPasswordRequirements(t, 'bluiRegistration');
     const areValidMatchingPasswords = useCallback((): boolean => {
         for (let i = 0; i < passwordRequirements.length; i++) {
             if (!new RegExp(passwordRequirements[i].regex).test(passwordInput)) return false;

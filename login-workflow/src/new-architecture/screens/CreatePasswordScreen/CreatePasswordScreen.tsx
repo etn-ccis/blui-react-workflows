@@ -2,12 +2,10 @@ import React, { useState, useCallback, useEffect, useRef } from 'react';
 import { useLanguageLocale } from '../../hooks';
 import { defaultPasswordRequirements } from '../../constants';
 import { CreatePasswordScreenBase } from './CreatePasswordScreenBase';
-import { useRegistrationContext } from '../../contexts/RegistrationContext/context';
 import { useRegistrationWorkflowContext } from '../../contexts';
 
 export const CreatePasswordScreen = (): JSX.Element => {
     const { t } = useLanguageLocale();
-    const { navigate, routeConfig } = useRegistrationContext();
     const regWorkflow = useRegistrationWorkflowContext();
     const { nextScreen, previousScreen, screenData } = regWorkflow;
     const passwordRef = useRef(null);
@@ -15,7 +13,7 @@ export const CreatePasswordScreen = (): JSX.Element => {
     const [passwordInput, setPasswordInput] = useState(screenData.CreatePassword.password ?? '');
     const [confirmInput, setConfirmInput] = useState(screenData.CreatePassword.confirmPassword ?? '');
 
-    const passwordRequirements = defaultPasswordRequirements(t);
+    const passwordRequirements = defaultPasswordRequirements(t, 'bluiRegistration');
     const areValidMatchingPasswords = useCallback((): boolean => {
         for (let i = 0; i < passwordRequirements.length; i++) {
             if (!new RegExp(passwordRequirements[i].regex).test(passwordInput)) return false;
@@ -53,13 +51,16 @@ export const CreatePasswordScreen = (): JSX.Element => {
         <CreatePasswordScreenBase
             WorkflowCardHeaderProps={{ title: t('bluiRegistration:REGISTRATION.STEPS.PASSWORD') }}
             WorkflowCardInstructionProps={{
-                instructions: t('bluiRegistration:REGISTRATION.CHANGE_PASSWORD.PASSWORD_INFO'),
+                instructions: t('bluiRegistration:REGISTRATION.CREATE_PASSWORD.PASSWORD_INFO'),
             }}
             PasswordProps={{
                 passwordRef: passwordRef,
                 confirmRef: confirmRef,
                 initialNewPasswordValue: passwordInput,
                 initialConfirmPasswordValue: confirmInput,
+                newPasswordLabel: t('bluiRegistration:REGISTRATION.CREATE_PASSWORD.PASSWORD'),
+                confirmPasswordLabel: t('bluiRegistration:REGISTRATION.CREATE_PASSWORD.CONFIRM_PASSWORD'),
+                passwordRequirements: defaultPasswordRequirements(t, 'bluiRegistration'),
                 onPasswordChange: updateFields,
                 onSubmit: (): void => {
                     console.error('submitting form...');
@@ -79,7 +80,6 @@ export const CreatePasswordScreen = (): JSX.Element => {
                 },
                 onPrevious: (): void => {
                     void onPrevious();
-                    navigate(routeConfig.LOGIN);
                 },
             }}
         />

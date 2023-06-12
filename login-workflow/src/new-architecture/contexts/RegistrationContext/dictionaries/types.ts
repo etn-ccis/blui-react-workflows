@@ -21,6 +21,12 @@ export type RegistrationTranslations = {
         FAILURE_MESSAGE: string;
         UNKNOWN_EMAIL: string;
         UNKNOWN_ORGANIZATION: string;
+        CREATE_PASSWORD: {
+            PASSWORD_INFO: string;
+            PASSWORD: string;
+            CONFIRM_PASSWORD: string;
+            PASS_MATCH_ERROR: string;
+        };
     };
     SELF_REGISTRATION: {
         INSTRUCTIONS: string;
@@ -30,6 +36,13 @@ export type RegistrationTranslations = {
             VERIFICATION_CODE_PROMPT: string;
             VERIFICATION: string;
         };
+    };
+    PASSWORD_REQUIREMENTS: {
+        LENGTH: string;
+        NUMBERS: string;
+        UPPER: string;
+        LOWER: string;
+        SPECIAL: string;
     };
 };
 
