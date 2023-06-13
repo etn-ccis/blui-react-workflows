@@ -30,6 +30,7 @@ const resources: RegistrationLanguageFile = {
                 PASSWORD_INFO: '请输入您的新密码。请确保您的新密码符合以下列出的密码复杂度要求。',
                 PASSWORD: '密码',
                 CONFIRM_PASSWORD: '确认密码',
+                PASS_MATCH_ERROR: '密码不匹配',
             },
         },
         SELF_REGISTRATION: {

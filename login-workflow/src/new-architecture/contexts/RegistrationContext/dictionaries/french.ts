@@ -31,6 +31,7 @@ const resources: RegistrationLanguageFile = {
                 PASSWORD_INFO: `Veuillez sélectionner un mot de passe. Assurez-vous que votre mot de passe répond aux exigences de complexité nécessaires décrites ci-dessous.`,
                 PASSWORD: 'Mot de Passe',
                 CONFIRM_PASSWORD: 'Confirmez',
+                PASS_MATCH_ERROR: 'Les mots de passe ne correspondent pas',
             },
         },
         SELF_REGISTRATION: {

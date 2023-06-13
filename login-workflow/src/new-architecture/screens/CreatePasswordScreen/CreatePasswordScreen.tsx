@@ -60,6 +60,7 @@ export const CreatePasswordScreen = (): JSX.Element => {
                 initialConfirmPasswordValue: confirmInput,
                 newPasswordLabel: t('bluiRegistration:REGISTRATION.CREATE_PASSWORD.PASSWORD'),
                 confirmPasswordLabel: t('bluiRegistration:REGISTRATION.CREATE_PASSWORD.CONFIRM_PASSWORD'),
+                passwordNotMatchErrorMsg: t('bluiRegistration:REGISTRATION.CREATE_PASSWORD.PASS_MATCH_ERROR'),
                 passwordRequirements: defaultPasswordRequirements(t, 'bluiRegistration'),
                 onPasswordChange: updateFields,
                 onSubmit: (): void => {

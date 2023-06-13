@@ -4,8 +4,6 @@ import CheckCircleOutlinedIcon from '@mui/icons-material/CheckCircleOutlined';
 import { PasswordRequirements, SecureTextField } from '../../../components';
 import { TextFieldStyles } from '../../../styles';
 import { SetPasswordProps } from './types';
-import { defaultPasswordRequirements } from '../../constants';
-import { useLanguageLocale } from '../../hooks';
 
 /**
  * Component that renders a change password form with a new password and confirm password inputs.
@@ -24,17 +22,17 @@ import { useLanguageLocale } from '../../hooks';
  * @category Component
  */
 export const SetPassword: React.FC<React.PropsWithChildren<SetPasswordProps>> = (props) => {
-    const { t } = useLanguageLocale();
     const {
         newPasswordLabel,
         initialNewPasswordValue = '',
         confirmPasswordLabel,
         initialConfirmPasswordValue = '',
-        passwordRequirements = defaultPasswordRequirements(t, 'bluiAuth'),
+        passwordRequirements,
         onPasswordChange,
         children,
         passwordRef,
         confirmRef,
+        passwordNotMatchErrorMsg,
         onSubmit,
     } = props;
     const theme = useTheme();
@@ -81,7 +79,7 @@ export const SetPassword: React.FC<React.PropsWithChildren<SetPasswordProps>> = 
                 data-testid="password"
                 name="password"
                 inputRef={passwordRef}
-                label={newPasswordLabel || t('bluiAuth:FORMS.PASSWORD')}
+                label={newPasswordLabel}
                 value={passwordInput}
                 onChange={(evt: ChangeEvent<HTMLInputElement>): void => onPassChange(evt.target.value)}
                 sx={TextFieldStyles(theme)}
@@ -103,7 +101,7 @@ export const SetPassword: React.FC<React.PropsWithChildren<SetPasswordProps>> = 
                 data-testid="confirm"
                 name="confirm"
                 inputRef={confirmRef}
-                label={confirmPasswordLabel || t('bluiAuth:FORMS.CONFIRM_PASSWORD')}
+                label={confirmPasswordLabel}
                 sx={TextFieldStyles(theme)}
                 value={confirmInput}
                 onChange={(evt: ChangeEvent<HTMLInputElement>): void => onConfirmChange(evt.target.value)}
@@ -111,7 +109,7 @@ export const SetPassword: React.FC<React.PropsWithChildren<SetPasswordProps>> = 
                     if (e.key === 'Enter' && onSubmit) onSubmit();
                 }}
                 error={hasConfirmPasswordError()}
-                helperText={hasConfirmPasswordError() ? t('bluiAuth:FORMS.PASS_MATCH_ERROR') : ''}
+                helperText={hasConfirmPasswordError() ? passwordNotMatchErrorMsg : ''}
                 icon={
                     confirmInput.length !== 0 && confirmInput === passwordInput ? (
                         <CheckCircleOutlinedIcon data-testid="check" color="success" />

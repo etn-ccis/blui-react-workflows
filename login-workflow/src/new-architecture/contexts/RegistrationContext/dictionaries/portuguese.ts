@@ -32,6 +32,7 @@ const resources: RegistrationLanguageFile = {
                     'Por favor selecione uma palavra-passe. Certifique-se de que sua senha atenda aos requisitos de complexidade necessários descritos abaixo.',
                 PASSWORD: 'Palavra-passe',
                 CONFIRM_PASSWORD: 'Confirmar palavra-passe',
+                PASS_MATCH_ERROR: 'Palavras-passe não coincidem',
             },
         },
         SELF_REGISTRATION: {
