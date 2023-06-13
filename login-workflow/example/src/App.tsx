@@ -7,7 +7,7 @@ import {
     // RegistrationData,
 } from '@brightlayer-ui/react-auth-workflow';
 import { ProjectAuthUIActions } from './actions/AuthUIActions';
-import { ProjectRegistrationUIActions } from './actions/RegistrationUIActions';
+import { ProjectRegistrationUIActions } from './actions/RegistrationUIActionsLegacy';
 import { ExampleHome } from './screens/ExampleHome';
 // import { CustomDetailsScreen, CustomDetailsScreenTwo } from './components/CustomDetailsScreen';
 import { routes } from './navigation/Routing';

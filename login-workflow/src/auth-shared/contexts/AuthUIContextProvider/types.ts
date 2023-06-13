@@ -4,7 +4,7 @@
  */
 
 import { AuthUIActions } from './authTypes';
-import { RegistrationUIActions } from './registrationTypes';
+import { RegistrationUIActionsLegacy } from './registrationTypes';
 import { PasswordRequirement } from '../../types/ResetPasswordParams';
 import { ComponentType, CSSProperties } from 'react';
 import { AccountDetailsFormProps, RegistrationData } from '../../types/AccountDetails';
@@ -47,7 +47,7 @@ type AuthUIContextProviderProps = {
     /**
      * Provides application actions for the user's registration needs.
      */
-    registrationActions: () => RegistrationUIActions;
+    registrationActions: () => RegistrationUIActionsLegacy;
     /**
      * When true, shows the Create Account button to allow for self registration.
      *
@@ -211,7 +211,7 @@ type AuthUIContextProviderProps = {
 export type {
     AuthUIContextProviderProps,
     AuthUIActions,
-    RegistrationUIActions,
+    RegistrationUIActionsLegacy,
     CustomRegistrationForm,
     LoginErrorDisplayConfig,
 };

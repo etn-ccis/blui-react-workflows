@@ -31,14 +31,14 @@ export const useRegistrationUIState = (): RegistrationUIState => {
 };
 
 /**
- * Hook for using the global [[RegistrationUIActions]] actions (i.e. loadEULA, completeRegistration, etc.) which change the global [[RegistrationUIState]].
+ * Hook for using the global [[RegistrationUIActionsLegacy]] actions (i.e. loadEULA, completeRegistration, etc.) which change the global [[RegistrationUIState]].
  *
  * @category Hooks
  */
-export const useRegistrationUIActions = (): RegistrationUIContextActions => {
+export const useRegistrationUIActionsLegacy = (): RegistrationUIContextActions => {
     const context = useContext(RegistrationActionContext);
     if (context === null) {
-        throw new Error('useRegistrationUIActions must be used within an RegistrationUIContext');
+        throw new Error('useRegistrationUIActionsLegacy must be used within an RegistrationUIContext');
     }
     return context;
 };

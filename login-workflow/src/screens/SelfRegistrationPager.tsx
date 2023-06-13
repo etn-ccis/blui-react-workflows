@@ -37,7 +37,7 @@ import {
     RegistrationActions,
     useInjectedUIContext,
     useLanguageLocale,
-    useRegistrationUIActions,
+    useRegistrationUIActionsLegacy,
     useRegistrationUIState,
 } from '../auth-shared';
 
@@ -56,7 +56,7 @@ export const SelfRegistrationPager: React.FC<React.PropsWithChildren<React.Props
     const { t } = useLanguageLocale();
     const navigate = useNavigate();
     const { routes } = useRoutes();
-    const registrationActions = useRegistrationUIActions();
+    const registrationActions = useRegistrationUIActionsLegacy();
     const registrationState = useRegistrationUIState();
     const injectedUIContext = useInjectedUIContext();
     const { code, email: urlEmail } = useQueryString();

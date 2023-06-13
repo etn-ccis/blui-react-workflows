@@ -1,5 +1,5 @@
 /* eslint-disable @typescript-eslint/no-unused-vars */
-import { RegistrationUIActions, AccountDetailInformation } from '@brightlayer-ui/react-auth-workflow';
+import { RegistrationUIActionsLegacy, AccountDetailInformation } from '@brightlayer-ui/react-auth-workflow';
 
 // Constants
 import { SAMPLE_EULA } from '../constants/sampleEula';
@@ -21,7 +21,7 @@ function isRandomFailure(): boolean {
  * Registration Actions to be performed based on the user's actions. The application will create appropriate actions
  * (often API calls, local network storage, credential updates, etc.) based on the actionable needs of the user.
  */
-export const ProjectRegistrationUIActions: () => RegistrationUIActions = () => ({
+export const ProjectRegistrationUIActions: () => RegistrationUIActionsLegacy = () => ({
     /**
      * The user wants to complete an action but must first accept the EULA.
      * The application should retrieve an application-specific EULA for the user.

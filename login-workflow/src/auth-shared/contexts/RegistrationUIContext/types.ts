@@ -4,11 +4,11 @@
  */
 
 import { RegistrationUIState } from './state';
-import { RegistrationUIActions } from '../AuthUIContextProvider';
+import { RegistrationUIActionsLegacy } from '../AuthUIContextProvider';
 import { RegistrationActions } from './dispatchActions';
 
 export type RegistrationUIContextActions = {
-    actions: RegistrationUIActions;
+    actions: RegistrationUIActionsLegacy;
     dispatch: React.Dispatch<RegistrationActions>;
 };
 
