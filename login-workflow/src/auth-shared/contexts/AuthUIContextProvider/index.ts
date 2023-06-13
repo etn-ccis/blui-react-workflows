@@ -2,7 +2,7 @@
  * The AuthUIContextProvider allows for application code to pass in middleware
  * actions that result from the Authentication and Registration user interface.
  * Often the actions will be the local storage and API calls satisfying
- * [[AuthUIActions]] and [[RegistrationUIActions]]. UI configuration properties
+ * [[AuthUIActions]] and [[RegistrationUIActionsLegacy]]. UI configuration properties
  * are also passed in.
  *
  * @packageDocumentation
@@ -15,7 +15,7 @@ import { AuthUIContext } from './context';
 import { AuthUIContextProvider } from './provider';
 import {
     AuthUIContextProviderProps,
-    RegistrationUIActions,
+    RegistrationUIActionsLegacy,
     AuthUIActions,
     CustomRegistrationForm,
     LoginErrorDisplayConfig,
@@ -39,7 +39,7 @@ export const useInjectedUIContext = (): AuthUIContextProviderProps => {
 /** @ignore */
 export type {
     AuthUIContextProviderProps,
-    RegistrationUIActions,
+    RegistrationUIActionsLegacy,
     AuthUIActions,
     CustomRegistrationForm,
     LoginErrorDisplayConfig,
