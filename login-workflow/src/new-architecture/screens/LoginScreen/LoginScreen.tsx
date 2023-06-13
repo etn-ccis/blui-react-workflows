@@ -47,7 +47,8 @@ export const LoginScreen: React.FC<React.PropsWithChildren<LoginScreenProps>> = 
     const { actions, navigate, routeConfig, rememberMeDetails } = auth;
 
     useEffect(() => {
-        actions().initiateSecurity();
+        void actions().initiateSecurity();
+        // eslint-disable-next-line react-hooks/exhaustive-deps
     }, []);
 
     const {
@@ -66,13 +67,16 @@ export const LoginScreen: React.FC<React.PropsWithChildren<LoginScreenProps>> = 
         showRememberMe = true,
         rememberMeLabel = t('bluiAuth:ACTIONS.REMEMBER'),
         rememberMeInitialValue = rememberMeDetails?.rememberMe,
-        onRememberMeChanged,
+        onRememberMeChanged = (value: boolean): void => {
+            props.onRememberMeChanged?.(value);
+        },
         loginButtonLabel = t('bluiAuth:ACTIONS.LOG_IN'),
-        onLogin = (username: string, password: string, rememberMe: boolean): void => {
+        onLogin = async (username: string, password: string, rememberMe: boolean): Promise<void> => {
             try {
-                actions().logIn(username, password, rememberMe);
+                await actions().logIn(username, password, rememberMe);
                 props.onLogin?.(username, password, rememberMe);
             } catch (error) {
+                // eslint-disable-next-line no-console
                 console.log(error);
             }
         },
