@@ -66,7 +66,7 @@ export const LoginScreen: React.FC<React.PropsWithChildren<LoginScreenProps>> = 
         passwordValidator = (): boolean => true,
         showRememberMe = true,
         rememberMeLabel = t('bluiAuth:ACTIONS.REMEMBER'),
-        rememberMeInitialValue = rememberMeDetails?.rememberMe,
+        rememberMeInitialValue = rememberMeDetails?.rememberMe || false,
         onRememberMeChanged = (value: boolean): void => {
             props.onRememberMeChanged?.(value);
         },
