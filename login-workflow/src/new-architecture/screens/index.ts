@@ -14,3 +14,4 @@ export * from './ResetPasswordScreen';
 export * from './SuccessScreen';
 export * from './VerifyCodeScreen';
 export * from './ForgotPasswordScreen';
+export * from './ContactScreen';

@@ -11,8 +11,8 @@ export type ResetPasswordScreenSlotsProps = {
 };
 
 export type ResetPasswordScreenProps = Omit<WorkflowCardProps, 'currentStep | totalSteps'> & {
-    PasswordProps: SetPasswordProps;
-    showSuccessScreen: boolean;
+    PasswordProps?: SetPasswordProps;
+    showSuccessScreen?: boolean;
     slots?: ResetPasswordScreenSlots;
     slotProps?: ResetPasswordScreenSlotsProps;
 };

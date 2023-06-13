@@ -31,14 +31,14 @@ export const SimpleDialog: React.FC<React.PropsWithChildren<React.PropsWithChild
     const theme = useTheme();
 
     return (
-        <Dialog data-testId="blui-simple-dialog" {...dialogProps}>
+        <Dialog data-testid="blui-simple-dialog" {...dialogProps}>
             <DialogTitle sx={DialogTitleStyles(theme)}>{title}</DialogTitle>
             <DialogContent sx={{ ...DialogContentStyles(theme), flex: '1 1 auto' }}>
                 <Typography>{body}</Typography>
             </DialogContent>
             <DialogActions sx={DialogActionsStyles(theme)}>
                 <Button variant="text" color="primary" onClick={dialogProps.onClose} sx={DialogButtonStyles()}>
-                    {t('blui:ACTIONS.OKAY').toUpperCase()}
+                    {t('bluiAuth:ACTIONS.OKAY').toUpperCase()}
                 </Button>
             </DialogActions>
         </Dialog>

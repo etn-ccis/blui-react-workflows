@@ -17,7 +17,7 @@ import {
     RegistrationWorkflowScreen,
     VerifyCodeScreenBaseTest,
     GuardedScreen,
-    ContactUs,
+    ContactScreenBaseTest,
     RegistrationTestScreen,
     LoginScreen,
     ResetPasswordScreen,
@@ -25,15 +25,11 @@ import {
     ForgotPasswordScreenBaseTest,
     EulaScreenBaseTest,
     LoginScreenFullScreenTest,
+    ResetPasswordFullScreen,
 } from '../screens';
 
 export const routes: RouteConfig = {
-    LOGIN: '/custom-login-route',
-    FORGOT_PASSWORD: '/custom-forgot-password-route',
-    RESET_PASSWORD: '/custom-reset-password-route',
-    REGISTER_INVITE: '/custom-register-by-invite-route',
-    REGISTER_SELF: '/custom-self-registration-route',
-    SUPPORT: '/custom-contact-support-route',
+    LOGIN: '/login',
 };
 
 type CustomRouterProps = {
@@ -97,7 +93,7 @@ export const GetCustomRoutes = (isAuthenticated: boolean) => {
         // Accessible from anywhere
         {
             path: `/contact-us`,
-            element: <ContactUs />,
+            element: <ContactScreenBaseTest />,
         },
         {
             path: `/registration-workflow`,
@@ -165,6 +161,14 @@ export const GetCustomRoutes = (isAuthenticated: boolean) => {
             path: `/eula-screen-test`,
             element: <EulaScreenBaseTest />,
         },
+        {
+            path: `/reset-password-full-screen`,
+            element: (
+                <SecurityContextProvider>
+                    <ResetPasswordFullScreen />
+                </SecurityContextProvider>
+            ),
+        },
     ];
     return customRoutes;
 };
@@ -191,7 +195,7 @@ export const CustomRouterWithUnbiasedAuthGuard = ({
             // Accessible from anywhere
             {
                 path: `/contact-us`,
-                element: <ContactUs />,
+                element: <ContactScreenBaseTest />,
             },
             // Authenticated Route: accessible only if the user IS authenticated
             {

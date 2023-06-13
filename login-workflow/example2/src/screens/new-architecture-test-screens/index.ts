@@ -1,4 +1,4 @@
-export * from './ContactUs';
+export * from './ContactScreen';
 export * from './GuardedScreen';
 export * from './I18nTestScreen';
 export * from './LoginScreen';
@@ -16,3 +16,4 @@ export * from './ResetPasswordScreen';
 export * from './CreatePasswordScreenTest';
 export * from './EulaScreenBase';
 export * from './LoginScreenFullScreen';
+export * from './ResetPasswordFullScreen';
