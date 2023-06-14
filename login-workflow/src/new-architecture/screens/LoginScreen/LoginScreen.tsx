@@ -40,7 +40,9 @@ const EMAIL_REGEX = /^[A-Z0-9._%+'-]+@[A-Z0-9.-]+\.[A-Z]{2,}$/i;
  * @category Component
  */
 
-export const LoginScreen: React.FC<React.PropsWithChildren<LoginScreenProps>> = (props) => {
+type LoginScreenPropsPublic = Omit<LoginScreenProps, 'passwordValidator'>;
+
+export const LoginScreen: React.FC<React.PropsWithChildren<LoginScreenPropsPublic>> = (props) => {
     const { t } = useLanguageLocale();
     const auth = useAuthContext();
     const { actions, navigate, routeConfig, rememberMeDetails } = auth;
