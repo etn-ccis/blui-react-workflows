@@ -75,17 +75,6 @@ describe('SetPassword', () => {
         expect(screen.getByLabelText('New Confirm Password')).toBeInTheDocument();
     });
 
-    // TODO - Move this test case to createPasswordScreen
-    // it('should display default password requirements', () => {
-    //     renderer();
-
-    //     expect(screen.getByText('8-16 Characters')).toBeInTheDocument();
-    //     expect(screen.getByText('One number')).toBeInTheDocument();
-    //     expect(screen.getByText('One uppercase letter')).toBeInTheDocument();
-    //     expect(screen.getByText('One lowercase letter')).toBeInTheDocument();
-    //     expect(screen.getByText('One special character')).toBeInTheDocument();
-    // });
-
     it('should display the updated password requirements, when passed through passwordRequirements', () => {
         const props = { ...defaultProps, passwordRequirements };
         renderer(props);

@@ -3,8 +3,9 @@ import { useLanguageLocale } from '../../hooks';
 import { defaultPasswordRequirements } from '../../constants';
 import { CreatePasswordScreenBase } from './CreatePasswordScreenBase';
 import { useRegistrationWorkflowContext } from '../../contexts';
+import { CreatePasswordScreenProps } from './types';
 
-export const CreatePasswordScreen = (): JSX.Element => {
+export const CreatePasswordScreen: React.FC<CreatePasswordScreenProps> = () => {
     const { t } = useLanguageLocale();
     const regWorkflow = useRegistrationWorkflowContext();
     const { nextScreen, previousScreen, screenData } = regWorkflow;
