@@ -8,14 +8,7 @@ import { defaultProps as authContextProps } from '../../contexts/AuthContext/Aut
 import { PasswordRequirement, SetPasswordProps } from './types';
 
 afterEach(cleanup);
-
-const defaultProps: SetPasswordProps = {
-    newPasswordLabel: '',
-    confirmPasswordLabel: '',
-    initialNewPasswordValue: '',
-    initialConfirmPasswordValue: '',
-    onPasswordChange: jest.fn(),
-};
+// const t = jest.fn(),
 
 const passwordRequirements: PasswordRequirement[] = [
     {
@@ -27,6 +20,15 @@ const passwordRequirements: PasswordRequirement[] = [
         regex: /[a-z]+/,
     },
 ];
+const defaultProps: SetPasswordProps = {
+    newPasswordLabel: 'Password',
+    confirmPasswordLabel: 'Confirm Password',
+    initialNewPasswordValue: '',
+    initialConfirmPasswordValue: '',
+    passwordNotMatchErrorMsg: 'Passwords do not match',
+    onPasswordChange: jest.fn(),
+    passwordRequirements: passwordRequirements,
+};
 
 const isValidPassword = (passwordInput: string): boolean => {
     for (let i = 0; i < passwordRequirements.length; i++) {
@@ -73,15 +75,16 @@ describe('SetPassword', () => {
         expect(screen.getByLabelText('New Confirm Password')).toBeInTheDocument();
     });
 
-    it('should display default password requirements', () => {
-        renderer();
+    // TODO - Move this test case to createPasswordScreen
+    // it('should display default password requirements', () => {
+    //     renderer();
 
-        expect(screen.getByText('8-16 Characters')).toBeInTheDocument();
-        expect(screen.getByText('One number')).toBeInTheDocument();
-        expect(screen.getByText('One uppercase letter')).toBeInTheDocument();
-        expect(screen.getByText('One lowercase letter')).toBeInTheDocument();
-        expect(screen.getByText('One special character')).toBeInTheDocument();
-    });
+    //     expect(screen.getByText('8-16 Characters')).toBeInTheDocument();
+    //     expect(screen.getByText('One number')).toBeInTheDocument();
+    //     expect(screen.getByText('One uppercase letter')).toBeInTheDocument();
+    //     expect(screen.getByText('One lowercase letter')).toBeInTheDocument();
+    //     expect(screen.getByText('One special character')).toBeInTheDocument();
+    // });
 
     it('should display the updated password requirements, when passed through passwordRequirements', () => {
         const props = { ...defaultProps, passwordRequirements };

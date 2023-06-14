@@ -17,6 +17,7 @@ const resources: RegistrationLanguageFile = {
             },
             INSTRUCTIONS: {
                 ACCOUNT_DETAILS: 'Entrez vos coordonnées ci-dessous pour terminer la création du compte.',
+                PASSWORD_INFO: `Veuillez sélectionner un mot de passe. Assurez-vous que votre mot de passe répond aux exigences de complexité nécessaires décrites ci-dessous.`,
             },
             SUCCESS_MESSAGE:
                 "Votre compte a été créé avec le courrier électronique <b>{{email}}</b>.\n\nVotre compte a déjà été ajouté à l'organisation <b>{{organization}}</b>.\n\nAppuyez sur Continuer ci-dessous pour finir.",
@@ -27,12 +28,6 @@ const resources: RegistrationLanguageFile = {
                 "Nous n'avons pas pu terminer votre inscription. Appuyez sur Continuer ci-dessous pour finir.",
             UNKNOWN_EMAIL: 'Email inconnu',
             UNKNOWN_ORGANIZATION: 'Organisation inconnue',
-            CREATE_PASSWORD: {
-                PASSWORD_INFO: `Veuillez sélectionner un mot de passe. Assurez-vous que votre mot de passe répond aux exigences de complexité nécessaires décrites ci-dessous.`,
-                PASSWORD: 'Mot de Passe',
-                CONFIRM_PASSWORD: 'Confirmez',
-                PASS_MATCH_ERROR: 'Les mots de passe ne correspondent pas',
-            },
         },
         SELF_REGISTRATION: {
             INSTRUCTIONS: `Pour vous inscrire à un compte Eaton, entrez les informations requises ci-dessous. Vous devrez vérifier votre adresse e-mail pour continuer.`,
@@ -42,13 +37,6 @@ const resources: RegistrationLanguageFile = {
                 VERIFICATION_CODE_PROMPT: "Vous n'avez pas reçu d'e-mail ?",
                 VERIFICATION: 'Code de vérification',
             },
-        },
-        PASSWORD_REQUIREMENTS: {
-            LENGTH: '8-16 Caractères',
-            NUMBERS: 'Un nombre',
-            UPPER: 'Une lettre majuscule',
-            LOWER: 'Une lettre miniscule',
-            SPECIAL: 'Un caractère spécial',
         },
     },
 };

@@ -18,7 +18,7 @@ export const ResetPasswordScreen = (): JSX.Element => {
     const [confirmInput, setConfirmInput] = useState('');
     const [showSuccessScreen, setShowSuccessScreen] = useState(false);
 
-    const passwordRequirements = defaultPasswordRequirements(t, 'bluiAuth');
+    const passwordRequirements = defaultPasswordRequirements(t);
     const areValidMatchingPasswords = useCallback((): boolean => {
         for (let i = 0; i < passwordRequirements.length; i++) {
             if (!new RegExp(passwordRequirements[i].regex).test(passwordInput)) return false;

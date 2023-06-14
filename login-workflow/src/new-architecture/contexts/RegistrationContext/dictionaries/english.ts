@@ -17,6 +17,8 @@ const resources: RegistrationLanguageFile = {
             },
             INSTRUCTIONS: {
                 ACCOUNT_DETAILS: 'Enter your details below to complete account creation.',
+                PASSWORD_INFO:
+                    'Please select a password. Make sure that your password meets the necessary complexity requirements outlined below.',
             },
             SUCCESS_MESSAGE:
                 'Your account has been successfully created with the email <b>{{email}}</b>.\n\nYour account has already been added to the <b>{{organization}}</b> organization.\n\nPress continue below to finish.',
@@ -27,13 +29,6 @@ const resources: RegistrationLanguageFile = {
             FAILURE_MESSAGE: 'We were unable to complete your registration. Press continue below to finish.',
             UNKNOWN_EMAIL: 'Unknown Email',
             UNKNOWN_ORGANIZATION: 'Unknown Organization',
-            CREATE_PASSWORD: {
-                PASSWORD_INFO:
-                    'Please select a password. Make sure that your password meets the necessary complexity requirements outlined below.',
-                PASSWORD: 'Password',
-                CONFIRM_PASSWORD: 'Confirm Password',
-                PASS_MATCH_ERROR: 'Passwords do not match',
-            },
         },
         SELF_REGISTRATION: {
             INSTRUCTIONS: `To register for an Eaton account, enter the required information below. You will need to verify your email address to continue.`,
@@ -44,13 +39,6 @@ const resources: RegistrationLanguageFile = {
                 VERIFICATION_CODE_PROMPT: "Didn't receive an email?",
                 VERIFICATION: 'Verification Code',
             },
-        },
-        PASSWORD_REQUIREMENTS: {
-            LENGTH: '8-16 Characters',
-            NUMBERS: 'One number',
-            UPPER: 'One uppercase letter',
-            LOWER: 'One lowercase letter',
-            SPECIAL: 'One special character',
         },
     },
 };

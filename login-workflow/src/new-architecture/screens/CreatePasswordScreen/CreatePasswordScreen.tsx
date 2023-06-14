@@ -13,7 +13,7 @@ export const CreatePasswordScreen = (): JSX.Element => {
     const [passwordInput, setPasswordInput] = useState(screenData.CreatePassword.password ?? '');
     const [confirmInput, setConfirmInput] = useState(screenData.CreatePassword.confirmPassword ?? '');
 
-    const passwordRequirements = defaultPasswordRequirements(t, 'bluiRegistration');
+    const passwordRequirements = defaultPasswordRequirements(t);
     const areValidMatchingPasswords = useCallback((): boolean => {
         for (let i = 0; i < passwordRequirements.length; i++) {
             if (!new RegExp(passwordRequirements[i].regex).test(passwordInput)) return false;
@@ -51,17 +51,17 @@ export const CreatePasswordScreen = (): JSX.Element => {
         <CreatePasswordScreenBase
             WorkflowCardHeaderProps={{ title: t('bluiRegistration:REGISTRATION.STEPS.PASSWORD') }}
             WorkflowCardInstructionProps={{
-                instructions: t('bluiRegistration:REGISTRATION.CREATE_PASSWORD.PASSWORD_INFO'),
+                instructions: t('bluiRegistration:REGISTRATION.INSTRUCTIONS.PASSWORD_INFO'),
             }}
             PasswordProps={{
                 passwordRef: passwordRef,
                 confirmRef: confirmRef,
                 initialNewPasswordValue: passwordInput,
                 initialConfirmPasswordValue: confirmInput,
-                newPasswordLabel: t('bluiRegistration:REGISTRATION.CREATE_PASSWORD.PASSWORD'),
-                confirmPasswordLabel: t('bluiRegistration:REGISTRATION.CREATE_PASSWORD.CONFIRM_PASSWORD'),
-                passwordNotMatchErrorMsg: t('bluiRegistration:REGISTRATION.CREATE_PASSWORD.PASS_MATCH_ERROR'),
-                passwordRequirements: defaultPasswordRequirements(t, 'bluiRegistration'),
+                newPasswordLabel: t('bluiCommon:FORMS.PASSWORD'),
+                confirmPasswordLabel: t('bluiCommon:FORMS.CONFIRM_PASSWORD'),
+                passwordNotMatchErrorMsg: t('bluiCommon:FORMS.PASS_MATCH_ERROR'),
+                passwordRequirements: defaultPasswordRequirements(t),
                 onPasswordChange: updateFields,
                 onSubmit: (): void => {
                     console.error('submitting form...');
@@ -69,10 +69,10 @@ export const CreatePasswordScreen = (): JSX.Element => {
             }}
             WorkflowCardActionsProps={{
                 showNext: true,
-                nextLabel: 'Next',
+                nextLabel: t('bluiCommon:ACTIONS.NEXT'),
                 canGoNext: passwordInput !== '' && confirmInput !== '' && passwordInput === confirmInput,
                 showPrevious: true,
-                previousLabel: 'Back',
+                previousLabel: t('bluiCommon:ACTIONS.BACK'),
                 canGoPrevious: true,
                 currentStep: 2,
                 totalSteps: 6,

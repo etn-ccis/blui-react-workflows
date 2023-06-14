@@ -17,6 +17,7 @@ const resources: RegistrationLanguageFile = {
             },
             INSTRUCTIONS: {
                 ACCOUNT_DETAILS: '请输入下列个人信息来完成账号注册。',
+                PASSWORD_INFO: '请输入您的新密码。请确保您的新密码符合以下列出的密码复杂度要求。',
             },
             SUCCESS_MESSAGE:
                 '您已成功使用<b>{{email}}</b>注册了一个新账号。\n\n您的账号已被加入“<b>{{organization}}</b>”。\n\n请点击“继续”完成注册。',
@@ -26,12 +27,6 @@ const resources: RegistrationLanguageFile = {
             FAILURE_MESSAGE: '无法完成注册。请点击“继续”退出。',
             UNKNOWN_EMAIL: '未知邮箱地址',
             UNKNOWN_ORGANIZATION: '未知组织',
-            CREATE_PASSWORD: {
-                PASSWORD_INFO: '请输入您的新密码。请确保您的新密码符合以下列出的密码复杂度要求。',
-                PASSWORD: '密码',
-                CONFIRM_PASSWORD: '确认密码',
-                PASS_MATCH_ERROR: '密码不匹配',
-            },
         },
         SELF_REGISTRATION: {
             INSTRUCTIONS: `请输入下列信息以注册伊顿账号。您需要先验证您的邮箱地址。`,
@@ -42,13 +37,6 @@ const resources: RegistrationLanguageFile = {
                 VERIFICATION_CODE_PROMPT: '没有收到电子邮件？',
                 VERIFICATION: '验证码',
             },
-        },
-        PASSWORD_REQUIREMENTS: {
-            LENGTH: '8至16个字符',
-            NUMBERS: '1个数字',
-            UPPER: '1个大写字母',
-            LOWER: '1个小写字母',
-            SPECIAL: '1个特殊字符',
         },
     },
 };
