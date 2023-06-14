@@ -15,6 +15,7 @@ const EMAIL_REGEX = /^[A-Z0-9._%+'-]+@[A-Z0-9.-]+\.[A-Z]{2,}$/i;
  * @param initialUsernameValue username used to pre-populate the field
  * @param passwordLabel label for the password field
  * @param passwordTextFieldProps props to pass to the password text field
+ * @param passwordRequiredValidatorText text to display when the required error state is active on the password field
  * @param showRememberMe whether or not to show the 'remember me' checkbox
  * @param rememberMeLabel label for the 'remember me' checkbox
  * @param rememberMeInitialValue whether or not the 'remember me' checkbox should be checked by default
@@ -40,7 +41,7 @@ const EMAIL_REGEX = /^[A-Z0-9._%+'-]+@[A-Z0-9.-]+\.[A-Z]{2,}$/i;
  * @category Component
  */
 
-type LoginScreenPropsPublic = Omit<LoginScreenProps, 'passwordValidator'>;
+type LoginScreenPropsPublic = Omit<LoginScreenProps, 'passwordValidator'> & { passwordRequiredValidatorText?: string };
 
 export const LoginScreen: React.FC<React.PropsWithChildren<LoginScreenPropsPublic>> = (props) => {
     const { t } = useLanguageLocale();
@@ -64,6 +65,7 @@ export const LoginScreen: React.FC<React.PropsWithChildren<LoginScreenPropsPubli
         initialUsernameValue = rememberMeDetails?.email || '',
         passwordLabel = t('bluiAuth:LABELS.PASSWORD'),
         passwordTextFieldProps,
+        passwordRequiredValidatorText = t('bluiAuth:MESSAGES.PASSWORD_REQUIRED_ERROR'),
         showRememberMe = true,
         rememberMeLabel = t('bluiAuth:ACTIONS.REMEMBER'),
         rememberMeInitialValue = rememberMeDetails?.rememberMe || false,
@@ -107,7 +109,7 @@ export const LoginScreen: React.FC<React.PropsWithChildren<LoginScreenPropsPubli
             passwordTextFieldProps={{ required: true, ...passwordTextFieldProps }}
             passwordValidator={(password: string): string | boolean => {
                 if (password.length < 1) {
-                    return 'Password is a required field';
+                    return passwordRequiredValidatorText;
                 }
                 return true;
             }}

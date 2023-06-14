@@ -47,6 +47,7 @@ const resources: AuthLanguageFile = {
             FAILURE: 'Failure',
             LOADING: 'Loading...',
             REQUEST_ERROR: 'Sorry, there was a problem sending your request.',
+            PASSWORD_REQUIRED_ERROR: 'Password is a required field',
         },
         FORGOT_PASSWORD: {
             ERROR: 'Could not reset your password at this time.',

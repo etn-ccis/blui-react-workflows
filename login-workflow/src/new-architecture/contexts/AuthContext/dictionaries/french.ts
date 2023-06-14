@@ -47,6 +47,7 @@ const resources: AuthLanguageFile = {
             FAILURE: 'Échec',
             LOADING: 'le chargement...',
             REQUEST_ERROR: `Désolé, un problème est survenu lors de l'envoi de votre demande.`,
+            PASSWORD_REQUIRED_ERROR: '@TODO: Translate me',
         },
         FORGOT_PASSWORD: {
             ERROR: "Impossible de réinitialiser votre mot de passe pour l'instant",
