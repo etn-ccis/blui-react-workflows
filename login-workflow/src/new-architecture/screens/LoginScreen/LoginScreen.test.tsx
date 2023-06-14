@@ -26,25 +26,24 @@ describe('LoginScreen', () => {
         expect(screen.getByText('contact')).toBeInTheDocument();
     });
 
-    it('renders the correct initial values', () => {
-        render(
-            <AuthContextProvider actions={ProjectAuthUIActions} language="en" navigate={jest.fn()} routeConfig={{}}>
-                <LoginScreen usernameLabel="Email" passwordLabel="Password" />
-            </AuthContextProvider>
-        );
-        expect(screen.getByLabelText('Email')).toHaveValue('');
-        expect(screen.getByLabelText('Password')).toHaveValue('');
-    });
-
-    it('calls the onLogin function when the form is submitted', () => {
+    it('Login is disabled when the form is invalid', () => {
         const onLogin = jest.fn();
         render(
             <AuthContextProvider actions={ProjectAuthUIActions} language="en" navigate={jest.fn()} routeConfig={{}}>
-                <LoginScreen onLogin={onLogin} loginButtonLabel="Login" initialUsernameValue="test@email.com" />
+                <LoginScreen
+                    onLogin={onLogin}
+                    passwordLabel={'password'}
+                    passwordTextFieldProps={{
+                        label: 'password',
+                    }}
+                    loginButtonLabel="Login"
+                    initialUsernameValue="test@email.com"
+                />
             </AuthContextProvider>
         );
+
         screen.getByText('Login').click();
-        expect(onLogin).toHaveBeenCalled();
+        expect(onLogin).not.toBeCalled();
     });
 
     it('calls onForgotPassword when the forgot password link is clicked', () => {
