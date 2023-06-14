@@ -1,7 +1,11 @@
 import React from 'react';
 import '@testing-library/jest-dom';
-import { render, cleanup, screen, fireEvent } from '@testing-library/react';
+import { render, cleanup, screen, fireEvent, RenderResult } from '@testing-library/react';
 import { ContactSupportScreen } from './ContactSupportScreen';
+import { ContactScreenProps } from './types';
+import { AuthContextProvider } from '../../contexts';
+import { defaultProps as authContextProps } from '../../contexts/AuthContext/AuthContextProvider.test';
+import { BrowserRouter } from 'react-router-dom';
 
 afterEach(cleanup);
 
@@ -15,12 +19,22 @@ describe('ContactSupportScreen tests', () => {
     beforeEach(() => {
         mockOnNext = jest.fn();
     });
+    const renderer = (props?: ContactScreenProps): RenderResult =>
+        render(
+            <AuthContextProvider {...authContextProps}>
+                <BrowserRouter>
+                    <ContactSupportScreen {...props} />
+                </BrowserRouter>
+            </AuthContextProvider>
+        );
     it('rendering the screen without any props', () => {
-        render(<ContactSupportScreen />);
+        renderer();
+
+        expect(screen.getByText('Contact Us')).toBeInTheDocument();
     });
 
     it('should display default content', () => {
-        render(<ContactSupportScreen />);
+        renderer();
         expect(screen.getByText('Contact Us')).toBeInTheDocument();
         expect(screen.getByText('General Questions')).toBeInTheDocument();
         expect(screen.getByText('something@email.com')).toBeInTheDocument();
@@ -29,18 +43,17 @@ describe('ContactSupportScreen tests', () => {
         expect(screen.getByText('Okay')).toBeInTheDocument();
         expect(screen.getByText(/Okay/i)).toBeEnabled();
     });
-    it('calls onNext when the Okay button is clicked', () => {
-        const { getByText } = render(
-            <ContactSupportScreen
-                WorkflowCardActionsProps={{
-                    onNext: mockOnNext(),
-                    showNext: true,
-                    nextLabel: 'Okay',
-                }}
-            />
-        );
 
-        const nextButton = getByText('Okay');
+    it('calls onNext when the Okay button is clicked', () => {
+        renderer({
+            WorkflowCardActionsProps: {
+                onNext: mockOnNext(),
+                showNext: true,
+                nextLabel: 'Next',
+            },
+        });
+
+        const nextButton = screen.getByText('Okay');
         fireEvent.click(nextButton);
 
         expect(mockOnNext).toHaveBeenCalled();
