@@ -1,5 +1,5 @@
 import { CheckCircle } from '@mui/icons-material';
-import { Box } from '@mui/material';
+import { Box, SxProps, Theme, useTheme } from '@mui/material';
 import React, { useState } from 'react';
 import { Trans } from 'react-i18next';
 import { SimpleDialog } from '../../../components';
@@ -13,8 +13,19 @@ const EMAIL_REGEX = /^[A-Z0-9._%+'-]+@[A-Z0-9.-]+\.[A-Z]{2,}$/i;
 const emailValidator = (email: string): boolean | string =>
     new RegExp(EMAIL_REGEX).test(email) ? true : 'Please enter a valid email';
 
+const LinkStyles = (theme: Theme): SxProps<Theme> => ({
+    fontWeight: 600,
+    color: theme.palette.primary.main,
+    textTransform: 'none',
+    textDecoration: 'none',
+    '&:visited': {
+        color: theme.palette.primary.main,
+    },
+});
+
 export const ForgotPasswordScreen: React.FC<ForgotPasswordScreenProps> = (props) => {
     const { t } = useLanguageLocale();
+    const theme = useTheme();
     const { actions, navigate, routeConfig } = useAuthContext();
 
     const [emailInput, setEmailInput] = useState('');
@@ -25,24 +36,19 @@ export const ForgotPasswordScreen: React.FC<ForgotPasswordScreenProps> = (props)
         WorkflowCardHeaderProps: workflowCardHeaderProps = {
             title: t('bluiAuth:HEADER.FORGOT_PASSWORD'),
         },
+        contactPhone = '1-800-123-4567',
         WorkflowCardInstructionProps: workflowCardInstructionProps = {
             instructions: (
                 <Box>
-                    <Trans i18nKey={'blui:FORGOT_PASSWORD.INSTRUCTIONS_ALT'}>
-                        Please enter the account email associated with the account.
-                        <Box sx={{ my: 3 }}>
-                            If this email has an account with Eaton, you will receive a response within{' '}
-                            <Box fontWeight="fontWeightBold" display="inline">
-                                one business day
-                            </Box>
-                            .
+                    <Trans i18nKey={'bluiAuth:FORGOT_PASSWORD.INSTRUCTIONS_ALT'} values={{ phone: contactPhone }}>
+                        Please enter the account email associated with the account. If this email has an account with
+                        Eaton, you will receive a response within <b>one business day</b>. For urgent account issues,
+                        please call{' '}
+                        <Box component="a" href={`tel:${contactPhone}`} sx={LinkStyles(theme)}>
+                            {contactPhone}
                         </Box>
-                        For urgent account issues, please call{' '}
+                        .
                     </Trans>
-                    <Box fontWeight="fontWeightMedium" display="inline" color={'primary.main'}>
-                        1-800-123-4567
-                    </Box>
-                    .
                 </Box>
             ),
         },
@@ -67,8 +73,8 @@ export const ForgotPasswordScreen: React.FC<ForgotPasswordScreenProps> = (props)
             },
             showNext: true,
             showPrevious: true,
-            nextLabel: 'Next',
-            previousLabel: 'Back',
+            nextLabel: t('bluiAuth:ACTIONS.NEXT'),
+            previousLabel: t('bluiAuth:ACTIONS.BACK'),
             canGoNext: true,
         },
         WorkflowCardBaseProps: workflowCardBaseProps = {
@@ -120,7 +126,7 @@ export const ForgotPasswordScreen: React.FC<ForgotPasswordScreenProps> = (props)
                                 }
                                 WorkflowCardActionsProps={{
                                     showNext: true,
-                                    nextLabel: 'Done',
+                                    nextLabel: t('bluiAuth:ACTIONS.OKAY'),
                                     canGoNext: true,
                                     onNext: (): void => {
                                         navigate(routeConfig.LOGIN);

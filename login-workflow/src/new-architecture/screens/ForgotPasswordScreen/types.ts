@@ -23,4 +23,6 @@ export type ForgotPasswordScreenProps = WorkflowCardProps & {
     slotProps?: {
         SuccessScreen?: SuccessScreenProps;
     };
+
+    contactPhone?: string;
 };
