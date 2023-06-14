@@ -3,9 +3,13 @@ import { AppBar, Toolbar, Typography, Box } from '@mui/material';
 import { ContactSupportScreen, AuthContextProvider, useSecurityActions } from '@brightlayer-ui/react-auth-workflow';
 import { ProjectAuthUIActions } from '../../actions/AuthUIActions';
 import { routes } from '../../navigation/Routing';
+import { useNavigate } from 'react-router-dom';
+import { useApp } from '../../contexts/AppContextProvider';
 
 export const ContactSupportScreenFullScreen = (): JSX.Element => {
     const securityContextActions = useSecurityActions();
+    const { language } = useApp();
+    const navigate = useNavigate();
 
     return (
         <Box sx={{ display: 'flex', flexDirection: 'column', height: '100%' }}>
@@ -18,9 +22,9 @@ export const ContactSupportScreenFullScreen = (): JSX.Element => {
             </AppBar>
             <Box sx={{ flex: '1 1 0px' }}>
                 <AuthContextProvider
-                    language="en"
+                    language={language}
                     routeConfig={routes}
-                    navigate={(): void => {}}
+                    navigate={navigate}
                     actions={ProjectAuthUIActions(securityContextActions)}
                 >
                     <ContactSupportScreen />
