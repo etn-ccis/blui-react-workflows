@@ -12,7 +12,7 @@ describe('AccountDetailsScreenBase tests', () => {
                 open={true}
                 onSubmit={undefined}
                 PasswordProps={{
-                    onPasswordChange: () => {},
+                    onPasswordChange: (): void => {},
                     newPasswordLabel: '',
                     initialNewPasswordValue: '',
                     confirmPasswordLabel: '',
@@ -24,7 +24,7 @@ describe('AccountDetailsScreenBase tests', () => {
                         throw new Error('Function not implemented.');
                     },
                 }}
-                currentPasswordChange={() => {}}
+                currentPasswordChange={(): void => {}}
                 enableButton={false}
             />
         );
@@ -34,11 +34,11 @@ describe('AccountDetailsScreenBase tests', () => {
         const { getByLabelText } = render(
             <ChangePasswordDialogBase
                 open={true}
-                onSubmit={() => {}}
-                currentPasswordChange={() => {}}
+                onSubmit={(): void => {}}
+                currentPasswordChange={(): void => {}}
                 enableButton={false}
                 PasswordProps={{
-                    onPasswordChange: () => {},
+                    onPasswordChange: (): void => {},
                     newPasswordLabel: '',
                     initialNewPasswordValue: '',
                     confirmPasswordLabel: '',
