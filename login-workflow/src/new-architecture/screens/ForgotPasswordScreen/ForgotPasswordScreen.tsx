@@ -1,42 +1,35 @@
 import { CheckCircle } from '@mui/icons-material';
-import { Box, SxProps, Theme, useTheme } from '@mui/material';
+import { Box } from '@mui/material';
 import React, { useState } from 'react';
 import { Trans } from 'react-i18next';
 import { SimpleDialog } from '../../../components';
+import { LinkStyles } from '../../../styles';
 import { useAuthContext } from '../../contexts';
 import { useLanguageLocale } from '../../hooks';
 import { SuccessScreenBase } from '../SuccessScreen';
 import { ForgotPasswordScreenBase } from './ForgotPasswordScreenBase';
 import { ForgotPasswordScreenProps } from './types';
 
-const EMAIL_REGEX = /^[A-Z0-9._%+'-]+@[A-Z0-9.-]+\.[A-Z]{2,}$/i;
-const emailValidator = (email: string): boolean | string =>
-    new RegExp(EMAIL_REGEX).test(email) ? true : 'Please enter a valid email';
-
-const LinkStyles = (theme: Theme): SxProps<Theme> => ({
-    fontWeight: 600,
-    color: theme.palette.primary.main,
-    textTransform: 'none',
-    textDecoration: 'none',
-    '&:visited': {
-        color: theme.palette.primary.main,
-    },
-});
-
 export const ForgotPasswordScreen: React.FC<ForgotPasswordScreenProps> = (props) => {
     const { t } = useLanguageLocale();
-    const theme = useTheme();
     const { actions, navigate, routeConfig } = useAuthContext();
 
     const [emailInput, setEmailInput] = useState('');
     const [isLoading, setIsLoading] = useState(false);
     const [showErrorDialog, setShowErrorDialog] = useState(false);
 
+    const EMAIL_REGEX = /^[A-Z0-9._%+'-]+@[A-Z0-9.-]+\.[A-Z]{2,}$/i;
+    const emailValidator = (email: string): boolean | string =>
+        new RegExp(EMAIL_REGEX).test(email) ? true : t('bluiAuth:MESSAGES.EMAIL_ENTRY_ERROR');
+
     const {
+        WorkflowCardBaseProps: workflowCardBaseProps = {
+            loading: isLoading,
+        },
         WorkflowCardHeaderProps: workflowCardHeaderProps = {
             title: t('bluiAuth:HEADER.FORGOT_PASSWORD'),
         },
-        contactPhone = '1-800-123-4567',
+        contactPhone = '',
         WorkflowCardInstructionProps: workflowCardInstructionProps = {
             instructions: (
                 <Box>
@@ -44,7 +37,7 @@ export const ForgotPasswordScreen: React.FC<ForgotPasswordScreenProps> = (props)
                         Please enter the account email associated with the account. If this email has an account with
                         Eaton, you will receive a response within <b>one business day</b>. For urgent account issues,
                         please call{' '}
-                        <Box component="a" href={`tel:${contactPhone}`} sx={LinkStyles(theme)}>
+                        <Box component="a" href={`tel:${contactPhone}`} sx={LinkStyles}>
                             {contactPhone}
                         </Box>
                         .
@@ -76,9 +69,6 @@ export const ForgotPasswordScreen: React.FC<ForgotPasswordScreenProps> = (props)
             nextLabel: t('bluiAuth:ACTIONS.NEXT'),
             previousLabel: t('bluiAuth:ACTIONS.BACK'),
             canGoNext: true,
-        },
-        WorkflowCardBaseProps: workflowCardBaseProps = {
-            loading: isLoading,
         },
     } = props;
 
