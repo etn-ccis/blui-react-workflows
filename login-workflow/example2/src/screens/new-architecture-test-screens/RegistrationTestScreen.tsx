@@ -10,6 +10,7 @@ import Typography from '@mui/material/Typography';
 import Button from '@mui/material/Button';
 import Event from '@mui/icons-material/Event';
 import AppBar from '@mui/material/AppBar';
+import { routes } from '../../navigation/Routing';
 
 export const RegistrationTestScreen = (): JSX.Element => {
     const { language } = useApp();
@@ -26,7 +27,7 @@ export const RegistrationTestScreen = (): JSX.Element => {
             <RegistrationContextProvider
                 i18n={i18nRegistrationInstance}
                 language={language}
-                routeConfig={{}}
+                routeConfig={routes}
                 navigate={navigate}
             >
                 <Box sx={{ flex: '1 1 0px' }}>

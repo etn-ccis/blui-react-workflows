@@ -5,24 +5,24 @@
 
 import { RegistrationActions as DispatchActions } from './dispatchActions';
 import { AccountDetailInformation, CustomAccountDetails } from '../../types/AccountDetails';
-import { RegistrationUIActions } from '../AuthUIContextProvider';
+import { RegistrationUIActionsLegacy } from '../AuthUIContextProvider';
 
-type RegistrationUIActionsFunction = () => RegistrationUIActions;
-type RegistrationUIActionsCreator = (
-    injectedActions: RegistrationUIActions,
+type RegistrationUIActionsLegacyFunction = () => RegistrationUIActionsLegacy;
+type RegistrationUIActionsLegacyCreator = (
+    injectedActions: RegistrationUIActionsLegacy,
     dispatch: React.Dispatch<DispatchActions>
-) => RegistrationUIActionsFunction;
+) => RegistrationUIActionsLegacyFunction;
 
 /**
- * Implementation of actions for altering the global [[RegistrationUIState]] via [[RegistrationUIActions]] calls.
+ * Implementation of actions for altering the global [[RegistrationUIState]] via [[RegistrationUIActionsLegacy]] calls.
  * Uses actions injected into the app to make network calls, and then updates the global state accordingly
  * using by dispatching [[RegistrationActions]] to the [[registrationReducer]].
  *
  * @param injectedActions Implementation of network activities.
  * @param dispatch For updating reducer upon completion of network activities.
  */
-export const RegistrationActionsCreator: RegistrationUIActionsCreator =
-    (injectedActions, dispatch) => (): RegistrationUIActions => ({
+export const RegistrationActionsCreator: RegistrationUIActionsLegacyCreator =
+    (injectedActions, dispatch) => (): RegistrationUIActionsLegacy => ({
         loadEULA: async (language: string): Promise<string> => {
             const transitId = Math.random();
 
