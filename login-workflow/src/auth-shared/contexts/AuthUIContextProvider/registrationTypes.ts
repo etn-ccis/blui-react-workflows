@@ -8,9 +8,9 @@ import { AccountDetailInformation, CustomAccountDetails } from '../../types/Acco
 /**
  * Registration Actions to be performed based on the user's actions. The application will create appropriate actions
  * (often API calls, local network storage, credential updates, etc.) based on the actionable needs of the user.
- * A MockRegistrationUIActions implementation is provided in the examples to start with during development.
+ * A MockRegistrationUIActionsLegacy implementation is provided in the examples to start with during development.
  */
-export type RegistrationUIActions = {
+export type RegistrationUIActionsLegacy = {
     /**
      * The user wants to complete an action but must first accept the EULA.
      * The application should retrieve an application-specific EULA for the user.

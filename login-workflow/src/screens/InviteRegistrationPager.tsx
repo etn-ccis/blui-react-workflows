@@ -2,7 +2,7 @@ import React, { useState, useEffect, useCallback, ComponentType } from 'react';
 import {
     useLanguageLocale,
     useRegistrationUIState,
-    useRegistrationUIActions,
+    useRegistrationUIActionsLegacy,
     useInjectedUIContext,
     AccountDetailInformation,
     AccountDetailsFormProps,
@@ -54,7 +54,7 @@ export const InviteRegistrationPager: React.FC<React.PropsWithChildren<React.Pro
     const { routes } = useRoutes();
     const theme = useTheme();
     const registrationState = useRegistrationUIState();
-    const registrationActions = useRegistrationUIActions();
+    const registrationActions = useRegistrationUIActionsLegacy();
     const injectedUIContext = useInjectedUIContext();
 
     const { code, email } = useQueryString();

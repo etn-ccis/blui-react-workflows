@@ -47,11 +47,11 @@ void i18n
 describe('BrandedCardContainer tests', () => {
     it('renders without crashing', () => {
         const authUIActions = jest.fn();
-        const registrationUIActions = jest.fn();
+        const registrationUIActionsLegacy = jest.fn();
 
         render(
             <ThemeProvider theme={theme}>
-                <AuthUIContextProvider authActions={authUIActions} registrationActions={registrationUIActions}>
+                <AuthUIContextProvider authActions={authUIActions} registrationActions={registrationUIActionsLegacy}>
                     <BrandedCardContainer loading={false} />
                 </AuthUIContextProvider>
             </ThemeProvider>
@@ -154,12 +154,12 @@ describe('Spinner tests', () => {
 describe('ChangePasswordForm tests', () => {
     it('renders without crashing', () => {
         const authUIActions = jest.fn();
-        const registrationUIActions = jest.fn();
+        const registrationUIActionsLegacy = jest.fn();
         const ref = { current: {} };
 
         render(
             <ThemeProvider theme={theme}>
-                <AuthUIContextProvider authActions={authUIActions} registrationActions={registrationUIActions}>
+                <AuthUIContextProvider authActions={authUIActions} registrationActions={registrationUIActionsLegacy}>
                     <ChangePasswordForm onPasswordChange={(): void => {}} confirmRef={ref} />
                 </AuthUIContextProvider>
             </ThemeProvider>
@@ -177,7 +177,7 @@ jest.mock('../auth-shared', () => ({
 describe('ChangePasswordModal transitSuccess=true tests', () => {
     it('renders without crashing', () => {
         const authUIActions = jest.fn();
-        const registrationUIActions = jest.fn();
+        const registrationUIActionsLegacy = jest.fn();
         const authActions = {
             initiateSecurity: jest.fn(),
             logIn: jest.fn(),
@@ -192,7 +192,10 @@ describe('ChangePasswordModal transitSuccess=true tests', () => {
             <ThemeProvider theme={theme}>
                 <SecurityContextProvider>
                     <AccountUIActionContext.Provider value={{ actions: authActions, dispatch: authDispatch }}>
-                        <AuthUIContextProvider authActions={authUIActions} registrationActions={registrationUIActions}>
+                        <AuthUIContextProvider
+                            authActions={authUIActions}
+                            registrationActions={registrationUIActionsLegacy}
+                        >
                             <ChangePasswordModal />
                         </AuthUIContextProvider>
                     </AccountUIActionContext.Provider>
@@ -212,7 +215,7 @@ jest.mock('../auth-shared', () => ({
 describe('ChangePasswordModal transitSuccess=false tests', () => {
     it('renders without crashing', () => {
         const authUIActions = jest.fn();
-        const registrationUIActions = jest.fn();
+        const registrationUIActionsLegacy = jest.fn();
         const authActions = {
             initiateSecurity: jest.fn(),
             logIn: jest.fn(),
@@ -227,7 +230,10 @@ describe('ChangePasswordModal transitSuccess=false tests', () => {
             <ThemeProvider theme={theme}>
                 <SecurityContextProvider>
                     <AccountUIActionContext.Provider value={{ actions: authActions, dispatch: authDispatch }}>
-                        <AuthUIContextProvider authActions={authUIActions} registrationActions={registrationUIActions}>
+                        <AuthUIContextProvider
+                            authActions={authUIActions}
+                            registrationActions={registrationUIActionsLegacy}
+                        >
                             <ChangePasswordModal />
                         </AuthUIContextProvider>
                     </AccountUIActionContext.Provider>
@@ -240,11 +246,11 @@ describe('ChangePasswordModal transitSuccess=false tests', () => {
 describe('PasswordRequirements tests', () => {
     it('renders without crashing', () => {
         const authUIActions = jest.fn();
-        const registrationUIActions = jest.fn();
+        const registrationUIActionsLegacy = jest.fn();
 
         render(
             <ThemeProvider theme={theme}>
-                <AuthUIContextProvider authActions={authUIActions} registrationActions={registrationUIActions}>
+                <AuthUIContextProvider authActions={authUIActions} registrationActions={registrationUIActionsLegacy}>
                     <PasswordRequirements passwordText={'Test@123'} />
                 </AuthUIContextProvider>
             </ThemeProvider>
@@ -255,11 +261,11 @@ describe('PasswordRequirements tests', () => {
 describe('PasswordRequirementsCheck tests', () => {
     it('renders without crashing', () => {
         const authUIActions = jest.fn();
-        const registrationUIActions = jest.fn();
+        const registrationUIActionsLegacy = jest.fn();
 
         render(
             <ThemeProvider theme={theme}>
-                <AuthUIContextProvider authActions={authUIActions} registrationActions={registrationUIActions}>
+                <AuthUIContextProvider authActions={authUIActions} registrationActions={registrationUIActionsLegacy}>
                     <PasswordRequirementsCheck label={'test label'} isChecked={false} />
                 </AuthUIContextProvider>
             </ThemeProvider>
