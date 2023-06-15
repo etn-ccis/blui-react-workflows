@@ -17,3 +17,4 @@ export * from './CreatePasswordScreenTest';
 export * from './EulaScreenBase';
 export * from './ResetPasswordFullScreen';
 export * from './ForgotPasswordScreenTest';
+export * from './ContactSupportScreenFullScreen';
