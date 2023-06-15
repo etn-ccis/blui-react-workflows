@@ -20,7 +20,7 @@ import {
     ContactScreenBaseTest,
     RegistrationTestScreen,
     LoginScreen,
-    ChangePasswordDialogTest,
+    ChangePasswordDialogBaseTest,
     ResetPasswordScreen,
     CreatePasswordScreenTest,
     ForgotPasswordScreenBaseTest,
@@ -155,7 +155,7 @@ export const GetCustomRoutes = (isAuthenticated: boolean) => {
         },
         {
             path: `/change-password-dialog`,
-            element: <ChangePasswordDialogTest />,
+            element: <ChangePasswordDialogBaseTest />,
         },
         {
             path: `/eula-screen-test`,

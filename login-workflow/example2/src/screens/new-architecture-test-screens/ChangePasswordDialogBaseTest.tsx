@@ -5,7 +5,7 @@ import {
     useLanguageLocale,
 } from '@brightlayer-ui/react-auth-workflow';
 
-export const ChangePasswordDialogTest: React.FC<PropsWithChildren> = () => {
+export const ChangePasswordDialogBaseTest: React.FC<PropsWithChildren> = () => {
     const { t } = useLanguageLocale();
     const passwordRef = useRef(null);
     const confirmRef = useRef(null);
@@ -50,6 +50,11 @@ export const ChangePasswordDialogTest: React.FC<PropsWithChildren> = () => {
     return (
         <ChangePasswordDialogBase
             open={true}
+            dialogTitle="Change Password"
+            dialogDescription="Please select a password. Make sure that your password meets the necessary complexity requirements outlined below."
+            currentPasswordLabel="Current Password"
+            previousLabel="Back"
+            nextLabel="Okay"
             PasswordProps={{
                 newPasswordLabel: 'New Password',
                 passwordRef: passwordRef,

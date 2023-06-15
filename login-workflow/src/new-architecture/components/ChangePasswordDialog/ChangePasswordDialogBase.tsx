@@ -32,11 +32,11 @@ import { PasswordTextField } from '../PasswordTextField';
  */
 export const ChangePasswordDialogBase: React.FC<ChangePasswordDialogProps> = (props) => {
     const {
-        dialogTitle = 'Change Password',
-        dialogDescription = 'Please select a password. Make sure that your password meets the necessary complexity requirements outlined below.',
-        currentPasswordLabel = 'Current Password',
-        previousLabel = 'Back',
-        nextLabel = 'Okay',
+        dialogTitle,
+        dialogDescription,
+        currentPasswordLabel,
+        previousLabel,
+        nextLabel,
         sx,
         open,
         enableButton,
