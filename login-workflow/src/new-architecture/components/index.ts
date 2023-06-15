@@ -5,4 +5,3 @@ export * from './WorkflowFinishState';
 export * from './RegistrationWorkflow';
 export * from './SetPassword';
 export * from './ChangePasswordDialog';
-export * from './WorkflowSecureTextField';

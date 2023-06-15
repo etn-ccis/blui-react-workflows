@@ -13,18 +13,27 @@ import {
 } from '@mui/material';
 import { ChangePasswordDialogProps } from './types';
 import { SetPassword } from '../SetPassword';
-import { useLanguageLocale } from '../../../auth-shared';
-import { WorkflowSecureTextField } from '../WorkflowSecureTextField';
+import { PasswordTextField } from '../PasswordTextField';
 
 export const ChangePasswordDialogBase: React.FC<ChangePasswordDialogProps> = (props) => {
-    const { sx, open, enableButton, currentPasswordChange, onSubmit } = props;
+    const {
+        dialogTitle = 'Change Password',
+        dialogDescription = 'Please select a password. Make sure that your password meets the necessary complexity requirements outlined below.',
+        currentPasswordLabel = 'Current Password',
+        previousLabel = 'Back',
+        nextLabel = 'Next',
+        sx,
+        open,
+        enableButton,
+        currentPasswordChange,
+        onSubmit,
+    } = props;
     const theme = useTheme();
     const matchesSM = useMediaQuery(theme.breakpoints.down('sm'));
-    const { t } = useLanguageLocale();
     const [currentPassword, setCurrentPassword] = useState('');
     const [buttonState, setButtonState] = useState(true);
 
-    const passwordProps = props.PasswordProps || { onPasswordChange: () => ({}) };
+    const passwordProps = props.PasswordProps;
 
     const handleChange = (event: any): void => {
         setCurrentPassword(event.target.value);
@@ -47,7 +56,7 @@ export const ChangePasswordDialogBase: React.FC<ChangePasswordDialogProps> = (pr
                     ...(Array.isArray(sx) ? sx : [sx]),
                 ]}
             >
-                {t('blui:CHANGE_PASSWORD.PASSWORD')}
+                {dialogTitle}
             </DialogTitle>
             <DialogContent
                 sx={[
@@ -63,12 +72,12 @@ export const ChangePasswordDialogBase: React.FC<ChangePasswordDialogProps> = (pr
                     ...(Array.isArray(sx) ? sx : [sx]),
                 ]}
             >
-                <Typography>{t('blui:CHANGE_PASSWORD.PASSWORD_INFO')}</Typography>
+                <Typography>{dialogDescription}</Typography>
                 <Divider sx={{ mt: 5, mb: 4, mx: { md: -3, xs: -2 } }} />
                 <SetPassword {...passwordProps}>
-                    <WorkflowSecureTextField
+                    <PasswordTextField
                         id="current-password"
-                        label={t('blui:LABELS.CURRENT_PASSWORD')}
+                        label={currentPasswordLabel}
                         value={currentPassword}
                         onChange={handleChange}
                         onKeyPress={(e): void => {
@@ -97,7 +106,7 @@ export const ChangePasswordDialogBase: React.FC<ChangePasswordDialogProps> = (pr
                     sx={{ width: '100%' }}
                 >
                     <Button variant="outlined" color="primary" sx={{ width: 100 }}>
-                        {t('blui:ACTIONS.BACK')}
+                        {previousLabel}
                     </Button>
                     <Button
                         variant="contained"
@@ -107,7 +116,7 @@ export const ChangePasswordDialogBase: React.FC<ChangePasswordDialogProps> = (pr
                         color="primary"
                         onClick={onSubmit}
                     >
-                        {t('blui:ACTIONS.OKAY')}
+                        {nextLabel}
                     </Button>
                 </Grid>
             </DialogActions>

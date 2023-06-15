@@ -1,6 +1,6 @@
 import React from 'react';
 import '@testing-library/jest-dom';
-import { cleanup, render } from '@testing-library/react';
+import { cleanup, fireEvent, render } from '@testing-library/react';
 import { ChangePasswordDialogBase } from './ChangePasswordDialogBase';
 
 afterEach(cleanup);
@@ -12,9 +12,7 @@ describe('AccountDetailsScreenBase tests', () => {
                 open={true}
                 onSubmit={undefined}
                 PasswordProps={{
-                    onPasswordChange: function (passwords: { password: string; confirm: string }): void {
-                        throw new Error(JSON.stringify(passwords));
-                    },
+                    onPasswordChange: () => {},
                     newPasswordLabel: '',
                     initialNewPasswordValue: '',
                     confirmPasswordLabel: '',
@@ -26,11 +24,36 @@ describe('AccountDetailsScreenBase tests', () => {
                         throw new Error('Function not implemented.');
                     },
                 }}
-                currentPasswordChange={function (currentPassword: string): void {
-                    throw new Error(currentPassword);
-                }}
+                currentPasswordChange={() => {}}
                 enableButton={false}
             />
         );
+    });
+
+    it('input onChange callBack', () => {
+        const { getByLabelText } = render(
+            <ChangePasswordDialogBase
+                open={true}
+                onSubmit={() => {}}
+                currentPasswordChange={() => {}}
+                enableButton={false}
+                PasswordProps={{
+                    onPasswordChange: () => {},
+                    newPasswordLabel: '',
+                    initialNewPasswordValue: '',
+                    confirmPasswordLabel: '',
+                    initialConfirmPasswordValue: '',
+                    passwordRequirements: [],
+                    passwordRef: undefined,
+                    confirmRef: undefined,
+                    onSubmit: (): void => {},
+                }}
+            />
+        );
+
+        const currentPasswordInput = getByLabelText('Current Password');
+        expect(currentPasswordInput).toHaveValue('');
+        fireEvent.change(currentPasswordInput, { target: { value: 'Password@123' } });
+        expect(currentPasswordInput).toHaveValue('Password@123');
     });
 });
