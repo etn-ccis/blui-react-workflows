@@ -72,12 +72,12 @@ describe('ViewEulaSubscreen tests', () => {
 describe('AccountDetails tests', () => {
     it('renders without crashing', () => {
         const authUIActions = jest.fn();
-        const registrationUIActions = jest.fn();
+        const registrationUIActionsLegacy = jest.fn();
         const onDetailsChanged = jest.fn();
 
         render(
             <ThemeProvider theme={theme}>
-                <AuthUIContextProvider authActions={authUIActions} registrationActions={registrationUIActions}>
+                <AuthUIContextProvider authActions={authUIActions} registrationActions={registrationUIActionsLegacy}>
                     <AccountDetails onDetailsChanged={onDetailsChanged} />
                 </AuthUIContextProvider>
             </ThemeProvider>
@@ -101,11 +101,11 @@ describe('CreatePassword tests', () => {
     it('renders without crashing', () => {
         const onPasswordChanged = jest.fn();
         const authUIActions = jest.fn();
-        const registrationUIActions = jest.fn();
+        const registrationUIActionsLegacy = jest.fn();
 
         render(
             <ThemeProvider theme={theme}>
-                <AuthUIContextProvider authActions={authUIActions} registrationActions={registrationUIActions}>
+                <AuthUIContextProvider authActions={authUIActions} registrationActions={registrationUIActionsLegacy}>
                     <CreatePassword onPasswordChanged={onPasswordChanged} />
                 </AuthUIContextProvider>
             </ThemeProvider>
@@ -157,11 +157,11 @@ describe('VerifyEmail tests', () => {
 describe('ContactSupportSubscreen tests', () => {
     it('renders without crashing', () => {
         const authUIActions = jest.fn();
-        const registrationUIActions = jest.fn();
+        const registrationUIActionsLegacy = jest.fn();
 
         render(
             <ThemeProvider theme={theme}>
-                <AuthUIContextProvider authActions={authUIActions} registrationActions={registrationUIActions}>
+                <AuthUIContextProvider authActions={authUIActions} registrationActions={registrationUIActionsLegacy}>
                     <ContactSupportSubscreen />
                 </AuthUIContextProvider>
             </ThemeProvider>
@@ -178,7 +178,7 @@ jest.mock('../auth-shared', () => ({
 describe('ForgotPassword tests', () => {
     it('renders without crashing', () => {
         const authUIActions = jest.fn();
-        const registrationUIActions = jest.fn();
+        const registrationUIActionsLegacy = jest.fn();
         const accountUIActions = {
             initiateSecurity: jest.fn(),
             logIn: jest.fn(),
@@ -192,7 +192,10 @@ describe('ForgotPassword tests', () => {
         render(
             <ThemeProvider theme={theme}>
                 <AccountUIActionContext.Provider value={{ actions: accountUIActions, dispatch: accountUIDispatch }}>
-                    <AuthUIContextProvider authActions={authUIActions} registrationActions={registrationUIActions}>
+                    <AuthUIContextProvider
+                        authActions={authUIActions}
+                        registrationActions={registrationUIActionsLegacy}
+                    >
                         <ForgotPassword />
                     </AuthUIContextProvider>
                 </AccountUIActionContext.Provider>
@@ -210,7 +213,7 @@ jest.mock('../auth-shared', () => ({
 describe('Login tests', () => {
     it('renders without crashing', () => {
         const authUIActions = jest.fn();
-        const registrationUIActions = jest.fn();
+        const registrationUIActionsLegacy = jest.fn();
         const accountUIActions = {
             initiateSecurity: jest.fn(),
             logIn: jest.fn(),
@@ -240,7 +243,7 @@ describe('Login tests', () => {
                             >
                                 <AuthUIContextProvider
                                     authActions={authUIActions}
-                                    registrationActions={registrationUIActions}
+                                    registrationActions={registrationUIActionsLegacy}
                                 >
                                     <Login />
                                 </AuthUIContextProvider>
@@ -273,7 +276,7 @@ jest.mock('react-router-dom', () => ({
 jest.mock('../auth-shared', () => ({
     // @ts-ignore
     ...jest.requireActual('../auth-shared'),
-    useRegistrationUIActions: jest.fn().mockReturnValue(() => ({
+    useRegistrationUIActionsLegacy: jest.fn().mockReturnValue(() => ({
         actions: {
             loadEULA: jest.fn(),
             requestRegistrationCode: jest.fn(),
@@ -291,7 +294,7 @@ jest.mock('../auth-shared', () => ({
 //         const div = document.createElement('div');
 //         const root = createRoot(div);
 //         const authUIActions = jest.fn();
-//         const registrationUIActions = jest.fn();
+//         const registrationUIActionsLegacy = jest.fn();
 
 //         const defaultRoutes = {
 //             LOGIN: '/login',
@@ -305,7 +308,7 @@ jest.mock('../auth-shared', () => ({
 //         root.render(
 //             <BrowserRouter>
 //                 <RoutingContext.Provider value={{ routes: defaultRoutes }}>
-//                     <AuthUIContextProvider authActions={authUIActions} registrationActions={registrationUIActions}>
+//                     <AuthUIContextProvider authActions={authUIActions} registrationActions={registrationUIActionsLegacy}>
 //                         <InviteRegistrationPager />
 //                     </AuthUIContextProvider>
 //                 </RoutingContext.Provider>
@@ -322,7 +325,7 @@ jest.mock('../auth-shared', () => ({
 //         const div = document.createElement('div');
 //         const root = createRoot(div);
 //         const authUIActions = jest.fn();
-//         const registrationUIActions = jest.fn();
+//         const registrationUIActionsLegacy = jest.fn();
 
 //         const defaultRoutes = {
 //             LOGIN: '/login',
@@ -336,7 +339,7 @@ jest.mock('../auth-shared', () => ({
 //         root.render(
 //             <BrowserRouter>
 //                 <RoutingContext.Provider value={{ routes: defaultRoutes }}>
-//                     <AuthUIContextProvider authActions={authUIActions} registrationActions={registrationUIActions}>
+//                     <AuthUIContextProvider authActions={authUIActions} registrationActions={registrationUIActionsLegacy}>
 //                         <SelfRegistrationPager />
 //                     </AuthUIContextProvider>
 //                 </RoutingContext.Provider>
@@ -349,11 +352,11 @@ jest.mock('../auth-shared', () => ({
 describe('Splash tests', () => {
     it('renders without crashing', () => {
         const authUIActions = jest.fn();
-        const registrationUIActions = jest.fn();
+        const registrationUIActionsLegacy = jest.fn();
 
         render(
             <ThemeProvider theme={theme}>
-                <AuthUIContextProvider authActions={authUIActions} registrationActions={registrationUIActions}>
+                <AuthUIContextProvider authActions={authUIActions} registrationActions={registrationUIActionsLegacy}>
                     <Splash />
                 </AuthUIContextProvider>
             </ThemeProvider>
@@ -364,7 +367,7 @@ describe('Splash tests', () => {
 describe('ResetPassword tests', () => {
     it('renders without crashing', () => {
         const authUIActions = jest.fn();
-        const registrationUIActions = jest.fn();
+        const registrationUIActionsLegacy = jest.fn();
         const defaultRoutes = {
             LOGIN: '/login',
             FORGOT_PASSWORD: '/forgot-password',
@@ -390,7 +393,7 @@ describe('ResetPassword tests', () => {
                         <AccountUIActionContext.Provider value={{ actions: authActions, dispatch: authDispatch }}>
                             <AuthUIContextProvider
                                 authActions={authUIActions}
-                                registrationActions={registrationUIActions}
+                                registrationActions={registrationUIActionsLegacy}
                             >
                                 <ResetPassword />
                             </AuthUIContextProvider>

@@ -6,37 +6,15 @@ import {
     WorkflowCardBody,
     WorkflowCardActions,
     useRegistrationWorkflowContext,
+    i18nRegistrationInstance,
+    RegistrationContextProvider,
+    EulaScreen,
 } from '@brightlayer-ui/react-auth-workflow';
 import TextField from '@mui/material/TextField';
-
-const Screen1 = (): JSX.Element => {
-    const regWorkflow = useRegistrationWorkflowContext();
-    const { nextScreen, screenData } = regWorkflow;
-    const [value, setValue] = useState(
-        screenData['Other'] && screenData['Other']['TextField1'] ? screenData['Other']['TextField1'].test : ''
-    );
-
-    return (
-        <WorkflowCard>
-            <WorkflowCardHeader title="Screen 1" />
-            <WorkflowCardBody>
-                <TextField
-                    variant="outlined"
-                    /* @ts-ignore */
-                    defaultValue={value}
-                    placeholder="Please enter text here"
-                    onChange={(event): void => setValue(event.target.value)}
-                    onBlur={(event): void => setValue(event.target.value)}
-                />
-            </WorkflowCardBody>
-            <WorkflowCardActions
-                showNext
-                nextLabel="Next"
-                onNext={(): void => nextScreen({ screenId: 'TextField1', values: { test: value } })}
-            />
-        </WorkflowCard>
-    );
-};
+import { useNavigate } from 'react-router-dom';
+import { useApp } from '../../contexts/AppContextProvider';
+import { ProjectRegistrationUIActions } from '../../actions/RegistrationUIActions';
+import { routes } from '../../navigation/Routing';
 
 const Screen2 = (): JSX.Element => {
     const regWorkflow = useRegistrationWorkflowContext();
@@ -98,10 +76,23 @@ const Screen3 = (): JSX.Element => {
     );
 };
 
-export const RegistrationWorkflowScreen = (): JSX.Element => (
-    <RegistrationWorkflow initialScreenIndex={0}>
-        <Screen1 />
-        <Screen2 />
-        <Screen3 />
-    </RegistrationWorkflow>
-);
+export const RegistrationWorkflowScreen = (): JSX.Element => {
+    const { language } = useApp();
+    const navigate = useNavigate();
+    // const securityContextActions = ();
+    return (
+        <RegistrationContextProvider
+            i18n={i18nRegistrationInstance}
+            language={language}
+            routeConfig={routes}
+            navigate={navigate}
+            actions={ProjectRegistrationUIActions}
+        >
+            <RegistrationWorkflow initialScreenIndex={0}>
+                <EulaScreen />
+                <Screen2 />
+                <Screen3 />
+            </RegistrationWorkflow>
+        </RegistrationContextProvider>
+    );
+};
