@@ -17,6 +17,17 @@ const defaultProps: RegistrationContextProviderProps = {
     routeConfig: {},
 };
 
+const passwordRequirements = [
+    {
+        description: 'Check 1',
+        regex: /^.{3,5}$/,
+    },
+    {
+        description: 'Check 2',
+        regex: /[a-z]+/,
+    },
+];
+
 afterEach(cleanup);
 
 describe('Create Password Screen', () => {
@@ -77,6 +88,7 @@ describe('Create Password Screen', () => {
                 newPasswordLabel: 'Password',
                 confirmPasswordLabel: 'Confirm Password',
                 onPasswordChange: jest.fn(),
+                passwordRequirements: passwordRequirements,
             },
         });
 
@@ -106,6 +118,7 @@ describe('Create Password Screen', () => {
                 newPasswordLabel: 'Password',
                 confirmPasswordLabel: 'Confirm Password',
                 onPasswordChange: jest.fn(),
+                passwordRequirements: passwordRequirements,
             },
         });
 
