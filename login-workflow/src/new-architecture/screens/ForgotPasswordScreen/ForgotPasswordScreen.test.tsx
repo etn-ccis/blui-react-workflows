@@ -9,6 +9,18 @@ import { ForgotPasswordScreen } from './ForgotPasswordScreen';
 afterEach(cleanup);
 
 describe('Forgot Password Screen tests', () => {
+    let mockOnNext: any;
+    let mockOnPrevious: any;
+
+    afterEach(() => {
+        jest.clearAllMocks();
+    });
+
+    beforeEach(() => {
+        mockOnNext = jest.fn();
+        mockOnPrevious = jest.fn();
+    });
+
     const renderer = (props?: ForgotPasswordScreenProps): RenderResult =>
         render(
             <AuthContextProvider {...authContextProps}>
@@ -30,6 +42,41 @@ describe('Forgot Password Screen tests', () => {
         const emailInput = getByLabelText('Email Address');
         expect(emailInput).toHaveValue('');
         fireEvent.change(emailInput, { target: { value: 'manojlokesh@eaton.com' } });
-        expect(emailInput).tohaveValue('manojlokesh@eaton.com');
+        expect(emailInput).toHaveValue('manojlokesh@eaton.com');
+    });
+
+    it('firing onPrevious Callback functions', () => {
+        renderer({
+            WorkflowCardActionsProps: {
+                showPrevious: true,
+                previousLabel: 'Back',
+                onPrevious: mockOnPrevious(),
+            },
+        });
+
+        const previousButton = screen.getByText('Back');
+        expect(previousButton).toBeInTheDocument();
+        fireEvent.click(previousButton);
+        expect(mockOnPrevious).toHaveBeenCalled();
+    });
+
+    it('firing onNext Callback functions', () => {
+        const { getByLabelText, getByTestId } = renderer({
+            WorkflowCardActionsProps: {
+                showNext: true,
+                nextLabel: 'Next',
+                onNext: mockOnNext(),
+            },
+        });
+
+        const emailInput = getByLabelText('Email Address');
+        expect(emailInput).toHaveValue('');
+        fireEvent.change(emailInput, { target: { value: 'manojlokesh@eaton.com' } });
+        expect(emailInput).toHaveValue('manojlokesh@eaton.com');
+
+        const nextButton = getByTestId('BluiWorkflowCardActions-nextButton');
+        expect(nextButton).toBeInTheDocument();
+        fireEvent.click(nextButton);
+        expect(mockOnNext).toHaveBeenCalled();
     });
 });
