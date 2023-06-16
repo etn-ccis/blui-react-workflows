@@ -48,6 +48,7 @@ describe('AccountDetailsScreenBase tests', () => {
                     confirmRef: undefined,
                     onSubmit: (): void => {},
                 }}
+                currentPasswordLabel="Current Password"
             />
         );
 
