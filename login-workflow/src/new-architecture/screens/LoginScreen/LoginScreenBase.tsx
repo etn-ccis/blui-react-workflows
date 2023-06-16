@@ -449,7 +449,12 @@ export const LoginScreenBase: React.FC<React.PropsWithChildren<LoginScreenProps>
                             </Box>
                         )}
                         <Box
-                            sx={{ display: 'flex', flex: 1, justifyContent: 'flex-end' }}
+                            sx={{
+                                display: 'flex',
+                                flex: 1,
+                                justifyContent: 'flex-end',
+                                width: showRememberMe ? 'auto' : '100%',
+                            }}
                             className={defaultClasses.loginButtonWrapper}
                             data-testid={defaultClasses.loginButtonWrapper}
                         >
@@ -460,7 +465,9 @@ export const LoginScreenBase: React.FC<React.PropsWithChildren<LoginScreenProps>
                                 disabled={!isFormValid()}
                                 variant="contained"
                                 color="primary"
-                                sx={{ width: showRememberMe ? 150 : '100%' }}
+                                sx={{
+                                    width: showRememberMe ? 150 : '100%',
+                                }}
                             >
                                 {loginButtonLabel || 'Log In'}
                             </Button>

@@ -37,6 +37,7 @@ export const LoginScreenFullScreenTest = (): JSX.Element => {
                             // eslint-disable-next-line no-console
                             console.log('onRememberMeChanged', value);
                         }}
+                        // showRememberMe={false}
                         // onForgotPassword={(): void => {
                         //     // eslint-disable-next-line no-console
                         //     console.log('onForgotPassword');
