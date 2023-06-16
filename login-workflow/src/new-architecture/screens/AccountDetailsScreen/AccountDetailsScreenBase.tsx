@@ -21,6 +21,7 @@ export const AccountDetailsScreenBase: React.FC<AccountDetailsScreenProps> = (pr
         lastNameValidator = (name: string): boolean | string =>
             name?.length > 2 ? true : 'Last name must be at least 3 characters',
         lastNameTextFieldProps,
+        sx,
     } = props;
 
     const cardBaseProps = props.WorkflowCardBaseProps || {};
@@ -91,15 +92,23 @@ export const AccountDetailsScreenBase: React.FC<AccountDetailsScreenProps> = (pr
                     }}
                     error={showFirstNameError}
                     helperText={firstNameError}
-                    sx={{ mb: { md: 0, sm: 1, xs: 4 } }}
+                    sx={[
+                        {
+                            mb: { md: 0, sm: 1, xs: 4 },
+                        },
+                        ...(Array.isArray(sx) ? sx : [sx]),
+                    ]}
                 />
                 <TextField
                     id="last"
                     fullWidth
                     variant="filled"
-                    sx={{
-                        mt: { md: 4, sm: 3 },
-                    }}
+                    sx={[
+                        {
+                            mt: { md: 4, sm: 3 },
+                        },
+                        ...(Array.isArray(sx) ? sx : [sx]),
+                    ]}
                     {...lastNameTextFieldProps}
                     inputRef={lastNameRef}
                     label={lastNameLabel}

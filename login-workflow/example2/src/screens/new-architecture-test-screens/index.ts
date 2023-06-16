@@ -12,6 +12,7 @@ export * from './ForgotPasswordScreenBase';
 export * from './SetPasswordScreen';
 export * from './LoginScreenBase';
 export * from './VerifyCodeScreenBase';
+export * from './ChangePasswordDialogBaseTest';
 export * from './ResetPasswordScreen';
 export * from './CreatePasswordScreenTest';
 export * from './EulaScreenBase';
