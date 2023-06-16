@@ -61,7 +61,7 @@ describe('Forgot Password Screen tests', () => {
     });
 
     it('firing onNext Callback functions', () => {
-        const { getByLabelText, getByTestId } = renderer({
+        const { getByLabelText } = renderer({
             WorkflowCardActionsProps: {
                 showNext: true,
                 nextLabel: 'Next',
@@ -70,12 +70,15 @@ describe('Forgot Password Screen tests', () => {
         });
 
         const emailInput = getByLabelText('Email Address');
+        const nextButton = screen.getByText('Next');
         expect(emailInput).toHaveValue('');
+        expect(screen.getByText(/Next/i)).toBeDisabled();
         fireEvent.change(emailInput, { target: { value: 'manojlokesh@eaton.com' } });
+        fireEvent.blur(emailInput);
         expect(emailInput).toHaveValue('manojlokesh@eaton.com');
 
-        const nextButton = getByTestId('BluiWorkflowCardActions-nextButton');
         expect(nextButton).toBeInTheDocument();
+        expect(screen.getByText(/Next/i)).toBeEnabled();
         fireEvent.click(nextButton);
         expect(mockOnNext).toHaveBeenCalled();
     });
