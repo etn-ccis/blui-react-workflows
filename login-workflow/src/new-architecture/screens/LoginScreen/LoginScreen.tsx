@@ -73,15 +73,6 @@ export const LoginScreen: React.FC<React.PropsWithChildren<LoginScreenPropsPubli
             props.onRememberMeChanged?.(value);
         },
         loginButtonLabel = t('bluiAuth:ACTIONS.LOG_IN'),
-        onLogin = async (username: string, password: string, rememberMe: boolean): Promise<void> => {
-            try {
-                await actions().logIn(username, password, rememberMe);
-                props.onLogin?.(username, password, rememberMe);
-            } catch (error) {
-                // eslint-disable-next-line no-console
-                console.log(error);
-            }
-        },
         showForgotPassword = true,
         forgotPasswordLabel = t('bluiAuth:LABELS.FORGOT_PASSWORD'),
         onForgotPassword = (): void => navigate(routeConfig.FORGOT_PASSWORD),
@@ -118,7 +109,16 @@ export const LoginScreen: React.FC<React.PropsWithChildren<LoginScreenPropsPubli
             rememberMeInitialValue={rememberMeInitialValue}
             onRememberMeChanged={onRememberMeChanged}
             loginButtonLabel={loginButtonLabel}
-            onLogin={onLogin}
+            // eslint-disable-next-line @typescript-eslint/no-misused-promises
+            onLogin={async (username: string, password: string, rememberMe: boolean): Promise<void> => {
+                try {
+                    await actions().logIn(username, password, rememberMe);
+                    await props.onLogin?.(username, password, rememberMe);
+                } catch (error) {
+                    // eslint-disable-next-line no-console
+                    console.log(error);
+                }
+            }}
             showForgotPassword={showForgotPassword}
             forgotPasswordLabel={forgotPasswordLabel}
             onForgotPassword={onForgotPassword}

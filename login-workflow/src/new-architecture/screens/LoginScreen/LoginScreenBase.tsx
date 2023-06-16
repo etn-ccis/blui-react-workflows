@@ -170,7 +170,7 @@ export const LoginScreenBase: React.FC<React.PropsWithChildren<LoginScreenProps>
     );
 
     const handleLogin = (): void => {
-        if (onLogin) onLogin(username, password, rememberMe);
+        if (onLogin) void onLogin(username, password, rememberMe);
     };
 
     const handleForgotPassword = (): void => {
@@ -203,7 +203,7 @@ export const LoginScreenBase: React.FC<React.PropsWithChildren<LoginScreenProps>
     const handleLoginSubmit = (e: React.KeyboardEvent<HTMLDivElement>): void => {
         setHasAcknowledgedError(false);
         if (e.key === 'Enter' && isFormValid()) {
-            handleLogin();
+            void handleLogin();
         }
     };
 

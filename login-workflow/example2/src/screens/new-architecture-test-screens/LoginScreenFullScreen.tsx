@@ -33,10 +33,10 @@ export const LoginScreenFullScreenTest = (): JSX.Element => {
                         // passwordTextFieldProps={{
                         //     required: true,
                         // }}
-                        onRememberMeChanged={(value: boolean): void => {
-                            // eslint-disable-next-line no-console
-                            console.log('onRememberMeChanged', value);
-                        }}
+                        // onRememberMeChanged={(value: boolean): void => {
+                        //     // eslint-disable-next-line no-console
+                        //     // console.log('onRememberMeChanged', value);
+                        // }}
                         // showRememberMe={false}
                         // onForgotPassword={(): void => {
                         //     // eslint-disable-next-line no-console
