@@ -8,7 +8,7 @@ import Typography from '@mui/material/Typography';
 import cyberSecurityBadge from '../../../assets/images/cybersecurity_certified.png';
 import { PasswordTextField } from '../../components';
 import Button from '@mui/material/Button';
-import { SxProps, Theme, useTheme } from '@mui/material/styles';
+import { useTheme } from '@mui/material/styles';
 import Checkbox from '@mui/material/Checkbox';
 import Close from '@mui/icons-material/Close';
 import * as Colors from '@brightlayer-ui/colors';
@@ -51,18 +51,18 @@ import { unstable_composeClasses as composeClasses } from '@mui/base';
  * @category Component
  */
 
-const LinkStyles = (theme?: Theme): SxProps<Theme> => ({
+const LinkStyles = {
     fontWeight: 600,
     textTransform: 'none',
     textDecoration: 'none',
-    color: theme.palette.primary.main,
+    color: 'primary.main',
     '&:visited': {
         color: 'inherit',
     },
     '&:hover': {
         cursor: 'pointer',
     },
-});
+};
 
 const useUtilityClasses = (ownerState: LoginScreenProps): Record<LoginScreenClassKey, string> => {
     const { classes } = ownerState;
@@ -130,7 +130,7 @@ export const LoginScreenBase: React.FC<React.PropsWithChildren<LoginScreenProps>
 
     const [username, setUsername] = React.useState<string>(initialUsernameValue || '');
     const [password, setPassword] = React.useState<string>('');
-    const [rememberMe, setRememberMe] = React.useState<boolean>(rememberMeInitialValue || false);
+    const [rememberMe, setRememberMe] = React.useState<boolean>(rememberMeInitialValue);
 
     const [shouldValidateUsername, setShouldValidateUsername] = React.useState<boolean>(false);
     const [shouldValidatePassword, setShouldValidatePassword] = React.useState<boolean>(false);
@@ -170,7 +170,7 @@ export const LoginScreenBase: React.FC<React.PropsWithChildren<LoginScreenProps>
     );
 
     const handleLogin = (): void => {
-        if (onLogin) onLogin(username, password);
+        if (onLogin) onLogin(username, password, rememberMe);
     };
 
     const handleForgotPassword = (): void => {
@@ -247,7 +247,7 @@ export const LoginScreenBase: React.FC<React.PropsWithChildren<LoginScreenProps>
             <Box
                 sx={{
                     width: '100%',
-                    backgroundColor: errorDisplayConfigProps?.backgroundColor || theme.palette.error.main,
+                    backgroundColor: errorDisplayConfigProps?.backgroundColor || 'error.main',
                     borderRadius: 4,
                     p: 2,
                     color: errorDisplayConfigProps?.fontColor || Colors.white[50],
@@ -449,7 +449,12 @@ export const LoginScreenBase: React.FC<React.PropsWithChildren<LoginScreenProps>
                             </Box>
                         )}
                         <Box
-                            sx={{ display: 'flex', flex: 1, justifyContent: 'flex-end' }}
+                            sx={{
+                                display: 'flex',
+                                flex: 1,
+                                justifyContent: 'flex-end',
+                                width: showRememberMe ? 'auto' : '100%',
+                            }}
                             className={defaultClasses.loginButtonWrapper}
                             data-testid={defaultClasses.loginButtonWrapper}
                         >
@@ -460,7 +465,9 @@ export const LoginScreenBase: React.FC<React.PropsWithChildren<LoginScreenProps>
                                 disabled={!isFormValid()}
                                 variant="contained"
                                 color="primary"
-                                sx={{ width: showRememberMe ? 150 : '100%' }}
+                                sx={{
+                                    width: showRememberMe ? 150 : '100%',
+                                }}
                             >
                                 {loginButtonLabel || 'Log In'}
                             </Button>
@@ -475,7 +482,7 @@ export const LoginScreenBase: React.FC<React.PropsWithChildren<LoginScreenProps>
                         >
                             <Typography
                                 variant="body2"
-                                sx={LinkStyles(theme)}
+                                sx={LinkStyles}
                                 onClick={handleForgotPassword}
                                 className={defaultClasses.forgotPasswordLabel}
                                 data-testid={defaultClasses.forgotPasswordLabel}
@@ -507,7 +514,7 @@ export const LoginScreenBase: React.FC<React.PropsWithChildren<LoginScreenProps>
                             </Typography>
                             <Typography
                                 variant="body2"
-                                sx={LinkStyles(theme)}
+                                sx={LinkStyles}
                                 onClick={handleSelfRegister}
                                 className={defaultClasses.selfRegisterLabel}
                                 data-testid={defaultClasses.selfRegisterLabel}
@@ -525,7 +532,7 @@ export const LoginScreenBase: React.FC<React.PropsWithChildren<LoginScreenProps>
                         >
                             <Typography
                                 variant="body2"
-                                sx={LinkStyles(theme)}
+                                sx={LinkStyles}
                                 onClick={handleContactSupport}
                                 className={defaultClasses.contactSupportLabel}
                                 data-testid={defaultClasses.contactSupportLabel}

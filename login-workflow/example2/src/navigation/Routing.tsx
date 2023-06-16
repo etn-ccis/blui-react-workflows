@@ -25,6 +25,7 @@ import {
     CreatePasswordScreenTest,
     ForgotPasswordScreenBaseTest,
     EulaScreenBaseTest,
+    LoginScreenFullScreenTest,
     ResetPasswordFullScreen,
     ContactSupportScreenFullScreen,
 } from '../screens';
@@ -56,6 +57,14 @@ export const GetCustomRoutes = (isAuthenticated: boolean) => {
         {
             path: `/login-screen-base`,
             element: <LoginScreenBaseTest />,
+        },
+        {
+            path: `/login-screen-full`,
+            element: (
+                <SecurityContextProvider>
+                    <LoginScreenFullScreenTest />
+                </SecurityContextProvider>
+            ),
         },
         // Non-Authenticated Route: accessible only if the user is NOT authenticated
         {

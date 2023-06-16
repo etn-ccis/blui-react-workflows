@@ -12,6 +12,16 @@ export type AuthContextProviderProps = {
     navigate: (url: string) => void;
     routeConfig: RouteConfig;
     i18n?: i18n;
+    rememberMeDetails?: {
+        /**
+         * Email address to show in the email field of Login after logout.
+         */
+        email?: string;
+        /**
+         * When true, the user's email will be in the email field of Login.
+         */
+        rememberMe?: boolean;
+    };
 };
 
 export type AuthUIActions = {

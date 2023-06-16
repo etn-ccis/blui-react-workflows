@@ -44,6 +44,7 @@ export type AuthTranslations = {
         FAILURE: string;
         LOADING: string;
         REQUEST_ERROR: string;
+        PASSWORD_REQUIRED_ERROR: string;
     };
     FORGOT_PASSWORD: {
         ERROR: string;
