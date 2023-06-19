@@ -13,7 +13,10 @@ import { LinkStyles } from '../../../styles';
  *
  * @param title to display in the header
  * @param icon to display in the icon
- * @param description to display the contact support content
+ * @param emailSupportTitle to display the contact support title
+ * @param emailSupportContent to display the contact support content
+ * @param phoneSupportTitle to display the phone support title
+ * @param phoneSupportContent to display the phone support content
  * @param contactEmail to display the contact email
  * @param contactPhone to display contact phone number
  * @param dismissButtonLabel to display label text in button
@@ -71,9 +74,11 @@ export const ContactScreenBase: React.FC<ContactScreenProps> = (props) => {
                 data-testid={defaultClasses.title}
                 title={title || headerProps.title}
             />
-            <Box sx={{ m: 3, mb: 5, textAlign: 'center' }} className={defaultClasses.icon}>
-                {icon}
-            </Box>
+            {icon && (
+                <Box sx={{ m: 3, mb: 5, textAlign: 'center' }} className={defaultClasses.icon}>
+                    {icon}
+                </Box>
+            )}
             <WorkflowCardBody>
                 <Typography
                     className={defaultClasses.emailSupportTitle}
