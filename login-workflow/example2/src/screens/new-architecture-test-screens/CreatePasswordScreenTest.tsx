@@ -65,6 +65,9 @@ export const CreatePasswordScreenTest = (): JSX.Element => {
                         confirmRef: confirmRef,
                         initialNewPasswordValue: passwordInput,
                         initialConfirmPasswordValue: confirmInput,
+                        passwordRequirements: passwordRequirements,
+                        newPasswordLabel: 'Password',
+                        confirmPasswordLabel: 'Confirm Password',
                         onPasswordChange: updateFields,
                         onSubmit: (): void => {
                             console.error('submitting form...');

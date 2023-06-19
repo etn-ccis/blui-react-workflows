@@ -79,7 +79,7 @@ export const ForgotPasswordScreenBase: React.FC<React.PropsWithChildren<ForgotPa
                 <WorkflowCard {...cardBaseProps}>
                     {showErrorDialog && (
                         <SimpleDialog
-                            title={t('bluiAuth:MESSAGES.ERROR')}
+                            title={t('bluiCommon:MESSAGES.ERROR')}
                             body={showErrorDialog}
                             open={showErrorDialog.length > 0}
                             onClose={(): void => {

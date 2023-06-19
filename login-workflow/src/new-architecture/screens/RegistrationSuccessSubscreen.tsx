@@ -35,8 +35,8 @@ export const RegistrationSuccessSubscreen: React.FC<RegistrationSuccessSubscreen
         email,
         organization,
         messageIcon = <CheckCircle color={'primary'} sx={{ fontSize: 100, mb: 2 }} />,
-        messageTitle = `${t('blui:MESSAGES.WELCOME')}, ${firstName} ${lastName}!`,
-        messageBody = 'blui:REGISTRATION.SUCCESS_MESSAGE_ALT',
+        messageTitle = `${t('bluiCommon:MESSAGES.WELCOME')}, ${firstName} ${lastName}!`,
+        messageBody = 'bluiRegistration:REGISTRATION.SUCCESS_MESSAGE_ALT',
     } = props;
 
     return (
