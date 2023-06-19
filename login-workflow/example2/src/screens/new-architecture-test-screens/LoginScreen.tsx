@@ -41,6 +41,13 @@ export const LoginScreen = (): JSX.Element => {
                             <Button
                                 variant="contained"
                                 sx={{ width: 200, m: 2 }}
+                                onClick={(): void => navigate('/login-screen-full')}
+                            >
+                                Test Login Screen Full
+                            </Button>
+                            <Button
+                                variant="contained"
+                                sx={{ width: 200, m: 2 }}
                                 onClick={(): void => navigate('/registration-test')}
                             >
                                 Test Registration
@@ -125,6 +132,13 @@ export const LoginScreen = (): JSX.Element => {
                             <Button
                                 variant="contained"
                                 sx={{ width: 200, m: 2 }}
+                                onClick={(): void => navigate('/change-password-dialog')}
+                            >
+                                Change Password Dialog
+                            </Button>
+                            <Button
+                                variant="contained"
+                                sx={{ width: 200, m: 2 }}
                                 onClick={(): void => navigate('/forgot-password')}
                             >
                                 Forgot Password
@@ -142,6 +156,13 @@ export const LoginScreen = (): JSX.Element => {
                                 onClick={(): void => navigate('/reset-password-full-screen')}
                             >
                                 Reset Password Full Screen
+                            </Button>
+                            <Button
+                                variant="contained"
+                                sx={{ width: 200, m: 2 }}
+                                onClick={(): void => navigate('/contact-support-full-screen')}
+                            >
+                                Contact Support Full Screen
                             </Button>
                         </Box>
                     }

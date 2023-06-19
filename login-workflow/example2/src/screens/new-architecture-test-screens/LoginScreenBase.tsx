@@ -37,7 +37,7 @@ export const LoginScreenBaseTest = (): JSX.Element => (
                     console.log('onRememberMeChanged', value);
                 }}
                 loginButtonLabel="Log In"
-                onLogin={(username: string, password: string): void => {
+                onLogin={(username, password): void => {
                     // eslint-disable-next-line no-console
                     console.log('onLogin', username, password);
                 }}

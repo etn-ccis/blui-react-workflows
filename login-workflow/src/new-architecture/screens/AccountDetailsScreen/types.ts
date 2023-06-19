@@ -1,3 +1,4 @@
+import { SxProps } from '@mui/material';
 import { WorkflowCardProps } from '../../components/WorkflowCard/WorkflowCard.types';
 import { MinifiedTextFieldProps } from '../../types';
 
@@ -13,4 +14,6 @@ export type AccountDetailsScreenProps = WorkflowCardProps & {
     initialLastName?: string;
     lastNameValidator?: (lastName: string) => boolean | string;
     lastNameTextFieldProps?: MinifiedTextFieldProps;
+
+    sx?: SxProps;
 };

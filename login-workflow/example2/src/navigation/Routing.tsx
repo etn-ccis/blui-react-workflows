@@ -20,11 +20,14 @@ import {
     ContactScreenBaseTest,
     RegistrationTestScreen,
     LoginScreen,
+    ChangePasswordDialogBaseTest,
     ResetPasswordScreen,
     CreatePasswordScreenTest,
     ForgotPasswordScreenBaseTest,
     EulaScreenBaseTest,
+    LoginScreenFullScreenTest,
     ResetPasswordFullScreen,
+    ContactSupportScreenFullScreen,
 } from '../screens';
 
 export const routes: RouteConfig = {
@@ -54,6 +57,14 @@ export const GetCustomRoutes = (isAuthenticated: boolean) => {
         {
             path: `/login-screen-base`,
             element: <LoginScreenBaseTest />,
+        },
+        {
+            path: `/login-screen-full`,
+            element: (
+                <SecurityContextProvider>
+                    <LoginScreenFullScreenTest />
+                </SecurityContextProvider>
+            ),
         },
         // Non-Authenticated Route: accessible only if the user is NOT authenticated
         {
@@ -153,6 +164,10 @@ export const GetCustomRoutes = (isAuthenticated: boolean) => {
             element: <SuccessScreenBaseTest />,
         },
         {
+            path: `/change-password-dialog`,
+            element: <ChangePasswordDialogBaseTest />,
+        },
+        {
             path: `/eula-screen-test`,
             element: <EulaScreenBaseTest />,
         },
@@ -161,6 +176,14 @@ export const GetCustomRoutes = (isAuthenticated: boolean) => {
             element: (
                 <SecurityContextProvider>
                     <ResetPasswordFullScreen />
+                </SecurityContextProvider>
+            ),
+        },
+        {
+            path: `/contact-support-full-screen`,
+            element: (
+                <SecurityContextProvider>
+                    <ContactSupportScreenFullScreen />
                 </SecurityContextProvider>
             ),
         },
