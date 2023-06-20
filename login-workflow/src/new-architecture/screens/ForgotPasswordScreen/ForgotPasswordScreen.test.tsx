@@ -36,6 +36,20 @@ describe('Forgot Password Screen tests', () => {
         expect(screen.getByText('Forgot Password')).toBeInTheDocument();
     });
 
+    it('renders with props crashing', () => {
+        renderer({
+            emailLabel: 'Email Address',
+            initialEmailValue: '',
+            emailValidator: (): any => {},
+            onNext: (): any => {},
+            contactPhone: '',
+            slots: {},
+            slotProps: {},
+        });
+
+        expect(screen.getByText('Forgot Password')).toBeInTheDocument();
+    });
+
     it('email validation test', () => {
         const { getByLabelText } = renderer();
 
