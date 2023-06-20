@@ -6,7 +6,7 @@ import { useApp } from '../../contexts/AppContextProvider';
 import { ProjectAuthUIActions } from '../../actions/AuthUIActions';
 import { routes } from '../../navigation/Routing';
 
-export const ForgotPasswordScreenTest = (): JSX.Element => {
+export const ForgotPasswordFullScreen = (): JSX.Element => {
     const { language } = useApp();
     const navigate = useNavigate();
     const securityContextActions = useSecurityActions();

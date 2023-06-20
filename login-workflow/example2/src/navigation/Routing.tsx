@@ -27,7 +27,7 @@ import {
     EulaScreenBaseTest,
     LoginScreenFullScreenTest,
     ResetPasswordFullScreen,
-    ForgotPasswordScreenTest,
+    ForgotPasswordFullScreen,
     ContactSupportScreenFullScreen,
 } from '../screens';
 
@@ -184,7 +184,7 @@ export const GetCustomRoutes = (isAuthenticated: boolean) => {
             path: `/forgot-password-full-screen`,
             element: (
                 <SecurityContextProvider>
-                    <ForgotPasswordScreenTest />
+                    <ForgotPasswordFullScreen />
                 </SecurityContextProvider>
             ),
         },
