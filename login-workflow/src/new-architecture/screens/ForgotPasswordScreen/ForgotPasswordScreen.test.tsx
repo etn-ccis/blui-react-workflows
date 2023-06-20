@@ -89,12 +89,12 @@ describe('Forgot Password Screen tests', () => {
         const { getByLabelText, rerender } = renderer();
 
         const emailInput = getByLabelText('Email Address');
-        const nextButton = screen.getByText('Next');
+        const nextButton = screen.getByText('Okay');
         fireEvent.change(emailInput, { target: { value: 'manojlokesh@eaton.com' } });
         fireEvent.blur(emailInput);
         expect(emailInput).toHaveValue('manojlokesh@eaton.com');
         expect(nextButton).toBeInTheDocument();
-        expect(screen.getByText(/Next/i)).toBeEnabled();
+        expect(screen.getByText(/Okay/i)).toBeEnabled();
         fireEvent.click(nextButton);
 
         rerender(
@@ -112,12 +112,12 @@ describe('Forgot Password Screen tests', () => {
         const { getByLabelText, rerender } = renderer();
 
         const emailInput = getByLabelText('Email Address');
-        const nextButton = screen.getByText('Next');
+        const nextButton = screen.getByText('Okay');
         fireEvent.change(emailInput, { target: { value: 'manojlokesh@eaton.com' } });
         fireEvent.blur(emailInput);
         expect(emailInput).toHaveValue('manojlokesh@eaton.com');
         expect(nextButton).toBeInTheDocument();
-        expect(screen.getByText(/Next/i)).toBeEnabled();
+        expect(screen.getByText(/Okay/i)).toBeEnabled();
         fireEvent.click(nextButton);
 
         rerender(
