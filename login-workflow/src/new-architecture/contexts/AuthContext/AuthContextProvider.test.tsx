@@ -1,8 +1,7 @@
 import React from 'react';
-import { render, cleanup, screen } from '@testing-library/react';
+import { render, cleanup, screen, renderHook } from '@testing-library/react';
 import '@testing-library/jest-dom';
 import { AuthContextProvider } from './provider';
-import { renderHook } from '@testing-library/react-hooks';
 import { i18nAuthInstance } from './i18nAuthInstance';
 import { AuthContextProviderProps, useAuthContext } from '.';
 
