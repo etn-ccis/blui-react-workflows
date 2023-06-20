@@ -1,9 +1,7 @@
-import { CheckCircle } from '@mui/icons-material';
-import { Box } from '@mui/material';
 import React, { useState } from 'react';
 import { Trans } from 'react-i18next';
+import { CheckCircle } from '@mui/icons-material';
 import { SimpleDialog } from '../../../components';
-import { LinkStyles } from '../../../styles';
 import { useAuthContext } from '../../contexts';
 import { useLanguageLocale } from '../../hooks';
 import { SuccessScreenBase } from '../SuccessScreen';
@@ -19,30 +17,40 @@ export const ForgotPasswordScreen: React.FC<ForgotPasswordScreenProps> = (props)
     const [showErrorDialog, setShowErrorDialog] = useState(false);
 
     const EMAIL_REGEX = /^[A-Z0-9._%+'-]+@[A-Z0-9.-]+\.[A-Z]{2,}$/i;
-    const emailValidator = (email: string): boolean | string =>
-        new RegExp(EMAIL_REGEX).test(email) ? true : t('bluiAuth:MESSAGES.EMAIL_ENTRY_ERROR');
 
     const {
+        title = t('bluiAuth:HEADER.FORGOT_PASSWORD'),
         WorkflowCardBaseProps: workflowCardBaseProps = {
             loading: isLoading,
         },
         WorkflowCardHeaderProps: workflowCardHeaderProps = {
-            title: t('bluiAuth:HEADER.FORGOT_PASSWORD'),
+            title,
         },
-        contactPhone = '',
+        emailLabel = t('bluiAuth:LABELS.EMAIL'),
+        contactPhone = '1-800-123-4567',
+        initialEmailValue,
+        description,
+        responseTime = 'one business day',
+        emailValidator = (email: string): boolean | string =>
+            new RegExp(EMAIL_REGEX).test(email) ? true : t('bluiAuth:MESSAGES.EMAIL_ENTRY_ERROR'),
+        showBackButton = true,
+        backButtonLabel = t('bluiAuth:ACTIONS.BACK'),
+        nextButtonLabel = t('bluiAuth:ACTIONS.NEXT'),
+        canGoNext,
+        canGoBack,
+        showNextButton = true,
+        onNext = (email): boolean | string => {
+            setEmailInput(email);
+            return true;
+        },
         WorkflowCardInstructionProps: workflowCardInstructionProps = {
-            instructions: (
-                <Box>
-                    <Trans i18nKey={'bluiAuth:FORGOT_PASSWORD.INSTRUCTIONS_ALT'} values={{ phone: contactPhone }}>
-                        Please enter the account email associated with the account. If this email has an account with
-                        Eaton, you will receive a response within <b>one business day</b>. For urgent account issues,
-                        please call{' '}
-                        <Box component="a" href={`tel:${contactPhone}`} sx={LinkStyles}>
-                            {contactPhone}
-                        </Box>
-                        .
-                    </Trans>
-                </Box>
+            instructions: description ? (
+                <> {description} </>
+            ) : (
+                <Trans
+                    i18nKey={'bluiAuth:FORGOT_PASSWORD.INSTRUCTIONS_ALT'}
+                    values={{ phone: contactPhone, responseTime }}
+                />
             ),
         },
         WorkflowCardActionsProps: workflowCardActionsProps = {
@@ -64,11 +72,12 @@ export const ForgotPasswordScreen: React.FC<ForgotPasswordScreenProps> = (props)
                     setShowErrorDialog(true);
                 }
             },
-            showNext: true,
-            showPrevious: true,
-            nextLabel: t('bluiAuth:ACTIONS.NEXT'),
-            previousLabel: t('bluiAuth:ACTIONS.BACK'),
-            canGoNext: true,
+            showNext: showNextButton,
+            showPrevious: showBackButton,
+            nextLabel: nextButtonLabel,
+            previousLabel: backButtonLabel,
+            canGoNext,
+            canGoPrevious: canGoBack,
         },
     } = props;
 
@@ -93,13 +102,10 @@ export const ForgotPasswordScreen: React.FC<ForgotPasswordScreenProps> = (props)
                     WorkflowCardHeaderProps={workflowCardHeaderProps}
                     WorkflowCardInstructionProps={workflowCardInstructionProps}
                     WorkflowCardActionsProps={workflowCardActionsProps}
-                    emailLabel={t('bluiAuth:LABELS.EMAIL')}
-                    initialEmailValue={''}
+                    emailLabel={emailLabel}
+                    initialEmailValue={initialEmailValue}
                     emailValidator={emailValidator}
-                    onNext={(email): boolean | string => {
-                        setEmailInput(email);
-                        return true;
-                    }}
+                    onNext={onNext}
                     slots={{
                         SuccessScreen: () => (
                             <SuccessScreenBase
@@ -110,9 +116,7 @@ export const ForgotPasswordScreen: React.FC<ForgotPasswordScreenProps> = (props)
                                     <Trans
                                         i18nKey={'bluiAuth:FORGOT_PASSWORD.LINK_SENT_ALT'}
                                         values={{ email: emailInput }}
-                                    >
-                                        Link has been sent to <b>{emailInput}</b>
-                                    </Trans>
+                                    />
                                 }
                                 WorkflowCardActionsProps={{
                                     showNext: true,
