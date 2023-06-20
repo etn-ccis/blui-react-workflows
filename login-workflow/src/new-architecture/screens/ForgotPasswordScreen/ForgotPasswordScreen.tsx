@@ -7,6 +7,9 @@ import { useLanguageLocale } from '../../hooks';
 import { SuccessScreenBase } from '../SuccessScreen';
 import { ForgotPasswordScreenBase } from './ForgotPasswordScreenBase';
 import { ForgotPasswordScreenProps } from './types';
+import { LinkStyles } from '../../../styles';
+import Box from '@mui/material/Box';
+import Typography from '@mui/material/Typography';
 
 export const ForgotPasswordScreen: React.FC<ForgotPasswordScreenProps> = (props) => {
     const { t } = useLanguageLocale();
@@ -35,7 +38,7 @@ export const ForgotPasswordScreen: React.FC<ForgotPasswordScreenProps> = (props)
             new RegExp(EMAIL_REGEX).test(email) ? true : t('bluiAuth:MESSAGES.EMAIL_ENTRY_ERROR'),
         showBackButton = true,
         backButtonLabel = t('bluiAuth:ACTIONS.BACK'),
-        nextButtonLabel = t('bluiAuth:ACTIONS.NEXT'),
+        nextButtonLabel = t('bluiAuth:ACTIONS.OKAY'),
         canGoNext,
         canGoBack,
         showNextButton = true,
@@ -47,10 +50,18 @@ export const ForgotPasswordScreen: React.FC<ForgotPasswordScreenProps> = (props)
             instructions: description ? (
                 <> {description} </>
             ) : (
-                <Trans
-                    i18nKey={'bluiAuth:FORGOT_PASSWORD.INSTRUCTIONS_ALT'}
-                    values={{ phone: contactPhone, responseTime }}
-                />
+                <Typography>
+                    <Trans
+                        i18nKey={'bluiAuth:FORGOT_PASSWORD.INSTRUCTIONS_ALT'}
+                        values={{ phone: contactPhone, responseTime }}
+                    >
+                        Please enter your email, we will respond in <b>{responseTime}</b>. For urgent issues please call{' '}
+                        <Box component="a" href={`tel:${contactPhone}`} sx={LinkStyles}>
+                            {contactPhone}
+                        </Box>
+                        .
+                    </Trans>
+                </Typography>
             ),
         },
         WorkflowCardActionsProps: workflowCardActionsProps = {
@@ -116,11 +127,13 @@ export const ForgotPasswordScreen: React.FC<ForgotPasswordScreenProps> = (props)
                                     <Trans
                                         i18nKey={'bluiAuth:FORGOT_PASSWORD.LINK_SENT_ALT'}
                                         values={{ email: emailInput }}
-                                    />
+                                    >
+                                        Link has been sent to <b>{emailInput}</b>.
+                                    </Trans>
                                 }
                                 WorkflowCardActionsProps={{
                                     showNext: true,
-                                    nextLabel: t('bluiAuth:ACTIONS.OKAY'),
+                                    nextLabel: t('bluiAuth:ACTIONS.DONE'),
                                     canGoNext: true,
                                     onNext: (): void => {
                                         navigate(routeConfig.LOGIN);
