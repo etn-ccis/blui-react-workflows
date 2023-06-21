@@ -15,7 +15,7 @@ export const AccountDetailsScreen: React.FC<AccountDetailsFullScreenProps> = (pr
 
     const firstNameValidatorFn = (firstName: string): boolean | string => {
         if (firstName?.length > 4) {
-            setFirstName(firstName)
+            setFirstName(firstName);
             return true;
         }
         return 'First name must be at least 5 characters';
@@ -23,7 +23,7 @@ export const AccountDetailsScreen: React.FC<AccountDetailsFullScreenProps> = (pr
 
     const lastNameValidatorFn = (lastName: string): boolean | string => {
         if (lastName?.length > 2) {
-            setLastName(lastName)
+            setLastName(lastName);
             return true;
         }
         return 'Last name must be at least 3 characters';
@@ -43,7 +43,6 @@ export const AccountDetailsScreen: React.FC<AccountDetailsFullScreenProps> = (pr
         sx,
     } = props;
 
-   
     const [firstName, setFirstName] = useState(screenData.AccountDetails.firstName ?? initialFirstName);
     const [lastName, setLastName] = useState(screenData.AccountDetails.lastName ?? initialLastName);
 
