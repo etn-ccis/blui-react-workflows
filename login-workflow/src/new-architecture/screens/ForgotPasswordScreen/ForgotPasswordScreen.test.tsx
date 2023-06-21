@@ -55,8 +55,8 @@ describe('Forgot Password Screen tests', () => {
 
         const emailInput = getByLabelText('Email Address');
         expect(emailInput).toHaveValue('');
-        fireEvent.change(emailInput, { target: { value: 'manojlokesh@eaton.com' } });
-        expect(emailInput).toHaveValue('manojlokesh@eaton.com');
+        fireEvent.change(emailInput, { target: { value: 'aa@aa.aa' } });
+        expect(emailInput).toHaveValue('aa@aa.aa');
     });
 
     it('firing onPrevious Callback functions', () => {
@@ -89,9 +89,9 @@ describe('Forgot Password Screen tests', () => {
         const nextButton = screen.getByText('Next');
         expect(emailInput).toHaveValue('');
         expect(screen.getByText(/Next/i)).toBeDisabled();
-        fireEvent.change(emailInput, { target: { value: 'manojlokesh@eaton.com' } });
+        fireEvent.change(emailInput, { target: { value: 'aa@aa.aa' } });
         fireEvent.blur(emailInput);
-        expect(emailInput).toHaveValue('manojlokesh@eaton.com');
+        expect(emailInput).toHaveValue('aa@aa.aa');
 
         expect(nextButton).toBeInTheDocument();
         expect(screen.getByText(/Next/i)).toBeEnabled();
@@ -104,9 +104,9 @@ describe('Forgot Password Screen tests', () => {
 
         const emailInput = getByLabelText('Email Address');
         const nextButton = screen.getByText('Okay');
-        fireEvent.change(emailInput, { target: { value: 'manojlokesh@eaton.com' } });
+        fireEvent.change(emailInput, { target: { value: 'aa@aa.aa' } });
         fireEvent.blur(emailInput);
-        expect(emailInput).toHaveValue('manojlokesh@eaton.com');
+        expect(emailInput).toHaveValue('aa@aa.aa');
         expect(nextButton).toBeInTheDocument();
         expect(screen.getByText(/Okay/i)).toBeEnabled();
         fireEvent.click(nextButton);
@@ -127,9 +127,9 @@ describe('Forgot Password Screen tests', () => {
 
         const emailInput = getByLabelText('Email Address');
         const nextButton = screen.getByText('Okay');
-        fireEvent.change(emailInput, { target: { value: 'manojlokesh@eaton.com' } });
+        fireEvent.change(emailInput, { target: { value: 'aa@aa.aa' } });
         fireEvent.blur(emailInput);
-        expect(emailInput).toHaveValue('manojlokesh@eaton.com');
+        expect(emailInput).toHaveValue('aa@aa.aa');
         expect(nextButton).toBeInTheDocument();
         expect(screen.getByText(/Okay/i)).toBeEnabled();
         fireEvent.click(nextButton);
