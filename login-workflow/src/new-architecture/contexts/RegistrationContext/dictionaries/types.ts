@@ -14,6 +14,7 @@ export type RegistrationTranslations = {
         };
         INSTRUCTIONS: {
             ACCOUNT_DETAILS: string;
+            PASSWORD_INFO: string;
         };
         SUCCESS_MESSAGE: string;
         SUCCESS_MESSAGE_ALT: string;
