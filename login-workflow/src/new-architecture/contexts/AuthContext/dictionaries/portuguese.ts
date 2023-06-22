@@ -11,7 +11,7 @@ const resources: AuthLanguageFile = {
             INSTRUCTIONS_ALT:
                 'Por favor, insira o e-mail associado com a conta.<br/><br/>' +
                 'Se este e-mail tem uma conta com a Eaton, irá receber uma resposta dentro de <1>um dia útil</1>.\n\n' +
-                'Para assuntos urgentes relacionados com a sua conta, por favor contacte {{phone}}.',
+                'Para assuntos urgentes relacionados com a sua conta, por favor contacte <4>{{phone}}</4>.',
             RESET_CODE_ERROR: 'Houve um problema com o código de redefinição.',
             LINK_SENT: 'Um link para redefinir a palavra-passe foi enviado para <b>{{email}}</b>.',
             LINK_SENT_ALT: 'Um link para redefinir a palavra-passe foi enviado para <1>{{email}}</1>.',
