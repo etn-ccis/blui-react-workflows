@@ -25,7 +25,7 @@ const defaultProps: SetPasswordProps = {
     confirmPasswordLabel: 'Confirm Password',
     initialNewPasswordValue: '',
     initialConfirmPasswordValue: '',
-    passwordNotMatchErrorMsg: 'Passwords do not match',
+    passwordNotMatchError: 'Passwords do not match',
     onPasswordChange: jest.fn(),
     passwordRequirements: passwordRequirements,
 };

@@ -8,11 +8,17 @@ import { useRegistrationWorkflowContext } from '../../contexts';
 export const CreatePasswordScreen: React.FC<CreatePasswordScreenProps> = (props) => {
     const { t } = useLanguageLocale();
     const regWorkflow = useRegistrationWorkflowContext();
-    const { nextScreen, previousScreen, screenData } = regWorkflow;
+    const {
+        nextScreen,
+        previousScreen,
+        screenData: {
+            CreatePassword: { password, confirmPassword },
+        },
+    } = regWorkflow;
     const passwordRef = useRef(null);
     const confirmRef = useRef(null);
-    const [passwordInput, setPasswordInput] = useState(screenData.CreatePassword.password ?? '');
-    const [confirmInput, setConfirmInput] = useState(screenData.CreatePassword.confirmPassword ?? '');
+    const [passwordInput, setPasswordInput] = useState(password ?? '');
+    const [confirmInput, setConfirmInput] = useState(confirmPassword ?? '');
     const passwordRequirements = defaultPasswordRequirements(t);
 
     const onNext = useCallback(() => {
@@ -43,7 +49,7 @@ export const CreatePasswordScreen: React.FC<CreatePasswordScreenProps> = (props)
             initialConfirmPasswordValue: confirmInput,
             newPasswordLabel: t('bluiCommon:FORMS.PASSWORD'),
             confirmPasswordLabel: t('bluiCommon:FORMS.CONFIRM_PASSWORD'),
-            passwordNotMatchErrorMsg: t('bluiCommon:FORMS.PASS_MATCH_ERROR'),
+            passwordNotMatchError: t('bluiCommon:FORMS.PASS_MATCH_ERROR'),
             passwordRequirements: passwordRequirements,
             passwordRef,
             confirmRef,
@@ -65,7 +71,7 @@ export const CreatePasswordScreen: React.FC<CreatePasswordScreenProps> = (props)
             showPrevious: true,
             previousLabel: t('bluiCommon:ACTIONS.BACK'),
             canGoPrevious: true,
-            currentStep: 2,
+            currentStep: 3,
             totalSteps: 6,
             onNext: (): void => {
                 void onNext();
