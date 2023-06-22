@@ -132,9 +132,9 @@ export const LoginScreen = (): JSX.Element => {
                             <Button
                                 variant="contained"
                                 sx={{ width: 200, m: 2 }}
-                                onClick={(): void => navigate('/change-password-dialog')}
+                                onClick={(): void => navigate('/change-password-dialog-base')}
                             >
-                                Change Password Dialog
+                                Change Password Dialog Base
                             </Button>
                             <Button
                                 variant="contained"
@@ -170,6 +170,13 @@ export const LoginScreen = (): JSX.Element => {
                                 onClick={(): void => navigate('/contact-support-full-screen')}
                             >
                                 Contact Support Full Screen
+                            </Button>
+                            <Button
+                                variant="contained"
+                                sx={{ width: 200, m: 2 }}
+                                onClick={(): void => navigate('/change-password-dialog')}
+                            >
+                                Change Password Dialog
                             </Button>
                         </Box>
                     }
