@@ -11,31 +11,14 @@ import { ForgotPasswordScreenProps } from './types';
 import { SimpleDialog } from '../../../components';
 import { useLanguageLocale } from '../../hooks';
 
-/**
- * Component that renders a screen for the user to enter their email address to start the
- * forgot password process.
- *
- * @param emailLabel label for the textfield
- *
- * @param initialEmailValue used to pre-populate the email input field
- *
- * @param emailValidator used to test the input for valid formatting
- *
- * @param onNext used to handle next button click
- *
- * @param slots used for each slot in `ForgotPasswordScreenBase`
- *
- * @param slotProps applied to each slot
- *
- * @category Component
- */
-
 export const ForgotPasswordScreenBase: React.FC<React.PropsWithChildren<ForgotPasswordScreenProps>> = (props) => {
     const {
         emailLabel,
         initialEmailValue = '',
         // eslint-disable-next-line @typescript-eslint/no-unused-vars
         emailValidator = (email: string): boolean | string => true,
+        onNext,
+        onBack,
         slotProps = {},
         slots: { SuccessScreen } = {},
     } = props;
@@ -65,10 +48,17 @@ export const ForgotPasswordScreenBase: React.FC<React.PropsWithChildren<ForgotPa
     );
 
     const handleOnNext = (): void => {
-        const result = props.onNext(emailInput);
-        setShowSuccessScreen(typeof result === 'boolean' && result);
-        setShowErrorDialog(typeof result === 'string' ? result : '');
+        if (onNext) {
+            const result = onNext(emailInput);
+            setShowSuccessScreen(typeof result === 'boolean' && result);
+            setShowErrorDialog(typeof result === 'string' ? result : '');
+        }
         actionsProps?.onNext?.();
+    };
+
+    const handleOnPrevious = (): void => {
+        if (onBack) onBack(emailInput);
+        actionsProps?.onPrevious?.();
     };
 
     return (
@@ -89,7 +79,7 @@ export const ForgotPasswordScreenBase: React.FC<React.PropsWithChildren<ForgotPa
                     )}
                     <WorkflowCardHeader {...headerProps} />
                     <WorkflowCardBody>
-                        <WorkflowCardInstructions {...instructionsProps} divider />
+                        <WorkflowCardInstructions divider {...instructionsProps} />
                         <TextField
                             id="email"
                             label={emailLabel}
@@ -114,10 +104,11 @@ export const ForgotPasswordScreenBase: React.FC<React.PropsWithChildren<ForgotPa
                         />
                     </WorkflowCardBody>
                     <WorkflowCardActions
-                        {...actionsProps}
                         divider
+                        {...actionsProps}
                         canGoNext={emailInput.length > 0 && isEmailValid && actionsProps.canGoNext}
                         onNext={handleOnNext}
+                        onPrevious={handleOnPrevious}
                     />
                 </WorkflowCard>
             )}
