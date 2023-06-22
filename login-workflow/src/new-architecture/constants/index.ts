@@ -35,6 +35,6 @@ export const defaultPasswordRequirements = (t: (input: string) => string): Passw
     },
     {
         regex: SPECIAL_CHAR_REGEX,
-        description: t(`bluiCommon:PASSWORD_REQUIREMENTS.SPECIAL`),
+        description: t('bluiCommon:PASSWORD_REQUIREMENTS.SPECIAL'),
     },
 ];

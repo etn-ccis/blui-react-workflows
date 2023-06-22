@@ -17,6 +17,6 @@ export type SetPasswordProps = {
     passwordRequirements?: PasswordRequirement[];
     passwordRef?: MutableRefObject<any>;
     confirmRef?: MutableRefObject<any>;
-    passwordNotMatchErrorMsg?: string;
+    passwordNotMatchError?: string;
     onSubmit?: () => void;
 };

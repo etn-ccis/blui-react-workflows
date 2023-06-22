@@ -17,6 +17,7 @@ import { SetPasswordProps } from './types';
  * @param confirmPasswordLabel Optional label for the confirm password field (default = 'Confirm')
  * @param passwordRef Optional ref to forward to the password input.
  * @param confirmRef Optional ref to forward to the confirm password input.
+ * @param passwordNotMatchError Optional text for showing message when passwords not match.
  * @param onSubmit Optional callback function to call when the mini form is submitted.
  *
  * @category Component
@@ -32,7 +33,7 @@ export const SetPassword: React.FC<React.PropsWithChildren<SetPasswordProps>> = 
         children,
         passwordRef,
         confirmRef,
-        passwordNotMatchErrorMsg,
+        passwordNotMatchError,
         onSubmit,
     } = props;
     const theme = useTheme();
@@ -109,7 +110,7 @@ export const SetPassword: React.FC<React.PropsWithChildren<SetPasswordProps>> = 
                     if (e.key === 'Enter' && onSubmit) onSubmit();
                 }}
                 error={hasConfirmPasswordError()}
-                helperText={hasConfirmPasswordError() ? passwordNotMatchErrorMsg : ''}
+                helperText={hasConfirmPasswordError() ? passwordNotMatchError : ''}
                 icon={
                     confirmInput.length !== 0 && confirmInput === passwordInput ? (
                         <CheckCircleOutlinedIcon data-testid="check" color="success" />
