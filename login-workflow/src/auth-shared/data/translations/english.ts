@@ -92,7 +92,7 @@ const resources: LanguageFile = {
                 'For urgent account issues, please call {{phone}}.',
             INSTRUCTIONS_ALT:
                 'Please enter the account email associated with the account.<br/><br/>' +
-                'If this email has an account with Eaton, you will receive a response within <1>one business day</1>.<br/><br/>' +
+                'If this email has an account with Eaton, you will receive a response within <1>{{responseTime}}</1>.<br/><br/>' +
                 'For urgent account issues, please call <4>{{phone}}</4>.',
             RESET_CODE_ERROR: 'There was an error with your reset code. ',
             LINK_SENT: 'A link to reset your password has been sent to <b>{{email}}</b>.',

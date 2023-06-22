@@ -160,6 +160,13 @@ export const LoginScreen = (): JSX.Element => {
                             <Button
                                 variant="contained"
                                 sx={{ width: 200, m: 2 }}
+                                onClick={(): void => navigate('/forgot-password-full-screen')}
+                            >
+                                Forgot Password Full Screen
+                            </Button>
+                            <Button
+                                variant="contained"
+                                sx={{ width: 200, m: 2 }}
                                 onClick={(): void => navigate('/contact-support-full-screen')}
                             >
                                 Contact Support Full Screen
