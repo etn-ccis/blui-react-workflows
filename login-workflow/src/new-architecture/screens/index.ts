@@ -15,3 +15,4 @@ export * from './SuccessScreen';
 export * from './VerifyCodeScreen';
 export * from './ForgotPasswordScreen';
 export * from './ContactScreen';
+export * from './RegistrationSuccessScreen';
