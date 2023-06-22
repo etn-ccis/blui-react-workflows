@@ -29,16 +29,16 @@ export const ForgotPasswordScreen: React.FC<ForgotPasswordScreenProps> = (props)
         WorkflowCardHeaderProps: workflowCardHeaderProps = {
             title,
         },
-        emailLabel = t('bluiAuth:LABELS.EMAIL'),
+        emailLabel = t('bluiCommon:LABELS.EMAIL'),
         contactPhone = '1-800-123-4567',
         initialEmailValue,
         description,
         responseTime = 'one business day',
         emailValidator = (email: string): boolean | string =>
-            new RegExp(EMAIL_REGEX).test(email) ? true : t('bluiAuth:MESSAGES.EMAIL_ENTRY_ERROR'),
+            new RegExp(EMAIL_REGEX).test(email) ? true : t('bluiCommon:MESSAGES.EMAIL_ENTRY_ERROR'),
         showBackButton = true,
-        backButtonLabel = t('bluiAuth:ACTIONS.BACK'),
-        nextButtonLabel = t('bluiAuth:ACTIONS.OKAY'),
+        backButtonLabel = t('bluiCommon:ACTIONS.BACK'),
+        nextButtonLabel = t('bluiCommon:ACTIONS.OKAY'),
         canGoNext,
         canGoBack,
         showNextButton = true,
@@ -122,7 +122,7 @@ export const ForgotPasswordScreen: React.FC<ForgotPasswordScreenProps> = (props)
                             <SuccessScreenBase
                                 WorkflowCardHeaderProps={{ title: t('bluiAuth:HEADER.FORGOT_PASSWORD') }}
                                 icon={<CheckCircle color={'primary'} sx={{ fontSize: 100, mb: 5 }} />}
-                                messageTitle={t('bluiAuth:MESSAGES.EMAIL_SENT')}
+                                messageTitle={t('bluiCommon:MESSAGES.EMAIL_SENT')}
                                 message={
                                     <Trans
                                         i18nKey={'bluiAuth:FORGOT_PASSWORD.LINK_SENT_ALT'}
@@ -133,7 +133,7 @@ export const ForgotPasswordScreen: React.FC<ForgotPasswordScreenProps> = (props)
                                 }
                                 WorkflowCardActionsProps={{
                                     showNext: true,
-                                    nextLabel: t('bluiAuth:ACTIONS.DONE'),
+                                    nextLabel: t('bluiCommon:ACTIONS.DONE'),
                                     canGoNext: true,
                                     onNext: (): void => {
                                         navigate(routeConfig.LOGIN);
