@@ -44,6 +44,7 @@ export type CommonTranslations = {
         FAILURE: string;
         LOADING: string;
         REQUEST_ERROR: string;
+        PASSWORD_REQUIRED_ERROR: string;
     };
     FORMS: {
         FIRST_NAME: string;
