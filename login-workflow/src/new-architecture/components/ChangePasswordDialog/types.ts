@@ -11,4 +11,10 @@ export type ChangePasswordDialogProps = DialogProps & { PasswordProps?: SetPassw
     currentPasswordChange?: (currentPassword: string) => void;
     enableButton?: boolean | (() => boolean);
     onSubmit?: () => void;
+    onPrevious?: () => void;
+    // Error dialog type definitions
+    errorDialogOpen?: boolean;
+    errorDialogTitle?: string;
+    errorDialogBody?: string;
+    errorDialogOnClose?: () => void;
 };

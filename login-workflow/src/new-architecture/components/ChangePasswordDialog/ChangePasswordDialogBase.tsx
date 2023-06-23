@@ -14,6 +14,7 @@ import {
 import { ChangePasswordDialogProps } from './types';
 import { SetPassword } from '../SetPassword';
 import { PasswordTextField } from '../PasswordTextField';
+import { BasicDialog } from '../Dialog';
 
 /**
  * Component that renders a dialog with textField to enter current password and a change password form with a new password and confirm password inputs.
@@ -42,6 +43,11 @@ export const ChangePasswordDialogBase: React.FC<ChangePasswordDialogProps> = (pr
         enableButton,
         currentPasswordChange,
         onSubmit,
+        onPrevious,
+        errorDialogOpen,
+        errorDialogTitle,
+        errorDialogBody,
+        errorDialogOnClose,
     } = props;
     const theme = useTheme();
     const matchesSM = useMediaQuery(theme.breakpoints.down('sm'));
@@ -61,6 +67,12 @@ export const ChangePasswordDialogBase: React.FC<ChangePasswordDialogProps> = (pr
 
     return (
         <Dialog fullScreen={matchesSM ? true : false} open={open} maxWidth={'xs'}>
+            <BasicDialog
+                open={errorDialogOpen}
+                title={errorDialogTitle}
+                body={errorDialogBody}
+                onClose={errorDialogOnClose}
+            />
             <DialogTitle
                 sx={[
                     {
@@ -120,7 +132,7 @@ export const ChangePasswordDialogBase: React.FC<ChangePasswordDialogProps> = (pr
                     justifyContent="space-between"
                     sx={{ width: '100%' }}
                 >
-                    <Button variant="outlined" color="primary" sx={{ width: 100 }}>
+                    <Button variant="outlined" color="primary" sx={{ width: 100 }} onClick={onPrevious}>
                         {previousLabel}
                     </Button>
                     <Button

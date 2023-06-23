@@ -43,9 +43,11 @@ export const ChangePasswordDialog: React.FC<ChangePasswordDialogProps> = () => {
         passwordInput !== '' && confirmInput !== '' && currentInput !== '' && passwordInput === confirmInput;
 
     const changePasswordSubmit = (): void => {
-        if (checkPasswords)
+        if (checkPasswords) {
             // eslint-disable-next-line no-console
             console.log(passwordInput, currentInput);
+            void actions().changePassword(currentInput, passwordInput);
+        }
     };
 
     return (
@@ -58,6 +60,8 @@ export const ChangePasswordDialog: React.FC<ChangePasswordDialogProps> = () => {
             nextLabel={t('bluiCommon:ACTIONS.OKAY')}
             currentPasswordChange={currentPasswordChange}
             enableButton={checkPasswords}
+            onPrevious={(): void => navigate(routeConfig.LOGIN)}
+            onSubmit={changePasswordSubmit}
             PasswordProps={{
                 newPasswordLabel: t('bluiAuth:CHANGE_PASSWORD.NEW_PASSWORD'),
                 confirmPasswordLabel: t('bluiAuth:CHANGE_PASSWORD.CONFIRM_NEW_PASSWORD'),
@@ -67,6 +71,7 @@ export const ChangePasswordDialog: React.FC<ChangePasswordDialogProps> = () => {
                 initialNewPasswordValue: passwordInput,
                 initialConfirmPasswordValue: confirmInput,
                 passwordRequirements: passwordRequirements,
+                onSubmit: changePasswordSubmit,
             }}
         />
     );
