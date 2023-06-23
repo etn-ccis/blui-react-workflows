@@ -9,8 +9,10 @@ export type RegistrationWorkflowProps = {
 export const RegistrationWorkflow: React.FC<React.PropsWithChildren<RegistrationWorkflowProps>> = (props) => {
     const { initialScreenIndex = 0, children } = props;
     const screens = [...(Array.isArray(children) ? children : [children])];
-    const [currentScreen, setCurrentScreen] = useState(initialScreenIndex);
     const totalScreens = screens.length;
+    const [currentScreen, setCurrentScreen] = useState(
+        initialScreenIndex < 0 ? 0 : initialScreenIndex > totalScreens - 1 ? totalScreens - 1 : initialScreenIndex
+    );
 
     const [screenData, setScreenData] = useState({
         Eula: {
