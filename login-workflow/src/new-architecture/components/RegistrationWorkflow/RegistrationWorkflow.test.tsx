@@ -1,6 +1,6 @@
 import React from 'react';
 import '@testing-library/jest-dom';
-import { cleanup, fireEvent, render, screen } from '@testing-library/react';
+import { cleanup, fireEvent, render, RenderResult, screen } from '@testing-library/react';
 import { renderHook, act } from '@testing-library/react-hooks';
 import { RegistrationWorkflow, RegistrationWorkflowProps } from './RegistrationWorkflow';
 import Typography from '@mui/material/Typography';
@@ -13,31 +13,29 @@ const defaultProps: RegistrationWorkflowProps = {
     initialScreenIndex: 0,
 };
 
+const renderer = (props = defaultProps): RenderResult =>
+    render(
+        <RegistrationWorkflow {...props}>
+            <Typography>Screen 1</Typography>
+            <Typography>Screen 2</Typography>
+        </RegistrationWorkflow>
+    );
+
 describe('RegistrationWorkflow', () => {
     it('renders without crashing', () => {
-        render(<RegistrationWorkflow {...defaultProps}>Screen 1</RegistrationWorkflow>);
+        renderer();
         expect(screen.getByText('Screen 1')).toBeInTheDocument();
     });
 
     it('should render the multiple screens', () => {
-        render(
-            <RegistrationWorkflow initialScreenIndex={0}>
-                <Typography>Screen 1</Typography>
-                <Typography>Screen 2</Typography>
-            </RegistrationWorkflow>
-        );
+        renderer();
         expect(screen.getByText('Screen 1')).toBeInTheDocument();
     });
 
     it('should render the correct screen, when initialScreenIndex prop is passed', () => {
-        render(
-            <RegistrationWorkflow initialScreenIndex={1}>
-                <Typography>Indexed Screen 1</Typography>
-                <Typography>Indexed Screen 2</Typography>
-            </RegistrationWorkflow>
-        );
-        expect(screen.queryByText('Indexed Screen 1')).toBeNull();
-        expect(screen.getByText('Indexed Screen 2')).toBeInTheDocument();
+        renderer({ initialScreenIndex: 1 });
+        expect(screen.queryByText('Screen 1')).toBeNull();
+        expect(screen.getByText('Screen 2')).toBeInTheDocument();
     });
 
     it('should call nextScreen function', () => {
@@ -102,5 +100,15 @@ describe('RegistrationWorkflow', () => {
         /* @ts-ignore */
         expect(result.current.screenData['Other']['Screen1'].test).toBe('test');
         expect(result.current.screenData['Other']['Screen2'].test2).toBe('test2');
+    });
+
+    it('should check for lower bound of initialScreenIndex props', () => {
+        renderer({ initialScreenIndex: -1 });
+        expect(screen.getByText('Screen 1')).toBeInTheDocument();
+    });
+
+    it('should check for upper bound of initialScreenIndex props', () => {
+        renderer({ initialScreenIndex: 2 });
+        expect(screen.getByText('Screen 2')).toBeInTheDocument();
     });
 });
