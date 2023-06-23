@@ -8,21 +8,21 @@ import Typography from '@mui/material/Typography';
 
 afterEach(cleanup);
 
-describe('RegistrationWorkflowContext', () => {
-    const defaultProps: RegistrationWorkflowContextProps = {
-        currentScreen: 0,
-        totalScreens: 2,
-        nextScreen: () => {},
-        previousScreen: () => {},
-        screenData: {
-            Eula: { accepted: true },
-            CreateAccount: { emailAddress: 'emailAddress@emailAddress.emailAddress' },
-            VerifyCode: { code: '12345' },
-            CreatePassword: { password: 'password', confirmPassword: 'confirmPassword' },
-            AccountDetails: { firstName: 'firstName', lastName: 'lastName' },
-        },
-    };
+export const defaultProps: RegistrationWorkflowContextProps = {
+    currentScreen: 0,
+    totalScreens: 2,
+    nextScreen: () => {},
+    previousScreen: () => {},
+    screenData: {
+        Eula: { accepted: true },
+        CreateAccount: { emailAddress: 'emailAddress@emailAddress.emailAddress' },
+        VerifyCode: { code: '12345' },
+        CreatePassword: { password: 'password', confirmPassword: 'confirmPassword' },
+        AccountDetails: { firstName: 'firstName', lastName: 'lastName' },
+    },
+};
 
+describe('RegistrationWorkflowContext', () => {
     it('should render RegistrationWorkflowContextProvider without crashing', () => {
         render(<RegistrationWorkflowContextProvider {...defaultProps}>Test</RegistrationWorkflowContextProvider>);
         expect(screen.getByText('Test')).toBeInTheDocument();
