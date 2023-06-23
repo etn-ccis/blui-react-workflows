@@ -1,9 +1,11 @@
-/* eslint-disable */
 import React, { useState, useCallback, useEffect, useRef } from 'react';
-import { defaultPasswordRequirements, SetPassword, useLanguageLocale } from '@brightlayer-ui/react-auth-workflow';
+import {
+    defaultPasswordRequirements,
+    useLanguageLocale,
+    CreatePasswordScreenBase,
+} from '@brightlayer-ui/react-auth-workflow';
 import { AppBar, Toolbar, Typography, Box, Button } from '@mui/material';
 import { useNavigate } from 'react-router';
-import { CreatePasswordScreenBase } from '@brightlayer-ui/react-auth-workflow';
 import { Spacer } from '@brightlayer-ui/react-components';
 export const CreatePasswordScreenTest = (): JSX.Element => {
     const { t } = useLanguageLocale();
@@ -64,8 +66,8 @@ export const CreatePasswordScreenTest = (): JSX.Element => {
                         initialNewPasswordValue: passwordInput,
                         initialConfirmPasswordValue: confirmInput,
                         onPasswordChange: updateFields,
-                        onSubmit: () => {
-                            console.log('submitting form...');
+                        onSubmit: (): void => {
+                            console.error('submitting form...');
                         },
                     }}
                     WorkflowCardActionsProps={{

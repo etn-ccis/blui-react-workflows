@@ -38,15 +38,18 @@ export const ResetPasswordScreen: React.FC<ResetPasswordScreenProps> = (props) =
     const { code, email } = useQueryString();
 
     const { actions, navigate, routeConfig } = useAuthContext();
+    const passwordRequirements = defaultPasswordRequirements(t);
     const {
         PasswordProps: passwordProps = {
-            newPasswordLabel: t('bluiAuth:LABELS.NEW_PASSWORD'),
+            newPasswordLabel: t('bluiAuth:CHANGE_PASSWORD.NEW_PASSWORD'),
             confirmPasswordLabel: t('bluiAuth:CHANGE_PASSWORD.CONFIRM_NEW_PASSWORD'),
+            passwordNotMatchErrorMsg: t('bluiCommon:FORMS.PASS_MATCH_ERROR'),
+            passwordRequirements: passwordRequirements,
             passwordRef,
             confirmRef,
         },
         WorkflowCardHeaderProps: workflowCardHeaderProps = {
-            title: t('bluiAuth:FORMS.RESET_PASSWORD'),
+            title: t('bluiCommon:FORMS.RESET_PASSWORD'),
         },
         WorkflowCardInstructionProps: workflowCardInstructionProps = {
             instructions: t('bluiAuth:CHANGE_PASSWORD.PASSWORD_INFO'),
@@ -73,8 +76,8 @@ export const ResetPasswordScreen: React.FC<ResetPasswordScreenProps> = (props) =
             },
             showNext: true,
             showPrevious: true,
-            nextLabel: 'Next',
-            previousLabel: 'Back',
+            nextLabel: t('bluiCommon:ACTIONS.NEXT'),
+            previousLabel: t('bluiCommon:ACTIONS.BACK'),
             canGoNext: passwordInput !== '' && confirmInput !== '' && passwordInput === confirmInput,
         },
         WorkflowCardBaseProps: workflowCardBaseProps = {
@@ -82,7 +85,6 @@ export const ResetPasswordScreen: React.FC<ResetPasswordScreenProps> = (props) =
         },
     } = props;
 
-    const passwordRequirements = defaultPasswordRequirements(t);
     const areValidMatchingPasswords = useCallback((): boolean => {
         for (let i = 0; i < passwordRequirements.length; i++) {
             if (!new RegExp(passwordRequirements[i].regex).test(passwordInput)) return false;
@@ -104,7 +106,7 @@ export const ResetPasswordScreen: React.FC<ResetPasswordScreenProps> = (props) =
 
     const errorDialog = (
         <SimpleDialog
-            title={t('bluiAuth:MESSAGES.ERROR')}
+            title={t('bluiCommon:MESSAGES.ERROR')}
             body={t('bluiAuth:FORGOT_PASSWORD.ERROR')}
             open={showErrorDialog}
             onClose={(): void => {
@@ -139,7 +141,7 @@ export const ResetPasswordScreen: React.FC<ResetPasswordScreenProps> = (props) =
                                 showPrevious: false,
                                 fullWidthButton: true,
                                 showNext: true,
-                                nextLabel: 'Done',
+                                nextLabel: t('bluiCommon:ACTIONS.DONE'),
                                 onNext: (): void => {
                                     navigate(routeConfig.LOGIN);
                                 },

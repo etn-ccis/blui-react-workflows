@@ -17,6 +17,8 @@ const resources: RegistrationLanguageFile = {
             },
             INSTRUCTIONS: {
                 ACCOUNT_DETAILS: 'Enter your details below to complete account creation.',
+                PASSWORD_INFO:
+                    'Please select a password. Make sure that your password meets the necessary complexity requirements outlined below.',
             },
             SUCCESS_MESSAGE:
                 'Your account has been successfully created with the email <b>{{email}}</b>.\n\nYour account has already been added to the <b>{{organization}}</b> organization.\n\nPress continue below to finish.',

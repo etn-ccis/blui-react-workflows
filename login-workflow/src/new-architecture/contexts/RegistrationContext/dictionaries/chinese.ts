@@ -17,6 +17,7 @@ const resources: RegistrationLanguageFile = {
             },
             INSTRUCTIONS: {
                 ACCOUNT_DETAILS: '请输入下列个人信息来完成账号注册。',
+                PASSWORD_INFO: '请输入您的新密码。请确保您的新密码符合以下列出的密码复杂度要求。',
             },
             SUCCESS_MESSAGE:
                 '您已成功使用<b>{{email}}</b>注册了一个新账号。\n\n您的账号已被加入“<b>{{organization}}</b>”。\n\n请点击“继续”完成注册。',

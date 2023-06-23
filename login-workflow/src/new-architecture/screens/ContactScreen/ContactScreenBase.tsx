@@ -5,6 +5,7 @@ import { ContactScreenProps } from './types';
 import Box, { BoxProps } from '@mui/material/Box';
 import { ContactScreenClassKey, getContactScreenUtilityClass } from './utilityClasses';
 import { unstable_composeClasses as composeClasses } from '@mui/base';
+import { LinkStyles } from '../../../styles';
 
 /**
  * Component renders a screen with contact information for support with the application.
@@ -25,19 +26,6 @@ import { unstable_composeClasses as composeClasses } from '@mui/base';
  *
  * @category Component
  */
-
-const LinkStyles = {
-    fontWeight: 600,
-    textTransform: 'none',
-    textDecoration: 'none',
-    color: 'primary.main',
-    '&:visited': {
-        color: 'inherit',
-    },
-    '&:hover': {
-        cursor: 'pointer',
-    },
-};
 
 const useUtilityClasses = (ownerState: ContactScreenProps & BoxProps): Record<ContactScreenClassKey, string> => {
     const { classes } = ownerState;

@@ -1,11 +1,12 @@
 import i18next from 'i18next';
 import { dictionaries } from './dictionaries';
+import { sharedDictionaries } from '../sharedDictionaries';
 
 export const i18nRegistrationInstance = i18next.createInstance(
     {
         lng: 'en',
         fallbackLng: 'en',
-        ns: ['bluiRegistration'],
+        ns: ['bluiRegistration', 'bluiCommon'],
         defaultNS: 'bluiRegistration',
         load: 'languageOnly',
         detection: {
@@ -20,25 +21,40 @@ export const i18nRegistrationInstance = i18next.createInstance(
                 bluiRegistration: {
                     ...dictionaries.english.translation,
                 },
+                bluiCommon: {
+                    ...sharedDictionaries.english.translation,
+                },
             },
             fr: {
                 bluiRegistration: {
                     ...dictionaries.french.translation,
+                },
+                bluiCommon: {
+                    ...sharedDictionaries.french.translation,
                 },
             },
             es: {
                 bluiRegistration: {
                     ...dictionaries.spanish.translation,
                 },
+                bluiCommon: {
+                    ...sharedDictionaries.spanish.translation,
+                },
             },
             zh: {
                 bluiRegistration: {
                     ...dictionaries.chinese.translation,
                 },
+                bluiCommon: {
+                    ...sharedDictionaries.chinese.translation,
+                },
             },
             pt: {
                 bluiRegistration: {
                     ...dictionaries.portuguese.translation,
+                },
+                bluiCommon: {
+                    ...sharedDictionaries.portuguese.translation,
                 },
             },
         },

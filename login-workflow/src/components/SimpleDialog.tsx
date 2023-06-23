@@ -38,7 +38,7 @@ export const SimpleDialog: React.FC<React.PropsWithChildren<React.PropsWithChild
             </DialogContent>
             <DialogActions sx={DialogActionsStyles(theme)}>
                 <Button variant="text" color="primary" onClick={dialogProps.onClose} sx={DialogButtonStyles()}>
-                    {t('bluiAuth:ACTIONS.OKAY').toUpperCase()}
+                    {t('bluiCommon:ACTIONS.OKAY').toUpperCase()}
                 </Button>
             </DialogActions>
         </Dialog>

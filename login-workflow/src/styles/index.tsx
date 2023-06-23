@@ -53,3 +53,16 @@ export const TextFieldStyles = (theme: Theme): SxProps<Theme> => ({
         mt: 3,
     },
 });
+
+export const LinkStyles = {
+    fontWeight: 600,
+    textTransform: 'none',
+    textDecoration: 'none',
+    color: 'primary.main',
+    '&:visited': {
+        color: 'inherit',
+    },
+    '&:hover': {
+        cursor: 'pointer',
+    },
+};
