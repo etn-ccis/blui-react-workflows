@@ -19,15 +19,26 @@ export const AccountDetailsScreen: React.FC<AccountDetailsFullScreenProps> = (pr
         title = t('bluiRegistration:REGISTRATION.STEPS.ACCOUNT_DETAILS'),
         instructions = t('bluiRegistration:REGISTRATION.INSTRUCTIONS.ACCOUNT_DETAILS'),
         firstNameLabel = t('bluiCommon:FORMS.FIRST_NAME'),
-        initialFirstName = '',
-        initialLastName = '',
+        /* eslint-disable @typescript-eslint/no-unused-vars */
+        initialFirstName,
+        initialLastName,
         lastNameLabel = t('bluiCommon:FORMS.LAST_NAME'),
         firstNameTextFieldProps,
         lastNameTextFieldProps,
-        firstNameValidator = (name: string): boolean | string =>
-            name?.length > 2 ? true : t('bluiCommon:FORMS.FIRST_NAME_LENGTH_ERROR'),
-        lastNameValidator = (name: string): boolean | string =>
-            name?.length > 2 ? true : t('bluiCommon:FORMS.LAST_NAME_LENGTH_ERROR'),
+        firstNameValidator = (name: string): boolean | string => {
+            if (name?.length > 2) {
+                setFirstName(name);
+                return true;
+            }
+            return t('bluiCommon:FORMS.FIRST_NAME_LENGTH_ERROR');
+        },
+        lastNameValidator = (name: string): boolean | string => {
+            if (name?.length > 2) {
+                setLastName(name);
+                return true;
+            }
+            return t('bluiCommon:FORMS.LAST_NAME_LENGTH_ERROR');
+        },
         sx,
     } = props;
 
@@ -61,8 +72,8 @@ export const AccountDetailsScreen: React.FC<AccountDetailsFullScreenProps> = (pr
         <AccountDetailsScreenBase
             WorkflowCardHeaderProps={{ title: title }}
             WorkflowCardInstructionProps={{ instructions: instructions }}
-            initialFirstName={initialFirstName}
-            initialLastName={initialLastName}
+            initialFirstName={firstName}
+            initialLastName={lastName}
             firstNameLabel={firstNameLabel}
             firstNameValidator={firstNameValidator}
             lastNameLabel={lastNameLabel}
