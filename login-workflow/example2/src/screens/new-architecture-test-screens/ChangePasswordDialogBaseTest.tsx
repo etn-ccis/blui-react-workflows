@@ -47,7 +47,7 @@ export const ChangePasswordDialogBaseTest: React.FC<PropsWithChildren> = () => {
         passwordInput !== '' && confirmInput !== '' && currentInput !== '' && passwordInput === confirmInput;
 
     const changePasswordSubmit = (): void => {
-        checkPasswords && setShowErrorDialog(true);
+        if (checkPasswords) setShowErrorDialog(true);
     };
 
     return (

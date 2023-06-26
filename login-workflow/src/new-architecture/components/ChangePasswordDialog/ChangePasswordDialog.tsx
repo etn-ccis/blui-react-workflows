@@ -43,7 +43,7 @@ export const ChangePasswordDialog: React.FC<ChangePasswordDialogProps> = (props)
         passwordInput !== '' && confirmInput !== '' && currentInput !== '' && passwordInput === confirmInput;
 
     const changePasswordSubmit = (): void => {
-        checkPasswords && void actions().changePassword(currentInput, passwordInput);
+        if (checkPasswords) void actions().changePassword(currentInput, passwordInput);
     };
 
     const {
