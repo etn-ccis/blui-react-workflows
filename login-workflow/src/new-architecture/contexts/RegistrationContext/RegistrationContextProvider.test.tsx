@@ -1,10 +1,9 @@
 import React from 'react';
-import { render, cleanup, screen } from '@testing-library/react';
+import { render, cleanup, screen, renderHook } from '@testing-library/react';
 import '@testing-library/jest-dom';
 import { RegistrationContextProvider } from './provider';
 import { useRegistrationContext } from './context';
 import { RegistrationContextProviderProps } from './types';
-import { renderHook } from '@testing-library/react-hooks';
 import { i18nRegistrationInstance } from './i18nRegistrationInstance';
 
 afterEach(cleanup);
