@@ -8,7 +8,7 @@ import { i18nRegistrationInstance } from './i18nRegistrationInstance';
 
 afterEach(cleanup);
 
-const defaultProps: RegistrationContextProviderProps = {
+export const defaultProps: RegistrationContextProviderProps = {
     language: 'en',
     i18n: i18nRegistrationInstance,
     navigate: (): void => {},
