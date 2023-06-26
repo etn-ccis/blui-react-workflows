@@ -58,7 +58,7 @@ export const LoginScreen: React.FC<React.PropsWithChildren<LoginScreenPropsPubli
         usernameTextFieldProps,
         usernameValidator = (username: string): string | boolean => {
             if (!EMAIL_REGEX.test(username)) {
-                return 'Enter a valid email address';
+                return t('bluiCommon:MESSAGES.EMAIL_ENTRY_ERROR');
             }
             return true;
         },
