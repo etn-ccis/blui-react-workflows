@@ -29,7 +29,6 @@ import {
     ResetPasswordFullScreen,
     ForgotPasswordFullScreen,
     ContactSupportScreenFullScreen,
-    CreateAccountScreenFullScreen,
 } from '../screens';
 
 export const routes: RouteConfig = {
@@ -194,14 +193,6 @@ export const GetCustomRoutes = (isAuthenticated: boolean) => {
             element: (
                 <SecurityContextProvider>
                     <ContactSupportScreenFullScreen />
-                </SecurityContextProvider>
-            ),
-        },
-        {
-            path: `/create-account-full-screen`,
-            element: (
-                <SecurityContextProvider>
-                    <CreateAccountScreenFullScreen />
                 </SecurityContextProvider>
             ),
         },

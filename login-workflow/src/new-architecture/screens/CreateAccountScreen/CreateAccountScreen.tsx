@@ -2,9 +2,8 @@ import React, { useCallback ,useState } from 'react';
 import { CreateAccountScreenProps } from './types';
 import { CreateAccountScreenBase } from './CreateAccountScreenBase';
 import { useLanguageLocale } from '../../hooks';
-// import { useRegistrationContext } from '../../contexts/RegistrationContext/context';
+import { useRegistrationContext } from '../../contexts/RegistrationContext/context';
 import { useRegistrationWorkflowContext } from '../../contexts';
-// import i18nRegistrationInstance from '../../contexts/RegistrationContext/i18nRegistrationInstance';
 
 type CreateAccountFullScreenProps = CreateAccountScreenProps & {
     title?: string;
@@ -27,7 +26,7 @@ type CreateAccountFullScreenProps = CreateAccountScreenProps & {
 
 export const CreateAccountScreen: React.FC<CreateAccountFullScreenProps> = (props) => {
     const { t } = useLanguageLocale();
-    // const { navigate, routeConfig, language } = useRegistrationContext();
+    const { navigate, routeConfig, language } = useRegistrationContext();
     const regWorkflow = useRegistrationWorkflowContext();
     const { nextScreen, previousScreen, screenData } = regWorkflow;
     const {
@@ -95,11 +94,11 @@ export const CreateAccountScreen: React.FC<CreateAccountFullScreenProps> = (prop
             totalSteps: 6,
             onNext: (): void => {
                 void onNext();
-                // navigate(routeConfig.VerifyCode)
+                navigate(routeConfig.LOGIN)
             },
             onPrevious: (): void => {
                 void onPrevious();
-                // navigate(routeConfig.Eula);
+                navigate(routeConfig.LOGIN);
             },
         }}
         />

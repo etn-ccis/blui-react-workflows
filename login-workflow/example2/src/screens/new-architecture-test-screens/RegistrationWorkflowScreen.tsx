@@ -10,6 +10,7 @@ import {
     RegistrationContextProvider,
     EulaScreen,
     CreatePasswordScreen,
+    CreateAccountScreen,
 } from '@brightlayer-ui/react-auth-workflow';
 import TextField from '@mui/material/TextField';
 import { useNavigate } from 'react-router-dom';
@@ -59,6 +60,7 @@ export const RegistrationWorkflowScreen = (): JSX.Element => {
         >
             <RegistrationWorkflow initialScreenIndex={0}>
                 <EulaScreen />
+                <CreateAccountScreen />
                 <CreatePasswordScreen />
                 <Screen3 />
             </RegistrationWorkflow>
