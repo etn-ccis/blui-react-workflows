@@ -31,6 +31,7 @@ import { BasicDialog } from '../Dialog';
  *
  * @category Component
  */
+
 export const ChangePasswordDialogBase: React.FC<ChangePasswordDialogProps> = (props) => {
     const {
         dialogTitle,
@@ -39,26 +40,22 @@ export const ChangePasswordDialogBase: React.FC<ChangePasswordDialogProps> = (pr
         previousLabel,
         nextLabel,
         sx,
-        open,
         enableButton,
         currentPasswordChange,
         onSubmit,
         onPrevious,
-        errorDialogOpen,
-        errorDialogTitle,
-        errorDialogBody,
-        errorDialogOnClose,
+        ErrorDialogProps: errorDialogProps,
+        PasswordProps: passwordProps,
     } = props;
     const theme = useTheme();
     const matchesSM = useMediaQuery(theme.breakpoints.down('sm'));
     const [currentPassword, setCurrentPassword] = useState('');
     const [buttonState, setButtonState] = useState(true);
 
-    const passwordProps = props.PasswordProps;
-
     const handleChange = (event: any): void => {
-        setCurrentPassword(event.target.value);
-        currentPasswordChange(event.target.value);
+        const { value } = event.target;
+        setCurrentPassword(value);
+        currentPasswordChange(value);
     };
 
     useEffect(() => {
@@ -66,38 +63,27 @@ export const ChangePasswordDialogBase: React.FC<ChangePasswordDialogProps> = (pr
     }, [enableButton]);
 
     return (
-        <Dialog fullScreen={matchesSM ? true : false} open={open} maxWidth={'xs'}>
-            <BasicDialog
-                open={errorDialogOpen}
-                title={errorDialogTitle}
-                body={errorDialogBody}
-                onClose={errorDialogOnClose}
-            />
+        <Dialog sx={sx} fullScreen={matchesSM} open={true} maxWidth={'xs'}>
+            <BasicDialog {...errorDialogProps} />
             <DialogTitle
-                sx={[
-                    {
-                        pt: { md: 4, sm: 2 },
-                        px: { md: 3, sm: 2 },
-                        pb: 0,
-                    },
-                    ...(Array.isArray(sx) ? sx : [sx]),
-                ]}
+                sx={{
+                    pt: { md: 4, sm: 2 },
+                    px: { md: 3, sm: 2 },
+                    pb: 0,
+                }}
             >
                 {dialogTitle}
             </DialogTitle>
             <DialogContent
-                sx={[
-                    {
-                        flex: '1 1 auto',
-                        overflow: 'auto',
-                        display: 'flex',
-                        flexDirection: 'column',
-                        pt: 2,
-                        px: { md: 3, sm: 2 },
-                        pb: { md: 2, sm: 3 },
-                    },
-                    ...(Array.isArray(sx) ? sx : [sx]),
-                ]}
+                sx={{
+                    flex: '1 1 auto',
+                    overflow: 'auto',
+                    display: 'flex',
+                    flexDirection: 'column',
+                    pt: 2,
+                    px: { md: 3, sm: 2 },
+                    pb: { md: 2, sm: 3 },
+                }}
             >
                 <Typography>{dialogDescription}</Typography>
                 <Divider sx={{ mt: 5, mb: 4, mx: { md: -3, xs: -2 } }} />
@@ -108,8 +94,9 @@ export const ChangePasswordDialogBase: React.FC<ChangePasswordDialogProps> = (pr
                         value={currentPassword}
                         onChange={handleChange}
                         onKeyPress={(e): void => {
-                            if (e.key === 'Enter' && passwordProps.passwordRef.current) {
-                                passwordProps.passwordRef.current.focus();
+                            const { current } = passwordProps.passwordRef;
+                            if (e.key === 'Enter' && current) {
+                                current.focus();
                             }
                         }}
                     />
@@ -117,13 +104,10 @@ export const ChangePasswordDialogBase: React.FC<ChangePasswordDialogProps> = (pr
             </DialogContent>
             <Divider sx={{ mt: 2 }} />
             <DialogActions
-                sx={[
-                    {
-                        justifyContent: 'flex-end',
-                        p: { md: 3, sm: 2 },
-                    },
-                    ...(Array.isArray(sx) ? sx : [sx]),
-                ]}
+                sx={{
+                    justifyContent: 'flex-end',
+                    p: { md: 3, sm: 2 },
+                }}
             >
                 <Grid
                     container

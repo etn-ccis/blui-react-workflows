@@ -5,7 +5,7 @@ import { useLanguageLocale } from '../../hooks';
 import { ChangePasswordDialogBase } from './ChangePasswordDialogBase';
 import { ChangePasswordDialogProps } from './types';
 
-export const ChangePasswordDialog: React.FC<ChangePasswordDialogProps> = () => {
+export const ChangePasswordDialog: React.FC<ChangePasswordDialogProps> = (props) => {
     const { t } = useLanguageLocale();
     const passwordRef = useRef(null);
     const confirmRef = useRef(null);
@@ -43,36 +43,43 @@ export const ChangePasswordDialog: React.FC<ChangePasswordDialogProps> = () => {
         passwordInput !== '' && confirmInput !== '' && currentInput !== '' && passwordInput === confirmInput;
 
     const changePasswordSubmit = (): void => {
-        if (checkPasswords) {
-            // eslint-disable-next-line no-console
-            console.log(passwordInput, currentInput);
-            void actions().changePassword(currentInput, passwordInput);
-        }
+        checkPasswords && void actions().changePassword(currentInput, passwordInput);
     };
+
+    const {
+        dialogTitle = t('bluiAuth:CHANGE_PASSWORD.PASSWORD'),
+        dialogDescription = t('bluiAuth:CHANGE_PASSWORD.PASSWORD_INFO'),
+        currentPasswordLabel = t('bluiCommon:LABELS.CURRENT_PASSWORD'),
+        previousLabel = t('bluiCommon:ACTIONS.BACK'),
+        nextLabel = t('bluiCommon:ACTIONS.OKAY'),
+        onPrevious = (): void => navigate(routeConfig.LOGIN),
+        PasswordProps: passwordProps = {
+            newPasswordLabel: t('bluiAuth:CHANGE_PASSWORD.NEW_PASSWORD'),
+            confirmPasswordLabel: t('bluiAuth:CHANGE_PASSWORD.CONFIRM_NEW_PASSWORD'),
+            onPasswordChange: updateFields,
+            passwordRef: passwordRef,
+            confirmRef: confirmRef,
+            initialNewPasswordValue: passwordInput,
+            initialConfirmPasswordValue: confirmInput,
+            passwordRequirements: passwordRequirements,
+            onSubmit: changePasswordSubmit,
+        },
+        ErrorDialogProps: errorDialogProps,
+    } = props;
 
     return (
         <ChangePasswordDialogBase
-            open={true}
-            dialogTitle={t('bluiAuth:CHANGE_PASSWORD.PASSWORD')}
-            dialogDescription={t('bluiAuth:CHANGE_PASSWORD.PASSWORD_INFO')}
-            currentPasswordLabel={t('bluiCommon:LABELS.CURRENT_PASSWORD')}
-            previousLabel={t('bluiCommon:ACTIONS.BACK')}
-            nextLabel={t('bluiCommon:ACTIONS.OKAY')}
+            dialogTitle={dialogTitle}
+            dialogDescription={dialogDescription}
+            currentPasswordLabel={currentPasswordLabel}
+            previousLabel={previousLabel}
+            nextLabel={nextLabel}
             currentPasswordChange={currentPasswordChange}
             enableButton={checkPasswords}
-            onPrevious={(): void => navigate(routeConfig.LOGIN)}
+            onPrevious={onPrevious}
             onSubmit={changePasswordSubmit}
-            PasswordProps={{
-                newPasswordLabel: t('bluiAuth:CHANGE_PASSWORD.NEW_PASSWORD'),
-                confirmPasswordLabel: t('bluiAuth:CHANGE_PASSWORD.CONFIRM_NEW_PASSWORD'),
-                onPasswordChange: updateFields,
-                passwordRef: passwordRef,
-                confirmRef: confirmRef,
-                initialNewPasswordValue: passwordInput,
-                initialConfirmPasswordValue: confirmInput,
-                passwordRequirements: passwordRequirements,
-                onSubmit: changePasswordSubmit,
-            }}
+            PasswordProps={passwordProps}
+            ErrorDialogProps={errorDialogProps}
         />
     );
 };

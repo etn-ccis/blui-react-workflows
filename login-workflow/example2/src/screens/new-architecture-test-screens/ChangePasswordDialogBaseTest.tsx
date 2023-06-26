@@ -47,16 +47,11 @@ export const ChangePasswordDialogBaseTest: React.FC<PropsWithChildren> = () => {
         passwordInput !== '' && confirmInput !== '' && currentInput !== '' && passwordInput === confirmInput;
 
     const changePasswordSubmit = (): void => {
-        if (checkPasswords) {
-            // eslint-disable-next-line no-console
-            console.log(passwordInput, currentInput);
-            setShowErrorDialog(true);
-        }
+        checkPasswords && setShowErrorDialog(true);
     };
 
     return (
         <ChangePasswordDialogBase
-            open={true}
             dialogTitle="Change Password"
             dialogDescription="Please select a password. Make sure that your password meets the necessary complexity requirements outlined below."
             currentPasswordLabel="Current Password"
