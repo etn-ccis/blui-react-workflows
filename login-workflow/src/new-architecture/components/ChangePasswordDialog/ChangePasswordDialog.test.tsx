@@ -1,6 +1,6 @@
 import React from 'react';
 import '@testing-library/jest-dom';
-import { cleanup, fireEvent, render, RenderResult, screen } from '@testing-library/react';
+import { cleanup, fireEvent, render, RenderResult } from '@testing-library/react';
 import { ChangePasswordDialog } from './ChangePasswordDialog';
 import { defaultProps as authContextProps } from '../../contexts/AuthContext/AuthContextProvider.test';
 import { AuthContextProvider } from '../../contexts';
@@ -11,8 +11,6 @@ afterEach(cleanup);
 
 describe('Change Password Dialog tests', () => {
     let updateFields: any;
-    let ChangePasswordSubmit: any;
-    let changePassword: any;
 
     afterEach(() => {
         jest.clearAllMocks();
@@ -20,8 +18,6 @@ describe('Change Password Dialog tests', () => {
 
     beforeEach(() => {
         updateFields = jest.fn();
-        ChangePasswordSubmit = jest.fn();
-        changePassword = jest.fn();
     });
 
     const renderer = (props?: ChangePasswordDialogProps): RenderResult =>
