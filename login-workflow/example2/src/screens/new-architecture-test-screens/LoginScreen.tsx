@@ -171,6 +171,13 @@ export const LoginScreen = (): JSX.Element => {
                             >
                                 Contact Support Full Screen
                             </Button>
+                            <Button
+                                variant="contained"
+                                sx={{ width: 200, m: 2 }}
+                                onClick={(): void => navigate('/existing-account-success-screen')}
+                            >
+                                Existing Account Success Screen
+                            </Button>
                         </Box>
                     }
                 />

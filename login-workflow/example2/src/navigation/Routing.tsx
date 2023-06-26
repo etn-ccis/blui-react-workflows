@@ -29,6 +29,7 @@ import {
     ResetPasswordFullScreen,
     ForgotPasswordFullScreen,
     ContactSupportScreenFullScreen,
+    ExistingAccountSuccessScreenTest,
 } from '../screens';
 
 export const routes: RouteConfig = {
@@ -193,6 +194,14 @@ export const GetCustomRoutes = (isAuthenticated: boolean) => {
             element: (
                 <SecurityContextProvider>
                     <ContactSupportScreenFullScreen />
+                </SecurityContextProvider>
+            ),
+        },
+        {
+            path: `/existing-account-success-screen`,
+            element: (
+                <SecurityContextProvider>
+                    <ExistingAccountSuccessScreenTest />
                 </SecurityContextProvider>
             ),
         },
