@@ -17,6 +17,8 @@ const resources: RegistrationLanguageFile = {
             },
             INSTRUCTIONS: {
                 ACCOUNT_DETAILS: 'Ingrese sus datos en seguida para completar la creación de la cuenta',
+                PASSWORD_INFO:
+                    'Por favor, seleccione una contraseña. Asegúrese de que su contraseña cumple con los requisitos de complejidad necesarios que se describen a continuación. ',
             },
             SUCCESS_MESSAGE:
                 'Su cuenta se ha creado correctamente con el correo electrónico <b> {{email}} </b>.\n\nTu cuenta ya se ha agregado a la organización <b> {{organization}} </b>.\n\nPulse continuar para finalizar. ',

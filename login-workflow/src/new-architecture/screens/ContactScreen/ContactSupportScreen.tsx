@@ -33,9 +33,9 @@ export const ContactSupportScreen: React.FC<ContactScreenProps> = (props) => {
         phoneSupportTitle = t('bluiAuth:CONTACT_SUPPORT.EMERGENCY_SUPPORT'),
         contactEmail = 'something@email.com',
         contactPhone = '1-800-123-4567',
-        dismissButtonLabel = t('bluiAuth:ACTIONS.OKAY'),
+        dismissButtonLabel = t('bluiCommon:ACTIONS.OKAY'),
         WorkflowCardActionsProps: workflowCardActionsProps = {
-            nextLabel: t('bluiAuth:ACTIONS.OKAY'),
+            nextLabel: t('bluiCommon:ACTIONS.OKAY'),
             showNext: true,
             canGoNext: true,
             onNext: (): void => navigate(routeConfig.LOGIN),

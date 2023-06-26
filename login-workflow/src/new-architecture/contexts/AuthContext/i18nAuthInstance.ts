@@ -1,11 +1,12 @@
 import i18next from 'i18next';
 import { dictionaries } from './dictionaries';
+import { sharedDictionaries } from './../sharedDictionaries';
 
 export const i18nAuthInstance = i18next.createInstance(
     {
         lng: 'en',
         fallbackLng: 'en',
-        ns: ['bluiAuth'],
+        ns: ['bluiAuth', 'bluiCommon'],
         defaultNS: 'bluiAuth',
         load: 'languageOnly',
         detection: {
@@ -20,25 +21,40 @@ export const i18nAuthInstance = i18next.createInstance(
                 bluiAuth: {
                     ...dictionaries.english.translation,
                 },
+                bluiCommon: {
+                    ...sharedDictionaries.english.translation,
+                },
             },
             fr: {
                 bluiAuth: {
                     ...dictionaries.french.translation,
+                },
+                bluiCommon: {
+                    ...sharedDictionaries.french.translation,
                 },
             },
             es: {
                 bluiAuth: {
                     ...dictionaries.spanish.translation,
                 },
+                bluiCommon: {
+                    ...sharedDictionaries.spanish.translation,
+                },
             },
             zh: {
                 bluiAuth: {
                     ...dictionaries.chinese.translation,
                 },
+                bluiCommon: {
+                    ...sharedDictionaries.chinese.translation,
+                },
             },
             pt: {
                 bluiAuth: {
                     ...dictionaries.portuguese.translation,
+                },
+                bluiCommon: {
+                    ...sharedDictionaries.portuguese.translation,
                 },
             },
         },
