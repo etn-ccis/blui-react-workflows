@@ -72,11 +72,13 @@ export const ChangePasswordDialogBaseTest: React.FC<PropsWithChildren> = () => {
                 onSubmit: changePasswordSubmit,
                 passwordRequirements: passwordRequirements,
             }}
-            errorDialogOpen={showErrorDialog}
-            errorDialogTitle="Error!"
-            errorDialogBody="Please check the error and proceed further"
-            errorDialogOnClose={(): void => {
-                setShowErrorDialog(!showErrorDialog);
+            ErrorDialogProps={{
+                open: showErrorDialog,
+                title: 'Error!',
+                body: 'Please check the error and proceed further',
+                onClose: (): void => {
+                    setShowErrorDialog(!showErrorDialog);
+                },
             }}
         />
     );
