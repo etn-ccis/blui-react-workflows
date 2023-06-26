@@ -2,24 +2,15 @@ import React from 'react';
 import '@testing-library/jest-dom';
 import { cleanup, render, screen, RenderResult, fireEvent } from '@testing-library/react';
 import { EulaScreen } from './EulaScreen';
-import {
-    RegistrationContextProvider,
-    RegistrationContextProviderProps,
-    i18nRegistrationInstance,
-} from '../../contexts';
+import { RegistrationContextProvider } from '../../contexts';
 import { EulaScreenProps } from './types';
 import { RegistrationWorkflow } from '../../components';
+import { defaultProps as registrationContextProviderProps } from '../../contexts/RegistrationContext/RegistrationContextProvider.test';
+
 type EulaFullScreenProps = EulaScreenProps & {
     title?: string;
 };
 afterEach(cleanup);
-
-const defaultProps: RegistrationContextProviderProps = {
-    language: 'en',
-    i18n: i18nRegistrationInstance,
-    navigate: (): void => {},
-    routeConfig: {},
-};
 
 describe('Eula Screen', () => {
     let mockOnNext: any;
@@ -36,7 +27,7 @@ describe('Eula Screen', () => {
 
     const renderer = (props?: EulaFullScreenProps): RenderResult =>
         render(
-            <RegistrationContextProvider {...defaultProps}>
+            <RegistrationContextProvider {...registrationContextProviderProps}>
                 <RegistrationWorkflow initialScreenIndex={0}>
                     <EulaScreen {...props} />
                 </RegistrationWorkflow>

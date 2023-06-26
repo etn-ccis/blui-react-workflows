@@ -58,4 +58,20 @@ export const ProjectRegistrationUIActions: () => RegistrationUIActions = () => (
         }
         return true;
     },
+
+    completeRegistration: async (
+        userData: any,
+        validationCode: string | number,
+        validationEmail?: string
+    ): Promise<{ email: string; organizationName: string }> => {
+        const email = 'example@email.com';
+        const organizationName = 'Acme Co.';
+        const userInfo = { email, organizationName };
+
+        await sleep(1000);
+        if (isRandomFailure()) {
+            throw new Error('Sorry, there was a problem sending your request.');
+        }
+        return userInfo;
+    },
 });
