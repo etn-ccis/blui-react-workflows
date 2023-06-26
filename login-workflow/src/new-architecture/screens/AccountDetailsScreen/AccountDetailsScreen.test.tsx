@@ -66,43 +66,43 @@ describe('Accont Details Screen', () => {
         expect(screen.getByText('Test Instruction')).toBeInTheDocument();
     });
 
-    // it('should call onNext, when Next button clicked', () => {
-    //     const { getByLabelText } = renderer({
-    //         WorkflowCardActionsProps: {
-    //             onNext: mockOnNext(),
-    //             showNext: true,
-    //             nextLabel: 'Next',
-    //         },
-    //     });
+    it('should call onNext, when Next button clicked', () => {
+        const { getByLabelText } = renderer({
+            WorkflowCardActionsProps: {
+                onNext: mockOnNext(),
+                showNext: true,
+                nextLabel: 'Next',
+            },
+        });
 
-    //     const firstNameInput = getByLabelText('First Name');
-    //     fireEvent.change(firstNameInput, { target: { value: 'Test First Name' } });
-    //     fireEvent.blur(firstNameInput);
+        const firstNameInput = getByLabelText('First Name');
+        fireEvent.change(firstNameInput, { target: { value: 'Test First Name' } });
+        fireEvent.blur(firstNameInput);
 
-    //     const lastNameInput = getByLabelText('Last Name');
-    //     fireEvent.change(lastNameInput, { target: { value: 'Test Last Name' } });
-    //     fireEvent.blur(lastNameInput);
+        const lastNameInput = getByLabelText('Last Name');
+        fireEvent.change(lastNameInput, { target: { value: 'Test Last Name' } });
+        fireEvent.blur(lastNameInput);
 
-    //     const nextButton = screen.getByText('Next');
-    //     expect(nextButton).toBeInTheDocument();
-    //     expect(screen.getByText(/Next/i)).toBeEnabled();
-    //     fireEvent.click(nextButton);
-    //     expect(mockOnNext).toHaveBeenCalled();
-    // });
+        const nextButton = screen.getByText('Next');
+        expect(nextButton).toBeInTheDocument();
+        expect(screen.getByText(/Next/i)).toBeEnabled();
+        fireEvent.click(nextButton);
+        expect(mockOnNext).toHaveBeenCalled();
+    });
 
-    // it('should call onPrevious, when Back button clicked', () => {
-    //     renderer({
-    //         WorkflowCardActionsProps: {
-    //             onPrevious: mockOnPrevious(),
-    //             showPrevious: true,
-    //             previousLabel: 'Back',
-    //         },
-    //     });
+    it('should call onPrevious, when Back button clicked', () => {
+        renderer({
+            WorkflowCardActionsProps: {
+                onPrevious: mockOnPrevious(),
+                showPrevious: true,
+                previousLabel: 'Back',
+            },
+        });
 
-    //     const backButton = screen.getByText('Back');
-    //     expect(backButton).toBeInTheDocument();
-    //     expect(screen.getByText(/Back/i)).toBeEnabled();
-    //     fireEvent.click(backButton);
-    //     expect(mockOnPrevious).toHaveBeenCalled();
-    // });
+        const backButton = screen.getByText('Back');
+        expect(backButton).toBeInTheDocument();
+        expect(screen.getByText(/Back/i)).toBeEnabled();
+        fireEvent.click(backButton);
+        expect(mockOnPrevious).toHaveBeenCalled();
+    });
 });

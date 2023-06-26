@@ -12,22 +12,8 @@ export const AccountDetailsScreen: React.FC<AccountDetailsFullScreenProps> = (pr
     const { t } = useLanguageLocale();
     const regWorkflow = useRegistrationWorkflowContext();
     const { nextScreen, previousScreen, screenData } = regWorkflow;
-
-    const firstNameValidatorFn = (firstName: string): boolean | string => {
-        if (firstName?.length > 4) {
-            setFirstName(firstName);
-            return true;
-        }
-        return 'First name must be at least 5 characters';
-    };
-
-    const lastNameValidatorFn = (lastName: string): boolean | string => {
-        if (lastName?.length > 2) {
-            setLastName(lastName);
-            return true;
-        }
-        return 'Last name must be at least 3 characters';
-    };
+    const [firstName, setFirstName] = useState(screenData.AccountDetails.firstName ?? '');
+    const [lastName, setLastName] = useState(screenData.AccountDetails.lastName ?? '');
 
     const {
         title = t('bluiRegistration:REGISTRATION.STEPS.ACCOUNT_DETAILS'),
@@ -38,13 +24,10 @@ export const AccountDetailsScreen: React.FC<AccountDetailsFullScreenProps> = (pr
         lastNameLabel = t('bluiCommon:FORMS.LAST_NAME'),
         firstNameTextFieldProps,
         lastNameTextFieldProps,
-        firstNameValidator = firstNameValidatorFn,
-        lastNameValidator = lastNameValidatorFn,
+        firstNameValidator,
+        lastNameValidator,
         sx,
     } = props;
-
-    const [firstName, setFirstName] = useState(screenData.AccountDetails.firstName ?? initialFirstName);
-    const [lastName, setLastName] = useState(screenData.AccountDetails.lastName ?? initialLastName);
 
     const onNext = (): void => {
         try {
@@ -76,8 +59,8 @@ export const AccountDetailsScreen: React.FC<AccountDetailsFullScreenProps> = (pr
         <AccountDetailsScreenBase
             WorkflowCardHeaderProps={{ title: title }}
             WorkflowCardInstructionProps={{ instructions: instructions }}
-            initialFirstName={firstName}
-            initialLastName={lastName}
+            initialFirstName={initialFirstName}
+            initialLastName={initialLastName}
             firstNameLabel={firstNameLabel}
             firstNameValidator={firstNameValidator}
             lastNameLabel={lastNameLabel}
@@ -95,7 +78,7 @@ export const AccountDetailsScreen: React.FC<AccountDetailsFullScreenProps> = (pr
                 nextLabel: t('bluiCommon:ACTIONS.NEXT'),
                 onNext: onNext,
                 totalSteps: 5,
-                currentStep: 2,
+                currentStep: 1,
             }}
         />
     );
