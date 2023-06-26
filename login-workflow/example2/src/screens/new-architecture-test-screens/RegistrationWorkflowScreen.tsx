@@ -6,6 +6,7 @@ import {
     EulaScreen,
     AccountDetailsScreen,
     CreatePasswordScreen,
+    RegistrationSuccessScreen,
 } from '@brightlayer-ui/react-auth-workflow';
 import { useNavigate } from 'react-router-dom';
 import { useApp } from '../../contexts/AppContextProvider';
@@ -15,6 +16,7 @@ import { routes } from '../../navigation/Routing';
 export const RegistrationWorkflowScreen = (): JSX.Element => {
     const { language } = useApp();
     const navigate = useNavigate();
+
     return (
         <RegistrationContextProvider
             i18n={i18nRegistrationInstance}
@@ -27,6 +29,7 @@ export const RegistrationWorkflowScreen = (): JSX.Element => {
                 <EulaScreen />
                 <AccountDetailsScreen />
                 <CreatePasswordScreen />
+                <RegistrationSuccessScreen />
             </RegistrationWorkflow>
         </RegistrationContextProvider>
     );
