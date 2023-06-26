@@ -59,6 +59,15 @@ export const ProjectRegistrationUIActions: () => RegistrationUIActions = () => (
         return true;
     },
 
+    validateUserRegistrationRequest: async (validationCode: string, validationEmail?: string): Promise<boolean> => {
+        await sleep(800);
+
+        if (isRandomFailure()) {
+            throw new Error('Sorry, there was a problem sending your request.');
+        }
+        return isRandomFailure();
+    },
+
     completeRegistration: async (
         userData: any,
         validationCode: string | number,

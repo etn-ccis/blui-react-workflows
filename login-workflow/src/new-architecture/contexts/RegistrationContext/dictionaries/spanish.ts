@@ -34,9 +34,10 @@ const resources: RegistrationLanguageFile = {
             INSTRUCTIONS: `Para registrarse para una cuenta Eaton, introduzca la información requerida abajo. Deberá verificar su dirección de correo electrónico para continuar.`,
             VERIFY_EMAIL: {
                 MESSAGE: `Se ha enviado un código de verificación a la dirección de correo electrónico que proporcionó. Haga clic en el enlace o ingrese el código abajo para continuar. Este código es válido por 30 minutos.`,
-                RESEND: 'Reenviar correo electrónico de verificación',
+                RESEND: 'Enviar de nuevo',
                 VERIFICATION_CODE_PROMPT: '¿No recibiste un correo electrónico?',
                 VERIFICATION: 'Código de verificación',
+                CODE_VALIDATOR_ERROR: 'Debe proporcionar un código válido',
             },
         },
     },

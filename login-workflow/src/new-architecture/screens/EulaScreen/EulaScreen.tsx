@@ -2,8 +2,7 @@ import React, { useCallback, useEffect, useState } from 'react';
 import { EulaScreenProps } from './types';
 import { EulaScreenBase } from './EulaScreenBase';
 import { useLanguageLocale } from '../../hooks';
-import { useRegistrationContext } from '../../contexts/RegistrationContext/context';
-import { useRegistrationWorkflowContext } from '../../contexts';
+import { useRegistrationContext, useRegistrationWorkflowContext } from '../../contexts';
 
 type EulaFullScreenProps = EulaScreenProps & {
     title?: string;
