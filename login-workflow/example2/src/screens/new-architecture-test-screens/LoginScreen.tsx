@@ -132,6 +132,13 @@ export const LoginScreen = (): JSX.Element => {
                             <Button
                                 variant="contained"
                                 sx={{ width: 200, m: 2 }}
+                                onClick={(): void => navigate('/create-account-full-screen')}
+                            >
+                                Create Account Full
+                            </Button>
+                            <Button
+                                variant="contained"
+                                sx={{ width: 200, m: 2 }}
                                 onClick={(): void => navigate('/change-password-dialog')}
                             >
                                 Change Password Dialog
