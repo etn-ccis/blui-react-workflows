@@ -1,6 +1,5 @@
 import React from 'react';
-import { render, screen, cleanup } from '@testing-library/react';
-import { renderHook } from '@testing-library/react-hooks';
+import { render, screen, cleanup, renderHook } from '@testing-library/react';
 import '@testing-library/jest-dom';
 import { RegistrationWorkflowContextProps, useRegistrationWorkflowContext } from '.';
 import { RegistrationWorkflowContextProvider } from './provider';
