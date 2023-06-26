@@ -24,8 +24,10 @@ export const AccountDetailsScreen: React.FC<AccountDetailsFullScreenProps> = (pr
         lastNameLabel = t('bluiCommon:FORMS.LAST_NAME'),
         firstNameTextFieldProps,
         lastNameTextFieldProps,
-        firstNameValidator,
-        lastNameValidator,
+        firstNameValidator = (name: string): boolean | string =>
+            name?.length > 2 ? true : t('bluiCommon:FORMS.FIRST_NAME_LENGTH_ERROR'),
+        lastNameValidator = (name: string): boolean | string =>
+            name?.length > 2 ? true : t('bluiCommon:FORMS.LAST_NAME_LENGTH_ERROR'),
         sx,
     } = props;
 

@@ -57,6 +57,8 @@ const resources: CommonTranslationsFile = {
             PASS_MATCH_ERROR: '密码不匹配',
             TOGGLE_PASSWORD_VISIBILITY: '显示密码',
             RESET_PASSWORD: '重置密码',
+            FIRST_NAME_LENGTH_ERROR: '名字必须至少包含 3 个字符',
+            LAST_NAME_LENGTH_ERROR: '姓氏必须至少包含 3 个字符',
         },
         PASSWORD_REQUIREMENTS: {
             LENGTH: '8至16个字符',

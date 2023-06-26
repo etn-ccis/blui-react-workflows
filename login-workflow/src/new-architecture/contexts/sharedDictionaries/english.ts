@@ -57,6 +57,8 @@ const resources: CommonTranslationsFile = {
             PASS_MATCH_ERROR: 'Passwords do not match',
             TOGGLE_PASSWORD_VISIBILITY: 'Toggle password visibility',
             RESET_PASSWORD: 'Reset Password',
+            FIRST_NAME_LENGTH_ERROR: 'First name must be at least 3 characters',
+            LAST_NAME_LENGTH_ERROR: 'Last name must be at least 3 characters',
         },
         PASSWORD_REQUIREMENTS: {
             LENGTH: '8-16 Characters',
