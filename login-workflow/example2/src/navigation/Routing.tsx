@@ -44,7 +44,7 @@ type CustomRouterProps = {
 export const GetCustomRoutes = (isAuthenticated: boolean) => {
     const customRoutes = [
         // Non-Authenticated Route: accessible only if the user is NOT authenticated
-         {
+        {
             path: '/login',
             element: (
                 <ExperimentalGuestGuard
@@ -52,16 +52,14 @@ export const GetCustomRoutes = (isAuthenticated: boolean) => {
                     fallbackComponent={<Navigate to={`/guarded`} />}
                 >
                     <SecurityContextProvider>
-                        <Login/>
+                        <Login />
                     </SecurityContextProvider>
                 </ExperimentalGuestGuard>
             ),
         },
         {
             path: '/debug',
-            element: (
-                    <DebugScreen />
-            ),
+            element: <DebugScreen />,
         },
         // Non-Authenticated Routes: accessible only if the user is NOT authenticated
         {
@@ -79,16 +77,14 @@ export const GetCustomRoutes = (isAuthenticated: boolean) => {
         {
             path: `/auth-provider-test`,
             element: (
-                    <SecurityContextProvider>
-                        <AuthTestScreen />
-                    </SecurityContextProvider>
+                <SecurityContextProvider>
+                    <AuthTestScreen />
+                </SecurityContextProvider>
             ),
         },
         {
             path: `/registration-provider-test`,
-            element: (
-                    <RegistrationTestScreen />
-            ),
+            element: <RegistrationTestScreen />,
         },
         {
             path: `/contact-us`,

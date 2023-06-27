@@ -28,7 +28,7 @@ export const DebugScreen = (): JSX.Element => {
                                 variant="contained"
                                 sx={{ width: 200, m: 2 }}
                                 onClick={(): void => {
-                                    navigate('/login')
+                                    navigate('/login');
                                     setIsAuthenticated(false);
                                 }}
                             >

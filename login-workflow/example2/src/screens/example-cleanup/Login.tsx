@@ -20,57 +20,58 @@ export const Login = (): JSX.Element => {
                     navigate={navigate}
                     routeConfig={{}}
                 >
-                  <>
-                   <Button
-                        variant={'contained'}
-                        color={'primary'}
-                        onClick={(): void => navigate('/debug')}
-                        sx={{
-                            position: 'absolute',
-                            top: 16,
-                            right: 16,
-                            zIndex: 1000,
-                        }}
-                    >{`DEBUG`}
-                    </Button>
-                    <LoginScreen
-                        onLogin={(username, password): void => {
-                            // eslint-disable-next-line no-console
-                            console.log('onLogin', username, password);
-                            setIsAuthenticated(true);
-                            navigate('/guarded');
-                        }}
-                        usernameTextFieldProps={{
-                            inputProps: {
-                                maxLength: 30,
-                            },
-                        }}
-                        passwordTextFieldProps={{
-                            required: true,
-                        }}
-                        onRememberMeChanged={(value: boolean): void => {
-                            // eslint-disable-next-line no-console
-                            console.log('onRememberMeChanged', value);
-                        }}
-                        // showRememberMe={false}
-                        onForgotPassword={(): void => {
-                            // eslint-disable-next-line no-console
-                            console.log('onForgotPassword');
-                            navigate('/forgot-password-full-screen');
-                        }}
-                        onSelfRegister={(): void => {
-                            // eslint-disable-next-line no-console
-                            console.log('onSelfRegister');
-                            navigate('/create-account');
-                        }}
-                        onContactSupport={(): void => {
-                            // eslint-disable-next-line no-console
-                            console.log('onContactSupport');
-                            navigate('/contact-support-full-screen');
-                        }}
-                        projectImage={<img src={EatonLogo} alt="logo" style={{ maxHeight: 80 }} />}
-                    />
-                </>
+                    <>
+                        <Button
+                            variant={'contained'}
+                            color={'primary'}
+                            onClick={(): void => navigate('/debug')}
+                            sx={{
+                                position: 'absolute',
+                                top: 16,
+                                right: 16,
+                                zIndex: 1000,
+                            }}
+                        >
+                            {`DEBUG`}
+                        </Button>
+                        <LoginScreen
+                            onLogin={(username, password): void => {
+                                // eslint-disable-next-line no-console
+                                console.log('onLogin', username, password);
+                                setIsAuthenticated(true);
+                                navigate('/guarded');
+                            }}
+                            usernameTextFieldProps={{
+                                inputProps: {
+                                    maxLength: 30,
+                                },
+                            }}
+                            passwordTextFieldProps={{
+                                required: true,
+                            }}
+                            onRememberMeChanged={(value: boolean): void => {
+                                // eslint-disable-next-line no-console
+                                console.log('onRememberMeChanged', value);
+                            }}
+                            // showRememberMe={false}
+                            onForgotPassword={(): void => {
+                                // eslint-disable-next-line no-console
+                                console.log('onForgotPassword');
+                                navigate('/forgot-password-full-screen');
+                            }}
+                            onSelfRegister={(): void => {
+                                // eslint-disable-next-line no-console
+                                console.log('onSelfRegister');
+                                navigate('/create-account');
+                            }}
+                            onContactSupport={(): void => {
+                                // eslint-disable-next-line no-console
+                                console.log('onContactSupport');
+                                navigate('/contact-support-full-screen');
+                            }}
+                            projectImage={<img src={EatonLogo} alt="logo" style={{ maxHeight: 80 }} />}
+                        />
+                    </>
                 </AuthContextProvider>
             </Box>
         </Box>
