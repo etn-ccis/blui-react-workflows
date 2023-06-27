@@ -64,7 +64,6 @@ export const ChangePasswordDialog: React.FC<ChangePasswordDialogProps> = (props)
             passwordRequirements,
             onSubmit: changePasswordSubmit,
         },
-        errorDialogProps,
     } = props;
 
     return (
@@ -79,7 +78,6 @@ export const ChangePasswordDialog: React.FC<ChangePasswordDialogProps> = (props)
             onPrevious={onPrevious}
             onSubmit={changePasswordSubmit}
             passwordProps={passwordProps}
-            errorDialogProps={errorDialogProps}
         />
     );
 };
