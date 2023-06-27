@@ -57,6 +57,7 @@ export const ChangePasswordDialogBaseTest: React.FC<PropsWithChildren> = () => {
             nextLabel="Okay"
             PasswordProps={{
                 newPasswordLabel: 'New Password',
+                confirmPasswordLabel: 'Confirm Password',
                 passwordRef: passwordRef,
                 confirmRef: confirmRef,
                 initialNewPasswordValue: passwordInput,

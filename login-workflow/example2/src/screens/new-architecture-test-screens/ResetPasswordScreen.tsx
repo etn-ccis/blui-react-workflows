@@ -66,9 +66,12 @@ export const ResetPasswordScreen = (): JSX.Element => {
                     PasswordProps={{
                         passwordRef: passwordRef,
                         newPasswordLabel: 'New Password',
+                        confirmPasswordLabel: 'Confirm New Password',
                         confirmRef: confirmRef,
                         initialNewPasswordValue: passwordInput,
                         initialConfirmPasswordValue: confirmInput,
+                        passwordRequirements: passwordRequirements,
+                        passwordNotMatchError: 'Passwords do not match',
                         onPasswordChange: updateFields,
                         onSubmit: (): void => {
                             if (passwordInput !== '' && confirmInput !== '' && passwordInput === confirmInput) {
