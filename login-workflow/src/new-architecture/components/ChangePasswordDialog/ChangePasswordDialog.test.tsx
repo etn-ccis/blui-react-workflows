@@ -24,7 +24,7 @@ describe('Change Password Dialog tests', () => {
         render(
             <AuthContextProvider {...authContextProps}>
                 <BrowserRouter>
-                    <ChangePasswordDialog open={true} {...props} />
+                    <ChangePasswordDialog {...props} />
                 </BrowserRouter>
             </AuthContextProvider>
         );
@@ -36,7 +36,6 @@ describe('Change Password Dialog tests', () => {
     it('Current password input test', () => {
         const { getByLabelText } = renderer({
             currentPasswordLabel: 'Current Password',
-            open: true,
         });
 
         const currentPasswordInput = getByLabelText('Current Password');
@@ -47,12 +46,11 @@ describe('Change Password Dialog tests', () => {
 
     it('New password input fields test', () => {
         const { getByLabelText } = renderer({
-            PasswordProps: {
+            passwordProps: {
                 newPasswordLabel: 'New Password',
                 confirmPasswordLabel: 'Confirm New Password',
                 onPasswordChange: updateFields,
             },
-            open: true,
         });
 
         const newPasswordInput = getByLabelText('New Password');

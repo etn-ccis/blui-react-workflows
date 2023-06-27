@@ -53,7 +53,7 @@ export const ChangePasswordDialog: React.FC<ChangePasswordDialogProps> = (props)
         previousLabel = t('bluiCommon:ACTIONS.BACK'),
         nextLabel = t('bluiCommon:ACTIONS.OKAY'),
         onPrevious = (): void => navigate(routeConfig.LOGIN),
-        PasswordProps: passwordProps = {
+        passwordProps = {
             newPasswordLabel: t('bluiAuth:CHANGE_PASSWORD.NEW_PASSWORD'),
             confirmPasswordLabel: t('bluiAuth:CHANGE_PASSWORD.CONFIRM_NEW_PASSWORD'),
             onPasswordChange: updateFields,
@@ -64,7 +64,7 @@ export const ChangePasswordDialog: React.FC<ChangePasswordDialogProps> = (props)
             passwordRequirements,
             onSubmit: changePasswordSubmit,
         },
-        ErrorDialogProps: errorDialogProps,
+        errorDialogProps,
     } = props;
 
     return (
@@ -78,8 +78,8 @@ export const ChangePasswordDialog: React.FC<ChangePasswordDialogProps> = (props)
             enableButton={checkPasswords}
             onPrevious={onPrevious}
             onSubmit={changePasswordSubmit}
-            PasswordProps={passwordProps}
-            ErrorDialogProps={errorDialogProps}
+            passwordProps={passwordProps}
+            errorDialogProps={errorDialogProps}
         />
     );
 };

@@ -61,7 +61,7 @@ export const ChangePasswordDialogBaseTest: React.FC<PropsWithChildren> = () => {
             onSubmit={changePasswordSubmit}
             currentPasswordChange={currentPasswordChange}
             onPrevious={(): void => navigate('/login')}
-            PasswordProps={{
+            passwordProps={{
                 newPasswordLabel: 'New Password',
                 confirmPasswordLabel: 'Confirm New Password',
                 passwordRef: passwordRef,
@@ -72,7 +72,7 @@ export const ChangePasswordDialogBaseTest: React.FC<PropsWithChildren> = () => {
                 onSubmit: changePasswordSubmit,
                 passwordRequirements: passwordRequirements,
             }}
-            ErrorDialogProps={{
+            errorDialogProps={{
                 open: showErrorDialog,
                 title: 'Error!',
                 body: 'Please check the error and proceed further',

@@ -10,7 +10,7 @@ describe('AccountDetailsScreenBase tests', () => {
         render(
             <ChangePasswordDialogBase
                 onSubmit={undefined}
-                PasswordProps={{
+                passwordProps={{
                     onPasswordChange: (): void => {},
                     newPasswordLabel: '',
                     initialNewPasswordValue: '',
@@ -35,7 +35,7 @@ describe('AccountDetailsScreenBase tests', () => {
                 onSubmit={(): void => {}}
                 currentPasswordChange={(): void => {}}
                 enableButton={false}
-                PasswordProps={{
+                passwordProps={{
                     onPasswordChange: (): void => {},
                     newPasswordLabel: '',
                     initialNewPasswordValue: '',

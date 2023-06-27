@@ -44,8 +44,8 @@ export const ChangePasswordDialogBase: React.FC<ChangePasswordDialogProps> = (pr
         currentPasswordChange,
         onSubmit,
         onPrevious,
-        ErrorDialogProps: errorDialogProps,
-        PasswordProps: passwordProps,
+        errorDialogProps,
+        passwordProps,
     } = props;
     const theme = useTheme();
     const matchesSM = useMediaQuery(theme.breakpoints.down('sm'));
