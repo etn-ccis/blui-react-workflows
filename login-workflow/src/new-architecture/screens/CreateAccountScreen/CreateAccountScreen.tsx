@@ -1,4 +1,4 @@
-import React, { useCallback ,useState } from 'react';
+import React, { useState } from 'react';
 import { CreateAccountScreenProps } from './types';
 import { CreateAccountScreenBase } from './CreateAccountScreenBase';
 import { useLanguageLocale } from '../../hooks';
@@ -26,30 +26,33 @@ type CreateAccountFullScreenProps = CreateAccountScreenProps & {
 
 export const CreateAccountScreen: React.FC<CreateAccountFullScreenProps> = (props) => {
     const { t } = useLanguageLocale();
-    const { navigate, routeConfig, language } = useRegistrationContext();
+    const { actions } = useRegistrationContext();
     const regWorkflow = useRegistrationWorkflowContext();
     const { nextScreen, previousScreen, screenData } = regWorkflow;
     const {
         title = t('bluiRegistration:REGISTRATION.STEPS.CREATE_ACCOUNT'),
-        instructions = t('blui:SELF_REGISTRATION.INSTRUCTIONS'),
-        emailLabel = t('bluiRegistration:LABELS.EMAIL'),
-        initialValue = '',
-        emailValidator = (email: string): boolean | string => true,
+        instructions = t('bluiRegistration:SELF_REGISTRATION.INSTRUCTIONS'),
+        emailLabel = t('bluiCommon:LABELS.EMAIL'),
+        initialValue = screenData.CreateAccount.emailAddress,
+        // eslint-disable-next-line @typescript-eslint/no-unused-vars
+        emailValidator = (_email: string): boolean | string => true,
         emailTextFieldProps,
     } = props;
+    const [emailInputValue, setEmailInputValue] = useState(screenData.CreateAccount.emailAddress);
 
-    const [emailInput, setEmailInput] = React.useState(initialValue ? initialValue : '');
-    const [isEmailValid, setIsEmailValid] = React.useState(emailValidator(initialValue) ?? false);
-    const [emailError, setEmailError] = React.useState('');
-    const [shouldValidateEmail, setShouldValidateEmail] = React.useState(false);
+    const onNext = async (): Promise<void> => {
+        const success = await actions().requestRegistrationCode(emailInputValue);
 
-    const onNext = (): void => {
+        // eslint-disable-next-line no-console
+        console.log('success: ', success);
+
         try {
-            setEmailInput(emailInput);
             nextScreen({
                 screenId: 'CreateAccount',
-                values: { isEmailValid: isEmailValid },
+                values: { emailAddress: emailInputValue },
             });
+            // eslint-disable-next-line no-console
+            console.log('going to next screen... with screen data: ', screenData);
         } catch {
             console.error('Error while updating create account...');
         }
@@ -57,50 +60,47 @@ export const CreateAccountScreen: React.FC<CreateAccountFullScreenProps> = (prop
 
     const onPrevious = (): void => {
         try {
-            setEmailInput(emailInput);
             previousScreen({
                 screenId: 'CreateAccount',
-                values: { isEmailValid: isEmailValid },
+                values: { emailAddress: emailInputValue },
             });
+            // eslint-disable-next-line no-console
+            console.log('going to previous screen... with screen data: ', screenData);
         } catch {
             console.error('Error while updating create account...');
         }
     };
-    
-    const handleEmailInputChange = useCallback(
-        (email: string) => {
-            setEmailInput(email);
-            const emailValidatorResponse = emailValidator(email);
 
-            setIsEmailValid(typeof emailValidatorResponse === 'boolean' ? emailValidatorResponse : false);
-            setEmailError(typeof emailValidatorResponse === 'string' ? emailValidatorResponse : '');
-        },
-        [emailValidator]
-    );
+    const onEmailInputValueChange = (e: any): void => {
+        // eslint-disable-next-line no-console
+        console.log('onEmailInputValueChange event:', e.target.value);
+        setEmailInputValue(e.target.value);
+    };
+
     return (
-        <CreateAccountScreenBase 
-        WorkflowCardHeaderProps={{ title: title}}
-        WorkflowCardInstructionProps={{instructions: instructions}}
-        emailLabel={emailLabel}
-        emailTextFieldProps={emailTextFieldProps}
-        WorkflowCardActionsProps={{
-            showNext: true,
-            nextLabel: t('bluiCommon:ACTIONS.NEXT'),
-            canGoNext: true,
-            showPrevious: true,
-            previousLabel: t('bluiCommon:ACTIONS.BACK'),
-            canGoPrevious: true,
-            currentStep: 1,
-            totalSteps: 6,
-            onNext: (): void => {
-                void onNext();
-                navigate(routeConfig.LOGIN)
-            },
-            onPrevious: (): void => {
-                void onPrevious();
-                navigate(routeConfig.LOGIN);
-            },
-        }}
+        <CreateAccountScreenBase
+            WorkflowCardHeaderProps={{ title: title }}
+            WorkflowCardInstructionProps={{ instructions: instructions }}
+            emailLabel={emailLabel}
+            initialValue={initialValue}
+            emailTextFieldProps={{ ...emailTextFieldProps, onChange: onEmailInputValueChange }}
+            emailValidator={emailValidator}
+            WorkflowCardActionsProps={{
+                showNext: true,
+                nextLabel: t('bluiCommon:ACTIONS.NEXT'),
+                canGoNext: true,
+                showPrevious: true,
+                previousLabel: t('bluiCommon:ACTIONS.BACK'),
+                canGoPrevious: true,
+                onNext: (): void => {
+                    void onNext();
+                    // navigate(routeConfig.LOGIN);
+                },
+                onPrevious: (): void => {
+                    void onPrevious();
+                    // navigate(routeConfig.LOGIN);
+                },
+            }}
         />
     );
 };

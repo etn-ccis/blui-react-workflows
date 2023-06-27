@@ -58,4 +58,14 @@ export const ProjectRegistrationUIActions: () => RegistrationUIActions = () => (
         }
         return true;
     },
+
+    requestRegistrationCode: async (emailAddress: string): Promise<string> => {
+        await sleep(800);
+        if (isRandomFailure()) {
+            throw new Error('Sorry, there was a problem sending your request.');
+        }
+        // eslint-disable-next-line no-console
+        console.log(emailAddress, ' was used to request a registration code');
+        return 'a1b2c3';
+    },
 });
