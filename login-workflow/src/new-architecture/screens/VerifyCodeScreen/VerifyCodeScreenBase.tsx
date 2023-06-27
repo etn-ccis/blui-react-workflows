@@ -30,6 +30,7 @@ export const VerifyCodeScreenBase: React.FC<React.PropsWithChildren<VerifyCodeSc
         resendLabel,
         verifyCodeInputLabel,
         initialValue,
+        updateCode,
     } = props;
 
     const cardBaseProps = props.WorkflowCardBaseProps || {};
@@ -46,11 +47,11 @@ export const VerifyCodeScreenBase: React.FC<React.PropsWithChildren<VerifyCodeSc
         (code: string) => {
             setVerifyCode(code);
             const validatorResponse = codeValidator(code);
-
+            updateCode(code);
             setIsCodeValid(typeof validatorResponse === 'boolean' ? validatorResponse : false);
             setCodeError(typeof validatorResponse === 'string' ? validatorResponse : '');
         },
-        [codeValidator]
+        [codeValidator, updateCode]
     );
 
     return (

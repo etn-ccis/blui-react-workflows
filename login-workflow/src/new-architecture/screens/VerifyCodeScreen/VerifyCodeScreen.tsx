@@ -25,7 +25,7 @@ export const VerifyCodeScreen: React.FC<VerifyCodeScreenProps> = (props) => {
 
     const {
         codeValidator = (code: string): boolean | string =>
-        code?.length > 0 ? true : t('bluiRegistration:SELF_REGISTRATION.VERIFY_EMAIL.CODE_VALIDATOR_ERROR'),
+            code?.length > 0 ? true : t('bluiRegistration:SELF_REGISTRATION.VERIFY_EMAIL.CODE_VALIDATOR_ERROR'),
         onResend,
         resendInstructions = t('bluiRegistration:SELF_REGISTRATION.VERIFY_EMAIL.VERIFICATION_CODE_PROMPT'),
         resendLabel = t('bluiRegistration:SELF_REGISTRATION.VERIFY_EMAIL.RESEND'),
@@ -33,8 +33,8 @@ export const VerifyCodeScreen: React.FC<VerifyCodeScreenProps> = (props) => {
         initialValue = screenData.VerifyCode.code,
     } = props;
 
-    const [ verifyCode, setVerifyCode ] = useState(initialValue);
-    const [ isLoading, setIsLoading ] = useState(false);
+    const [verifyCode, setVerifyCode] = useState(initialValue);
+    const [isLoading, setIsLoading] = useState(false);
 
     const onNext = useCallback(() => {
         try {
@@ -45,11 +45,10 @@ export const VerifyCodeScreen: React.FC<VerifyCodeScreenProps> = (props) => {
                 values: { code: verifyCode },
             });
             setIsLoading(false);
-            
         } catch {
-            console.log('Error fetching validation code!');
+            console.error('Error fetching validation code!');
         }
-    }, [verifyCode, nextScreen]);
+    }, [verifyCode, nextScreen, actions]);
 
     const onPrevious = useCallback(() => {
         previousScreen({
@@ -86,18 +85,18 @@ export const VerifyCodeScreen: React.FC<VerifyCodeScreenProps> = (props) => {
     } = props;
 
     return (
-        <>
-            <VerifyCodeScreenBase
-                WorkflowCardHeaderProps={workflowCardHeaderProps}
-                WorkflowCardInstructionProps={workflowCardInstructionProps}
-                WorkflowCardActionsProps={workflowCardActionsProps}
-                resendInstructions={resendInstructions}
-                resendLabel={resendLabel}
-                verifyCodeInputLabel={verifyCodeInputLabel}
-                initialValue={initialValue}
-                onResend={onResend}
-                codeValidator={codeValidator}
-            />
-        </>
+        <VerifyCodeScreenBase
+            WorkflowCardBaseProps={workflowCardBaseProps}
+            WorkflowCardHeaderProps={workflowCardHeaderProps}
+            WorkflowCardInstructionProps={workflowCardInstructionProps}
+            WorkflowCardActionsProps={workflowCardActionsProps}
+            resendInstructions={resendInstructions}
+            resendLabel={resendLabel}
+            verifyCodeInputLabel={verifyCodeInputLabel}
+            initialValue={initialValue}
+            onResend={onResend}
+            codeValidator={codeValidator}
+            updateCode={setVerifyCode}
+        />
     );
 };

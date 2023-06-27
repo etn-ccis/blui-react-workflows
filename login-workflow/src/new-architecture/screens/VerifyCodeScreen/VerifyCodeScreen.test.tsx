@@ -43,9 +43,13 @@ describe('Verify Code Screen', () => {
 
     it('renders without crashing', () => {
         renderer();
-        
+
         expect(screen.getByText('Verify Email')).toBeInTheDocument();
-        expect(screen.getByText('A verification code has been sent to the email address you provided. Click the link or enter the code below to continue. This code is valid for 30 minutes.')).toBeInTheDocument();
+        expect(
+            screen.getByText(
+                'A verification code has been sent to the email address you provided. Click the link or enter the code below to continue. This code is valid for 30 minutes.'
+            )
+        ).toBeInTheDocument();
         expect(screen.getByText('Send Again')).toBeInTheDocument();
         expect(screen.getByText("Didn't receive an email?")).toBeInTheDocument();
         expect(screen.getByText('Next')).toBeInTheDocument();
