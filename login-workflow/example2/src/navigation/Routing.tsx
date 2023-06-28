@@ -19,7 +19,6 @@ import {
     GuardedScreen,
     ContactScreenBaseTest,
     RegistrationTestScreen,
-    LoginScreen,
     ChangePasswordDialogBaseTest,
     ResetPasswordScreen,
     CreatePasswordScreenTest,
@@ -30,7 +29,9 @@ import {
     ForgotPasswordFullScreen,
     ContactSupportScreenFullScreen,
     ChangePasswordDialogTest,
+    Login,
 } from '../screens';
+import { DebugScreen } from '../screens/new-architecture-test-screens/DebugScreen';
 
 export const routes: RouteConfig = {
     LOGIN: '/login',
@@ -45,17 +46,23 @@ export const GetCustomRoutes = (isAuthenticated: boolean) => {
     const customRoutes = [
         // Non-Authenticated Route: accessible only if the user is NOT authenticated
         {
-            path: `/login`,
+            path: '/login',
             element: (
                 <ExperimentalGuestGuard
                     isAuthenticated={isAuthenticated}
                     fallbackComponent={<Navigate to={`/guarded`} />}
                 >
-                    <LoginScreen />
+                    <SecurityContextProvider>
+                        <Login />
+                    </SecurityContextProvider>
                 </ExperimentalGuestGuard>
             ),
         },
-        // Non-Authenticated Route: accessible only if the user is NOT authenticated
+        {
+            path: '/debug',
+            element: <DebugScreen />,
+        },
+        // Non-Authenticated Routes: accessible only if the user is NOT authenticated
         {
             path: `/login-screen-base`,
             element: <LoginScreenBaseTest />,
@@ -68,33 +75,18 @@ export const GetCustomRoutes = (isAuthenticated: boolean) => {
                 </SecurityContextProvider>
             ),
         },
-        // Non-Authenticated Route: accessible only if the user is NOT authenticated
         {
-            path: `/registration-test`,
+            path: `/auth-provider-test`,
             element: (
-                <ExperimentalGuestGuard
-                    isAuthenticated={isAuthenticated}
-                    fallbackComponent={<Navigate to={`/login`} />}
-                >
-                    <RegistrationTestScreen />
-                </ExperimentalGuestGuard>
+                <SecurityContextProvider>
+                    <AuthTestScreen />
+                </SecurityContextProvider>
             ),
         },
-        // Non-Authenticated Route: accessible only if the user is NOT authenticated
         {
-            path: `/auth-test`,
-            element: (
-                <ExperimentalGuestGuard
-                    isAuthenticated={isAuthenticated}
-                    fallbackComponent={<Navigate to={`/login`} />}
-                >
-                    <SecurityContextProvider>
-                        <AuthTestScreen />
-                    </SecurityContextProvider>
-                </ExperimentalGuestGuard>
-            ),
+            path: `/registration-provider-test`,
+            element: <RegistrationTestScreen />,
         },
-        // Accessible from anywhere
         {
             path: `/contact-us`,
             element: <ContactScreenBaseTest />,
@@ -218,13 +210,13 @@ export const CustomRouterWithUnbiasedAuthGuard = ({
             // ...getDefaultPageRoutes,
             // Non-Authenticated Route: accessible only if the user is NOT authenticated
             {
-                path: `/login`,
+                path: `/debug`,
                 element: (
                     <ExperimentalGuestGuard
                         isAuthenticated={isAuthenticated}
                         fallbackComponent={<Navigate to={`/guarded`} />}
                     >
-                        <LoginScreen />
+                        <DebugScreen />
                     </ExperimentalGuestGuard>
                 ),
             },
@@ -239,16 +231,16 @@ export const CustomRouterWithUnbiasedAuthGuard = ({
                 element: (
                     <ExperimentalAuthGuard
                         isAuthenticated={isAuthenticated}
-                        fallbackComponent={<Navigate to={`/login`} />}
+                        fallbackComponent={<Navigate to={`/debug`} />}
                     >
                         <GuardedScreen />
                     </ExperimentalAuthGuard>
                 ),
             },
-            // 404? redirect to '/' for Login?
+            // 404? redirect to '/' for debug?
             {
                 path: '*',
-                element: <Navigate to={`/login`} />,
+                element: <Navigate to={`/debug`} />,
             },
         ],
         { basename: baseName }

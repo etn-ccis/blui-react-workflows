@@ -88,10 +88,10 @@ export const EulaScreen: React.FC<EulaFullScreenProps> = (props) => {
             onEulaAcceptedChange={onEulaAcceptedChange}
             WorkflowCardActionsProps={{
                 showNext: true,
-                nextLabel: 'Next',
+                nextLabel: t('bluiCommon:ACTIONS.NEXT'),
                 canGoNext: true,
                 showPrevious: true,
-                previousLabel: 'Back',
+                previousLabel: t('bluiCommon:ACTIONS.BACK'),
                 canGoPrevious: true,
                 currentStep: 0,
                 totalSteps: 6,
