@@ -47,7 +47,7 @@ export const VerifyCodeScreenBase: React.FC<React.PropsWithChildren<VerifyCodeSc
         (code: string) => {
             setVerifyCode(code);
             const validatorResponse = codeValidator(code);
-            updateCode(code);
+            if (updateCode) updateCode(code);
             setIsCodeValid(typeof validatorResponse === 'boolean' ? validatorResponse : false);
             setCodeError(typeof validatorResponse === 'string' ? validatorResponse : '');
         },
