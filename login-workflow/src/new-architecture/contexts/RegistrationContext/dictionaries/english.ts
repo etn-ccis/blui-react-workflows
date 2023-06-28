@@ -35,7 +35,7 @@ const resources: RegistrationLanguageFile = {
             VERIFY_EMAIL: {
                 MESSAGE:
                     'A verification code has been sent to the email address you provided. Click the link or enter the code below to continue. This code is valid for 30 minutes.',
-                RESEND: 'Send Again',
+                RESEND: 'Resend Verification Email',
                 VERIFICATION_CODE_PROMPT: "Didn't receive an email?",
                 VERIFICATION: 'Verification Code',
                 CODE_VALIDATOR_ERROR: 'You must provide a valid code',

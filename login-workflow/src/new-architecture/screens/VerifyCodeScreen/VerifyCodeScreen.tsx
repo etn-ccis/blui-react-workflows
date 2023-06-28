@@ -26,11 +26,9 @@ export const VerifyCodeScreen: React.FC<VerifyCodeScreenProps> = (props) => {
     const {
         codeValidator = (code: string): boolean | string =>
             code?.length > 0 ? true : t('bluiRegistration:SELF_REGISTRATION.VERIFY_EMAIL.CODE_VALIDATOR_ERROR'),
-        onResend = (): void => {
-            console.error('Resend the verification code to your email');
-        },
+        onResend,
         resendInstructions = t('bluiRegistration:SELF_REGISTRATION.VERIFY_EMAIL.VERIFICATION_CODE_PROMPT'),
-        resendLabel = t('bluiRegistration:SELF_REGISTRATION.VERIFY_EMAIL.RESEND'),
+        resendLabel = t('bluiCommon:ACTIONS.RESEND'),
         verifyCodeInputLabel = t('bluiRegistration:SELF_REGISTRATION.VERIFY_EMAIL.VERIFICATION'),
         initialValue = screenData.VerifyCode.code,
     } = props;
