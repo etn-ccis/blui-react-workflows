@@ -27,8 +27,8 @@ export const RegistrationWorkflowScreen = (): JSX.Element => {
         >
             <RegistrationWorkflow initialScreenIndex={0}>
                 <EulaScreen />
-                <CreatePasswordScreen />
                 <VerifyCodeScreen />
+                <CreatePasswordScreen />
                 <RegistrationSuccessScreen />
             </RegistrationWorkflow>
         </RegistrationContextProvider>
