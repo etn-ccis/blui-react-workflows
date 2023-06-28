@@ -13,15 +13,12 @@ export const AccountDetailsScreenBase: React.FC<AccountDetailsScreenProps> = (pr
     const {
         firstNameLabel,
         initialFirstName,
-        firstNameValidator = (name: string): boolean | string =>
-            name?.length > 2 ? true : 'First name must be at least 3 characters',
+        firstNameValidator,
         firstNameTextFieldProps,
         lastNameLabel,
         initialLastName,
-        lastNameValidator = (name: string): boolean | string =>
-            name?.length > 2 ? true : 'Last name must be at least 3 characters',
+        lastNameValidator,
         lastNameTextFieldProps,
-        sx,
     } = props;
 
     const cardBaseProps = props.WorkflowCardBaseProps || {};
@@ -47,24 +44,34 @@ export const AccountDetailsScreenBase: React.FC<AccountDetailsScreenProps> = (pr
 
     const onFirstNameChange = useCallback(
         (firstName: string) => {
+            // if (firstNameValidator) {
             setFirstNameInput(firstName);
-            const validatorResponse = firstNameValidator(firstName);
+            if (firstNameValidator) {
+                const validatorResponse = firstNameValidator(firstName);
 
-            setIsFirstNameValid(typeof validatorResponse === 'boolean' ? validatorResponse : false);
-            setShowFirstNameError(typeof validatorResponse === 'boolean' ? false : true);
-            setFirstNameError(typeof validatorResponse === 'string' ? validatorResponse : '');
+                setIsFirstNameValid(typeof validatorResponse === 'boolean' ? validatorResponse : false);
+                setShowFirstNameError(typeof validatorResponse === 'boolean' ? false : true);
+                setFirstNameError(typeof validatorResponse === 'string' ? validatorResponse : '');
+            }
+
+            // }
         },
         [firstNameValidator]
     );
 
     const onLastNameChange = useCallback(
         (lastName: string) => {
+            // if (lastNameValidator) {
             setLastNameInput(lastName);
-            const validatorResponse = lastNameValidator(lastName);
+            if (lastNameValidator) {
+                const validatorResponse = lastNameValidator(lastName);
 
-            setIsLastNameValid(typeof validatorResponse === 'boolean' ? validatorResponse : false);
-            setShowLastNameError(typeof validatorResponse === 'boolean' ? false : true);
-            setLastNameError(typeof validatorResponse === 'string' ? validatorResponse : '');
+                setIsLastNameValid(typeof validatorResponse === 'boolean' ? validatorResponse : false);
+                setShowLastNameError(typeof validatorResponse === 'boolean' ? false : true);
+                setLastNameError(typeof validatorResponse === 'string' ? validatorResponse : '');
+            }
+
+            // }
         },
         [lastNameValidator]
     );
@@ -92,23 +99,17 @@ export const AccountDetailsScreenBase: React.FC<AccountDetailsScreenProps> = (pr
                     }}
                     error={showFirstNameError}
                     helperText={firstNameError}
-                    sx={[
-                        {
-                            mb: { md: 0, sm: 1, xs: 4 },
-                        },
-                        ...(Array.isArray(sx) ? sx : [sx]),
-                    ]}
+                    sx={{
+                        mb: { md: 0, sm: 1, xs: 4 },
+                    }}
                 />
                 <TextField
                     id="last"
                     fullWidth
                     variant="filled"
-                    sx={[
-                        {
-                            mt: { md: 4, sm: 3 },
-                        },
-                        ...(Array.isArray(sx) ? sx : [sx]),
-                    ]}
+                    sx={{
+                        mt: { md: 4, sm: 3 },
+                    }}
                     {...lastNameTextFieldProps}
                     inputRef={lastNameRef}
                     label={lastNameLabel}

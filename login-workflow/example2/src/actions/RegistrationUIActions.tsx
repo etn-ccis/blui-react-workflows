@@ -1,5 +1,5 @@
 /* eslint-disable @typescript-eslint/no-unused-vars */
-import { RegistrationUIActions } from '@brightlayer-ui/react-auth-workflow';
+import { RegistrationUIActions, AccountDetails } from '@brightlayer-ui/react-auth-workflow';
 
 // Constants
 import { SAMPLE_EULA } from '../constants/sampleEula';
@@ -52,6 +52,21 @@ export const ProjectRegistrationUIActions: () => RegistrationUIActions = () => (
      * @returns Resolve when the server accepted the request.
      */
     acceptEula: async (): Promise<boolean> => {
+        await sleep(800);
+        if (isRandomFailure()) {
+            throw new Error('Sorry, there was a problem sending your request.');
+        }
+        return true;
+    },
+
+    /**
+     * The user has to fill account details such as first name and last name to register.
+     * The API should now update account details.
+     * @param details include first name, last name or any other extra details of uset.
+     *
+     * @returns Resolve when the server can able to update account details, false if not able to update account details with error message.
+     */
+    setAccountDetails: async (details: AccountDetails): Promise<boolean> => {
         await sleep(800);
         if (isRandomFailure()) {
             throw new Error('Sorry, there was a problem sending your request.');

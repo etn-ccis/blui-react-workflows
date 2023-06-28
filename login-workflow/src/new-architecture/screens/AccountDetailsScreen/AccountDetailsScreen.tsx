@@ -1,30 +1,67 @@
-import React, { useState } from 'react';
+import React, { useCallback, useState } from 'react';
 import { AccountDetailsScreenBase, AccountDetailsScreenProps } from '../AccountDetailsScreen';
 import { useLanguageLocale } from '../../hooks';
-import { useRegistrationWorkflowContext } from '../../contexts';
+import { useRegistrationContext, useRegistrationWorkflowContext } from '../../contexts';
 
-type AccountDetailsFullScreenProps = AccountDetailsScreenProps & {
-    title?: string;
-    instructions?: string;
-};
-
-export const AccountDetailsScreen: React.FC<AccountDetailsFullScreenProps> = (props) => {
+export const AccountDetailsScreen: React.FC<AccountDetailsScreenProps> = (props) => {
     const { t } = useLanguageLocale();
+    const { actions } = useRegistrationContext();
     const regWorkflow = useRegistrationWorkflowContext();
     const { nextScreen, previousScreen, screenData } = regWorkflow;
     const [firstName, setFirstName] = useState(screenData.AccountDetails.firstName ?? '');
     const [lastName, setLastName] = useState(screenData.AccountDetails.lastName ?? '');
+    const [isLoading, setIsLoading] = useState(false);
+
+    const onNext = useCallback(async (): Promise<void> => {
+        setIsLoading(true);
+        try {
+            await actions().setAccountDetails({ firstName, lastName });
+            setIsLoading(false);
+            nextScreen({
+                screenId: 'AccountDetails',
+                values: { firstName, lastName },
+            });
+        } catch {
+            console.error('Error while updating account details...');
+        }
+        setIsLoading(false);
+    }, [firstName, lastName, actions, nextScreen, setIsLoading]);
+
+    const onPrevious = useCallback(() => {
+        setFirstName(firstName);
+        setLastName(lastName);
+        previousScreen({
+            screenId: 'AccountDetails',
+            values: { firstName, lastName },
+        });
+    }, [firstName, lastName, previousScreen]);
 
     const {
-        title = t('bluiRegistration:REGISTRATION.STEPS.ACCOUNT_DETAILS'),
-        instructions = t('bluiRegistration:REGISTRATION.INSTRUCTIONS.ACCOUNT_DETAILS'),
+        WorkflowCardHeaderProps: workflowCardHeaderProps = {
+            title: t('bluiRegistration:REGISTRATION.STEPS.ACCOUNT_DETAILS'),
+        },
+        WorkflowCardInstructionProps: workflowCardInstructionProps = {
+            instructions: t('bluiRegistration:REGISTRATION.INSTRUCTIONS.ACCOUNT_DETAILS'),
+        },
+        WorkflowCardActionsProps: workflowCardActionsProps = {
+            onNext: (): void => {
+                void onNext();
+            },
+            onPrevious: (): void => {
+                void onPrevious();
+            },
+            showNext: true,
+            showPrevious: true,
+            nextLabel: t('bluiCommon:ACTIONS.NEXT'),
+            previousLabel: t('bluiCommon:ACTIONS.BACK'),
+            totalSteps: 6,
+            currentStep: 5,
+        },
+        WorkflowCardBaseProps: workflowCardBaseProps = {
+            loading: isLoading,
+        },
         firstNameLabel = t('bluiCommon:FORMS.FIRST_NAME'),
-        /* eslint-disable @typescript-eslint/no-unused-vars */
-        initialFirstName,
-        initialLastName,
         lastNameLabel = t('bluiCommon:FORMS.LAST_NAME'),
-        firstNameTextFieldProps,
-        lastNameTextFieldProps,
         firstNameValidator = (name: string): boolean | string => {
             if (name?.length > 2) {
                 setFirstName(name);
@@ -39,60 +76,20 @@ export const AccountDetailsScreen: React.FC<AccountDetailsFullScreenProps> = (pr
             }
             return t('bluiCommon:FORMS.LAST_NAME_LENGTH_ERROR');
         },
-        sx,
     } = props;
-
-    const onNext = (): void => {
-        try {
-            setFirstName(firstName);
-            setLastName(lastName);
-            nextScreen({
-                screenId: 'AccountDetails',
-                values: { firstName: firstName, lastName: lastName },
-            });
-        } catch {
-            console.error('Error while updating account details...');
-        }
-    };
-
-    const onPrevious = (): void => {
-        try {
-            setFirstName(firstName);
-            setLastName(lastName);
-            previousScreen({
-                screenId: 'AccountDetails',
-                values: { firstName: firstName, lastName: lastName },
-            });
-        } catch {
-            console.error('Error while updating account details...');
-        }
-    };
 
     return (
         <AccountDetailsScreenBase
-            WorkflowCardHeaderProps={{ title: title }}
-            WorkflowCardInstructionProps={{ instructions: instructions }}
+            WorkflowCardBaseProps={workflowCardBaseProps}
+            WorkflowCardHeaderProps={workflowCardHeaderProps}
+            WorkflowCardInstructionProps={workflowCardInstructionProps}
             initialFirstName={firstName}
             initialLastName={lastName}
             firstNameLabel={firstNameLabel}
             firstNameValidator={firstNameValidator}
             lastNameLabel={lastNameLabel}
             lastNameValidator={lastNameValidator}
-            firstNameTextFieldProps={firstNameTextFieldProps}
-            lastNameTextFieldProps={lastNameTextFieldProps}
-            sx={sx}
-            WorkflowCardActionsProps={{
-                canGoPrevious: true,
-                showPrevious: true,
-                previousLabel: t('bluiCommon:ACTIONS.BACK'),
-                onPrevious: onPrevious,
-                canGoNext: true,
-                showNext: true,
-                nextLabel: t('bluiCommon:ACTIONS.NEXT'),
-                onNext: onNext,
-                totalSteps: 5,
-                currentStep: 1,
-            }}
+            WorkflowCardActionsProps={workflowCardActionsProps}
         />
     );
 };

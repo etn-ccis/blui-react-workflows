@@ -2,27 +2,24 @@ import React from 'react';
 import '@testing-library/jest-dom';
 import { cleanup, render, screen, RenderResult, fireEvent } from '@testing-library/react';
 import { AccountDetailsScreen } from './AccountDetailsScreen';
-import {
-    RegistrationContextProvider,
-    RegistrationContextProviderProps,
-    i18nRegistrationInstance,
-} from '../../contexts';
+import { RegistrationContextProvider } from '../../contexts';
 import { AccountDetailsScreenProps } from './types';
 import { RegistrationWorkflow } from '../../components';
+import { defaultProps as registrationContextProviderProps } from '../../contexts/RegistrationContext/RegistrationContextProvider.test';
 
-type AccountDetailsFullScreenProps = AccountDetailsScreenProps & {
-    title?: string;
-    instructions?: string;
-};
+// type AccountDetailsFullScreenProps = AccountDetailsScreenProps & {
+//     title?: string;
+//     instructions?: string;
+// };
 
 afterEach(cleanup);
 
-const defaultProps: RegistrationContextProviderProps = {
-    language: 'en',
-    i18n: i18nRegistrationInstance,
-    navigate: (): void => {},
-    routeConfig: {},
-};
+// const defaultProps: RegistrationContextProviderProps = {
+//     language: 'en',
+//     i18n: i18nRegistrationInstance,
+//     navigate: (): void => {},
+//     routeConfig: {},
+// };
 
 describe('Accont Details Screen', () => {
     let mockOnNext: any;
@@ -37,9 +34,9 @@ describe('Accont Details Screen', () => {
         mockOnPrevious = jest.fn();
     });
 
-    const renderer = (props?: AccountDetailsFullScreenProps): RenderResult =>
+    const renderer = (props?: AccountDetailsScreenProps): RenderResult =>
         render(
-            <RegistrationContextProvider {...defaultProps}>
+            <RegistrationContextProvider {...registrationContextProviderProps}>
                 <RegistrationWorkflow initialScreenIndex={0}>
                     <AccountDetailsScreen {...props} />
                 </RegistrationWorkflow>
@@ -53,14 +50,22 @@ describe('Accont Details Screen', () => {
     });
 
     it('should update values when passed as props', () => {
-        renderer({ title: 'Test Title' });
+        renderer({
+            WorkflowCardHeaderProps: {
+                title: 'Test Title',
+            },
+        });
 
         expect(screen.queryByText('Account Details')).toBeNull();
         expect(screen.getByText('Test Title')).toBeInTheDocument();
     });
 
     it('should update instruction  when passed as props', () => {
-        renderer({ instructions: 'Test Instruction' });
+        renderer({
+            WorkflowCardInstructionProps: {
+                instructions: 'Test Instruction',
+            },
+        });
 
         expect(screen.queryByText('Enter your details below to complete account creation.')).toBeNull();
         expect(screen.getByText('Test Instruction')).toBeInTheDocument();
