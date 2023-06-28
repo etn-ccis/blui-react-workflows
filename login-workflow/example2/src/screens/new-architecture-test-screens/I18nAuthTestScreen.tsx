@@ -11,8 +11,8 @@ export const I18nAuthTestScreen: React.FC<React.PropsWithChildren> = () => {
     return (
         <>
             <Typography sx={{ mb: 4 }}>Current Language: {language}</Typography>
-            <Typography>{t('bluiAuth:MESSAGES.WELCOME')}</Typography>
-            <Typography sx={{ mb: 2 }}>{t('bluiAuth:MESSAGES.CONGRATS')}</Typography>
+            <Typography>{t('bluiCommon:MESSAGES.WELCOME')}</Typography>
+            <Typography sx={{ mb: 2 }}>{t('bluiCommon:MESSAGES.CONGRATS')}</Typography>
             <Button
                 onClick={(): void => {
                     setLanguage('en');

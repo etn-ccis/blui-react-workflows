@@ -37,10 +37,10 @@ export const ExistingAccountRegisterSuccessSubscreen: React.FC<ExistingAccountRe
     const navigate = useNavigate();
 
     const {
-        cardTitle = t('blui:REGISTRATION.STEPS.COMPLETE'),
+        cardTitle = t('bluiRegistration:REGISTRATION.STEPS.COMPLETE'),
         messageIcon = <Person color={'primary'} sx={{ fontSize: 100, mb: 2 }} />,
-        messageTitle = t('blui:MESSAGES.WELCOME'),
-        messageBody = t('blui:REGISTRATION.SUCCESS_EXISTING'),
+        messageTitle = t('bluiCommon:MESSAGES.WELCOME'),
+        messageBody = t('bluiRegistration:REGISTRATION.SUCCESS_EXISTING'),
         cardActions = (
             <Button
                 variant={'contained'}
@@ -49,7 +49,7 @@ export const ExistingAccountRegisterSuccessSubscreen: React.FC<ExistingAccountRe
                 disableElevation
                 onClick={(): void => navigate(routes.LOGIN)}
             >
-                {t('blui:ACTIONS.CONTINUE')}
+                {t('bluiCommon:ACTIONS.CONTINUE')}
             </Button>
         ),
     } = props;

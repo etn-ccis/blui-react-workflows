@@ -5,7 +5,7 @@ import Event from '@mui/icons-material/Event';
 import { useNavigate } from 'react-router';
 import { useApp } from '../../contexts/AppContextProvider';
 // eslint-disable-next-line arrow-body-style
-export const LoginScreen = (): JSX.Element => {
+export const DebugScreen = (): JSX.Element => {
     const { setIsAuthenticated } = useApp();
     const navigate = useNavigate();
     return (
@@ -27,30 +27,33 @@ export const LoginScreen = (): JSX.Element => {
                             <Button
                                 variant="contained"
                                 sx={{ width: 200, m: 2 }}
-                                onClick={(): void => setIsAuthenticated(true)}
+                                onClick={(): void => {
+                                    navigate('/login');
+                                    setIsAuthenticated(false);
+                                }}
                             >
-                                Login
+                                Login Screen (Full)
                             </Button>
                             <Button
                                 variant="contained"
                                 sx={{ width: 200, m: 2 }}
                                 onClick={(): void => navigate('/login-screen-base')}
                             >
-                                Test Login Screen Base
+                                Login Screen (Base)
                             </Button>
                             <Button
                                 variant="contained"
                                 sx={{ width: 200, m: 2 }}
-                                onClick={(): void => navigate('/login-screen-full')}
+                                onClick={(): void => navigate('/auth-provider-test')}
                             >
-                                Test Login Screen Full
+                                Auth ContextProvider
                             </Button>
                             <Button
                                 variant="contained"
                                 sx={{ width: 200, m: 2 }}
-                                onClick={(): void => navigate('/registration-test')}
+                                onClick={(): void => navigate('/registration-provider-test')}
                             >
-                                Test Registration
+                                Registration ContextProvider
                             </Button>
                             <Button
                                 variant="contained"
@@ -58,13 +61,6 @@ export const LoginScreen = (): JSX.Element => {
                                 onClick={(): void => navigate('/verify-code-test')}
                             >
                                 Verify Code Screen
-                            </Button>
-                            <Button
-                                variant="contained"
-                                sx={{ width: 200, m: 2 }}
-                                onClick={(): void => navigate('/auth-test')}
-                            >
-                                Test Auth
                             </Button>
                             <Button
                                 variant="contained"
