@@ -43,7 +43,7 @@ export const ResetPasswordScreen: React.FC<ResetPasswordScreenProps> = (props) =
         PasswordProps: passwordProps = {
             newPasswordLabel: t('bluiAuth:CHANGE_PASSWORD.NEW_PASSWORD'),
             confirmPasswordLabel: t('bluiAuth:CHANGE_PASSWORD.CONFIRM_NEW_PASSWORD'),
-            passwordNotMatchErrorMsg: t('bluiCommon:FORMS.PASS_MATCH_ERROR'),
+            passwordNotMatchError: t('bluiCommon:FORMS.PASS_MATCH_ERROR'),
             passwordRequirements: passwordRequirements,
             passwordRef,
             confirmRef,

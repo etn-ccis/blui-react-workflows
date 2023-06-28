@@ -47,6 +47,7 @@ const resources: CommonTranslationsFile = {
             FAILURE: 'Échec',
             LOADING: 'le chargement...',
             REQUEST_ERROR: `Désolé, un problème est survenu lors de l'envoi de votre demande.`,
+            PASSWORD_REQUIRED_ERROR: 'Mot de passe requis',
         },
         FORMS: {
             FIRST_NAME: 'Prénom',
