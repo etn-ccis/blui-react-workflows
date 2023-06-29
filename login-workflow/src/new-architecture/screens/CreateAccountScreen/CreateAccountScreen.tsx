@@ -23,6 +23,7 @@ type CreateAccountFullScreenProps = CreateAccountScreenProps & {
  *
  * @category Component
  */
+const EMAIL_REGEX = /^[A-Z0-9._%+'-]+@[A-Z0-9.-]+\.[A-Z]{2,}$/i;
 
 export const CreateAccountScreen: React.FC<CreateAccountFullScreenProps> = (props) => {
     const { t } = useLanguageLocale();
@@ -34,8 +35,12 @@ export const CreateAccountScreen: React.FC<CreateAccountFullScreenProps> = (prop
         instructions = t('bluiRegistration:SELF_REGISTRATION.INSTRUCTIONS'),
         emailLabel = t('bluiCommon:LABELS.EMAIL'),
         initialValue = screenData.CreateAccount.emailAddress,
-        // eslint-disable-next-line @typescript-eslint/no-unused-vars
-        emailValidator = (_email: string): boolean | string => true,
+        emailValidator = (email: string): boolean | string => {
+            if (!EMAIL_REGEX.test(email)) {
+                return 'Enter a valid email address';
+            }
+            return true;
+        },
         emailTextFieldProps,
     } = props;
     const [emailInputValue, setEmailInputValue] = useState(screenData.CreateAccount.emailAddress);
