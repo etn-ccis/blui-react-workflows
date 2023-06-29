@@ -37,7 +37,7 @@ export const CreateAccountScreen: React.FC<CreateAccountFullScreenProps> = (prop
         initialValue = screenData.CreateAccount.emailAddress,
         emailValidator = (email: string): boolean | string => {
             if (!EMAIL_REGEX.test(email)) {
-                return 'Enter a valid email address';
+                return t('bluiCommon:MESSAGES.EMAIL_ENTRY_ERROR');
             }
             return true;
         },
