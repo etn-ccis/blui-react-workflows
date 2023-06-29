@@ -102,7 +102,6 @@ describe('Verify Code Screen', () => {
         fireEvent.blur(verifyCodeInput);
         expect(screen.getByText(/Next/i)).toBeEnabled();
         expect(verifyCodeInput).toHaveAttribute('aria-invalid', 'false');
-        //expect(screen.getByText('Code must be at least 3 characters')).toBeInTheDocument();
     });
 
     it('calls onResend when the resend link is clicked', () => {
