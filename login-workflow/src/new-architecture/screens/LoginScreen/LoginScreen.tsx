@@ -54,34 +54,34 @@ export const LoginScreen: React.FC<React.PropsWithChildren<LoginScreenPropsPubli
     }, []);
 
     const {
-        usernameLabel = t('bluiAuth:LABELS.EMAIL'),
+        usernameLabel = t('bluiCommon:LABELS.EMAIL'),
         usernameTextFieldProps,
         usernameValidator = (username: string): string | boolean => {
             if (!EMAIL_REGEX.test(username)) {
-                return 'Enter a valid email address';
+                return t('bluiCommon:MESSAGES.EMAIL_ENTRY_ERROR');
             }
             return true;
         },
         initialUsernameValue = rememberMeDetails?.email || '',
-        passwordLabel = t('bluiAuth:LABELS.PASSWORD'),
+        passwordLabel = t('bluiCommon:LABELS.PASSWORD'),
         passwordTextFieldProps,
-        passwordRequiredValidatorText = t('bluiAuth:MESSAGES.PASSWORD_REQUIRED_ERROR'),
+        passwordRequiredValidatorText = t('bluiCommon:MESSAGES.PASSWORD_REQUIRED_ERROR'),
         showRememberMe = true,
-        rememberMeLabel = t('bluiAuth:ACTIONS.REMEMBER'),
+        rememberMeLabel = t('bluiCommon:ACTIONS.REMEMBER'),
         rememberMeInitialValue = rememberMeDetails?.rememberMe || false,
         onRememberMeChanged = (value: boolean): void => {
             props.onRememberMeChanged?.(value);
         },
-        loginButtonLabel = t('bluiAuth:ACTIONS.LOG_IN'),
+        loginButtonLabel = t('bluiCommon:ACTIONS.LOG_IN'),
         showForgotPassword = true,
-        forgotPasswordLabel = t('bluiAuth:LABELS.FORGOT_PASSWORD'),
+        forgotPasswordLabel = t('bluiCommon:LABELS.FORGOT_PASSWORD'),
         onForgotPassword = (): void => navigate(routeConfig.FORGOT_PASSWORD),
         showSelfRegistration = true,
-        selfRegisterInstructions = t('bluiAuth:LABELS.NEED_ACCOUNT'),
-        selfRegisterButtonLabel = t('bluiAuth:ACTIONS.CREATE_ACCOUNT'),
+        selfRegisterInstructions = t('bluiCommon:LABELS.NEED_ACCOUNT'),
+        selfRegisterButtonLabel = t('bluiCommon:ACTIONS.CREATE_ACCOUNT'),
         onSelfRegister = (): void => navigate(routeConfig.REGISTER_SELF),
         showContactSupport = true,
-        contactSupportLabel = t('bluiAuth:MESSAGES.CONTACT'),
+        contactSupportLabel = t('bluiCommon:MESSAGES.CONTACT'),
         onContactSupport = (): void => navigate(routeConfig.SUPPORT),
         errorDisplayConfig,
         showCyberSecurityBadge = true,

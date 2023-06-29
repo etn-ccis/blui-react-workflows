@@ -68,4 +68,19 @@ export const ProjectRegistrationUIActions: () => RegistrationUIActions = () => (
         console.log(emailAddress, ' was used to request a registration code');
         return 'a1b2c3';
     },
+    completeRegistration: async (
+        userData: any,
+        validationCode: string | number,
+        validationEmail?: string
+    ): Promise<{ email: string; organizationName: string }> => {
+        const email = 'example@email.com';
+        const organizationName = 'Acme Co.';
+        const userInfo = { email, organizationName };
+
+        await sleep(1000);
+        if (isRandomFailure()) {
+            throw new Error('Sorry, there was a problem sending your request.');
+        }
+        return userInfo;
+    },
 });
