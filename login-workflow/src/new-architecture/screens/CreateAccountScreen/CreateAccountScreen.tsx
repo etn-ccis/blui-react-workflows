@@ -56,8 +56,6 @@ export const CreateAccountScreen: React.FC<CreateAccountFullScreenProps> = (prop
                 screenId: 'CreateAccount',
                 values: { emailAddress: emailInputValue },
             });
-            // eslint-disable-next-line no-console
-            console.log('going to next screen... with screen data: ', screenData);
         } catch {
             console.error('Error while updating create account...');
         }
@@ -69,16 +67,12 @@ export const CreateAccountScreen: React.FC<CreateAccountFullScreenProps> = (prop
                 screenId: 'CreateAccount',
                 values: { emailAddress: emailInputValue },
             });
-            // eslint-disable-next-line no-console
-            console.log('going to previous screen... with screen data: ', screenData);
         } catch {
             console.error('Error while updating create account...');
         }
     };
 
     const onEmailInputValueChange = (e: any): void => {
-        // eslint-disable-next-line no-console
-        console.log('onEmailInputValueChange event:', e.target.value);
         setEmailInputValue(e.target.value);
     };
 
@@ -99,11 +93,9 @@ export const CreateAccountScreen: React.FC<CreateAccountFullScreenProps> = (prop
                 canGoPrevious: true,
                 onNext: (): void => {
                     void onNext();
-                    // navigate(routeConfig.LOGIN);
                 },
                 onPrevious: (): void => {
                     void onPrevious();
-                    // navigate(routeConfig.LOGIN);
                 },
             }}
         />
