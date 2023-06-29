@@ -7,19 +7,7 @@ import { AccountDetailsScreenProps } from './types';
 import { RegistrationWorkflow } from '../../components';
 import { defaultProps as registrationContextProviderProps } from '../../contexts/RegistrationContext/RegistrationContextProvider.test';
 
-// type AccountDetailsFullScreenProps = AccountDetailsScreenProps & {
-//     title?: string;
-//     instructions?: string;
-// };
-
 afterEach(cleanup);
-
-// const defaultProps: RegistrationContextProviderProps = {
-//     language: 'en',
-//     i18n: i18nRegistrationInstance,
-//     navigate: (): void => {},
-//     routeConfig: {},
-// };
 
 describe('Accont Details Screen', () => {
     let mockOnNext: any;
