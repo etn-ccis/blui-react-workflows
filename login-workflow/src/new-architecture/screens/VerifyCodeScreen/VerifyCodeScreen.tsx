@@ -13,6 +13,7 @@ import { useRegistrationContext, useRegistrationWorkflowContext } from '../../co
  * @param resendInstructions text to display ahead of the resend link/button
  * @param resendLabel label for the resend link/button
  * @param initialValue code used to pre-populate the field
+ * @param updateCode get the update code when user click the send again link
  *
  * @category Component
  */
@@ -50,12 +51,12 @@ export const VerifyCodeScreen: React.FC<VerifyCodeScreenProps> = (props) => {
         }
     }, [verifyCode, nextScreen, actions]);
 
-    const onPrevious = useCallback(() => {
+    const onPrevious = (): void => {
         previousScreen({
             screenId: 'VerifyCode',
             values: { code: verifyCode },
         });
-    }, [verifyCode, previousScreen]);
+    };
 
     const {
         WorkflowCardBaseProps: workflowCardBaseProps = {
