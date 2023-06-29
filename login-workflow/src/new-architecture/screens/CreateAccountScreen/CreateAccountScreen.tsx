@@ -31,8 +31,12 @@ export const CreateAccountScreen: React.FC<CreateAccountFullScreenProps> = (prop
     const regWorkflow = useRegistrationWorkflowContext();
     const { nextScreen, previousScreen, screenData } = regWorkflow;
     const {
-        title = t('bluiRegistration:REGISTRATION.STEPS.CREATE_ACCOUNT'),
-        instructions = t('bluiRegistration:SELF_REGISTRATION.INSTRUCTIONS'),
+        WorkflowCardHeaderProps: workflowCardHeaderProps = {
+            title: t('bluiRegistration:REGISTRATION.STEPS.CREATE_ACCOUNT'),
+        },
+        WorkflowCardInstructionProps: workflowCardInstructionProps = {
+            instructions: t('bluiRegistration:SELF_REGISTRATION.INSTRUCTIONS'),
+        },
         emailLabel = t('bluiCommon:LABELS.EMAIL'),
         initialValue = screenData.CreateAccount.emailAddress,
         emailValidator = (email: string): boolean | string => {
@@ -50,7 +54,6 @@ export const CreateAccountScreen: React.FC<CreateAccountFullScreenProps> = (prop
 
         // eslint-disable-next-line no-console
         console.log('success: ', success);
-
         try {
             nextScreen({
                 screenId: 'CreateAccount',
@@ -78,8 +81,8 @@ export const CreateAccountScreen: React.FC<CreateAccountFullScreenProps> = (prop
 
     return (
         <CreateAccountScreenBase
-            WorkflowCardHeaderProps={{ title: title }}
-            WorkflowCardInstructionProps={{ instructions: instructions }}
+            WorkflowCardHeaderProps={workflowCardHeaderProps}
+            WorkflowCardInstructionProps={workflowCardInstructionProps}
             emailLabel={emailLabel}
             initialValue={initialValue}
             emailTextFieldProps={{ ...emailTextFieldProps, onChange: onEmailInputValueChange }}
