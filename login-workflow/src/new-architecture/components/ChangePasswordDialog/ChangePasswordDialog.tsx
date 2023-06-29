@@ -12,6 +12,7 @@ export const ChangePasswordDialog: React.FC<ChangePasswordDialogProps> = (props)
     const [passwordInput, setPasswordInput] = useState('');
     const [confirmInput, setConfirmInput] = useState('');
     const [currentInput, setCurrentInput] = useState('');
+    const [showErrorDialog, setShowErrorDialog] = useState(false);
     const { actions, navigate, routeConfig } = useAuthContext();
 
     const passwordRequirements = defaultPasswordRequirements(t);
@@ -43,7 +44,13 @@ export const ChangePasswordDialog: React.FC<ChangePasswordDialogProps> = (props)
         passwordInput !== '' && confirmInput !== '' && currentInput !== '' && passwordInput === confirmInput;
 
     const changePasswordSubmit = (): void => {
-        if (checkPasswords) void actions().changePassword(currentInput, passwordInput);
+        if (checkPasswords) {
+            try {
+                void actions().changePassword(currentInput, passwordInput);
+            } catch {
+                setShowErrorDialog(true);
+            }
+        }
     };
 
     const {
@@ -64,6 +71,13 @@ export const ChangePasswordDialog: React.FC<ChangePasswordDialogProps> = (props)
             passwordRequirements,
             onSubmit: changePasswordSubmit,
         },
+        errorDialogProps = {
+            open: showErrorDialog,
+            title: 'Error',
+            body: 'Got an error, please try again!',
+            onClose: (): void => setShowErrorDialog(false),
+            dismissButtonText: 'Dismiss',
+        },
     } = props;
 
     return (
@@ -78,6 +92,7 @@ export const ChangePasswordDialog: React.FC<ChangePasswordDialogProps> = (props)
             onPrevious={onPrevious}
             onSubmit={changePasswordSubmit}
             passwordProps={passwordProps}
+            errorDialogProps={errorDialogProps}
         />
     );
 };
