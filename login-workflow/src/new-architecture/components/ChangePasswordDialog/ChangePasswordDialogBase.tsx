@@ -15,6 +15,7 @@ import { ChangePasswordDialogProps } from './types';
 import { SetPassword } from '../SetPassword';
 import { PasswordTextField } from '../PasswordTextField';
 import { BasicDialog } from '../Dialog';
+import { Spinner } from '../../../components';
 
 /**
  * Component that renders a dialog with textField to enter current password and a change password form with a new password and confirm password inputs.
@@ -46,6 +47,7 @@ export const ChangePasswordDialogBase: React.FC<ChangePasswordDialogProps> = (pr
         onPrevious,
         errorDialogProps,
         passwordProps,
+        loading,
     } = props;
     const theme = useTheme();
     const matchesSM = useMediaQuery(theme.breakpoints.down('sm'));
@@ -64,6 +66,7 @@ export const ChangePasswordDialogBase: React.FC<ChangePasswordDialogProps> = (pr
 
     return (
         <Dialog sx={sx} fullScreen={matchesSM} open={true} maxWidth={'xs'}>
+            <Spinner data-testid="blui-spinner" visible={loading} />
             <BasicDialog {...errorDialogProps} />
             <DialogTitle
                 sx={{

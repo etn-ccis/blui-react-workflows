@@ -15,4 +15,5 @@ export type ChangePasswordDialogProps = { passwordProps?: SetPasswordProps } & {
     onSubmit?: () => void;
     onPrevious?: () => void;
     sx?: SxProps;
+    loading?: boolean;
 };

@@ -13,6 +13,7 @@ export const ChangePasswordDialog: React.FC<ChangePasswordDialogProps> = (props)
     const [confirmInput, setConfirmInput] = useState('');
     const [currentInput, setCurrentInput] = useState('');
     const [showErrorDialog, setShowErrorDialog] = useState(false);
+    const [isLoading, setIsLoading] = useState(false);
     const { actions, navigate, routeConfig } = useAuthContext();
 
     const passwordRequirements = defaultPasswordRequirements(t);
@@ -46,7 +47,10 @@ export const ChangePasswordDialog: React.FC<ChangePasswordDialogProps> = (props)
     const changePasswordSubmit = (): void => {
         if (checkPasswords) {
             try {
+                setIsLoading(true);
                 void actions().changePassword(currentInput, passwordInput);
+                setIsLoading(false);
+                setShowErrorDialog(true);
             } catch {
                 setShowErrorDialog(true);
             }
@@ -70,18 +74,20 @@ export const ChangePasswordDialog: React.FC<ChangePasswordDialogProps> = (props)
             initialConfirmPasswordValue: confirmInput,
             passwordRequirements,
             onSubmit: changePasswordSubmit,
+            passwordNotMatchError: t('bluiCommon:FORMS.PASS_MATCH_ERROR'),
         },
         errorDialogProps = {
             open: showErrorDialog,
-            title: 'Error',
-            body: 'Got an error, please try again!',
+            title: t('bluiCommon:MESSAGES.ERROR'),
+            body: t('bluiAuth:CHANGE_PASSWORD.PROBLEM_OCCURRED'),
             onClose: (): void => setShowErrorDialog(false),
-            dismissButtonText: 'Dismiss',
+            dismissButtonText: t('bluiCommon:ACTIONS.OKAY'),
         },
     } = props;
 
     return (
         <ChangePasswordDialogBase
+            loading={isLoading}
             dialogTitle={dialogTitle}
             dialogDescription={dialogDescription}
             currentPasswordLabel={currentPasswordLabel}

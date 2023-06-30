@@ -71,6 +71,7 @@ export const ChangePasswordDialogBaseTest: React.FC<PropsWithChildren> = () => {
                 onPasswordChange: updateFields,
                 onSubmit: changePasswordSubmit,
                 passwordRequirements: passwordRequirements,
+                passwordNotMatchError: 'Passwords do not match',
             }}
             errorDialogProps={{
                 open: showErrorDialog,
