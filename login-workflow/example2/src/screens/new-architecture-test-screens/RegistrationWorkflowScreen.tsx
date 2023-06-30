@@ -6,6 +6,7 @@ import {
     EulaScreen,
     CreatePasswordScreen,
     RegistrationSuccessScreen,
+    VerifyCodeScreen,
 } from '@brightlayer-ui/react-auth-workflow';
 import { useNavigate } from 'react-router-dom';
 import { useApp } from '../../contexts/AppContextProvider';
@@ -26,6 +27,7 @@ export const RegistrationWorkflowScreen = (): JSX.Element => {
         >
             <RegistrationWorkflow initialScreenIndex={0}>
                 <EulaScreen />
+                <VerifyCodeScreen />
                 <CreatePasswordScreen />
                 <RegistrationSuccessScreen />
             </RegistrationWorkflow>

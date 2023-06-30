@@ -39,6 +39,7 @@ const resources: RegistrationLanguageFile = {
                 RESEND: 'Reenviar e-mail de verificação',
                 VERIFICATION_CODE_PROMPT: 'Não recebeu um e-mail?',
                 VERIFICATION: 'Código de verificação',
+                CODE_VALIDATOR_ERROR: 'Você deve fornecer um código válido',
             },
         },
     },

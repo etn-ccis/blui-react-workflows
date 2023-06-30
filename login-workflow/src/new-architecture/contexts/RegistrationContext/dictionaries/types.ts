@@ -30,6 +30,7 @@ export type RegistrationTranslations = {
             RESEND: string;
             VERIFICATION_CODE_PROMPT: string;
             VERIFICATION: string;
+            CODE_VALIDATOR_ERROR: string;
         };
     };
 };

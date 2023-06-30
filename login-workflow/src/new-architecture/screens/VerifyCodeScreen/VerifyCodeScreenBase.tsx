@@ -23,14 +23,8 @@ import Typography from '@mui/material/Typography';
  */
 
 export const VerifyCodeScreenBase: React.FC<React.PropsWithChildren<VerifyCodeScreenProps>> = (props) => {
-    const {
-        codeValidator = (code: string): boolean | string => (code?.length > 0 ? true : 'You must provide a valid code'),
-        onResend,
-        resendInstructions,
-        resendLabel,
-        verifyCodeInputLabel,
-        initialValue,
-    } = props;
+    const { codeValidator, onResend, resendInstructions, resendLabel, verifyCodeInputLabel, initialValue, updateCode } =
+        props;
 
     const cardBaseProps = props.WorkflowCardBaseProps || {};
     const headerProps = props.WorkflowCardHeaderProps || {};
@@ -39,18 +33,20 @@ export const VerifyCodeScreenBase: React.FC<React.PropsWithChildren<VerifyCodeSc
 
     const [verifyCode, setVerifyCode] = React.useState(initialValue ?? '');
     const [shouldValidateCode, setShouldValidateCode] = React.useState(false);
-    const [isCodeValid, setIsCodeValid] = React.useState(codeValidator(initialValue) ?? false);
+    const [isCodeValid, setIsCodeValid] = React.useState(codeValidator ? codeValidator(initialValue) : false);
     const [codeError, setCodeError] = React.useState('');
 
     const handleVerifyCodeInputChange = useCallback(
         (code: string) => {
             setVerifyCode(code);
-            const validatorResponse = codeValidator(code);
-
-            setIsCodeValid(typeof validatorResponse === 'boolean' ? validatorResponse : false);
-            setCodeError(typeof validatorResponse === 'string' ? validatorResponse : '');
+            if (codeValidator) {
+                const validatorResponse = codeValidator(code);
+                if (updateCode) updateCode(code);
+                setIsCodeValid(typeof validatorResponse === 'boolean' ? validatorResponse : false);
+                setCodeError(typeof validatorResponse === 'string' ? validatorResponse : '');
+            }
         },
-        [codeValidator]
+        [codeValidator, updateCode]
     );
 
     return (
