@@ -36,6 +36,7 @@ const resources: RegistrationLanguageFile = {
                 RESEND: '重新发送验证邮件',
                 VERIFICATION_CODE_PROMPT: '没有收到电子邮件？',
                 VERIFICATION: '验证码',
+                CODE_VALIDATOR_ERROR: '您必須提供有效的代碼',
             },
         },
     },
