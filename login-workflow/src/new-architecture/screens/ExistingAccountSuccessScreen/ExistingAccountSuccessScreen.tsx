@@ -1,9 +1,22 @@
-import { Person } from '@mui/icons-material';
 import React from 'react';
+import { Person } from '@mui/icons-material';
 import { useRegistrationContext } from '../../contexts';
 import { useLanguageLocale } from '../../hooks';
-import { SuccessScreenBase } from './SuccessScreenBase';
-import { SuccessScreenProps } from './types';
+import { SuccessScreenBase } from '../SuccessScreen/SuccessScreenBase';
+import { SuccessScreenProps } from '../SuccessScreen/types';
+
+/**
+ * Full Screen component that renders a Success Screen for the accounts which are already exists in the records
+ *
+ * @param icon Optional prop to pass in the Icon JSX element for the message
+ * @param messageTitle Optional title prop to pass the Title for the message
+ * @param message Optional message prop to pass the description
+ * @param dismissButtonLabel Optional label for the Continue button
+ * @param canDismiss Optional boolean flag prop to dismiss the success screen or not
+ * @param onDismiss Callback function that fire when the Continue button clicked
+ *
+ * @category Full Screen
+ */
 
 export const ExistingAccountSuccessScreen: React.FC<SuccessScreenProps> = (props) => {
     const { t } = useLanguageLocale();
