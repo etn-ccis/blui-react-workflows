@@ -50,12 +50,13 @@ export const AccountDetailsScreen: React.FC<AccountDetailsScreenProps> = (props)
             onPrevious: (): void => {
                 void onPrevious();
             },
+            canGoNext: true,
             showNext: true,
             showPrevious: true,
             nextLabel: t('bluiCommon:ACTIONS.NEXT'),
             previousLabel: t('bluiCommon:ACTIONS.BACK'),
             totalSteps: 6,
-            currentStep: 5,
+            currentStep: 4,
         },
         WorkflowCardBaseProps: workflowCardBaseProps = {
             loading: isLoading,
@@ -63,15 +64,15 @@ export const AccountDetailsScreen: React.FC<AccountDetailsScreenProps> = (props)
         firstNameLabel = t('bluiCommon:FORMS.FIRST_NAME'),
         lastNameLabel = t('bluiCommon:FORMS.LAST_NAME'),
         firstNameValidator = (name: string): boolean | string => {
+            setFirstName(name);
             if (name?.length > 2) {
-                setFirstName(name);
                 return true;
             }
             return t('bluiCommon:FORMS.FIRST_NAME_LENGTH_ERROR');
         },
         lastNameValidator = (name: string): boolean | string => {
+            setLastName(name);
             if (name?.length > 2) {
-                setLastName(name);
                 return true;
             }
             return t('bluiCommon:FORMS.LAST_NAME_LENGTH_ERROR');

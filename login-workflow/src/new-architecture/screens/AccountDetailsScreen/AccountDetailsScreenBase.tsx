@@ -44,7 +44,6 @@ export const AccountDetailsScreenBase: React.FC<AccountDetailsScreenProps> = (pr
 
     const onFirstNameChange = useCallback(
         (firstName: string) => {
-            // if (firstNameValidator) {
             setFirstNameInput(firstName);
             if (firstNameValidator) {
                 const validatorResponse = firstNameValidator(firstName);
@@ -53,15 +52,12 @@ export const AccountDetailsScreenBase: React.FC<AccountDetailsScreenProps> = (pr
                 setShowFirstNameError(typeof validatorResponse === 'boolean' ? false : true);
                 setFirstNameError(typeof validatorResponse === 'string' ? validatorResponse : '');
             }
-
-            // }
         },
         [firstNameValidator]
     );
 
     const onLastNameChange = useCallback(
         (lastName: string) => {
-            // if (lastNameValidator) {
             setLastNameInput(lastName);
             if (lastNameValidator) {
                 const validatorResponse = lastNameValidator(lastName);
@@ -70,8 +66,6 @@ export const AccountDetailsScreenBase: React.FC<AccountDetailsScreenProps> = (pr
                 setShowLastNameError(typeof validatorResponse === 'boolean' ? false : true);
                 setLastNameError(typeof validatorResponse === 'string' ? validatorResponse : '');
             }
-
-            // }
         },
         [lastNameValidator]
     );
