@@ -24,18 +24,30 @@ export const VerifyCodeScreen: React.FC<VerifyCodeScreenProps> = (props) => {
     const { actions } = useRegistrationContext();
     const { nextScreen, previousScreen, screenData } = regWorkflow;
 
+    const [verifyCode, setVerifyCode] = useState(screenData.VerifyCode.code);
+    const [isLoading, setIsLoading] = useState(false);
+
+    const requestResendCode = useCallback(async (): Promise<void> => {
+        try {
+            setIsLoading(true);
+            await actions().validateUserRegistrationRequest(verifyCode);
+            setIsLoading(false);
+        } catch {
+            console.error('Error fetching resend verification code!');
+        }
+    }, [verifyCode, actions]);
+
     const {
         codeValidator = (code: string): boolean | string =>
             code?.length > 0 ? true : t('bluiRegistration:SELF_REGISTRATION.VERIFY_EMAIL.CODE_VALIDATOR_ERROR'),
-        onResend,
+        onResend = (): void => {
+            void requestResendCode();
+        },
         resendInstructions = t('bluiRegistration:SELF_REGISTRATION.VERIFY_EMAIL.VERIFICATION_CODE_PROMPT'),
         resendLabel = t('bluiCommon:ACTIONS.RESEND'),
         verifyCodeInputLabel = t('bluiRegistration:SELF_REGISTRATION.VERIFY_EMAIL.VERIFICATION'),
-        initialValue = screenData.VerifyCode.code,
+        initialValue = verifyCode,
     } = props;
-
-    const [verifyCode, setVerifyCode] = useState(initialValue);
-    const [isLoading, setIsLoading] = useState(false);
 
     const onNext = useCallback(() => {
         try {
@@ -74,7 +86,7 @@ export const VerifyCodeScreen: React.FC<VerifyCodeScreenProps> = (props) => {
             showPrevious: true,
             previousLabel: t('bluiCommon:ACTIONS.BACK'),
             canGoPrevious: true,
-            currentStep: 4,
+            currentStep: 2,
             totalSteps: 6,
             onNext: (): void => {
                 void onNext();
