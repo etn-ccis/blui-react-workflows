@@ -2,8 +2,7 @@ import React from 'react';
 import { Person } from '@mui/icons-material';
 import { useRegistrationContext } from '../../contexts';
 import { useLanguageLocale } from '../../hooks';
-import { SuccessScreenBase } from '../SuccessScreen/SuccessScreenBase';
-import { SuccessScreenProps } from '../SuccessScreen/types';
+import { SuccessScreenBase, SuccessScreenProps } from '../SuccessScreen';
 
 /**
  * Full Screen component that renders a Success Screen for the accounts which are already exists in the records
