@@ -29,6 +29,7 @@ import {
     ForgotPasswordFullScreen,
     ContactSupportScreenFullScreen,
     ChangePasswordDialogTest,
+    ExistingAccountSuccessScreenTest,
     Login,
 } from '../screens';
 import { DebugScreen } from '../screens/new-architecture-test-screens/DebugScreen';
@@ -190,10 +191,18 @@ export const GetCustomRoutes = (isAuthenticated: boolean) => {
             ),
         },
         {
-            path: `/change-password-dialog`,
+          path: `/change-password-dialog`,
             element: (
                 <SecurityContextProvider>
                     <ChangePasswordDialogTest />
+                </SecurityContextProvider>
+              ),
+        },
+        {
+          path: `/existing-account-success-screen`,
+            element: (
+                <SecurityContextProvider>
+                    <ExistingAccountSuccessScreenTest />
                 </SecurityContextProvider>
             ),
         },
