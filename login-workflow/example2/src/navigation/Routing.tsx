@@ -28,6 +28,7 @@ import {
     ResetPasswordFullScreen,
     ForgotPasswordFullScreen,
     ContactSupportScreenFullScreen,
+    ExistingAccountSuccessScreenTest,
     Login,
 } from '../screens';
 import { DebugScreen } from '../screens/new-architecture-test-screens/DebugScreen';
@@ -185,6 +186,14 @@ export const GetCustomRoutes = (isAuthenticated: boolean) => {
             element: (
                 <SecurityContextProvider>
                     <ContactSupportScreenFullScreen />
+                </SecurityContextProvider>
+            ),
+        },
+        {
+            path: `/existing-account-success-screen`,
+            element: (
+                <SecurityContextProvider>
+                    <ExistingAccountSuccessScreenTest />
                 </SecurityContextProvider>
             ),
         },
