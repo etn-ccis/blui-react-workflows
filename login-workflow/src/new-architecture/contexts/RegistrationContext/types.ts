@@ -22,7 +22,7 @@ export type RegistrationUIActions = {
     loadEula?: (language: string) => Promise<string>;
     acceptEula?: () => Promise<boolean>;
     requestRegistrationCode?: (email: string) => Promise<void>;
-    validateUserRegistrationRequest?: (validationCode: string, validationEmail: string) => Promise<boolean>;
+    validateUserRegistrationRequest?: (validationCode: string, validationEmail?: string) => Promise<boolean>;
     createPassword?: (password: string) => Promise<boolean>;
     setAccountDetails?: (details: AccountDetails) => Promise<boolean>;
     completeRegistration?: (
