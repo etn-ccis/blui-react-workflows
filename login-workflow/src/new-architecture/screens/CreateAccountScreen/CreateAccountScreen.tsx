@@ -5,17 +5,10 @@ import { useLanguageLocale } from '../../hooks';
 import { useRegistrationContext } from '../../contexts/RegistrationContext/context';
 import { useRegistrationWorkflowContext } from '../../contexts';
 
-type CreateAccountFullScreenProps = CreateAccountScreenProps & {
-    title?: string;
-    instructions?: string;
-};
-
 /**
  * Component that renders a screen for the user to enter their email address to start the
  * account creation process.
  *
- * @param title title of workflow card
- * @param instructions create account content instructions
  * @param emailLabel label for the textfield
  * @param initialValue used to pre-populate the email input field
  * @param emailValidator used to test the input for valid formatting
@@ -25,7 +18,7 @@ type CreateAccountFullScreenProps = CreateAccountScreenProps & {
  */
 const EMAIL_REGEX = /^[A-Z0-9._%+'-]+@[A-Z0-9.-]+\.[A-Z]{2,}$/i;
 
-export const CreateAccountScreen: React.FC<CreateAccountFullScreenProps> = (props) => {
+export const CreateAccountScreen: React.FC<CreateAccountScreenProps> = (props) => {
     const { t } = useLanguageLocale();
     const { actions } = useRegistrationContext();
     const regWorkflow = useRegistrationWorkflowContext();
@@ -59,6 +52,8 @@ export const CreateAccountScreen: React.FC<CreateAccountFullScreenProps> = (prop
                 screenId: 'CreateAccount',
                 values: { emailAddress: emailInputValue },
             });
+            // eslint-disable-next-line no-console
+            console.log('going to next screen... with screen data: ', screenData);
         } catch {
             console.error('Error while updating create account...');
         }
@@ -70,6 +65,8 @@ export const CreateAccountScreen: React.FC<CreateAccountFullScreenProps> = (prop
                 screenId: 'CreateAccount',
                 values: { emailAddress: emailInputValue },
             });
+            // eslint-disable-next-line no-console
+            console.log('going to previous screen... with screen data: ', screenData);
         } catch {
             console.error('Error while updating create account...');
         }
