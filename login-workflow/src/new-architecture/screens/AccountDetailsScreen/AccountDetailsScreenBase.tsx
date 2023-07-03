@@ -42,37 +42,73 @@ export const AccountDetailsScreenBase: React.FC<AccountDetailsScreenProps> = (pr
     const [isLastNameValid, setIsLastNameValid] = React.useState(false);
     const [isFormValid, setIsFormValid] = React.useState(false);
 
+    const validateFirstName = useCallback(
+        (firstName: string) => {
+            const validatorResponse = firstNameValidator(firstName);
+
+            setIsFirstNameValid(typeof validatorResponse === 'boolean' ? validatorResponse : false);
+            setShowFirstNameError(typeof validatorResponse === 'boolean' ? false : true);
+            setFirstNameError(typeof validatorResponse === 'string' ? validatorResponse : '');
+        },
+        [firstNameValidator, setIsFirstNameValid, setShowFirstNameError, setFirstNameError]
+    );
+
+    const validateLastName = useCallback(
+        (lastName: string) => {
+            const validatorResponse = lastNameValidator(lastName);
+
+            setIsLastNameValid(typeof validatorResponse === 'boolean' ? validatorResponse : false);
+            setShowLastNameError(typeof validatorResponse === 'boolean' ? false : true);
+            setLastNameError(typeof validatorResponse === 'string' ? validatorResponse : '');
+        },
+        [lastNameValidator, setIsLastNameValid, setShowLastNameError, setLastNameError]
+    );
+
     const onFirstNameChange = useCallback(
         (firstName: string) => {
             setFirstNameInput(firstName);
             if (firstNameValidator) {
-                const validatorResponse = firstNameValidator(firstName);
-
-                setIsFirstNameValid(typeof validatorResponse === 'boolean' ? validatorResponse : false);
-                setShowFirstNameError(typeof validatorResponse === 'boolean' ? false : true);
-                setFirstNameError(typeof validatorResponse === 'string' ? validatorResponse : '');
+                validateFirstName(firstName);
+            } else {
+                setIsFirstNameValid(true);
             }
         },
-        [firstNameValidator]
+        [firstNameValidator, validateFirstName]
     );
 
     const onLastNameChange = useCallback(
         (lastName: string) => {
             setLastNameInput(lastName);
             if (lastNameValidator) {
-                const validatorResponse = lastNameValidator(lastName);
-
-                setIsLastNameValid(typeof validatorResponse === 'boolean' ? validatorResponse : false);
-                setShowLastNameError(typeof validatorResponse === 'boolean' ? false : true);
-                setLastNameError(typeof validatorResponse === 'string' ? validatorResponse : '');
+                validateLastName(lastName);
+            } else {
+                setIsLastNameValid(true);
             }
         },
-        [lastNameValidator]
+        [lastNameValidator, validateLastName]
     );
 
     useEffect(() => {
-        setIsFormValid(isFirstNameValid && isLastNameValid);
-    }, [isFirstNameValid, isLastNameValid]);
+        if (firstNameInput && lastNameInput) {
+            if (firstNameValidator) {
+                validateFirstName(firstNameInput);
+            }
+            if (lastNameValidator) {
+                validateLastName(lastNameInput);
+            }
+            setIsFormValid(isFirstNameValid && isLastNameValid);
+        }
+    }, [
+        firstNameInput,
+        lastNameInput,
+        firstNameValidator,
+        lastNameValidator,
+        validateFirstName,
+        validateLastName,
+        setIsFormValid,
+        isFirstNameValid,
+        isLastNameValid,
+    ]);
 
     return (
         <WorkflowCard {...cardBaseProps}>
@@ -116,7 +152,11 @@ export const AccountDetailsScreenBase: React.FC<AccountDetailsScreenProps> = (pr
                     helperText={lastNameError}
                 />
             </WorkflowCardBody>
-            <WorkflowCardActions {...actionsProps} canGoNext={actionsProps.canGoNext && isFormValid} divider />
+            <WorkflowCardActions
+                {...actionsProps}
+                canGoNext={actionsProps.canGoNext && isFirstNameValid && isLastNameValid}
+                divider
+            />
         </WorkflowCard>
     );
 };

@@ -59,6 +59,30 @@ export const ProjectRegistrationUIActions: () => RegistrationUIActions = () => (
         return true;
     },
 
+    requestRegistrationCode: async (email: string): Promise<string> => {
+        await sleep(800);
+        if (isRandomFailure()) {
+            throw new Error('Sorry, there was a problem sending your request.');
+        }
+        return 'a1b2c3';
+    },
+
+    createPassword: async (password: string): Promise<boolean> => {
+        await sleep(800);
+        if (isRandomFailure()) {
+            throw new Error('Sorry, there was a problem sending your request.');
+        }
+        return true;
+    },
+
+    setAccountDetails: async (details: AccountDetails): Promise<boolean> => {
+        await sleep(800);
+        if (isRandomFailure()) {
+            throw new Error('Sorry, there was a problem sending your request.');
+        }
+        return true;
+    },
+
     /**
      * The user has to fill account details such as first name and last name to register.
      * The API should now update account details.
