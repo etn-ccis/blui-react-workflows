@@ -64,6 +64,8 @@ export const ProjectRegistrationUIActions: () => RegistrationUIActions = () => (
         if (isRandomFailure()) {
             throw new Error('Sorry, there was a problem sending your request.');
         }
+        // eslint-disable-next-line no-console
+        console.log(email, ' was used to request a registration code');
         return 'a1b2c3';
     },
 
