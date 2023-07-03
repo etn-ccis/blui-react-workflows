@@ -1,6 +1,6 @@
 import React from 'react';
 import '@testing-library/jest-dom';
-import { cleanup, fireEvent, render, RenderResult } from '@testing-library/react';
+import { cleanup, fireEvent, render, RenderResult, screen } from '@testing-library/react';
 import { ChangePasswordDialog } from './ChangePasswordDialog';
 import { defaultProps as authContextProps } from '../../contexts/AuthContext/AuthContextProvider.test';
 import { AuthContextProvider } from '../../contexts';
@@ -31,10 +31,13 @@ describe('Change Password Dialog tests', () => {
 
     it('renders without crashing', () => {
         renderer();
+
+        expect(screen.findAllByRole('input')).not.toBeNull();
     });
 
-    it('Current password input test', () => {
+    it('should display input field with passed prop', () => {
         const { getByLabelText } = renderer({
+            open: true,
             currentPasswordLabel: 'Current Password',
         });
 
@@ -44,9 +47,10 @@ describe('Change Password Dialog tests', () => {
         expect(currentPasswordInput).toHaveValue('Abc@2023');
     });
 
-    it('New password input fields test', () => {
+    it('should display input fields with passed props', () => {
         const { getByLabelText } = renderer({
-            passwordProps: {
+            open: true,
+            PasswordProps: {
                 newPasswordLabel: 'New Password',
                 confirmPasswordLabel: 'Confirm New Password',
                 onPasswordChange: updateFields,

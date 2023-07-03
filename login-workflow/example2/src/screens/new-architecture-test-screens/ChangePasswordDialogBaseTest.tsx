@@ -52,6 +52,7 @@ export const ChangePasswordDialogBaseTest: React.FC<PropsWithChildren> = () => {
 
     return (
         <ChangePasswordDialogBase
+            open={true}
             dialogTitle="Change Password"
             dialogDescription="Please select a password. Make sure that your password meets the necessary complexity requirements outlined below."
             currentPasswordLabel="Current Password"
@@ -61,7 +62,7 @@ export const ChangePasswordDialogBaseTest: React.FC<PropsWithChildren> = () => {
             onSubmit={changePasswordSubmit}
             currentPasswordChange={currentPasswordChange}
             onPrevious={(): void => navigate('/login')}
-            passwordProps={{
+            PasswordProps={{
                 newPasswordLabel: 'New Password',
                 confirmPasswordLabel: 'Confirm New Password',
                 passwordRef: passwordRef,
@@ -73,7 +74,7 @@ export const ChangePasswordDialogBaseTest: React.FC<PropsWithChildren> = () => {
                 passwordRequirements: passwordRequirements,
                 passwordNotMatchError: 'Passwords do not match',
             }}
-            errorDialogProps={{
+            ErrorDialogProps={{
                 open: showErrorDialog,
                 title: 'Error!',
                 body: 'Please check the error and proceed further',

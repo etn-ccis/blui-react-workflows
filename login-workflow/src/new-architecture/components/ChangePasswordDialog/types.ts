@@ -1,9 +1,9 @@
-import { SxProps } from '@mui/material';
+import { DialogProps, SxProps } from '@mui/material';
 import { BasicDialogProps } from '../Dialog';
 import { SetPasswordProps } from '../SetPassword';
 
-export type ChangePasswordDialogProps = { passwordProps?: SetPasswordProps } & {
-    errorDialogProps?: BasicDialogProps;
+export type ChangePasswordDialogProps = DialogProps & { PasswordProps?: SetPasswordProps } & {
+    ErrorDialogProps?: BasicDialogProps;
 } & {
     dialogTitle?: string;
     dialogDescription?: string;

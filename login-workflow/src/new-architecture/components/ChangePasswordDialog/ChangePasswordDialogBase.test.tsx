@@ -9,8 +9,9 @@ describe('AccountDetailsScreenBase tests', () => {
     it('renders without crashing', () => {
         render(
             <ChangePasswordDialogBase
-                onSubmit={undefined}
-                passwordProps={{
+                open={true}
+                onSubmit={(): void => {}}
+                PasswordProps={{
                     onPasswordChange: (): void => {},
                     newPasswordLabel: '',
                     initialNewPasswordValue: '',
@@ -32,10 +33,11 @@ describe('AccountDetailsScreenBase tests', () => {
     it('input onChange callBack', () => {
         const { getByLabelText } = render(
             <ChangePasswordDialogBase
+                open={true}
                 onSubmit={(): void => {}}
                 currentPasswordChange={(): void => {}}
                 enableButton={false}
-                passwordProps={{
+                PasswordProps={{
                     onPasswordChange: (): void => {},
                     newPasswordLabel: '',
                     initialNewPasswordValue: '',

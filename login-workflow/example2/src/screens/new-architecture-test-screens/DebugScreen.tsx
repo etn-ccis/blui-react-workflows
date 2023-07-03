@@ -175,10 +175,10 @@ export const DebugScreen = (): JSX.Element => {
                                 Change Password Dialog
                             </Button>
                             <Button
-                                  variant="contained"
-                                  sx={{ width: 200, m: 2 }}
-                                  onClick={(): void => navigate('/existing-account-success-screen')}
-                              >
+                                variant="contained"
+                                sx={{ width: 200, m: 2 }}
+                                onClick={(): void => navigate('/existing-account-success-screen')}
+                            >
                                 Existing Account Success Screen
                             </Button>
                         </Box>

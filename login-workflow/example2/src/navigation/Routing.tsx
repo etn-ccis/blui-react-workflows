@@ -191,15 +191,15 @@ export const GetCustomRoutes = (isAuthenticated: boolean) => {
             ),
         },
         {
-          path: `/change-password-dialog`,
+            path: `/change-password-dialog`,
             element: (
                 <SecurityContextProvider>
                     <ChangePasswordDialogTest />
                 </SecurityContextProvider>
-              ),
+            ),
         },
         {
-          path: `/existing-account-success-screen`,
+            path: `/existing-account-success-screen`,
             element: (
                 <SecurityContextProvider>
                     <ExistingAccountSuccessScreenTest />

@@ -35,6 +35,7 @@ import { Spinner } from '../../../components';
 
 export const ChangePasswordDialogBase: React.FC<ChangePasswordDialogProps> = (props) => {
     const {
+        open,
         dialogTitle,
         dialogDescription,
         currentPasswordLabel,
@@ -45,8 +46,8 @@ export const ChangePasswordDialogBase: React.FC<ChangePasswordDialogProps> = (pr
         currentPasswordChange,
         onSubmit,
         onPrevious,
-        errorDialogProps,
-        passwordProps,
+        ErrorDialogProps,
+        PasswordProps,
         loading,
     } = props;
     const theme = useTheme();
@@ -65,9 +66,9 @@ export const ChangePasswordDialogBase: React.FC<ChangePasswordDialogProps> = (pr
     }, [enableButton]);
 
     return (
-        <Dialog sx={sx} fullScreen={matchesSM} open={true} maxWidth={'xs'}>
+        <Dialog sx={sx} fullScreen={matchesSM} open={open} maxWidth={'xs'}>
             <Spinner data-testid="blui-spinner" visible={loading} />
-            <BasicDialog {...errorDialogProps} />
+            <BasicDialog {...ErrorDialogProps} />
             <DialogTitle
                 sx={{
                     pt: { md: 4, sm: 2 },
@@ -90,14 +91,14 @@ export const ChangePasswordDialogBase: React.FC<ChangePasswordDialogProps> = (pr
             >
                 <Typography>{dialogDescription}</Typography>
                 <Divider sx={{ mt: 5, mb: 4, mx: { md: -3, xs: -2 } }} />
-                <SetPassword {...passwordProps}>
+                <SetPassword {...PasswordProps}>
                     <PasswordTextField
                         id="current-password"
                         label={currentPasswordLabel}
                         value={currentPassword}
                         onChange={handleChange}
                         onKeyPress={(e): void => {
-                            const { current } = passwordProps.passwordRef;
+                            const { current } = PasswordProps.passwordRef;
                             if (e.key === 'Enter' && current) {
                                 current.focus();
                             }

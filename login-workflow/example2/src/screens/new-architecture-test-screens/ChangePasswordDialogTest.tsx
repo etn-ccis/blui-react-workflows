@@ -19,7 +19,7 @@ export const ChangePasswordDialogTest: React.FC<PropsWithChildren> = () => {
                 navigate={navigate}
                 actions={ProjectAuthUIActions(securityContextActions)}
             >
-                <ChangePasswordDialog />
+                <ChangePasswordDialog open={true} />
             </AuthContextProvider>
         </Box>
     );
