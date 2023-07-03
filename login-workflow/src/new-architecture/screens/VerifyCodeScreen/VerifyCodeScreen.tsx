@@ -49,10 +49,10 @@ export const VerifyCodeScreen: React.FC<VerifyCodeScreenProps> = (props) => {
         initialValue = verifyCode,
     } = props;
 
-    const onNext = useCallback(() => {
+    const onNext = useCallback(async () => {
         try {
             setIsLoading(true);
-            void actions().validateUserRegistrationRequest(verifyCode);
+            await actions().validateUserRegistrationRequest(verifyCode);
             nextScreen({
                 screenId: 'VerifyCode',
                 values: { code: verifyCode },

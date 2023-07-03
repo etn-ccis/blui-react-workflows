@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import React, { useCallback, useState } from 'react';
 import { Trans } from 'react-i18next';
 import { CheckCircle } from '@mui/icons-material';
 import { SimpleDialog } from '../../../components';
@@ -20,6 +20,16 @@ export const ForgotPasswordScreen: React.FC<ForgotPasswordScreenProps> = (props)
     const [showErrorDialog, setShowErrorDialog] = useState(false);
 
     const EMAIL_REGEX = /^[A-Z0-9._%+'-]+@[A-Z0-9.-]+\.[A-Z]{2,}$/i;
+
+    const handleOnNext = useCallback(async (): Promise<void> => {
+        try {
+            setIsLoading(true);
+            await actions().forgotPassword(emailInput);
+            setIsLoading(false);
+        } catch (e) {
+            setShowErrorDialog(true);
+        }
+    }, [setIsLoading, setShowErrorDialog, actions, emailInput]);
 
     const {
         title = t('bluiAuth:HEADER.FORGOT_PASSWORD'),
@@ -66,13 +76,7 @@ export const ForgotPasswordScreen: React.FC<ForgotPasswordScreenProps> = (props)
         },
         WorkflowCardActionsProps: workflowCardActionsProps = {
             onNext: (): void => {
-                try {
-                    setIsLoading(true);
-                    void actions().forgotPassword(emailInput);
-                    setIsLoading(false);
-                } catch (e) {
-                    setShowErrorDialog(true);
-                }
+                void handleOnNext();
             },
             onPrevious: (): void => {
                 try {
