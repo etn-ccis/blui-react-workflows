@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import React, { useCallback, useState } from 'react';
 import { CreateAccountScreenProps } from './types';
 import { CreateAccountScreenBase } from './CreateAccountScreenBase';
 import { useLanguageLocale } from '../../hooks';
@@ -23,12 +23,54 @@ export const CreateAccountScreen: React.FC<CreateAccountScreenProps> = (props) =
     const { actions } = useRegistrationContext();
     const regWorkflow = useRegistrationWorkflowContext();
     const { nextScreen, previousScreen, screenData } = regWorkflow;
+    const [emailInputValue, setEmailInputValue] = useState(screenData.CreateAccount.emailAddress);
+    const [, setIsLoading] = useState(false);
+
+    const onNext = useCallback(async () => {
+        try {
+            setIsLoading(true);
+            await actions().requestRegistrationCode(emailInputValue);
+            nextScreen({
+                screenId: 'CreateAccount',
+                values: { emailAddress: emailInputValue },
+            });
+            // eslint-disable-next-line no-console
+            console.log('going to next screen... with screen data: ', screenData);
+            setIsLoading(false);
+        } catch {
+            console.error('Error while updating create account!');
+        }
+    }, [emailInputValue, nextScreen, actions, screenData]);
+
+    const onPrevious = (): void => {
+        previousScreen({
+            screenId: 'CreateAccount',
+            values: { emailAddress: emailInputValue },
+        });
+        // eslint-disable-next-line no-console
+        console.log('going to previous screen... with screen data: ', screenData);
+    };
     const {
         WorkflowCardHeaderProps: workflowCardHeaderProps = {
             title: t('bluiRegistration:REGISTRATION.STEPS.CREATE_ACCOUNT'),
         },
         WorkflowCardInstructionProps: workflowCardInstructionProps = {
             instructions: t('bluiRegistration:SELF_REGISTRATION.INSTRUCTIONS'),
+        },
+        WorkflowCardActionsProps: workflowCardActionsProps = {
+            showNext: true,
+            nextLabel: t('bluiCommon:ACTIONS.NEXT'),
+            showPrevious: true,
+            previousLabel: t('bluiCommon:ACTIONS.BACK'),
+            canGoPrevious: true,
+            currentStep: 1,
+            totalSteps: 6,
+            onNext: (): void => {
+                void onNext();
+            },
+            onPrevious: (): void => {
+                void onPrevious();
+            },
         },
         emailLabel = t('bluiCommon:LABELS.EMAIL'),
         initialValue = screenData.CreateAccount.emailAddress,
@@ -40,37 +82,6 @@ export const CreateAccountScreen: React.FC<CreateAccountScreenProps> = (props) =
         },
         emailTextFieldProps,
     } = props;
-    const [emailInputValue, setEmailInputValue] = useState(screenData.CreateAccount.emailAddress);
-
-    const onNext = async (): Promise<void> => {
-        const success = await actions().requestRegistrationCode(emailInputValue);
-
-        // eslint-disable-next-line no-console
-        console.log('success: ', success);
-        try {
-            nextScreen({
-                screenId: 'CreateAccount',
-                values: { emailAddress: emailInputValue },
-            });
-            // eslint-disable-next-line no-console
-            console.log('going to next screen... with screen data: ', screenData);
-        } catch {
-            console.error('Error while updating create account...');
-        }
-    };
-
-    const onPrevious = (): void => {
-        try {
-            previousScreen({
-                screenId: 'CreateAccount',
-                values: { emailAddress: emailInputValue },
-            });
-            // eslint-disable-next-line no-console
-            console.log('going to previous screen... with screen data: ', screenData);
-        } catch {
-            console.error('Error while updating create account...');
-        }
-    };
 
     const onEmailInputValueChange = (e: any): void => {
         setEmailInputValue(e.target.value);
@@ -84,20 +95,7 @@ export const CreateAccountScreen: React.FC<CreateAccountScreenProps> = (props) =
             initialValue={initialValue}
             emailTextFieldProps={{ ...emailTextFieldProps, onChange: onEmailInputValueChange }}
             emailValidator={emailValidator}
-            WorkflowCardActionsProps={{
-                showNext: true,
-                nextLabel: t('bluiCommon:ACTIONS.NEXT'),
-                canGoNext: true,
-                showPrevious: true,
-                previousLabel: t('bluiCommon:ACTIONS.BACK'),
-                canGoPrevious: true,
-                onNext: (): void => {
-                    void onNext();
-                },
-                onPrevious: (): void => {
-                    void onPrevious();
-                },
-            }}
+            WorkflowCardActionsProps={workflowCardActionsProps}
         />
     );
 };
