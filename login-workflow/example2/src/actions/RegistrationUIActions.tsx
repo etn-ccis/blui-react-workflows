@@ -1,5 +1,5 @@
 /* eslint-disable @typescript-eslint/no-unused-vars */
-import { RegistrationUIActions } from '@brightlayer-ui/react-auth-workflow';
+import { RegistrationUIActions, AccountDetails } from '@brightlayer-ui/react-auth-workflow';
 
 // Constants
 import { SAMPLE_EULA } from '../constants/sampleEula';
@@ -52,6 +52,30 @@ export const ProjectRegistrationUIActions: () => RegistrationUIActions = () => (
      * @returns Resolve when the server accepted the request.
      */
     acceptEula: async (): Promise<boolean> => {
+        await sleep(800);
+        if (isRandomFailure()) {
+            throw new Error('Sorry, there was a problem sending your request.');
+        }
+        return true;
+    },
+
+    requestRegistrationCode: async (email: string): Promise<string> => {
+        await sleep(800);
+        if (isRandomFailure()) {
+            throw new Error('Sorry, there was a problem sending your request.');
+        }
+        return 'a1b2c3';
+    },
+
+    createPassword: async (password: string): Promise<boolean> => {
+        await sleep(800);
+        if (isRandomFailure()) {
+            throw new Error('Sorry, there was a problem sending your request.');
+        }
+        return true;
+    },
+
+    setAccountDetails: async (details: AccountDetails): Promise<boolean> => {
         await sleep(800);
         if (isRandomFailure()) {
             throw new Error('Sorry, there was a problem sending your request.');
