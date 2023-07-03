@@ -3,19 +3,9 @@ import '@testing-library/jest-dom';
 import { cleanup, render, screen, fireEvent, RenderResult } from '@testing-library/react';
 import { VerifyCodeScreen } from './VerifyCodeScreen';
 import { VerifyCodeScreenProps } from './types';
-import {
-    RegistrationContextProvider,
-    RegistrationContextProviderProps,
-    i18nRegistrationInstance,
-} from '../../contexts';
+import { RegistrationContextProvider } from '../../contexts';
 import { RegistrationWorkflow } from '../../components';
-
-const defaultProps: RegistrationContextProviderProps = {
-    language: 'en',
-    i18n: i18nRegistrationInstance,
-    navigate: (): void => {},
-    routeConfig: {},
-};
+import { defaultProps as registrationContextProviderProps } from '../../contexts/RegistrationContext/RegistrationContextProvider.test';
 
 afterEach(cleanup);
 
@@ -34,7 +24,7 @@ describe('Verify Code Screen', () => {
 
     const renderer = (props?: VerifyCodeScreenProps): RenderResult =>
         render(
-            <RegistrationContextProvider {...defaultProps}>
+            <RegistrationContextProvider {...registrationContextProviderProps}>
                 <RegistrationWorkflow initialScreenIndex={0}>
                     <VerifyCodeScreen {...props} />
                 </RegistrationWorkflow>
@@ -63,7 +53,7 @@ describe('Verify Code Screen', () => {
 
         // Rerender to ensure state changes have taken effect
         rerender(
-            <RegistrationContextProvider {...defaultProps}>
+            <RegistrationContextProvider {...registrationContextProviderProps}>
                 <RegistrationWorkflow initialScreenIndex={0}>
                     <VerifyCodeScreen
                         onResend={mockOnResend}
@@ -91,7 +81,7 @@ describe('Verify Code Screen', () => {
 
         // Rerender to ensure state changes have taken effect
         rerender(
-            <RegistrationContextProvider {...defaultProps}>
+            <RegistrationContextProvider {...registrationContextProviderProps}>
                 <RegistrationWorkflow initialScreenIndex={0}>
                     <VerifyCodeScreen
                         onResend={mockOnResend}
@@ -112,12 +102,11 @@ describe('Verify Code Screen', () => {
         fireEvent.blur(verifyCodeInput);
         expect(screen.getByText(/Next/i)).toBeEnabled();
         expect(verifyCodeInput).toHaveAttribute('aria-invalid', 'false');
-        //expect(screen.getByText('Code must be at least 3 characters')).toBeInTheDocument();
     });
 
     it('calls onResend when the resend link is clicked', () => {
         const { getByText } = render(
-            <RegistrationContextProvider {...defaultProps}>
+            <RegistrationContextProvider {...registrationContextProviderProps}>
                 <RegistrationWorkflow initialScreenIndex={0}>
                     <VerifyCodeScreen onResend={mockOnResend} resendLabel="Resend" />
                 </RegistrationWorkflow>
@@ -150,7 +139,7 @@ describe('Verify Code Screen', () => {
 
     it('pre-populates the input field with initialValue', () => {
         const { getByLabelText } = render(
-            <RegistrationContextProvider {...defaultProps}>
+            <RegistrationContextProvider {...registrationContextProviderProps}>
                 <RegistrationWorkflow initialScreenIndex={0}>
                     <VerifyCodeScreen onResend={mockOnResend} initialValue="123" verifyCodeInputLabel="Verify Code" />
                 </RegistrationWorkflow>
@@ -163,7 +152,7 @@ describe('Verify Code Screen', () => {
 
     it('displays title, instructions, resendInstructions, and resendLabel correctly', () => {
         const { getByText } = render(
-            <RegistrationContextProvider {...defaultProps}>
+            <RegistrationContextProvider {...registrationContextProviderProps}>
                 <RegistrationWorkflow initialScreenIndex={0}>
                     <VerifyCodeScreen
                         onResend={mockOnResend}

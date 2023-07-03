@@ -55,7 +55,7 @@ export const CreatePasswordScreen: React.FC<CreatePasswordScreenProps> = (props)
             confirmRef,
             onPasswordChange: updateFields,
             onSubmit: (): void => {
-                console.error('submitting form...');
+                void onNext();
             },
         },
         WorkflowCardHeaderProps: workflowCardHeaderProps = {
