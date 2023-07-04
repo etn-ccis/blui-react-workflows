@@ -67,6 +67,15 @@ export const ProjectRegistrationUIActions: () => RegistrationUIActions = () => (
         return 'a1b2c3';
     },
 
+    /**
+     * A new user wants to create their password.
+     * The application will update entered password. Upon completion,
+     * the user will move to next screen.
+     *
+     * @param password password entered by user.
+     *
+     * @returns Resolve if successful, otherwise reject with an error message.
+     */
     createPassword: async (password: string): Promise<boolean> => {
         await sleep(800);
         if (isRandomFailure()) {
