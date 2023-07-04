@@ -75,6 +75,13 @@ export const ProjectRegistrationUIActions: () => RegistrationUIActions = () => (
         return true;
     },
 
+    /**
+     * The user has to fill account details such as first name and last name to register.
+     * The API should now update account details.
+     * @param details include first name, last name or any other extra details of uset.
+     *
+     * @returns Resolve when the server can able to update account details, false if not able to update account details with error message.
+     */
     setAccountDetails: async (details: AccountDetails): Promise<boolean> => {
         await sleep(800);
         if (isRandomFailure()) {
