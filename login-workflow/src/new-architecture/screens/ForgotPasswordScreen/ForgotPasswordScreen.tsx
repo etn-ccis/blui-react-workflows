@@ -88,29 +88,6 @@ export const ForgotPasswordScreen: React.FC<ForgotPasswordScreenProps> = (props)
             canGoNext,
             canGoPrevious: canGoBack,
         },
-        slots = {
-            SuccessScreen: () => (
-                <SuccessScreenBase
-                    WorkflowCardHeaderProps={{ title: t('bluiAuth:HEADER.FORGOT_PASSWORD') }}
-                    icon={<CheckCircle color={'primary'} sx={{ fontSize: 100, mb: 5 }} />}
-                    messageTitle={t('bluiCommon:MESSAGES.EMAIL_SENT')}
-                    message={
-                        <Trans i18nKey={'bluiAuth:FORGOT_PASSWORD.LINK_SENT_ALT'} values={{ email: emailInput }}>
-                            Link has been sent to <b>{emailInput}</b>.
-                        </Trans>
-                    }
-                    WorkflowCardActionsProps={{
-                        showNext: true,
-                        nextLabel: t('bluiCommon:ACTIONS.DONE'),
-                        canGoNext: true,
-                        onNext: (): void => {
-                            navigate(routeConfig.LOGIN);
-                        },
-                        fullWidthButton: true,
-                    }}
-                />
-            ),
-        },
     } = props;
 
     const errorDialog = (
@@ -137,7 +114,33 @@ export const ForgotPasswordScreen: React.FC<ForgotPasswordScreenProps> = (props)
                     emailLabel={emailLabel}
                     initialEmailValue={initialEmailValue}
                     emailValidator={emailValidator}
-                    slots={slots}
+                    slots={{
+                        SuccessScreen: () => (
+                            <SuccessScreenBase
+                                WorkflowCardHeaderProps={{ title: t('bluiAuth:HEADER.FORGOT_PASSWORD') }}
+                                icon={<CheckCircle color={'primary'} sx={{ fontSize: 100, mb: 5 }} />}
+                                messageTitle={t('bluiCommon:MESSAGES.EMAIL_SENT')}
+                                message={
+                                    <Trans
+                                        i18nKey={'bluiAuth:FORGOT_PASSWORD.LINK_SENT_ALT'}
+                                        values={{ email: emailInput }}
+                                    >
+                                        Link has been sent to <b>{emailInput}</b>.
+                                    </Trans>
+                                }
+                                WorkflowCardActionsProps={{
+                                    showNext: true,
+                                    nextLabel: t('bluiCommon:ACTIONS.DONE'),
+                                    canGoNext: true,
+                                    onNext: (): void => {
+                                        navigate(routeConfig.LOGIN);
+                                    },
+                                    fullWidthButton: true,
+                                }}
+                                {...props}
+                            />
+                        ),
+                    }}
                 />
             )}
         </>
