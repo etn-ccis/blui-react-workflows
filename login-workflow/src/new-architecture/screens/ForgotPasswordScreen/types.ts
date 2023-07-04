@@ -11,9 +11,6 @@ export type ForgotPasswordScreenProps = WorkflowCardProps & {
     // used to test the input for valid formatting
     emailValidator?: (email: string) => boolean | string;
 
-    // used to handle next button click
-    onNext?: (email: string) => boolean | string;
-
     // used for each slot in `ForgotPasswordScreenBase`
     slots?: {
         SuccessScreen?: (props: SuccessScreenProps) => JSX.Element;
@@ -44,9 +41,6 @@ export type ForgotPasswordScreenProps = WorkflowCardProps & {
 
     // used to enable to back button
     canGoBack?: boolean | (() => boolean);
-
-    // used to handle back button click
-    onBack?: (email: string) => void;
 
     // used to display next button
     showNextButton?: boolean;

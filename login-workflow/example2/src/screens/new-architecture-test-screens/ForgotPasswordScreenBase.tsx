@@ -48,12 +48,10 @@ export const ForgotPasswordScreenBaseTest = (): JSX.Element => {
                         showPrevious: true,
                         previousLabel: 'Back',
                         canGoPrevious: true,
-                        onNext: (): void => {},
+                        onNext: (data: any): void => {
+                            setEmailInput(data?.email);
+                        },
                         onPrevious: (): void => navigate('/'),
-                    }}
-                    onNext={(email): boolean | string => {
-                        setEmailInput(email);
-                        return true;
                     }}
                     slots={{
                         /* eslint-disable @typescript-eslint/naming-convention */

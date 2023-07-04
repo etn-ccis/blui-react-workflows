@@ -21,15 +21,18 @@ export const ForgotPasswordScreen: React.FC<ForgotPasswordScreenProps> = (props)
 
     const EMAIL_REGEX = /^[A-Z0-9._%+'-]+@[A-Z0-9.-]+\.[A-Z]{2,}$/i;
 
-    const handleOnNext = useCallback(async (): Promise<void> => {
-        try {
-            setIsLoading(true);
-            await actions().forgotPassword(emailInput);
-            setIsLoading(false);
-        } catch (e) {
-            setShowErrorDialog(true);
-        }
-    }, [setIsLoading, setShowErrorDialog, actions, emailInput]);
+    const handleOnNext = useCallback(
+        async (email: string): Promise<void> => {
+            try {
+                setIsLoading(true);
+                await actions().forgotPassword(email);
+                setIsLoading(false);
+            } catch (e) {
+                setShowErrorDialog(true);
+            }
+        },
+        [setIsLoading, setShowErrorDialog, actions]
+    );
 
     const {
         title = t('bluiAuth:HEADER.FORGOT_PASSWORD'),
@@ -52,10 +55,6 @@ export const ForgotPasswordScreen: React.FC<ForgotPasswordScreenProps> = (props)
         canGoNext,
         canGoBack,
         showNextButton = true,
-        onNext = (email): boolean | string => {
-            setEmailInput(email);
-            return true;
-        },
         WorkflowCardInstructionProps: workflowCardInstructionProps = {
             instructions: description ? (
                 <> {description} </>
@@ -75,17 +74,12 @@ export const ForgotPasswordScreen: React.FC<ForgotPasswordScreenProps> = (props)
             ),
         },
         WorkflowCardActionsProps: workflowCardActionsProps = {
-            onNext: (): void => {
-                void handleOnNext();
+            onNext: ({ email }): void => {
+                setEmailInput(email);
+                void handleOnNext(email);
             },
             onPrevious: (): void => {
-                try {
-                    setIsLoading(true);
-                    navigate(routeConfig.LOGIN);
-                    setIsLoading(false);
-                } catch (e) {
-                    setShowErrorDialog(true);
-                }
+                navigate(routeConfig.LOGIN);
             },
             showNext: showNextButton,
             showPrevious: showBackButton,
@@ -94,11 +88,34 @@ export const ForgotPasswordScreen: React.FC<ForgotPasswordScreenProps> = (props)
             canGoNext,
             canGoPrevious: canGoBack,
         },
+        slots = {
+            SuccessScreen: () => (
+                <SuccessScreenBase
+                    WorkflowCardHeaderProps={{ title: t('bluiAuth:HEADER.FORGOT_PASSWORD') }}
+                    icon={<CheckCircle color={'primary'} sx={{ fontSize: 100, mb: 5 }} />}
+                    messageTitle={t('bluiCommon:MESSAGES.EMAIL_SENT')}
+                    message={
+                        <Trans i18nKey={'bluiAuth:FORGOT_PASSWORD.LINK_SENT_ALT'} values={{ email: emailInput }}>
+                            Link has been sent to <b>{emailInput}</b>.
+                        </Trans>
+                    }
+                    WorkflowCardActionsProps={{
+                        showNext: true,
+                        nextLabel: t('bluiCommon:ACTIONS.DONE'),
+                        canGoNext: true,
+                        onNext: (): void => {
+                            navigate(routeConfig.LOGIN);
+                        },
+                        fullWidthButton: true,
+                    }}
+                />
+            ),
+        },
     } = props;
 
     const errorDialog = (
         <SimpleDialog
-            title={t('bluiAuth:MESSAGES.ERROR')}
+            title={t('bluiCommon:MESSAGES.ERROR')}
             body={t('bluiAuth:FORGOT_PASSWORD.ERROR')}
             open={showErrorDialog}
             onClose={(): void => {
@@ -120,34 +137,7 @@ export const ForgotPasswordScreen: React.FC<ForgotPasswordScreenProps> = (props)
                     emailLabel={emailLabel}
                     initialEmailValue={initialEmailValue}
                     emailValidator={emailValidator}
-                    onNext={onNext}
-                    slots={{
-                        SuccessScreen: () => (
-                            <SuccessScreenBase
-                                WorkflowCardHeaderProps={{ title: t('bluiAuth:HEADER.FORGOT_PASSWORD') }}
-                                icon={<CheckCircle color={'primary'} sx={{ fontSize: 100, mb: 5 }} />}
-                                messageTitle={t('bluiCommon:MESSAGES.EMAIL_SENT')}
-                                message={
-                                    <Trans
-                                        i18nKey={'bluiAuth:FORGOT_PASSWORD.LINK_SENT_ALT'}
-                                        values={{ email: emailInput }}
-                                    >
-                                        Link has been sent to <b>{emailInput}</b>.
-                                    </Trans>
-                                }
-                                WorkflowCardActionsProps={{
-                                    showNext: true,
-                                    nextLabel: t('bluiCommon:ACTIONS.DONE'),
-                                    canGoNext: true,
-                                    onNext: (): void => {
-                                        navigate(routeConfig.LOGIN);
-                                    },
-                                    fullWidthButton: true,
-                                }}
-                                {...props}
-                            />
-                        ),
-                    }}
+                    slots={slots}
                 />
             )}
         </>

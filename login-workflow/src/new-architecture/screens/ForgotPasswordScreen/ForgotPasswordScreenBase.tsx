@@ -17,8 +17,6 @@ export const ForgotPasswordScreenBase: React.FC<React.PropsWithChildren<ForgotPa
         initialEmailValue = '',
         // eslint-disable-next-line @typescript-eslint/no-unused-vars
         emailValidator = (email: string): boolean | string => true,
-        onNext,
-        onBack,
         slotProps = {},
         slots: { SuccessScreen } = {},
     } = props;
@@ -48,17 +46,11 @@ export const ForgotPasswordScreenBase: React.FC<React.PropsWithChildren<ForgotPa
     );
 
     const handleOnNext = (): void => {
-        if (onNext) {
-            const result = onNext(emailInput);
+        if (actionsProps.onNext) {
+            const result = actionsProps.onNext({ email: emailInput });
             setShowSuccessScreen(typeof result === 'boolean' && result);
             setShowErrorDialog(typeof result === 'string' ? result : '');
         }
-        actionsProps?.onNext?.();
-    };
-
-    const handleOnPrevious = (): void => {
-        if (onBack) onBack(emailInput);
-        actionsProps?.onPrevious?.();
     };
 
     return (
@@ -108,7 +100,6 @@ export const ForgotPasswordScreenBase: React.FC<React.PropsWithChildren<ForgotPa
                         {...actionsProps}
                         canGoNext={emailInput.length > 0 && isEmailValid && actionsProps.canGoNext}
                         onNext={handleOnNext}
-                        onPrevious={handleOnPrevious}
                     />
                 </WorkflowCard>
             )}

@@ -1,4 +1,3 @@
-import { Dispatch, SetStateAction } from 'react';
 import { WorkflowCardProps } from '../../components/WorkflowCard/WorkflowCard.types';
 
 export type VerifyCodeScreenProps = WorkflowCardProps & {
@@ -19,7 +18,4 @@ export type VerifyCodeScreenProps = WorkflowCardProps & {
 
     // used to set the label for verify code input
     verifyCodeInputLabel?: string;
-
-    // callback used to update verification code
-    updateCode?: Dispatch<SetStateAction<string>>;
 };
