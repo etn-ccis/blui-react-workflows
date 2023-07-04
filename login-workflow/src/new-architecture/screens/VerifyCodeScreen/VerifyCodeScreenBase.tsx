@@ -48,7 +48,8 @@ export const VerifyCodeScreenBase: React.FC<React.PropsWithChildren<VerifyCodeSc
     );
 
     const handleOnNext = (): void => {
-        if (actionsProps.onNext) actionsProps.onNext({ code: verifyCode });
+        const { onNext } = actionsProps;
+        if (onNext) onNext({ code: verifyCode });
     };
 
     return (
