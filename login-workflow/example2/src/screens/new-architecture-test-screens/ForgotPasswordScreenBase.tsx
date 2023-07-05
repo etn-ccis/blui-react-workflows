@@ -48,7 +48,7 @@ export const ForgotPasswordScreenBaseTest = (): JSX.Element => {
                         showPrevious: true,
                         previousLabel: 'Back',
                         canGoPrevious: true,
-                        onNext: (data: any): void => {
+                        onNext: (data): void => {
                             setEmailInput(data?.email);
                         },
                         onPrevious: (): void => navigate('/'),
