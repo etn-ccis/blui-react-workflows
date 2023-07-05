@@ -99,6 +99,7 @@ export const ForgotPasswordScreen: React.FC<ForgotPasswordScreenProps> = (props)
             open={showErrorDialog}
             onClose={(): void => {
                 setShowErrorDialog(false);
+                setIsLoading(false);
             }}
         />
     );
