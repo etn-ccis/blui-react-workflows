@@ -40,11 +40,11 @@ export const ChangePasswordDialog: React.FC<ChangePasswordDialogProps> = (props)
     const checkPasswords =
         passwordInput !== '' && confirmInput !== '' && currentInput !== '' && passwordInput === confirmInput;
 
-    const changePasswordSubmit = useCallback(async (): Promise<void> => {
+    const changePasswordSubmit = useCallback(async () => {
         if (checkPasswords) {
+            setIsLoading(true);
             try {
-                setIsLoading(true);
-                await void actions().changePassword(currentInput, passwordInput);
+                await actions().changePassword(currentInput, passwordInput);
                 setIsLoading(false);
                 return;
             } catch {
@@ -69,7 +69,7 @@ export const ChangePasswordDialog: React.FC<ChangePasswordDialogProps> = (props)
             initialNewPasswordValue: passwordInput,
             initialConfirmPasswordValue: confirmInput,
             passwordRequirements,
-            onSubmit: changePasswordSubmit,
+            onSubmit: (): void => void changePasswordSubmit(),
             passwordNotMatchError: t('bluiCommon:FORMS.PASS_MATCH_ERROR'),
         },
         ErrorDialogProps = {
@@ -93,7 +93,9 @@ export const ChangePasswordDialog: React.FC<ChangePasswordDialogProps> = (props)
             currentPasswordChange={(currentPwd): void => setCurrentInput(currentPwd)}
             enableButton={checkPasswords}
             onPrevious={onPrevious}
-            onSubmit={changePasswordSubmit}
+            onSubmit={(): void => {
+                void changePasswordSubmit();
+            }}
             PasswordProps={PasswordProps}
             ErrorDialogProps={ErrorDialogProps}
         />
