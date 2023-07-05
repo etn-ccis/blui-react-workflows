@@ -15,16 +15,16 @@ describe('AccountDetailsScreenBase tests', () => {
             <AccountDetailsScreenBase
                 firstNameLabel="First Name"
                 lastNameLabel="Last Name"
-                initialFirstName="Manu"
-                initialLastName="Loki"
+                initialFirstName="Test First Name"
+                initialLastName="Test Last Name"
             />
         );
 
         const firstNameInput = getByLabelText('First Name');
-        expect(firstNameInput).toHaveValue('Manu');
+        expect(firstNameInput).toHaveValue('Test First Name');
 
         const lastNameInput = getByLabelText('Last Name');
-        expect(lastNameInput).toHaveValue('Loki');
+        expect(lastNameInput).toHaveValue('Test Last Name');
     });
 
     it('input onChange callback', () => {
@@ -34,13 +34,13 @@ describe('AccountDetailsScreenBase tests', () => {
 
         const firstNameInput = getByLabelText('First Name');
         expect(firstNameInput).toHaveValue('');
-        fireEvent.change(firstNameInput, { target: { value: 'Manoj' } });
-        expect(firstNameInput).toHaveValue('Manoj');
+        fireEvent.change(firstNameInput, { target: { value: 'Test First Name' } });
+        expect(firstNameInput).toHaveValue('Test First Name');
 
         const lastNameInput = getByLabelText('Last Name');
         expect(lastNameInput).toHaveValue('');
-        fireEvent.change(lastNameInput, { target: { value: 'Lokesh' } });
-        expect(lastNameInput).toHaveValue('Lokesh');
+        fireEvent.change(lastNameInput, { target: { value: 'Test Last Name' } });
+        expect(lastNameInput).toHaveValue('Test Last Name');
     });
 
     it('error on onChange', () => {
@@ -65,13 +65,13 @@ describe('AccountDetailsScreenBase tests', () => {
 
         const firstNameInput = getByLabelText('First Name');
         expect(firstNameInput).toHaveValue('');
-        fireEvent.change(firstNameInput, { target: { value: 'Ma' } });
-        expect(firstNameInput).toHaveValue('Ma');
+        fireEvent.change(firstNameInput, { target: { value: 'AA' } });
+        expect(firstNameInput).toHaveValue('AA');
 
         const lastNameInput = getByLabelText('Last Name');
         expect(lastNameInput).toHaveValue('');
-        fireEvent.change(lastNameInput, { target: { value: 'Lo' } });
-        expect(lastNameInput).toHaveValue('Lo');
+        fireEvent.change(lastNameInput, { target: { value: 'YY' } });
+        expect(lastNameInput).toHaveValue('YY');
     });
 
     it('passing all the props', () => {
@@ -82,10 +82,10 @@ describe('AccountDetailsScreenBase tests', () => {
                     instructions: 'Enter your details below to complete account creation.',
                 }}
                 firstNameLabel="First Name"
-                initialFirstName="Manoj"
+                initialFirstName="Test First Name"
                 firstNameValidator={(): any => {}}
                 lastNameLabel="Last Name"
-                initialLastName="Lokesh"
+                initialLastName="Test Last Name"
                 lastNameValidator={(): any => {}}
                 WorkflowCardActionsProps={{
                     canGoPrevious: true,
