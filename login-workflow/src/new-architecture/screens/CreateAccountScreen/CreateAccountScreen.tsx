@@ -24,7 +24,7 @@ export const CreateAccountScreen: React.FC<CreateAccountScreenProps> = (props) =
     const regWorkflow = useRegistrationWorkflowContext();
     const { nextScreen, previousScreen, screenData } = regWorkflow;
     const [emailInputValue, setEmailInputValue] = useState(screenData.CreateAccount.emailAddress);
-    const [, setIsLoading] = useState(false);
+    const [isLoading, setIsLoading] = useState(false);
 
     const onNext = useCallback(async () => {
         try {
@@ -51,6 +51,9 @@ export const CreateAccountScreen: React.FC<CreateAccountScreenProps> = (props) =
         console.log('going to previous screen... with screen data: ', screenData);
     };
     const {
+        WorkflowCardBaseProps: workflowCardBaseProps = {
+            loading: isLoading,
+        },
         WorkflowCardHeaderProps: workflowCardHeaderProps = {
             title: t('bluiRegistration:REGISTRATION.STEPS.CREATE_ACCOUNT'),
         },
@@ -89,6 +92,7 @@ export const CreateAccountScreen: React.FC<CreateAccountScreenProps> = (props) =
 
     return (
         <CreateAccountScreenBase
+            WorkflowCardBaseProps={workflowCardBaseProps}
             WorkflowCardHeaderProps={workflowCardHeaderProps}
             WorkflowCardInstructionProps={workflowCardInstructionProps}
             emailLabel={emailLabel}
