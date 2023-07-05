@@ -34,21 +34,17 @@ export const CreateAccountScreen: React.FC<CreateAccountScreenProps> = (props) =
                 screenId: 'CreateAccount',
                 values: { emailAddress: emailInputValue },
             });
-            // eslint-disable-next-line no-console
-            console.log('going to next screen... with screen data: ', screenData);
             setIsLoading(false);
         } catch {
             console.error('Error while updating create account!');
         }
-    }, [emailInputValue, nextScreen, actions, screenData]);
+    }, [emailInputValue, nextScreen, actions]);
 
     const onPrevious = (): void => {
         previousScreen({
             screenId: 'CreateAccount',
             values: { emailAddress: emailInputValue },
         });
-        // eslint-disable-next-line no-console
-        console.log('going to previous screen... with screen data: ', screenData);
     };
     const {
         WorkflowCardBaseProps: workflowCardBaseProps = {
