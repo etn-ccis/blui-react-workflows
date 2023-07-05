@@ -18,6 +18,7 @@ export const ForgotPasswordScreen: React.FC<ForgotPasswordScreenProps> = (props)
     const [emailInput, setEmailInput] = useState('');
     const [isLoading, setIsLoading] = useState(false);
     const [showErrorDialog, setShowErrorDialog] = useState(false);
+    const [showSuccessScreen, setShowSuccessScreen] = useState(props.showSuccessScreen);
 
     const EMAIL_REGEX = /^[A-Z0-9._%+'-]+@[A-Z0-9.-]+\.[A-Z]{2,}$/i;
 
@@ -26,6 +27,7 @@ export const ForgotPasswordScreen: React.FC<ForgotPasswordScreenProps> = (props)
             try {
                 setIsLoading(true);
                 await actions().forgotPassword(email);
+                setShowSuccessScreen(true);
                 setIsLoading(false);
             } catch (e) {
                 setShowErrorDialog(true);
@@ -114,6 +116,7 @@ export const ForgotPasswordScreen: React.FC<ForgotPasswordScreenProps> = (props)
                     emailLabel={emailLabel}
                     initialEmailValue={initialEmailValue}
                     emailValidator={emailValidator}
+                    showSuccessScreen={showSuccessScreen}
                     slots={{
                         SuccessScreen: () => (
                             <SuccessScreenBase

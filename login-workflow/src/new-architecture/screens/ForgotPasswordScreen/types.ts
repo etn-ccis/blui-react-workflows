@@ -50,4 +50,7 @@ export type ForgotPasswordScreenProps = WorkflowCardProps & {
 
     // used to enable to next button
     canGoNext?: boolean | (() => boolean);
+
+    // used to determine whether to show the success screen or not
+    showSuccessScreen?: boolean;
 };
