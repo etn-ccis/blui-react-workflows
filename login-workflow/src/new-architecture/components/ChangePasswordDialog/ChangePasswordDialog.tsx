@@ -42,8 +42,8 @@ export const ChangePasswordDialog: React.FC<ChangePasswordDialogProps> = (props)
 
     const changePasswordSubmit = useCallback(async () => {
         if (checkPasswords) {
-            setIsLoading(true);
             try {
+                setIsLoading(true);
                 await actions().changePassword(currentInput, passwordInput);
                 setIsLoading(false);
                 return;
