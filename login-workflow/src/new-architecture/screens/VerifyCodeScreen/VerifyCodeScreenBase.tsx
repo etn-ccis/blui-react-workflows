@@ -23,8 +23,7 @@ import Typography from '@mui/material/Typography';
  */
 
 export const VerifyCodeScreenBase: React.FC<React.PropsWithChildren<VerifyCodeScreenProps>> = (props) => {
-    const { codeValidator, onResend, resendInstructions, resendLabel, verifyCodeInputLabel, initialValue, updateCode } =
-        props;
+    const { codeValidator, onResend, resendInstructions, resendLabel, verifyCodeInputLabel, initialValue } = props;
 
     const cardBaseProps = props.WorkflowCardBaseProps || {};
     const headerProps = props.WorkflowCardHeaderProps || {};
@@ -41,13 +40,17 @@ export const VerifyCodeScreenBase: React.FC<React.PropsWithChildren<VerifyCodeSc
             setVerifyCode(code);
             if (codeValidator) {
                 const validatorResponse = codeValidator(code);
-                if (updateCode) updateCode(code);
                 setIsCodeValid(typeof validatorResponse === 'boolean' ? validatorResponse : false);
                 setCodeError(typeof validatorResponse === 'string' ? validatorResponse : '');
             }
         },
-        [codeValidator, updateCode]
+        [codeValidator]
     );
+
+    const handleOnNext = (): void => {
+        const { onNext } = actionsProps;
+        if (onNext) onNext({ code: verifyCode });
+    };
 
     return (
         <WorkflowCard {...cardBaseProps}>
@@ -63,7 +66,7 @@ export const VerifyCodeScreenBase: React.FC<React.PropsWithChildren<VerifyCodeSc
                     }}
                     onKeyPress={(e): void => {
                         if (e.key === 'Enter' && verifyCode.length > 0 && isCodeValid && actionsProps.canGoNext)
-                            actionsProps?.onNext?.();
+                            handleOnNext();
                     }}
                     variant="filled"
                     error={shouldValidateCode && !isCodeValid}
@@ -89,7 +92,8 @@ export const VerifyCodeScreenBase: React.FC<React.PropsWithChildren<VerifyCodeSc
                 {...actionsProps}
                 divider
                 canGoNext={verifyCode.length > 0 && isCodeValid && actionsProps.canGoNext}
-            ></WorkflowCardActions>
+                onNext={handleOnNext}
+            />
         </WorkflowCard>
     );
 };
