@@ -10,8 +10,16 @@ import {
 import { ForgotPasswordScreenProps } from './types';
 import { SimpleDialog } from '../../../components';
 import { useLanguageLocale } from '../../hooks';
+import { SuccessScreenBase } from '../SuccessScreen';
+import CheckCircle from '@mui/icons-material/CheckCircle';
+import { Trans } from 'react-i18next';
+import { useAuthContext } from '../../contexts';
 
 export const ForgotPasswordScreenBase: React.FC<React.PropsWithChildren<ForgotPasswordScreenProps>> = (props) => {
+    const { navigate, routeConfig } = useAuthContext();
+    const { t } = useLanguageLocale();
+    const [emailInput, setEmailInput] = useState(props.initialEmailValue ? props.initialEmailValue : '');
+
     const {
         emailLabel,
         initialEmailValue = '',
@@ -20,7 +28,30 @@ export const ForgotPasswordScreenBase: React.FC<React.PropsWithChildren<ForgotPa
         onNext,
         onBack,
         slotProps = {},
-        slots: { SuccessScreen } = {},
+        slots = {
+            SuccessScreen: (
+                <SuccessScreenBase
+                    WorkflowCardHeaderProps={{ title: t('bluiAuth:HEADER.FORGOT_PASSWORD') }}
+                    icon={<CheckCircle color="primary" sx={{ fontSize: 100, mb: 5 }} />}
+                    messageTitle={t('bluiCommon:MESSAGES.EMAIL_SENT')}
+                    message={
+                        <Trans i18nKey={'bluiAuth:FORGOT_PASSWORD.LINK_SENT_ALT'} values={{ email: emailInput }}>
+                            Link has been sent to <b>{emailInput}</b>.
+                        </Trans>
+                    }
+                    WorkflowCardActionsProps={{
+                        showNext: true,
+                        nextLabel: t('bluiCommon:ACTIONS.DONE'),
+                        canGoNext: true,
+                        onNext: (): void => {
+                            navigate(routeConfig.LOGIN);
+                        },
+                        fullWidthButton: true,
+                    }}
+                    {...slotProps.SuccessScreen}
+                />
+            ),
+        },
     } = props;
 
     const cardBaseProps = props.WorkflowCardBaseProps || {};
@@ -28,13 +59,11 @@ export const ForgotPasswordScreenBase: React.FC<React.PropsWithChildren<ForgotPa
     const instructionsProps = props.WorkflowCardInstructionProps || {};
     const actionsProps = props.WorkflowCardActionsProps || {};
 
-    const [emailInput, setEmailInput] = useState(initialEmailValue);
     const [isEmailValid, setIsEmailValid] = useState(emailValidator(initialEmailValue) ?? false);
     const [emailError, setEmailError] = useState('');
     const [shouldValidateEmail, setShouldValidateEmail] = useState(false);
     const [showSuccessScreen, setShowSuccessScreen] = useState(false);
     const [showErrorDialog, setShowErrorDialog] = useState('');
-    const { t } = useLanguageLocale();
 
     const handleEmailInputChange = useCallback(
         (email: string) => {
@@ -64,7 +93,7 @@ export const ForgotPasswordScreenBase: React.FC<React.PropsWithChildren<ForgotPa
     return (
         <>
             {showSuccessScreen ? (
-                <SuccessScreen {...slotProps.SuccessScreen} />
+                slots.SuccessScreen
             ) : (
                 <WorkflowCard {...cardBaseProps}>
                     {showErrorDialog && (

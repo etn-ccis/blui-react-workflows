@@ -1,10 +1,8 @@
 import React, { useCallback, useState } from 'react';
 import { Trans } from 'react-i18next';
-import { CheckCircle } from '@mui/icons-material';
 import { SimpleDialog } from '../../../components';
 import { useAuthContext } from '../../contexts';
 import { useLanguageLocale } from '../../hooks';
-import { SuccessScreenBase } from '../SuccessScreen';
 import { ForgotPasswordScreenBase } from './ForgotPasswordScreenBase';
 import { ForgotPasswordScreenProps } from './types';
 import { LinkStyles } from '../../../styles';
@@ -121,33 +119,6 @@ export const ForgotPasswordScreen: React.FC<ForgotPasswordScreenProps> = (props)
                     initialEmailValue={initialEmailValue}
                     emailValidator={emailValidator}
                     onNext={onNext}
-                    slots={{
-                        SuccessScreen: () => (
-                            <SuccessScreenBase
-                                WorkflowCardHeaderProps={{ title: t('bluiAuth:HEADER.FORGOT_PASSWORD') }}
-                                icon={<CheckCircle color={'primary'} sx={{ fontSize: 100, mb: 5 }} />}
-                                messageTitle={t('bluiCommon:MESSAGES.EMAIL_SENT')}
-                                message={
-                                    <Trans
-                                        i18nKey={'bluiAuth:FORGOT_PASSWORD.LINK_SENT_ALT'}
-                                        values={{ email: emailInput }}
-                                    >
-                                        Link has been sent to <b>{emailInput}</b>.
-                                    </Trans>
-                                }
-                                WorkflowCardActionsProps={{
-                                    showNext: true,
-                                    nextLabel: t('bluiCommon:ACTIONS.DONE'),
-                                    canGoNext: true,
-                                    onNext: (): void => {
-                                        navigate(routeConfig.LOGIN);
-                                    },
-                                    fullWidthButton: true,
-                                }}
-                                {...props}
-                            />
-                        ),
-                    }}
                 />
             )}
         </>

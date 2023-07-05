@@ -2,6 +2,8 @@ import React from 'react';
 import '@testing-library/jest-dom';
 import { cleanup, render, screen, fireEvent } from '@testing-library/react';
 import { ForgotPasswordScreenBase } from './ForgotPasswordScreenBase';
+import { defaultProps as authContextProps } from '../../contexts/AuthContext/AuthContextProvider.test';
+import { AuthContextProvider } from '../../contexts';
 
 afterEach(cleanup);
 
@@ -18,23 +20,25 @@ describe('Forgot Password Screen Base', () => {
 
     it('renders without crashing', () => {
         render(
-            <ForgotPasswordScreenBase
-                WorkflowCardHeaderProps={{ title: 'Forgot Password' }}
-                WorkflowCardInstructionProps={{
-                    instructions: 'Forgot Password instructions',
-                }}
-                initialEmailValue={'test@email.net'}
-                WorkflowCardActionsProps={{
-                    showNext: true,
-                    nextLabel: 'Next',
-                    canGoNext: true,
-                    showPrevious: true,
-                    previousLabel: 'Back',
-                    canGoPrevious: true,
-                    currentStep: 2,
-                    totalSteps: 6,
-                }}
-            />
+            <AuthContextProvider {...authContextProps}>
+                <ForgotPasswordScreenBase
+                    WorkflowCardHeaderProps={{ title: 'Forgot Password' }}
+                    WorkflowCardInstructionProps={{
+                        instructions: 'Forgot Password instructions',
+                    }}
+                    initialEmailValue={'test@email.net'}
+                    WorkflowCardActionsProps={{
+                        showNext: true,
+                        nextLabel: 'Next',
+                        canGoNext: true,
+                        showPrevious: true,
+                        previousLabel: 'Back',
+                        canGoPrevious: true,
+                        currentStep: 2,
+                        totalSteps: 6,
+                    }}
+                />
+            </AuthContextProvider>
         );
         expect(screen.getByText('Forgot Password')).toBeInTheDocument();
         expect(screen.getByText('Forgot Password instructions')).toBeInTheDocument();
@@ -46,16 +50,18 @@ describe('Forgot Password Screen Base', () => {
 
     it('sets error state when email is too short', () => {
         const { getByLabelText, rerender } = render(
-            <ForgotPasswordScreenBase
-                emailLabel="Email Address"
-                initialEmailValue={'test'}
-                emailValidator={(email: string): boolean | string => {
-                    if (email?.length > 6) {
-                        return true;
-                    }
-                    return 'Please enter a valid email';
-                }}
-            />
+            <AuthContextProvider {...authContextProps}>
+                <ForgotPasswordScreenBase
+                    emailLabel="Email Address"
+                    initialEmailValue={'test'}
+                    emailValidator={(email: string): boolean | string => {
+                        if (email?.length > 6) {
+                            return true;
+                        }
+                        return 'Please enter a valid email';
+                    }}
+                />
+            </AuthContextProvider>
         );
 
         const verifyEmailInput = getByLabelText('Email Address');
@@ -64,31 +70,35 @@ describe('Forgot Password Screen Base', () => {
 
         // Rerender to ensure state changes have taken effect
         rerender(
-            <ForgotPasswordScreenBase
-                emailLabel="Email Address"
-                emailValidator={(email: string): boolean | string => {
-                    if (email?.length > 6) {
-                        return true;
-                    }
-                    return 'Please enter a valid email';
-                }}
-            />
+            <AuthContextProvider {...authContextProps}>
+                <ForgotPasswordScreenBase
+                    emailLabel="Email Address"
+                    emailValidator={(email: string): boolean | string => {
+                        if (email?.length > 6) {
+                            return true;
+                        }
+                        return 'Please enter a valid email';
+                    }}
+                />
+            </AuthContextProvider>
         );
         expect(verifyEmailInput).toHaveAttribute('aria-invalid', 'true');
     });
 
     it('does not set error state when email is long enough', () => {
         const { getByLabelText, rerender } = render(
-            <ForgotPasswordScreenBase
-                emailLabel="Email Address"
-                initialEmailValue={'test'}
-                emailValidator={(email: string): boolean | string => {
-                    if (email?.length > 2) {
-                        return true;
-                    }
-                    return 'Please enter a valid email';
-                }}
-            />
+            <AuthContextProvider {...authContextProps}>
+                <ForgotPasswordScreenBase
+                    emailLabel="Email Address"
+                    initialEmailValue={'test'}
+                    emailValidator={(email: string): boolean | string => {
+                        if (email?.length > 2) {
+                            return true;
+                        }
+                        return 'Please enter a valid email';
+                    }}
+                />
+            </AuthContextProvider>
         );
 
         const verifyEmailInput = getByLabelText('Email Address');
@@ -97,31 +107,35 @@ describe('Forgot Password Screen Base', () => {
 
         // Rerender to ensure state changes have taken effect
         rerender(
-            <ForgotPasswordScreenBase
-                emailLabel="Email Address"
-                emailValidator={(email: string): boolean | string => {
-                    if (email?.length > 1) {
-                        return true;
-                    }
-                    return 'Please enter a valid email';
-                }}
-            />
+            <AuthContextProvider {...authContextProps}>
+                <ForgotPasswordScreenBase
+                    emailLabel="Email Address"
+                    emailValidator={(email: string): boolean | string => {
+                        if (email?.length > 1) {
+                            return true;
+                        }
+                        return 'Please enter a valid email';
+                    }}
+                />
+            </AuthContextProvider>
         );
         expect(verifyEmailInput).not.toHaveAttribute('aria-invalid', 'true');
     });
 
     it('calls onNext when the next button is clicked', () => {
         const { getByText } = render(
-            <ForgotPasswordScreenBase
-                WorkflowCardActionsProps={{
-                    onNext: mockOnNext(),
-                    showNext: true,
-                    nextLabel: 'Next',
-                    canGoNext: true,
-                    currentStep: 1,
-                    totalSteps: 6,
-                }}
-            />
+            <AuthContextProvider {...authContextProps}>
+                <ForgotPasswordScreenBase
+                    WorkflowCardActionsProps={{
+                        onNext: mockOnNext(),
+                        showNext: true,
+                        nextLabel: 'Next',
+                        canGoNext: true,
+                        currentStep: 1,
+                        totalSteps: 6,
+                    }}
+                />
+            </AuthContextProvider>
         );
 
         const nextButton = getByText('Next');
@@ -132,16 +146,18 @@ describe('Forgot Password Screen Base', () => {
 
     it('pre-populates the email input field with initialEmailValue', () => {
         const { getByLabelText } = render(
-            <ForgotPasswordScreenBase
-                emailLabel="Email Address"
-                initialEmailValue="te"
-                emailValidator={(email: string): boolean | string => {
-                    if (email?.length > 1) {
-                        return true;
-                    }
-                    return 'Please enter a valid email';
-                }}
-            />
+            <AuthContextProvider {...authContextProps}>
+                <ForgotPasswordScreenBase
+                    emailLabel="Email Address"
+                    initialEmailValue="te"
+                    emailValidator={(email: string): boolean | string => {
+                        if (email?.length > 1) {
+                            return true;
+                        }
+                        return 'Please enter a valid email';
+                    }}
+                />
+            </AuthContextProvider>
         );
 
         const emailInput = getByLabelText('Email Address');
@@ -150,11 +166,13 @@ describe('Forgot Password Screen Base', () => {
 
     it('displays title, instructions and emailLabel correctly', () => {
         const { getByText } = render(
-            <ForgotPasswordScreenBase
-                WorkflowCardHeaderProps={{ title: 'Title' }}
-                WorkflowCardInstructionProps={{ instructions: 'Instructions' }}
-                emailLabel="Email Address"
-            />
+            <AuthContextProvider {...authContextProps}>
+                <ForgotPasswordScreenBase
+                    WorkflowCardHeaderProps={{ title: 'Title' }}
+                    WorkflowCardInstructionProps={{ instructions: 'Instructions' }}
+                    emailLabel="Email Address"
+                />
+            </AuthContextProvider>
         );
 
         expect(getByText('Title')).toBeInTheDocument();
@@ -164,20 +182,22 @@ describe('Forgot Password Screen Base', () => {
 
     it('should display error in a dialog, when there is an error during screen transition', () => {
         const { getByText, rerender, getByLabelText } = render(
-            <ForgotPasswordScreenBase
-                WorkflowCardHeaderProps={{ title: 'Title' }}
-                WorkflowCardInstructionProps={{ instructions: 'Instructions' }}
-                emailLabel="Email Address"
-                WorkflowCardActionsProps={{
-                    onNext: mockOnNext(),
-                    showNext: true,
-                    nextLabel: 'Next',
-                    canGoNext: true,
-                    currentStep: 1,
-                    totalSteps: 6,
-                }}
-                onNext={(email): string => `Error ${email}`}
-            />
+            <AuthContextProvider {...authContextProps}>
+                <ForgotPasswordScreenBase
+                    WorkflowCardHeaderProps={{ title: 'Title' }}
+                    WorkflowCardInstructionProps={{ instructions: 'Instructions' }}
+                    emailLabel="Email Address"
+                    WorkflowCardActionsProps={{
+                        onNext: mockOnNext(),
+                        showNext: true,
+                        nextLabel: 'Next',
+                        canGoNext: true,
+                        currentStep: 1,
+                        totalSteps: 6,
+                    }}
+                    onNext={(email): string => `Error ${email}`}
+                />
+            </AuthContextProvider>
         );
 
         const verifyEmailInput = getByLabelText('Email Address');
@@ -187,20 +207,22 @@ describe('Forgot Password Screen Base', () => {
         fireEvent.click(getByText('Next'));
 
         rerender(
-            <ForgotPasswordScreenBase
-                WorkflowCardHeaderProps={{ title: 'Title' }}
-                WorkflowCardInstructionProps={{ instructions: 'Instructions' }}
-                emailLabel="Email Address"
-                WorkflowCardActionsProps={{
-                    onNext: mockOnNext(),
-                    showNext: true,
-                    nextLabel: 'Next',
-                    canGoNext: true,
-                    currentStep: 1,
-                    totalSteps: 6,
-                }}
-                onNext={(email): string => `Error ${email}`}
-            />
+            <AuthContextProvider {...authContextProps}>
+                <ForgotPasswordScreenBase
+                    WorkflowCardHeaderProps={{ title: 'Title' }}
+                    WorkflowCardInstructionProps={{ instructions: 'Instructions' }}
+                    emailLabel="Email Address"
+                    WorkflowCardActionsProps={{
+                        onNext: mockOnNext(),
+                        showNext: true,
+                        nextLabel: 'Next',
+                        canGoNext: true,
+                        currentStep: 1,
+                        totalSteps: 6,
+                    }}
+                    onNext={(email): string => `Error ${email}`}
+                />
+            </AuthContextProvider>
         );
 
         expect(screen.getByTestId('blui-simple-dialog')).toBeInTheDocument();
