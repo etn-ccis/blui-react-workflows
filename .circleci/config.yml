@@ -8,7 +8,7 @@ jobs:
     working_directory: ~/login-workflow
     docker:
       - image: cimg/node:14.19.0-browsers
-    resource_class: large
+    resource_class: xlarge
     steps:
       - checkout
       - restore_cache:
@@ -43,7 +43,7 @@ jobs:
           name: Build
           command: |
             cd login-workflow
-            yarn build  --max_old_space_size=4096
+            yarn build
       - persist_to_workspace:
           root: .
           paths:
