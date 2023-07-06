@@ -56,6 +56,7 @@ describe('Create Account Screen', () => {
         fireEvent.blur(verifyEmailInput);
 
         expect(verifyEmailInput).toHaveAttribute('aria-invalid', 'true');
+        expect(screen.getByText('Please enter a valid email')).toBeInTheDocument();
     });
 
     it('does not set error state when email is long enough', () => {

@@ -36,6 +36,7 @@ export const CreateAccountScreen: React.FC<CreateAccountScreenProps> = (props) =
             });
             setIsLoading(false);
         } catch {
+            setIsLoading(false);
             console.error('Error while updating create account!');
         }
     }, [emailInputValue, nextScreen, actions]);
