@@ -56,8 +56,8 @@ export const SetPasswordScreen: React.FC<React.PropsWithChildren<any>> = () => {
                     onPasswordChange={updateFields}
                     onSubmit={(): void => {}}
                     passwordRequirements={passwordRequirements}
-                    newPasswordLabel="Password"
-                    confirmPasswordLabel="Confirm Password"
+                    newPasswordLabel="New Password"
+                    confirmPasswordLabel="Confirm New Password"
                 />
             </WorkflowCardBody>
             <WorkflowCardActions

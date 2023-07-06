@@ -4,6 +4,7 @@ import {
     i18nRegistrationInstance,
     RegistrationContextProvider,
     EulaScreen,
+    AccountDetailsScreen,
     CreatePasswordScreen,
     CreateAccountScreen,
     RegistrationSuccessScreen,
@@ -31,6 +32,7 @@ export const RegistrationWorkflowScreen = (): JSX.Element => {
                 <CreateAccountScreen />
                 <VerifyCodeScreen />
                 <CreatePasswordScreen />
+                <AccountDetailsScreen />
                 <RegistrationSuccessScreen />
             </RegistrationWorkflow>
         </RegistrationContextProvider>
