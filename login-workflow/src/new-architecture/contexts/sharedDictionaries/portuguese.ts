@@ -58,6 +58,8 @@ const resources: CommonTranslationsFile = {
             PASS_MATCH_ERROR: 'Palavras-passe não coincidem',
             TOGGLE_PASSWORD_VISIBILITY: 'Ative a visibilidade da palavra-passe',
             RESET_PASSWORD: 'Redefinir Palavra-passe',
+            FIRST_NAME_LENGTH_ERROR: 'O primeiro nome deve ter pelo menos 3 caracteres',
+            LAST_NAME_LENGTH_ERROR: 'O sobrenome deve ter pelo menos 3 caracteres',
         },
         PASSWORD_REQUIREMENTS: {
             LENGTH: '8-16 caracteres',
