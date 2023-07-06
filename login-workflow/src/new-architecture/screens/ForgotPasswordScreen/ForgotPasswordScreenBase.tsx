@@ -8,8 +8,6 @@ import {
     WorkflowCardInstructions,
 } from '../../components';
 import { ForgotPasswordScreenProps } from './types';
-import { SimpleDialog } from '../../../components';
-import { useLanguageLocale } from '../../hooks';
 
 export const ForgotPasswordScreenBase: React.FC<React.PropsWithChildren<ForgotPasswordScreenProps>> = (props) => {
     const {
@@ -17,10 +15,9 @@ export const ForgotPasswordScreenBase: React.FC<React.PropsWithChildren<ForgotPa
         initialEmailValue = '',
         // eslint-disable-next-line @typescript-eslint/no-unused-vars
         emailValidator = (email: string): boolean | string => true,
-        onNext,
-        onBack,
         slotProps = {},
         slots: { SuccessScreen } = {},
+        showSuccessScreen,
     } = props;
 
     const cardBaseProps = props.WorkflowCardBaseProps || {};
@@ -32,9 +29,6 @@ export const ForgotPasswordScreenBase: React.FC<React.PropsWithChildren<ForgotPa
     const [isEmailValid, setIsEmailValid] = useState(emailValidator(initialEmailValue) ?? false);
     const [emailError, setEmailError] = useState('');
     const [shouldValidateEmail, setShouldValidateEmail] = useState(false);
-    const [showSuccessScreen, setShowSuccessScreen] = useState(false);
-    const [showErrorDialog, setShowErrorDialog] = useState('');
-    const { t } = useLanguageLocale();
 
     const handleEmailInputChange = useCallback(
         (email: string) => {
@@ -48,17 +42,10 @@ export const ForgotPasswordScreenBase: React.FC<React.PropsWithChildren<ForgotPa
     );
 
     const handleOnNext = (): void => {
+        const { onNext } = actionsProps;
         if (onNext) {
-            const result = onNext(emailInput);
-            setShowSuccessScreen(typeof result === 'boolean' && result);
-            setShowErrorDialog(typeof result === 'string' ? result : '');
+            onNext({ email: emailInput });
         }
-        actionsProps?.onNext?.();
-    };
-
-    const handleOnPrevious = (): void => {
-        if (onBack) onBack(emailInput);
-        actionsProps?.onPrevious?.();
     };
 
     return (
@@ -67,16 +54,6 @@ export const ForgotPasswordScreenBase: React.FC<React.PropsWithChildren<ForgotPa
                 <SuccessScreen {...slotProps.SuccessScreen} />
             ) : (
                 <WorkflowCard {...cardBaseProps}>
-                    {showErrorDialog && (
-                        <SimpleDialog
-                            title={t('bluiCommon:MESSAGES.ERROR')}
-                            body={showErrorDialog}
-                            open={showErrorDialog.length > 0}
-                            onClose={(): void => {
-                                setShowErrorDialog('');
-                            }}
-                        />
-                    )}
                     <WorkflowCardHeader {...headerProps} />
                     <WorkflowCardBody>
                         <WorkflowCardInstructions divider {...instructionsProps} />
@@ -99,7 +76,7 @@ export const ForgotPasswordScreenBase: React.FC<React.PropsWithChildren<ForgotPa
                             }}
                             variant="filled"
                             error={shouldValidateEmail && !isEmailValid}
-                            helperText={(shouldValidateEmail && emailError) || showErrorDialog}
+                            helperText={shouldValidateEmail && emailError}
                             onBlur={(): void => setShouldValidateEmail(true)}
                         />
                     </WorkflowCardBody>
@@ -108,7 +85,6 @@ export const ForgotPasswordScreenBase: React.FC<React.PropsWithChildren<ForgotPa
                         {...actionsProps}
                         canGoNext={emailInput.length > 0 && isEmailValid && actionsProps.canGoNext}
                         onNext={handleOnNext}
-                        onPrevious={handleOnPrevious}
                     />
                 </WorkflowCard>
             )}
