@@ -14,6 +14,8 @@ import {
 import { ChangePasswordDialogProps } from './types';
 import { SetPassword } from '../SetPassword';
 import { PasswordTextField } from '../PasswordTextField';
+import { BasicDialog } from '../Dialog';
+import { Spinner } from '../../../components';
 
 /**
  * Component that renders a dialog with textField to enter current password and a change password form with a new password and confirm password inputs.
@@ -30,29 +32,33 @@ import { PasswordTextField } from '../PasswordTextField';
  *
  * @category Component
  */
+
 export const ChangePasswordDialogBase: React.FC<ChangePasswordDialogProps> = (props) => {
     const {
+        open,
         dialogTitle,
         dialogDescription,
         currentPasswordLabel,
         previousLabel,
         nextLabel,
         sx,
-        open,
         enableButton,
         currentPasswordChange,
         onSubmit,
+        onPrevious,
+        ErrorDialogProps,
+        PasswordProps,
+        loading,
     } = props;
     const theme = useTheme();
     const matchesSM = useMediaQuery(theme.breakpoints.down('sm'));
     const [currentPassword, setCurrentPassword] = useState('');
     const [buttonState, setButtonState] = useState(true);
 
-    const passwordProps = props.PasswordProps;
-
     const handleChange = (event: any): void => {
-        setCurrentPassword(event.target.value);
-        currentPasswordChange(event.target.value);
+        const { value } = event.target;
+        setCurrentPassword(value);
+        currentPasswordChange(value);
     };
 
     useEffect(() => {
@@ -60,44 +66,41 @@ export const ChangePasswordDialogBase: React.FC<ChangePasswordDialogProps> = (pr
     }, [enableButton]);
 
     return (
-        <Dialog fullScreen={matchesSM ? true : false} open={open} maxWidth={'xs'}>
+        <Dialog sx={sx} fullScreen={matchesSM} open={open} maxWidth={'xs'}>
+            <Spinner data-testid="blui-spinner" visible={loading} />
+            <BasicDialog {...ErrorDialogProps} />
             <DialogTitle
-                sx={[
-                    {
-                        pt: { md: 4, sm: 2 },
-                        px: { md: 3, sm: 2 },
-                        pb: 0,
-                    },
-                    ...(Array.isArray(sx) ? sx : [sx]),
-                ]}
+                sx={{
+                    pt: { md: 4, sm: 2 },
+                    px: { md: 3, sm: 2 },
+                    pb: 0,
+                }}
             >
                 {dialogTitle}
             </DialogTitle>
             <DialogContent
-                sx={[
-                    {
-                        flex: '1 1 auto',
-                        overflow: 'auto',
-                        display: 'flex',
-                        flexDirection: 'column',
-                        pt: 2,
-                        px: { md: 3, sm: 2 },
-                        pb: { md: 2, sm: 3 },
-                    },
-                    ...(Array.isArray(sx) ? sx : [sx]),
-                ]}
+                sx={{
+                    flex: '1 1 auto',
+                    overflow: 'auto',
+                    display: 'flex',
+                    flexDirection: 'column',
+                    pt: 2,
+                    px: { md: 3, sm: 2 },
+                    pb: { md: 2, sm: 3 },
+                }}
             >
                 <Typography>{dialogDescription}</Typography>
                 <Divider sx={{ mt: 5, mb: 4, mx: { md: -3, xs: -2 } }} />
-                <SetPassword {...passwordProps}>
+                <SetPassword {...PasswordProps}>
                     <PasswordTextField
                         id="current-password"
                         label={currentPasswordLabel}
                         value={currentPassword}
                         onChange={handleChange}
                         onKeyPress={(e): void => {
-                            if (e.key === 'Enter' && passwordProps.passwordRef.current) {
-                                passwordProps.passwordRef.current.focus();
+                            const { current } = PasswordProps.passwordRef;
+                            if (e.key === 'Enter' && current) {
+                                current.focus();
                             }
                         }}
                     />
@@ -105,13 +108,10 @@ export const ChangePasswordDialogBase: React.FC<ChangePasswordDialogProps> = (pr
             </DialogContent>
             <Divider sx={{ mt: 2 }} />
             <DialogActions
-                sx={[
-                    {
-                        justifyContent: 'flex-end',
-                        p: { md: 3, sm: 2 },
-                    },
-                    ...(Array.isArray(sx) ? sx : [sx]),
-                ]}
+                sx={{
+                    justifyContent: 'flex-end',
+                    p: { md: 3, sm: 2 },
+                }}
             >
                 <Grid
                     container
@@ -120,7 +120,7 @@ export const ChangePasswordDialogBase: React.FC<ChangePasswordDialogProps> = (pr
                     justifyContent="space-between"
                     sx={{ width: '100%' }}
                 >
-                    <Button variant="outlined" color="primary" sx={{ width: 100 }}>
+                    <Button variant="outlined" color="primary" sx={{ width: 100 }} onClick={onPrevious}>
                         {previousLabel}
                     </Button>
                     <Button
