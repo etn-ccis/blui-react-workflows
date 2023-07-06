@@ -4,14 +4,19 @@ import {
     defaultPasswordRequirements,
     useLanguageLocale,
 } from '@brightlayer-ui/react-auth-workflow';
+import { useNavigate } from 'react-router';
 
 export const ChangePasswordDialogBaseTest: React.FC<PropsWithChildren> = () => {
     const { t } = useLanguageLocale();
+    const navigate = useNavigate();
     const passwordRef = useRef(null);
     const confirmRef = useRef(null);
     const [passwordInput, setPasswordInput] = useState('');
     const [confirmInput, setConfirmInput] = useState('');
     const [currentInput, setCurrentInput] = useState('');
+
+    // Error dialog state
+    const [showErrorDialog, setShowErrorDialog] = useState(false);
 
     const passwordRequirements = defaultPasswordRequirements(t);
 
@@ -42,9 +47,7 @@ export const ChangePasswordDialogBaseTest: React.FC<PropsWithChildren> = () => {
         passwordInput !== '' && confirmInput !== '' && currentInput !== '' && passwordInput === confirmInput;
 
     const changePasswordSubmit = (): void => {
-        if (checkPasswords)
-            // eslint-disable-next-line no-console
-            console.log(passwordInput, currentInput);
+        if (checkPasswords) setShowErrorDialog(true);
     };
 
     return (
@@ -55,19 +58,30 @@ export const ChangePasswordDialogBaseTest: React.FC<PropsWithChildren> = () => {
             currentPasswordLabel="Current Password"
             previousLabel="Back"
             nextLabel="Okay"
+            enableButton={checkPasswords}
+            onSubmit={changePasswordSubmit}
+            currentPasswordChange={currentPasswordChange}
+            onPrevious={(): void => navigate('/login')}
             PasswordProps={{
                 newPasswordLabel: 'New Password',
-                confirmPasswordLabel: 'Confirm Password',
+                confirmPasswordLabel: 'Confirm New Password',
                 passwordRef: passwordRef,
                 confirmRef: confirmRef,
                 initialNewPasswordValue: passwordInput,
                 initialConfirmPasswordValue: confirmInput,
                 onPasswordChange: updateFields,
                 onSubmit: changePasswordSubmit,
+                passwordRequirements: passwordRequirements,
+                passwordNotMatchError: 'Passwords do not match',
             }}
-            enableButton={checkPasswords}
-            onSubmit={changePasswordSubmit}
-            currentPasswordChange={currentPasswordChange}
+            ErrorDialogProps={{
+                open: showErrorDialog,
+                title: 'Error!',
+                body: 'Please check the error and proceed further',
+                onClose: (): void => {
+                    setShowErrorDialog(!showErrorDialog);
+                },
+            }}
         />
     );
 };
