@@ -59,8 +59,6 @@ export const ForgotPasswordScreenBaseTest = (): JSX.Element => {
                             onNext: (): void => {},
                             onPrevious: (): void => navigate('/'),
                         }}
-                        /* eslint-disable @typescript-eslint/no-unused-vars */
-                        onNext={(email): boolean | string => true}
                     />
                 </AuthContextProvider>
             </Box>

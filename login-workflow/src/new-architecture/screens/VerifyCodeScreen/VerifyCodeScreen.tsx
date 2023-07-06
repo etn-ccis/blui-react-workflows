@@ -13,7 +13,6 @@ import { useRegistrationContext, useRegistrationWorkflowContext } from '../../co
  * @param resendInstructions text to display ahead of the resend link/button
  * @param resendLabel label for the resend link/button
  * @param initialValue code used to pre-populate the field
- * @param updateCode get the update code when user click the send again link
  *
  * @category Component
  */
@@ -49,19 +48,22 @@ export const VerifyCodeScreen: React.FC<VerifyCodeScreenProps> = (props) => {
         initialValue = verifyCode,
     } = props;
 
-    const onNext = useCallback(async () => {
-        try {
-            setIsLoading(true);
-            await actions().validateUserRegistrationRequest(verifyCode);
-            nextScreen({
-                screenId: 'VerifyCode',
-                values: { code: verifyCode },
-            });
-            setIsLoading(false);
-        } catch {
-            console.error('Error fetching validation code!');
-        }
-    }, [verifyCode, nextScreen, actions]);
+    const handleOnNext = useCallback(
+        async (code: string) => {
+            try {
+                setIsLoading(true);
+                await actions().validateUserRegistrationRequest(code);
+                nextScreen({
+                    screenId: 'VerifyCode',
+                    values: { code: verifyCode },
+                });
+                setIsLoading(false);
+            } catch {
+                console.error('Error fetching validation code!');
+            }
+        },
+        [verifyCode, nextScreen, actions]
+    );
 
     const onPrevious = (): void => {
         previousScreen({
@@ -88,8 +90,9 @@ export const VerifyCodeScreen: React.FC<VerifyCodeScreenProps> = (props) => {
             canGoPrevious: true,
             currentStep: 2,
             totalSteps: 6,
-            onNext: (): void => {
-                void onNext();
+            onNext: ({ code }): void => {
+                setVerifyCode(code);
+                void handleOnNext(code);
             },
             onPrevious: (): void => {
                 void onPrevious();
@@ -109,7 +112,6 @@ export const VerifyCodeScreen: React.FC<VerifyCodeScreenProps> = (props) => {
             initialValue={initialValue}
             onResend={onResend}
             codeValidator={codeValidator}
-            updateCode={setVerifyCode}
         />
     );
 };
