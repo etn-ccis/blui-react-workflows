@@ -20,4 +20,5 @@ export * from './LoginScreenFullScreen';
 export * from './ResetPasswordFullScreen';
 export * from './ForgotPasswordFullScreen';
 export * from './ContactSupportScreenFullScreen';
+export * from './ChangePasswordDialogTest';
 export * from './ExistingAccountSuccessScreenTest';
