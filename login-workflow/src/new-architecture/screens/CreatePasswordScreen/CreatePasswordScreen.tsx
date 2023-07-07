@@ -53,6 +53,7 @@ export const CreatePasswordScreen: React.FC<CreatePasswordScreenProps> = (props)
     );
 
     const {
+        WorkflowCardActionsProps,
         PasswordProps: passwordProps = {
             initialNewPasswordValue: passwordInput,
             initialConfirmPasswordValue: confirmInput,
@@ -65,6 +66,7 @@ export const CreatePasswordScreen: React.FC<CreatePasswordScreenProps> = (props)
             onPasswordChange: updateFields,
             onSubmit: (): void => {
                 void onNext();
+                WorkflowCardActionsProps?.onNext();
             },
         },
         WorkflowCardHeaderProps: workflowCardHeaderProps = {
@@ -73,26 +75,30 @@ export const CreatePasswordScreen: React.FC<CreatePasswordScreenProps> = (props)
         WorkflowCardInstructionProps: workflowCardInstructionProps = {
             instructions: t('bluiRegistration:REGISTRATION.INSTRUCTIONS.PASSWORD_INFO'),
         },
-        WorkflowCardActionsProps: workflowCardActionsProps = {
-            showNext: true,
-            nextLabel: t('bluiCommon:ACTIONS.NEXT'),
-            canGoNext: passwordInput !== '' && confirmInput !== '' && passwordInput === confirmInput,
-            showPrevious: true,
-            previousLabel: t('bluiCommon:ACTIONS.BACK'),
-            canGoPrevious: true,
-            currentStep: 3,
-            totalSteps: 6,
-            onNext: (): void => {
-                void onNext();
-            },
-            onPrevious: (): void => {
-                void onPrevious();
-            },
-        },
         WorkflowCardBaseProps: workflowCardBaseProps = {
             loading: isLoading,
         },
     } = props;
+
+    const workflowCardActionsProps = {
+        showNext: true,
+        nextLabel: t('bluiCommon:ACTIONS.NEXT'),
+        canGoNext: passwordInput !== '' && confirmInput !== '' && passwordInput === confirmInput,
+        showPrevious: true,
+        previousLabel: t('bluiCommon:ACTIONS.BACK'),
+        canGoPrevious: true,
+        currentStep: 2,
+        totalSteps: 6,
+        ...WorkflowCardActionsProps,
+        onNext: (): void => {
+            void onNext();
+            WorkflowCardActionsProps?.onNext();
+        },
+        onPrevious: (): void => {
+            void onPrevious();
+            WorkflowCardActionsProps?.onPrevious();
+        },
+    };
 
     const areValidMatchingPasswords = useCallback((): boolean => {
         for (let i = 0; i < passwordRequirements.length; i++) {
