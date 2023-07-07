@@ -53,6 +53,7 @@ export const CreatePasswordScreen: React.FC<CreatePasswordScreenProps> = (props)
     );
 
     const {
+        WorkflowCardActionsProps,
         PasswordProps: passwordProps = {
             initialNewPasswordValue: passwordInput,
             initialConfirmPasswordValue: confirmInput,
@@ -74,7 +75,6 @@ export const CreatePasswordScreen: React.FC<CreatePasswordScreenProps> = (props)
         WorkflowCardInstructionProps: workflowCardInstructionProps = {
             instructions: t('bluiRegistration:REGISTRATION.INSTRUCTIONS.PASSWORD_INFO'),
         },
-        WorkflowCardActionsProps,
         WorkflowCardBaseProps: workflowCardBaseProps = {
             loading: isLoading,
         },
