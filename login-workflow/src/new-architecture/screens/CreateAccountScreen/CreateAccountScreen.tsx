@@ -34,11 +34,10 @@ export const CreateAccountScreen: React.FC<CreateAccountScreenProps> = (props) =
                 screenId: 'CreateAccount',
                 values: { emailAddress: emailInputValue },
             });
-            setIsLoading(false);
         } catch {
-            setIsLoading(false);
             console.error('Error while updating create account!');
         }
+        setIsLoading(false);
     }, [emailInputValue, nextScreen, actions]);
 
     const onPrevious = (): void => {
