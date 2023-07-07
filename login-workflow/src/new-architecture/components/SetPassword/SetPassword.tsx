@@ -92,11 +92,13 @@ export const SetPassword: React.FC<React.PropsWithChildren<SetPasswordProps>> = 
                 error={shouldValidatePassword && !isValidPassword()}
                 onBlur={(): void => setShouldValidatePassword(true)}
             />
-            <PasswordRequirements
-                sx={{ mt: 2 }}
-                passwordText={passwordInput}
-                passwordRequirements={passwordRequirements}
-            />
+            {passwordRequirements && passwordRequirements.length > 0 && (
+                <PasswordRequirements
+                    sx={{ mt: 2 }}
+                    passwordText={passwordInput}
+                    passwordRequirements={passwordRequirements}
+                />
+            )}
             <SecureTextField
                 id="confirm"
                 data-testid="confirm"
