@@ -59,7 +59,7 @@ export const ForgotPasswordScreen: React.FC<ForgotPasswordScreenProps> = (props)
         showNextButton = true,
         WorkflowCardInstructionProps: workflowCardInstructionProps = {
             instructions: description ? (
-                <> {description} </>
+                <> {description(responseTime)} </>
             ) : (
                 <Typography>
                     <Trans
