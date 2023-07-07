@@ -57,17 +57,17 @@ export const Login = (): JSX.Element => {
                             onForgotPassword={(): void => {
                                 // eslint-disable-next-line no-console
                                 console.log('onForgotPassword');
-                                navigate('/forgot-password-full-screen');
+                                navigate('/forgot-password');
                             }}
                             onSelfRegister={(): void => {
                                 // eslint-disable-next-line no-console
                                 console.log('onSelfRegister');
-                                navigate('/create-account');
+                                navigate('/self-registration');
                             }}
                             onContactSupport={(): void => {
                                 // eslint-disable-next-line no-console
                                 console.log('onContactSupport');
-                                navigate('/contact-support-full-screen');
+                                navigate('/contact-support');
                             }}
                             projectImage={<img src={EatonLogo} alt="logo" style={{ maxHeight: 80 }} />}
                         />
