@@ -82,23 +82,28 @@ export const VerifyCodeScreen: React.FC<VerifyCodeScreenProps> = (props) => {
         WorkflowCardInstructionProps: workflowCardInstructionProps = {
             instructions: t('bluiRegistration:SELF_REGISTRATION.VERIFY_EMAIL.MESSAGE'),
         },
-        WorkflowCardActionsProps: workflowCardActionsProps = {
-            showNext: true,
-            nextLabel: t('bluiCommon:ACTIONS.NEXT'),
-            showPrevious: true,
-            previousLabel: t('bluiCommon:ACTIONS.BACK'),
-            canGoPrevious: true,
-            currentStep: 2,
-            totalSteps: 6,
-            onNext: ({ code }): void => {
-                setVerifyCode(code);
-                void handleOnNext(code);
-            },
-            onPrevious: (): void => {
-                void onPrevious();
-            },
-        },
+        WorkflowCardActionsProps,
     } = props;
+
+    const workflowCardActionsProps = {
+        showNext: true,
+        nextLabel: t('bluiCommon:ACTIONS.NEXT'),
+        showPrevious: true,
+        previousLabel: t('bluiCommon:ACTIONS.BACK'),
+        canGoPrevious: true,
+        currentStep: 1,
+        totalSteps: 6,
+        ...WorkflowCardActionsProps,
+        onNext: (data: any): void => {
+            setVerifyCode(data.code);
+            void handleOnNext(data.code);
+            WorkflowCardActionsProps?.onNext();
+        },
+        onPrevious: (): void => {
+            void onPrevious();
+            WorkflowCardActionsProps?.onPrevious();
+        },
+    };
 
     return (
         <VerifyCodeScreenBase
