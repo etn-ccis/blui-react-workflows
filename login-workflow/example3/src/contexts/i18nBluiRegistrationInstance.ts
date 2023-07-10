@@ -1,57 +1,62 @@
 import i18next from 'i18next';
-import { AuthDictionaries } from './AuthDictionaries';
-import { SharedDictionaries } from '../SharedDictionaries';
+import {
+    RegistrationDictionaries,
+    SharedDictionaries,
+} from '@brightlayer-ui/react-auth-workflow';
 
-export const i18nAuthInstance = i18next.createInstance(
+export const i18nBluiRegistrationInstance = i18next.createInstance(
     {
         lng: 'en',
         fallbackLng: 'en',
-        ns: ['bluiAuth', 'bluiCommon'],
-        defaultNS: 'bluiAuth',
+        ns: ['bluiRegistration', 'bluiCommon', 'blui'],
+        defaultNS: 'bluiRegistration',
         load: 'languageOnly',
         detection: {
             order: ['querystring', 'localStorage', 'navigator'],
             caches: ['localStorage'],
-            lookupLocalStorage: 'blui-authentication-i18nextLng',
+            lookupLocalStorage: 'blui-registration-i18nextLng',
         },
         react: { useSuspense: false },
         interpolation: { escapeValue: false },
         resources: {
             en: {
-                bluiAuth: {
-                    ...AuthDictionaries.english.translation,
+                bluiRegistration: {
+                    ...RegistrationDictionaries.english.translation,
                 },
                 bluiCommon: {
                     ...SharedDictionaries.english.translation,
                 },
+                blui: {
+                    'WELCOME1' : 'Welcome to BLUI',
+                }
             },
             fr: {
-                bluiAuth: {
-                    ...AuthDictionaries.french.translation,
+                bluiRegistration: {
+                    ...RegistrationDictionaries.french.translation,
                 },
                 bluiCommon: {
                     ...SharedDictionaries.french.translation,
                 },
             },
             es: {
-                bluiAuth: {
-                    ...AuthDictionaries.spanish.translation,
+                bluiRegistration: {
+                    ...RegistrationDictionaries.spanish.translation,
                 },
                 bluiCommon: {
                     ...SharedDictionaries.spanish.translation,
                 },
             },
             zh: {
-                bluiAuth: {
-                    ...AuthDictionaries.chinese.translation,
+                bluiRegistration: {
+                    ...RegistrationDictionaries.chinese.translation,
                 },
                 bluiCommon: {
                     ...SharedDictionaries.chinese.translation,
                 },
             },
             pt: {
-                bluiAuth: {
-                    ...AuthDictionaries.portuguese.translation,
+                bluiRegistration: {
+                    ...RegistrationDictionaries.portuguese.translation,
                 },
                 bluiCommon: {
                     ...SharedDictionaries.portuguese.translation,
@@ -62,9 +67,10 @@ export const i18nAuthInstance = i18next.createInstance(
     // We must provide a function as second parameter, otherwise i18next errors
     // eslint-disable-next-line @typescript-eslint/no-unused-vars
     (err, _t) => {
-        // eslint-disable-next-line no-console
-        if (err) return console.log(err);
+        if (err) {
+            throw new Error(`i18nBluiRegistrationInstance error: ${err}`);
+        }
     }
 );
 
-export default { i18nAuthInstance };
+export default i18nBluiRegistrationInstance;

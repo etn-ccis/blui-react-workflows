@@ -3,6 +3,8 @@ import { AuthContext } from './context';
 import i18nAuthInstance from './i18nAuthInstance';
 import { AuthContextProvider } from './provider';
 import { AuthContextProviderProps, AuthUIActions } from './types';
+import { AuthDictionaries } from './AuthDictionaries';
+import { SharedDictionaries } from '../SharedDictionaries';
 
 /**
  * Hook to get top level data in authentication workflow
@@ -21,4 +23,4 @@ export const useAuthContext = (): AuthContextProviderProps => {
 
 export type { AuthContextProviderProps, AuthUIActions };
 
-export { AuthContext, AuthContextProvider, i18nAuthInstance };
+export { AuthContext, AuthContextProvider, i18nAuthInstance, AuthDictionaries, SharedDictionaries };

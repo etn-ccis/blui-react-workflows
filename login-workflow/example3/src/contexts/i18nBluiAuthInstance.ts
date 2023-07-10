@@ -1,12 +1,14 @@
 import i18next from 'i18next';
-import { AuthDictionaries } from './AuthDictionaries';
-import { SharedDictionaries } from '../SharedDictionaries';
+import {
+    AuthDictionaries,
+    SharedDictionaries,
+} from '@brightlayer-ui/react-auth-workflow';
 
-export const i18nAuthInstance = i18next.createInstance(
+const i18nBluiAuthInstance = i18next.createInstance(
     {
         lng: 'en',
         fallbackLng: 'en',
-        ns: ['bluiAuth', 'bluiCommon'],
+        ns: ['bluiAuth', 'bluiCommon', 'blui'],
         defaultNS: 'bluiAuth',
         load: 'languageOnly',
         detection: {
@@ -20,10 +22,14 @@ export const i18nAuthInstance = i18next.createInstance(
             en: {
                 bluiAuth: {
                     ...AuthDictionaries.english.translation,
+                    // 'WELCOME' : 'yeah',
                 },
                 bluiCommon: {
                     ...SharedDictionaries.english.translation,
                 },
+                blui: {
+                    'WELCOME' : 'Welcome to BLUI',
+                }
             },
             fr: {
                 bluiAuth: {
@@ -67,4 +73,4 @@ export const i18nAuthInstance = i18next.createInstance(
     }
 );
 
-export default { i18nAuthInstance };
+export default i18nBluiAuthInstance;

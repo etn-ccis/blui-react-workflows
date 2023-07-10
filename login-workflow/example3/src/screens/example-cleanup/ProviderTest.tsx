@@ -1,8 +1,9 @@
-/** eslint-disable */
+/** eslint-ignore */
 import React from 'react';
 import {
     AuthContextProvider,
     ExperimentalGuestGuard,
+    i18nAuthInstance,
     i18nRegistrationInstance,
     RegistrationContextProvider,
     LoginScreen,
@@ -20,74 +21,38 @@ import { useNavigate } from 'react-router';
 import { ProjectAuthUIActions } from '../../actions/AuthUIActions';
 import { Navigate, Route, Routes } from 'react-router-dom';
 import { Login } from './Login';
+import { ForgotPassword } from './ForgotPassword';
+import i18nBluiAuthInstance from '../../contexts/i18nBluiAuthInstance';
 import { ProjectRegistrationUIActions } from '../../actions/RegistrationUIActions';
+import i18nBluiRegistrationInstance from '../../contexts/i18nBluiRegistrationInstance';
+import { useTranslation } from 'react-i18next';
+import { CreatePassword } from './CreatePassword';
+
+
 
 export const ProviderTest: React.FC<React.PropsWithChildren> = () => {
     const { language } = useApp();
     const navigate = useNavigate();
     const securityContextActions = useSecurityActions();
-
+    const { t } = useTranslation();
+    console.log('i18nBluiRegistrationInstance', t('bluiRegistration:WELCOME'))
     return (
-        <AuthContextProvider
-            actions={ProjectAuthUIActions(securityContextActions)}
-            language={language}
-            navigate={navigate}
-            routeConfig={{}}
-        >
-            <RegistrationContextProvider
-                i18n={i18nRegistrationInstance}
+        <>
+            <AuthContextProvider
+                actions={ProjectAuthUIActions(securityContextActions)}
                 language={language}
-                routeConfig={{}}
                 navigate={navigate}
-                actions={ProjectRegistrationUIActions}
+                routeConfig={{}}
+                i18n={i18nBluiAuthInstance}
             >
                 <Routes>
-                    <Route
-                        path={'login'}
-                        element={
-                            <ExperimentalGuestGuard
-                                isAuthenticated={false}
-                                fallbackComponent={<Navigate to={`/guarded`} />}
-                            >
-                                <LoginScreen />
-                            </ExperimentalGuestGuard>
-                        }
-                    />
                     <Route
                         path={'forgot-password'}
                         element={
                             <ExperimentalGuestGuard
                                 isAuthenticated={false}
-                                fallbackComponent={<Navigate to={`/guarded`} />}
-                            >
-                                <ForgotPasswordScreen />
-                            </ExperimentalGuestGuard>
-                        }
-                    />
-                    <Route
-                        path={'self-registration'}
-                        element={
-                            <ExperimentalGuestGuard
-                                isAuthenticated={false}
-                                fallbackComponent={<Navigate to={`/guarded`} />}
-                            >
-                                <RegistrationWorkflow initialScreenIndex={0}>
-                                    <EulaScreen />
-                                    <VerifyCodeScreen />
-                                    <CreatePasswordScreen />
-                                    <RegistrationSuccessScreen />
-                                </RegistrationWorkflow>
-                            </ExperimentalGuestGuard>
-                        }
-                    />
-                    <Route
-                        path={'/contact-support'}
-                        element={
-                            <ExperimentalGuestGuard
-                                isAuthenticated={false}
-                                fallbackComponent={<Navigate to={`/guarded`} />}
-                            >
-                                <ContactSupportScreen />
+                                fallbackComponent={<Navigate to={`/guarded`} />}>
+                                <ForgotPassword />
                             </ExperimentalGuestGuard>
                         }
                     />
@@ -103,7 +68,48 @@ export const ProviderTest: React.FC<React.PropsWithChildren> = () => {
                         }
                     />
                 </Routes>
+                
+            </AuthContextProvider>
+            <RegistrationContextProvider
+                i18n={i18nBluiRegistrationInstance}
+                language={language}
+                routeConfig={{}}
+                navigate={navigate}
+                actions={ProjectRegistrationUIActions}
+            >
+                <Routes>
+                <Route
+                    path={'self-registration'}
+                    element={
+                        <ExperimentalGuestGuard
+                            isAuthenticated={false}
+                            fallbackComponent={<Navigate to={`/guarded`} />}>
+                            <RegistrationWorkflow initialScreenIndex={0}>
+                                <EulaScreen />
+                                <VerifyCodeScreen />
+                                <CreatePassword />
+                                <RegistrationSuccessScreen />
+                            </RegistrationWorkflow>
+                        </ExperimentalGuestGuard>
+                    }
+                />
+                <Route
+                        path={'*'}
+                        element={
+                            <ExperimentalGuestGuard
+                                isAuthenticated={false}
+                                fallbackComponent={<Navigate to={`/guarded`} />}
+                            >
+                                <Login />
+                            </ExperimentalGuestGuard>
+                        }
+                    />
+                </Routes>
+                
             </RegistrationContextProvider>
-        </AuthContextProvider>
-    );
+            <Routes>
+                
+            </Routes>
+        </>
+    )
 };

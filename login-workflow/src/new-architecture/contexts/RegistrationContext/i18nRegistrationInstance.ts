@@ -1,6 +1,6 @@
 import i18next from 'i18next';
-import { dictionaries } from './dictionaries';
-import { sharedDictionaries } from '../sharedDictionaries';
+import { RegistrationDictionaries } from './RegistrationDictionaries';
+import { SharedDictionaries } from '../SharedDictionaries';
 
 export const i18nRegistrationInstance = i18next.createInstance(
     {
@@ -19,42 +19,42 @@ export const i18nRegistrationInstance = i18next.createInstance(
         resources: {
             en: {
                 bluiRegistration: {
-                    ...dictionaries.english.translation,
+                    ...RegistrationDictionaries.english.translation,
                 },
                 bluiCommon: {
-                    ...sharedDictionaries.english.translation,
+                    ...SharedDictionaries.english.translation,
                 },
             },
             fr: {
                 bluiRegistration: {
-                    ...dictionaries.french.translation,
+                    ...RegistrationDictionaries.french.translation,
                 },
                 bluiCommon: {
-                    ...sharedDictionaries.french.translation,
+                    ...SharedDictionaries.french.translation,
                 },
             },
             es: {
                 bluiRegistration: {
-                    ...dictionaries.spanish.translation,
+                    ...RegistrationDictionaries.spanish.translation,
                 },
                 bluiCommon: {
-                    ...sharedDictionaries.spanish.translation,
+                    ...SharedDictionaries.spanish.translation,
                 },
             },
             zh: {
                 bluiRegistration: {
-                    ...dictionaries.chinese.translation,
+                    ...RegistrationDictionaries.chinese.translation,
                 },
                 bluiCommon: {
-                    ...sharedDictionaries.chinese.translation,
+                    ...SharedDictionaries.chinese.translation,
                 },
             },
             pt: {
                 bluiRegistration: {
-                    ...dictionaries.portuguese.translation,
+                    ...RegistrationDictionaries.portuguese.translation,
                 },
                 bluiCommon: {
-                    ...sharedDictionaries.portuguese.translation,
+                    ...SharedDictionaries.portuguese.translation,
                 },
             },
         },
