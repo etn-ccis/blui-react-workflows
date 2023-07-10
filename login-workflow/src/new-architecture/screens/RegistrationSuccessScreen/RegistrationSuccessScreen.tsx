@@ -8,6 +8,7 @@ import { useRegistrationWorkflowContext, useRegistrationContext } from '../../co
 export const RegistrationSuccessScreen: React.FC<SuccessScreenProps> = (props) => {
     const [email, setEmail] = useState('');
     const [organization, setOrganization] = useState('');
+    const [isLoading, setIsLoading] = useState(false);
     const { navigate, routeConfig, actions } = useRegistrationContext();
     const { t } = useTranslation();
 
@@ -20,6 +21,7 @@ export const RegistrationSuccessScreen: React.FC<SuccessScreenProps> = (props) =
     } = useRegistrationWorkflowContext();
 
     useEffect(() => {
+        setIsLoading(true);
         actions()
             .completeRegistration({ firstName, lastName }, code, emailAddress)
             .then((res: { email: string; organizationName: string }) => {
@@ -28,7 +30,8 @@ export const RegistrationSuccessScreen: React.FC<SuccessScreenProps> = (props) =
             })
             .catch(() => {
                 console.error('error fetching registration data');
-            });
+            })
+            .finally(() => setIsLoading(false));
     }, [actions, code, emailAddress, firstName, lastName]);
 
     const {
@@ -58,6 +61,7 @@ export const RegistrationSuccessScreen: React.FC<SuccessScreenProps> = (props) =
 
     return (
         <SuccessScreenBase
+            WorkflowCardBaseProps={{ loading: isLoading }}
             WorkflowCardHeaderProps={workflowCardHeaderProps}
             icon={icon}
             messageTitle={messageTitle}
