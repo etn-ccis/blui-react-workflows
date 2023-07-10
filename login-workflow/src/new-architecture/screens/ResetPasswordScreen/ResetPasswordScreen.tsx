@@ -44,11 +44,11 @@ export const ResetPasswordScreen: React.FC<ResetPasswordScreenProps> = (props) =
         try {
             setIsLoading(true);
             await actions().setPassword(code, passwordInput, email);
-            setIsLoading(false);
             setShowSuccessScreen(true);
         } catch (e) {
             setShowErrorDialog(true);
         }
+        setIsLoading(false);
     }, [setIsLoading, setShowSuccessScreen, actions, code, passwordInput, email]);
 
     const {

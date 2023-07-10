@@ -28,10 +28,10 @@ export const ForgotPasswordScreen: React.FC<ForgotPasswordScreenProps> = (props)
                 setIsLoading(true);
                 await actions().forgotPassword(email);
                 setShowSuccessScreen(true);
-                setIsLoading(false);
             } catch (e) {
                 setShowErrorDialog(true);
             }
+            setIsLoading(false);
         },
         [setIsLoading, setShowErrorDialog, actions]
     );

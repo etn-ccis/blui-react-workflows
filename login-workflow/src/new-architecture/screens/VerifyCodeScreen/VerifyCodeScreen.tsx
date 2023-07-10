@@ -30,10 +30,10 @@ export const VerifyCodeScreen: React.FC<VerifyCodeScreenProps> = (props) => {
         try {
             setIsLoading(true);
             await actions().validateUserRegistrationRequest(verifyCode);
-            setIsLoading(false);
         } catch {
             console.error('Error fetching resend verification code!');
         }
+        setIsLoading(false);
     }, [verifyCode, actions]);
 
     const {
@@ -57,10 +57,10 @@ export const VerifyCodeScreen: React.FC<VerifyCodeScreenProps> = (props) => {
                     screenId: 'VerifyCode',
                     values: { code: verifyCode },
                 });
-                setIsLoading(false);
             } catch {
                 console.error('Error fetching validation code!');
             }
+            setIsLoading(false);
         },
         [verifyCode, nextScreen, actions]
     );
@@ -91,7 +91,7 @@ export const VerifyCodeScreen: React.FC<VerifyCodeScreenProps> = (props) => {
         showPrevious: true,
         previousLabel: t('bluiCommon:ACTIONS.BACK'),
         canGoPrevious: true,
-        currentStep: 1,
+        currentStep: 2,
         totalSteps: 6,
         ...WorkflowCardActionsProps,
         onNext: (data: any): void => {
