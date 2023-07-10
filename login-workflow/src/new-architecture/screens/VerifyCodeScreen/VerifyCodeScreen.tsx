@@ -31,10 +31,10 @@ export const VerifyCodeScreen: React.FC<VerifyCodeScreenProps> = (props) => {
             try {
                 setIsLoading(true);
                 await actions().requestRegistrationCode(email);
-                setIsLoading(false);
             } catch {
                 console.error('Error fetching resend verification code!');
             }
+            setIsLoading(false);
         },
         [actions]
     );
