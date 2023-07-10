@@ -87,7 +87,7 @@ export const CreatePasswordScreen: React.FC<CreatePasswordScreenProps> = (props)
         showPrevious: true,
         previousLabel: t('bluiCommon:ACTIONS.BACK'),
         canGoPrevious: true,
-        currentStep: 2,
+        currentStep: 3,
         totalSteps: 6,
         ...WorkflowCardActionsProps,
         onNext: (): void => {

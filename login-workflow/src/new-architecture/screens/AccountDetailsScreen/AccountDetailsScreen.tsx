@@ -71,7 +71,7 @@ export const AccountDetailsScreen: React.FC<AccountDetailsScreenProps> = (props)
         nextLabel: t('bluiCommon:ACTIONS.NEXT'),
         previousLabel: t('bluiCommon:ACTIONS.BACK'),
         totalSteps: 6,
-        currentStep: 3,
+        currentStep: 4,
         ...WorkflowCardActionsProps,
         onNext: (): void => {
             void onNext();
