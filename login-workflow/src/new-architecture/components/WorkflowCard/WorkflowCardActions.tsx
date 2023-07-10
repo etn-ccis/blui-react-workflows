@@ -55,7 +55,7 @@ export const WorkflowCardActions: React.FC<WorkflowCardActionsProps> = (props) =
             {divider ? (
                 <Divider
                     sx={{
-                        width: { md: 'calc(100% + 3rem)', sm: 'calc(100% + 2rem)' },
+                        width: { md: 'calc(100% + 3rem)', sm: 'calc(100% + 2rem)', xs: 'calc(100% + 2rem)' },
                         mb: 3,
                         mx: { md: -3, sm: -2 },
                     }}
