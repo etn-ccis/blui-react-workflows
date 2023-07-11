@@ -14,7 +14,7 @@ export type SetPasswordProps = {
     initialNewPasswordValue?: string;
     confirmPasswordLabel?: string;
     initialConfirmPasswordValue?: string;
-    passwordRequirements?: PasswordRequirement[];
+    passwordRequirements?: PasswordRequirement[] | [];
     passwordRef?: MutableRefObject<any>;
     confirmRef?: MutableRefObject<any>;
     passwordNotMatchError?: string;

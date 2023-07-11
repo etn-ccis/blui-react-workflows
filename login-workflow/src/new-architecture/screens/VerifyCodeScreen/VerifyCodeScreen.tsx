@@ -13,7 +13,6 @@ import { useRegistrationContext, useRegistrationWorkflowContext } from '../../co
  * @param resendInstructions text to display ahead of the resend link/button
  * @param resendLabel label for the resend link/button
  * @param initialValue code used to pre-populate the field
- * @param updateCode get the update code when user click the send again link
  *
  * @category Component
  */
@@ -27,15 +26,19 @@ export const VerifyCodeScreen: React.FC<VerifyCodeScreenProps> = (props) => {
     const [verifyCode, setVerifyCode] = useState(screenData.VerifyCode.code);
     const [isLoading, setIsLoading] = useState(false);
 
-    const requestResendCode = useCallback(async (): Promise<void> => {
-        try {
-            setIsLoading(true);
-            await actions().validateUserRegistrationRequest(verifyCode);
-            setIsLoading(false);
-        } catch {
-            console.error('Error fetching resend verification code!');
-        }
-    }, [verifyCode, actions]);
+    const requestResendCode = useCallback(
+        async (email?: string): Promise<void> => {
+            try {
+                setIsLoading(true);
+                await actions().requestRegistrationCode(email);
+            } catch {
+                console.error('Error fetching resend verification code!');
+            } finally {
+                setIsLoading(false);
+            }
+        },
+        [actions]
+    );
 
     const {
         codeValidator = (code: string): boolean | string =>
@@ -49,19 +52,23 @@ export const VerifyCodeScreen: React.FC<VerifyCodeScreenProps> = (props) => {
         initialValue = verifyCode,
     } = props;
 
-    const onNext = useCallback(async () => {
-        try {
-            setIsLoading(true);
-            await actions().validateUserRegistrationRequest(verifyCode);
-            nextScreen({
-                screenId: 'VerifyCode',
-                values: { code: verifyCode },
-            });
-            setIsLoading(false);
-        } catch {
-            console.error('Error fetching validation code!');
-        }
-    }, [verifyCode, nextScreen, actions]);
+    const handleOnNext = useCallback(
+        async (code: string) => {
+            try {
+                setIsLoading(true);
+                await actions().validateUserRegistrationRequest(code);
+                nextScreen({
+                    screenId: 'VerifyCode',
+                    values: { code: code },
+                });
+            } catch {
+                console.error('Error fetching validation code!');
+            } finally {
+                setIsLoading(false);
+            }
+        },
+        [nextScreen, actions]
+    );
 
     const onPrevious = (): void => {
         previousScreen({
@@ -80,22 +87,28 @@ export const VerifyCodeScreen: React.FC<VerifyCodeScreenProps> = (props) => {
         WorkflowCardInstructionProps: workflowCardInstructionProps = {
             instructions: t('bluiRegistration:SELF_REGISTRATION.VERIFY_EMAIL.MESSAGE'),
         },
-        WorkflowCardActionsProps: workflowCardActionsProps = {
-            showNext: true,
-            nextLabel: t('bluiCommon:ACTIONS.NEXT'),
-            showPrevious: true,
-            previousLabel: t('bluiCommon:ACTIONS.BACK'),
-            canGoPrevious: true,
-            currentStep: 2,
-            totalSteps: 6,
-            onNext: (): void => {
-                void onNext();
-            },
-            onPrevious: (): void => {
-                void onPrevious();
-            },
-        },
+        WorkflowCardActionsProps,
     } = props;
+
+    const workflowCardActionsProps = {
+        showNext: true,
+        nextLabel: t('bluiCommon:ACTIONS.NEXT'),
+        showPrevious: true,
+        previousLabel: t('bluiCommon:ACTIONS.BACK'),
+        canGoPrevious: true,
+        currentStep: 1,
+        totalSteps: 6,
+        ...WorkflowCardActionsProps,
+        onNext: (data: any): void => {
+            setVerifyCode(data.code);
+            void handleOnNext(data.code);
+            WorkflowCardActionsProps?.onNext();
+        },
+        onPrevious: (): void => {
+            void onPrevious();
+            WorkflowCardActionsProps?.onPrevious();
+        },
+    };
 
     return (
         <VerifyCodeScreenBase
@@ -109,7 +122,6 @@ export const VerifyCodeScreen: React.FC<VerifyCodeScreenProps> = (props) => {
             initialValue={initialValue}
             onResend={onResend}
             codeValidator={codeValidator}
-            updateCode={setVerifyCode}
         />
     );
 };

@@ -30,7 +30,7 @@ export type WorkflowCardActionsProps = CardActionsProps & {
     previousLabel?: string;
     nextLabel?: string;
     onPrevious?: () => void;
-    onNext?: () => void;
+    onNext?: (data?: { [key: string]: any }) => void;
     currentStep?: number;
     totalSteps?: number;
     fullWidthButton?: boolean;

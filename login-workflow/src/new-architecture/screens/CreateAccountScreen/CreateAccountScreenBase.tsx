@@ -19,13 +19,16 @@ import TextField from '@mui/material/TextField';
  * @category Component
  */
 
-export const CreateAccountScreenBase: React.FC<React.PropsWithChildren<CreateAccountScreenProps>> = (props) => {
+export const CreateAccountScreenBase: React.FC<
+    React.PropsWithChildren<CreateAccountScreenProps & { inputRef?: any }>
+> = (props) => {
     const {
         // eslint-disable-next-line @typescript-eslint/no-unused-vars
         emailValidator = (email: string): boolean | string => true,
         emailLabel,
         initialValue,
         emailTextFieldProps,
+        inputRef,
     } = props;
 
     const cardBaseProps = props.WorkflowCardBaseProps || {};
@@ -55,6 +58,7 @@ export const CreateAccountScreenBase: React.FC<React.PropsWithChildren<CreateAcc
             <WorkflowCardBody>
                 <WorkflowCardInstructions {...instructionsProps} divider />
                 <TextField
+                    ref={inputRef}
                     type={'email'}
                     label={emailLabel}
                     fullWidth
@@ -68,7 +72,7 @@ export const CreateAccountScreenBase: React.FC<React.PropsWithChildren<CreateAcc
                         emailTextFieldProps?.onChange && emailTextFieldProps.onChange(e);
                         handleEmailInputChange(e.target.value);
                     }}
-                    onKeyPress={(e): void => {
+                    onKeyUp={(e): void => {
                         if (e.key === 'Enter' && emailInput.length > 0 && isEmailValid && actionsProps.canGoNext)
                             actionsProps?.onNext?.();
                     }}

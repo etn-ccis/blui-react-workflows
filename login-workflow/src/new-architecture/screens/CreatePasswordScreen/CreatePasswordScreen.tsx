@@ -3,10 +3,11 @@ import { CreatePasswordScreenBase } from './CreatePasswordScreenBase';
 import { useLanguageLocale } from '../../hooks';
 import { defaultPasswordRequirements } from '../../constants';
 import { CreatePasswordScreenProps } from './types';
-import { useRegistrationWorkflowContext } from '../../contexts';
+import { useRegistrationContext, useRegistrationWorkflowContext } from '../../contexts';
 
 export const CreatePasswordScreen: React.FC<CreatePasswordScreenProps> = (props) => {
     const { t } = useLanguageLocale();
+    const { actions } = useRegistrationContext();
     const regWorkflow = useRegistrationWorkflowContext();
     const {
         nextScreen,
@@ -19,14 +20,22 @@ export const CreatePasswordScreen: React.FC<CreatePasswordScreenProps> = (props)
     const confirmRef = useRef(null);
     const [passwordInput, setPasswordInput] = useState(password ?? '');
     const [confirmInput, setConfirmInput] = useState(confirmPassword ?? '');
+    const [isLoading, setIsLoading] = useState(false);
     const passwordRequirements = defaultPasswordRequirements(t);
 
-    const onNext = useCallback(() => {
-        nextScreen({
-            screenId: 'CreatePassword',
-            values: { password: passwordInput, confirmPassword: confirmInput },
-        });
-    }, [confirmInput, passwordInput, nextScreen]);
+    const onNext = useCallback(async (): Promise<void> => {
+        try {
+            setIsLoading(true);
+            await actions().createPassword(passwordInput);
+            nextScreen({
+                screenId: 'CreatePassword',
+                values: { password: passwordInput, confirmPassword: confirmInput },
+            });
+        } catch {
+            console.error('Error while creating password...');
+        }
+        setIsLoading(false);
+    }, [passwordInput, confirmInput, actions, nextScreen, setIsLoading]);
 
     const onPrevious = useCallback(() => {
         previousScreen({
@@ -44,6 +53,7 @@ export const CreatePasswordScreen: React.FC<CreatePasswordScreenProps> = (props)
     );
 
     const {
+        WorkflowCardActionsProps,
         PasswordProps: passwordProps = {
             initialNewPasswordValue: passwordInput,
             initialConfirmPasswordValue: confirmInput,
@@ -56,6 +66,7 @@ export const CreatePasswordScreen: React.FC<CreatePasswordScreenProps> = (props)
             onPasswordChange: updateFields,
             onSubmit: (): void => {
                 void onNext();
+                WorkflowCardActionsProps?.onNext();
             },
         },
         WorkflowCardHeaderProps: workflowCardHeaderProps = {
@@ -64,23 +75,30 @@ export const CreatePasswordScreen: React.FC<CreatePasswordScreenProps> = (props)
         WorkflowCardInstructionProps: workflowCardInstructionProps = {
             instructions: t('bluiRegistration:REGISTRATION.INSTRUCTIONS.PASSWORD_INFO'),
         },
-        WorkflowCardActionsProps: workflowCardActionsProps = {
-            showNext: true,
-            nextLabel: t('bluiCommon:ACTIONS.NEXT'),
-            canGoNext: passwordInput !== '' && confirmInput !== '' && passwordInput === confirmInput,
-            showPrevious: true,
-            previousLabel: t('bluiCommon:ACTIONS.BACK'),
-            canGoPrevious: true,
-            currentStep: 3,
-            totalSteps: 6,
-            onNext: (): void => {
-                void onNext();
-            },
-            onPrevious: (): void => {
-                void onPrevious();
-            },
+        WorkflowCardBaseProps: workflowCardBaseProps = {
+            loading: isLoading,
         },
     } = props;
+
+    const workflowCardActionsProps = {
+        showNext: true,
+        nextLabel: t('bluiCommon:ACTIONS.NEXT'),
+        canGoNext: passwordInput !== '' && confirmInput !== '' && passwordInput === confirmInput,
+        showPrevious: true,
+        previousLabel: t('bluiCommon:ACTIONS.BACK'),
+        canGoPrevious: true,
+        currentStep: 2,
+        totalSteps: 6,
+        ...WorkflowCardActionsProps,
+        onNext: (): void => {
+            void onNext();
+            WorkflowCardActionsProps?.onNext();
+        },
+        onPrevious: (): void => {
+            void onPrevious();
+            WorkflowCardActionsProps?.onPrevious();
+        },
+    };
 
     const areValidMatchingPasswords = useCallback((): boolean => {
         for (let i = 0; i < passwordRequirements.length; i++) {
@@ -96,9 +114,10 @@ export const CreatePasswordScreen: React.FC<CreatePasswordScreenProps> = (props)
     return (
         <>
             <CreatePasswordScreenBase
+                WorkflowCardActionsProps={workflowCardActionsProps}
+                WorkflowCardBaseProps={workflowCardBaseProps}
                 WorkflowCardHeaderProps={workflowCardHeaderProps}
                 WorkflowCardInstructionProps={workflowCardInstructionProps}
-                WorkflowCardActionsProps={workflowCardActionsProps}
                 PasswordProps={{
                     ...passwordProps,
                     onPasswordChange: updateFields,

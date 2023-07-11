@@ -4,7 +4,9 @@ import {
     i18nRegistrationInstance,
     RegistrationContextProvider,
     EulaScreen,
+    AccountDetailsScreen,
     CreatePasswordScreen,
+    CreateAccountScreen,
     RegistrationSuccessScreen,
     VerifyCodeScreen,
 } from '@brightlayer-ui/react-auth-workflow';
@@ -27,8 +29,10 @@ export const RegistrationWorkflowScreen = (): JSX.Element => {
         >
             <RegistrationWorkflow initialScreenIndex={0}>
                 <EulaScreen />
+                <CreateAccountScreen />
                 <VerifyCodeScreen />
                 <CreatePasswordScreen />
+                <AccountDetailsScreen />
                 <RegistrationSuccessScreen />
             </RegistrationWorkflow>
         </RegistrationContextProvider>
