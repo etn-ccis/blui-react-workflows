@@ -4,6 +4,7 @@ import { cleanup, render, screen, fireEvent } from '@testing-library/react';
 import { ForgotPasswordScreenBase } from './ForgotPasswordScreenBase';
 import { defaultProps as authContextProps } from '../../contexts/AuthContext/AuthContextProvider.test';
 import { AuthContextProvider } from '../../contexts';
+import Box from '@mui/material/Box';
 
 afterEach(cleanup);
 
@@ -37,6 +38,7 @@ describe('Forgot Password Screen Base', () => {
                         currentStep: 2,
                         totalSteps: 6,
                     }}
+                    slots={{ SuccessScreen: <Box>Success</Box> }}
                 />
             </AuthContextProvider>
         );
@@ -60,6 +62,7 @@ describe('Forgot Password Screen Base', () => {
                         }
                         return 'Please enter a valid email';
                     }}
+                    slots={{ SuccessScreen: (): JSX.Element => <Box>Success</Box> }}
                 />
             </AuthContextProvider>
         );
@@ -79,6 +82,7 @@ describe('Forgot Password Screen Base', () => {
                         }
                         return 'Please enter a valid email';
                     }}
+                    slots={{ SuccessScreen: (): JSX.Element => <Box>Success</Box> }}
                 />
             </AuthContextProvider>
         );
@@ -97,6 +101,7 @@ describe('Forgot Password Screen Base', () => {
                         }
                         return 'Please enter a valid email';
                     }}
+                    slots={{ SuccessScreen: (): JSX.Element => <Box>Success</Box> }}
                 />
             </AuthContextProvider>
         );
@@ -116,6 +121,7 @@ describe('Forgot Password Screen Base', () => {
                         }
                         return 'Please enter a valid email';
                     }}
+                    slots={{ SuccessScreen: (): JSX.Element => <Box>Success</Box> }}
                 />
             </AuthContextProvider>
         );
@@ -134,6 +140,7 @@ describe('Forgot Password Screen Base', () => {
                         currentStep: 1,
                         totalSteps: 6,
                     }}
+                    slots={{ SuccessScreen: (): JSX.Element => <Box>Success</Box> }}
                 />
             </AuthContextProvider>
         );
@@ -156,6 +163,7 @@ describe('Forgot Password Screen Base', () => {
                         }
                         return 'Please enter a valid email';
                     }}
+                    slots={{ SuccessScreen: (): JSX.Element => <Box>Success</Box> }}
                 />
             </AuthContextProvider>
         );
@@ -171,6 +179,7 @@ describe('Forgot Password Screen Base', () => {
                     WorkflowCardHeaderProps={{ title: 'Title' }}
                     WorkflowCardInstructionProps={{ instructions: 'Instructions' }}
                     emailLabel="Email Address"
+                    slots={{ SuccessScreen: (): JSX.Element => <Box>Success</Box> }}
                 />
             </AuthContextProvider>
         );

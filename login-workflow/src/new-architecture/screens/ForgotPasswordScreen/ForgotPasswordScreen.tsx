@@ -8,11 +8,14 @@ import { ForgotPasswordScreenProps } from './types';
 import { LinkStyles } from '../../../styles';
 import Box from '@mui/material/Box';
 import Typography from '@mui/material/Typography';
+import { SuccessScreenBase } from '../SuccessScreen';
+import CheckCircle from '@mui/icons-material/CheckCircle';
 
 export const ForgotPasswordScreen: React.FC<ForgotPasswordScreenProps> = (props) => {
     const { t } = useLanguageLocale();
     const { actions, navigate, routeConfig } = useAuthContext();
 
+    const [emailInput, setEmailInput] = useState('');
     const [isLoading, setIsLoading] = useState(false);
     const [showErrorDialog, setShowErrorDialog] = useState(false);
     const [showSuccessScreen, setShowSuccessScreen] = useState(props.showSuccessScreen);
@@ -74,6 +77,7 @@ export const ForgotPasswordScreen: React.FC<ForgotPasswordScreenProps> = (props)
         },
         WorkflowCardActionsProps: workflowCardActionsProps = {
             onNext: ({ email }): void => {
+                setEmailInput(email);
                 void handleOnNext(email);
             },
             onPrevious: (): void => {
@@ -86,6 +90,8 @@ export const ForgotPasswordScreen: React.FC<ForgotPasswordScreenProps> = (props)
             canGoNext,
             canGoPrevious: canGoBack,
         },
+        slotProps = { SuccessScreen: {} },
+        slots,
     } = props;
 
     const errorDialog = (
@@ -114,6 +120,42 @@ export const ForgotPasswordScreen: React.FC<ForgotPasswordScreenProps> = (props)
                     initialEmailValue={initialEmailValue}
                     emailValidator={emailValidator}
                     showSuccessScreen={showSuccessScreen}
+                    slots={{
+                        SuccessScreen:
+                            slots && slots.SuccessScreen ? (
+                                <slots.SuccessScreen {...slotProps.SuccessScreen} />
+                            ) : (
+                                <SuccessScreenBase
+                                    icon={<CheckCircle color={'primary'} sx={{ fontSize: 100, mb: 5 }} />}
+                                    messageTitle={t('bluiCommon:MESSAGES.EMAIL_SENT')}
+                                    message={
+                                        <Trans
+                                            i18nKey={'bluiAuth:FORGOT_PASSWORD.LINK_SENT_ALT'}
+                                            values={{ email: emailInput }}
+                                        >
+                                            Link has been sent to <b>{emailInput}</b>.
+                                        </Trans>
+                                    }
+                                    {...slotProps.SuccessScreen}
+                                    WorkflowCardHeaderProps={{
+                                        title: t('bluiAuth:HEADER.FORGOT_PASSWORD'),
+                                        ...slotProps.SuccessScreen.WorkflowCardHeaderProps,
+                                    }}
+                                    WorkflowCardActionsProps={{
+                                        showNext: true,
+                                        nextLabel: t('bluiCommon:ACTIONS.DONE'),
+                                        canGoNext: true,
+                                        fullWidthButton: true,
+                                        ...slotProps.SuccessScreen.WorkflowCardActionsProps,
+                                        onNext: (): void => {
+                                            navigate(routeConfig.LOGIN);
+                                            if (slotProps.SuccessScreen.WorkflowCardActionsProps)
+                                                slotProps.SuccessScreen.WorkflowCardActionsProps.onNext();
+                                        },
+                                    }}
+                                />
+                            ),
+                    }}
                 />
             )}
         </>

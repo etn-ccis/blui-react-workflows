@@ -8,15 +8,12 @@ import {
     WorkflowCardInstructions,
 } from '../../components';
 import { ForgotPasswordScreenProps } from './types';
-import { useLanguageLocale } from '../../hooks';
-import { SuccessScreenBase } from '../SuccessScreen';
-import CheckCircle from '@mui/icons-material/CheckCircle';
-import { Trans } from 'react-i18next';
-import { useAuthContext } from '../../contexts';
 
-export const ForgotPasswordScreenBase: React.FC<React.PropsWithChildren<ForgotPasswordScreenProps>> = (props) => {
-    const { navigate, routeConfig } = useAuthContext();
-    const { t } = useLanguageLocale();
+type ForgotPasswordScreenBaseProps = Omit<ForgotPasswordScreenProps, 'slots'> & {
+    slots: { SuccessScreen: JSX.Element };
+};
+
+export const ForgotPasswordScreenBase: React.FC<React.PropsWithChildren<ForgotPasswordScreenBaseProps>> = (props) => {
     const [emailInput, setEmailInput] = useState(props.initialEmailValue ? props.initialEmailValue : '');
 
     const {
@@ -24,31 +21,7 @@ export const ForgotPasswordScreenBase: React.FC<React.PropsWithChildren<ForgotPa
         initialEmailValue = '',
         // eslint-disable-next-line @typescript-eslint/no-unused-vars
         emailValidator = (email: string): boolean | string => true,
-        slotProps = {},
-        slots = {
-            SuccessScreen: (
-                <SuccessScreenBase
-                    WorkflowCardHeaderProps={{ title: t('bluiAuth:HEADER.FORGOT_PASSWORD') }}
-                    icon={<CheckCircle color="primary" sx={{ fontSize: 100, mb: 5 }} />}
-                    messageTitle={t('bluiCommon:MESSAGES.EMAIL_SENT')}
-                    message={
-                        <Trans i18nKey={'bluiAuth:FORGOT_PASSWORD.LINK_SENT_ALT'} values={{ email: emailInput }}>
-                            Link has been sent to <b>{emailInput}</b>.
-                        </Trans>
-                    }
-                    WorkflowCardActionsProps={{
-                        showNext: true,
-                        nextLabel: t('bluiCommon:ACTIONS.DONE'),
-                        canGoNext: true,
-                        onNext: (): void => {
-                            navigate(routeConfig.LOGIN);
-                        },
-                        fullWidthButton: true,
-                    }}
-                    {...slotProps.SuccessScreen}
-                />
-            ),
-        },
+        slots,
         showSuccessScreen,
     } = props;
 

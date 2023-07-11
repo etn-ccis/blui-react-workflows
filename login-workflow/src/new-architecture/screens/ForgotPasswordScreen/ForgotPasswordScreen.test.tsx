@@ -41,10 +41,7 @@ describe('Forgot Password Screen tests', () => {
             emailLabel: 'Email Address',
             initialEmailValue: '',
             emailValidator: (): any => {},
-            onNext: (): any => {},
             contactPhone: '',
-            slots: {},
-            slotProps: {},
         });
 
         expect(screen.getByText('Forgot Password')).toBeInTheDocument();
