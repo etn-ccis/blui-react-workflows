@@ -1,5 +1,5 @@
 import React from 'react';
-import { ChatBubbleOutline } from '@mui/icons-material';
+import { ChatBubbleOutline, Work } from '@mui/icons-material';
 import { ContactScreenBase } from './ContactScreenBase';
 import { ContactScreenProps } from './types';
 import { useLanguageLocale } from '../../hooks';
@@ -34,14 +34,20 @@ export const ContactSupportScreen: React.FC<ContactScreenProps> = (props) => {
         contactEmail = 'something@email.com',
         contactPhone = '1-800-123-4567',
         dismissButtonLabel = t('bluiCommon:ACTIONS.OKAY'),
-        WorkflowCardActionsProps: workflowCardActionsProps = {
-            nextLabel: t('bluiCommon:ACTIONS.OKAY'),
-            showNext: true,
-            canGoNext: true,
-            onNext: (): void => navigate(routeConfig.LOGIN),
-            fullWidthButton: true,
-        },
+        WorkflowCardActionsProps,
     } = props;
+
+    const workflowCardActionsProps = {
+        nextLabel: t('bluiCommon:ACTIONS.OKAY'),
+        showNext: true,
+        canGoNext: true,
+        fullWidthButton: true,
+        ...WorkflowCardActionsProps,
+        onNext: (): void => {
+            navigate(routeConfig.LOGIN);
+            WorkflowCardActionsProps?.onNext();
+        },
+    };
 
     return (
         <ContactScreenBase

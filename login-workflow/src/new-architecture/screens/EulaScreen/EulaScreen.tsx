@@ -19,6 +19,7 @@ export const EulaScreen: React.FC<EulaFullScreenProps> = (props) => {
         eulaContent,
         checkboxLabel = t('bluiRegistration:REGISTRATION.EULA.AGREE_TERMS'),
         initialCheckboxValue,
+        WorkflowCardActionsProps,
     } = props;
 
     const [eulaAccepted, setEulaAccepted] = useState(screenData.Eula.accepted ?? initialCheckboxValue);
@@ -74,6 +75,27 @@ export const EulaScreen: React.FC<EulaFullScreenProps> = (props) => {
         void loadAndCacheEula();
     }, [loadAndCacheEula]);
 
+    const workflowCardActionsProps = {
+        showNext: true,
+        nextLabel: t('bluiCommon:ACTIONS.NEXT'),
+        canGoNext: true,
+        showPrevious: true,
+        previousLabel: t('bluiCommon:ACTIONS.BACK'),
+        canGoPrevious: true,
+        currentStep: 0,
+        totalSteps: 6,
+        ...WorkflowCardActionsProps,
+        onNext: (): void => {
+            void onNext();
+            WorkflowCardActionsProps?.onNext();
+        },
+        onPrevious: (): void => {
+            void onPrevious();
+            navigate(routeConfig.LOGIN);
+            WorkflowCardActionsProps?.onPrevious();
+        },
+    };
+
     return (
         <EulaScreenBase
             WorkflowCardHeaderProps={{ title: title }}
@@ -85,23 +107,7 @@ export const EulaScreen: React.FC<EulaFullScreenProps> = (props) => {
             checkboxProps={{ disabled: false }}
             initialCheckboxValue={eulaAccepted}
             onEulaAcceptedChange={onEulaAcceptedChange}
-            WorkflowCardActionsProps={{
-                showNext: true,
-                nextLabel: t('bluiCommon:ACTIONS.NEXT'),
-                canGoNext: true,
-                showPrevious: true,
-                previousLabel: t('bluiCommon:ACTIONS.BACK'),
-                canGoPrevious: true,
-                currentStep: 0,
-                totalSteps: 6,
-                onNext: (): void => {
-                    void onNext();
-                },
-                onPrevious: (): void => {
-                    void onPrevious();
-                    navigate(routeConfig.LOGIN);
-                },
-            }}
+            WorkflowCardActionsProps={workflowCardActionsProps}
         />
     );
 };

@@ -66,29 +66,34 @@ export const ResetPasswordScreen: React.FC<ResetPasswordScreenProps> = (props) =
         WorkflowCardInstructionProps: workflowCardInstructionProps = {
             instructions: t('bluiAuth:CHANGE_PASSWORD.PASSWORD_INFO'),
         },
-        WorkflowCardActionsProps: workflowCardActionsProps = {
-            onNext: (): void => {
-                void handleOnNext();
-            },
-            onPrevious: (): void => {
-                try {
-                    setIsLoading(true);
-                    navigate(routeConfig.LOGIN);
-                    setIsLoading(false);
-                } catch (e) {
-                    setShowErrorDialog(true);
-                }
-            },
-            showNext: true,
-            showPrevious: true,
-            nextLabel: t('bluiCommon:ACTIONS.NEXT'),
-            previousLabel: t('bluiCommon:ACTIONS.BACK'),
-            canGoNext: passwordInput !== '' && confirmInput !== '' && passwordInput === confirmInput,
-        },
         WorkflowCardBaseProps: workflowCardBaseProps = {
             loading: isLoading,
         },
+        WorkflowCardActionsProps,
     } = props;
+
+    const workflowCardActionsProps = {
+        showNext: true,
+        showPrevious: true,
+        nextLabel: t('bluiCommon:ACTIONS.NEXT'),
+        previousLabel: t('bluiCommon:ACTIONS.BACK'),
+        canGoNext: passwordInput !== '' && confirmInput !== '' && passwordInput === confirmInput,
+        ...WorkflowCardActionsProps,
+        onNext: (): void => {
+            void handleOnNext();
+            WorkflowCardActionsProps?.onNext();
+        },
+        onPrevious: (): void => {
+            try {
+                setIsLoading(true);
+                navigate(routeConfig.LOGIN);
+                WorkflowCardActionsProps?.onPrevious();
+                setIsLoading(false);
+            } catch (e) {
+                setShowErrorDialog(true);
+            }
+        },
+    };
 
     const areValidMatchingPasswords = useCallback((): boolean => {
         for (let i = 0; i < passwordRequirements.length; i++) {

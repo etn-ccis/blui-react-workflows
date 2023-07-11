@@ -75,22 +75,27 @@ export const ForgotPasswordScreen: React.FC<ForgotPasswordScreenProps> = (props)
                 </Typography>
             ),
         },
-        WorkflowCardActionsProps: workflowCardActionsProps = {
-            onNext: ({ email }): void => {
-                setEmailInput(email);
-                void handleOnNext(email);
-            },
-            onPrevious: (): void => {
-                navigate(routeConfig.LOGIN);
-            },
-            showNext: showNextButton,
-            showPrevious: showBackButton,
-            nextLabel: nextButtonLabel,
-            previousLabel: backButtonLabel,
-            canGoNext,
-            canGoPrevious: canGoBack,
-        },
+        WorkflowCardActionsProps,
     } = props;
+
+    const workflowCardActionsProps = {
+        showNext: showNextButton,
+        showPrevious: showBackButton,
+        nextLabel: nextButtonLabel,
+        previousLabel: backButtonLabel,
+        canGoNext,
+        canGoPrevious: canGoBack,
+        ...WorkflowCardActionsProps,
+        onNext: (data: any): void => {
+            setEmailInput(data.email);
+            void handleOnNext(data.email);
+            WorkflowCardActionsProps?.onNext();
+        },
+        onPrevious: (): void => {
+            navigate(routeConfig.LOGIN);
+            WorkflowCardActionsProps?.onPrevious();
+        },
+    };
 
     const errorDialog = (
         <SimpleDialog
@@ -136,10 +141,10 @@ export const ForgotPasswordScreen: React.FC<ForgotPasswordScreenProps> = (props)
                                     showNext: true,
                                     nextLabel: t('bluiCommon:ACTIONS.DONE'),
                                     canGoNext: true,
+                                    fullWidthButton: true,
                                     onNext: (): void => {
                                         navigate(routeConfig.LOGIN);
                                     },
-                                    fullWidthButton: true,
                                 }}
                                 {...props}
                             />

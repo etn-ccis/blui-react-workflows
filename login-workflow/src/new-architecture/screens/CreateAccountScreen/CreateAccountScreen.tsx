@@ -56,21 +56,7 @@ export const CreateAccountScreen: React.FC<CreateAccountScreenProps> = (props) =
         WorkflowCardInstructionProps: workflowCardInstructionProps = {
             instructions: t('bluiRegistration:SELF_REGISTRATION.INSTRUCTIONS'),
         },
-        WorkflowCardActionsProps: workflowCardActionsProps = {
-            showNext: true,
-            nextLabel: t('bluiCommon:ACTIONS.NEXT'),
-            showPrevious: true,
-            previousLabel: t('bluiCommon:ACTIONS.BACK'),
-            canGoPrevious: true,
-            currentStep: 1,
-            totalSteps: 6,
-            onNext: (): void => {
-                void onNext();
-            },
-            onPrevious: (): void => {
-                void onPrevious();
-            },
-        },
+        WorkflowCardActionsProps,
         emailLabel = t('bluiCommon:LABELS.EMAIL'),
         initialValue = screenData.CreateAccount.emailAddress,
         emailValidator = (email: string): boolean | string => {
@@ -81,6 +67,25 @@ export const CreateAccountScreen: React.FC<CreateAccountScreenProps> = (props) =
         },
         emailTextFieldProps,
     } = props;
+
+    const workflowCardActionsProps = {
+        showNext: true,
+        nextLabel: t('bluiCommon:ACTIONS.NEXT'),
+        showPrevious: true,
+        previousLabel: t('bluiCommon:ACTIONS.BACK'),
+        canGoPrevious: true,
+        currentStep: 1,
+        totalSteps: 6,
+        ...WorkflowCardActionsProps,
+        onNext: (): void => {
+            void onNext();
+            WorkflowCardActionsProps?.onNext();
+        },
+        onPrevious: (): void => {
+            void onPrevious();
+            WorkflowCardActionsProps?.onPrevious();
+        },
+    };
 
     const onEmailInputValueChange = (e: any): void => {
         setEmailInputValue(e.target.value);
