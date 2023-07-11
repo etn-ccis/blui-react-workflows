@@ -58,7 +58,7 @@ export const RegistrationSuccessScreen: React.FC<SuccessScreenProps> = (props) =
         ...WorkflowCardActionsProps,
         onNext: (): void => {
             onDismiss();
-            WorkflowCardActionsProps.onNext();
+            WorkflowCardActionsProps?.onNext?.();
         },
     };
 

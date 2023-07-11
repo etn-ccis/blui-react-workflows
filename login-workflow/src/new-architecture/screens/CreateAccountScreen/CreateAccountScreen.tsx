@@ -79,11 +79,11 @@ export const CreateAccountScreen: React.FC<CreateAccountScreenProps> = (props) =
         ...WorkflowCardActionsProps,
         onNext: (): void => {
             void onNext();
-            WorkflowCardActionsProps?.onNext();
+            WorkflowCardActionsProps?.onNext?.();
         },
         onPrevious: (): void => {
             void onPrevious();
-            WorkflowCardActionsProps?.onPrevious();
+            WorkflowCardActionsProps?.onPrevious?.();
         },
     };
 

@@ -89,11 +89,11 @@ export const ForgotPasswordScreen: React.FC<ForgotPasswordScreenProps> = (props)
         onNext: (data: any): void => {
             setEmailInput(data.email);
             void handleOnNext(data.email);
-            WorkflowCardActionsProps?.onNext();
+            WorkflowCardActionsProps?.onNext?.();
         },
         onPrevious: (): void => {
             navigate(routeConfig.LOGIN);
-            WorkflowCardActionsProps?.onPrevious();
+            WorkflowCardActionsProps?.onPrevious?.();
         },
     };
 

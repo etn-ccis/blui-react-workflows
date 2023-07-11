@@ -45,7 +45,7 @@ export const ContactSupportScreen: React.FC<ContactScreenProps> = (props) => {
         ...WorkflowCardActionsProps,
         onNext: (): void => {
             navigate(routeConfig.LOGIN);
-            WorkflowCardActionsProps?.onNext();
+            WorkflowCardActionsProps?.onNext?.();
         },
     };
 

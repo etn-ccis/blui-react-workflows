@@ -81,13 +81,13 @@ export const ResetPasswordScreen: React.FC<ResetPasswordScreenProps> = (props) =
         ...WorkflowCardActionsProps,
         onNext: (): void => {
             void handleOnNext();
-            WorkflowCardActionsProps?.onNext();
+            WorkflowCardActionsProps?.onNext?.();
         },
         onPrevious: (): void => {
             try {
                 setIsLoading(true);
                 navigate(routeConfig.LOGIN);
-                WorkflowCardActionsProps?.onPrevious();
+                WorkflowCardActionsProps?.onPrevious?.();
                 setIsLoading(false);
             } catch (e) {
                 setShowErrorDialog(true);

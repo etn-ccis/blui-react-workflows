@@ -87,12 +87,12 @@ export const EulaScreen: React.FC<EulaFullScreenProps> = (props) => {
         ...WorkflowCardActionsProps,
         onNext: (): void => {
             void onNext();
-            WorkflowCardActionsProps?.onNext();
+            WorkflowCardActionsProps?.onNext?.();
         },
         onPrevious: (): void => {
             void onPrevious();
             navigate(routeConfig.LOGIN);
-            WorkflowCardActionsProps?.onPrevious();
+            WorkflowCardActionsProps?.onPrevious?.();
         },
     };
 

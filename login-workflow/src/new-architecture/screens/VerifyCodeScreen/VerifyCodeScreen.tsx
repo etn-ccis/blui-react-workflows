@@ -97,11 +97,11 @@ export const VerifyCodeScreen: React.FC<VerifyCodeScreenProps> = (props) => {
         onNext: (data: any): void => {
             setVerifyCode(data.code);
             void handleOnNext(data.code);
-            WorkflowCardActionsProps?.onNext();
+            WorkflowCardActionsProps?.onNext?.();
         },
         onPrevious: (): void => {
             void onPrevious();
-            WorkflowCardActionsProps?.onPrevious();
+            WorkflowCardActionsProps?.onPrevious?.();
         },
     };
 

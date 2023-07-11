@@ -41,7 +41,7 @@ export const ExistingAccountSuccessScreen: React.FC<SuccessScreenProps> = (props
         ...WorkflowCardActionsProps,
         onNext: (): void => {
             onDismiss();
-            WorkflowCardActionsProps?.onNext();
+            WorkflowCardActionsProps?.onNext?.();
         },
     };
 
