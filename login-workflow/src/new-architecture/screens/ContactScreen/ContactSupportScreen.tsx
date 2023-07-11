@@ -1,5 +1,5 @@
 import React from 'react';
-import { ChatBubbleOutline, Work } from '@mui/icons-material';
+import { ChatBubbleOutline } from '@mui/icons-material';
 import { ContactScreenBase } from './ContactScreenBase';
 import { ContactScreenProps } from './types';
 import { useLanguageLocale } from '../../hooks';
