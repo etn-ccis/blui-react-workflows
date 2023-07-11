@@ -37,50 +37,7 @@ export const ProviderTest: React.FC<CustomRouterProps> = (props) => {
     const securityContextActions = useSecurityActions();
     return (
         <>
-            {/* <RegistrationContextProvider
-                language={language}
-                routeConfig={routes}
-                navigate={navigate}
-                actions={ProjectRegistrationUIActions}
-            >
-                <Routes>
-                <Route
-                    path={'self-registration'}
-                    element={
-                        <ExperimentalGuestGuard
-                            isAuthenticated={false}
-                            fallbackComponent={<Navigate to={`/guarded`} />}>
-                            <RegistrationWorkflow initialScreenIndex={0}>
-                                <EulaScreen />
-                                <VerifyCodeScreen />
-                                <CreatePassword />
-                                <RegistrationSuccessScreen />
-                            </RegistrationWorkflow>
-                        </ExperimentalGuestGuard>
-                    }
-                />
-                <Route
-                        path={'*'}
-                        element={
-                            <AuthContextProvider
-                actions={ProjectAuthUIActions(securityContextActions)}
-                language={language}
-                navigate={navigate}
-                routeConfig={routes}
-            >
-                <ExperimentalGuestGuard
-                                isAuthenticated={false}
-                                fallbackComponent={<Navigate to={`/guarded`} />}
-                            >
-                                <Login />
-                            </ExperimentalGuestGuard>
-            </AuthContextProvider>
-                        }
-                    />
-                </Routes>
-                
-            </RegistrationContextProvider>
-            <AuthContextProvider
+            {/* <AuthContextProvider
                 actions={ProjectAuthUIActions(securityContextActions)}
                 language={language}
                 navigate={navigate}
@@ -144,77 +101,13 @@ export const ProviderTest: React.FC<CustomRouterProps> = (props) => {
                     />
                 </Routes>    
             </AuthContextProvider> */}
-
-
-            <Routes>
-                <AuthContextProvider
-                    actions={ProjectAuthUIActions(securityContextActions)}
-                    language={language}
-                    navigate={navigate}
-                    routeConfig={routes}
-                >
-                    <Route
-                        path={'login'}
-                        element={
-                            <ExperimentalGuestGuard
-                                isAuthenticated={isAuthenticated}
-                                fallbackComponent={<Navigate to={`/guarded`} />}
-                            >
-                                <Login />
-                            </ExperimentalGuestGuard>
-                        }
-                    />
-                    <Route
-                        path={'forgot-password'}
-                        element={
-                            <ExperimentalGuestGuard
-                                isAuthenticated={isAuthenticated}
-                                fallbackComponent={<Navigate to={`/guarded`} />}
-                            >
-                                <ForgotPasswordScreen/>
-                            </ExperimentalGuestGuard>
-                        }
-                    />
-                    <Route
-                        path={'contact-support'}
-                        element={
-                            <ExperimentalGuestGuard
-                                isAuthenticated={isAuthenticated}
-                                fallbackComponent={<Navigate to={`/guarded`} />}
-                            >
-                                <ContactSupportScreen/>
-                            </ExperimentalGuestGuard>
-                        }
-                    />
-                    <Route
-                        path={'/'}
-                        element={
-                            <ExperimentalAuthGuard
-                        isAuthenticated={isAuthenticated}
-                        fallbackComponent={<Navigate to={`/login`} />}
-                    >
-                        <Login />
-                    </ExperimentalAuthGuard>
-                        }
-                    />
-                    <Route
-                        path={'*'}
-                        element={
-                            <ExperimentalAuthGuard
-                        isAuthenticated={isAuthenticated}
-                        fallbackComponent={<Navigate to={`/login`} />}
-                    >
-                        <Login />
-                    </ExperimentalAuthGuard>
-                        }
-                    />
-                </AuthContextProvider>
-                <RegistrationContextProvider
+            <RegistrationContextProvider
                 language={language}
                 routeConfig={routes}
                 navigate={navigate}
                 actions={ProjectRegistrationUIActions}
             >
+                <Routes>
                 <Route
                     path={'self-registration'}
                     element={
@@ -230,8 +123,28 @@ export const ProviderTest: React.FC<CustomRouterProps> = (props) => {
                         </ExperimentalGuestGuard>
                     }
                 />
+                <Route
+                        path={'*'}
+                        element={
+                            <AuthContextProvider
+                actions={ProjectAuthUIActions(securityContextActions)}
+                language={language}
+                navigate={navigate}
+                routeConfig={routes}
+            >
+                <ExperimentalGuestGuard
+                                isAuthenticated={false}
+                                fallbackComponent={<Navigate to={`/guarded`} />}
+                            >
+                                <Login />
+                            </ExperimentalGuestGuard>
+            </AuthContextProvider>
+                        }
+                    />
+                </Routes>
+                
             </RegistrationContextProvider>
-            </Routes>
+            
         </>
     )
 };
