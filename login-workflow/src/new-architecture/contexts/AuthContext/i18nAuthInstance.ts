@@ -1,6 +1,6 @@
 import i18next from 'i18next';
 import { AuthDictionaries } from './AuthDictionaries';
-import { SharedDictionaries } from '../SharedDictionaries';
+import { SharedDictionaries } from '../sharedDictionaries';
 
 export const i18nAuthInstance = i18next.createInstance(
     {

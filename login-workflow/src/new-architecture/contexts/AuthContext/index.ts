@@ -4,7 +4,7 @@ import i18nAuthInstance from './i18nAuthInstance';
 import { AuthContextProvider } from './provider';
 import { AuthContextProviderProps, AuthUIActions } from './types';
 import { AuthDictionaries } from './AuthDictionaries';
-import { SharedDictionaries } from '../SharedDictionaries';
+import { SharedDictionaries } from '../sharedDictionaries';
 
 /**
  * Hook to get top level data in authentication workflow
