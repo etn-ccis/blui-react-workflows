@@ -1,8 +1,6 @@
-/** eslint-ignore */
 import React, { useState } from 'react';
 import { AppContext } from './contexts/AppContextProvider';
-import { BrowserRouter, createBrowserRouter, RouterProvider } from 'react-router-dom';
-import { GetCustomRoutes } from './navigation/Routing';
+import { BrowserRouter} from 'react-router-dom';
 import { ProviderTest } from './screens';
 import { SecurityContextProvider } from '@brightlayer-ui/react-auth-workflow';
 export const App = (): JSX.Element => {
@@ -18,7 +16,6 @@ export const App = (): JSX.Element => {
                 setLanguage,
             }}
         >
-            {/* <RouterProvider router={createBrowserRouter(GetCustomRoutes(isAuthenticated), { basename: '/' })} /> */}
             <BrowserRouter basename={'/'}>
                 <SecurityContextProvider>
                     <ProviderTest isAuthenticated={isAuthenticated}/>

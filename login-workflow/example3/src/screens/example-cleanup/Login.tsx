@@ -1,22 +1,18 @@
 import React from 'react';
 import { Link } from "react-router-dom";
 import { Box, Button, Typography } from '@mui/material';
-import { LoginScreen, AuthContextProvider, useSecurityActions, useAuthContext } from '@brightlayer-ui/react-auth-workflow';
+import { LoginScreen, useSecurityActions, useAuthContext } from '@brightlayer-ui/react-auth-workflow';
 import EatonLogo from '../../assets/images/eaton_stacked_logo.png';
 import { useApp } from '../../contexts/AppContextProvider';
 import { useNavigate } from 'react-router';
-import { ProjectAuthUIActions } from '../../actions/AuthUIActions';
 import { routes } from '../../navigation/Routing';
-import { ForgotPasswordFullScreen } from '../new-architecture-test-screens';
 const LinksWrapperStyles = {
     textAlign: 'center',
     pb: 4,
 };
 export const Login = (): JSX.Element => {
-    const { language, setIsAuthenticated } = useApp();
-    const navigate = useNavigate();
+    const { setIsAuthenticated } = useApp();
     const auth = useAuthContext();
-    const securityContextActions = useSecurityActions();
     const [debugMode, setDebugMode] = React.useState(false);
     return (
 
@@ -49,7 +45,6 @@ export const Login = (): JSX.Element => {
                 onSelfRegister={(): void => {
                     // eslint-disable-next-line no-console
                     console.log('onSelfRegister');
-                    console.log('navigate', navigate);
                     auth.navigate('self-registration');
                 }}
                 onContactSupport={(): void => {
@@ -84,7 +79,7 @@ export const Login = (): JSX.Element => {
                         {
                             debugMode && <Box sx={LinksWrapperStyles}>
                                 <Typography variant="body2">
-                                    <Link to={`${routes.FORGOT_PASSWORD}`}>
+                                    <Link to={`${routes.REGISTER_INVITE}`}>
                                         [Test Invite Register]
                                     </Link>
                                 </Typography>

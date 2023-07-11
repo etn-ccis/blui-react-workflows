@@ -9,11 +9,10 @@ import * as BLUIThemes from '@brightlayer-ui/react-themes';
 import '@brightlayer-ui/react-themes/open-sans';
 import './index.css';
 import { createRoot } from 'react-dom/client';
-import { useTranslation } from 'react-i18next';
 
 const container = document.getElementById('root');
 const root = createRoot(container || document.createDocumentFragment());
-// const { t } = useTranslation();
+
 root.render(
     // Enable Strict Mode for more error checking
     <React.StrictMode>
