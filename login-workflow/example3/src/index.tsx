@@ -9,7 +9,6 @@ import * as BLUIThemes from '@brightlayer-ui/react-themes';
 import '@brightlayer-ui/react-themes/open-sans';
 import './index.css';
 import { createRoot } from 'react-dom/client';
-import './contexts/i18n'
 import { useTranslation } from 'react-i18next';
 
 const container = document.getElementById('root');

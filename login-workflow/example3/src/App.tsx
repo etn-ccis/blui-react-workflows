@@ -5,7 +5,6 @@ import { BrowserRouter, createBrowserRouter, RouterProvider } from 'react-router
 import { GetCustomRoutes } from './navigation/Routing';
 import { ProviderTest } from './screens';
 import { SecurityContextProvider } from '@brightlayer-ui/react-auth-workflow';
-import './contexts/i18n';
 export const App = (): JSX.Element => {
     const [isAuthenticated, setIsAuthenticated] = useState(false);
     const [language, setLanguage] = useState('en');
@@ -22,7 +21,7 @@ export const App = (): JSX.Element => {
             {/* <RouterProvider router={createBrowserRouter(GetCustomRoutes(isAuthenticated), { basename: '/' })} /> */}
             <BrowserRouter basename={'/'}>
                 <SecurityContextProvider>
-                    <ProviderTest />
+                    <ProviderTest isAuthenticated={isAuthenticated}/>
                 </SecurityContextProvider>
             </BrowserRouter>
         </AppContext.Provider>
