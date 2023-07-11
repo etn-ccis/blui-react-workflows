@@ -33,8 +33,9 @@ export const VerifyCodeScreen: React.FC<VerifyCodeScreenProps> = (props) => {
                 await actions().requestRegistrationCode(email);
             } catch {
                 console.error('Error fetching resend verification code!');
+            } finally {
+                setIsLoading(false);
             }
-            setIsLoading(false);
         },
         [actions]
     );
@@ -60,9 +61,10 @@ export const VerifyCodeScreen: React.FC<VerifyCodeScreenProps> = (props) => {
                     screenId: 'VerifyCode',
                     values: { code: code },
                 });
-                setIsLoading(false);
             } catch {
                 console.error('Error fetching validation code!');
+            } finally {
+                setIsLoading(false);
             }
         },
         [nextScreen, actions]
