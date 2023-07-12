@@ -52,7 +52,17 @@ export const CreatePasswordScreen: React.FC<CreatePasswordScreenProps> = (props)
         [setPasswordInput, setConfirmInput]
     );
 
+    const areValidMatchingPasswords = useCallback((): boolean => {
+        for (let i = 0; i < passwordRequirements.length; i++) {
+            if (!new RegExp(passwordRequirements[i].regex).test(passwordInput)) return false;
+        }
+        return confirmInput === passwordInput;
+    }, [passwordRequirements, passwordInput, confirmInput]);
+
     const {
+        WorkflowCardBaseProps,
+        WorkflowCardHeaderProps,
+        WorkflowCardInstructionProps,
         WorkflowCardActionsProps,
         PasswordProps: passwordProps = {
             initialNewPasswordValue: passwordInput,
@@ -65,20 +75,28 @@ export const CreatePasswordScreen: React.FC<CreatePasswordScreenProps> = (props)
             confirmRef,
             onPasswordChange: updateFields,
             onSubmit: (): void => {
-                void onNext();
-                WorkflowCardActionsProps?.onNext?.();
+                if (areValidMatchingPasswords()) {
+                    void onNext();
+                    WorkflowCardActionsProps?.onNext?.();
+                }
             },
         },
-        WorkflowCardHeaderProps: workflowCardHeaderProps = {
-            title: t('bluiRegistration:REGISTRATION.STEPS.PASSWORD'),
-        },
-        WorkflowCardInstructionProps: workflowCardInstructionProps = {
-            instructions: t('bluiRegistration:REGISTRATION.INSTRUCTIONS.PASSWORD_INFO'),
-        },
-        WorkflowCardBaseProps: workflowCardBaseProps = {
-            loading: isLoading,
-        },
     } = props;
+
+    const workflowCardBaseProps = {
+        loading: isLoading,
+        ...WorkflowCardBaseProps,
+    };
+
+    const workflowCardHeaderProps = {
+        title: t('bluiRegistration:REGISTRATION.STEPS.PASSWORD'),
+        ...WorkflowCardHeaderProps,
+    };
+
+    const workflowCardInstructionProps = {
+        instructions: t('bluiRegistration:REGISTRATION.INSTRUCTIONS.PASSWORD_INFO'),
+        ...WorkflowCardInstructionProps,
+    };
 
     const workflowCardActionsProps = {
         showNext: true,
@@ -99,13 +117,6 @@ export const CreatePasswordScreen: React.FC<CreatePasswordScreenProps> = (props)
             WorkflowCardActionsProps?.onPrevious?.();
         },
     };
-
-    const areValidMatchingPasswords = useCallback((): boolean => {
-        for (let i = 0; i < passwordRequirements.length; i++) {
-            if (!new RegExp(passwordRequirements[i].regex).test(passwordInput)) return false;
-        }
-        return confirmInput === passwordInput;
-    }, [passwordRequirements, passwordInput, confirmInput]);
 
     useEffect(() => {
         setPasswordInput(areValidMatchingPasswords() ? passwordInput : '');

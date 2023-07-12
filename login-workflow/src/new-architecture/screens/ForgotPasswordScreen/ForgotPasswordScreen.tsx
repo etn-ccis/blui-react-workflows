@@ -37,13 +37,6 @@ export const ForgotPasswordScreen: React.FC<ForgotPasswordScreenProps> = (props)
     );
 
     const {
-        title = t('bluiAuth:HEADER.FORGOT_PASSWORD'),
-        WorkflowCardBaseProps: workflowCardBaseProps = {
-            loading: isLoading,
-        },
-        WorkflowCardHeaderProps: workflowCardHeaderProps = {
-            title,
-        },
         emailLabel = t('bluiCommon:LABELS.EMAIL'),
         contactPhone = '1-800-123-4567',
         initialEmailValue,
@@ -57,26 +50,41 @@ export const ForgotPasswordScreen: React.FC<ForgotPasswordScreenProps> = (props)
         canGoNext,
         canGoBack,
         showNextButton = true,
-        WorkflowCardInstructionProps: workflowCardInstructionProps = {
-            instructions: description ? (
-                <> {description(responseTime)} </>
-            ) : (
-                <Typography>
-                    <Trans
-                        i18nKey={'bluiAuth:FORGOT_PASSWORD.INSTRUCTIONS_ALT'}
-                        values={{ phone: contactPhone, responseTime }}
-                    >
-                        Please enter your email, we will respond in <b>{responseTime}</b>. For urgent issues please call{' '}
-                        <Box component="a" href={`tel:${contactPhone}`} sx={LinkStyles}>
-                            {contactPhone}
-                        </Box>
-                        .
-                    </Trans>
-                </Typography>
-            ),
-        },
+        WorkflowCardBaseProps,
+        WorkflowCardHeaderProps,
+        WorkflowCardInstructionProps,
         WorkflowCardActionsProps,
     } = props;
+
+    const workflowCardBaseProps = {
+        loading: isLoading,
+        ...WorkflowCardBaseProps,
+    };
+
+    const workflowCardInstructionProps = {
+        instructions: description ? (
+            <> {description(responseTime)} </>
+        ) : (
+            <Typography>
+                <Trans
+                    i18nKey={'bluiAuth:FORGOT_PASSWORD.INSTRUCTIONS_ALT'}
+                    values={{ phone: contactPhone, responseTime }}
+                >
+                    Please enter your email, we will respond in <b>{responseTime}</b>. For urgent issues please call{' '}
+                    <Box component="a" href={`tel:${contactPhone}`} sx={LinkStyles}>
+                        {contactPhone}
+                    </Box>
+                    .
+                </Trans>
+            </Typography>
+        ),
+        ...WorkflowCardInstructionProps,
+    };
+
+    const workflowCardHeaderProps = {
+        title: t('bluiAuth:HEADER.FORGOT_PASSWORD'),
+        ...WorkflowCardHeaderProps,
+    };
 
     const workflowCardActionsProps = {
         showNext: showNextButton,

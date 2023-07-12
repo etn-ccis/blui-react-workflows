@@ -44,11 +44,14 @@ export const RegistrationSuccessScreen: React.FC<SuccessScreenProps> = (props) =
         ),
         onDismiss = (): void => navigate(routeConfig.LOGIN),
         canDismiss = true,
-        WorkflowCardHeaderProps: workflowCardHeaderProps = {
-            title: t('bluiRegistration:REGISTRATION.STEPS.COMPLETE'),
-        },
+        WorkflowCardHeaderProps,
         WorkflowCardActionsProps,
     } = props;
+
+    const workflowCardHeaderProps = {
+        title: t('bluiRegistration:REGISTRATION.STEPS.COMPLETE'),
+        ...WorkflowCardHeaderProps,
+    };
 
     const workflowCardActionsProps = {
         nextLabel: t('bluiCommon:ACTIONS.CONTINUE'),

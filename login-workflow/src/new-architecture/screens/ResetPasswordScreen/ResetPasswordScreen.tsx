@@ -60,17 +60,26 @@ export const ResetPasswordScreen: React.FC<ResetPasswordScreenProps> = (props) =
             passwordRef,
             confirmRef,
         },
-        WorkflowCardHeaderProps: workflowCardHeaderProps = {
-            title: t('bluiCommon:FORMS.RESET_PASSWORD'),
-        },
-        WorkflowCardInstructionProps: workflowCardInstructionProps = {
-            instructions: t('bluiAuth:CHANGE_PASSWORD.PASSWORD_INFO'),
-        },
-        WorkflowCardBaseProps: workflowCardBaseProps = {
-            loading: isLoading,
-        },
+        WorkflowCardBaseProps,
+        WorkflowCardHeaderProps,
+        WorkflowCardInstructionProps,
         WorkflowCardActionsProps,
     } = props;
+
+    const workflowCardBaseProps = {
+        loading: isLoading,
+        ...WorkflowCardBaseProps,
+    };
+
+    const workflowCardHeaderProps = {
+        title: t('bluiCommon:FORMS.RESET_PASSWORD'),
+        ...WorkflowCardHeaderProps,
+    };
+
+    const workflowCardInstructionProps = {
+        instructions: t('bluiAuth:CHANGE_PASSWORD.PASSWORD_INFO'),
+        ...WorkflowCardInstructionProps,
+    };
 
     const workflowCardActionsProps = {
         showNext: true,

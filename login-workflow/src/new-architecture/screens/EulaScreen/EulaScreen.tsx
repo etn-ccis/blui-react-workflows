@@ -4,22 +4,18 @@ import { EulaScreenBase } from './EulaScreenBase';
 import { useLanguageLocale } from '../../hooks';
 import { useRegistrationContext, useRegistrationWorkflowContext } from '../../contexts';
 
-type EulaFullScreenProps = EulaScreenProps & {
-    title?: string;
-};
-
-export const EulaScreen: React.FC<EulaFullScreenProps> = (props) => {
+export const EulaScreen: React.FC<EulaScreenProps> = (props) => {
     const { t } = useLanguageLocale();
     const { actions, navigate, routeConfig, language } = useRegistrationContext();
     const regWorkflow = useRegistrationWorkflowContext();
     const { nextScreen, previousScreen, screenData } = regWorkflow;
     const {
-        title = t('bluiRegistration:REGISTRATION.STEPS.LICENSE'),
+        WorkflowCardHeaderProps,
+        WorkflowCardActionsProps,
         onEulaAcceptedChange = (accepted: boolean): boolean => accepted,
         eulaContent,
         checkboxLabel = t('bluiRegistration:REGISTRATION.EULA.AGREE_TERMS'),
         initialCheckboxValue,
-        WorkflowCardActionsProps,
     } = props;
 
     const [eulaAccepted, setEulaAccepted] = useState(screenData.Eula.accepted ?? initialCheckboxValue);
@@ -75,6 +71,11 @@ export const EulaScreen: React.FC<EulaFullScreenProps> = (props) => {
         void loadAndCacheEula();
     }, [loadAndCacheEula]);
 
+    const workflowCardHeaderProps = {
+        title: t('bluiRegistration:REGISTRATION.STEPS.LICENSE'),
+        ...WorkflowCardHeaderProps,
+    };
+
     const workflowCardActionsProps = {
         showNext: true,
         nextLabel: t('bluiCommon:ACTIONS.NEXT'),
@@ -98,7 +99,7 @@ export const EulaScreen: React.FC<EulaFullScreenProps> = (props) => {
 
     return (
         <EulaScreenBase
-            WorkflowCardHeaderProps={{ title: title }}
+            WorkflowCardHeaderProps={workflowCardHeaderProps}
             eulaContent={eulaData}
             WorkflowCardBaseProps={{
                 loading: eulaLoaded,

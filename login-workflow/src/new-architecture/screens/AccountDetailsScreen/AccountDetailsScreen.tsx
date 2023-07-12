@@ -37,16 +37,10 @@ export const AccountDetailsScreen: React.FC<AccountDetailsScreenProps> = (props)
     }, [firstName, lastName, previousScreen]);
 
     const {
-        WorkflowCardHeaderProps: workflowCardHeaderProps = {
-            title: t('bluiRegistration:REGISTRATION.STEPS.ACCOUNT_DETAILS'),
-        },
-        WorkflowCardInstructionProps: workflowCardInstructionProps = {
-            instructions: t('bluiRegistration:REGISTRATION.INSTRUCTIONS.ACCOUNT_DETAILS'),
-        },
+        WorkflowCardHeaderProps,
+        WorkflowCardInstructionProps,
         WorkflowCardActionsProps,
-        WorkflowCardBaseProps: workflowCardBaseProps = {
-            loading: isLoading,
-        },
+        WorkflowCardBaseProps,
         firstNameLabel = t('bluiCommon:FORMS.FIRST_NAME'),
         lastNameLabel = t('bluiCommon:FORMS.LAST_NAME'),
         firstNameValidator = (name: string): boolean | string => {
@@ -64,6 +58,21 @@ export const AccountDetailsScreen: React.FC<AccountDetailsScreenProps> = (props)
             return t('bluiCommon:FORMS.LAST_NAME_LENGTH_ERROR');
         },
     } = props;
+
+    const workflowCardHeaderProps = {
+        title: t('bluiRegistration:REGISTRATION.STEPS.ACCOUNT_DETAILS'),
+        ...WorkflowCardHeaderProps,
+    };
+
+    const workflowCardInstructionProps = {
+        instructions: t('bluiRegistration:REGISTRATION.INSTRUCTIONS.ACCOUNT_DETAILS'),
+        ...WorkflowCardInstructionProps,
+    };
+
+    const workflowCardBaseProps = {
+        loading: isLoading,
+        ...WorkflowCardBaseProps,
+    };
 
     const workflowCardActionsProps = {
         canGoNext: true,
