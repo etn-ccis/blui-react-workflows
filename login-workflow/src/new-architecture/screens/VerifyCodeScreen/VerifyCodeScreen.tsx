@@ -26,16 +26,19 @@ export const VerifyCodeScreen: React.FC<VerifyCodeScreenProps> = (props) => {
     const [verifyCode, setVerifyCode] = useState(screenData.VerifyCode.code);
     const [isLoading, setIsLoading] = useState(false);
 
-    const requestResendCode = useCallback(async (): Promise<void> => {
-        try {
-            setIsLoading(true);
-            await actions().validateUserRegistrationRequest(verifyCode);
-        } catch {
-            console.error('Error fetching resend verification code!');
-        } finally {
-            setIsLoading(false);
-        }
-    }, [verifyCode, actions]);
+    const requestResendCode = useCallback(
+        async (email?: string): Promise<void> => {
+            try {
+                setIsLoading(true);
+                await actions().requestRegistrationCode(email);
+            } catch {
+                console.error('Error fetching resend verification code!');
+            } finally {
+                setIsLoading(false);
+            }
+        },
+        [actions]
+    );
 
     const {
         codeValidator = (code: string): boolean | string =>
@@ -56,7 +59,7 @@ export const VerifyCodeScreen: React.FC<VerifyCodeScreenProps> = (props) => {
                 await actions().validateUserRegistrationRequest(code);
                 nextScreen({
                     screenId: 'VerifyCode',
-                    values: { code: verifyCode },
+                    values: { code: code },
                 });
             } catch {
                 console.error('Error fetching validation code!');
@@ -64,7 +67,7 @@ export const VerifyCodeScreen: React.FC<VerifyCodeScreenProps> = (props) => {
                 setIsLoading(false);
             }
         },
-        [verifyCode, nextScreen, actions]
+        [nextScreen, actions]
     );
 
     const onPrevious = (): void => {
