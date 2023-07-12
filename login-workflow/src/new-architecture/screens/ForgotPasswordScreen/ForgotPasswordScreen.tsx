@@ -30,8 +30,9 @@ export const ForgotPasswordScreen: React.FC<ForgotPasswordScreenProps> = (props)
                 setShowSuccessScreen(true);
             } catch (e) {
                 setShowErrorDialog(true);
+            } finally {
+                setIsLoading(false);
             }
-            setIsLoading(false);
         },
         [setIsLoading, setShowErrorDialog, actions]
     );

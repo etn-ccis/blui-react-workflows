@@ -22,8 +22,9 @@ export const AccountDetailsScreen: React.FC<AccountDetailsScreenProps> = (props)
             });
         } catch {
             console.error('Error while updating account details...');
+        } finally {
+            setIsLoading(false);
         }
-        setIsLoading(false);
     }, [firstName, lastName, actions, nextScreen, setIsLoading]);
 
     const onPrevious = useCallback(() => {

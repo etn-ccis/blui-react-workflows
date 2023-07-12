@@ -32,8 +32,9 @@ export const VerifyCodeScreen: React.FC<VerifyCodeScreenProps> = (props) => {
             await actions().validateUserRegistrationRequest(verifyCode);
         } catch {
             console.error('Error fetching resend verification code!');
+        } finally {
+            setIsLoading(false);
         }
-        setIsLoading(false);
     }, [verifyCode, actions]);
 
     const {
@@ -59,8 +60,9 @@ export const VerifyCodeScreen: React.FC<VerifyCodeScreenProps> = (props) => {
                 });
             } catch {
                 console.error('Error fetching validation code!');
+            } finally {
+                setIsLoading(false);
             }
-            setIsLoading(false);
         },
         [verifyCode, nextScreen, actions]
     );

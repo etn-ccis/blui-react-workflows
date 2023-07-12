@@ -47,8 +47,9 @@ export const ResetPasswordScreen: React.FC<ResetPasswordScreenProps> = (props) =
             setShowSuccessScreen(true);
         } catch (e) {
             setShowErrorDialog(true);
+        } finally {
+            setIsLoading(false);
         }
-        setIsLoading(false);
     }, [setIsLoading, setShowSuccessScreen, actions, code, passwordInput, email]);
 
     const {
@@ -74,9 +75,10 @@ export const ResetPasswordScreen: React.FC<ResetPasswordScreenProps> = (props) =
                 try {
                     setIsLoading(true);
                     navigate(routeConfig.LOGIN);
-                    setIsLoading(false);
                 } catch (e) {
                     setShowErrorDialog(true);
+                } finally {
+                    setIsLoading(false);
                 }
             },
             showNext: true,
