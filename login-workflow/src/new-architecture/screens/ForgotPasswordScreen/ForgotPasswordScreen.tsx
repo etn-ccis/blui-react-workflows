@@ -53,7 +53,7 @@ export const ForgotPasswordScreen: React.FC<ForgotPasswordScreenProps> = (props)
             new RegExp(EMAIL_REGEX).test(email) ? true : t('bluiCommon:MESSAGES.EMAIL_ENTRY_ERROR'),
         showBackButton = true,
         backButtonLabel = t('bluiCommon:ACTIONS.BACK'),
-        nextButtonLabel = t('bluiCommon:ACTIONS.OKAY'),
+        nextButtonLabel = t('bluiCommon:ACTIONS.SUBMIT'),
         canGoNext,
         canGoBack,
         showNextButton = true,
