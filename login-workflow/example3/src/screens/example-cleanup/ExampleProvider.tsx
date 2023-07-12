@@ -126,7 +126,6 @@ export const ExampleProvider: React.FC<CustomRouterProps> = (props) => {
                         <ExperimentalGuestGuard isAuthenticated={false} fallbackComponent={<Navigate to={`/`} />}>
                             <RegistrationWorkflow initialScreenIndex={0}>
                                 <EulaScreen />
-
                                 <CreatePasswordScreen />
                                 <AccountDetailsScreen />
                                 <RegistrationSuccessScreen />

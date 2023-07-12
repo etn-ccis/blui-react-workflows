@@ -1,18 +1,26 @@
 import React from 'react';
 import { Link } from 'react-router-dom';
-import { Box, Button, Typography } from '@mui/material';
+import { Box, Button, FormControl, InputLabel, MenuItem, Select, SelectChangeEvent, Typography } from '@mui/material';
 import { LoginScreen, useAuthContext } from '@brightlayer-ui/react-auth-workflow';
 import EatonLogo from '../../assets/images/eaton_stacked_logo.png';
 import { useApp } from '../../contexts/AppContextProvider';
 import { routes } from '../../navigation/Routing';
+
 const LinksWrapperStyles = {
     textAlign: 'center',
     pb: 4,
 };
 export const Login = (): JSX.Element => {
-    const { setIsAuthenticated } = useApp();
+    const { language, setLanguage, setIsAuthenticated } = useApp();
     const auth = useAuthContext();
     const [debugMode, setDebugMode] = React.useState(false);
+    const [selectedLanguage, setSelectedLanguage] = React.useState(language);
+
+    const changeAppLanguage = (event: SelectChangeEvent): void => {
+        const appLanguage = event.target.value;
+        setSelectedLanguage(appLanguage);
+        setLanguage(appLanguage);
+    };
     return (
         <>
             <LoginScreen
@@ -86,6 +94,24 @@ export const Login = (): JSX.Element => {
                                 </Typography>
                             </Box>
                         )}
+                        <Box sx={{ py: 2 }}>
+                            <FormControl fullWidth>
+                                <InputLabel id="demo-simple-select-label">Language</InputLabel>
+                                <Select
+                                    labelId="login-select-label"
+                                    id="login-select"
+                                    value={selectedLanguage}
+                                    label="Language"
+                                    onChange={changeAppLanguage}
+                                >
+                                    <MenuItem value={'en'}>English</MenuItem>
+                                    <MenuItem value={'es'}>Spanish</MenuItem>
+                                    <MenuItem value={'fr'}>French</MenuItem>
+                                    <MenuItem value={'zh'}>Chinese</MenuItem>
+                                    <MenuItem value={'pt'}>Portugese</MenuItem>
+                                </Select>
+                            </FormControl>
+                        </Box>
                     </Box>
                 }
             />
