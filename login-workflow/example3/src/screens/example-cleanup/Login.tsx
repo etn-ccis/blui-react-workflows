@@ -28,7 +28,7 @@ export const Login = (): JSX.Element => {
                     // eslint-disable-next-line no-console
                     console.log('onLogin', username, password);
                     setIsAuthenticated(true);
-                    auth.navigate('guarded');
+                    auth.navigate('homepage');
                 }}
                 usernameTextFieldProps={{
                     inputProps: {

@@ -23,13 +23,10 @@ import { Navigate, Outlet, Route, Routes } from 'react-router-dom';
 import { Login } from './Login';
 import { ProjectRegistrationUIActions } from '../../actions/RegistrationUIActions';
 import { routes } from '../../navigation/Routing';
+import { ExampleHome } from './ExampleHome';
 
-type CustomRouterProps = {
-    isAuthenticated: boolean;
-};
-export const ExampleProvider: React.FC<CustomRouterProps> = (props) => {
-    const { isAuthenticated } = props;
-    const { language } = useApp();
+export const ExampleProvider: React.FC = () => {
+    const { language, isAuthenticated } = useApp();
     const navigate = useNavigate();
     const securityContextActions = useSecurityActions();
     return (
@@ -52,7 +49,7 @@ export const ExampleProvider: React.FC<CustomRouterProps> = (props) => {
                     element={
                         <ExperimentalGuestGuard
                             isAuthenticated={isAuthenticated}
-                            fallbackComponent={<Navigate to={`/guarded`} />}
+                            fallbackComponent={<Navigate to={`/login`} />}
                         >
                             <Login />
                         </ExperimentalGuestGuard>
@@ -63,7 +60,7 @@ export const ExampleProvider: React.FC<CustomRouterProps> = (props) => {
                     element={
                         <ExperimentalGuestGuard
                             isAuthenticated={isAuthenticated}
-                            fallbackComponent={<Navigate to={`/guarded`} />}
+                            fallbackComponent={<Navigate to={`/login`} />}
                         >
                             <ForgotPasswordScreen />
                         </ExperimentalGuestGuard>
@@ -74,7 +71,7 @@ export const ExampleProvider: React.FC<CustomRouterProps> = (props) => {
                     element={
                         <ExperimentalGuestGuard
                             isAuthenticated={isAuthenticated}
-                            fallbackComponent={<Navigate to={`/guarded`} />}
+                            fallbackComponent={<Navigate to={`/login`} />}
                         >
                             <ContactSupportScreen />
                         </ExperimentalGuestGuard>
@@ -85,7 +82,7 @@ export const ExampleProvider: React.FC<CustomRouterProps> = (props) => {
                     element={
                         <ExperimentalGuestGuard
                             isAuthenticated={isAuthenticated}
-                            fallbackComponent={<Navigate to={`/guarded`} />}
+                            fallbackComponent={<Navigate to={`/login`} />}
                         >
                             <ResetPasswordScreen />
                         </ExperimentalGuestGuard>
@@ -108,7 +105,10 @@ export const ExampleProvider: React.FC<CustomRouterProps> = (props) => {
                 <Route
                     path={'/self-registration'}
                     element={
-                        <ExperimentalGuestGuard isAuthenticated={false} fallbackComponent={<Navigate to={`/`} />}>
+                        <ExperimentalGuestGuard
+                            isAuthenticated={isAuthenticated}
+                            fallbackComponent={<Navigate to={`/login`} />}
+                        >
                             <RegistrationWorkflow initialScreenIndex={0}>
                                 <EulaScreen />
                                 <CreateAccountScreen />
@@ -123,7 +123,10 @@ export const ExampleProvider: React.FC<CustomRouterProps> = (props) => {
                 <Route
                     path={'/register-by-invite'}
                     element={
-                        <ExperimentalGuestGuard isAuthenticated={false} fallbackComponent={<Navigate to={`/`} />}>
+                        <ExperimentalGuestGuard
+                            isAuthenticated={isAuthenticated}
+                            fallbackComponent={<Navigate to={`/login`} />}
+                        >
                             <RegistrationWorkflow initialScreenIndex={0}>
                                 <EulaScreen />
                                 <CreatePasswordScreen />
@@ -137,13 +140,10 @@ export const ExampleProvider: React.FC<CustomRouterProps> = (props) => {
 
             {/* USER APPLICATION ROUTES */}
             <Route
-                path={'/'}
+                path={'/homepage'}
                 element={
-                    <ExperimentalAuthGuard
-                        isAuthenticated={isAuthenticated}
-                        fallbackComponent={<Navigate to={`/login`} />}
-                    >
-                        <span>HOME PAGE: GUARDED</span>
+                    <ExperimentalAuthGuard isAuthenticated={true} fallbackComponent={<Navigate to={`/login`} />}>
+                        <ExampleHome />
                     </ExperimentalAuthGuard>
                 }
             />
@@ -154,7 +154,7 @@ export const ExampleProvider: React.FC<CustomRouterProps> = (props) => {
                         isAuthenticated={isAuthenticated}
                         fallbackComponent={<Navigate to={`/login`} />}
                     >
-                        <Navigate to={'/'} />
+                        <Navigate to={'/login'} />
                     </ExperimentalAuthGuard>
                 }
             />

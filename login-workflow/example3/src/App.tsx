@@ -3,6 +3,7 @@ import { AppContext } from './contexts/AppContextProvider';
 import { BrowserRouter } from 'react-router-dom';
 import { ExampleProvider } from './screens';
 import { SecurityContextProvider } from '@brightlayer-ui/react-auth-workflow';
+
 export const App = (): JSX.Element => {
     const [isAuthenticated, setIsAuthenticated] = useState(false);
     const [language, setLanguage] = useState('en');
@@ -18,7 +19,7 @@ export const App = (): JSX.Element => {
         >
             <BrowserRouter basename={'/'}>
                 <SecurityContextProvider>
-                    <ExampleProvider isAuthenticated={isAuthenticated} />
+                    <ExampleProvider />
                 </SecurityContextProvider>
             </BrowserRouter>
         </AppContext.Provider>
