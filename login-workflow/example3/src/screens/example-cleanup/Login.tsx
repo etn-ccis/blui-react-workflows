@@ -1,10 +1,9 @@
 import React from 'react';
-import { Link } from "react-router-dom";
+import { Link } from 'react-router-dom';
 import { Box, Button, Typography } from '@mui/material';
-import { LoginScreen, useSecurityActions, useAuthContext } from '@brightlayer-ui/react-auth-workflow';
+import { LoginScreen, useAuthContext } from '@brightlayer-ui/react-auth-workflow';
 import EatonLogo from '../../assets/images/eaton_stacked_logo.png';
 import { useApp } from '../../contexts/AppContextProvider';
-import { useNavigate } from 'react-router';
 import { routes } from '../../navigation/Routing';
 const LinksWrapperStyles = {
     textAlign: 'center',
@@ -15,7 +14,6 @@ export const Login = (): JSX.Element => {
     const auth = useAuthContext();
     const [debugMode, setDebugMode] = React.useState(false);
     return (
-
         <>
             <LoginScreen
                 onLogin={(username, password): void => {
@@ -55,42 +53,39 @@ export const Login = (): JSX.Element => {
                 projectImage={<img src={EatonLogo} alt="logo" style={{ maxHeight: 80 }} />}
                 header={
                     <Box>
-                        <Box sx={{
-                            display: 'flex',
-                            flexDirection: 'row',
-                            justifyContent: 'space-between',
-                            alignItems: 'center',
-                        }}>
-                            <Box>
-                                {debugMode && <Typography variant={'h6'}>
-                                    DEBUG MODE
-                                </Typography>}
-                            </Box>
+                        <Box
+                            sx={{
+                                display: 'flex',
+                                flexDirection: 'row',
+                                justifyContent: 'space-between',
+                                alignItems: 'center',
+                            }}
+                        >
+                            <Box>{debugMode && <Typography variant={'h6'}>DEBUG MODE</Typography>}</Box>
                             <Button
                                 variant={'contained'}
                                 color={'primary'}
                                 onClick={(): void => {
-                                    setDebugMode(!debugMode)
+                                    setDebugMode(!debugMode);
                                 }}
                             >
                                 {`DEBUG`}
                             </Button>
                         </Box>
-                        {
-                            debugMode && <Box sx={LinksWrapperStyles}>
+                        {debugMode && (
+                            <Box sx={LinksWrapperStyles}>
                                 <Typography variant="body2">
-                                    <Link to={`${routes.REGISTER_INVITE}`}>
+                                    <Link to={`${routes?.REGISTER_INVITE || '/register-by-invite'}`}>
                                         [Test Invite Register]
                                     </Link>
                                 </Typography>
                                 <Typography variant="body2">
-                                    <Link to={`${routes.RESET_PASSWORD}`}>
+                                    <Link to={`${routes?.RESET_PASSWORD || '/reset-password'}`}>
                                         [Test Reset Password Email]
                                     </Link>
                                 </Typography>
                             </Box>
-                        }
-
+                        )}
                     </Box>
                 }
             />

@@ -4,4 +4,10 @@ import { RegistrationContextProviderProps, RegistrationUIActions, AccountDetails
 import { RegistrationContextProvider } from './provider';
 import { RegistrationDictionaries } from './RegistrationDictionaries';
 export type { RegistrationContextProviderProps, RegistrationUIActions, AccountDetails };
-export { RegistrationContext, RegistrationContextProvider, i18nRegistrationInstance, useRegistrationContext, RegistrationDictionaries };
+export {
+    RegistrationContext,
+    RegistrationContextProvider,
+    i18nRegistrationInstance,
+    useRegistrationContext,
+    RegistrationDictionaries,
+};

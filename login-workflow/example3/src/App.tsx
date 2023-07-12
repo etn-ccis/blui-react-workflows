@@ -1,7 +1,7 @@
 import React, { useState } from 'react';
 import { AppContext } from './contexts/AppContextProvider';
-import { BrowserRouter} from 'react-router-dom';
-import { ProviderTest } from './screens';
+import { BrowserRouter } from 'react-router-dom';
+import { ExampleProvider } from './screens';
 import { SecurityContextProvider } from '@brightlayer-ui/react-auth-workflow';
 export const App = (): JSX.Element => {
     const [isAuthenticated, setIsAuthenticated] = useState(false);
@@ -18,7 +18,7 @@ export const App = (): JSX.Element => {
         >
             <BrowserRouter basename={'/'}>
                 <SecurityContextProvider>
-                    <ProviderTest isAuthenticated={isAuthenticated}/>
+                    <ExampleProvider isAuthenticated={isAuthenticated} />
                 </SecurityContextProvider>
             </BrowserRouter>
         </AppContext.Provider>

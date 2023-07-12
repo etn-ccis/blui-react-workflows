@@ -1,2 +1,2 @@
 export * from './Login';
-export * from './ProviderTest';
+export * from './ExampleProvider';
