@@ -12,7 +12,7 @@ export const EulaScreen: React.FC<EulaFullScreenProps> = (props) => {
     const { t } = useLanguageLocale();
     const { actions, navigate, routeConfig, language } = useRegistrationContext();
     const regWorkflow = useRegistrationWorkflowContext();
-    const { nextScreen, previousScreen, screenData } = regWorkflow;
+    const { nextScreen, previousScreen, screenData, currentScreen, totalScreens } = regWorkflow;
     const {
         title = t('bluiRegistration:REGISTRATION.STEPS.LICENSE'),
         onEulaAcceptedChange = (accepted: boolean): boolean => accepted,
@@ -92,8 +92,8 @@ export const EulaScreen: React.FC<EulaFullScreenProps> = (props) => {
                 showPrevious: true,
                 previousLabel: t('bluiCommon:ACTIONS.BACK'),
                 canGoPrevious: true,
-                currentStep: 0,
-                totalSteps: 6,
+                currentStep: currentScreen,
+                totalSteps: totalScreens,
                 onNext: (): void => {
                     void onNext();
                 },

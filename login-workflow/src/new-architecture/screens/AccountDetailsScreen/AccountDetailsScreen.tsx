@@ -7,7 +7,7 @@ export const AccountDetailsScreen: React.FC<AccountDetailsScreenProps> = (props)
     const { t } = useLanguageLocale();
     const { actions } = useRegistrationContext();
     const regWorkflow = useRegistrationWorkflowContext();
-    const { nextScreen, previousScreen, screenData } = regWorkflow;
+    const { nextScreen, previousScreen, screenData, currentScreen, totalScreens } = regWorkflow;
     const [firstName, setFirstName] = useState(screenData.AccountDetails.firstName ?? '');
     const [lastName, setLastName] = useState(screenData.AccountDetails.lastName ?? '');
     const [isLoading, setIsLoading] = useState(false);
@@ -70,8 +70,8 @@ export const AccountDetailsScreen: React.FC<AccountDetailsScreenProps> = (props)
         showPrevious: true,
         nextLabel: t('bluiCommon:ACTIONS.NEXT'),
         previousLabel: t('bluiCommon:ACTIONS.BACK'),
-        totalSteps: 6,
-        currentStep: 4,
+        totalSteps: totalScreens,
+        currentStep: currentScreen,
         ...WorkflowCardActionsProps,
         onNext: (): void => {
             void onNext();

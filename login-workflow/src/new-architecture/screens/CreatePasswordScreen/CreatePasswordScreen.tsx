@@ -15,6 +15,8 @@ export const CreatePasswordScreen: React.FC<CreatePasswordScreenProps> = (props)
         screenData: {
             CreatePassword: { password, confirmPassword },
         },
+        currentScreen,
+        totalScreens
     } = regWorkflow;
     const passwordRef = useRef(null);
     const confirmRef = useRef(null);
@@ -87,8 +89,8 @@ export const CreatePasswordScreen: React.FC<CreatePasswordScreenProps> = (props)
         showPrevious: true,
         previousLabel: t('bluiCommon:ACTIONS.BACK'),
         canGoPrevious: true,
-        currentStep: 3,
-        totalSteps: 6,
+        currentStep: currentScreen,
+        totalSteps: totalScreens,
         ...WorkflowCardActionsProps,
         onNext: (): void => {
             void onNext();

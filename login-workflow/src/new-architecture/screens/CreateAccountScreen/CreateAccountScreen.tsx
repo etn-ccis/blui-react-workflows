@@ -22,7 +22,7 @@ export const CreateAccountScreen: React.FC<CreateAccountScreenProps> = (props) =
     const { t } = useLanguageLocale();
     const { actions } = useRegistrationContext();
     const regWorkflow = useRegistrationWorkflowContext();
-    const { nextScreen, previousScreen, screenData } = regWorkflow;
+    const { nextScreen, previousScreen, screenData, totalScreens, currentScreen } = regWorkflow;
     const [emailInputValue, setEmailInputValue] = useState(screenData.CreateAccount.emailAddress);
     const [isLoading, setIsLoading] = useState(false);
 
@@ -62,8 +62,8 @@ export const CreateAccountScreen: React.FC<CreateAccountScreenProps> = (props) =
             showPrevious: true,
             previousLabel: t('bluiCommon:ACTIONS.BACK'),
             canGoPrevious: true,
-            currentStep: 1,
-            totalSteps: 6,
+            currentStep: currentScreen,
+            totalSteps: totalScreens,
             onNext: (): void => {
                 void onNext();
             },
