@@ -3,6 +3,7 @@ import { LoginScreenProps } from './types';
 import { LoginScreenBase } from './LoginScreenBase';
 import { useLanguageLocale } from '../../hooks';
 import { useAuthContext } from '../../contexts';
+import { useErrorContext } from '../../contexts/ErrorContext';
 
 const EMAIL_REGEX = /^[A-Z0-9._%+'-]+@[A-Z0-9.-]+\.[A-Z]{2,}$/i;
 
@@ -46,6 +47,7 @@ type LoginScreenPropsPublic = Omit<LoginScreenProps, 'passwordValidator'> & { pa
 export const LoginScreen: React.FC<React.PropsWithChildren<LoginScreenPropsPublic>> = (props) => {
     const { t } = useLanguageLocale();
     const auth = useAuthContext();
+    const errorConfig = useErrorContext();
     const { actions, navigate, routeConfig, rememberMeDetails } = auth;
 
     useEffect(() => {
@@ -83,7 +85,7 @@ export const LoginScreen: React.FC<React.PropsWithChildren<LoginScreenPropsPubli
         showContactSupport = true,
         contactSupportLabel = t('bluiCommon:MESSAGES.CONTACT'),
         onContactSupport = (): void => navigate(routeConfig.SUPPORT),
-        errorDisplayConfig,
+        errorDisplayConfig = errorConfig,
         showCyberSecurityBadge = true,
         projectImage,
         header,

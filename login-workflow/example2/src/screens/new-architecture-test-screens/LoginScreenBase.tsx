@@ -60,26 +60,22 @@ export const LoginScreenBaseTest = (): JSX.Element => (
                     // eslint-disable-next-line no-console
                     console.log('onContactSupport');
                 }}
-                errorDisplayConfig={{
-                    // LoginErrorDisplayConfig
-                    // mode?: 'dialog' | 'message-box' | 'both' | 'none';
-                    // dismissible?: boolean;
-                    // position?: 'top' | 'bottom';
-                    // fontColor?: string;
-                    // backgroundColor?: string;
-                    // dialogErrorConfig?: {
-                    // title?: string
-                    // content?: string | JSX.Element
-                    // acknowledgeButtonLabel?: string
-                    // onAcknowledgeError?: () => void
-                    // }
-                    mode: 'none',
-                    dismissible: true,
-                    position: 'top',
-                    // fontColor: 'white',
-                    // backgroundColor: 'red',
-                    error: 'Invalid username or password.',
-                }}
+                errorDisplayConfig={
+                    {
+                        // LoginErrorDisplayConfig
+                        // mode?: 'dialog' | 'message-box' | 'both' | 'none';
+                        // dismissible?: boolean;
+                        // position?: 'top' | 'bottom';
+                        // fontColor?: string;
+                        // backgroundColor?: string;
+                        // dialogErrorConfig?: {
+                        // title?: string
+                        // content?: string | JSX.Element
+                        // acknowledgeButtonLabel?: string
+                        // onAcknowledgeError?: () => void
+                        // }
+                    }
+                }
                 showCyberSecurityBadge={true}
                 projectImage={<img src={EatonLogo} alt="logo" style={{ maxHeight: 80 }} />}
                 // header={

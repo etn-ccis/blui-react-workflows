@@ -1,22 +1,23 @@
 import { TextFieldProps } from '@mui/material';
 import { WorkflowCardBaseProps } from '../../components/WorkflowCard/WorkflowCard.types';
+import { ErrorManagerProps } from '../../components/Error';
 
-export type LoginErrorDialogConfiguration = {
-    title?: string;
-    content?: string;
-    acknowledgeButtonLabel?: string;
-    onAcknowledgeError?: () => void;
-};
+// export type LoginErrorDialogConfiguration = {
+//     title?: string;
+//     content?: string;
+//     acknowledgeButtonLabel?: string;
+//     onAcknowledgeError?: () => void;
+// };
 
-export type LoginErrorDisplayConfiguration = {
-    error?: boolean | string;
-    mode?: 'dialog' | 'message-box' | 'both' | 'none';
-    dismissible?: boolean;
-    position?: 'top' | 'bottom';
-    fontColor?: string;
-    backgroundColor?: string;
-    dialogErrorConfig?: LoginErrorDialogConfiguration;
-};
+// export type LoginErrorDisplayConfiguration = {
+//     error?: boolean | string;
+//     mode?: 'dialog' | 'message-box' | 'both' | 'none';
+//     dismissible?: boolean;
+//     position?: 'top' | 'bottom';
+//     fontColor?: string;
+//     backgroundColor?: string;
+//     dialogErrorConfig?: LoginErrorDialogConfiguration;
+// };
 
 export type LoginScreenProps = WorkflowCardBaseProps & {
     // configure fields
@@ -55,7 +56,7 @@ export type LoginScreenProps = WorkflowCardBaseProps & {
     onContactSupport?: () => void;
 
     // configure visual customizations
-    errorDisplayConfig?: LoginErrorDisplayConfiguration;
+    errorDisplayConfig?: ErrorManagerProps;
     showCyberSecurityBadge?: boolean;
     projectImage?: React.ReactNode;
     header?: JSX.Element;

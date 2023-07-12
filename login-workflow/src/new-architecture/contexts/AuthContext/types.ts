@@ -5,6 +5,7 @@
 
 import { i18n } from 'i18next';
 import { RouteConfig } from '../../../routing/AuthNavigationContainer';
+import { ErrorContextProviderProps } from '../ErrorContext/types';
 
 export type AuthContextProviderProps = {
     actions: () => AuthUIActions;
@@ -22,6 +23,7 @@ export type AuthContextProviderProps = {
          */
         rememberMe?: boolean;
     };
+    errorConfig?: ErrorContextProviderProps;
 };
 
 export type AuthUIActions = {

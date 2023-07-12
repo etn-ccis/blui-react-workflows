@@ -7,7 +7,7 @@ import { useNavigate } from 'react-router';
 import { ProjectAuthUIActions } from '../../actions/AuthUIActions';
 
 export const Login = (): JSX.Element => {
-    const { language, setIsAuthenticated } = useApp();
+    const { language } = useApp();
     const navigate = useNavigate();
     const securityContextActions = useSecurityActions();
 
@@ -19,6 +19,12 @@ export const Login = (): JSX.Element => {
                     language={language}
                     navigate={navigate}
                     routeConfig={{}}
+                    errorConfig={{
+                        mode: 'message-box',
+                        dismissible: true,
+                        position: 'top',
+                        dismissButtonText: 'Close',
+                    }}
                 >
                     <>
                         <Button
@@ -35,11 +41,11 @@ export const Login = (): JSX.Element => {
                             {`DEBUG`}
                         </Button>
                         <LoginScreen
-                            onLogin={(username, password): void => {
+                            onLogin={(username: any, password: any): void => {
                                 // eslint-disable-next-line no-console
                                 console.log('onLogin', username, password);
-                                setIsAuthenticated(true);
-                                navigate('/guarded');
+                                // setIsAuthenticated(true);
+                                // navigate('/guarded');
                             }}
                             usernameTextFieldProps={{
                                 inputProps: {

@@ -10,11 +10,10 @@ import { PasswordTextField } from '../../components';
 import Button from '@mui/material/Button';
 import { useTheme } from '@mui/material/styles';
 import Checkbox from '@mui/material/Checkbox';
-import Close from '@mui/icons-material/Close';
-import * as Colors from '@brightlayer-ui/colors';
 import { HELPER_TEXT_HEIGHT } from '../../utils/constants';
 import { LoginScreenClassKey, getLoginScreenUtilityClass } from './utilityClasses';
 import { unstable_composeClasses as composeClasses } from '@mui/base';
+import ErrorManager from '../../components/Error/ErrorManager';
 
 /**
  * Component that renders a login screen that prompts a user to enter a username and password to login.
@@ -125,6 +124,9 @@ export const LoginScreenBase: React.FC<React.PropsWithChildren<LoginScreenProps>
         footer,
     } = props;
 
+    // eslint-disable-next-line no-console
+    console.log('errorDisplayconfig from login base', errorDisplayConfig);
+
     const theme = useTheme();
     const defaultClasses = useUtilityClasses(props);
 
@@ -143,8 +145,8 @@ export const LoginScreenBase: React.FC<React.PropsWithChildren<LoginScreenProps>
     const [usernameError, setUsernameError] = useState(isUsernameValid === true ? '' : isUsernameValid);
     const [passwordError, setPasswordError] = useState(isPasswordValid === true ? '' : isPasswordValid);
 
-    const [hasAcknowledgedError, setHasAcknowledgedError] = React.useState(false);
-    const [showErrorMessageBox, setShowErrorMessageBox] = React.useState(true);
+    // const [hasAcknowledgedError, setHasAcknowledgedError] = React.useState(false);
+    // const [showErrorMessageBox, setShowErrorMessageBox] = React.useState(true);
     // const [debugMode, setDebugMode] = React.useState(false);
 
     const handleUsernameInputChange = useCallback(
@@ -192,8 +194,6 @@ export const LoginScreenBase: React.FC<React.PropsWithChildren<LoginScreenProps>
         }
     };
 
-    const shouldValidate = (): boolean => shouldValidateUsername || shouldValidatePassword;
-
     const isFormValid = (): boolean =>
         typeof isUsernameValid === 'boolean' &&
         isUsernameValid &&
@@ -201,86 +201,11 @@ export const LoginScreenBase: React.FC<React.PropsWithChildren<LoginScreenProps>
         isPasswordValid;
 
     const handleLoginSubmit = (e: React.KeyboardEvent<HTMLDivElement>): void => {
-        setHasAcknowledgedError(false);
+        // setHasAcknowledgedError(false);
         if (e.key === 'Enter' && isFormValid()) {
             void handleLogin();
         }
     };
-
-    const errorDisplayConfigProps = {
-        ...errorDisplayConfig,
-        usernameError,
-        passwordError,
-        shouldValidate,
-        isFormValid,
-    };
-
-    // const ErrorDialog = (): JSX.Element => {
-    //     const dialogTitle = errorDisplayConfigProps?.dialogErrorConfig?.title || 'Error!';
-
-    //     const dialogBody =
-    //         errorDisplayConfigProps?.dialogErrorConfig?.content ||
-    //         (typeof usernameError === 'string' && usernameError) ||
-    //         (typeof passwordError === 'string' && passwordError) ||
-    //         'An error has occurred.';
-
-    //     const isOpen =
-    //         !hasAcknowledgedError &&
-    //         ((typeof usernameError === 'boolean' && !isUsernameValid) ||
-    //             (typeof passwordError === 'boolean' && !isPasswordValid));
-
-    //     return (
-    //         <BasicDialog
-    //             title={dialogTitle}
-    //             body={dialogBody}
-    //             open={isOpen}
-    //             onClose={(): void => {
-    //                 errorDisplayConfig?.dialogErrorConfig?.onAcknowledgeError();
-    //                 setHasAcknowledgedError(true);
-    //             }}
-    //         />
-    //     );
-    // };
-
-    const errorMessageBox: JSX.Element =
-        (errorDisplayConfig?.mode === 'message-box' || errorDisplayConfig?.mode === 'both') && !hasAcknowledgedError ? (
-            <Box
-                sx={{
-                    width: '100%',
-                    backgroundColor: errorDisplayConfigProps?.backgroundColor || 'error.main',
-                    borderRadius: 4,
-                    p: 2,
-                    color: errorDisplayConfigProps?.fontColor || Colors.white[50],
-                    mb: 2,
-                    mt: errorDisplayConfigProps?.position !== 'bottom' ? 0 : -1,
-                }}
-            >
-                {errorDisplayConfigProps?.dismissible !== false && (
-                    <Close
-                        sx={{
-                            '&:hover': {
-                                cursor: 'pointer',
-                            },
-                            float: 'right',
-                        }}
-                        onClick={(): void => {
-                            setShowErrorMessageBox(false);
-                        }}
-                    />
-                )}
-                {errorDisplayConfigProps?.error && typeof errorDisplayConfigProps?.error === 'string' && (
-                    <Typography variant="body2">{errorDisplayConfigProps.error}</Typography>
-                )}
-                {errorDisplayConfigProps?.error &&
-                    typeof errorDisplayConfigProps?.error === 'boolean' &&
-                    !isUsernameValid && <Typography variant="body2">{usernameError}</Typography>}
-                {errorDisplayConfigProps?.error &&
-                    typeof errorDisplayConfigProps?.error === 'boolean' &&
-                    !isPasswordValid && <Typography variant="body2">{passwordError}</Typography>}
-            </Box>
-        ) : (
-            <></>
-        );
 
     return (
         <>
@@ -294,111 +219,112 @@ export const LoginScreenBase: React.FC<React.PropsWithChildren<LoginScreenProps>
                     >
                         {projectImage}
                     </Box>
-                    {showErrorMessageBox && errorDisplayConfig?.position === 'top' && errorMessageBox}
-                    <Box
-                        sx={{
-                            display: 'flex',
-                            flexDirection: 'column',
-                            justifyContent: 'center',
-                            alignItems: 'center',
-                            width: '100%',
-                        }}
-                        className={defaultClasses.inputFieldsWrapper}
-                        data-testid={defaultClasses.inputFieldsWrapper}
-                    >
+
+                    <ErrorManager {...errorDisplayConfig}>
                         <Box
                             sx={{
+                                display: 'flex',
+                                flexDirection: 'column',
+                                justifyContent: 'center',
+                                alignItems: 'center',
                                 width: '100%',
-                                mb:
-                                    username.length > 0 && !isUsernameValid && shouldValidateUsername
-                                        ? 4
-                                        : `${(parseInt(theme.spacing(4)) + HELPER_TEXT_HEIGHT).toString()}px`,
-                                [theme.breakpoints.down('sm')]: {
+                            }}
+                            className={defaultClasses.inputFieldsWrapper}
+                            data-testid={defaultClasses.inputFieldsWrapper}
+                        >
+                            <Box
+                                sx={{
+                                    width: '100%',
                                     mb:
                                         username.length > 0 && !isUsernameValid && shouldValidateUsername
-                                            ? 3
-                                            : `${(parseInt(theme.spacing(3)) + HELPER_TEXT_HEIGHT).toString()}px`,
-                                },
-                            }}
-                        >
-                            <TextField
-                                fullWidth
-                                id="username"
-                                className={defaultClasses.usernameTextField}
-                                data-testid={defaultClasses.usernameTextField}
-                                label={usernameLabel || 'Username'}
-                                name="username"
-                                variant="filled"
-                                value={username}
-                                error={shouldValidateUsername && !isUsernameValid}
-                                helperText={shouldValidateUsername && !isUsernameValid ? usernameError : ''}
-                                {...usernameTextFieldProps}
-                                onChange={(e): void => {
-                                    // eslint-disable-next-line no-unused-expressions
-                                    usernameTextFieldProps?.onChange && usernameTextFieldProps.onChange(e);
-                                    handleUsernameInputChange(e.target.value);
+                                            ? 4
+                                            : `${(parseInt(theme.spacing(4)) + HELPER_TEXT_HEIGHT).toString()}px`,
+                                    [theme.breakpoints.down('sm')]: {
+                                        mb:
+                                            username.length > 0 && !isUsernameValid && shouldValidateUsername
+                                                ? 3
+                                                : `${(parseInt(theme.spacing(3)) + HELPER_TEXT_HEIGHT).toString()}px`,
+                                    },
                                 }}
-                                onSubmit={(e: any): void => {
-                                    // eslint-disable-next-line no-unused-expressions
-                                    usernameTextFieldProps?.onSubmit && usernameTextFieldProps.onSubmit(e);
-                                    if (e.key === 'Enter' && passwordField.current) passwordField.current.focus();
+                            >
+                                <TextField
+                                    fullWidth
+                                    id="username"
+                                    className={defaultClasses.usernameTextField}
+                                    data-testid={defaultClasses.usernameTextField}
+                                    label={usernameLabel || 'Username'}
+                                    name="username"
+                                    variant="filled"
+                                    value={username}
+                                    error={shouldValidateUsername && !isUsernameValid}
+                                    helperText={shouldValidateUsername && !isUsernameValid ? usernameError : ''}
+                                    {...usernameTextFieldProps}
+                                    onChange={(e): void => {
+                                        // eslint-disable-next-line no-unused-expressions
+                                        usernameTextFieldProps?.onChange && usernameTextFieldProps.onChange(e);
+                                        handleUsernameInputChange(e.target.value);
+                                    }}
+                                    onSubmit={(e: any): void => {
+                                        // eslint-disable-next-line no-unused-expressions
+                                        usernameTextFieldProps?.onSubmit && usernameTextFieldProps.onSubmit(e);
+                                        if (e.key === 'Enter' && passwordField.current) passwordField.current.focus();
+                                    }}
+                                    onBlur={(e): void => {
+                                        // eslint-disable-next-line no-unused-expressions
+                                        usernameTextFieldProps?.onBlur && usernameTextFieldProps.onBlur(e);
+                                        setShouldValidateUsername(true);
+                                    }}
+                                    onKeyUp={(e): void => {
+                                        if (e.key === 'Enter' && passwordField.current) passwordField.current.focus();
+                                    }}
+                                />
+                            </Box>
+                            <Box
+                                sx={{
+                                    width: '100%',
+                                    mb:
+                                        username.length > 0 && !isPasswordValid && shouldValidatePassword
+                                            ? 2
+                                            : `${(parseInt(theme.spacing(2)) + HELPER_TEXT_HEIGHT).toString()}px`,
                                 }}
-                                onBlur={(e): void => {
-                                    // eslint-disable-next-line no-unused-expressions
-                                    usernameTextFieldProps?.onBlur && usernameTextFieldProps.onBlur(e);
-                                    setShouldValidateUsername(true);
-                                }}
-                                onKeyPress={(e): void => {
-                                    if (e.key === 'Enter' && passwordField.current) passwordField.current.focus();
-                                }}
-                            />
+                            >
+                                <PasswordTextField
+                                    fullWidth
+                                    inputRef={passwordField}
+                                    id="password"
+                                    className={defaultClasses.passwordTextField}
+                                    data-testid={defaultClasses.passwordTextField}
+                                    name="password"
+                                    label={passwordLabel || 'Password'}
+                                    variant="filled"
+                                    value={password}
+                                    error={shouldValidatePassword && !isPasswordValid}
+                                    helperText={shouldValidatePassword && !isPasswordValid ? passwordError : ''}
+                                    {...passwordTextFieldProps}
+                                    onChange={(e: any): void => {
+                                        // eslint-disable-next-line no-unused-expressions
+                                        passwordTextFieldProps?.onChange && passwordTextFieldProps.onChange(e);
+                                        handlePasswordInputChange(e.target.value);
+                                    }}
+                                    onSubmit={(e: any): void => {
+                                        // eslint-disable-next-line no-unused-expressions
+                                        passwordTextFieldProps?.onSubmit && passwordTextFieldProps.onSubmit(e);
+                                        handleLoginSubmit(e);
+                                    }}
+                                    onBlur={(e): void => {
+                                        // eslint-disable-next-line no-unused-expressions
+                                        passwordTextFieldProps?.onBlur && passwordTextFieldProps.onBlur(e);
+                                        setShouldValidatePassword(true);
+                                    }}
+                                    onKeyUp={(e): void => {
+                                        // eslint-disable-next-line no-unused-expressions
+                                        passwordTextFieldProps?.onSubmit && passwordTextFieldProps.onSubmit(e);
+                                        handleLoginSubmit(e);
+                                    }}
+                                />
+                            </Box>
                         </Box>
-                        <Box
-                            sx={{
-                                width: '100%',
-                                mb:
-                                    username.length > 0 && !isPasswordValid && shouldValidatePassword
-                                        ? 2
-                                        : `${(parseInt(theme.spacing(2)) + HELPER_TEXT_HEIGHT).toString()}px`,
-                            }}
-                        >
-                            <PasswordTextField
-                                fullWidth
-                                inputRef={passwordField}
-                                id="password"
-                                className={defaultClasses.passwordTextField}
-                                data-testid={defaultClasses.passwordTextField}
-                                name="password"
-                                label={passwordLabel || 'Password'}
-                                variant="filled"
-                                value={password}
-                                error={shouldValidatePassword && !isPasswordValid}
-                                helperText={shouldValidatePassword && !isPasswordValid ? passwordError : ''}
-                                {...passwordTextFieldProps}
-                                onChange={(e: any): void => {
-                                    // eslint-disable-next-line no-unused-expressions
-                                    passwordTextFieldProps?.onChange && passwordTextFieldProps.onChange(e);
-                                    handlePasswordInputChange(e.target.value);
-                                }}
-                                onSubmit={(e: any): void => {
-                                    // eslint-disable-next-line no-unused-expressions
-                                    passwordTextFieldProps?.onSubmit && passwordTextFieldProps.onSubmit(e);
-                                    handleLoginSubmit(e);
-                                }}
-                                onBlur={(e): void => {
-                                    // eslint-disable-next-line no-unused-expressions
-                                    passwordTextFieldProps?.onBlur && passwordTextFieldProps.onBlur(e);
-                                    setShouldValidatePassword(true);
-                                }}
-                                onKeyPress={(e): void => {
-                                    // eslint-disable-next-line no-unused-expressions
-                                    passwordTextFieldProps?.onSubmit && passwordTextFieldProps.onSubmit(e);
-                                    handleLoginSubmit(e);
-                                }}
-                            />
-                        </Box>
-                    </Box>
-                    {showErrorMessageBox && errorDisplayConfig?.position === 'bottom' && errorMessageBox}
+                    </ErrorManager>
                     <Box
                         sx={{
                             display: 'flex',
