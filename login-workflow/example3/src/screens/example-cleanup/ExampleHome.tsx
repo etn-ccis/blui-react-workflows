@@ -31,7 +31,6 @@ export const ExampleHome: React.FC<React.PropsWithChildren> = () => {
     const app = useApp();
     const [open, setOpen] = useState(false);
     const theme = useTheme();
-    const navigate = useNavigate();
     const containerStyles = {
         width: '100%',
         height: `calc(100vh - ${theme.spacing(8)})`,
