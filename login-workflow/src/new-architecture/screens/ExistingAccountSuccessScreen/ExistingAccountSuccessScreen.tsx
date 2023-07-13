@@ -27,17 +27,26 @@ export const ExistingAccountSuccessScreen: React.FC<SuccessScreenProps> = (props
         message = t('bluiRegistration:REGISTRATION.SUCCESS_EXISTING'),
         canDismiss = true,
         onDismiss = (): void => navigate(routeConfig.LOGIN),
-        WorkflowCardHeaderProps: workflowCardHeaderProps = {
-            title: t('bluiRegistration:REGISTRATION.STEPS.COMPLETE'),
-        },
-        WorkflowCardActionsProps: workflowCardActionsProps = {
-            nextLabel: t('bluiCommon:ACTIONS.CONTINUE'),
-            showNext: true,
-            canGoNext: canDismiss,
-            onNext: onDismiss,
-            fullWidthButton: true,
-        },
+        WorkflowCardHeaderProps,
+        WorkflowCardActionsProps,
     } = props;
+
+    const workflowCardHeaderProps = {
+        title: t('bluiRegistration:REGISTRATION.STEPS.COMPLETE'),
+        ...WorkflowCardHeaderProps,
+    };
+
+    const workflowCardActionsProps = {
+        nextLabel: t('bluiCommon:ACTIONS.CONTINUE'),
+        showNext: true,
+        canGoNext: canDismiss,
+        fullWidthButton: true,
+        ...WorkflowCardActionsProps,
+        onNext: (): void => {
+            onDismiss();
+            WorkflowCardActionsProps?.onNext?.();
+        },
+    };
 
     return (
         <SuccessScreenBase
