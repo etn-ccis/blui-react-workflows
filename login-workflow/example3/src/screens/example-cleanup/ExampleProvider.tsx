@@ -7,7 +7,6 @@ import {
     ContactSupportScreen,
     EulaScreen,
     ExperimentalAuthGuard,
-    ExperimentalGuestGuard,
     ForgotPasswordScreen,
     RegistrationContextProvider,
     ResetPasswordScreen,
