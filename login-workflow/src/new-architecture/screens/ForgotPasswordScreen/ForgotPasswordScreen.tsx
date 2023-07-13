@@ -37,13 +37,6 @@ export const ForgotPasswordScreen: React.FC<ForgotPasswordScreenProps> = (props)
     );
 
     const {
-        title = t('bluiAuth:HEADER.FORGOT_PASSWORD'),
-        WorkflowCardBaseProps: workflowCardBaseProps = {
-            loading: isLoading,
-        },
-        WorkflowCardHeaderProps: workflowCardHeaderProps = {
-            title,
-        },
         emailLabel = t('bluiCommon:LABELS.EMAIL'),
         contactPhone = '1-800-123-4567',
         initialEmailValue,
@@ -57,42 +50,62 @@ export const ForgotPasswordScreen: React.FC<ForgotPasswordScreenProps> = (props)
         canGoNext,
         canGoBack,
         showNextButton = true,
-        WorkflowCardInstructionProps: workflowCardInstructionProps = {
-            instructions: description ? (
-                <> {description} </>
-            ) : (
-                <Typography>
-                    <Trans
-                        i18nKey={'bluiAuth:FORGOT_PASSWORD.INSTRUCTIONS_ALT'}
-                        values={{ phone: contactPhone, responseTime }}
-                    >
-                        Please enter your email, we will respond in <b>{responseTime}</b>. For urgent issues please call{' '}
-                        <Box component="a" href={`tel:${contactPhone}`} sx={LinkStyles}>
-                            {contactPhone}
-                        </Box>
-                        .
-                    </Trans>
-                </Typography>
-            ),
-        },
-        WorkflowCardActionsProps: workflowCardActionsProps = {
-            onNext: ({ email }): void => {
-                setEmailInput(email);
-                void handleOnNext(email);
-            },
-            onPrevious: (): void => {
-                navigate(routeConfig.LOGIN);
-            },
-            showNext: showNextButton,
-            showPrevious: showBackButton,
-            nextLabel: nextButtonLabel,
-            previousLabel: backButtonLabel,
-            canGoNext,
-            canGoPrevious: canGoBack,
-        },
+        WorkflowCardBaseProps,
+        WorkflowCardHeaderProps,
+        WorkflowCardInstructionProps,
+        WorkflowCardActionsProps,
         slotProps = { SuccessScreen: {} },
         slots,
     } = props;
+
+    const workflowCardBaseProps = {
+        loading: isLoading,
+        ...WorkflowCardBaseProps,
+    };
+
+    const workflowCardInstructionProps = {
+        instructions: description ? (
+            <> {description(responseTime)} </>
+        ) : (
+            <Typography>
+                <Trans
+                    i18nKey={'bluiAuth:FORGOT_PASSWORD.INSTRUCTIONS_ALT'}
+                    values={{ phone: contactPhone, responseTime }}
+                >
+                    Please enter your email, we will respond in <b>{responseTime}</b>. For urgent issues please call{' '}
+                    <Box component="a" href={`tel:${contactPhone}`} sx={LinkStyles}>
+                        {contactPhone}
+                    </Box>
+                    .
+                </Trans>
+            </Typography>
+        ),
+        ...WorkflowCardInstructionProps,
+    };
+
+    const workflowCardHeaderProps = {
+        title: t('bluiAuth:HEADER.FORGOT_PASSWORD'),
+        ...WorkflowCardHeaderProps,
+    };
+
+    const workflowCardActionsProps = {
+        showNext: showNextButton,
+        showPrevious: showBackButton,
+        nextLabel: nextButtonLabel,
+        previousLabel: backButtonLabel,
+        canGoNext,
+        canGoPrevious: canGoBack,
+        ...WorkflowCardActionsProps,
+        onNext: (data: any): void => {
+            setEmailInput(data.email);
+            void handleOnNext(data.email);
+            WorkflowCardActionsProps?.onNext?.();
+        },
+        onPrevious: (): void => {
+            navigate(routeConfig.LOGIN);
+            WorkflowCardActionsProps?.onPrevious?.();
+        },
+    };
 
     const errorDialog = (
         <SimpleDialog

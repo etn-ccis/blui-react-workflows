@@ -37,30 +37,10 @@ export const AccountDetailsScreen: React.FC<AccountDetailsScreenProps> = (props)
     }, [firstName, lastName, previousScreen]);
 
     const {
-        WorkflowCardHeaderProps: workflowCardHeaderProps = {
-            title: t('bluiRegistration:REGISTRATION.STEPS.ACCOUNT_DETAILS'),
-        },
-        WorkflowCardInstructionProps: workflowCardInstructionProps = {
-            instructions: t('bluiRegistration:REGISTRATION.INSTRUCTIONS.ACCOUNT_DETAILS'),
-        },
-        WorkflowCardActionsProps: workflowCardActionsProps = {
-            onNext: (): void => {
-                void onNext();
-            },
-            onPrevious: (): void => {
-                void onPrevious();
-            },
-            canGoNext: true,
-            showNext: true,
-            showPrevious: true,
-            nextLabel: t('bluiCommon:ACTIONS.NEXT'),
-            previousLabel: t('bluiCommon:ACTIONS.BACK'),
-            totalSteps: 6,
-            currentStep: 4,
-        },
-        WorkflowCardBaseProps: workflowCardBaseProps = {
-            loading: isLoading,
-        },
+        WorkflowCardHeaderProps,
+        WorkflowCardInstructionProps,
+        WorkflowCardActionsProps,
+        WorkflowCardBaseProps,
         firstNameLabel = t('bluiCommon:FORMS.FIRST_NAME'),
         lastNameLabel = t('bluiCommon:FORMS.LAST_NAME'),
         firstNameValidator = (name: string): boolean | string => {
@@ -78,6 +58,40 @@ export const AccountDetailsScreen: React.FC<AccountDetailsScreenProps> = (props)
             return t('bluiCommon:FORMS.LAST_NAME_LENGTH_ERROR');
         },
     } = props;
+
+    const workflowCardHeaderProps = {
+        title: t('bluiRegistration:REGISTRATION.STEPS.ACCOUNT_DETAILS'),
+        ...WorkflowCardHeaderProps,
+    };
+
+    const workflowCardInstructionProps = {
+        instructions: t('bluiRegistration:REGISTRATION.INSTRUCTIONS.ACCOUNT_DETAILS'),
+        ...WorkflowCardInstructionProps,
+    };
+
+    const workflowCardBaseProps = {
+        loading: isLoading,
+        ...WorkflowCardBaseProps,
+    };
+
+    const workflowCardActionsProps = {
+        canGoNext: true,
+        showNext: true,
+        showPrevious: true,
+        nextLabel: t('bluiCommon:ACTIONS.NEXT'),
+        previousLabel: t('bluiCommon:ACTIONS.BACK'),
+        totalSteps: 6,
+        currentStep: 3,
+        ...WorkflowCardActionsProps,
+        onNext: (): void => {
+            void onNext();
+            WorkflowCardActionsProps?.onNext?.();
+        },
+        onPrevious: (): void => {
+            void onPrevious();
+            WorkflowCardActionsProps?.onPrevious?.();
+        },
+    };
 
     return (
         <AccountDetailsScreenBase

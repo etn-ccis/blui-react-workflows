@@ -1,14 +1,19 @@
-import { DialogProps } from '@mui/material';
+import { DialogProps, SxProps } from '@mui/material';
+import { BasicDialogProps } from '../Dialog';
 import { SetPasswordProps } from '../SetPassword';
 
-// we should define a reusable type for the password input props (this should be defined with the reusable password component and reused by CreatePassword, ResetPassword, and ChangePassword).
-export type ChangePasswordDialogProps = DialogProps & { PasswordProps: SetPasswordProps } & {
+export type ChangePasswordDialogProps = DialogProps & { PasswordProps?: SetPasswordProps } & {
+    ErrorDialogProps?: BasicDialogProps;
+} & {
     dialogTitle?: string;
     dialogDescription?: string;
     currentPasswordLabel?: string;
     previousLabel?: string;
     nextLabel?: string;
-    currentPasswordChange: (currentPassword: string) => void;
-    enableButton: boolean | (() => boolean);
-    onSubmit: () => void;
+    currentPasswordChange?: (currentPassword: string) => void;
+    enableButton?: boolean | (() => boolean);
+    onSubmit?: () => void;
+    onPrevious?: () => void;
+    sx?: SxProps;
+    loading?: boolean;
 };

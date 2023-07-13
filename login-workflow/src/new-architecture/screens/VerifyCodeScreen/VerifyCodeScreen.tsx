@@ -26,15 +26,19 @@ export const VerifyCodeScreen: React.FC<VerifyCodeScreenProps> = (props) => {
     const [verifyCode, setVerifyCode] = useState(screenData.VerifyCode.code);
     const [isLoading, setIsLoading] = useState(false);
 
-    const requestResendCode = useCallback(async (): Promise<void> => {
-        try {
-            setIsLoading(true);
-            await actions().validateUserRegistrationRequest(verifyCode);
-            setIsLoading(false);
-        } catch {
-            console.error('Error fetching resend verification code!');
-        }
-    }, [verifyCode, actions]);
+    const requestResendCode = useCallback(
+        async (email?: string): Promise<void> => {
+            try {
+                setIsLoading(true);
+                await actions().requestRegistrationCode(email);
+            } catch {
+                console.error('Error fetching resend verification code!');
+            } finally {
+                setIsLoading(false);
+            }
+        },
+        [actions]
+    );
 
     const {
         codeValidator = (code: string): boolean | string =>
@@ -55,14 +59,15 @@ export const VerifyCodeScreen: React.FC<VerifyCodeScreenProps> = (props) => {
                 await actions().validateUserRegistrationRequest(code);
                 nextScreen({
                     screenId: 'VerifyCode',
-                    values: { code: verifyCode },
+                    values: { code: code },
                 });
-                setIsLoading(false);
             } catch {
                 console.error('Error fetching validation code!');
+            } finally {
+                setIsLoading(false);
             }
         },
-        [verifyCode, nextScreen, actions]
+        [nextScreen, actions]
     );
 
     const onPrevious = (): void => {
@@ -72,33 +77,43 @@ export const VerifyCodeScreen: React.FC<VerifyCodeScreenProps> = (props) => {
         });
     };
 
-    const {
-        WorkflowCardBaseProps: workflowCardBaseProps = {
-            loading: isLoading,
+    const { WorkflowCardBaseProps, WorkflowCardHeaderProps, WorkflowCardInstructionProps, WorkflowCardActionsProps } =
+        props;
+
+    const workflowCardBaseProps = {
+        loading: isLoading,
+        ...WorkflowCardBaseProps,
+    };
+
+    const workflowCardHeaderProps = {
+        title: t('bluiRegistration:REGISTRATION.STEPS.VERIFY_EMAIL'),
+        ...WorkflowCardHeaderProps,
+    };
+
+    const workflowCardInstructionProps = {
+        instructions: t('bluiRegistration:SELF_REGISTRATION.VERIFY_EMAIL.MESSAGE'),
+        ...WorkflowCardInstructionProps,
+    };
+
+    const workflowCardActionsProps = {
+        showNext: true,
+        nextLabel: t('bluiCommon:ACTIONS.NEXT'),
+        showPrevious: true,
+        previousLabel: t('bluiCommon:ACTIONS.BACK'),
+        canGoPrevious: true,
+        currentStep: 1,
+        totalSteps: 6,
+        ...WorkflowCardActionsProps,
+        onNext: (data: any): void => {
+            setVerifyCode(data.code);
+            void handleOnNext(data.code);
+            WorkflowCardActionsProps?.onNext?.();
         },
-        WorkflowCardHeaderProps: workflowCardHeaderProps = {
-            title: t('bluiRegistration:REGISTRATION.STEPS.VERIFY_EMAIL'),
+        onPrevious: (): void => {
+            void onPrevious();
+            WorkflowCardActionsProps?.onPrevious?.();
         },
-        WorkflowCardInstructionProps: workflowCardInstructionProps = {
-            instructions: t('bluiRegistration:SELF_REGISTRATION.VERIFY_EMAIL.MESSAGE'),
-        },
-        WorkflowCardActionsProps: workflowCardActionsProps = {
-            showNext: true,
-            nextLabel: t('bluiCommon:ACTIONS.NEXT'),
-            showPrevious: true,
-            previousLabel: t('bluiCommon:ACTIONS.BACK'),
-            canGoPrevious: true,
-            currentStep: 2,
-            totalSteps: 6,
-            onNext: ({ code }): void => {
-                setVerifyCode(code);
-                void handleOnNext(code);
-            },
-            onPrevious: (): void => {
-                void onPrevious();
-            },
-        },
-    } = props;
+    };
 
     return (
         <VerifyCodeScreenBase

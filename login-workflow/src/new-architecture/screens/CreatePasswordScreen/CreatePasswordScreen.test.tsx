@@ -107,6 +107,32 @@ describe('Create Password Screen', () => {
         expect(mockOnNext).toHaveBeenCalled();
     });
 
+    it('should enable next button, when passwordRequirements prop is empty', () => {
+        const { getByLabelText } = renderer({
+            WorkflowCardActionsProps: {
+                onNext: mockOnNext(),
+                showNext: true,
+                nextLabel: 'Next',
+            },
+            PasswordProps: {
+                newPasswordLabel: 'Password',
+                confirmPasswordLabel: 'Confirm Password',
+                onPasswordChange: jest.fn(),
+                passwordRequirements: [],
+            },
+        });
+
+        const passwordField = getByLabelText('Password');
+        const confirmPasswordField = getByLabelText('Confirm Password');
+
+        fireEvent.change(passwordField, { target: { value: 'A' } });
+        fireEvent.blur(passwordField);
+        fireEvent.change(confirmPasswordField, { target: { value: 'A' } });
+        fireEvent.blur(confirmPasswordField);
+
+        expect(screen.getByText(/Next/i)).toBeDisabled();
+    });
+
     it('should call onPrevious, when Back button clicked', () => {
         renderer({
             WorkflowCardActionsProps: {

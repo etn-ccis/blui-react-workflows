@@ -28,6 +28,7 @@ import {
     ResetPasswordFullScreen,
     ForgotPasswordFullScreen,
     ContactSupportScreenFullScreen,
+    ChangePasswordDialogTest,
     ExistingAccountSuccessScreenTest,
     Login,
 } from '../screens';
@@ -162,7 +163,7 @@ export const GetCustomRoutes = (isAuthenticated: boolean) => {
             element: <SuccessScreenBaseTest />,
         },
         {
-            path: `/change-password-dialog`,
+            path: `/change-password-dialog-base`,
             element: <ChangePasswordDialogBaseTest />,
         },
         {
@@ -190,6 +191,14 @@ export const GetCustomRoutes = (isAuthenticated: boolean) => {
             element: (
                 <SecurityContextProvider>
                     <ContactSupportScreenFullScreen />
+                </SecurityContextProvider>
+            ),
+        },
+        {
+            path: `/change-password-dialog`,
+            element: (
+                <SecurityContextProvider>
+                    <ChangePasswordDialogTest />
                 </SecurityContextProvider>
             ),
         },
