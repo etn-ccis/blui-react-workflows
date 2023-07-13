@@ -4,17 +4,14 @@ import { EulaScreenBase } from './EulaScreenBase';
 import { useLanguageLocale } from '../../hooks';
 import { useRegistrationContext, useRegistrationWorkflowContext } from '../../contexts';
 
-type EulaFullScreenProps = EulaScreenProps & {
-    title?: string;
-};
-
-export const EulaScreen: React.FC<EulaFullScreenProps> = (props) => {
+export const EulaScreen: React.FC<EulaScreenProps> = (props) => {
     const { t } = useLanguageLocale();
     const { actions, navigate, routeConfig, language } = useRegistrationContext();
     const regWorkflow = useRegistrationWorkflowContext();
     const { nextScreen, previousScreen, screenData, currentScreen, totalScreens } = regWorkflow;
     const {
-        title = t('bluiRegistration:REGISTRATION.STEPS.LICENSE'),
+        WorkflowCardHeaderProps,
+        WorkflowCardActionsProps,
         onEulaAcceptedChange = (accepted: boolean): boolean => accepted,
         eulaContent,
         checkboxLabel = t('bluiRegistration:REGISTRATION.EULA.AGREE_TERMS'),
@@ -51,8 +48,9 @@ export const EulaScreen: React.FC<EulaFullScreenProps> = (props) => {
             });
         } catch {
             console.error('Error while updating EULA acceptance...');
+        } finally {
+            setEulaLoaded(false);
         }
-        setEulaLoaded(false);
     }, [actions, nextScreen, setEulaAccepted, setEulaLoaded]);
 
     const onPrevious = useCallback(async (): Promise<void> => {
@@ -66,17 +64,44 @@ export const EulaScreen: React.FC<EulaFullScreenProps> = (props) => {
             });
         } catch {
             console.error('Error while updating EULA acceptance...');
+        } finally {
+            setEulaLoaded(false);
         }
-        setEulaLoaded(false);
     }, [actions, previousScreen, setEulaAccepted, setEulaLoaded]);
 
     useEffect(() => {
         void loadAndCacheEula();
     }, [loadAndCacheEula]);
 
+    const workflowCardHeaderProps = {
+        title: t('bluiRegistration:REGISTRATION.STEPS.LICENSE'),
+        ...WorkflowCardHeaderProps,
+    };
+
+    const workflowCardActionsProps = {
+        showNext: true,
+        nextLabel: t('bluiCommon:ACTIONS.NEXT'),
+        canGoNext: true,
+        showPrevious: true,
+        previousLabel: t('bluiCommon:ACTIONS.BACK'),
+        canGoPrevious: true,
+        currentStep: 0,
+        totalSteps: 6,
+        ...WorkflowCardActionsProps,
+        onNext: (): void => {
+            void onNext();
+            WorkflowCardActionsProps?.onNext?.();
+        },
+        onPrevious: (): void => {
+            void onPrevious();
+            navigate(routeConfig.LOGIN);
+            WorkflowCardActionsProps?.onPrevious?.();
+        },
+    };
+
     return (
         <EulaScreenBase
-            WorkflowCardHeaderProps={{ title: title }}
+            WorkflowCardHeaderProps={workflowCardHeaderProps}
             eulaContent={eulaData}
             WorkflowCardBaseProps={{
                 loading: eulaLoaded,
@@ -85,23 +110,7 @@ export const EulaScreen: React.FC<EulaFullScreenProps> = (props) => {
             checkboxProps={{ disabled: false }}
             initialCheckboxValue={eulaAccepted}
             onEulaAcceptedChange={onEulaAcceptedChange}
-            WorkflowCardActionsProps={{
-                showNext: true,
-                nextLabel: t('bluiCommon:ACTIONS.NEXT'),
-                canGoNext: true,
-                showPrevious: true,
-                previousLabel: t('bluiCommon:ACTIONS.BACK'),
-                canGoPrevious: true,
-                currentStep: currentScreen,
-                totalSteps: totalScreens,
-                onNext: (): void => {
-                    void onNext();
-                },
-                onPrevious: (): void => {
-                    void onPrevious();
-                    navigate(routeConfig.LOGIN);
-                },
-            }}
+            WorkflowCardActionsProps={workflowCardActionsProps}
         />
     );
 };
