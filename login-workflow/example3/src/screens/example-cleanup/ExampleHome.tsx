@@ -25,10 +25,11 @@ import Toolbar from '@mui/material/Toolbar';
 import Typography from '@mui/material/Typography';
 import Menu from '@mui/material/Menu';
 import { useTheme } from '@mui/material/styles';
-import { useNavigate } from 'react-router-dom';
+import { useTranslation } from 'react-i18next';
 
 export const ExampleHome: React.FC<React.PropsWithChildren> = () => {
     const app = useApp();
+    const { t } = useTranslation();
     const [open, setOpen] = useState(false);
     const theme = useTheme();
     const containerStyles = {
@@ -63,12 +64,16 @@ export const ExampleHome: React.FC<React.PropsWithChildren> = () => {
         <DrawerLayout
             drawer={
                 <Drawer open={true} width={332} variant={'persistent'}>
-                    <DrawerHeader title="Title" icon={<MenuBook />} onClick={(): void => setOpen(!open)} />
+                    <DrawerHeader
+                        title={`${t('Blui:TITLE')}`}
+                        icon={<MenuBook />}
+                        onClick={(): void => setOpen(!open)}
+                    />
                     <DrawerBody>
                         <DrawerNavGroup>
-                            <DrawerNavItem title="Dashboard" icon={<Dashboard />} itemID="1" />
-                            <DrawerNavItem title="Locations" icon={<Notifications />} itemID="2" />
-                            <DrawerNavItem title="Legal" icon={<Gavel />} itemID="3" />
+                            <DrawerNavItem title={`${t('Blui:DASHBOARD')}`} icon={<Dashboard />} itemID="1" />
+                            <DrawerNavItem title={`${t('Blui:LOCATIONS')}`} icon={<Notifications />} itemID="2" />
+                            <DrawerNavItem title={`${t('Blui:LEGALMENU')}`} icon={<Gavel />} itemID="3" />
                         </DrawerNavGroup>
                     </DrawerBody>
                 </Drawer>
@@ -77,21 +82,21 @@ export const ExampleHome: React.FC<React.PropsWithChildren> = () => {
             <Box>
                 <AppBar color="primary">
                     <Toolbar sx={{ px: 2, minHeight: 'unset', height: '4rem' }}>
-                        <Typography variant="h6">Toolbar Title</Typography>
+                        <Typography variant="h6">{`${t('Blui:HOMEPAGE')}`}</Typography>
                         <Spacer />
                         <UserMenu
                             onClick={(): void => setOpen(!open)}
                             avatar={<Avatar>MH</Avatar>}
                             menu={
                                 <Menu open={open} onClose={(): void => setOpen(false)}>
-                                    <MenuItem onClick={(): void => setOpen(false)}>My Account</MenuItem>
+                                    <MenuItem onClick={(): void => setOpen(false)}>{`${t('Blui:MYACCOUNT')}`}</MenuItem>
                                     <MenuItem
                                         onClick={(): void => {
                                             setOpen(false);
                                             logOut();
                                         }}
                                     >
-                                        Logout
+                                        {`${t('Blui:LOGOUT')}`}
                                     </MenuItem>
                                 </Menu>
                             }
@@ -103,8 +108,8 @@ export const ExampleHome: React.FC<React.PropsWithChildren> = () => {
                 <EmptyState
                     sx={emptyStateContainerStyles}
                     icon={<Event fontSize={'inherit'} />}
-                    title={'HomePage'}
-                    description={'You should only be able to access this if you ARE authenticated'}
+                    title={`${t('Blui:HOMEPAGE')}`}
+                    description={`${t('Blui:AUTHORISEDMESSAGE')}`}
                 />
             </Box>
         </DrawerLayout>

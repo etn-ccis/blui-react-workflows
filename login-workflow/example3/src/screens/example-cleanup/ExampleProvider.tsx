@@ -142,7 +142,10 @@ export const ExampleProvider: React.FC = () => {
             <Route
                 path={'/homepage'}
                 element={
-                    <ExperimentalAuthGuard isAuthenticated={isAuthenticated} fallbackComponent={<Navigate to={`/login`} />}>
+                    <ExperimentalAuthGuard
+                        isAuthenticated={isAuthenticated}
+                        fallbackComponent={<Navigate to={`/login`} />}
+                    >
                         <ExampleHome />
                     </ExperimentalAuthGuard>
                 }

@@ -21,6 +21,7 @@ export const Login = (): JSX.Element => {
         setSelectedLanguage(appLanguage);
         setLanguage(appLanguage);
     };
+
     return (
         <>
             <LoginScreen
