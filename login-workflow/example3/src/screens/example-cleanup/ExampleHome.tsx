@@ -26,11 +26,13 @@ import Typography from '@mui/material/Typography';
 import Menu from '@mui/material/Menu';
 import { useTheme } from '@mui/material/styles';
 import { useTranslation } from 'react-i18next';
+import { useNavigate } from 'react-router-dom';
 
 export const ExampleHome: React.FC<React.PropsWithChildren> = () => {
     const app = useApp();
     const { t } = useTranslation();
     const [open, setOpen] = useState(false);
+    const navigate = useNavigate();
     const theme = useTheme();
     const containerStyles = {
         width: '100%',
@@ -58,6 +60,7 @@ export const ExampleHome: React.FC<React.PropsWithChildren> = () => {
     const logOut = (): void => {
         LocalStorage.clearAuthCredentials();
         app.setIsAuthenticated(false);
+        navigate('/login');
     };
 
     return (

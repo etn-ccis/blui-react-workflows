@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { useState } from 'react';
 import {
     AccountDetailsScreen,
     AuthContextProvider,
@@ -24,9 +24,13 @@ import { Login } from './Login';
 import { ProjectRegistrationUIActions } from '../../actions/RegistrationUIActions';
 import { routes } from '../../navigation/Routing';
 import { ExampleHome } from './ExampleHome';
+import { LocalStorage } from '../../store/local-storage';
 
 export const ExampleProvider: React.FC = () => {
-    const { language, isAuthenticated } = useApp();
+    const { language } = useApp();
+    const authData = LocalStorage.readAuthData();
+    // eslint-disable-next-line
+    const [isAuthenticated, setIsAuthenticated] = useState(authData !== null ? true : false);
     const navigate = useNavigate();
     const securityContextActions = useSecurityActions();
     return (
@@ -44,50 +48,10 @@ export const ExampleProvider: React.FC = () => {
                     </AuthContextProvider>
                 }
             >
-                <Route
-                    path={'/login'}
-                    element={
-                        <ExperimentalGuestGuard
-                            isAuthenticated={isAuthenticated}
-                            fallbackComponent={<Navigate to={`/login`} />}
-                        >
-                            <Login />
-                        </ExperimentalGuestGuard>
-                    }
-                />
-                <Route
-                    path={'/forgot-password'}
-                    element={
-                        <ExperimentalGuestGuard
-                            isAuthenticated={isAuthenticated}
-                            fallbackComponent={<Navigate to={`/login`} />}
-                        >
-                            <ForgotPasswordScreen />
-                        </ExperimentalGuestGuard>
-                    }
-                />
-                <Route
-                    path={'/contact-support'}
-                    element={
-                        <ExperimentalGuestGuard
-                            isAuthenticated={isAuthenticated}
-                            fallbackComponent={<Navigate to={`/login`} />}
-                        >
-                            <ContactSupportScreen />
-                        </ExperimentalGuestGuard>
-                    }
-                />
-                <Route
-                    path={'/reset-password'}
-                    element={
-                        <ExperimentalGuestGuard
-                            isAuthenticated={isAuthenticated}
-                            fallbackComponent={<Navigate to={`/login`} />}
-                        >
-                            <ResetPasswordScreen />
-                        </ExperimentalGuestGuard>
-                    }
-                />
+                <Route path={'/login'} element={<Login />} />
+                <Route path={'/forgot-password'} element={<ForgotPasswordScreen />} />
+                <Route path={'/contact-support'} element={<ContactSupportScreen />} />
+                <Route path={'/reset-password'} element={<ResetPasswordScreen />} />
             </Route>
             {/* REGISTRATION ROUTES */}
             <Route
@@ -105,35 +69,25 @@ export const ExampleProvider: React.FC = () => {
                 <Route
                     path={'/self-registration'}
                     element={
-                        <ExperimentalGuestGuard
-                            isAuthenticated={isAuthenticated}
-                            fallbackComponent={<Navigate to={`/login`} />}
-                        >
-                            <RegistrationWorkflow initialScreenIndex={0}>
-                                <EulaScreen />
-                                <CreateAccountScreen />
-                                <VerifyCodeScreen />
-                                <CreatePasswordScreen />
-                                <AccountDetailsScreen />
-                                <RegistrationSuccessScreen />
-                            </RegistrationWorkflow>
-                        </ExperimentalGuestGuard>
+                        <RegistrationWorkflow initialScreenIndex={0}>
+                            <EulaScreen />
+                            <CreateAccountScreen />
+                            <VerifyCodeScreen />
+                            <CreatePasswordScreen />
+                            <AccountDetailsScreen />
+                            <RegistrationSuccessScreen />
+                        </RegistrationWorkflow>
                     }
                 />
                 <Route
                     path={'/register-by-invite'}
                     element={
-                        <ExperimentalGuestGuard
-                            isAuthenticated={isAuthenticated}
-                            fallbackComponent={<Navigate to={`/login`} />}
-                        >
-                            <RegistrationWorkflow initialScreenIndex={0}>
-                                <EulaScreen />
-                                <CreatePasswordScreen />
-                                <AccountDetailsScreen />
-                                <RegistrationSuccessScreen />
-                            </RegistrationWorkflow>
-                        </ExperimentalGuestGuard>
+                        <RegistrationWorkflow initialScreenIndex={0}>
+                            <EulaScreen />
+                            <CreatePasswordScreen />
+                            <AccountDetailsScreen />
+                            <RegistrationSuccessScreen />
+                        </RegistrationWorkflow>
                     }
                 />
             </Route>
