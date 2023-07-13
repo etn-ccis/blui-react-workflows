@@ -41,7 +41,7 @@ describe('Eula Screen', () => {
     });
 
     it('should update values when passed as props', () => {
-        renderer({ title: 'Test Title' });
+        renderer({ WorkflowCardHeaderProps: { title: 'Test Title' } });
 
         expect(screen.queryByText('License Agreement')).toBeNull();
         expect(screen.getByText('Test Title')).toBeInTheDocument();
