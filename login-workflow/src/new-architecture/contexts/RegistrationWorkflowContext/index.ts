@@ -13,7 +13,7 @@ import { RegistrationWorkflowContextProvider } from './provider';
 export const useRegistrationWorkflowContext = (): RegistrationWorkflowContextProps => {
     const context = useContext(RegistrationWorkflowContext);
     if (context === null) {
-        throw new Error('useRegistrationWorkflowContext must be used within an RegistrationContextProvider');
+        throw new Error('useRegistrationWorkflowContext must be used within an RegistrationWorkflowContextProvider');
     }
     return context;
 };
