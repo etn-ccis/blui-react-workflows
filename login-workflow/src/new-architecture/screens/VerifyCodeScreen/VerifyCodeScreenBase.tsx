@@ -69,7 +69,7 @@ export const VerifyCodeScreenBase: React.FC<React.PropsWithChildren<VerifyCodeSc
                     onChange={(evt): void => {
                         handleVerifyCodeInputChange(evt.target.value);
                     }}
-                    onKeyPress={(e): void => {
+                    onKeyUp={(e): void => {
                         if (e.key === 'Enter' && verifyCode.length > 0 && isCodeValid && actionsProps.canGoNext)
                             handleOnNext();
                     }}

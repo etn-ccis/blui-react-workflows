@@ -124,7 +124,7 @@ export const AccountDetailsScreenBase: React.FC<AccountDetailsScreenProps> = (pr
                     label={firstNameLabel}
                     value={firstNameInput}
                     onChange={(e): void => onFirstNameChange(e.target.value)}
-                    onKeyPress={(e): void => {
+                    onKeyUp={(e): void => {
                         if (e.key === 'Enter' && lastNameRef.current) lastNameRef.current.focus();
                     }}
                     error={showFirstNameError}
@@ -145,7 +145,7 @@ export const AccountDetailsScreenBase: React.FC<AccountDetailsScreenProps> = (pr
                     label={lastNameLabel}
                     value={lastNameInput}
                     onChange={(e): void => onLastNameChange(e.target.value)}
-                    onKeyPress={(e): void => {
+                    onKeyUp={(e): void => {
                         if (e.key === 'Enter' && isFormValid && actionsProps.canGoNext) actionsProps.onNext();
                     }}
                     error={showLastNameError}

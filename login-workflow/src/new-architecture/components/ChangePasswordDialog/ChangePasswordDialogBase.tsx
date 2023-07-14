@@ -97,7 +97,7 @@ export const ChangePasswordDialogBase: React.FC<ChangePasswordDialogProps> = (pr
                         label={currentPasswordLabel}
                         value={currentPassword}
                         onChange={handleChange}
-                        onKeyPress={(e): void => {
+                        onKeyUp={(e): void => {
                             const { current } = PasswordProps.passwordRef;
                             if (e.key === 'Enter' && current) {
                                 current.focus();
