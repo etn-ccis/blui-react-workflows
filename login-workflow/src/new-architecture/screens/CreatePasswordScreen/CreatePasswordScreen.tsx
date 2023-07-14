@@ -1,4 +1,4 @@
-import React, { useCallback, useEffect, useRef, useState } from 'react';
+import React, { useCallback, useRef, useState } from 'react';
 import { CreatePasswordScreenBase } from './CreatePasswordScreenBase';
 import { useLanguageLocale } from '../../hooks';
 import { defaultPasswordRequirements } from '../../constants';
@@ -101,7 +101,11 @@ export const CreatePasswordScreen: React.FC<CreatePasswordScreenProps> = (props)
     const workflowCardActionsProps = {
         showNext: true,
         nextLabel: t('bluiCommon:ACTIONS.NEXT'),
-        canGoNext: passwordInput !== '' && confirmInput !== '' && passwordInput === confirmInput,
+        canGoNext:
+            passwordInput !== '' &&
+            confirmInput !== '' &&
+            passwordInput === confirmInput &&
+            areValidMatchingPasswords(),
         showPrevious: true,
         previousLabel: t('bluiCommon:ACTIONS.BACK'),
         canGoPrevious: true,
@@ -117,10 +121,6 @@ export const CreatePasswordScreen: React.FC<CreatePasswordScreenProps> = (props)
             WorkflowCardActionsProps?.onPrevious?.();
         },
     };
-
-    useEffect(() => {
-        setPasswordInput(areValidMatchingPasswords() ? passwordInput : '');
-    }, [setPasswordInput, passwordInput, confirmInput, areValidMatchingPasswords]);
 
     return (
         <>
