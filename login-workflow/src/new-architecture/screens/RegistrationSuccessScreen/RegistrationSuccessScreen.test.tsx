@@ -4,17 +4,39 @@ import '@testing-library/jest-dom';
 import { render, cleanup, screen } from '@testing-library/react';
 import { RegistrationSuccessScreen } from './RegistrationSuccessScreen';
 import {
+    i18nRegistrationInstance,
     RegistrationContextProvider,
     RegistrationContextProviderProps,
     RegistrationUIActions,
     RegistrationWorkflowContextProvider,
 } from '../../contexts';
-import { defaultProps as registrationContextProviderProps } from '../../contexts/RegistrationContext/RegistrationContextProvider.test';
-import { defaultProps as registrationWorkflowContextProps } from '../../contexts/RegistrationWorkflowContext/RegistrationWorkflowContext.test';
 
 afterEach(cleanup);
 
 const sleep = (ms: number): Promise<void> => new Promise((resolve) => setTimeout(resolve, ms));
+
+export const registrationContextProviderProps = {
+    language: 'en',
+    i18n: i18nRegistrationInstance,
+    navigate: jest.fn(),
+    routeConfig: {},
+};
+
+const registrationWorkflowContextProps = {
+    currentScreen: 0,
+    totalScreens: 2,
+    nextScreen: jest.fn(),
+    previousScreen: jest.fn(),
+    screenData: {
+        Eula: { accepted: true },
+        CreateAccount: { emailAddress: 'emailAddress@emailAddress.emailAddress' },
+        VerifyCode: { code: '12345' },
+        CreatePassword: { password: 'password', confirmPassword: 'confirmPassword' },
+        AccountDetails: { firstName: 'firstName', lastName: 'lastName' },
+        Other: { RegistrationSuccessScreen: { organizationName: 'Acme Co.' } },
+    },
+    updateScreenData: jest.fn(),
+};
 
 const registrationContextDefaultProps: RegistrationContextProviderProps = {
     ...registrationContextProviderProps,
