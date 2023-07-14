@@ -15,6 +15,7 @@ import * as Colors from '@brightlayer-ui/colors';
 import { HELPER_TEXT_HEIGHT } from '../../utils/constants';
 import { LoginScreenClassKey, getLoginScreenUtilityClass } from './utilityClasses';
 import { unstable_composeClasses as composeClasses } from '@mui/base';
+import { LinkStyles } from '../../styles';
 
 /**
  * Component that renders a login screen that prompts a user to enter a username and password to login.
@@ -50,19 +51,6 @@ import { unstable_composeClasses as composeClasses } from '@mui/base';
  *
  * @category Component
  */
-
-const LinkStyles = {
-    fontWeight: 600,
-    textTransform: 'none',
-    textDecoration: 'none',
-    color: 'primary.main',
-    '&:visited': {
-        color: 'inherit',
-    },
-    '&:hover': {
-        cursor: 'pointer',
-    },
-};
 
 const useUtilityClasses = (ownerState: LoginScreenProps): Record<LoginScreenClassKey, string> => {
     const { classes } = ownerState;
