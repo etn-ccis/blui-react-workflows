@@ -7,7 +7,7 @@ import { useNavigate } from 'react-router';
 import { ProjectAuthUIActions } from '../../actions/AuthUIActions';
 
 export const Login = (): JSX.Element => {
-    const { language } = useApp();
+    const { language, setIsAuthenticated } = useApp();
     const navigate = useNavigate();
     const securityContextActions = useSecurityActions();
 
@@ -44,8 +44,8 @@ export const Login = (): JSX.Element => {
                             onLogin={(username: any, password: any): void => {
                                 // eslint-disable-next-line no-console
                                 console.log('onLogin', username, password);
-                                // setIsAuthenticated(true);
-                                // navigate('/guarded');
+                                setIsAuthenticated(true);
+                                navigate('/guarded');
                             }}
                             usernameTextFieldProps={{
                                 inputProps: {

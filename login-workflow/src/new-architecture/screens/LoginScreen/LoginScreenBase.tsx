@@ -124,9 +124,6 @@ export const LoginScreenBase: React.FC<React.PropsWithChildren<LoginScreenProps>
         footer,
     } = props;
 
-    // eslint-disable-next-line no-console
-    console.log('errorDisplayconfig from login base', errorDisplayConfig);
-
     const theme = useTheme();
     const defaultClasses = useUtilityClasses(props);
 
@@ -206,6 +203,9 @@ export const LoginScreenBase: React.FC<React.PropsWithChildren<LoginScreenProps>
             void handleLogin();
         }
     };
+
+    //eslint-disable-next-line no-console
+    console.log('errorconfig:', errorDisplayConfig);
 
     return (
         <>
@@ -487,7 +487,6 @@ export const LoginScreenBase: React.FC<React.PropsWithChildren<LoginScreenProps>
                     )}
                 </WorkflowCardBody>
             </WorkflowCard>
-            {/* <ErrorDialog /> */}
         </>
     );
 };

@@ -51,7 +51,10 @@ const ErrorManager: React.FC<ErrorManagerProps> = (props): JSX.Element => {
         position,
     } = props;
 
-    return mode === 'dialog' ? (
+    //eslint-disable-next-line no-console
+    console.log('errorMessage:', errorMessage);
+
+    return mode === 'dialog' && errorMessage ? (
         <>
             {children}
             <BasicDialog
@@ -62,7 +65,7 @@ const ErrorManager: React.FC<ErrorManagerProps> = (props): JSX.Element => {
                 dismissButtonText={dismissButtonText}
             />
         </>
-    ) : mode === 'message-box' ? (
+    ) : mode === 'message-box' && errorMessage ? (
         <>
             {position === 'top' && (
                 <ErrorMessageBox
@@ -84,7 +87,7 @@ const ErrorManager: React.FC<ErrorManagerProps> = (props): JSX.Element => {
                 />
             )}
         </>
-    ) : mode === 'both' ? (
+    ) : mode === 'both' && errorMessage ? (
         <>
             {position === 'top' && (
                 <ErrorMessageBox
