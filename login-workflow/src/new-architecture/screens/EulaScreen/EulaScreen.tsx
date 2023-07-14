@@ -33,6 +33,8 @@ export const EulaScreen: React.FC<EulaScreenProps> = (props) => {
                 setEulaLoaded(false);
                 // TODO - Need better way to handle WorflowCard Error
                 console.error(t('bluiRegistration:REGISTRATION.FAILURE_MESSAGE'));
+            } finally {
+                setEulaLoaded(false);
             }
         }
     }, [eulaContent, language, actions, setEulaData, setEulaLoaded, t]);
