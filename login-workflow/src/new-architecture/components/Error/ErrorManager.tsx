@@ -3,6 +3,8 @@ import React from 'react';
 import { BasicDialog } from '../Dialog/BasicDialog';
 import ErrorMessageBox from './ErrorMessageBox';
 
+export type AuthError = { cause: { title: string; errorMessage: string } };
+
 export type ErrorManagerProps = {
     mode?: 'dialog' | 'message-box' | 'both' | 'none';
     dismissible?: boolean;
@@ -13,7 +15,6 @@ export type ErrorManagerProps = {
     errorMessage?: string;
     onClose?: () => void;
     messageBoxSx?: SxProps;
-    open?: boolean;
     title?: string;
     children?: React.ReactNode;
 };
@@ -29,7 +30,6 @@ export type ErrorManagerProps = {
  * @param errorMessage error text to display
  * @param onClose function to call when the close/dismiss button is clicked
  * @param messageBoxSx sx styles passed to the underlying root(Box) component
- * @param open whether the dialog is open
  * @param title text to show in the title of the dialog
  *
  * @category Component
@@ -38,15 +38,14 @@ export type ErrorManagerProps = {
 const ErrorManager: React.FC<ErrorManagerProps> = (props): JSX.Element => {
     const {
         children,
-        mode,
-        dismissible,
+        mode = 'dialog',
+        dismissible = true,
         dismissButtonText,
         messageBoxFontColor,
         messageBoxBackgroundColor,
         errorMessage,
         onClose,
         messageBoxSx,
-        open,
         title,
         position,
     } = props;
@@ -54,67 +53,37 @@ const ErrorManager: React.FC<ErrorManagerProps> = (props): JSX.Element => {
     //eslint-disable-next-line no-console
     console.log('errorMessage:', errorMessage);
 
+    const ErrorDialogWithProps = (): JSX.Element => (
+        <BasicDialog
+            open={errorMessage.length > 0}
+            title={title}
+            body={errorMessage}
+            onClose={onClose}
+            dismissButtonText={dismissButtonText}
+        />
+    );
+
+    const ErrorMessageBoxWithProps = (): JSX.Element => (
+        <ErrorMessageBox
+            errorMessage={errorMessage}
+            dismissible={dismissible}
+            sx={messageBoxSx}
+            backgroundColor={messageBoxBackgroundColor}
+            fontColor={messageBoxFontColor}
+            onClose={onClose}
+        />
+    );
+
     return mode === 'dialog' && errorMessage ? (
         <>
             {children}
-            <BasicDialog
-                open={open}
-                title={title}
-                body={errorMessage}
-                onClose={onClose}
-                dismissButtonText={dismissButtonText}
-            />
+            <ErrorDialogWithProps />
         </>
     ) : mode === 'message-box' && errorMessage ? (
         <>
-            {position === 'top' && (
-                <ErrorMessageBox
-                    errorMessage={errorMessage}
-                    dismissible={dismissible}
-                    sx={messageBoxSx}
-                    backgroundColor={messageBoxBackgroundColor}
-                    fontColor={messageBoxFontColor}
-                />
-            )}
+            {position === 'top' && <ErrorMessageBoxWithProps />}
             {children}
-            {position === 'bottom' && (
-                <ErrorMessageBox
-                    errorMessage={errorMessage}
-                    dismissible={dismissible}
-                    sx={messageBoxSx}
-                    backgroundColor={messageBoxBackgroundColor}
-                    fontColor={messageBoxFontColor}
-                />
-            )}
-        </>
-    ) : mode === 'both' && errorMessage ? (
-        <>
-            {position === 'top' && (
-                <ErrorMessageBox
-                    errorMessage={errorMessage}
-                    dismissible={dismissible}
-                    sx={messageBoxSx}
-                    backgroundColor={messageBoxBackgroundColor}
-                    fontColor={messageBoxFontColor}
-                />
-            )}
-            {children}
-            {position === 'bottom' && (
-                <ErrorMessageBox
-                    errorMessage={errorMessage}
-                    dismissible={dismissible}
-                    sx={messageBoxSx}
-                    backgroundColor={messageBoxBackgroundColor}
-                    fontColor={messageBoxFontColor}
-                />
-            )}
-            <BasicDialog
-                open={open}
-                title={title}
-                body={errorMessage}
-                onClose={onClose}
-                dismissButtonText={dismissButtonText}
-            />
+            {position === 'bottom' && <ErrorMessageBoxWithProps />}
         </>
     ) : (
         <>{children}</>

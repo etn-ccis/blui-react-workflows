@@ -4,6 +4,7 @@ import { LoginScreenBase } from './LoginScreenBase';
 import { useLanguageLocale } from '../../hooks';
 import { useAuthContext } from '../../contexts';
 import { useErrorContext } from '../../contexts/ErrorContext';
+import { AuthError } from '../../components/Error';
 
 const EMAIL_REGEX = /^[A-Z0-9._%+'-]+@[A-Z0-9.-]+\.[A-Z]{2,}$/i;
 
@@ -43,7 +44,6 @@ const EMAIL_REGEX = /^[A-Z0-9._%+'-]+@[A-Z0-9.-]+\.[A-Z]{2,}$/i;
  */
 
 type LoginScreenPropsPublic = Omit<LoginScreenProps, 'passwordValidator'> & { passwordRequiredValidatorText?: string };
-type AuthError = { cause: { title: string; errorMessage: string } };
 
 export const LoginScreen: React.FC<React.PropsWithChildren<LoginScreenPropsPublic>> = (props) => {
     const { t } = useLanguageLocale();
@@ -118,11 +118,7 @@ export const LoginScreen: React.FC<React.PropsWithChildren<LoginScreenPropsPubli
                 try {
                     await actions().logIn(username, password, rememberMe);
                     await props.onLogin?.(username, password, rememberMe);
-                    // eslint-disable-next-line no-console
-                    console.log('login success');
                 } catch (_error) {
-                    // eslint-disable-next-line no-console
-                    console.log('error from LoginScreen:', _error);
                     setError({
                         cause: {
                             title: (_error as AuthError).cause.title,
@@ -145,6 +141,9 @@ export const LoginScreen: React.FC<React.PropsWithChildren<LoginScreenPropsPubli
                 ...errorDisplayConfig,
                 title: error.cause.title,
                 errorMessage: error.cause.errorMessage,
+                onClose: (): void => {
+                    setError({ cause: { title: '', errorMessage: '' } });
+                },
             }}
             showCyberSecurityBadge={showCyberSecurityBadge}
             projectImage={projectImage}

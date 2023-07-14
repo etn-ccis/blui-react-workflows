@@ -204,9 +204,6 @@ export const LoginScreenBase: React.FC<React.PropsWithChildren<LoginScreenProps>
         }
     };
 
-    //eslint-disable-next-line no-console
-    console.log('errorconfig:', errorDisplayConfig);
-
     return (
         <>
             <WorkflowCard className={defaultClasses.root} data-testid={defaultClasses.root}>

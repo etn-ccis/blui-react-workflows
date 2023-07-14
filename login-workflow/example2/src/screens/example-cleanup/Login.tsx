@@ -23,7 +23,6 @@ export const Login = (): JSX.Element => {
                         mode: 'message-box',
                         dismissible: true,
                         position: 'top',
-                        dismissButtonText: 'Close',
                     }}
                 >
                     <>
