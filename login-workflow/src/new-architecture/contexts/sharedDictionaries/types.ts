@@ -18,6 +18,7 @@ export type CommonTranslations = {
         RESEND: string;
         UPDATE: string;
         REMEMBER: string;
+        SUBMIT: string;
     };
     LABELS: {
         EMAIL: string;

@@ -21,6 +21,7 @@ const resources: CommonTranslationsFile = {
             RESEND: '重新发送',
             UPDATE: '更新',
             REMEMBER: '记住我的登录信息',
+            SUBMIT: '提交',
         },
         LABELS: {
             EMAIL: '邮箱地址',
