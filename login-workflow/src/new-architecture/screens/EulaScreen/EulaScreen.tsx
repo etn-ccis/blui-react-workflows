@@ -8,7 +8,7 @@ export const EulaScreen: React.FC<EulaScreenProps> = (props) => {
     const { t } = useLanguageLocale();
     const { actions, navigate, routeConfig, language } = useRegistrationContext();
     const regWorkflow = useRegistrationWorkflowContext();
-    const { nextScreen, previousScreen, screenData } = regWorkflow;
+    const { nextScreen, previousScreen, screenData, currentScreen, totalScreens } = regWorkflow;
     const {
         WorkflowCardHeaderProps,
         WorkflowCardActionsProps,
@@ -33,6 +33,8 @@ export const EulaScreen: React.FC<EulaScreenProps> = (props) => {
                 setEulaLoaded(false);
                 // TODO - Need better way to handle WorflowCard Error
                 console.error(t('bluiRegistration:REGISTRATION.FAILURE_MESSAGE'));
+            } finally {
+                setEulaLoaded(false);
             }
         }
     }, [eulaContent, language, actions, setEulaData, setEulaLoaded, t]);
@@ -48,8 +50,9 @@ export const EulaScreen: React.FC<EulaScreenProps> = (props) => {
             });
         } catch {
             console.error('Error while updating EULA acceptance...');
+        } finally {
+            setEulaLoaded(false);
         }
-        setEulaLoaded(false);
     }, [actions, nextScreen, setEulaAccepted, setEulaLoaded]);
 
     const onPrevious = useCallback(async (): Promise<void> => {
@@ -63,8 +66,9 @@ export const EulaScreen: React.FC<EulaScreenProps> = (props) => {
             });
         } catch {
             console.error('Error while updating EULA acceptance...');
+        } finally {
+            setEulaLoaded(false);
         }
-        setEulaLoaded(false);
     }, [actions, previousScreen, setEulaAccepted, setEulaLoaded]);
 
     useEffect(() => {
@@ -83,8 +87,8 @@ export const EulaScreen: React.FC<EulaScreenProps> = (props) => {
         showPrevious: true,
         previousLabel: t('bluiCommon:ACTIONS.BACK'),
         canGoPrevious: true,
-        currentStep: 0,
-        totalSteps: 6,
+        currentStep: currentScreen,
+        totalSteps: totalScreens,
         ...WorkflowCardActionsProps,
         onNext: (): void => {
             void onNext();

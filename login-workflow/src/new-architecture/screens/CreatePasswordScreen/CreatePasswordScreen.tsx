@@ -15,6 +15,8 @@ export const CreatePasswordScreen: React.FC<CreatePasswordScreenProps> = (props)
         screenData: {
             CreatePassword: { password, confirmPassword },
         },
+        currentScreen,
+        totalScreens,
     } = regWorkflow;
     const passwordRef = useRef(null);
     const confirmRef = useRef(null);
@@ -33,8 +35,9 @@ export const CreatePasswordScreen: React.FC<CreatePasswordScreenProps> = (props)
             });
         } catch {
             console.error('Error while creating password...');
+        } finally {
+            setIsLoading(false);
         }
-        setIsLoading(false);
     }, [passwordInput, confirmInput, actions, nextScreen, setIsLoading]);
 
     const onPrevious = useCallback(() => {
@@ -109,8 +112,8 @@ export const CreatePasswordScreen: React.FC<CreatePasswordScreenProps> = (props)
         showPrevious: true,
         previousLabel: t('bluiCommon:ACTIONS.BACK'),
         canGoPrevious: true,
-        currentStep: 2,
-        totalSteps: 6,
+        currentStep: currentScreen,
+        totalSteps: totalScreens,
         ...WorkflowCardActionsProps,
         onNext: (): void => {
             void onNext();

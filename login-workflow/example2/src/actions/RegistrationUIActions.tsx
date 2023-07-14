@@ -121,9 +121,9 @@ export const ProjectRegistrationUIActions: () => RegistrationUIActions = () => (
     completeRegistration: async (
         userData: any,
         validationCode: string | number,
-        validationEmail?: string
+        validationEmail: string
     ): Promise<{ email: string; organizationName: string }> => {
-        const email = 'example@email.com';
+        const email = validationEmail;
         const organizationName = 'Acme Co.';
         const userInfo = { email, organizationName };
 

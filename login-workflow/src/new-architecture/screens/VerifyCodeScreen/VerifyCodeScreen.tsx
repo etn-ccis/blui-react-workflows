@@ -21,7 +21,7 @@ export const VerifyCodeScreen: React.FC<VerifyCodeScreenProps> = (props) => {
     const { t } = useLanguageLocale();
     const regWorkflow = useRegistrationWorkflowContext();
     const { actions } = useRegistrationContext();
-    const { nextScreen, previousScreen, screenData } = regWorkflow;
+    const { nextScreen, previousScreen, screenData, currentScreen, totalScreens } = regWorkflow;
     const { emailAddress } = screenData.CreateAccount;
 
     const [verifyCode, setVerifyCode] = useState(screenData.VerifyCode.code);
@@ -99,8 +99,8 @@ export const VerifyCodeScreen: React.FC<VerifyCodeScreenProps> = (props) => {
         showPrevious: true,
         previousLabel: t('bluiCommon:ACTIONS.BACK'),
         canGoPrevious: true,
-        currentStep: 1,
-        totalSteps: 6,
+        currentStep: currentScreen,
+        totalSteps: totalScreens,
         ...WorkflowCardActionsProps,
         onNext: (data: any): void => {
             setVerifyCode(data.code);

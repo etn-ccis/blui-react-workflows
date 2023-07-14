@@ -7,25 +7,44 @@ export const AccountDetailsScreen: React.FC<AccountDetailsScreenProps> = (props)
     const { t } = useLanguageLocale();
     const { actions } = useRegistrationContext();
     const regWorkflow = useRegistrationWorkflowContext();
-    const { nextScreen, previousScreen, screenData } = regWorkflow;
+    const { nextScreen, previousScreen, screenData, currentScreen, totalScreens, updateScreenData } = regWorkflow;
     const [firstName, setFirstName] = useState(screenData.AccountDetails.firstName ?? '');
     const [lastName, setLastName] = useState(screenData.AccountDetails.lastName ?? '');
     const [isLoading, setIsLoading] = useState(false);
 
     const onNext = useCallback(async (): Promise<void> => {
-        setIsLoading(true);
         try {
+            setIsLoading(true);
             await actions().setAccountDetails({ firstName, lastName });
-            setIsLoading(false);
+            if (currentScreen === totalScreens - 2) {
+                const { email, organizationName } = await actions().completeRegistration(
+                    { firstName, lastName },
+                    screenData.VerifyCode.code,
+                    screenData.CreateAccount.emailAddress
+                );
+                updateScreenData({ screenId: 'RegistrationSuccessScreen', values: { email, organizationName } });
+            }
             nextScreen({
                 screenId: 'AccountDetails',
                 values: { firstName, lastName },
             });
         } catch {
             console.error('Error while updating account details...');
+        } finally {
+            setIsLoading(false);
         }
-        setIsLoading(false);
-    }, [firstName, lastName, actions, nextScreen, setIsLoading]);
+    }, [
+        firstName,
+        lastName,
+        actions,
+        nextScreen,
+        setIsLoading,
+        screenData.VerifyCode.code,
+        screenData.CreateAccount.emailAddress,
+        totalScreens,
+        currentScreen,
+        updateScreenData,
+    ]);
 
     const onPrevious = useCallback(() => {
         setFirstName(firstName);
@@ -80,8 +99,8 @@ export const AccountDetailsScreen: React.FC<AccountDetailsScreenProps> = (props)
         showPrevious: true,
         nextLabel: t('bluiCommon:ACTIONS.NEXT'),
         previousLabel: t('bluiCommon:ACTIONS.BACK'),
-        totalSteps: 6,
-        currentStep: 3,
+        totalSteps: totalScreens,
+        currentStep: currentScreen,
         ...WorkflowCardActionsProps,
         onNext: (): void => {
             void onNext();
