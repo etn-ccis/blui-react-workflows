@@ -1,4 +1,4 @@
-import React, { useState, useCallback, useEffect, useRef } from 'react';
+import React, { useState, useCallback, useRef } from 'react';
 import {
     defaultPasswordRequirements,
     useLanguageLocale,
@@ -30,10 +30,6 @@ export const CreatePasswordScreenTest = (): JSX.Element => {
         },
         [setPasswordInput, setConfirmInput]
     );
-
-    useEffect(() => {
-        setPasswordInput(areValidMatchingPasswords() ? passwordInput : '');
-    }, [setPasswordInput, passwordInput, confirmInput, areValidMatchingPasswords]);
 
     return (
         <Box sx={{ display: 'flex', flexDirection: 'column', height: '100%' }}>
@@ -77,7 +73,11 @@ export const CreatePasswordScreenTest = (): JSX.Element => {
                     WorkflowCardActionsProps={{
                         showNext: true,
                         nextLabel: 'Next',
-                        canGoNext: passwordInput !== '' && confirmInput !== '' && passwordInput === confirmInput,
+                        canGoNext:
+                            passwordInput !== '' &&
+                            confirmInput !== '' &&
+                            passwordInput === confirmInput &&
+                            areValidMatchingPasswords(),
                         showPrevious: true,
                         previousLabel: 'Back',
                         canGoPrevious: true,
