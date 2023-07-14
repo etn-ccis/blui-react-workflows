@@ -8,13 +8,14 @@ import {
     WorkflowCardInstructions,
 } from '../../components';
 import { ForgotPasswordScreenProps } from './types';
+import { SuccessScreenProps } from '../SuccessScreen';
 
 type ForgotPasswordScreenBaseProps = Omit<ForgotPasswordScreenProps, 'slots'> & {
-    slots: { SuccessScreen: JSX.Element };
+    slots: { SuccessScreen: (props: SuccessScreenProps) => JSX.Element };
 };
 
 export const ForgotPasswordScreenBase: React.FC<React.PropsWithChildren<ForgotPasswordScreenBaseProps>> = (props) => {
-    const [emailInput, setEmailInput] = useState(props.initialEmailValue ? props.initialEmailValue : '');
+    const [emailInput, setEmailInput] = useState(props.initialEmailValue ?? '');
 
     const {
         emailLabel,
@@ -22,6 +23,7 @@ export const ForgotPasswordScreenBase: React.FC<React.PropsWithChildren<ForgotPa
         // eslint-disable-next-line @typescript-eslint/no-unused-vars
         emailValidator = (email: string): boolean | string => true,
         slots,
+        slotProps = {},
         showSuccessScreen,
     } = props;
 
@@ -55,7 +57,7 @@ export const ForgotPasswordScreenBase: React.FC<React.PropsWithChildren<ForgotPa
     return (
         <>
             {showSuccessScreen ? (
-                slots.SuccessScreen
+                <slots.SuccessScreen {...slotProps.SuccessScreen} />
             ) : (
                 <WorkflowCard {...cardBaseProps}>
                     <WorkflowCardHeader {...headerProps} />

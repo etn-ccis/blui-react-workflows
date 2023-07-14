@@ -8,7 +8,7 @@
     "scripts": {
         "install:dependencies": "cd example && yarn && cd .. && yarn",
         "install:dependencies2": "cd example2 && yarn && cd .. && yarn",
-        "test": "jest src",
+        "test": "jest",
         "build": "tsc --p tsconfig.lib.json && cp -r src/assets/. dist/assets && cp -r src/index.css dist/index.css",
         "link:workflow": "bash ./scripts/linkWorkflow.sh",
         "link:workflow2": "bash ./scripts/linkWorkflow2.sh",

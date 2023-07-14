@@ -53,7 +53,7 @@ export const ForgotPasswordScreen: React.FC<ForgotPasswordScreenProps> = (props)
         WorkflowCardHeaderProps,
         WorkflowCardInstructionProps,
         WorkflowCardActionsProps,
-        showSuccessScreen: showSuccessScreenProp = true,
+        showSuccessScreen: enableSuccessScreen = true,
         slotProps = { SuccessScreen: {} },
         slots,
     } = props;
@@ -132,12 +132,11 @@ export const ForgotPasswordScreen: React.FC<ForgotPasswordScreenProps> = (props)
                     emailLabel={emailLabel}
                     initialEmailValue={initialEmailValue}
                     emailValidator={emailValidator}
-                    showSuccessScreen={showSuccessScreenProp && showSuccessScreen}
+                    showSuccessScreen={enableSuccessScreen && showSuccessScreen}
                     slots={{
                         SuccessScreen:
-                            slots && slots.SuccessScreen ? (
-                                <slots.SuccessScreen {...slotProps.SuccessScreen} />
-                            ) : (
+                            slots?.SuccessScreen ??
+                            ((): JSX.Element => (
                                 <SuccessScreenBase
                                     icon={<CheckCircle color={'primary'} sx={{ fontSize: 100, mb: 5 }} />}
                                     messageTitle={t('bluiCommon:MESSAGES.EMAIL_SENT')}
@@ -167,7 +166,7 @@ export const ForgotPasswordScreen: React.FC<ForgotPasswordScreenProps> = (props)
                                         },
                                     }}
                                 />
-                            ),
+                            )),
                     }}
                 />
             )}
