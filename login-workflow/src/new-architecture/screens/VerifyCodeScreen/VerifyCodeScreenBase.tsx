@@ -8,6 +8,7 @@ import { WorkflowCardInstructions } from '../../components/WorkflowCard/Workflow
 import TextField from '@mui/material/TextField';
 import Box from '@mui/material/Box';
 import Typography from '@mui/material/Typography';
+import ErrorManager from '../../components/Error/ErrorManager';
 
 /**
  * Component that renders a screen that prompts a user to enter the confirmation code
@@ -23,7 +24,15 @@ import Typography from '@mui/material/Typography';
  */
 
 export const VerifyCodeScreenBase: React.FC<React.PropsWithChildren<VerifyCodeScreenProps>> = (props) => {
-    const { codeValidator, onResend, resendInstructions, resendLabel, verifyCodeInputLabel, initialValue } = props;
+    const {
+        codeValidator,
+        onResend,
+        resendInstructions,
+        resendLabel,
+        verifyCodeInputLabel,
+        initialValue,
+        errorDisplayConfig,
+    } = props;
 
     const cardBaseProps = props.WorkflowCardBaseProps || {};
     const headerProps = props.WorkflowCardHeaderProps || {};
@@ -62,36 +71,38 @@ export const VerifyCodeScreenBase: React.FC<React.PropsWithChildren<VerifyCodeSc
             <WorkflowCardHeader {...headerProps}></WorkflowCardHeader>
             <WorkflowCardBody>
                 <WorkflowCardInstructions {...instructionsProps} divider />
-                <TextField
-                    label={verifyCodeInputLabel}
-                    fullWidth
-                    value={verifyCode}
-                    onChange={(evt): void => {
-                        handleVerifyCodeInputChange(evt.target.value);
-                    }}
-                    onKeyUp={(e): void => {
-                        if (e.key === 'Enter' && verifyCode.length > 0 && isCodeValid && actionsProps.canGoNext)
-                            handleOnNext();
-                    }}
-                    variant="filled"
-                    error={shouldValidateCode && !isCodeValid}
-                    helperText={shouldValidateCode && codeError}
-                    onBlur={(): void => setShouldValidateCode(true)}
-                />
-                <Box sx={{ mt: 2 }}>
-                    <Typography>
-                        {resendInstructions}
-                        <Typography
-                            sx={{ fontSize: 'inherit', textTransform: 'initial', '&:hover': { cursor: 'pointer' } }}
-                            onClick={(): void => onResend()}
-                            color="primary"
-                            variant={'button'}
-                        >
-                            {' '}
-                            <u>{resendLabel}</u>
+                <ErrorManager {...errorDisplayConfig}>
+                    <TextField
+                        label={verifyCodeInputLabel}
+                        fullWidth
+                        value={verifyCode}
+                        onChange={(evt): void => {
+                            handleVerifyCodeInputChange(evt.target.value);
+                        }}
+                        onKeyUp={(e): void => {
+                            if (e.key === 'Enter' && verifyCode.length > 0 && isCodeValid && actionsProps.canGoNext)
+                                handleOnNext();
+                        }}
+                        variant="filled"
+                        error={shouldValidateCode && !isCodeValid}
+                        helperText={shouldValidateCode && codeError}
+                        onBlur={(): void => setShouldValidateCode(true)}
+                    />
+                    <Box sx={{ mt: 2 }}>
+                        <Typography>
+                            {resendInstructions}
+                            <Typography
+                                sx={{ fontSize: 'inherit', textTransform: 'initial', '&:hover': { cursor: 'pointer' } }}
+                                onClick={(): void => onResend()}
+                                color="primary"
+                                variant={'button'}
+                            >
+                                {' '}
+                                <u>{resendLabel}</u>
+                            </Typography>
                         </Typography>
-                    </Typography>
-                </Box>
+                    </Box>
+                </ErrorManager>
             </WorkflowCardBody>
             <WorkflowCardActions
                 {...actionsProps}
