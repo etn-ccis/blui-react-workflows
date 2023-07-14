@@ -119,6 +119,8 @@ describe('SetPassword', () => {
     });
 
     it('should display the green check icon, when passwords match', () => {
+        const props = { ...defaultProps };
+        props.passwordRequirements = [];
         const { getByLabelText, getByTestId, queryByTestId, rerender } = renderer();
 
         const passwordField = getByLabelText('Password');
@@ -137,7 +139,7 @@ describe('SetPassword', () => {
         rerender(
             <AuthContextProvider {...authContextProps}>
                 <AuthUIContextProvider authActions={jest.fn()} registrationActions={jest.fn()}>
-                    <SetPassword {...defaultProps} />
+                    <SetPassword {...props} />
                 </AuthUIContextProvider>
             </AuthContextProvider>
         );

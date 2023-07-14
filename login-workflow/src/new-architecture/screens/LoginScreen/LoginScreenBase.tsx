@@ -50,19 +50,6 @@ import ErrorManager from '../../components/Error/ErrorManager';
  * @category Component
  */
 
-const LinkStyles = {
-    fontWeight: 600,
-    textTransform: 'none',
-    textDecoration: 'none',
-    color: 'primary.main',
-    '&:visited': {
-        color: 'inherit',
-    },
-    '&:hover': {
-        cursor: 'pointer',
-    },
-};
-
 const useUtilityClasses = (ownerState: LoginScreenProps): Record<LoginScreenClassKey, string> => {
     const { classes } = ownerState;
 

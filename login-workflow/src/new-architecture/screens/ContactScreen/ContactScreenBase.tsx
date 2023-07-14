@@ -5,7 +5,7 @@ import { ContactScreenProps } from './types';
 import Box, { BoxProps } from '@mui/material/Box';
 import { ContactScreenClassKey, getContactScreenUtilityClass } from './utilityClasses';
 import { unstable_composeClasses as composeClasses } from '@mui/base';
-import { LinkStyles } from '../../../styles';
+import { LinkStyles } from '../../styles';
 
 /**
  * Component renders a screen with contact information for support with the application.

@@ -114,7 +114,7 @@ export const SetPassword: React.FC<React.PropsWithChildren<SetPasswordProps>> = 
                 error={hasConfirmPasswordError()}
                 helperText={hasConfirmPasswordError() ? passwordNotMatchError : ''}
                 icon={
-                    confirmInput.length !== 0 && confirmInput === passwordInput ? (
+                    confirmInput.length !== 0 && isValidPassword() && confirmInput === passwordInput ? (
                         <CheckCircleOutlinedIcon data-testid="check" color="success" />
                     ) : undefined
                 }
