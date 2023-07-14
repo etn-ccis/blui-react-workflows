@@ -1,12 +1,37 @@
+/* eslint-disable @typescript-eslint/no-unused-vars */
 import React from 'react';
 import { cleanup, fireEvent, render, RenderResult, screen } from '@testing-library/react';
 import { ForgotPasswordScreenProps } from './types';
-import { AuthContextProvider } from '../../contexts';
-import { defaultProps as authContextProps } from '../../contexts/AuthContext/AuthContextProvider.test';
+import { AuthContextProvider, AuthContextProviderProps, i18nAuthInstance } from '../../contexts';
 import { BrowserRouter } from 'react-router-dom';
 import { ForgotPasswordScreen } from './ForgotPasswordScreen';
+import '@testing-library/jest-dom';
+import Box from '@mui/material/Box';
 
 afterEach(cleanup);
+
+const sleep = (ms: number): Promise<void> => new Promise((resolve) => setTimeout(resolve, ms));
+
+const authContextProps: AuthContextProviderProps = {
+    language: 'en',
+    ...i18nAuthInstance,
+    navigate: (): void => {},
+    routeConfig: {},
+    actions: () => {
+        return {
+            initiateSecurity: jest.fn(),
+            logIn: jest.fn(),
+
+            forgotPassword: async (email: string): Promise<void> => {
+                await sleep(800);
+                return;
+            },
+            verifyResetCode: jest.fn(),
+            setPassword: jest.fn(),
+            changePassword: jest.fn(),
+        };
+    },
+};
 
 describe('Forgot Password Screen tests', () => {
     let mockOnNext: any;
@@ -97,7 +122,19 @@ describe('Forgot Password Screen tests', () => {
     });
 
     it('should show error dialog, when next button is clicked and error is thrown', () => {
-        const { getByLabelText, rerender } = renderer();
+        const { getByLabelText, rerender } = render(
+            <AuthContextProvider
+                language="en"
+                i18n={i18nAuthInstance.i18nAuthInstance}
+                navigate={jest.fn()}
+                routeConfig={{}}
+                actions={jest.fn()}
+            >
+                <BrowserRouter>
+                    <ForgotPasswordScreen />
+                </BrowserRouter>
+            </AuthContextProvider>
+        );
 
         const emailInput = getByLabelText('Email Address');
         const nextButton = screen.getByText('Submit');
@@ -120,7 +157,19 @@ describe('Forgot Password Screen tests', () => {
     });
 
     it('should dismiss error dialog, when okay button is clicked', () => {
-        const { getByLabelText, rerender } = renderer();
+        const { getByLabelText, rerender } = render(
+            <AuthContextProvider
+                language="en"
+                i18n={i18nAuthInstance.i18nAuthInstance}
+                navigate={jest.fn()}
+                routeConfig={{}}
+                actions={jest.fn()}
+            >
+                <BrowserRouter>
+                    <ForgotPasswordScreen />
+                </BrowserRouter>
+            </AuthContextProvider>
+        );
 
         const emailInput = getByLabelText('Email Address');
         const nextButton = screen.getByText('Submit');
@@ -134,7 +183,7 @@ describe('Forgot Password Screen tests', () => {
         rerender(
             <AuthContextProvider language={'en'} routeConfig={{}} navigate={jest.fn()} actions={jest.fn()}>
                 <BrowserRouter>
-                    <ForgotPasswordScreen WorkflowCardHeaderProps={{ title: 'Test Title' }} />
+                    <ForgotPasswordScreen />
                 </BrowserRouter>
             </AuthContextProvider>
         );
@@ -145,6 +194,84 @@ describe('Forgot Password Screen tests', () => {
 
         fireEvent.click(screen.getByText('OKAY'));
         expect(screen.queryByRole('dialog')).toBeNull();
+    });
+
+    it('should show success screen, when next button is clicked', async () => {
+        const props = { ...authContextProps };
+        props.actions().forgotPassword = async (email: string): Promise<void> => {
+            throw new Error('Error');
+        };
+        const { getByLabelText } = render(
+            <AuthContextProvider {...props}>
+                <BrowserRouter>
+                    <ForgotPasswordScreen />
+                </BrowserRouter>
+            </AuthContextProvider>
+        );
+
+        const emailInput = getByLabelText('Email Address');
+        const nextButton = screen.getByText('Submit');
+        fireEvent.change(emailInput, { target: { value: 'aa@aa.aa' } });
+        fireEvent.blur(emailInput);
+        expect(emailInput).toHaveValue('aa@aa.aa');
+        expect(nextButton).toBeInTheDocument();
+        expect(screen.getByText(/Submit/i)).toBeEnabled();
+        fireEvent.click(nextButton);
+
+        const successMessage = await screen.findByText('Email Sent');
+        expect(successMessage).toBeInTheDocument();
+    });
+
+    it('should not show success screen, when showSuccessScreen is false', async () => {
+        const props = { ...authContextProps };
+        props.actions().forgotPassword = async (email: string): Promise<void> => {
+            throw new Error('Error');
+        };
+        const { getByLabelText } = render(
+            <AuthContextProvider {...props}>
+                <BrowserRouter>
+                    <ForgotPasswordScreen showSuccessScreen={false} />
+                </BrowserRouter>
+            </AuthContextProvider>
+        );
+
+        const emailInput = getByLabelText('Email Address');
+        const nextButton = screen.getByText('Submit');
+        fireEvent.change(emailInput, { target: { value: 'aa@aa.aa' } });
+        fireEvent.blur(emailInput);
+        expect(emailInput).toHaveValue('aa@aa.aa');
+        expect(nextButton).toBeInTheDocument();
+        expect(screen.getByText(/Submit/i)).toBeEnabled();
+        fireEvent.click(nextButton);
+
+        const successMessage = await screen.queryByText('Email Sent');
+        expect(successMessage).toBeNull();
+    });
+
+    it('should show custom success screen, when passed in slots', async () => {
+        const props = { ...authContextProps };
+        props.actions().forgotPassword = async (email: string): Promise<void> => {
+            throw new Error('Error');
+        };
+        const { getByLabelText } = render(
+            <AuthContextProvider {...props}>
+                <BrowserRouter>
+                    <ForgotPasswordScreen slots={{ SuccessScreen: () => <Box>Success</Box> }} />
+                </BrowserRouter>
+            </AuthContextProvider>
+        );
+
+        const emailInput = getByLabelText('Email Address');
+        const nextButton = screen.getByText('Submit');
+        fireEvent.change(emailInput, { target: { value: 'aa@aa.aa' } });
+        fireEvent.blur(emailInput);
+        expect(emailInput).toHaveValue('aa@aa.aa');
+        expect(nextButton).toBeInTheDocument();
+        expect(screen.getByText(/Submit/i)).toBeEnabled();
+        fireEvent.click(nextButton);
+
+        const successMessage = await screen.findByText('Success');
+        expect(successMessage).toBeInTheDocument();
     });
 
     it('should loader, when loading prop is passed to WorkflowCardBaseProps', () => {
