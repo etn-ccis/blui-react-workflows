@@ -22,23 +22,21 @@ export const VerifyCodeScreen: React.FC<VerifyCodeScreenProps> = (props) => {
     const regWorkflow = useRegistrationWorkflowContext();
     const { actions } = useRegistrationContext();
     const { nextScreen, previousScreen, screenData } = regWorkflow;
+    const { emailAddress } = screenData.CreateAccount;
 
     const [verifyCode, setVerifyCode] = useState(screenData.VerifyCode.code);
     const [isLoading, setIsLoading] = useState(false);
 
-    const requestResendCode = useCallback(
-        async (email?: string): Promise<void> => {
-            try {
-                setIsLoading(true);
-                await actions().requestRegistrationCode(email);
-            } catch {
-                console.error('Error fetching resend verification code!');
-            } finally {
-                setIsLoading(false);
-            }
-        },
-        [actions]
-    );
+    const requestResendCode = useCallback(async (): Promise<void> => {
+        try {
+            setIsLoading(true);
+            await actions().requestRegistrationCode(emailAddress ? emailAddress : '');
+        } catch {
+            console.error('Error fetching resend verification code!');
+        } finally {
+            setIsLoading(false);
+        }
+    }, [emailAddress, actions]);
 
     const {
         codeValidator = (code: string): boolean | string =>
@@ -70,25 +68,30 @@ export const VerifyCodeScreen: React.FC<VerifyCodeScreenProps> = (props) => {
         [nextScreen, actions]
     );
 
-    const onPrevious = (): void => {
+    const onPrevious = (code: string): void => {
         previousScreen({
             screenId: 'VerifyCode',
-            values: { code: verifyCode },
+            values: { code },
         });
     };
 
-    const {
-        WorkflowCardBaseProps: workflowCardBaseProps = {
-            loading: isLoading,
-        },
-        WorkflowCardHeaderProps: workflowCardHeaderProps = {
-            title: t('bluiRegistration:REGISTRATION.STEPS.VERIFY_EMAIL'),
-        },
-        WorkflowCardInstructionProps: workflowCardInstructionProps = {
-            instructions: t('bluiRegistration:SELF_REGISTRATION.VERIFY_EMAIL.MESSAGE'),
-        },
-        WorkflowCardActionsProps,
-    } = props;
+    const { WorkflowCardBaseProps, WorkflowCardHeaderProps, WorkflowCardInstructionProps, WorkflowCardActionsProps } =
+        props;
+
+    const workflowCardBaseProps = {
+        loading: isLoading,
+        ...WorkflowCardBaseProps,
+    };
+
+    const workflowCardHeaderProps = {
+        title: t('bluiRegistration:REGISTRATION.STEPS.VERIFY_EMAIL'),
+        ...WorkflowCardHeaderProps,
+    };
+
+    const workflowCardInstructionProps = {
+        instructions: t('bluiRegistration:SELF_REGISTRATION.VERIFY_EMAIL.MESSAGE'),
+        ...WorkflowCardInstructionProps,
+    };
 
     const workflowCardActionsProps = {
         showNext: true,
@@ -102,10 +105,10 @@ export const VerifyCodeScreen: React.FC<VerifyCodeScreenProps> = (props) => {
         onNext: (data: any): void => {
             setVerifyCode(data.code);
             void handleOnNext(data.code);
-            WorkflowCardActionsProps?.onNext();
+            WorkflowCardActionsProps?.onNext?.();
         },
-        onPrevious: (): void => {
-            void onPrevious();
+        onPrevious: (data: any): void => {
+            void onPrevious(data.code);
             WorkflowCardActionsProps?.onPrevious();
         },
     };

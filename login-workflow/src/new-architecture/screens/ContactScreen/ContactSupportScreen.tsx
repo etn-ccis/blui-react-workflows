@@ -27,21 +27,32 @@ export const ContactSupportScreen: React.FC<ContactScreenProps> = (props) => {
     const { navigate, routeConfig } = useAuthContext();
 
     const {
-        WorkflowCardHeaderProps: workflowCardHeaderProps = { title: t('bluiAuth:USER_MENU.CONTACT_US') },
         icon = <ChatBubbleOutline color={'primary'} sx={{ fontSize: 70 }} />,
         emailSupportTitle = t('bluiAuth:CONTACT_SUPPORT.GENERAL_QUESTIONS'),
         phoneSupportTitle = t('bluiAuth:CONTACT_SUPPORT.EMERGENCY_SUPPORT'),
         contactEmail = 'something@email.com',
         contactPhone = '1-800-123-4567',
         dismissButtonLabel = t('bluiCommon:ACTIONS.OKAY'),
-        WorkflowCardActionsProps: workflowCardActionsProps = {
-            nextLabel: t('bluiCommon:ACTIONS.OKAY'),
-            showNext: true,
-            canGoNext: true,
-            onNext: (): void => navigate(routeConfig.LOGIN),
-            fullWidthButton: true,
-        },
+        WorkflowCardHeaderProps,
+        WorkflowCardActionsProps,
     } = props;
+
+    const workflowCardHeaderProps = {
+        title: t('bluiAuth:USER_MENU.CONTACT_US'),
+        ...WorkflowCardHeaderProps,
+    };
+
+    const workflowCardActionsProps = {
+        nextLabel: t('bluiCommon:ACTIONS.OKAY'),
+        showNext: true,
+        canGoNext: true,
+        fullWidthButton: true,
+        ...WorkflowCardActionsProps,
+        onNext: (): void => {
+            navigate(routeConfig.LOGIN);
+            WorkflowCardActionsProps?.onNext?.();
+        },
+    };
 
     return (
         <ContactScreenBase

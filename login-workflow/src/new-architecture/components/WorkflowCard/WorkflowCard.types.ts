@@ -29,7 +29,7 @@ export type WorkflowCardActionsProps = CardActionsProps & {
     showNext?: boolean;
     previousLabel?: string;
     nextLabel?: string;
-    onPrevious?: () => void;
+    onPrevious?: (data?: { [key: string]: any }) => void;
     onNext?: (data?: { [key: string]: any }) => void;
     currentStep?: number;
     totalSteps?: number;

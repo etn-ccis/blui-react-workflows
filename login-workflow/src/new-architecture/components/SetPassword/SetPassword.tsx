@@ -84,7 +84,7 @@ export const SetPassword: React.FC<React.PropsWithChildren<SetPasswordProps>> = 
                 value={passwordInput}
                 onChange={(evt: ChangeEvent<HTMLInputElement>): void => onPassChange(evt.target.value)}
                 sx={TextFieldStyles(theme)}
-                onKeyPress={(e): void => {
+                onKeyUp={(e): void => {
                     if (e.key === 'Enter' && confirmRef.current) {
                         confirmRef.current.focus();
                     }
@@ -108,7 +108,7 @@ export const SetPassword: React.FC<React.PropsWithChildren<SetPasswordProps>> = 
                 sx={TextFieldStyles(theme)}
                 value={confirmInput}
                 onChange={(evt: ChangeEvent<HTMLInputElement>): void => onConfirmChange(evt.target.value)}
-                onKeyPress={(e): void => {
+                onKeyUp={(e): void => {
                     if (e.key === 'Enter' && onSubmit) onSubmit();
                 }}
                 error={hasConfirmPasswordError()}

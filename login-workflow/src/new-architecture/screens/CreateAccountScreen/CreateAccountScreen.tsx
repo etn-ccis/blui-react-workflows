@@ -47,30 +47,10 @@ export const CreateAccountScreen: React.FC<CreateAccountScreenProps> = (props) =
         });
     };
     const {
-        WorkflowCardBaseProps: workflowCardBaseProps = {
-            loading: isLoading,
-        },
-        WorkflowCardHeaderProps: workflowCardHeaderProps = {
-            title: t('bluiRegistration:REGISTRATION.STEPS.CREATE_ACCOUNT'),
-        },
-        WorkflowCardInstructionProps: workflowCardInstructionProps = {
-            instructions: t('bluiRegistration:SELF_REGISTRATION.INSTRUCTIONS'),
-        },
-        WorkflowCardActionsProps: workflowCardActionsProps = {
-            showNext: true,
-            nextLabel: t('bluiCommon:ACTIONS.NEXT'),
-            showPrevious: true,
-            previousLabel: t('bluiCommon:ACTIONS.BACK'),
-            canGoPrevious: true,
-            currentStep: 1,
-            totalSteps: 6,
-            onNext: (): void => {
-                void onNext();
-            },
-            onPrevious: (): void => {
-                void onPrevious();
-            },
-        },
+        WorkflowCardBaseProps,
+        WorkflowCardHeaderProps,
+        WorkflowCardInstructionProps,
+        WorkflowCardActionsProps,
         emailLabel = t('bluiCommon:LABELS.EMAIL'),
         initialValue = screenData.CreateAccount.emailAddress,
         emailValidator = (email: string): boolean | string => {
@@ -81,6 +61,40 @@ export const CreateAccountScreen: React.FC<CreateAccountScreenProps> = (props) =
         },
         emailTextFieldProps,
     } = props;
+
+    const workflowCardBaseProps = {
+        loading: isLoading,
+        ...WorkflowCardBaseProps,
+    };
+
+    const workflowCardHeaderProps = {
+        title: t('bluiRegistration:REGISTRATION.STEPS.CREATE_ACCOUNT'),
+        ...WorkflowCardHeaderProps,
+    };
+
+    const workflowCardInstructionProps = {
+        instructions: t('bluiRegistration:SELF_REGISTRATION.INSTRUCTIONS'),
+        ...WorkflowCardInstructionProps,
+    };
+
+    const workflowCardActionsProps = {
+        showNext: true,
+        nextLabel: t('bluiCommon:ACTIONS.NEXT'),
+        showPrevious: true,
+        previousLabel: t('bluiCommon:ACTIONS.BACK'),
+        canGoPrevious: true,
+        currentStep: 1,
+        totalSteps: 6,
+        ...WorkflowCardActionsProps,
+        onNext: (): void => {
+            void onNext();
+            WorkflowCardActionsProps?.onNext?.();
+        },
+        onPrevious: (): void => {
+            void onPrevious();
+            WorkflowCardActionsProps?.onPrevious?.();
+        },
+    };
 
     const onEmailInputValueChange = (e: any): void => {
         setEmailInputValue(e.target.value);
