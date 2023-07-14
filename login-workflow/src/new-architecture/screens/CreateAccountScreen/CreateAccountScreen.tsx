@@ -25,7 +25,7 @@ export const CreateAccountScreen: React.FC<CreateAccountScreenProps> = (props) =
     const { actions } = useRegistrationContext();
     const regWorkflow = useRegistrationWorkflowContext();
     const errorConfig = useErrorContext();
-    const { nextScreen, previousScreen, screenData } = regWorkflow;
+    const { nextScreen, previousScreen, screenData, totalScreens, currentScreen } = regWorkflow;
     const [emailInputValue, setEmailInputValue] = useState(screenData.CreateAccount.emailAddress);
     const [isLoading, setIsLoading] = useState(false);
     const [error, setError] = useState<AuthError>({ cause: { title: '', errorMessage: '' } });
@@ -45,8 +45,9 @@ export const CreateAccountScreen: React.FC<CreateAccountScreenProps> = (props) =
                     errorMessage: (_error as AuthError).cause.errorMessage,
                 },
             });
+        } finally {
+            setIsLoading(false);
         }
-        setIsLoading(false);
     }, [emailInputValue, nextScreen, actions]);
 
     const onPrevious = (): void => {
@@ -93,8 +94,8 @@ export const CreateAccountScreen: React.FC<CreateAccountScreenProps> = (props) =
         showPrevious: true,
         previousLabel: t('bluiCommon:ACTIONS.BACK'),
         canGoPrevious: true,
-        currentStep: 1,
-        totalSteps: 6,
+        currentStep: currentScreen,
+        totalSteps: totalScreens,
         ...WorkflowCardActionsProps,
         onNext: (): void => {
             void onNext();

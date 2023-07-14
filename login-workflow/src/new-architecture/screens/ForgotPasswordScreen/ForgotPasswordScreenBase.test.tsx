@@ -2,6 +2,7 @@ import React from 'react';
 import '@testing-library/jest-dom';
 import { cleanup, render, screen, fireEvent } from '@testing-library/react';
 import { ForgotPasswordScreenBase } from './ForgotPasswordScreenBase';
+import Box from '@mui/material/Box';
 
 afterEach(cleanup);
 
@@ -34,6 +35,7 @@ describe('Forgot Password Screen Base', () => {
                     currentStep: 2,
                     totalSteps: 6,
                 }}
+                slots={{ SuccessScreen: <Box>Success</Box> }}
             />
         );
         expect(screen.getByText('Forgot Password')).toBeInTheDocument();
@@ -55,6 +57,7 @@ describe('Forgot Password Screen Base', () => {
                     }
                     return 'Please enter a valid email';
                 }}
+                slots={{ SuccessScreen: <Box>Success</Box> }}
             />
         );
 
@@ -72,6 +75,7 @@ describe('Forgot Password Screen Base', () => {
                     }
                     return 'Please enter a valid email';
                 }}
+                slots={{ SuccessScreen: <Box>Success</Box> }}
             />
         );
         expect(verifyEmailInput).toHaveAttribute('aria-invalid', 'true');
@@ -88,6 +92,7 @@ describe('Forgot Password Screen Base', () => {
                     }
                     return 'Please enter a valid email';
                 }}
+                slots={{ SuccessScreen: <Box>Success</Box> }}
             />
         );
 
@@ -105,6 +110,7 @@ describe('Forgot Password Screen Base', () => {
                     }
                     return 'Please enter a valid email';
                 }}
+                slots={{ SuccessScreen: <Box>Success</Box> }}
             />
         );
         expect(verifyEmailInput).not.toHaveAttribute('aria-invalid', 'true');
@@ -121,6 +127,7 @@ describe('Forgot Password Screen Base', () => {
                     currentStep: 1,
                     totalSteps: 6,
                 }}
+                slots={{ SuccessScreen: <Box>Success</Box> }}
             />
         );
 
@@ -141,6 +148,7 @@ describe('Forgot Password Screen Base', () => {
                     }
                     return 'Please enter a valid email';
                 }}
+                slots={{ SuccessScreen: <Box>Success</Box> }}
             />
         );
 
@@ -154,6 +162,7 @@ describe('Forgot Password Screen Base', () => {
                 WorkflowCardHeaderProps={{ title: 'Title' }}
                 WorkflowCardInstructionProps={{ instructions: 'Instructions' }}
                 emailLabel="Email Address"
+                slots={{ SuccessScreen: <Box>Success</Box> }}
             />
         );
 

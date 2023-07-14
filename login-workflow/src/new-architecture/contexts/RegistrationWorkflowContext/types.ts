@@ -26,4 +26,5 @@ export type RegistrationWorkflowContextProps = {
     nextScreen: (data: IndividualScreenData) => void;
     previousScreen: (data: IndividualScreenData) => void;
     screenData: ScreenData;
+    updateScreenData: (data: IndividualScreenData) => void;
 };

@@ -14,19 +14,20 @@ export const RegistrationWorkflowContextProvider: React.FC<
     // Context value will not change unless a sub function is changed
     // NOTE: When adding new props to RegistrationWorkflowContextProps be sure
     // to also add them here so the parameters are copied.
-    const { currentScreen, totalScreens, nextScreen, previousScreen, screenData } = props;
+    const { currentScreen, totalScreens, nextScreen, previousScreen, screenData, updateScreenData } = props;
 
     const memoizedProps = useMemo(() => {
         const propsForContext: RegistrationWorkflowContextProps = {
-            currentScreen: currentScreen,
-            totalScreens: totalScreens,
-            nextScreen: nextScreen,
-            previousScreen: previousScreen,
-            screenData: screenData,
+            currentScreen,
+            totalScreens,
+            nextScreen,
+            previousScreen,
+            screenData,
+            updateScreenData,
         };
 
         return propsForContext;
-    }, [currentScreen, totalScreens, nextScreen, previousScreen, screenData]);
+    }, [currentScreen, totalScreens, nextScreen, previousScreen, screenData, updateScreenData]);
 
     return (
         <RegistrationWorkflowContext.Provider value={memoizedProps}>

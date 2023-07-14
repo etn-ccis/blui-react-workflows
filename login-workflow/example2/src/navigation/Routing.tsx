@@ -138,7 +138,11 @@ export const GetCustomRoutes = (isAuthenticated: boolean) => {
         },
         {
             path: `/forgot-password`,
-            element: <ForgotPasswordScreenBaseTest />,
+            element: (
+                <SecurityContextProvider>
+                    <ForgotPasswordScreenBaseTest />
+                </SecurityContextProvider>
+            ),
         },
         // Authenticated Route: accessible only if the user IS authenticated
         {
