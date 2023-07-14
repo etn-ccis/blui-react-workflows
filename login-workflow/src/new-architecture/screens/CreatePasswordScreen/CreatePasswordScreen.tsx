@@ -4,6 +4,8 @@ import { useLanguageLocale } from '../../hooks';
 import { defaultPasswordRequirements } from '../../constants';
 import { CreatePasswordScreenProps } from './types';
 import { useRegistrationContext, useRegistrationWorkflowContext } from '../../contexts';
+import { AuthError } from '../../components/Error';
+import { useErrorContext } from '../../contexts/ErrorContext';
 
 export const CreatePasswordScreen: React.FC<CreatePasswordScreenProps> = (props) => {
     const { t } = useLanguageLocale();
@@ -18,12 +20,14 @@ export const CreatePasswordScreen: React.FC<CreatePasswordScreenProps> = (props)
         currentScreen,
         totalScreens,
     } = regWorkflow;
+    const errorConfig = useErrorContext();
     const passwordRef = useRef(null);
     const confirmRef = useRef(null);
     const [passwordInput, setPasswordInput] = useState(password ?? '');
     const [confirmInput, setConfirmInput] = useState(confirmPassword ?? '');
     const [isLoading, setIsLoading] = useState(false);
     const passwordRequirements = defaultPasswordRequirements(t);
+    const [error, setError] = useState<AuthError>({ cause: { title: '', errorMessage: '' } });
 
     const onNext = useCallback(async (): Promise<void> => {
         try {
@@ -33,8 +37,13 @@ export const CreatePasswordScreen: React.FC<CreatePasswordScreenProps> = (props)
                 screenId: 'CreatePassword',
                 values: { password: passwordInput, confirmPassword: confirmInput },
             });
-        } catch {
-            console.error('Error while creating password...');
+        } catch (_error) {
+            setError({
+                cause: {
+                    title: (_error as AuthError).cause.title,
+                    errorMessage: (_error as AuthError).cause.errorMessage,
+                },
+            });
         } finally {
             setIsLoading(false);
         }
@@ -84,6 +93,7 @@ export const CreatePasswordScreen: React.FC<CreatePasswordScreenProps> = (props)
                 }
             },
         },
+        errorDisplayConfig = errorConfig,
     } = props;
 
     const workflowCardBaseProps = {
@@ -135,6 +145,14 @@ export const CreatePasswordScreen: React.FC<CreatePasswordScreenProps> = (props)
                 PasswordProps={{
                     ...passwordProps,
                     onPasswordChange: updateFields,
+                }}
+                errorDisplayConfig={{
+                    ...errorDisplayConfig,
+                    title: error.cause.title,
+                    errorMessage: error.cause.errorMessage,
+                    onClose: (): void => {
+                        setError({ cause: { title: '', errorMessage: '' } });
+                    },
                 }}
             />
         </>

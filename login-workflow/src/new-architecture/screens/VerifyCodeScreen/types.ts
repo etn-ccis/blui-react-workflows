@@ -1,3 +1,4 @@
+import { ErrorManagerProps } from '../../components/Error';
 import { WorkflowCardProps } from '../../components/WorkflowCard/WorkflowCard.types';
 
 export type VerifyCodeScreenProps = WorkflowCardProps & {
@@ -18,4 +19,6 @@ export type VerifyCodeScreenProps = WorkflowCardProps & {
 
     // used to set the label for verify code input
     verifyCodeInputLabel?: string;
+
+    errorDisplayConfig?: ErrorManagerProps;
 };

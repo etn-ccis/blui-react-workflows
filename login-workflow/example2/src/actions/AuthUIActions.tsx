@@ -1,6 +1,7 @@
 /* eslint-disable @typescript-eslint/no-unused-vars */
 import { AuthUIActions, SecurityContextActions } from '@brightlayer-ui/react-auth-workflow';
 import { LocalStorage } from '../store/local-storage';
+import { useApp } from '../contexts/AppContextProvider';
 
 const sleep = (ms: number): Promise<void> => new Promise((resolve) => setTimeout(resolve, ms));
 
@@ -86,8 +87,15 @@ export const ProjectAuthUIActions: AuthUIActionsWithSecurity = (securityHelper) 
      */
     logIn: async (email: string, password: string, rememberMe: boolean): Promise<void> => {
         await sleep(1000);
+        // eslint-disable-next-line no-console
+        console.log('actions login called...');
 
-        // throw new Error('My Custom Error');
+        throw new Error('My Custom Error', {
+            cause: {
+                title: 'Custom Title',
+                errorMessage: 'My custom error message',
+            },
+        });
 
         if (isRandomFailure()) {
             // reject(new Error('LOGIN.GENERIC_ERROR'));

@@ -3,6 +3,8 @@ import { VerifyCodeScreenBase } from './VerifyCodeScreenBase';
 import { VerifyCodeScreenProps } from './types';
 import { useLanguageLocale } from '../../hooks';
 import { useRegistrationContext, useRegistrationWorkflowContext } from '../../contexts';
+import { AuthError } from '../../components/Error';
+import { useErrorContext } from '../../contexts/ErrorContext';
 
 /**
  * Component that renders a screen that prompts a user to enter the confirmation code
@@ -21,18 +23,25 @@ export const VerifyCodeScreen: React.FC<VerifyCodeScreenProps> = (props) => {
     const { t } = useLanguageLocale();
     const regWorkflow = useRegistrationWorkflowContext();
     const { actions } = useRegistrationContext();
+    const errorConfig = useErrorContext();
     const { nextScreen, previousScreen, screenData, currentScreen, totalScreens } = regWorkflow;
     const { emailAddress } = screenData.CreateAccount;
 
     const [verifyCode, setVerifyCode] = useState(screenData.VerifyCode.code);
     const [isLoading, setIsLoading] = useState(false);
+    const [error, setError] = useState<AuthError>({ cause: { title: '', errorMessage: '' } });
 
     const requestResendCode = useCallback(async (): Promise<void> => {
         try {
             setIsLoading(true);
             await actions().requestRegistrationCode(emailAddress ? emailAddress : '');
-        } catch {
-            console.error('Error fetching resend verification code!');
+        } catch (_error) {
+            setError({
+                cause: {
+                    title: (_error as AuthError).cause.title,
+                    errorMessage: (_error as AuthError).cause.errorMessage,
+                },
+            });
         } finally {
             setIsLoading(false);
         }
@@ -48,6 +57,7 @@ export const VerifyCodeScreen: React.FC<VerifyCodeScreenProps> = (props) => {
         resendLabel = t('bluiCommon:ACTIONS.RESEND'),
         verifyCodeInputLabel = t('bluiRegistration:SELF_REGISTRATION.VERIFY_EMAIL.VERIFICATION'),
         initialValue = verifyCode,
+        errorDisplayConfig = errorConfig,
     } = props;
 
     const handleOnNext = useCallback(
@@ -59,8 +69,13 @@ export const VerifyCodeScreen: React.FC<VerifyCodeScreenProps> = (props) => {
                     screenId: 'VerifyCode',
                     values: { code: code },
                 });
-            } catch {
-                console.error('Error fetching validation code!');
+            } catch (_error) {
+                setError({
+                    cause: {
+                        title: (_error as AuthError).cause.title,
+                        errorMessage: (_error as AuthError).cause.errorMessage,
+                    },
+                });
             } finally {
                 setIsLoading(false);
             }
@@ -125,6 +140,14 @@ export const VerifyCodeScreen: React.FC<VerifyCodeScreenProps> = (props) => {
             initialValue={initialValue}
             onResend={onResend}
             codeValidator={codeValidator}
+            errorDisplayConfig={{
+                ...errorDisplayConfig,
+                title: error.cause.title,
+                errorMessage: error.cause.errorMessage,
+                onClose: (): void => {
+                    setError({ cause: { title: '', errorMessage: '' } });
+                },
+            }}
         />
     );
 };

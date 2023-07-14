@@ -1,4 +1,5 @@
 import { i18n } from 'i18next';
+import { ErrorContextProviderProps } from '../ErrorContext';
 
 // @TODO: this will need migrated to AuthContext types when that is ready
 export type AccountDetails = {
@@ -38,4 +39,5 @@ export type RegistrationContextProviderProps = {
     navigate: (url: string) => void;
     routeConfig: RouteConfig;
     i18n?: i18n; // add languages / override strings in bulk
+    errorConfig?: ErrorContextProviderProps;
 };
