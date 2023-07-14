@@ -14,6 +14,7 @@ import { HELPER_TEXT_HEIGHT } from '../../utils/constants';
 import { LoginScreenClassKey, getLoginScreenUtilityClass } from './utilityClasses';
 import { unstable_composeClasses as composeClasses } from '@mui/base';
 import ErrorManager from '../../components/Error/ErrorManager';
+import { LinkStyles } from '../../styles';
 
 /**
  * Component that renders a login screen that prompts a user to enter a username and password to login.
