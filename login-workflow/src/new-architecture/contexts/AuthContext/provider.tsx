@@ -21,9 +21,7 @@ export const AuthContextProvider: React.FC<React.PropsWithChildren<AuthContextPr
     return (
         <I18nextProvider i18n={i18n}>
             <AuthContext.Provider value={authContextProps}>
-                <ErrorContext.Provider value={errorConfig}>
-                    {children}
-                </ErrorContext.Provider>
+                <ErrorContext.Provider value={errorConfig}>{children}</ErrorContext.Provider>
             </AuthContext.Provider>
         </I18nextProvider>
     );
