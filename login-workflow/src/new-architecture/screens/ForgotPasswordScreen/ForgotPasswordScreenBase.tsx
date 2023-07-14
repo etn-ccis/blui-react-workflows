@@ -69,7 +69,7 @@ export const ForgotPasswordScreenBase: React.FC<React.PropsWithChildren<ForgotPa
                             onChange={(evt): void => {
                                 handleEmailInputChange(evt.target.value);
                             }}
-                            onKeyPress={(e): void => {
+                            onKeyUp={(e): void => {
                                 if (
                                     e.key === 'Enter' &&
                                     emailInput.length > 0 &&

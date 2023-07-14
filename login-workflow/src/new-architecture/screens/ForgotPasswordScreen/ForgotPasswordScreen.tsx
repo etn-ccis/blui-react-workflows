@@ -5,11 +5,10 @@ import { useAuthContext } from '../../contexts';
 import { useLanguageLocale } from '../../hooks';
 import { ForgotPasswordScreenBase } from './ForgotPasswordScreenBase';
 import { ForgotPasswordScreenProps } from './types';
-import { LinkStyles } from '../../../styles';
-import Box from '@mui/material/Box';
 import Typography from '@mui/material/Typography';
 import { SuccessScreenBase } from '../SuccessScreen';
 import CheckCircle from '@mui/icons-material/CheckCircle';
+import { LinkStyles } from '../../styles';
 
 export const ForgotPasswordScreen: React.FC<ForgotPasswordScreenProps> = (props) => {
     const { t } = useLanguageLocale();
@@ -74,9 +73,9 @@ export const ForgotPasswordScreen: React.FC<ForgotPasswordScreenProps> = (props)
                     values={{ phone: contactPhone, responseTime }}
                 >
                     Please enter your email, we will respond in <b>{responseTime}</b>. For urgent issues please call{' '}
-                    <Box component="a" href={`tel:${contactPhone}`} sx={LinkStyles}>
+                    <Typography component="a" href={`tel:${contactPhone}`} sx={LinkStyles}>
                         {contactPhone}
-                    </Box>
+                    </Typography>
                     .
                 </Trans>
             </Typography>
