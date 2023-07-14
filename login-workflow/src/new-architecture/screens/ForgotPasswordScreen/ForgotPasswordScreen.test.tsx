@@ -17,20 +17,18 @@ const authContextProps: AuthContextProviderProps = {
     ...i18nAuthInstance,
     navigate: (): void => {},
     routeConfig: {},
-    actions: () => {
-        return {
-            initiateSecurity: jest.fn(),
-            logIn: jest.fn(),
+    actions: () => ({
+        initiateSecurity: jest.fn(),
+        logIn: jest.fn(),
 
-            forgotPassword: async (email: string): Promise<void> => {
-                await sleep(800);
-                return;
-            },
-            verifyResetCode: jest.fn(),
-            setPassword: jest.fn(),
-            changePassword: jest.fn(),
-        };
-    },
+        forgotPassword: async (email: string): Promise<void> => {
+            await sleep(800);
+            return;
+        },
+        verifyResetCode: jest.fn(),
+        setPassword: jest.fn(),
+        changePassword: jest.fn(),
+    }),
 };
 
 describe('Forgot Password Screen tests', () => {
@@ -199,6 +197,7 @@ describe('Forgot Password Screen tests', () => {
     it('should show success screen, when next button is clicked', async () => {
         const props = { ...authContextProps };
         props.actions().forgotPassword = async (email: string): Promise<void> => {
+            await sleep(800);
             throw new Error('Error');
         };
         const { getByLabelText } = render(
@@ -222,9 +221,10 @@ describe('Forgot Password Screen tests', () => {
         expect(successMessage).toBeInTheDocument();
     });
 
-    it('should not show success screen, when showSuccessScreen is false', async () => {
+    it('should not show success screen, when showSuccessScreen is false', () => {
         const props = { ...authContextProps };
         props.actions().forgotPassword = async (email: string): Promise<void> => {
+            await sleep(800);
             throw new Error('Error');
         };
         const { getByLabelText } = render(
@@ -244,19 +244,20 @@ describe('Forgot Password Screen tests', () => {
         expect(screen.getByText(/Submit/i)).toBeEnabled();
         fireEvent.click(nextButton);
 
-        const successMessage = await screen.queryByText('Email Sent');
+        const successMessage = screen.queryByText('Email Sent');
         expect(successMessage).toBeNull();
     });
 
     it('should show custom success screen, when passed in slots', async () => {
         const props = { ...authContextProps };
         props.actions().forgotPassword = async (email: string): Promise<void> => {
+            await sleep(800);
             throw new Error('Error');
         };
         const { getByLabelText } = render(
             <AuthContextProvider {...props}>
                 <BrowserRouter>
-                    <ForgotPasswordScreen slots={{ SuccessScreen: () => <Box>Success</Box> }} />
+                    <ForgotPasswordScreen slots={{ SuccessScreen: (): JSX.Element => <Box>Success</Box> }} />
                 </BrowserRouter>
             </AuthContextProvider>
         );
