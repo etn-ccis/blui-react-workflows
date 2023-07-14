@@ -18,7 +18,7 @@ export const ForgotPasswordScreen: React.FC<ForgotPasswordScreenProps> = (props)
     const [emailInput, setEmailInput] = useState('');
     const [isLoading, setIsLoading] = useState(false);
     const [showErrorDialog, setShowErrorDialog] = useState(false);
-    const [showSuccessScreen, setShowSuccessScreen] = useState(props.showSuccessScreen);
+    const [showSuccessScreen, setShowSuccessScreen] = useState(false);
 
     const EMAIL_REGEX = /^[A-Z0-9._%+'-]+@[A-Z0-9.-]+\.[A-Z]{2,}$/i;
 
@@ -54,6 +54,7 @@ export const ForgotPasswordScreen: React.FC<ForgotPasswordScreenProps> = (props)
         WorkflowCardHeaderProps,
         WorkflowCardInstructionProps,
         WorkflowCardActionsProps,
+        showSuccessScreen: showSuccessScreenProp = true,
         slotProps = { SuccessScreen: {} },
         slots,
     } = props;
@@ -132,7 +133,7 @@ export const ForgotPasswordScreen: React.FC<ForgotPasswordScreenProps> = (props)
                     emailLabel={emailLabel}
                     initialEmailValue={initialEmailValue}
                     emailValidator={emailValidator}
-                    showSuccessScreen={showSuccessScreen}
+                    showSuccessScreen={showSuccessScreenProp && showSuccessScreen}
                     slots={{
                         SuccessScreen:
                             slots && slots.SuccessScreen ? (
