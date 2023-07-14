@@ -1,6 +1,7 @@
 import { SxProps } from '@mui/material';
 import { WorkflowCardProps } from '../../components/WorkflowCard/WorkflowCard.types';
 import { MinifiedTextFieldProps } from '../../types';
+import { ErrorManagerProps } from '../../components/Error';
 
 export type AccountDetailsScreenProps = WorkflowCardProps & {
     // used to test the input for valid formatting
@@ -15,5 +16,6 @@ export type AccountDetailsScreenProps = WorkflowCardProps & {
     lastNameValidator?: (lastName: string) => boolean | string;
     lastNameTextFieldProps?: MinifiedTextFieldProps;
 
+    errorDisplayConfig?: ErrorManagerProps;
     sx?: SxProps;
 };

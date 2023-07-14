@@ -2,15 +2,19 @@ import React, { useCallback, useState } from 'react';
 import { AccountDetailsScreenBase, AccountDetailsScreenProps } from '../AccountDetailsScreen';
 import { useLanguageLocale } from '../../hooks';
 import { useRegistrationContext, useRegistrationWorkflowContext } from '../../contexts';
+import { AuthError } from '../../components/Error';
+import { useErrorContext } from '../../contexts/ErrorContext';
 
 export const AccountDetailsScreen: React.FC<AccountDetailsScreenProps> = (props) => {
     const { t } = useLanguageLocale();
     const { actions } = useRegistrationContext();
     const regWorkflow = useRegistrationWorkflowContext();
+    const errorConfig = useErrorContext();
     const { nextScreen, previousScreen, screenData } = regWorkflow;
     const [firstName, setFirstName] = useState(screenData.AccountDetails.firstName ?? '');
     const [lastName, setLastName] = useState(screenData.AccountDetails.lastName ?? '');
     const [isLoading, setIsLoading] = useState(false);
+    const [error, setError] = useState<AuthError>({ cause: { title: '', errorMessage: '' } });
 
     const onNext = useCallback(async (): Promise<void> => {
         setIsLoading(true);
@@ -21,8 +25,13 @@ export const AccountDetailsScreen: React.FC<AccountDetailsScreenProps> = (props)
                 screenId: 'AccountDetails',
                 values: { firstName, lastName },
             });
-        } catch {
-            console.error('Error while updating account details...');
+        } catch (_error) {
+            setError({
+                cause: {
+                    title: (_error as AuthError).cause.title,
+                    errorMessage: (_error as AuthError).cause.errorMessage,
+                },
+            });
         }
         setIsLoading(false);
     }, [firstName, lastName, actions, nextScreen, setIsLoading]);
@@ -57,6 +66,7 @@ export const AccountDetailsScreen: React.FC<AccountDetailsScreenProps> = (props)
             }
             return t('bluiCommon:FORMS.LAST_NAME_LENGTH_ERROR');
         },
+        errorDisplayConfig = errorConfig,
     } = props;
 
     const workflowCardHeaderProps = {
@@ -105,6 +115,14 @@ export const AccountDetailsScreen: React.FC<AccountDetailsScreenProps> = (props)
             lastNameLabel={lastNameLabel}
             lastNameValidator={lastNameValidator}
             WorkflowCardActionsProps={workflowCardActionsProps}
+            errorDisplayConfig={{
+                ...errorDisplayConfig,
+                title: error.cause.title,
+                errorMessage: error.cause.errorMessage,
+                onClose: (): void => {
+                    setError({ cause: { title: '', errorMessage: '' } });
+                },
+            }}
         />
     );
 };
