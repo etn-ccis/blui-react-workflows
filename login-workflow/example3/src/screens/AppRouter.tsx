@@ -15,17 +15,17 @@ import {
     VerifyCodeScreen,
     RegistrationSuccessScreen,
 } from '@brightlayer-ui/react-auth-workflow';
-import { useApp } from '../../contexts/AppContextProvider';
+import { useApp } from '../contexts/AppContextProvider';
 import { useNavigate } from 'react-router';
-import { ProjectAuthUIActions } from '../../actions/AuthUIActions';
+import { ProjectAuthUIActions } from '../actions/AuthUIActions';
 import { Navigate, Outlet, Route, Routes } from 'react-router-dom';
 import { Login } from './Login';
-import { ProjectRegistrationUIActions } from '../../actions/RegistrationUIActions';
-import { routes } from '../../navigation/Routing';
+import { ProjectRegistrationUIActions } from '../actions/RegistrationUIActions';
+import { routes } from '../navigation/Routing';
 import { ExampleHome } from './ExampleHome';
-import { LocalStorage } from '../../store/local-storage';
+import { LocalStorage } from '../store/local-storage';
 
-export const ExampleProvider: React.FC = () => {
+export const AppRouter: React.FC = () => {
     const { language } = useApp();
     const authData = LocalStorage.readAuthData();
     // eslint-disable-next-line

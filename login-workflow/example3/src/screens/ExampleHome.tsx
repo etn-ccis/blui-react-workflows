@@ -1,6 +1,6 @@
 import React, { useState } from 'react';
-import { LocalStorage } from '../../store/local-storage';
-import { useApp } from '../../contexts/AppContextProvider';
+import { LocalStorage } from '../store/local-storage';
+import { useApp } from '../contexts/AppContextProvider';
 import {
     DrawerLayout,
     Drawer,
@@ -18,12 +18,10 @@ import Dashboard from '@mui/icons-material/Dashboard';
 import Notifications from '@mui/icons-material/Notifications';
 import Gavel from '@mui/icons-material/Gavel';
 import MenuBook from '@mui/icons-material/MenuBook';
-import MenuItem from '@mui/material/MenuItem';
 import Avatar from '@mui/material/Avatar';
 import AppBar from '@mui/material/AppBar';
 import Toolbar from '@mui/material/Toolbar';
 import Typography from '@mui/material/Typography';
-import Menu from '@mui/material/Menu';
 import { useTheme } from '@mui/material/styles';
 import { useTranslation } from 'react-i18next';
 import { useNavigate } from 'react-router-dom';
@@ -76,7 +74,7 @@ export const ExampleHome: React.FC<React.PropsWithChildren> = () => {
                         <DrawerNavGroup>
                             <DrawerNavItem title={`${t('Blui:DASHBOARD')}`} icon={<Dashboard />} itemID="1" />
                             <DrawerNavItem title={`${t('Blui:LOCATIONS')}`} icon={<Notifications />} itemID="2" />
-                            <DrawerNavItem title={`${t('Blui:LEGALMENU')}`} icon={<Gavel />} itemID="3" />
+                            <DrawerNavItem title={`${t('Blui:LEGAL_MENU')}`} icon={<Gavel />} itemID="3" />
                         </DrawerNavGroup>
                     </DrawerBody>
                 </Drawer>
@@ -89,20 +87,26 @@ export const ExampleHome: React.FC<React.PropsWithChildren> = () => {
                         <Spacer />
                         <UserMenu
                             onClick={(): void => setOpen(!open)}
-                            avatar={<Avatar>MH</Avatar>}
-                            menu={
-                                <Menu open={open} onClose={(): void => setOpen(false)}>
-                                    <MenuItem onClick={(): void => setOpen(false)}>{`${t('Blui:MYACCOUNT')}`}</MenuItem>
-                                    <MenuItem
-                                        onClick={(): void => {
-                                            setOpen(false);
-                                            logOut();
-                                        }}
-                                    >
-                                        {`${t('Blui:LOGOUT')}`}
-                                    </MenuItem>
-                                </Menu>
-                            }
+                            avatar={<Avatar>AV</Avatar>}
+                            menuGroups={[
+                                {
+                                    items: [
+                                        {
+                                            title: `${t('Blui:MY_ACCOUNT')}`,
+                                            onClick: (): void => {
+                                                setOpen(false);
+                                            },
+                                        },
+                                        {
+                                            title: `${t('Blui:LOG_OUT')}`,
+                                            onClick: (): void => {
+                                                setOpen(false);
+                                                logOut();
+                                            },
+                                        },
+                                    ],
+                                },
+                            ]}
                         />
                     </Toolbar>
                 </AppBar>
@@ -112,7 +116,7 @@ export const ExampleHome: React.FC<React.PropsWithChildren> = () => {
                     sx={emptyStateContainerStyles}
                     icon={<Event fontSize={'inherit'} />}
                     title={`${t('Blui:HOMEPAGE')}`}
-                    description={`${t('Blui:AUTHORISEDMESSAGE')}`}
+                    description={`${t('Blui:AUTHORISED_MESSAGE')}`}
                 />
             </Box>
         </DrawerLayout>

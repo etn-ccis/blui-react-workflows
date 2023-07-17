@@ -1,12 +1,13 @@
 import React, { useState } from 'react';
 import { AppContext } from './contexts/AppContextProvider';
 import { BrowserRouter } from 'react-router-dom';
-import { ExampleProvider } from './screens';
+import { AppRouter } from './screens';
 import { SecurityContextProvider } from '@brightlayer-ui/react-auth-workflow';
+import './translations/i18n';
 
 export const App = (): JSX.Element => {
     const [isAuthenticated, setIsAuthenticated] = useState(false);
-    const [language, setLanguage] = useState('en');
+    const [language, setLanguage] = useState('es');
 
     return (
         <AppContext.Provider
@@ -19,7 +20,7 @@ export const App = (): JSX.Element => {
         >
             <BrowserRouter basename={'/'}>
                 <SecurityContextProvider>
-                    <ExampleProvider />
+                    <AppRouter />
                 </SecurityContextProvider>
             </BrowserRouter>
         </AppContext.Provider>
