@@ -8,15 +8,22 @@ import {
     WorkflowCardInstructions,
 } from '../../components';
 import { ForgotPasswordScreenProps } from './types';
+import { SuccessScreenProps } from '../SuccessScreen';
 
-export const ForgotPasswordScreenBase: React.FC<React.PropsWithChildren<ForgotPasswordScreenProps>> = (props) => {
+type ForgotPasswordScreenBaseProps = Omit<ForgotPasswordScreenProps, 'slots'> & {
+    slots: { SuccessScreen: (props: SuccessScreenProps) => JSX.Element };
+};
+
+export const ForgotPasswordScreenBase: React.FC<React.PropsWithChildren<ForgotPasswordScreenBaseProps>> = (props) => {
+    const [emailInput, setEmailInput] = useState(props.initialEmailValue ?? '');
+
     const {
         emailLabel,
         initialEmailValue = '',
         // eslint-disable-next-line @typescript-eslint/no-unused-vars
         emailValidator = (email: string): boolean | string => true,
+        slots,
         slotProps = {},
-        slots: { SuccessScreen } = {},
         showSuccessScreen,
     } = props;
 
@@ -25,7 +32,6 @@ export const ForgotPasswordScreenBase: React.FC<React.PropsWithChildren<ForgotPa
     const instructionsProps = props.WorkflowCardInstructionProps || {};
     const actionsProps = props.WorkflowCardActionsProps || {};
 
-    const [emailInput, setEmailInput] = useState(initialEmailValue);
     const [isEmailValid, setIsEmailValid] = useState(emailValidator(initialEmailValue) ?? false);
     const [emailError, setEmailError] = useState('');
     const [shouldValidateEmail, setShouldValidateEmail] = useState(false);
@@ -51,7 +57,7 @@ export const ForgotPasswordScreenBase: React.FC<React.PropsWithChildren<ForgotPa
     return (
         <>
             {showSuccessScreen ? (
-                <SuccessScreen {...slotProps.SuccessScreen} />
+                <slots.SuccessScreen {...slotProps.SuccessScreen} />
             ) : (
                 <WorkflowCard {...cardBaseProps}>
                     <WorkflowCardHeader {...headerProps} />
@@ -65,7 +71,7 @@ export const ForgotPasswordScreenBase: React.FC<React.PropsWithChildren<ForgotPa
                             onChange={(evt): void => {
                                 handleEmailInputChange(evt.target.value);
                             }}
-                            onKeyPress={(e): void => {
+                            onKeyUp={(e): void => {
                                 if (
                                     e.key === 'Enter' &&
                                     emailInput.length > 0 &&

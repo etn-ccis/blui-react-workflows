@@ -21,6 +21,7 @@ const resources: CommonTranslationsFile = {
             RESEND: 'Envie novamente',
             UPDATE: 'Atualizar',
             REMEMBER: 'Lembrar-me',
+            SUBMIT: 'Enviar',
         },
         LABELS: {
             EMAIL: 'E-mail',

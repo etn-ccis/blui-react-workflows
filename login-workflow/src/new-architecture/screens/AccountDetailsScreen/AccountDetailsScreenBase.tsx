@@ -8,6 +8,7 @@ import {
     WorkflowCardInstructions,
 } from '../../components/WorkflowCard';
 import { AccountDetailsScreenProps } from './types';
+import ErrorManager from '../../components/Error/ErrorManager';
 
 export const AccountDetailsScreenBase: React.FC<AccountDetailsScreenProps> = (props) => {
     const {
@@ -19,6 +20,7 @@ export const AccountDetailsScreenBase: React.FC<AccountDetailsScreenProps> = (pr
         initialLastName,
         lastNameValidator,
         lastNameTextFieldProps,
+        errorDisplayConfig,
     } = props;
 
     const cardBaseProps = props.WorkflowCardBaseProps || {};
@@ -115,42 +117,44 @@ export const AccountDetailsScreenBase: React.FC<AccountDetailsScreenProps> = (pr
             <WorkflowCardHeader {...headerProps} />
             <WorkflowCardBody>
                 <WorkflowCardInstructions {...instructionsProps} divider />
-                <TextField
-                    id="first"
-                    fullWidth
-                    variant="filled"
-                    {...firstNameTextFieldProps}
-                    inputRef={firstNameRef}
-                    label={firstNameLabel}
-                    value={firstNameInput}
-                    onChange={(e): void => onFirstNameChange(e.target.value)}
-                    onKeyPress={(e): void => {
-                        if (e.key === 'Enter' && lastNameRef.current) lastNameRef.current.focus();
-                    }}
-                    error={showFirstNameError}
-                    helperText={firstNameError}
-                    sx={{
-                        mb: { md: 0, sm: 1, xs: 4 },
-                    }}
-                />
-                <TextField
-                    id="last"
-                    fullWidth
-                    variant="filled"
-                    sx={{
-                        mt: { md: 4, sm: 3 },
-                    }}
-                    {...lastNameTextFieldProps}
-                    inputRef={lastNameRef}
-                    label={lastNameLabel}
-                    value={lastNameInput}
-                    onChange={(e): void => onLastNameChange(e.target.value)}
-                    onKeyPress={(e): void => {
-                        if (e.key === 'Enter' && isFormValid && actionsProps.canGoNext) actionsProps.onNext();
-                    }}
-                    error={showLastNameError}
-                    helperText={lastNameError}
-                />
+                <ErrorManager {...errorDisplayConfig}>
+                    <TextField
+                        id="first"
+                        fullWidth
+                        variant="filled"
+                        {...firstNameTextFieldProps}
+                        inputRef={firstNameRef}
+                        label={firstNameLabel}
+                        value={firstNameInput}
+                        onChange={(e): void => onFirstNameChange(e.target.value)}
+                        onKeyUp={(e): void => {
+                            if (e.key === 'Enter' && lastNameRef.current) lastNameRef.current.focus();
+                        }}
+                        error={showFirstNameError}
+                        helperText={firstNameError}
+                        sx={{
+                            mb: { md: 0, sm: 1, xs: 4 },
+                        }}
+                    />
+                    <TextField
+                        id="last"
+                        fullWidth
+                        variant="filled"
+                        sx={{
+                            mt: { md: 4, sm: 3 },
+                        }}
+                        {...lastNameTextFieldProps}
+                        inputRef={lastNameRef}
+                        label={lastNameLabel}
+                        value={lastNameInput}
+                        onChange={(e): void => onLastNameChange(e.target.value)}
+                        onKeyUp={(e): void => {
+                            if (e.key === 'Enter' && isFormValid && actionsProps.canGoNext) actionsProps.onNext();
+                        }}
+                        error={showLastNameError}
+                        helperText={lastNameError}
+                    />
+                </ErrorManager>
             </WorkflowCardBody>
             <WorkflowCardActions
                 {...actionsProps}

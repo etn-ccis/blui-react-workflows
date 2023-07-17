@@ -8,6 +8,7 @@ import {
     WorkflowCardInstructions,
 } from '../../components';
 import { SetPassword } from '../../components/SetPassword';
+import ErrorManager from '../../components/Error/ErrorManager';
 
 export const CreatePasswordScreenBase: React.FC<React.PropsWithChildren<CreatePasswordScreenProps>> = (props) => {
     const cardBaseProps = props.WorkflowCardBaseProps || {};
@@ -15,13 +16,16 @@ export const CreatePasswordScreenBase: React.FC<React.PropsWithChildren<CreatePa
     const instructionsProps = props.WorkflowCardInstructionProps || {};
     const actionsProps = props.WorkflowCardActionsProps || {};
     const passwordProps = props.PasswordProps || { onPasswordChange: () => ({}) };
+    const { errorDisplayConfig } = props;
 
     return (
         <WorkflowCard {...cardBaseProps}>
             <WorkflowCardHeader {...headerProps} />
             <WorkflowCardBody>
                 <WorkflowCardInstructions {...instructionsProps} divider />
-                <SetPassword {...passwordProps} />
+                <ErrorManager {...errorDisplayConfig}>
+                    <SetPassword {...passwordProps} />
+                </ErrorManager>
             </WorkflowCardBody>
             <WorkflowCardActions {...actionsProps} divider />
         </WorkflowCard>

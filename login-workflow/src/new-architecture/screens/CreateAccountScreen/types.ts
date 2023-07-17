@@ -1,5 +1,6 @@
 import { TextFieldProps } from '@mui/material';
 import { WorkflowCardProps } from '../../components/WorkflowCard/WorkflowCard.types';
+import { ErrorManagerProps } from '../../components/Error';
 
 export type CreateAccountScreenProps = WorkflowCardProps & {
     // label for the textfield
@@ -13,4 +14,6 @@ export type CreateAccountScreenProps = WorkflowCardProps & {
 
     // props to pass to the email text field
     emailTextFieldProps?: TextFieldProps;
+
+    errorDisplayConfig?: ErrorManagerProps;
 };

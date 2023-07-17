@@ -70,6 +70,7 @@ export const RegistrationWorkflow: React.FC<React.PropsWithChildren<Registration
                 setCurrentScreen((i) => i - 1);
             }}
             screenData={screenData}
+            updateScreenData={handleScreenNavigation}
         >
             {screens[currentScreen]}
         </RegistrationWorkflowContextProvider>

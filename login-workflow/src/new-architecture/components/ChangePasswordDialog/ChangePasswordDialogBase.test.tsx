@@ -5,7 +5,7 @@ import { ChangePasswordDialogBase } from './ChangePasswordDialogBase';
 
 afterEach(cleanup);
 
-describe('AccountDetailsScreenBase tests', () => {
+describe('ChangePasswordDialogBase tests', () => {
     it('renders without crashing', () => {
         render(
             <ChangePasswordDialogBase

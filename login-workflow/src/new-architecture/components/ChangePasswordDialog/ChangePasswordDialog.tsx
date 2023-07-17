@@ -47,8 +47,9 @@ export const ChangePasswordDialog: React.FC<ChangePasswordDialogProps> = (props)
                 await actions().changePassword(currentInput, passwordInput);
             } catch {
                 setShowErrorDialog(true);
+            } finally {
+                setIsLoading(false);
             }
-            setIsLoading(false);
         }
     }, [checkPasswords, currentInput, passwordInput, actions, setIsLoading, setShowErrorDialog]);
 

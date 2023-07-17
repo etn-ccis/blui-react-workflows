@@ -19,6 +19,11 @@ export const Login = (): JSX.Element => {
                     language={language}
                     navigate={navigate}
                     routeConfig={{}}
+                    errorConfig={{
+                        mode: 'message-box',
+                        dismissible: true,
+                        position: 'top',
+                    }}
                 >
                     <>
                         <Button
@@ -35,7 +40,7 @@ export const Login = (): JSX.Element => {
                             {`DEBUG`}
                         </Button>
                         <LoginScreen
-                            onLogin={(username, password): void => {
+                            onLogin={(username: any, password: any): void => {
                                 // eslint-disable-next-line no-console
                                 console.log('onLogin', username, password);
                                 setIsAuthenticated(true);

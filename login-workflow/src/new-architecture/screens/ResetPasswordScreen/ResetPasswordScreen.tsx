@@ -44,10 +44,11 @@ export const ResetPasswordScreen: React.FC<ResetPasswordScreenProps> = (props) =
         try {
             setIsLoading(true);
             await actions().setPassword(code, passwordInput, email);
-            setIsLoading(false);
             setShowSuccessScreen(true);
         } catch (e) {
             setShowErrorDialog(true);
+        } finally {
+            setIsLoading(false);
         }
     }, [setIsLoading, setShowSuccessScreen, actions, code, passwordInput, email]);
 
@@ -60,35 +61,43 @@ export const ResetPasswordScreen: React.FC<ResetPasswordScreenProps> = (props) =
             passwordRef,
             confirmRef,
         },
-        WorkflowCardHeaderProps: workflowCardHeaderProps = {
-            title: t('bluiCommon:FORMS.RESET_PASSWORD'),
-        },
-        WorkflowCardInstructionProps: workflowCardInstructionProps = {
-            instructions: t('bluiAuth:CHANGE_PASSWORD.PASSWORD_INFO'),
-        },
-        WorkflowCardActionsProps: workflowCardActionsProps = {
-            onNext: (): void => {
-                void handleOnNext();
-            },
-            onPrevious: (): void => {
-                try {
-                    setIsLoading(true);
-                    navigate(routeConfig.LOGIN);
-                    setIsLoading(false);
-                } catch (e) {
-                    setShowErrorDialog(true);
-                }
-            },
-            showNext: true,
-            showPrevious: true,
-            nextLabel: t('bluiCommon:ACTIONS.NEXT'),
-            previousLabel: t('bluiCommon:ACTIONS.BACK'),
-            canGoNext: passwordInput !== '' && confirmInput !== '' && passwordInput === confirmInput,
-        },
-        WorkflowCardBaseProps: workflowCardBaseProps = {
-            loading: isLoading,
-        },
+        WorkflowCardBaseProps,
+        WorkflowCardHeaderProps,
+        WorkflowCardInstructionProps,
+        WorkflowCardActionsProps,
     } = props;
+
+    const workflowCardBaseProps = {
+        loading: isLoading,
+        ...WorkflowCardBaseProps,
+    };
+
+    const workflowCardHeaderProps = {
+        title: t('bluiCommon:FORMS.RESET_PASSWORD'),
+        ...WorkflowCardHeaderProps,
+    };
+
+    const workflowCardInstructionProps = {
+        instructions: t('bluiAuth:CHANGE_PASSWORD.PASSWORD_INFO'),
+        ...WorkflowCardInstructionProps,
+    };
+
+    const workflowCardActionsProps = {
+        showNext: true,
+        showPrevious: true,
+        nextLabel: t('bluiCommon:ACTIONS.NEXT'),
+        previousLabel: t('bluiCommon:ACTIONS.BACK'),
+        canGoNext: passwordInput !== '' && confirmInput !== '' && passwordInput === confirmInput,
+        ...WorkflowCardActionsProps,
+        onNext: (): void => {
+            void handleOnNext();
+            WorkflowCardActionsProps?.onNext?.();
+        },
+        onPrevious: (): void => {
+            navigate(routeConfig.LOGIN);
+            WorkflowCardActionsProps?.onPrevious?.();
+        },
+    };
 
     const areValidMatchingPasswords = useCallback((): boolean => {
         for (let i = 0; i < passwordRequirements.length; i++) {

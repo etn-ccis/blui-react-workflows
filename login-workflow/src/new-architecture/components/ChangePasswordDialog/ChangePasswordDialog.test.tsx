@@ -54,6 +54,7 @@ describe('Change Password Dialog tests', () => {
                 newPasswordLabel: 'New Password',
                 confirmPasswordLabel: 'Confirm New Password',
                 onPasswordChange: updateFields,
+                passwordRequirements: [],
             },
         });
 
