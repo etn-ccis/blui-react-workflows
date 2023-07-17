@@ -16,8 +16,9 @@ import Box from '@mui/material/Box';
 import Event from '@mui/icons-material/Event';
 import Dashboard from '@mui/icons-material/Dashboard';
 import Notifications from '@mui/icons-material/Notifications';
-import Gavel from '@mui/icons-material/Gavel';
-import MenuBook from '@mui/icons-material/MenuBook';
+import Menu from '@mui/icons-material/Menu';
+import AccountBox from '@mui/icons-material/AccountBox';
+import ExitToApp from '@mui/icons-material/ExitToApp';
 import Avatar from '@mui/material/Avatar';
 import AppBar from '@mui/material/AppBar';
 import Toolbar from '@mui/material/Toolbar';
@@ -25,9 +26,12 @@ import Typography from '@mui/material/Typography';
 import { useTheme } from '@mui/material/styles';
 import { useTranslation } from 'react-i18next';
 import { useNavigate } from 'react-router-dom';
+import { FormControl, MenuItem, Select, SelectChangeEvent } from '@mui/material';
+import * as Colors from '@brightlayer-ui/colors';
 
 export const ExampleHome: React.FC<React.PropsWithChildren> = () => {
     const app = useApp();
+    const [selectedLanguage, setSelectedLanguage] = useState(app.language);
     const { t } = useTranslation();
     const [open, setOpen] = useState(false);
     const navigate = useNavigate();
@@ -55,6 +59,13 @@ export const ExampleHome: React.FC<React.PropsWithChildren> = () => {
         alignItems: 'center',
         justifyContent: 'center',
     };
+
+    const changeAppLanguage = (event: SelectChangeEvent): void => {
+        const appLanguage = event.target.value;
+        setSelectedLanguage(appLanguage);
+        app.setLanguage(appLanguage);
+    };
+
     const logOut = (): void => {
         LocalStorage.clearAuthCredentials();
         app.setIsAuthenticated(false);
@@ -65,16 +76,11 @@ export const ExampleHome: React.FC<React.PropsWithChildren> = () => {
         <DrawerLayout
             drawer={
                 <Drawer open={true} width={332} variant={'persistent'}>
-                    <DrawerHeader
-                        title={`${t('Blui:TITLE')}`}
-                        icon={<MenuBook />}
-                        onClick={(): void => setOpen(!open)}
-                    />
+                    <DrawerHeader title={`${t('Blui:TITLE')}`} icon={<Menu />} onClick={(): void => setOpen(!open)} />
                     <DrawerBody>
                         <DrawerNavGroup>
                             <DrawerNavItem title={`${t('Blui:DASHBOARD')}`} icon={<Dashboard />} itemID="1" />
                             <DrawerNavItem title={`${t('Blui:LOCATIONS')}`} icon={<Notifications />} itemID="2" />
-                            <DrawerNavItem title={`${t('Blui:LEGAL_MENU')}`} icon={<Gavel />} itemID="3" />
                         </DrawerNavGroup>
                     </DrawerBody>
                 </Drawer>
@@ -85,6 +91,34 @@ export const ExampleHome: React.FC<React.PropsWithChildren> = () => {
                     <Toolbar sx={{ px: 2, minHeight: 'unset', height: '4rem' }}>
                         <Typography variant="h6">{`${t('Blui:HOMEPAGE')}`}</Typography>
                         <Spacer />
+                        <Box sx={{ py: 2 }}>
+                            <FormControl fullWidth>
+                                <Select
+                                    sx={{
+                                        padding: '4px',
+                                        minWidth: '160px',
+                                        margin: '0 16px',
+                                        backgroundColor: 'transparent',
+                                        color: Colors.white[50],
+                                        '& .MuiSelect-icon': {
+                                            color: Colors.white[50],
+                                        },
+                                    }}
+                                    labelId="language-select-label"
+                                    id="language-select"
+                                    value={selectedLanguage}
+                                    label="Language"
+                                    variant="standard"
+                                    onChange={changeAppLanguage}
+                                >
+                                    <MenuItem value={'en'}>English</MenuItem>
+                                    <MenuItem value={'es'}>Spanish</MenuItem>
+                                    <MenuItem value={'fr'}>French</MenuItem>
+                                    <MenuItem value={'zh'}>Chinese</MenuItem>
+                                    <MenuItem value={'pt'}>Portugese</MenuItem>
+                                </Select>
+                            </FormControl>
+                        </Box>
                         <UserMenu
                             onClick={(): void => setOpen(!open)}
                             avatar={<Avatar>AV</Avatar>}
@@ -92,12 +126,14 @@ export const ExampleHome: React.FC<React.PropsWithChildren> = () => {
                                 {
                                     items: [
                                         {
+                                            icon: <AccountBox />,
                                             title: `${t('Blui:MY_ACCOUNT')}`,
                                             onClick: (): void => {
                                                 setOpen(false);
                                             },
                                         },
                                         {
+                                            icon: <ExitToApp />,
                                             title: `${t('Blui:LOG_OUT')}`,
                                             onClick: (): void => {
                                                 setOpen(false);

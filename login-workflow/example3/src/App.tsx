@@ -7,7 +7,7 @@ import './translations/i18n';
 
 export const App = (): JSX.Element => {
     const [isAuthenticated, setIsAuthenticated] = useState(false);
-    const [language, setLanguage] = useState('es');
+    const [language, setLanguage] = useState('en');
 
     return (
         <AppContext.Provider

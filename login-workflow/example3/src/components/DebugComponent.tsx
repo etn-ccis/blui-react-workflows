@@ -28,10 +28,15 @@ export const DebugComponent = (): JSX.Element => {
                     flexDirection: 'row',
                     justifyContent: 'space-between',
                     alignItems: 'center',
+                    position: 'relative',
                 }}
             >
                 <Box>{debugMode && <Typography variant={'h6'}>DEBUG MODE</Typography>}</Box>
                 <Button
+                    sx={{
+                        position: 'absolute',
+                        right: 0,
+                    }}
                     variant={'contained'}
                     color={'primary'}
                     onClick={(): void => {

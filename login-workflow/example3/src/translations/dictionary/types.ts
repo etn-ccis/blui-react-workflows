@@ -2,7 +2,6 @@ export type AppTranslations = {
     DRAWER_MENU: {
         DASHBOARD: string;
         LOCATIONS: string;
-        LEGAL_MENU: string;
     };
     TOOLBAR_MENU: {
         HOMEPAGE: string;

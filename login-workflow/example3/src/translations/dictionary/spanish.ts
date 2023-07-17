@@ -5,7 +5,6 @@ const resources: AppTranslationsFile = {
         DRAWER_MENU: {
             DASHBOARD: 'Dashboard',
             LOCATIONS: 'Locations',
-            LEGAL_MENU: 'Legal Menu',
         },
         TOOLBAR_MENU: {
             HOMEPAGE: 'Home Page',
