@@ -1,8 +1,8 @@
-import { Box, Button, FormControl, InputLabel, MenuItem, Select, SelectChangeEvent, Typography } from '@mui/material';
+import { Box, Button, Typography } from '@mui/material';
 import { Link } from 'react-router-dom';
 import React, { useState } from 'react';
-import { useApp } from '../contexts/AppContextProvider';
 import { routes } from '../navigation/Routing';
+import { LanguageSelector } from './LanguageSelector';
 
 const LinksWrapperStyles = {
     textAlign: 'center',
@@ -10,15 +10,7 @@ const LinksWrapperStyles = {
 };
 
 export const DebugComponent = (): JSX.Element => {
-    const { language, setLanguage } = useApp();
     const [debugMode, setDebugMode] = useState(false);
-    const [selectedLanguage, setSelectedLanguage] = useState(language);
-
-    const changeAppLanguage = (event: SelectChangeEvent): void => {
-        const appLanguage = event.target.value;
-        setSelectedLanguage(appLanguage);
-        setLanguage(appLanguage);
-    };
 
     return (
         <Box>
@@ -62,22 +54,7 @@ export const DebugComponent = (): JSX.Element => {
                         </Typography>
                     </Box>
                     <Box sx={{ py: 2 }}>
-                        <FormControl fullWidth>
-                            <InputLabel id="demo-simple-select-label">Language</InputLabel>
-                            <Select
-                                labelId="login-select-label"
-                                id="login-select"
-                                value={selectedLanguage}
-                                label="Language"
-                                onChange={changeAppLanguage}
-                            >
-                                <MenuItem value={'en'}>English</MenuItem>
-                                <MenuItem value={'es'}>Spanish</MenuItem>
-                                <MenuItem value={'fr'}>French</MenuItem>
-                                <MenuItem value={'zh'}>Chinese</MenuItem>
-                                <MenuItem value={'pt'}>Portugese</MenuItem>
-                            </Select>
-                        </FormControl>
+                        <LanguageSelector label="Language" variant="outlined" />
                     </Box>
                 </>
             )}
