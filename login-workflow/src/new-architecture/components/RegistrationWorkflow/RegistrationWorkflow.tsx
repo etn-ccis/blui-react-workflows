@@ -65,27 +65,28 @@ export const RegistrationWorkflow: React.FC<React.PropsWithChildren<Registration
 
     const onNext = (): Promise<void> => {
         const { firstName, lastName } = screenData.AccountDetails;
-        return actions()
-            .completeRegistration(
-                { firstName, lastName },
-                screenData.VerifyCode.code,
-                screenData.CreateAccount.emailAddress
-            )
-            .then(({ email, organizationName }) => {
-                updateScreenData({
-                    screenId: 'RegistrationSuccessScreen',
-                    values: { email, organizationName },
+        if (actions && actions().completeRegistration)
+            return actions()
+                .completeRegistration(
+                    { firstName, lastName },
+                    screenData.VerifyCode.code,
+                    screenData.CreateAccount.emailAddress
+                )
+                .then(({ email, organizationName }) => {
+                    updateScreenData({
+                        screenId: 'RegistrationSuccessScreen',
+                        values: { email, organizationName },
+                    });
+                    setShowSuccessScreen(true);
+                })
+                .catch((_error) => {
+                    setError({
+                        cause: {
+                            title: (_error as AuthError).cause.title,
+                            errorMessage: (_error as AuthError).cause.errorMessage,
+                        },
+                    });
                 });
-                setShowSuccessScreen(true);
-            })
-            .catch((_error) => {
-                setError({
-                    cause: {
-                        title: (_error as AuthError).cause.title,
-                        errorMessage: (_error as AuthError).cause.errorMessage,
-                    },
-                });
-            });
     };
 
     return (
