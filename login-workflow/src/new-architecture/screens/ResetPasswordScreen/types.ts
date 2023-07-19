@@ -1,3 +1,4 @@
+import { ErrorManagerProps } from '../../components/Error';
 import { SetPasswordProps } from '../../components/SetPassword/types';
 import { WorkflowCardProps } from '../../components/WorkflowCard/WorkflowCard.types';
 import { SuccessScreenProps } from '../SuccessScreen';
@@ -15,4 +16,5 @@ export type ResetPasswordScreenProps = Omit<WorkflowCardProps, 'currentStep | to
     showSuccessScreen?: boolean;
     slots?: ResetPasswordScreenSlots;
     slotProps?: ResetPasswordScreenSlotsProps;
+    errorDisplayConfig?: ErrorManagerProps;
 };

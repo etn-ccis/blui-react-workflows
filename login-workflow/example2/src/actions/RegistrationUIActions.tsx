@@ -33,6 +33,13 @@ export const ProjectRegistrationUIActions: () => RegistrationUIActions = () => (
     loadEula: async (language: string): Promise<string> => {
         await sleep(1000);
 
+        // throw new Error('My Custom Error', {
+        //     cause: {
+        //         title: 'Custom Title',
+        //         errorMessage: 'My custom error message',
+        //     },
+        // });
+
         if (isRandomFailure()) {
             throw new Error('Sorry, there was a problem sending your request.');
         }
@@ -53,6 +60,14 @@ export const ProjectRegistrationUIActions: () => RegistrationUIActions = () => (
      */
     acceptEula: async (): Promise<boolean> => {
         await sleep(800);
+
+        throw new Error('My Custom Error', {
+            cause: {
+                title: 'Custom Title',
+                errorMessage: 'My custom error message',
+            },
+        });
+
         if (isRandomFailure()) {
             throw new Error('Sorry, there was a problem sending your request.');
         }

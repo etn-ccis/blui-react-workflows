@@ -87,8 +87,6 @@ export const ProjectAuthUIActions: AuthUIActionsWithSecurity = (securityHelper) 
      */
     logIn: async (email: string, password: string, rememberMe: boolean): Promise<void> => {
         await sleep(1000);
-        // eslint-disable-next-line no-console
-        console.log('actions login called...');
 
         throw new Error('My Custom Error', {
             cause: {
@@ -118,6 +116,13 @@ export const ProjectAuthUIActions: AuthUIActionsWithSecurity = (securityHelper) 
      */
     forgotPassword: async (email: string): Promise<void> => {
         await sleep(500);
+
+        throw new Error('My Custom Error', {
+            cause: {
+                title: 'Custom Title',
+                errorMessage: 'My custom error message',
+            },
+        });
         if (isRandomFailure()) {
             throw new Error('Sorry, there was a problem sending your request.');
         }
@@ -159,6 +164,7 @@ export const ProjectAuthUIActions: AuthUIActionsWithSecurity = (securityHelper) 
      */
     setPassword: async (code: string, password: string, email?: string): Promise<void> => {
         await sleep(500);
+
         if (isRandomFailure()) {
             throw new Error('Sorry, there was a problem sending your request.');
         }

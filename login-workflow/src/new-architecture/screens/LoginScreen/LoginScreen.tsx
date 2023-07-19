@@ -111,14 +111,11 @@ export const LoginScreen: React.FC<React.PropsWithChildren<LoginScreenPropsPubli
             rememberMeInitialValue={rememberMeInitialValue}
             onRememberMeChanged={onRememberMeChanged}
             loginButtonLabel={loginButtonLabel}
-            // eslint-disable-next-line @typescript-eslint/no-misused-promises
             onLogin={async (username: string, password: string, rememberMe: boolean): Promise<void> => {
                 try {
                     await actions().logIn(username, password, rememberMe);
                     await props.onLogin?.(username, password, rememberMe);
                 } catch (_error) {
-                    // eslint-disable-next-line no-console
-                    console.log('we caught an error');
                     triggerError(_error as Error);
                 }
             }}

@@ -9,6 +9,7 @@ import {
 } from '../../components';
 import { ForgotPasswordScreenProps } from './types';
 import { SuccessScreenProps } from '../SuccessScreen';
+import ErrorManager from '../../components/Error/ErrorManager';
 
 type ForgotPasswordScreenBaseProps = Omit<ForgotPasswordScreenProps, 'slots'> & {
     slots: { SuccessScreen: (props: SuccessScreenProps) => JSX.Element };
@@ -25,6 +26,7 @@ export const ForgotPasswordScreenBase: React.FC<React.PropsWithChildren<ForgotPa
         slots,
         slotProps = {},
         showSuccessScreen,
+        errorDisplayConfig,
     } = props;
 
     const cardBaseProps = props.WorkflowCardBaseProps || {};
@@ -63,28 +65,30 @@ export const ForgotPasswordScreenBase: React.FC<React.PropsWithChildren<ForgotPa
                     <WorkflowCardHeader {...headerProps} />
                     <WorkflowCardBody>
                         <WorkflowCardInstructions divider {...instructionsProps} />
-                        <TextField
-                            id="email"
-                            label={emailLabel}
-                            fullWidth
-                            value={emailInput}
-                            onChange={(evt): void => {
-                                handleEmailInputChange(evt.target.value);
-                            }}
-                            onKeyUp={(e): void => {
-                                if (
-                                    e.key === 'Enter' &&
-                                    emailInput.length > 0 &&
-                                    isEmailValid &&
-                                    actionsProps.canGoNext
-                                )
-                                    handleOnNext();
-                            }}
-                            variant="filled"
-                            error={shouldValidateEmail && !isEmailValid}
-                            helperText={shouldValidateEmail && emailError}
-                            onBlur={(): void => setShouldValidateEmail(true)}
-                        />
+                        <ErrorManager {...errorDisplayConfig}>
+                            <TextField
+                                id="email"
+                                label={emailLabel}
+                                fullWidth
+                                value={emailInput}
+                                onChange={(evt): void => {
+                                    handleEmailInputChange(evt.target.value);
+                                }}
+                                onKeyUp={(e): void => {
+                                    if (
+                                        e.key === 'Enter' &&
+                                        emailInput.length > 0 &&
+                                        isEmailValid &&
+                                        actionsProps.canGoNext
+                                    )
+                                        handleOnNext();
+                                }}
+                                variant="filled"
+                                error={shouldValidateEmail && !isEmailValid}
+                                helperText={shouldValidateEmail && emailError}
+                                onBlur={(): void => setShouldValidateEmail(true)}
+                            />
+                        </ErrorManager>
                     </WorkflowCardBody>
                     <WorkflowCardActions
                         divider

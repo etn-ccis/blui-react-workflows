@@ -130,10 +130,6 @@ export const LoginScreenBase: React.FC<React.PropsWithChildren<LoginScreenProps>
     const [usernameError, setUsernameError] = useState(isUsernameValid === true ? '' : isUsernameValid);
     const [passwordError, setPasswordError] = useState(isPasswordValid === true ? '' : isPasswordValid);
 
-    // const [hasAcknowledgedError, setHasAcknowledgedError] = React.useState(false);
-    // const [showErrorMessageBox, setShowErrorMessageBox] = React.useState(true);
-    // const [debugMode, setDebugMode] = React.useState(false);
-
     const handleUsernameInputChange = useCallback(
         (value: string) => {
             setUsername(value);
@@ -186,7 +182,6 @@ export const LoginScreenBase: React.FC<React.PropsWithChildren<LoginScreenProps>
         isPasswordValid;
 
     const handleLoginSubmit = (e: React.KeyboardEvent<HTMLDivElement>): void => {
-        // setHasAcknowledgedError(false);
         if (e.key === 'Enter' && isFormValid()) {
             void handleLogin();
         }
