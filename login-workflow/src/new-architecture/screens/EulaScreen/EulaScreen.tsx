@@ -33,6 +33,7 @@ export const EulaScreen: React.FC<EulaScreenProps> = (props) => {
                 setEulaData(eulaText);
                 setEulaLoaded(false);
             } catch (_error) {
+                // @TODO: get triggerError to work properly, currently if it is enabled the page reloads infinitely
                 // triggerError(_error as Error);
                 setEulaLoaded(false);
                 console.error(t('bluiRegistration:REGISTRATION.FAILURE_MESSAGE'));
