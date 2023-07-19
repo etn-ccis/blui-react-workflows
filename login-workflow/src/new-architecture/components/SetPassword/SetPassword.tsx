@@ -47,7 +47,7 @@ export const SetPassword: React.FC<React.PropsWithChildren<SetPasswordProps>> = 
     const onPassChange = useCallback(
         (newPassword: any) => {
             setPasswordInput(newPassword);
-            onPasswordChange({ password: newPassword, confirm: confirmInput });
+            onPasswordChange?.({ password: newPassword, confirm: confirmInput });
         },
         [setPasswordInput, onPasswordChange, confirmInput]
     );
@@ -55,7 +55,7 @@ export const SetPassword: React.FC<React.PropsWithChildren<SetPasswordProps>> = 
     const onConfirmChange = useCallback(
         (newConfirm: any) => {
             setConfirmInput(newConfirm);
-            onPasswordChange({ password: passwordInput, confirm: newConfirm });
+            onPasswordChange?.({ password: passwordInput, confirm: newConfirm });
         },
         [setConfirmInput, onPasswordChange, passwordInput]
     );
