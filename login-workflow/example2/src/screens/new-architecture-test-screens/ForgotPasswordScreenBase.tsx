@@ -59,7 +59,8 @@ export const ForgotPasswordScreenBaseTest = (): JSX.Element => {
                             onNext: (): void => {},
                             onPrevious: (): void => navigate('/'),
                         }}
-                        slots={{ SuccessScreen: <Box>Success</Box> }}
+                        // eslint-disable-next-line
+                        slots={{ SuccessScreen: (): JSX.Element => <Box>Success</Box> }}
                     />
                 </AuthContextProvider>
             </Box>
