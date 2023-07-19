@@ -76,23 +76,7 @@ export const CreatePasswordScreen: React.FC<CreatePasswordScreenProps> = (props)
         WorkflowCardHeaderProps,
         WorkflowCardInstructionProps,
         WorkflowCardActionsProps,
-        PasswordProps: passwordProps = {
-            initialNewPasswordValue: passwordInput,
-            initialConfirmPasswordValue: confirmInput,
-            newPasswordLabel: t('bluiCommon:FORMS.PASSWORD'),
-            confirmPasswordLabel: t('bluiCommon:FORMS.CONFIRM_PASSWORD'),
-            passwordNotMatchError: t('bluiCommon:FORMS.PASS_MATCH_ERROR'),
-            passwordRequirements: passwordRequirements,
-            passwordRef,
-            confirmRef,
-            onPasswordChange: updateFields,
-            onSubmit: (): void => {
-                if (areValidMatchingPasswords()) {
-                    void onNext();
-                    WorkflowCardActionsProps?.onNext?.();
-                }
-            },
-        },
+        PasswordProps,
         errorDisplayConfig = errorConfig,
     } = props;
 
@@ -135,6 +119,26 @@ export const CreatePasswordScreen: React.FC<CreatePasswordScreenProps> = (props)
         },
     };
 
+    const passwordProps = {
+        initialNewPasswordValue: passwordInput,
+        initialConfirmPasswordValue: confirmInput,
+        newPasswordLabel: t('bluiCommon:FORMS.PASSWORD'),
+        confirmPasswordLabel: t('bluiCommon:FORMS.CONFIRM_PASSWORD'),
+        passwordNotMatchError: t('bluiCommon:FORMS.PASS_MATCH_ERROR'),
+        passwordRequirements: passwordRequirements,
+        passwordRef,
+        confirmRef,
+        ...PasswordProps,
+        onPasswordChange: updateFields,
+        onSubmit: (): void => {
+            if (areValidMatchingPasswords()) {
+                void onNext();
+                WorkflowCardActionsProps?.onNext?.();
+                PasswordProps?.onSubmit?.();
+            }
+        },
+    };
+
     return (
         <>
             <CreatePasswordScreenBase
@@ -142,10 +146,7 @@ export const CreatePasswordScreen: React.FC<CreatePasswordScreenProps> = (props)
                 WorkflowCardBaseProps={workflowCardBaseProps}
                 WorkflowCardHeaderProps={workflowCardHeaderProps}
                 WorkflowCardInstructionProps={workflowCardInstructionProps}
-                PasswordProps={{
-                    ...passwordProps,
-                    onPasswordChange: updateFields,
-                }}
+                PasswordProps={passwordProps}
                 errorDisplayConfig={{
                     ...errorDisplayConfig,
                     title: error.cause.title,

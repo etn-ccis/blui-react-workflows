@@ -52,19 +52,31 @@ export const ResetPasswordScreen: React.FC<ResetPasswordScreenProps> = (props) =
         }
     }, [setIsLoading, setShowSuccessScreen, actions, code, passwordInput, email]);
 
-    const {
-        PasswordProps: passwordProps = {
-            newPasswordLabel: t('bluiAuth:CHANGE_PASSWORD.NEW_PASSWORD'),
-            confirmPasswordLabel: t('bluiAuth:CHANGE_PASSWORD.CONFIRM_NEW_PASSWORD'),
-            passwordNotMatchError: t('bluiCommon:FORMS.PASS_MATCH_ERROR'),
-            passwordRequirements: passwordRequirements,
-            passwordRef,
-            confirmRef,
+    const areValidMatchingPasswords = useCallback((): boolean => {
+        for (let i = 0; i < passwordRequirements.length; i++) {
+            if (!new RegExp(passwordRequirements[i].regex).test(passwordInput)) return false;
+        }
+        return confirmInput === passwordInput;
+    }, [passwordRequirements, passwordInput, confirmInput]);
+
+    const updateFields = useCallback(
+        (fields: { password: string; confirm: string }) => {
+            setPasswordInput(fields.password);
+            setConfirmInput(fields.confirm);
         },
+        [setPasswordInput, setConfirmInput]
+    );
+
+    useEffect(() => {
+        setPasswordInput(areValidMatchingPasswords() ? passwordInput : '');
+    }, [setPasswordInput, passwordInput, confirmInput, areValidMatchingPasswords]);
+
+    const {
         WorkflowCardBaseProps,
         WorkflowCardHeaderProps,
         WorkflowCardInstructionProps,
         WorkflowCardActionsProps,
+        PasswordProps,
     } = props;
 
     const workflowCardBaseProps = {
@@ -99,24 +111,23 @@ export const ResetPasswordScreen: React.FC<ResetPasswordScreenProps> = (props) =
         },
     };
 
-    const areValidMatchingPasswords = useCallback((): boolean => {
-        for (let i = 0; i < passwordRequirements.length; i++) {
-            if (!new RegExp(passwordRequirements[i].regex).test(passwordInput)) return false;
-        }
-        return confirmInput === passwordInput;
-    }, [passwordRequirements, passwordInput, confirmInput]);
-
-    const updateFields = useCallback(
-        (fields: { password: string; confirm: string }) => {
-            setPasswordInput(fields.password);
-            setConfirmInput(fields.confirm);
+    const passwordProps = {
+        newPasswordLabel: t('bluiAuth:CHANGE_PASSWORD.NEW_PASSWORD'),
+        confirmPasswordLabel: t('bluiAuth:CHANGE_PASSWORD.CONFIRM_NEW_PASSWORD'),
+        passwordNotMatchError: t('bluiCommon:FORMS.PASS_MATCH_ERROR'),
+        passwordRequirements: passwordRequirements,
+        passwordRef,
+        confirmRef,
+        ...PasswordProps,
+        onPasswordChange: updateFields,
+        onSubmit: (): void => {
+            if (areValidMatchingPasswords()) {
+                void handleOnNext();
+                WorkflowCardActionsProps?.onNext?.();
+                PasswordProps?.onSubmit?.();
+            }
         },
-        [setPasswordInput, setConfirmInput]
-    );
-
-    useEffect(() => {
-        setPasswordInput(areValidMatchingPasswords() ? passwordInput : '');
-    }, [setPasswordInput, passwordInput, confirmInput, areValidMatchingPasswords]);
+    };
 
     const errorDialog = (
         <SimpleDialog
@@ -139,10 +150,7 @@ export const ResetPasswordScreen: React.FC<ResetPasswordScreenProps> = (props) =
                     WorkflowCardHeaderProps={workflowCardHeaderProps}
                     WorkflowCardInstructionProps={workflowCardInstructionProps}
                     WorkflowCardActionsProps={workflowCardActionsProps}
-                    PasswordProps={{
-                        ...passwordProps,
-                        onPasswordChange: updateFields,
-                    }}
+                    PasswordProps={passwordProps}
                     slotProps={{
                         SuccessScreen: {
                             icon: <CheckCircle color="primary" sx={{ fontSize: 100 }} />,
