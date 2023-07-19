@@ -34,17 +34,7 @@ export const AccountDetailsScreen: React.FC<AccountDetailsScreenProps> = (props)
         } finally {
             setIsLoading(false);
         }
-    }, [
-        firstName,
-        lastName,
-        actions,
-        nextScreen,
-        setIsLoading,
-        screenData.VerifyCode.code,
-        screenData.CreateAccount.emailAddress,
-        totalScreens,
-        currentScreen,
-    ]);
+    }, [firstName, lastName, actions, nextScreen, setIsLoading]);
 
     const onPrevious = useCallback(() => {
         setFirstName(firstName);

@@ -85,8 +85,9 @@ describe('RegistrationWorkflow', () => {
         expect(result.current.screenData['Eula'].accepted).toBeFalsy();
         expect(result.current.screenData['CreateAccount'].emailAddress).toBe('');
 
+        // eslint-disable-next-line
         act(() => {
-            result.current.nextScreen({ screenId: 'Eula', values: { accepted: true } });
+            void result.current.nextScreen({ screenId: 'Eula', values: { accepted: true } });
         });
         act(() => {
             result.current.previousScreen({
@@ -96,6 +97,7 @@ describe('RegistrationWorkflow', () => {
         });
 
         expect(result.current.screenData['Eula'].accepted).toBeTruthy();
+        // eslint-disable-next-line
         await (() =>
             expect(result.current.screenData['CreateAccount'].emailAddress).toBe('emailAddress@emailAddress.com'));
     });
@@ -109,7 +111,7 @@ describe('RegistrationWorkflow', () => {
         const { result } = renderHook(() => useRegistrationWorkflowContext(), { wrapper });
 
         act(() => {
-            result.current.nextScreen({ screenId: 'Screen1', values: { test: 'test' } });
+            void result.current.nextScreen({ screenId: 'Screen1', values: { test: 'test' } });
         });
         act(() => {
             result.current.previousScreen({
@@ -119,6 +121,7 @@ describe('RegistrationWorkflow', () => {
         });
         /* @ts-ignore */
         expect(result.current.screenData['Other']['Screen1'].test).toBe('test');
+        // eslint-disable-next-line
         await (() => expect(result.current.screenData['Other']['Screen2'].test2).toBe('test2'));
     });
 
