@@ -10,7 +10,7 @@ export const AccountDetailsScreen: React.FC<AccountDetailsScreenProps> = (props)
     const { actions } = useRegistrationContext();
     const regWorkflow = useRegistrationWorkflowContext();
     const errorConfig = useErrorContext();
-    const { nextScreen, previousScreen, screenData, currentScreen, totalScreens, updateScreenData } = regWorkflow;
+    const { nextScreen, previousScreen, screenData, currentScreen, totalScreens } = regWorkflow;
     const [firstName, setFirstName] = useState(screenData.AccountDetails.firstName ?? '');
     const [lastName, setLastName] = useState(screenData.AccountDetails.lastName ?? '');
     const [isLoading, setIsLoading] = useState(false);
@@ -20,15 +20,7 @@ export const AccountDetailsScreen: React.FC<AccountDetailsScreenProps> = (props)
         try {
             setIsLoading(true);
             await actions().setAccountDetails({ firstName, lastName });
-            if (currentScreen === totalScreens - 2) {
-                const { email, organizationName } = await actions().completeRegistration(
-                    { firstName, lastName },
-                    screenData.VerifyCode.code,
-                    screenData.CreateAccount.emailAddress
-                );
-                updateScreenData({ screenId: 'RegistrationSuccessScreen', values: { email, organizationName } });
-            }
-            nextScreen({
+            await nextScreen({
                 screenId: 'AccountDetails',
                 values: { firstName, lastName },
             });
@@ -52,7 +44,6 @@ export const AccountDetailsScreen: React.FC<AccountDetailsScreenProps> = (props)
         screenData.CreateAccount.emailAddress,
         totalScreens,
         currentScreen,
-        updateScreenData,
     ]);
 
     const onPrevious = useCallback(() => {

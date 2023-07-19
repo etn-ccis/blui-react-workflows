@@ -1,6 +1,8 @@
-/* eslint-disable */
 import React, { useState } from 'react';
-import { IndividualScreenData, RegistrationWorkflowContextProvider } from '../../contexts';
+import { IndividualScreenData, RegistrationWorkflowContextProvider, useRegistrationContext } from '../../contexts';
+import { useErrorContext } from '../../contexts/ErrorContext';
+import { RegistrationSuccessScreen } from '../../screens';
+import { AuthError } from '../Error';
 
 export type RegistrationWorkflowProps = {
     initialScreenIndex?: number;
@@ -13,6 +15,10 @@ export const RegistrationWorkflow: React.FC<React.PropsWithChildren<Registration
     const [currentScreen, setCurrentScreen] = useState(
         initialScreenIndex < 0 ? 0 : initialScreenIndex > totalScreens - 1 ? totalScreens - 1 : initialScreenIndex
     );
+    const [error, setError] = useState<AuthError>({ cause: { title: '', errorMessage: '' } });
+    const [showSuccessScreen, setShowSuccessScreen] = useState(false);
+    const { actions } = useRegistrationContext();
+    const errorConfig = useErrorContext();
 
     const [screenData, setScreenData] = useState({
         Eula: {
@@ -35,7 +41,7 @@ export const RegistrationWorkflow: React.FC<React.PropsWithChildren<Registration
         Other: {},
     });
 
-    const handleScreenNavigation = (data: IndividualScreenData): void => {
+    const updateScreenData = (data: IndividualScreenData): void => {
         const { Other } = screenData;
         const { screenId, values } = data;
         if (!Object.keys(screenData).includes(screenId)) {
@@ -57,22 +63,61 @@ export const RegistrationWorkflow: React.FC<React.PropsWithChildren<Registration
         }
     };
 
+    const onNext = (): Promise<void> => {
+        const { firstName, lastName } = screenData.AccountDetails;
+        return actions()
+            .completeRegistration(
+                { firstName, lastName },
+                screenData.VerifyCode.code,
+                screenData.CreateAccount.emailAddress
+            )
+            .then(({ email, organizationName }) => {
+                updateScreenData({
+                    screenId: 'RegistrationSuccessScreen',
+                    values: { email, organizationName },
+                });
+                setShowSuccessScreen(true);
+            })
+            .catch((_error) => {
+                setError({
+                    cause: {
+                        title: (_error as AuthError).cause.title,
+                        errorMessage: (_error as AuthError).cause.errorMessage,
+                    },
+                });
+            });
+    };
+
     return (
         <RegistrationWorkflowContextProvider
             currentScreen={currentScreen}
             totalScreens={totalScreens}
-            nextScreen={(data): void => {
-                handleScreenNavigation(data);
+            nextScreen={(data): Promise<void> => {
+                updateScreenData(data);
+                if (currentScreen === totalScreens - 1) return onNext();
                 setCurrentScreen((i) => i + 1);
             }}
             previousScreen={(data): void => {
-                handleScreenNavigation(data);
+                updateScreenData(data);
                 setCurrentScreen((i) => i - 1);
             }}
             screenData={screenData}
-            updateScreenData={handleScreenNavigation}
+            updateScreenData={updateScreenData}
         >
-            {screens[currentScreen]}
+            {showSuccessScreen ? (
+                <RegistrationSuccessScreen
+                    errorDisplayConfig={{
+                        ...errorConfig,
+                        title: error.cause.title,
+                        errorMessage: error.cause.errorMessage,
+                        onClose: (): void => {
+                            setError({ cause: { title: '', errorMessage: '' } });
+                        },
+                    }}
+                />
+            ) : (
+                screens[currentScreen]
+            )}
         </RegistrationWorkflowContextProvider>
     );
 };

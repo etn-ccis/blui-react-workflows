@@ -4,10 +4,12 @@ import Typography from '@mui/material/Typography';
 import CheckCircle from '@mui/icons-material/CheckCircle';
 import { SuccessScreenBase, SuccessScreenProps } from '..';
 import { useRegistrationWorkflowContext, useRegistrationContext } from '../../contexts';
+import { useErrorContext } from '../../contexts/ErrorContext';
 
 export const RegistrationSuccessScreen: React.FC<SuccessScreenProps> = (props) => {
     const { navigate, routeConfig } = useRegistrationContext();
     const { t } = useTranslation();
+    const errorConfig = useErrorContext();
 
     const {
         screenData: {
@@ -34,6 +36,7 @@ export const RegistrationSuccessScreen: React.FC<SuccessScreenProps> = (props) =
         canDismiss = true,
         WorkflowCardHeaderProps,
         WorkflowCardActionsProps,
+        errorDisplayConfig = errorConfig,
     } = props;
 
     const workflowCardHeaderProps = {
@@ -60,6 +63,7 @@ export const RegistrationSuccessScreen: React.FC<SuccessScreenProps> = (props) =
             messageTitle={messageTitle}
             message={message}
             WorkflowCardActionsProps={workflowCardActionsProps}
+            errorDisplayConfig={errorDisplayConfig}
         />
     );
 };

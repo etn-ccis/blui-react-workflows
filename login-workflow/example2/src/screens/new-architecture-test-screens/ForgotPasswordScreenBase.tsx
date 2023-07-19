@@ -1,3 +1,5 @@
+/* eslint-disable */
+
 import React from 'react';
 import { Box } from '@mui/material';
 import { useNavigate } from 'react-router';
@@ -59,7 +61,7 @@ export const ForgotPasswordScreenBaseTest = (): JSX.Element => {
                             onNext: (): void => {},
                             onPrevious: (): void => navigate('/'),
                         }}
-                        slots={{ SuccessScreen: <Box>Success</Box> }}
+                        slots={{ SuccessScreen: () => <Box>Success</Box> }}
                     />
                 </AuthContextProvider>
             </Box>

@@ -68,7 +68,7 @@ describe('RegistrationWorkflow', () => {
         expect(result.current.screenData['CreateAccount'].emailAddress).toBe('');
 
         act(() => {
-            result.current.nextScreen({ screenId: 'Eula', values: { accepted: true } });
+            void result.current.nextScreen({ screenId: 'Eula', values: { accepted: true } });
         });
         act(() => {
             result.current.previousScreen({
@@ -88,7 +88,7 @@ describe('RegistrationWorkflow', () => {
         const { result } = renderHook(() => useRegistrationWorkflowContext(), { wrapper });
 
         act(() => {
-            result.current.nextScreen({ screenId: 'Screen1', values: { test: 'test' } });
+            void result.current.nextScreen({ screenId: 'Screen1', values: { test: 'test' } });
         });
         act(() => {
             result.current.previousScreen({
