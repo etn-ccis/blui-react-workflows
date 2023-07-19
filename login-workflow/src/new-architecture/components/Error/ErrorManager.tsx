@@ -6,7 +6,7 @@ import ErrorMessageBox from './ErrorMessageBox';
 export type AuthError = { cause: { title: string; errorMessage: string } };
 
 export type ErrorManagerProps = {
-    mode?: 'dialog' | 'message-box' | 'both' | 'none';
+    mode?: 'dialog' | 'message-box' | 'none';
     onClose?: () => void;
     error: string;
     dialogConfig?: {
@@ -23,9 +23,9 @@ export type ErrorManagerProps = {
     children?: React.ReactNode;
 };
 /**
- * Component that manages the display of error messages. Can be configured to display a dialog, a message box, both, or neither.
+ * Component that manages the display of error messages. Can be configured to display a dialog, a message box, or neither.
  *
- * @param mode determines whether to display a dialog, a message box, both, or neither
+ * @param mode determines whether to display a dialog, a message box, or neither
  * @param onClose function to call when the close/dismiss button is clicked
  * @param error error text to display
  * @param dialogConfig configuration for the error dialog

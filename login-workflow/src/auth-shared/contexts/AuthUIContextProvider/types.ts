@@ -25,7 +25,7 @@ type RegistrationConfig = {
 };
 
 type LoginErrorDisplayConfig = {
-    mode?: 'dialog' | 'message-box' | 'both' | 'none';
+    mode?: 'dialog' | 'message-box' | 'none';
     dismissible?: boolean;
     position?: 'top' | 'bottom';
     fontColor?: string;
