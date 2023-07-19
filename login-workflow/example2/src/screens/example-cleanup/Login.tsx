@@ -20,9 +20,11 @@ export const Login = (): JSX.Element => {
                     navigate={navigate}
                     routeConfig={{}}
                     errorConfig={{
-                        mode: 'message-box',
-                        dismissible: true,
-                        position: 'top',
+                        mode: 'dialog',
+                        messageBoxConfig: {
+                            dismissible: true,
+                            position: 'top',
+                        },
                     }}
                 >
                     <>

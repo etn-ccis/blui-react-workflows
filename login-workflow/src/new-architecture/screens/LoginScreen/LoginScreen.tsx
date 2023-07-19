@@ -1,10 +1,9 @@
-import React, { useEffect, useState } from 'react';
+import React, { useEffect } from 'react';
 import { LoginScreenProps } from './types';
 import { LoginScreenBase } from './LoginScreenBase';
 import { useLanguageLocale } from '../../hooks';
 import { useAuthContext } from '../../contexts';
-import { useErrorContext } from '../../contexts/ErrorContext';
-import { AuthError } from '../../components/Error';
+import { useErrorManager } from '../../contexts/ErrorContext/useErrorManager';
 
 const EMAIL_REGEX = /^[A-Z0-9._%+'-]+@[A-Z0-9.-]+\.[A-Z]{2,}$/i;
 
@@ -48,9 +47,8 @@ type LoginScreenPropsPublic = Omit<LoginScreenProps, 'passwordValidator'> & { pa
 export const LoginScreen: React.FC<React.PropsWithChildren<LoginScreenPropsPublic>> = (props) => {
     const { t } = useLanguageLocale();
     const auth = useAuthContext();
-    const errorConfig = useErrorContext();
     const { actions, navigate, routeConfig, rememberMeDetails } = auth;
-    const [error, setError] = useState<AuthError>({ cause: { title: '', errorMessage: '' } });
+    const { triggerError, errorManagerConfig } = useErrorManager();
 
     useEffect(() => {
         void actions().initiateSecurity();
@@ -87,7 +85,7 @@ export const LoginScreen: React.FC<React.PropsWithChildren<LoginScreenPropsPubli
         showContactSupport = true,
         contactSupportLabel = t('bluiCommon:MESSAGES.CONTACT'),
         onContactSupport = (): void => navigate(routeConfig.SUPPORT),
-        errorDisplayConfig = errorConfig,
+        errorDisplayConfig = errorManagerConfig,
         showCyberSecurityBadge = true,
         projectImage,
         header,
@@ -119,12 +117,9 @@ export const LoginScreen: React.FC<React.PropsWithChildren<LoginScreenPropsPubli
                     await actions().logIn(username, password, rememberMe);
                     await props.onLogin?.(username, password, rememberMe);
                 } catch (_error) {
-                    setError({
-                        cause: {
-                            title: (_error as AuthError).cause.title,
-                            errorMessage: (_error as AuthError).cause.errorMessage,
-                        },
-                    });
+                    // eslint-disable-next-line no-console
+                    console.log('we caught an error');
+                    triggerError(_error as Error);
                 }
             }}
             showForgotPassword={showForgotPassword}
@@ -137,14 +132,7 @@ export const LoginScreen: React.FC<React.PropsWithChildren<LoginScreenPropsPubli
             showContactSupport={showContactSupport}
             contactSupportLabel={contactSupportLabel}
             onContactSupport={onContactSupport}
-            errorDisplayConfig={{
-                ...errorDisplayConfig,
-                title: error.cause.title,
-                errorMessage: error.cause.errorMessage,
-                onClose: (): void => {
-                    setError({ cause: { title: '', errorMessage: '' } });
-                },
-            }}
+            errorDisplayConfig={errorDisplayConfig}
             showCyberSecurityBadge={showCyberSecurityBadge}
             projectImage={projectImage}
             header={header}
