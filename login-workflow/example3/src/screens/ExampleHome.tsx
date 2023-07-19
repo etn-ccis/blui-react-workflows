@@ -69,11 +69,23 @@ export const ExampleHome: React.FC<React.PropsWithChildren> = () => {
         <DrawerLayout
             drawer={
                 <Drawer open={true} width={332} variant={'persistent'}>
-                    <DrawerHeader title={`${t('Blui:TITLE')}`} icon={<Menu />} onClick={(): void => setOpen(!open)} />
+                    <DrawerHeader
+                        title={`${t('blui:DRAWER_MENU.TITLE')}`}
+                        icon={<Menu />}
+                        onClick={(): void => setOpen(!open)}
+                    />
                     <DrawerBody>
                         <DrawerNavGroup>
-                            <DrawerNavItem title={`${t('Blui:DASHBOARD')}`} icon={<Dashboard />} itemID="1" />
-                            <DrawerNavItem title={`${t('Blui:LOCATIONS')}`} icon={<Notifications />} itemID="2" />
+                            <DrawerNavItem
+                                title={`${t('blui:DRAWER_MENU.DASHBOARD')}`}
+                                icon={<Dashboard />}
+                                itemID="1"
+                            />
+                            <DrawerNavItem
+                                title={`${t('blui:DRAWER_MENU.LOCATIONS')}`}
+                                icon={<Notifications />}
+                                itemID="2"
+                            />
                         </DrawerNavGroup>
                     </DrawerBody>
                 </Drawer>
@@ -82,7 +94,7 @@ export const ExampleHome: React.FC<React.PropsWithChildren> = () => {
             <Box>
                 <AppBar color="primary">
                     <Toolbar sx={{ px: 2, minHeight: 'unset', height: '4rem' }}>
-                        <Typography variant="h6">{`${t('Blui:HOMEPAGE')}`}</Typography>
+                        <Typography variant="h6">{`${t('blui:TOOLBAR_MENU.HOME_PAGE')}`}</Typography>
                         <Spacer />
                         <Box sx={{ py: 2 }}>
                             <LanguageSelector
@@ -107,14 +119,14 @@ export const ExampleHome: React.FC<React.PropsWithChildren> = () => {
                                     items: [
                                         {
                                             icon: <AccountBox />,
-                                            title: `${t('Blui:MY_ACCOUNT')}`,
+                                            title: `${t('blui:USER_MENU.MY_ACCOUNT')}`,
                                             onClick: (): void => {
                                                 setOpen(false);
                                             },
                                         },
                                         {
                                             icon: <ExitToApp />,
-                                            title: `${t('Blui:LOG_OUT')}`,
+                                            title: `${t('blui:USER_MENU.LOG_OUT')}`,
                                             onClick: (): void => {
                                                 setOpen(false);
                                                 logOut();
@@ -131,8 +143,8 @@ export const ExampleHome: React.FC<React.PropsWithChildren> = () => {
                 <EmptyState
                     sx={emptyStateContainerStyles}
                     icon={<Event fontSize={'inherit'} />}
-                    title={`${t('Blui:HOMEPAGE')}`}
-                    description={`${t('Blui:AUTHORISED_MESSAGE')}`}
+                    title={`${t('blui:TOOLBAR_MENU.HOME_PAGE')}`}
+                    description={`${t('blui:PAGE_DETAILS.AUTHORISED_MESSAGE')}`}
                 />
             </Box>
         </DrawerLayout>

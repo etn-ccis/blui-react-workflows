@@ -3,11 +3,12 @@ import { AppTranslationsFile } from './types';
 const resources: AppTranslationsFile = {
     translation: {
         DRAWER_MENU: {
+            TITLE: 'Titre',
             DASHBOARD: 'Tableau de bord',
             LOCATIONS: 'Emplacements',
         },
         TOOLBAR_MENU: {
-            HOMEPAGE: `Page d'accueil`,
+            HOME_PAGE: `Page d'accueil`,
         },
         PAGE_DETAILS: {
             AUTHORISED_MESSAGE: 'Authorised Message',

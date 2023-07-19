@@ -3,18 +3,19 @@ import { AppTranslationsFile } from './types';
 const resources: AppTranslationsFile = {
     translation: {
         DRAWER_MENU: {
-            DASHBOARD: 'Dashboard',
-            LOCATIONS: 'Locations',
+            TITLE: '標題',
+            DASHBOARD: '儀表板',
+            LOCATIONS: '地點',
         },
         TOOLBAR_MENU: {
-            HOMEPAGE: 'Home Page',
+            HOME_PAGE: '主頁',
         },
         PAGE_DETAILS: {
-            AUTHORISED_MESSAGE: 'Authorised Message',
+            AUTHORISED_MESSAGE: '授權留言',
         },
         USER_MENU: {
-            LOG_OUT: 'Log out',
-            MY_ACCOUNT: 'My Account',
+            LOG_OUT: '登出',
+            MY_ACCOUNT: '我的賬戶',
         },
     },
 };

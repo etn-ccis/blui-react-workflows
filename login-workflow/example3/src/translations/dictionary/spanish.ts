@@ -3,18 +3,19 @@ import { AppTranslationsFile } from './types';
 const resources: AppTranslationsFile = {
     translation: {
         DRAWER_MENU: {
-            DASHBOARD: 'Dashboard',
-            LOCATIONS: 'Locations',
+            TITLE: 'Título',
+            DASHBOARD: 'Panel',
+            LOCATIONS: 'Ubicaciones',
         },
         TOOLBAR_MENU: {
-            HOMEPAGE: 'Home Page',
+            HOME_PAGE: 'Página de inicio',
         },
         PAGE_DETAILS: {
-            AUTHORISED_MESSAGE: 'Message autorisé',
+            AUTHORISED_MESSAGE: 'Mensaje autorizado',
         },
         USER_MENU: {
-            LOG_OUT: 'Log out',
-            MY_ACCOUNT: 'My Account',
+            LOG_OUT: 'Cerrar sesión',
+            MY_ACCOUNT: 'Mi cuenta',
         },
     },
 };

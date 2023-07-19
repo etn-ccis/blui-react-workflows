@@ -1,10 +1,11 @@
 export type AppTranslations = {
     DRAWER_MENU: {
+        TITLE: string;
         DASHBOARD: string;
         LOCATIONS: string;
     };
     TOOLBAR_MENU: {
-        HOMEPAGE: string;
+        HOME_PAGE: string;
     };
     PAGE_DETAILS: {
         AUTHORISED_MESSAGE: string;
