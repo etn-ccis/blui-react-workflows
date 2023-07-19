@@ -3,29 +3,47 @@ import { AuthError, ErrorManagerProps } from '../../components/Error';
 import { useErrorContext } from '.';
 
 export const useErrorManager = (): {
-    triggerError: (error: Error) => void;
+    triggerError: (error: Error | AuthError) => void;
     errorManagerConfig: ErrorManagerProps;
 } => {
     const errorConfig = useErrorContext();
-    const [error, setError] = useState<AuthError>({ cause: { title: '', errorMessage: '' } });
+    const [error, setError] = useState<Error | AuthError>(new Error());
 
-    const errorDisplayConfig = {
-        ...errorConfig,
-        dialogConfig: { title: error.cause.title },
-        error: error.cause.errorMessage,
-        onClose: (): void => {
-            setError({ cause: { title: '', errorMessage: '' } });
-        },
-    };
+    const isAuthError = (err: Error | AuthError): err is AuthError => (err as AuthError).cause !== undefined;
 
-    const triggerError = (_error: Error): void => {
-        setError({
-            cause: {
-                title: (_error as unknown as AuthError).cause.title,
-                errorMessage: (_error as unknown as AuthError).cause.errorMessage,
+    const getErrorDisplayConfig = (err: Error | AuthError): ErrorManagerProps => {
+        if (isAuthError(err)) {
+            return {
+                ...errorConfig,
+                dialogConfig: { title: err.cause.title },
+                error: err.cause.errorMessage,
+                onClose: (): void => {
+                    setError(new Error());
+                },
+            };
+        }
+        return {
+            ...errorConfig,
+            dialogConfig: { title: 'Error' },
+            error: err.message,
+            onClose: (): void => {
+                setError(new Error());
             },
-        });
+        };
     };
 
-    return { triggerError: triggerError, errorManagerConfig: errorDisplayConfig };
+    const triggerError = (err: Error | AuthError): void => {
+        if (isAuthError(err)) {
+            setError({
+                cause: {
+                    title: err.cause.title,
+                    errorMessage: err.cause.errorMessage,
+                },
+            });
+        } else {
+            setError(err);
+        }
+    };
+
+    return { triggerError: triggerError, errorManagerConfig: getErrorDisplayConfig(error) };
 };
