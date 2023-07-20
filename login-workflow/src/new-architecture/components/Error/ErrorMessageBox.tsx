@@ -42,6 +42,7 @@ const ErrorMessageBox = (props: ErrorMessageBoxProps): JSX.Element => {
         >
             {dismissible !== false && (
                 <Close
+                    data-testid={'error-message-box-close'}
                     sx={{
                         '&:hover': {
                             cursor: 'pointer',

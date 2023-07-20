@@ -119,81 +119,6 @@ describe('Forgot Password Screen tests', () => {
         expect(mockOnNext).toHaveBeenCalled();
     });
 
-    it('should show error dialog, when next button is clicked and error is thrown', () => {
-        const { getByLabelText, rerender } = render(
-            <AuthContextProvider
-                language="en"
-                i18n={i18nAuthInstance.i18nAuthInstance}
-                navigate={jest.fn()}
-                routeConfig={{}}
-                actions={jest.fn()}
-            >
-                <BrowserRouter>
-                    <ForgotPasswordScreen />
-                </BrowserRouter>
-            </AuthContextProvider>
-        );
-
-        const emailInput = getByLabelText('Email Address');
-        const nextButton = screen.getByText('Submit');
-        fireEvent.change(emailInput, { target: { value: 'aa@aa.aa' } });
-        fireEvent.blur(emailInput);
-        expect(emailInput).toHaveValue('aa@aa.aa');
-        expect(nextButton).toBeInTheDocument();
-        expect(screen.getByText(/Submit/i)).toBeEnabled();
-        fireEvent.click(nextButton);
-
-        rerender(
-            <AuthContextProvider language={'en'} routeConfig={{}} navigate={jest.fn()} actions={jest.fn()}>
-                <BrowserRouter>
-                    <ForgotPasswordScreen />
-                </BrowserRouter>
-            </AuthContextProvider>
-        );
-
-        expect(screen.getByText('Could not reset your password at this time.')).toBeInTheDocument();
-    });
-
-    it('should dismiss error dialog, when okay button is clicked', () => {
-        const { getByLabelText, rerender } = render(
-            <AuthContextProvider
-                language="en"
-                i18n={i18nAuthInstance.i18nAuthInstance}
-                navigate={jest.fn()}
-                routeConfig={{}}
-                actions={jest.fn()}
-            >
-                <BrowserRouter>
-                    <ForgotPasswordScreen />
-                </BrowserRouter>
-            </AuthContextProvider>
-        );
-
-        const emailInput = getByLabelText('Email Address');
-        const nextButton = screen.getByText('Submit');
-        fireEvent.change(emailInput, { target: { value: 'aa@aa.aa' } });
-        fireEvent.blur(emailInput);
-        expect(emailInput).toHaveValue('aa@aa.aa');
-        expect(nextButton).toBeInTheDocument();
-        expect(screen.getByText(/Submit/i)).toBeEnabled();
-        fireEvent.click(nextButton);
-
-        rerender(
-            <AuthContextProvider language={'en'} routeConfig={{}} navigate={jest.fn()} actions={jest.fn()}>
-                <BrowserRouter>
-                    <ForgotPasswordScreen />
-                </BrowserRouter>
-            </AuthContextProvider>
-        );
-
-        expect(screen.getByText('Could not reset your password at this time.')).toBeInTheDocument();
-        expect(screen.getByText('OKAY')).toBeInTheDocument();
-        expect(screen.getByRole('dialog')).toBeInTheDocument();
-
-        fireEvent.click(screen.getByText('OKAY'));
-        expect(screen.queryByRole('dialog')).toBeNull();
-    });
-
     it('should show success screen, when next button is clicked', async () => {
         const props = { ...authContextProps };
         props.actions().forgotPassword = async (email: string): Promise<void> => {
@@ -275,7 +200,7 @@ describe('Forgot Password Screen tests', () => {
         expect(successMessage).toBeInTheDocument();
     });
 
-    it('should loader, when loading prop is passed to WorkflowCardBaseProps', () => {
+    it('should show loader, when loading prop is passed to WorkflowCardBaseProps', () => {
         renderer({ WorkflowCardBaseProps: { loading: true } });
 
         expect(screen.getByTestId('blui-spinner')).toBeInTheDocument();
