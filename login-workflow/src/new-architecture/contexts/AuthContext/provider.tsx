@@ -17,15 +17,15 @@ export const AuthContextProvider: React.FC<React.PropsWithChildren<AuthContextPr
     const { language, i18n, errorConfig } = props;
 
     if (props.i18n) {
-        i18n.addResourceBundle('zh', 'bluiRegistration', AuthDictionaries.chinese.translation, true, true);
+        i18n.addResourceBundle('zh', 'bluiAuth', AuthDictionaries.chinese.translation, true, true);
         i18n.addResourceBundle('zh', 'bluiCommon', SharedDictionaries.chinese.translation, true, true);
-        i18n.addResourceBundle('en', 'bluiRegistration', AuthDictionaries.english.translation, true, true);
+        i18n.addResourceBundle('en', 'bluiAuth', AuthDictionaries.english.translation, true, true);
         i18n.addResourceBundle('en', 'bluiCommon', SharedDictionaries.english.translation, true, true);
-        i18n.addResourceBundle('fr', 'bluiRegistration', AuthDictionaries.french.translation, true, true);
+        i18n.addResourceBundle('fr', 'bluiAuth', AuthDictionaries.french.translation, true, true);
         i18n.addResourceBundle('fr', 'bluiCommon', SharedDictionaries.french.translation, true, true);
-        i18n.addResourceBundle('pt', 'bluiRegistration', AuthDictionaries.portuguese.translation, true, true);
+        i18n.addResourceBundle('pt', 'bluiAuth', AuthDictionaries.portuguese.translation, true, true);
         i18n.addResourceBundle('pt', 'bluiCommon', SharedDictionaries.portuguese.translation, true, true);
-        i18n.addResourceBundle('es', 'bluiRegistration', AuthDictionaries.spanish.translation, true, true);
+        i18n.addResourceBundle('es', 'bluiAuth', AuthDictionaries.spanish.translation, true, true);
         i18n.addResourceBundle('es', 'bluiCommon', SharedDictionaries.spanish.translation, true, true);
     }
 

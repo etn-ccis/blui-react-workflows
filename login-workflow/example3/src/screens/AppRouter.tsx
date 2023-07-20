@@ -25,6 +25,7 @@ import { routes } from '../navigation/Routing';
 import { ExampleHome } from './ExampleHome';
 import { LocalStorage } from '../store/local-storage';
 import { i18nAppInstance } from '../translations/i18n';
+import { CustomScreen } from './CustomScreen';
 
 export const AppRouter: React.FC = () => {
     const { language } = useApp();
@@ -72,6 +73,7 @@ export const AppRouter: React.FC = () => {
                     path={'/self-registration'}
                     element={
                         <RegistrationWorkflow initialScreenIndex={0}>
+                            <CustomScreen />
                             <EulaScreen />
                             <CreateAccountScreen />
                             <VerifyCodeScreen />
@@ -98,12 +100,14 @@ export const AppRouter: React.FC = () => {
             <Route
                 path={'/homepage'}
                 element={
+                    // <I18nextProvider i18n={i18nAppInstance}>
                     <ExperimentalAuthGuard
                         isAuthenticated={isAuthenticated}
                         fallbackComponent={<Navigate to={`/login`} />}
                     >
                         <ExampleHome />
                     </ExperimentalAuthGuard>
+                    // </I18nextProvider>
                 }
             />
             <Route

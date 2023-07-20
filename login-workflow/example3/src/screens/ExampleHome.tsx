@@ -27,14 +27,16 @@ import { useTheme } from '@mui/material/styles';
 import { useTranslation } from 'react-i18next';
 import { useNavigate } from 'react-router-dom';
 import * as Colors from '@brightlayer-ui/colors';
-import { LanguageSelector } from '../components/LanguageSelector';
+import FormControl from '@mui/material/FormControl';
+import { MenuItem, Select, SelectChangeEvent } from '@mui/material';
 
 export const ExampleHome: React.FC<React.PropsWithChildren> = () => {
     const app = useApp();
-    const { t } = useTranslation();
+    const { t, i18n } = useTranslation();
     const [open, setOpen] = useState(false);
     const navigate = useNavigate();
     const theme = useTheme();
+
     const containerStyles = {
         width: '100%',
         height: `calc(100vh - ${theme.spacing(8)})`,
@@ -65,6 +67,12 @@ export const ExampleHome: React.FC<React.PropsWithChildren> = () => {
         navigate('/login');
     };
 
+    const changeAppLanguage = (event: SelectChangeEvent): void => {
+        const appLanguage = event.target.value;
+        app.setLanguage(appLanguage);
+        void i18n.changeLanguage(appLanguage);
+    };
+
     return (
         <DrawerLayout
             drawer={
@@ -93,19 +101,29 @@ export const ExampleHome: React.FC<React.PropsWithChildren> = () => {
                         <Typography variant="h6">{`${t('TOOLBAR_MENU.HOME_PAGE')}`}</Typography>
                         <Spacer />
                         <Box sx={{ py: 2 }}>
-                            <LanguageSelector
-                                variant="standard"
-                                sx={{
-                                    padding: '4px',
-                                    minWidth: '160px',
-                                    margin: '16px',
-                                    backgroundColor: 'transparent',
-                                    color: Colors.white[50],
-                                    '& .MuiSelect-icon': {
+                            <FormControl fullWidth>
+                                <Select
+                                    value={app.language}
+                                    onChange={changeAppLanguage}
+                                    variant={'standard'}
+                                    sx={{
+                                        padding: '4px',
+                                        minWidth: '160px',
+                                        margin: '16px',
+                                        backgroundColor: 'transparent',
                                         color: Colors.white[50],
-                                    },
-                                }}
-                            />
+                                        '& .MuiSelect-icon': {
+                                            color: Colors.white[50],
+                                        },
+                                    }}
+                                >
+                                    <MenuItem value={'en'}>English</MenuItem>
+                                    <MenuItem value={'es'}>Spanish</MenuItem>
+                                    <MenuItem value={'fr'}>French</MenuItem>
+                                    <MenuItem value={'zh'}>Chinese</MenuItem>
+                                    <MenuItem value={'pt'}>Portugese</MenuItem>
+                                </Select>
+                            </FormControl>
                         </Box>
                         <UserMenu
                             onClick={(): void => setOpen(!open)}
