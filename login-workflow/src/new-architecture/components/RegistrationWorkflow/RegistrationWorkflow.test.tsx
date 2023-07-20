@@ -153,6 +153,7 @@ describe('RegistrationWorkflow', () => {
         const nextButton = getByText('Next');
         expect(screen.getByText(/Next/i)).toBeEnabled();
         fireEvent.click(nextButton);
+        // eslint-disable-next-line
         await (() => expect(screen.getByText('Success')).toBeInTheDocument());
     });
 });
