@@ -1,8 +1,6 @@
 import React, { useState } from 'react';
 import { IndividualScreenData, RegistrationWorkflowContextProvider, useRegistrationContext } from '../../contexts';
-import { useErrorContext } from '../../contexts/ErrorContext';
 import { RegistrationSuccessScreen } from '../../screens';
-import { AuthError } from '../Error';
 
 export type RegistrationWorkflowProps = {
     initialScreenIndex?: number;
@@ -15,10 +13,8 @@ export const RegistrationWorkflow: React.FC<React.PropsWithChildren<Registration
     const [currentScreen, setCurrentScreen] = useState(
         initialScreenIndex < 0 ? 0 : initialScreenIndex > totalScreens - 1 ? totalScreens - 1 : initialScreenIndex
     );
-    const [error, setError] = useState<AuthError>({ cause: { title: '', errorMessage: '' } });
     const [showSuccessScreen, setShowSuccessScreen] = useState(false);
     const { actions } = useRegistrationContext();
-    const errorConfig = useErrorContext();
 
     const [screenData, setScreenData] = useState({
         Eula: {
@@ -80,12 +76,8 @@ export const RegistrationWorkflow: React.FC<React.PropsWithChildren<Registration
                     setShowSuccessScreen(true);
                 })
                 .catch((_error) => {
-                    setError({
-                        cause: {
-                            title: (_error as AuthError).cause.title,
-                            errorMessage: (_error as AuthError).cause.errorMessage,
-                        },
-                    });
+                    // eslint-disable-next-line no-console
+                    console.log(_error);
                 });
     };
 
@@ -105,20 +97,7 @@ export const RegistrationWorkflow: React.FC<React.PropsWithChildren<Registration
             screenData={screenData}
             updateScreenData={updateScreenData}
         >
-            {showSuccessScreen ? (
-                <RegistrationSuccessScreen
-                    errorDisplayConfig={{
-                        ...errorConfig,
-                        title: error.cause.title,
-                        errorMessage: error.cause.errorMessage,
-                        onClose: (): void => {
-                            setError({ cause: { title: '', errorMessage: '' } });
-                        },
-                    }}
-                />
-            ) : (
-                screens[currentScreen]
-            )}
+            {showSuccessScreen ? <RegistrationSuccessScreen /> : screens[currentScreen]}
         </RegistrationWorkflowContextProvider>
     );
 };
