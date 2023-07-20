@@ -22,7 +22,7 @@ export const EulaScreen: React.FC<EulaScreenProps> = (props) => {
     } = props;
 
     const [eulaAccepted, setEulaAccepted] = useState(screenData.Eula.accepted ?? initialCheckboxValue);
-    const [isEulaLoaded, setIsEulaLoaded] = useState(false);
+    // const [isEulaLoaded, setIsEulaLoaded] = useState(false);
     const [isLoading, setIsLoading] = useState(true);
     const [eulaData, setEulaData] = useState<string>();
 
@@ -33,12 +33,12 @@ export const EulaScreen: React.FC<EulaScreenProps> = (props) => {
                 const eulaText = await actions().loadEula(language);
                 setEulaData(eulaText);
                 setIsLoading(false);
-                setIsEulaLoaded(true);
+                // setIsEulaLoaded(true);
             } catch (_error) {
                 // @TODO: we need to handle this failure more gracefully. The user should be able to attempt to reload the EULA and forward progress should be blocked
                 triggerError(_error as Error);
                 // @TODO: replace this hardcoded string with a proper error text translation
-                setEulaData('End user license agreement failed to load');
+                // setEulaData('End user license agreement failed to load');
                 // setEulaData(t('bluiRegistration:REGISTRATION.FAILURE_MESSAGE'));
                 setIsLoading(false);
             } finally {
@@ -94,7 +94,7 @@ export const EulaScreen: React.FC<EulaScreenProps> = (props) => {
     const workflowCardActionsProps = {
         showNext: true,
         nextLabel: t('bluiCommon:ACTIONS.NEXT'),
-        canGoNext: isEulaLoaded ? true : false,
+        canGoNext: true,
         showPrevious: true,
         previousLabel: t('bluiCommon:ACTIONS.BACK'),
         canGoPrevious: true,
