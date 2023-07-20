@@ -10,6 +10,8 @@ import {
     RegistrationContextProviderProps,
     useRegistrationWorkflowContext,
 } from '../../contexts';
+import Box from '@mui/material/Box';
+import { CreateAccountScreen } from '../../screens';
 
 afterEach(cleanup);
 
@@ -133,5 +135,24 @@ describe('RegistrationWorkflow', () => {
     it('should check for upper bound of initialScreenIndex props', () => {
         renderer({ initialScreenIndex: 2 });
         expect(screen.getByText('Screen 2')).toBeInTheDocument();
+    });
+
+    it('should render custom success screen', async () => {
+        const props = defaultProps;
+        defaultProps.successScreen = <Box>Success</Box>;
+        const { getByLabelText, getByText } = render(
+            <RegistrationContextProvider {...registrationContextProviderProps}>
+                <RegistrationWorkflow {...props}>
+                    <CreateAccountScreen />
+                </RegistrationWorkflow>
+            </RegistrationContextProvider>
+        );
+        const verifyEmailInput = getByLabelText('Email Address');
+        fireEvent.change(verifyEmailInput, { target: { value: 'test@test.net' } });
+        fireEvent.blur(verifyEmailInput);
+        const nextButton = getByText('Next');
+        expect(screen.getByText(/Next/i)).toBeEnabled();
+        fireEvent.click(nextButton);
+        await (() => expect(screen.getByText('Success')).toBeInTheDocument());
     });
 });
