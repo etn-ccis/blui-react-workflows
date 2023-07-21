@@ -4,7 +4,12 @@ import { cleanup, fireEvent, render, screen, renderHook, act, RenderResult } fro
 import { RegistrationWorkflow, RegistrationWorkflowProps } from './RegistrationWorkflow';
 import Typography from '@mui/material/Typography';
 import Button from '@mui/material/Button';
-import { useRegistrationWorkflowContext } from '../../contexts';
+import {
+    i18nRegistrationInstance,
+    RegistrationContextProvider,
+    RegistrationContextProviderProps,
+    useRegistrationWorkflowContext,
+} from '../../contexts';
 
 afterEach(cleanup);
 
@@ -12,12 +17,21 @@ const defaultProps: RegistrationWorkflowProps = {
     initialScreenIndex: 0,
 };
 
+export const registrationContextProviderProps: RegistrationContextProviderProps = {
+    language: 'en',
+    i18n: i18nRegistrationInstance,
+    navigate: (): void => {},
+    routeConfig: {},
+};
+
 const renderer = (props = defaultProps): RenderResult =>
     render(
-        <RegistrationWorkflow {...props}>
-            <Typography>Screen 1</Typography>
-            <Typography>Screen 2</Typography>
-        </RegistrationWorkflow>
+        <RegistrationContextProvider {...registrationContextProviderProps}>
+            <RegistrationWorkflow {...props}>
+                <Typography>Screen 1</Typography>
+                <Typography>Screen 2</Typography>
+            </RegistrationWorkflow>
+        </RegistrationContextProvider>
     );
 
 describe('RegistrationWorkflow', () => {
@@ -40,35 +54,40 @@ describe('RegistrationWorkflow', () => {
     it('should call nextScreen function', () => {
         const nextScreen = jest.fn();
         const { getByText } = render(
-            <RegistrationWorkflow>
-                <>
-                    <Typography>Indexed Screen 1</Typography>
-                    <Button
-                        onClick={(): void => {
-                            nextScreen({ screenId: 'Eula', values: { accepted: true } });
-                        }}
-                    >
-                        Next
-                    </Button>
-                </>
-                <Typography>Indexed Screen 2</Typography>
-            </RegistrationWorkflow>
+            <RegistrationContextProvider {...registrationContextProviderProps}>
+                <RegistrationWorkflow>
+                    <>
+                        <Typography>Indexed Screen 1</Typography>
+                        <Button
+                            onClick={(): void => {
+                                nextScreen({ screenId: 'Eula', values: { accepted: true } });
+                            }}
+                        >
+                            Next
+                        </Button>
+                    </>
+                    <Typography>Indexed Screen 2</Typography>
+                </RegistrationWorkflow>
+            </RegistrationContextProvider>
         );
         fireEvent.click(getByText('Next'));
         expect(nextScreen).toHaveBeenCalledWith({ screenId: 'Eula', values: { accepted: true } });
     });
 
-    it('should set screen data for default registration workflow in the context', () => {
+    it('should set screen data for default registration workflow in the context', async () => {
         const wrapper = ({ children }): JSX.Element => (
-            <RegistrationWorkflow {...defaultProps}>{children}</RegistrationWorkflow>
+            <RegistrationContextProvider {...registrationContextProviderProps}>
+                <RegistrationWorkflow {...defaultProps}>{children}</RegistrationWorkflow>
+            </RegistrationContextProvider>
         );
         const { result } = renderHook(() => useRegistrationWorkflowContext(), { wrapper });
 
         expect(result.current.screenData['Eula'].accepted).toBeFalsy();
         expect(result.current.screenData['CreateAccount'].emailAddress).toBe('');
 
+        // eslint-disable-next-line
         act(() => {
-            result.current.nextScreen({ screenId: 'Eula', values: { accepted: true } });
+            void result.current.nextScreen({ screenId: 'Eula', values: { accepted: true } });
         });
         act(() => {
             result.current.previousScreen({
@@ -78,17 +97,21 @@ describe('RegistrationWorkflow', () => {
         });
 
         expect(result.current.screenData['Eula'].accepted).toBeTruthy();
-        expect(result.current.screenData['CreateAccount'].emailAddress).toBe('emailAddress@emailAddress.com');
+        // eslint-disable-next-line
+        await (() =>
+            expect(result.current.screenData['CreateAccount'].emailAddress).toBe('emailAddress@emailAddress.com'));
     });
 
-    it('should set screen data for custom registration workflow in the context', () => {
+    it('should set screen data for custom registration workflow in the context', async () => {
         const wrapper = ({ children }): JSX.Element => (
-            <RegistrationWorkflow {...defaultProps}>{children}</RegistrationWorkflow>
+            <RegistrationContextProvider {...registrationContextProviderProps}>
+                <RegistrationWorkflow {...defaultProps}>{children}</RegistrationWorkflow>
+            </RegistrationContextProvider>
         );
         const { result } = renderHook(() => useRegistrationWorkflowContext(), { wrapper });
 
         act(() => {
-            result.current.nextScreen({ screenId: 'Screen1', values: { test: 'test' } });
+            void result.current.nextScreen({ screenId: 'Screen1', values: { test: 'test' } });
         });
         act(() => {
             result.current.previousScreen({
@@ -98,7 +121,8 @@ describe('RegistrationWorkflow', () => {
         });
         /* @ts-ignore */
         expect(result.current.screenData['Other']['Screen1'].test).toBe('test');
-        expect(result.current.screenData['Other']['Screen2'].test2).toBe('test2');
+        // eslint-disable-next-line
+        await (() => expect(result.current.screenData['Other']['Screen2'].test2).toBe('test2'));
     });
 
     it('should check for lower bound of initialScreenIndex props', () => {

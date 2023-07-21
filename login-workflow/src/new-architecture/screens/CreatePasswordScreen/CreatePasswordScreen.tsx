@@ -33,7 +33,7 @@ export const CreatePasswordScreen: React.FC<CreatePasswordScreenProps> = (props)
         try {
             setIsLoading(true);
             await actions().createPassword(passwordInput);
-            nextScreen({
+            void nextScreen({
                 screenId: 'CreatePassword',
                 values: { password: passwordInput, confirmPassword: confirmInput },
             });

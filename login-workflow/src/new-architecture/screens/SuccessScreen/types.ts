@@ -1,4 +1,5 @@
 import React from 'react';
+import { ErrorManagerProps } from '../../components/Error';
 import { WorkflowCardProps } from '../../components/WorkflowCard/WorkflowCard.types';
 
 export type SuccessScreenProps = WorkflowCardProps & {
@@ -8,4 +9,5 @@ export type SuccessScreenProps = WorkflowCardProps & {
     dismissButtonLabel?: string;
     canDismiss?: boolean | (() => boolean);
     onDismiss?: () => void;
+    errorDisplayConfig?: ErrorManagerProps;
 };
