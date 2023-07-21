@@ -90,12 +90,12 @@ export const ProjectAuthUIActions: AuthUIActionsWithSecurity = (securityHelper) 
         // eslint-disable-next-line no-console
         console.log('actions login called...');
 
-        throw new Error('My Custom Error', {
+        /*throw new Error('My Custom Error', {
             cause: {
                 title: 'Custom Title',
                 errorMessage: 'My custom error message',
             },
-        });
+        }); */
 
         if (isRandomFailure()) {
             // reject(new Error('LOGIN.GENERIC_ERROR'));

@@ -1,15 +1,22 @@
-import React from 'react';
+import React, { useState } from 'react';
 import { Box, Button } from '@mui/material';
 import { LoginScreen, AuthContextProvider, useSecurityActions } from '@brightlayer-ui/react-auth-workflow';
 import EatonLogo from '../../assets/images/eaton_stacked_logo.png';
 import { useApp } from '../../contexts/AppContextProvider';
 import { useNavigate } from 'react-router';
 import { ProjectAuthUIActions } from '../../actions/AuthUIActions';
+import { REMEMBER_ME_DATA } from '../../constants';
 
 export const Login = (): JSX.Element => {
     const { language, setIsAuthenticated } = useApp();
     const navigate = useNavigate();
     const securityContextActions = useSecurityActions();
+
+    const jsonRememberMe = window.localStorage.getItem(REMEMBER_ME_DATA) || '{}';
+    const rememberMeData = JSON.parse(jsonRememberMe);
+
+    const [rememberMe, setRememberMe] = useState(rememberMeData.rememberMe ? rememberMeData.rememberMe : false);
+    const [rememberEmail, setRememberEmail] = useState(rememberMeData.user ? rememberMeData.user : '');
 
     return (
         <Box sx={{ display: 'flex', flexDirection: 'column', height: '100%' }}>
@@ -24,6 +31,7 @@ export const Login = (): JSX.Element => {
                         dismissible: true,
                         position: 'top',
                     }}
+                    rememberMeDetails={{ rememberMe: rememberMe, email: rememberEmail }}
                 >
                     <>
                         <Button
@@ -43,6 +51,7 @@ export const Login = (): JSX.Element => {
                             onLogin={(username: any, password: any): void => {
                                 // eslint-disable-next-line no-console
                                 console.log('onLogin', username, password);
+                                setRememberEmail(username);
                                 setIsAuthenticated(true);
                                 navigate('/guarded');
                             }}
@@ -55,6 +64,7 @@ export const Login = (): JSX.Element => {
                                 required: true,
                             }}
                             onRememberMeChanged={(value: boolean): void => {
+                                setRememberMe(value);
                                 // eslint-disable-next-line no-console
                                 console.log('onRememberMeChanged', value);
                             }}
