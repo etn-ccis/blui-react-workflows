@@ -22,7 +22,6 @@ export const EulaScreen: React.FC<EulaScreenProps> = (props) => {
     } = props;
 
     const [eulaAccepted, setEulaAccepted] = useState(screenData.Eula.accepted ?? initialCheckboxValue);
-    // const [isEulaLoaded, setIsEulaLoaded] = useState(false);
     const [isLoading, setIsLoading] = useState(true);
     const [eulaData, setEulaData] = useState<string>();
 
@@ -33,7 +32,6 @@ export const EulaScreen: React.FC<EulaScreenProps> = (props) => {
                 const eulaText = await actions().loadEula(language);
                 setEulaData(eulaText);
                 setIsLoading(false);
-                // setIsEulaLoaded(true);
             } catch (_error) {
                 // @TODO: we need to handle this failure more gracefully. The user should be able to attempt to reload the EULA and forward progress should be blocked
                 triggerError(_error as Error);
