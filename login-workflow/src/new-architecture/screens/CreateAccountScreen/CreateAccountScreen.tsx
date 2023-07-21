@@ -32,7 +32,7 @@ export const CreateAccountScreen: React.FC<CreateAccountScreenProps> = (props) =
         try {
             setIsLoading(true);
             await actions().requestRegistrationCode(emailInputValue);
-            nextScreen({
+            void nextScreen({
                 screenId: 'CreateAccount',
                 values: { emailAddress: emailInputValue },
             });

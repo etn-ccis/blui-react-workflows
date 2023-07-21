@@ -113,6 +113,8 @@ export const ContactScreenBase: React.FC<ContactScreenProps> = (props) => {
                             data-testid={defaultClasses.contactEmail}
                             variant="button"
                             sx={{ ...LinkStyles, fontSize: 'inherit' }}
+                            component="a"
+                            href={`mailto:${contactEmail}`}
                         >
                             {contactEmail}
                         </Typography>
@@ -152,6 +154,8 @@ export const ContactScreenBase: React.FC<ContactScreenProps> = (props) => {
                             data-testid={defaultClasses.contactPhone}
                             variant="button"
                             sx={{ ...LinkStyles, fontSize: 'inherit' }}
+                            component="a"
+                            href={`tel:${contactPhone}`}
                         >
                             {contactPhone}
                         </Typography>

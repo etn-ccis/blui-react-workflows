@@ -58,7 +58,7 @@ export const VerifyCodeScreen: React.FC<VerifyCodeScreenProps> = (props) => {
             try {
                 setIsLoading(true);
                 await actions().validateUserRegistrationRequest(code);
-                nextScreen({
+                void nextScreen({
                     screenId: 'VerifyCode',
                     values: { code: code },
                 });

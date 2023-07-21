@@ -1,6 +1,6 @@
 import i18next from 'i18next';
-import { dictionaries } from './dictionaries';
-import { sharedDictionaries } from './../sharedDictionaries';
+import { AuthDictionaries } from './AuthDictionaries';
+import { sharedDictionaries } from '../sharedDictionaries';
 
 export const i18nAuthInstance = i18next.createInstance(
     {
@@ -19,7 +19,7 @@ export const i18nAuthInstance = i18next.createInstance(
         resources: {
             en: {
                 bluiAuth: {
-                    ...dictionaries.english.translation,
+                    ...AuthDictionaries.english.translation,
                 },
                 bluiCommon: {
                     ...sharedDictionaries.english.translation,
@@ -27,7 +27,7 @@ export const i18nAuthInstance = i18next.createInstance(
             },
             fr: {
                 bluiAuth: {
-                    ...dictionaries.french.translation,
+                    ...AuthDictionaries.french.translation,
                 },
                 bluiCommon: {
                     ...sharedDictionaries.french.translation,
@@ -35,7 +35,7 @@ export const i18nAuthInstance = i18next.createInstance(
             },
             es: {
                 bluiAuth: {
-                    ...dictionaries.spanish.translation,
+                    ...AuthDictionaries.spanish.translation,
                 },
                 bluiCommon: {
                     ...sharedDictionaries.spanish.translation,
@@ -43,7 +43,7 @@ export const i18nAuthInstance = i18next.createInstance(
             },
             zh: {
                 bluiAuth: {
-                    ...dictionaries.chinese.translation,
+                    ...AuthDictionaries.chinese.translation,
                 },
                 bluiCommon: {
                     ...sharedDictionaries.chinese.translation,
@@ -51,7 +51,7 @@ export const i18nAuthInstance = i18next.createInstance(
             },
             pt: {
                 bluiAuth: {
-                    ...dictionaries.portuguese.translation,
+                    ...AuthDictionaries.portuguese.translation,
                 },
                 bluiCommon: {
                     ...sharedDictionaries.portuguese.translation,
