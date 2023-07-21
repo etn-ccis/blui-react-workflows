@@ -60,6 +60,12 @@ export const ResetPasswordScreen: React.FC<ResetPasswordScreenProps> = (props) =
             passwordRequirements: passwordRequirements,
             passwordRef,
             confirmRef,
+            onSubmit: (): void => {
+                if (areValidMatchingPasswords()) {
+                    void handleOnNext();
+                    WorkflowCardActionsProps?.onNext?.();
+                }
+            },
         },
         WorkflowCardBaseProps,
         WorkflowCardHeaderProps,
@@ -113,10 +119,6 @@ export const ResetPasswordScreen: React.FC<ResetPasswordScreenProps> = (props) =
         },
         [setPasswordInput, setConfirmInput]
     );
-
-    useEffect(() => {
-        setPasswordInput(areValidMatchingPasswords() ? passwordInput : '');
-    }, [setPasswordInput, passwordInput, confirmInput, areValidMatchingPasswords]);
 
     const errorDialog = (
         <SimpleDialog
