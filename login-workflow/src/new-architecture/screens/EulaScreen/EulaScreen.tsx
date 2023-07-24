@@ -44,7 +44,7 @@ export const EulaScreen: React.FC<EulaScreenProps> = (props) => {
         try {
             const acceptedEula = await actions().acceptEula();
             setEulaAccepted(acceptedEula);
-            nextScreen({
+            void nextScreen({
                 screenId: 'Eula',
                 values: { accepted: acceptedEula },
             });

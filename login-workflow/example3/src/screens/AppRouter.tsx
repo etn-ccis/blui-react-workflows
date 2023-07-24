@@ -79,7 +79,6 @@ export const AppRouter: React.FC = () => {
                             <VerifyCodeScreen />
                             <CreatePasswordScreen />
                             <AccountDetailsScreen />
-                            <RegistrationSuccessScreen />
                         </RegistrationWorkflow>
                     }
                 />
