@@ -4,7 +4,7 @@ import { ErrorContextProvider } from './provider';
 import { ErrorContextProviderProps } from './types';
 
 /**
- * Hook to get top level data in authentication workflow
+ * Hook to get top level error data
  *
  * @category Hooks
  * @private

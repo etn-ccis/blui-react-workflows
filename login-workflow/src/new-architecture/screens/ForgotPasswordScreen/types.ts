@@ -1,3 +1,4 @@
+import { ErrorManagerProps } from '../../components/Error';
 import { WorkflowCardProps } from '../../components/WorkflowCard/WorkflowCard.types';
 import { SuccessScreenProps } from '../SuccessScreen';
 
@@ -53,4 +54,7 @@ export type ForgotPasswordScreenProps = WorkflowCardProps & {
 
     // used to determine whether to show a success screen after the form is submitted
     showSuccessScreen?: boolean;
+
+    // used to configure how errors are rendered
+    errorDisplayConfig?: ErrorManagerProps;
 };

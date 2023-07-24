@@ -25,6 +25,13 @@ export const RegistrationWorkflowScreen = (): JSX.Element => {
             routeConfig={routes}
             navigate={navigate}
             actions={ProjectRegistrationUIActions}
+            errorConfig={{
+                mode: 'message-box',
+                messageBoxConfig: {
+                    dismissible: true,
+                    position: 'bottom',
+                },
+            }}
         >
             <RegistrationWorkflow initialScreenIndex={0}>
                 <EulaScreen />

@@ -44,40 +44,13 @@ describe('Reset Password Screen', () => {
         expect(screen.getByText('Test Title')).toBeInTheDocument();
     });
 
-    it('should show error dialog, when next button is clicked and error is thrown', () => {
-        const { getByLabelText, rerender } = renderer();
-
-        const passwordField = getByLabelText('New Password');
-        const confirmPasswordField = getByLabelText('Confirm New Password');
-
-        fireEvent.change(passwordField, { target: { value: 'Abcd@123' } });
-        fireEvent.blur(passwordField);
-        fireEvent.change(confirmPasswordField, { target: { value: 'Abcd@123' } });
-        fireEvent.blur(confirmPasswordField);
-
-        const nextButton = screen.getByText('Next');
-        expect(nextButton).toBeInTheDocument();
-        expect(screen.getByText(/Next/i)).toBeEnabled();
-        fireEvent.click(nextButton);
-
-        rerender(
-            <AuthContextProvider language={'en'} routeConfig={{}} navigate={jest.fn()} actions={jest.fn()}>
-                <BrowserRouter>
-                    <ResetPasswordScreen />
-                </BrowserRouter>
-            </AuthContextProvider>
-        );
-
-        expect(screen.getByText('Could not reset your password at this time.')).toBeInTheDocument();
-    });
-
     it('should show success screen, when showSuccessScreen prop is true', () => {
         renderer({ showSuccessScreen: true });
 
         expect(screen.getByText('Your password was successfully reset.')).toBeInTheDocument();
     });
 
-    it('should loader, when loading prop is passed to WorkflowCardBaseProps', () => {
+    it('should show loader, when loading prop is passed to WorkflowCardBaseProps', () => {
         renderer({ WorkflowCardBaseProps: { loading: true } });
 
         expect(screen.getByTestId('blui-spinner')).toBeInTheDocument();
@@ -142,69 +115,5 @@ describe('Reset Password Screen', () => {
 
         expect(screen.getByText('Done')).toBeInTheDocument();
         expect(mockOnNext).toHaveBeenCalled();
-    });
-
-    it('should dismiss error dialog, when okay button is clicked', () => {
-        const { getByLabelText, rerender } = renderer();
-
-        const passwordField = getByLabelText('New Password');
-        const confirmPasswordField = getByLabelText('Confirm New Password');
-
-        fireEvent.change(passwordField, { target: { value: 'Abcd@123' } });
-        fireEvent.blur(passwordField);
-        fireEvent.change(confirmPasswordField, { target: { value: 'Abcd@123' } });
-        fireEvent.blur(confirmPasswordField);
-
-        const nextButton = screen.getByText('Next');
-        expect(nextButton).toBeInTheDocument();
-        expect(screen.getByText(/Next/i)).toBeEnabled();
-        fireEvent.click(nextButton);
-
-        rerender(
-            <AuthContextProvider language={'en'} routeConfig={{}} navigate={jest.fn()} actions={jest.fn()}>
-                <BrowserRouter>
-                    <ResetPasswordScreen WorkflowCardHeaderProps={{ title: 'Test Title' }} />
-                </BrowserRouter>
-            </AuthContextProvider>
-        );
-
-        expect(screen.getByText('Could not reset your password at this time.')).toBeInTheDocument();
-        expect(screen.getByText('OKAY')).toBeInTheDocument();
-        expect(screen.getByRole('dialog')).toBeInTheDocument();
-
-        fireEvent.click(screen.getByText('OKAY'));
-        expect(screen.queryByRole('dialog')).toBeNull();
-    });
-
-    it('should dismiss error dialog, when okay button is clicked', () => {
-        const { getByLabelText, rerender } = renderer();
-
-        const passwordField = getByLabelText('New Password');
-        const confirmPasswordField = getByLabelText('Confirm New Password');
-
-        fireEvent.change(passwordField, { target: { value: 'Abcd@123' } });
-        fireEvent.blur(passwordField);
-        fireEvent.change(confirmPasswordField, { target: { value: 'Abcd@123' } });
-        fireEvent.blur(confirmPasswordField);
-
-        const nextButton = screen.getByText('Next');
-        expect(nextButton).toBeInTheDocument();
-        expect(screen.getByText(/Next/i)).toBeEnabled();
-        fireEvent.click(nextButton);
-
-        rerender(
-            <AuthContextProvider language={'en'} routeConfig={{}} navigate={jest.fn()} actions={jest.fn()}>
-                <BrowserRouter>
-                    <ResetPasswordScreen WorkflowCardHeaderProps={{ title: 'Test Title' }} />
-                </BrowserRouter>
-            </AuthContextProvider>
-        );
-
-        expect(screen.getByText('Could not reset your password at this time.')).toBeInTheDocument();
-        expect(screen.getByText('OKAY')).toBeInTheDocument();
-        expect(screen.getByRole('dialog')).toBeInTheDocument();
-
-        fireEvent.click(screen.getByText('OKAY'));
-        expect(screen.queryByRole('dialog')).toBeNull();
     });
 });

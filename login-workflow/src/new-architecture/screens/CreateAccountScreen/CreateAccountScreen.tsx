@@ -4,8 +4,7 @@ import { CreateAccountScreenBase } from './CreateAccountScreenBase';
 import { useLanguageLocale } from '../../hooks';
 import { useRegistrationContext } from '../../contexts/RegistrationContext/context';
 import { useRegistrationWorkflowContext } from '../../contexts';
-import { AuthError } from '../../components/Error';
-import { useErrorContext } from '../../contexts/ErrorContext';
+import { useErrorManager } from '../../contexts/ErrorContext/useErrorManager';
 
 /**
  * Component that renders a screen for the user to enter their email address to start the
@@ -24,11 +23,10 @@ export const CreateAccountScreen: React.FC<CreateAccountScreenProps> = (props) =
     const { t } = useLanguageLocale();
     const { actions } = useRegistrationContext();
     const regWorkflow = useRegistrationWorkflowContext();
-    const errorConfig = useErrorContext();
     const { nextScreen, previousScreen, screenData, totalScreens, currentScreen } = regWorkflow;
     const [emailInputValue, setEmailInputValue] = useState(screenData.CreateAccount.emailAddress);
     const [isLoading, setIsLoading] = useState(false);
-    const [error, setError] = useState<AuthError>({ cause: { title: '', errorMessage: '' } });
+    const { triggerError, errorManagerConfig } = useErrorManager();
 
     const onNext = useCallback(async () => {
         try {
@@ -39,16 +37,11 @@ export const CreateAccountScreen: React.FC<CreateAccountScreenProps> = (props) =
                 values: { emailAddress: emailInputValue },
             });
         } catch (_error) {
-            setError({
-                cause: {
-                    title: (_error as AuthError).cause.title,
-                    errorMessage: (_error as AuthError).cause.errorMessage,
-                },
-            });
+            triggerError(_error as Error);
         } finally {
             setIsLoading(false);
         }
-    }, [emailInputValue, nextScreen, actions]);
+    }, [actions, emailInputValue, nextScreen, triggerError]);
 
     const onPrevious = (): void => {
         previousScreen({
@@ -70,7 +63,7 @@ export const CreateAccountScreen: React.FC<CreateAccountScreenProps> = (props) =
             return true;
         },
         emailTextFieldProps,
-        errorDisplayConfig = errorConfig,
+        errorDisplayConfig = errorManagerConfig,
     } = props;
 
     const workflowCardBaseProps = {
@@ -121,14 +114,7 @@ export const CreateAccountScreen: React.FC<CreateAccountScreenProps> = (props) =
             emailTextFieldProps={{ ...emailTextFieldProps, onChange: onEmailInputValueChange }}
             emailValidator={emailValidator}
             WorkflowCardActionsProps={workflowCardActionsProps}
-            errorDisplayConfig={{
-                ...errorDisplayConfig,
-                title: error.cause.title,
-                errorMessage: error.cause.errorMessage,
-                onClose: (): void => {
-                    setError({ cause: { title: '', errorMessage: '' } });
-                },
-            }}
+            errorDisplayConfig={errorDisplayConfig}
         />
     );
 };

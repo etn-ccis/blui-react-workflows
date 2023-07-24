@@ -3,18 +3,9 @@ import { Divider } from '@mui/material';
 import { WorkflowCard, WorkflowCardActions, WorkflowCardBody, WorkflowCardHeader } from '../../components/WorkflowCard';
 import { SuccessScreenProps } from './types';
 import { WorkflowFinishState } from '../../components';
-import ErrorManager from '../../components/Error/ErrorManager';
 
 export const SuccessScreenBase: React.FC<SuccessScreenProps> = (props) => {
-    const {
-        icon,
-        messageTitle = '',
-        message = '',
-        dismissButtonLabel = '',
-        canDismiss,
-        onDismiss,
-        errorDisplayConfig,
-    } = props;
+    const { icon, messageTitle = '', message = '', dismissButtonLabel = '', canDismiss, onDismiss } = props;
 
     const cardBaseProps = props.WorkflowCardBaseProps || {};
     const headerProps = props.WorkflowCardHeaderProps || {};
@@ -24,9 +15,7 @@ export const SuccessScreenBase: React.FC<SuccessScreenProps> = (props) => {
         <WorkflowCard {...cardBaseProps}>
             <WorkflowCardHeader {...headerProps} />
             <WorkflowCardBody>
-                <ErrorManager {...errorDisplayConfig}>
-                    <WorkflowFinishState icon={icon} title={messageTitle} description={message} />
-                </ErrorManager>
+                <WorkflowFinishState icon={icon} title={messageTitle} description={message} />
             </WorkflowCardBody>
             <Divider />
             <WorkflowCardActions

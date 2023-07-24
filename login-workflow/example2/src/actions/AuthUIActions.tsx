@@ -87,19 +87,16 @@ export const ProjectAuthUIActions: AuthUIActionsWithSecurity = (securityHelper) 
      */
     logIn: async (email: string, password: string, rememberMe: boolean): Promise<void> => {
         await sleep(1000);
-        // eslint-disable-next-line no-console
-        console.log('actions login called...');
-
-        throw new Error('My Custom Error', {
-            cause: {
-                title: 'Custom Title',
-                errorMessage: 'My custom error message',
-            },
-        });
 
         if (isRandomFailure()) {
             // reject(new Error('LOGIN.GENERIC_ERROR'));
-            throw new Error('LOGIN.INVALID_CREDENTIALS');
+            // throw new Error('LOGIN.INVALID_CREDENTIALS');
+            throw new Error('My Custom Error', {
+                cause: {
+                    title: 'Error',
+                    errorMessage: 'Sorry, your attempt to login failed.',
+                },
+            });
         }
 
         LocalStorage.saveAuthCredentials(email, email);
@@ -118,8 +115,14 @@ export const ProjectAuthUIActions: AuthUIActionsWithSecurity = (securityHelper) 
      */
     forgotPassword: async (email: string): Promise<void> => {
         await sleep(500);
+
         if (isRandomFailure()) {
-            throw new Error('Sorry, there was a problem sending your request.');
+            throw new Error('My Custom Error', {
+                cause: {
+                    title: 'Error',
+                    errorMessage: 'Sorry, there was a problem sending your request.',
+                },
+            });
         }
 
         return;
@@ -159,6 +162,7 @@ export const ProjectAuthUIActions: AuthUIActionsWithSecurity = (securityHelper) 
      */
     setPassword: async (code: string, password: string, email?: string): Promise<void> => {
         await sleep(500);
+
         if (isRandomFailure()) {
             throw new Error('Sorry, there was a problem sending your request.');
         }
