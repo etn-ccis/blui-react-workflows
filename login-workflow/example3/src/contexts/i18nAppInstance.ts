@@ -1,5 +1,5 @@
 import i18next from 'i18next';
-import { AppDictionaries } from './dictionary';
+import { AppDictionaries } from './AppDictionaries';
 
 export const i18nAppInstance = i18next.createInstance(
     {

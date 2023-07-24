@@ -1,6 +1,5 @@
 import React, { useState } from 'react';
 import { LocalStorage } from '../store/local-storage';
-import { useApp } from '../contexts/AppContextProvider';
 import {
     DrawerLayout,
     Drawer,
@@ -29,9 +28,10 @@ import { useNavigate } from 'react-router-dom';
 import * as Colors from '@brightlayer-ui/colors';
 import FormControl from '@mui/material/FormControl';
 import { MenuItem, Select, SelectChangeEvent } from '@mui/material';
+import { useAppContext } from '../contexts';
 
 export const ExampleHome: React.FC<React.PropsWithChildren> = () => {
-    const app = useApp();
+    const app = useAppContext();
     const { t, i18n } = useTranslation();
     const [open, setOpen] = useState(false);
     const navigate = useNavigate();
@@ -63,13 +63,13 @@ export const ExampleHome: React.FC<React.PropsWithChildren> = () => {
 
     const logOut = (): void => {
         LocalStorage.clearAuthCredentials();
-        app.setIsAuthenticated(false);
+        app.setIsAuthenticated?.(false);
         navigate('/login');
     };
 
     const changeAppLanguage = (event: SelectChangeEvent): void => {
         const appLanguage = event.target.value;
-        app.setLanguage(appLanguage);
+        app.setLanguage?.(appLanguage);
         void i18n.changeLanguage(appLanguage);
     };
 

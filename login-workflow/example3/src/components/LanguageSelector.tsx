@@ -1,15 +1,16 @@
 import { FormControl, InputLabel, MenuItem, Select, SelectChangeEvent, SelectProps } from '@mui/material';
 import React, { useState } from 'react';
-import { useApp } from '../contexts/AppContextProvider';
+import { useAppContext } from '../contexts';
 
 export const LanguageSelector = (props: SelectProps): JSX.Element => {
-    const { language, setLanguage } = useApp();
-    const [selectedLanguage, setSelectedLanguage] = useState(language);
+    const app = useAppContext();
+    const [selectedLanguage, setSelectedLanguage] = useState(app.language);
 
     const changeAppLanguage = (event: SelectChangeEvent): void => {
         const appLanguage = event.target.value;
         setSelectedLanguage(appLanguage);
-        setLanguage(appLanguage);
+        app.setLanguage(appLanguage);
+        window.localStorage.setItem('language', appLanguage);
     };
 
     return (

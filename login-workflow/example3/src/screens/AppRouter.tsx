@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import React, { useCallback, useEffect, useState } from 'react';
 import {
     AccountDetailsScreen,
     AuthContextProvider,
@@ -15,7 +15,6 @@ import {
     VerifyCodeScreen,
     RegistrationSuccessScreen,
 } from '@brightlayer-ui/react-auth-workflow';
-import { useApp } from '../contexts/AppContextProvider';
 import { useNavigate } from 'react-router';
 import { ProjectAuthUIActions } from '../actions/AuthUIActions';
 import { Navigate, Outlet, Route, Routes } from 'react-router-dom';
@@ -23,17 +22,45 @@ import { Login } from './Login';
 import { ProjectRegistrationUIActions } from '../actions/RegistrationUIActions';
 import { routes } from '../navigation/Routing';
 import { ExampleHome } from './ExampleHome';
-import { LocalStorage } from '../store/local-storage';
-import { i18nAppInstance } from '../translations/i18n';
 import { CustomScreen } from './CustomScreen';
+import { useAppContext } from '../contexts';
+import {i18nAppInstance} from '../contexts/i18nAppInstance';
+import { LocalStorage } from '../store/local-storage';
 
 export const AppRouter: React.FC = () => {
-    const { language } = useApp();
-    const authData = LocalStorage.readAuthData();
+    const { user, language, isAuthenticated } = useAppContext();
+    // const authData = LocalStorage.readAuthData();
     // eslint-disable-next-line
-    const [isAuthenticated, setIsAuthenticated] = useState(authData !== null ? true : false);
+    const [appIsAuthenticated, setAppIsAuthenticated] = useState(user ? true : false);
     const navigate = useNavigate();
     const securityContextActions = useSecurityActions();
+
+    // const checkInitialData = useCallback(
+    //     async (): Promise<void> => {
+    //         try { 
+    //             const data = await LocalStorage.readAuthData();
+    //             setAppIsAuthenticated(data ? true: false);
+                
+    //         } catch (e) {
+    //             console.error('not able to retrieve local storage data ... ')
+    //         }
+    //     },
+    //     [isAuthenticated]
+    // );
+
+    // useEffect(() => {
+    //    void checkInitialData();
+
+
+    // }, [language, isAuthenticated, appIsAuthenticated]);
+
+
+
+//     console.log('app lan', language);
+//     console.log('app auth', isAuthenticated)
+// console.log('provider auth ', appIsAuthenticated);
+console.log(user, 'app user');
+    
     return (
         <Routes>
             {/* AUTH ROUTES */}
@@ -99,21 +126,19 @@ export const AppRouter: React.FC = () => {
             <Route
                 path={'/homepage'}
                 element={
-                    // <I18nextProvider i18n={i18nAppInstance}>
-                    <ExperimentalAuthGuard
-                        isAuthenticated={isAuthenticated}
-                        fallbackComponent={<Navigate to={`/login`} />}
-                    >
+                    // <ExperimentalAuthGuard
+                    //     isAuthenticated={user ? true : false}
+                    //     fallbackComponent={<Navigate to={`/login`} />}
+                    // >
                         <ExampleHome />
-                    </ExperimentalAuthGuard>
-                    // </I18nextProvider>
+                    // </ExperimentalAuthGuard>
                 }
             />
             <Route
                 path={'*'}
                 element={
                     <ExperimentalAuthGuard
-                        isAuthenticated={isAuthenticated}
+                        isAuthenticated={appIsAuthenticated}
                         fallbackComponent={<Navigate to={`/login`} />}
                     >
                         <Navigate to={'/login'} />
