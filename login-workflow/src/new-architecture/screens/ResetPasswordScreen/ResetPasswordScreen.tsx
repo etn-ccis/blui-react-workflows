@@ -1,4 +1,4 @@
-import React, { useCallback, useEffect, useRef, useState } from 'react';
+import React, { useCallback, useRef, useState } from 'react';
 import CheckCircle from '@mui/icons-material/CheckCircle';
 import { ResetPasswordScreenBase } from './ResetPasswordScreenBase';
 import { useLanguageLocale } from '../../hooks';
@@ -52,7 +52,18 @@ export const ResetPasswordScreen: React.FC<ResetPasswordScreenProps> = (props) =
         }
     }, [actions, code, passwordInput, email, triggerError]);
 
+    const areValidMatchingPasswords = useCallback((): boolean => {
+        for (let i = 0; i < passwordRequirements.length; i++) {
+            if (!new RegExp(passwordRequirements[i].regex).test(passwordInput)) return false;
+        }
+        return confirmInput === passwordInput;
+    }, [passwordRequirements, passwordInput, confirmInput]);
+
     const {
+        WorkflowCardBaseProps,
+        WorkflowCardHeaderProps,
+        WorkflowCardInstructionProps,
+        WorkflowCardActionsProps,
         PasswordProps: passwordProps = {
             newPasswordLabel: t('bluiAuth:CHANGE_PASSWORD.NEW_PASSWORD'),
             confirmPasswordLabel: t('bluiAuth:CHANGE_PASSWORD.CONFIRM_NEW_PASSWORD'),
@@ -60,11 +71,13 @@ export const ResetPasswordScreen: React.FC<ResetPasswordScreenProps> = (props) =
             passwordRequirements: passwordRequirements,
             passwordRef,
             confirmRef,
+            onSubmit: (): void => {
+                if (areValidMatchingPasswords()) {
+                    void handleOnNext();
+                    WorkflowCardActionsProps?.onNext?.();
+                }
+            },
         },
-        WorkflowCardBaseProps,
-        WorkflowCardHeaderProps,
-        WorkflowCardInstructionProps,
-        WorkflowCardActionsProps,
         errorDisplayConfig = errorManagerConfig,
     } = props;
 
@@ -100,13 +113,6 @@ export const ResetPasswordScreen: React.FC<ResetPasswordScreenProps> = (props) =
         },
     };
 
-    const areValidMatchingPasswords = useCallback((): boolean => {
-        for (let i = 0; i < passwordRequirements.length; i++) {
-            if (!new RegExp(passwordRequirements[i].regex).test(passwordInput)) return false;
-        }
-        return confirmInput === passwordInput;
-    }, [passwordRequirements, passwordInput, confirmInput]);
-
     const updateFields = useCallback(
         (fields: { password: string; confirm: string }) => {
             setPasswordInput(fields.password);
@@ -114,10 +120,6 @@ export const ResetPasswordScreen: React.FC<ResetPasswordScreenProps> = (props) =
         },
         [setPasswordInput, setConfirmInput]
     );
-
-    useEffect(() => {
-        setPasswordInput(areValidMatchingPasswords() ? passwordInput : '');
-    }, [setPasswordInput, passwordInput, confirmInput, areValidMatchingPasswords]);
 
     return (
         <ResetPasswordScreenBase

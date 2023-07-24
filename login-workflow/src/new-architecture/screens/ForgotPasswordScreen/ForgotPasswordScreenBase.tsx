@@ -77,9 +77,7 @@ export const ForgotPasswordScreenBase: React.FC<React.PropsWithChildren<ForgotPa
                                 onKeyUp={(e): void => {
                                     if (
                                         e.key === 'Enter' &&
-                                        emailInput.length > 0 &&
-                                        isEmailValid &&
-                                        actionsProps.canGoNext
+                                        ((emailInput.length > 0 && isEmailValid) || actionsProps.canGoNext)
                                     )
                                         handleOnNext();
                                 }}

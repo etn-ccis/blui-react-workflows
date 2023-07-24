@@ -1,4 +1,3 @@
-/** eslint-ignore */
 import React, { useCallback, useState } from 'react';
 import { EulaScreenProps } from './types';
 import { WorkflowCard, WorkflowCardActions, WorkflowCardBody, WorkflowCardHeader } from '../../components/WorkflowCard';
@@ -43,6 +42,11 @@ export const EulaScreenBase: React.FC<EulaScreenProps> = (props) => {
         [onEulaAcceptedChange]
     );
 
+    const handleOnNext = (): void => {
+        const { onNext } = actionsProps;
+        if (onNext) onNext({ accepted: eulaAccepted });
+    };
+
     return (
         <WorkflowCard {...cardBaseProps}>
             <WorkflowCardHeader {...headerProps} />
@@ -68,6 +72,9 @@ export const EulaScreenBase: React.FC<EulaScreenProps> = (props) => {
                         }
                         label={checkboxLabel}
                         sx={{ flex: '0 0 auto', mr: 0, mt: 2 }}
+                        onKeyUp={(e): void => {
+                            if (e.key === 'Enter' && eulaAccepted) handleOnNext();
+                        }}
                     />
                 </ErrorManager>
             </WorkflowCardBody>
