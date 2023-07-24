@@ -1,6 +1,6 @@
-/* eslint-disable */
 import React, { useState } from 'react';
-import { IndividualScreenData, RegistrationWorkflowContextProvider } from '../../contexts';
+import { IndividualScreenData, RegistrationWorkflowContextProvider, useRegistrationContext } from '../../contexts';
+import { RegistrationSuccessScreen } from '../../screens';
 
 export type RegistrationWorkflowProps = {
     initialScreenIndex?: number;
@@ -13,6 +13,8 @@ export const RegistrationWorkflow: React.FC<React.PropsWithChildren<Registration
     const [currentScreen, setCurrentScreen] = useState(
         initialScreenIndex < 0 ? 0 : initialScreenIndex > totalScreens - 1 ? totalScreens - 1 : initialScreenIndex
     );
+    const [showSuccessScreen, setShowSuccessScreen] = useState(false);
+    const { actions } = useRegistrationContext();
 
     const [screenData, setScreenData] = useState({
         Eula: {
@@ -35,7 +37,7 @@ export const RegistrationWorkflow: React.FC<React.PropsWithChildren<Registration
         Other: {},
     });
 
-    const handleScreenNavigation = (data: IndividualScreenData): void => {
+    const updateScreenData = (data: IndividualScreenData): void => {
         const { Other } = screenData;
         const { screenId, values } = data;
         if (!Object.keys(screenData).includes(screenId)) {
@@ -57,22 +59,45 @@ export const RegistrationWorkflow: React.FC<React.PropsWithChildren<Registration
         }
     };
 
+    const onNext = (): Promise<void> => {
+        const { firstName, lastName } = screenData.AccountDetails;
+        if (actions && actions().completeRegistration)
+            return actions()
+                .completeRegistration(
+                    { firstName, lastName },
+                    screenData.VerifyCode.code,
+                    screenData.CreateAccount.emailAddress
+                )
+                .then(({ email, organizationName }) => {
+                    updateScreenData({
+                        screenId: 'RegistrationSuccessScreen',
+                        values: { email, organizationName },
+                    });
+                    setShowSuccessScreen(true);
+                })
+                .catch((_error) => {
+                    // eslint-disable-next-line no-console
+                    console.log(_error);
+                });
+    };
+
     return (
         <RegistrationWorkflowContextProvider
             currentScreen={currentScreen}
             totalScreens={totalScreens}
-            nextScreen={(data): void => {
-                handleScreenNavigation(data);
+            nextScreen={(data): Promise<void> => {
+                updateScreenData(data);
+                if (currentScreen === totalScreens - 1) return onNext();
                 setCurrentScreen((i) => i + 1);
             }}
             previousScreen={(data): void => {
-                handleScreenNavigation(data);
+                updateScreenData(data);
                 setCurrentScreen((i) => i - 1);
             }}
             screenData={screenData}
-            updateScreenData={handleScreenNavigation}
+            updateScreenData={updateScreenData}
         >
-            {screens[currentScreen]}
+            {showSuccessScreen ? <RegistrationSuccessScreen /> : screens[currentScreen]}
         </RegistrationWorkflowContextProvider>
     );
 };

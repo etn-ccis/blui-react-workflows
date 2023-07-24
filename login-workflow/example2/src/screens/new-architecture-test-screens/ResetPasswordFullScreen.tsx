@@ -18,6 +18,13 @@ export const ResetPasswordFullScreen = (): JSX.Element => {
                 routeConfig={routes}
                 navigate={navigate}
                 actions={ProjectAuthUIActions(securityContextActions)}
+                errorConfig={{
+                    mode: 'message-box',
+                    messageBoxConfig: {
+                        dismissible: true,
+                        position: 'bottom',
+                    },
+                }}
             >
                 <ResetPasswordScreen />
             </AuthContextProvider>

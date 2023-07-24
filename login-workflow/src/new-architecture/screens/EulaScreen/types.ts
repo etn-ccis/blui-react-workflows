@@ -1,5 +1,6 @@
 import { CheckboxProps } from '@mui/material';
 import { WorkflowCardProps } from '../../components/WorkflowCard/WorkflowCard.types';
+import { ErrorManagerProps } from '../../components/Error';
 
 export type EulaScreenProps = WorkflowCardProps & {
     // the content to render for the EULA. Can be a plain string or HTML
@@ -19,4 +20,7 @@ export type EulaScreenProps = WorkflowCardProps & {
 
     // called when the checkbox clicked
     onEulaAcceptedChange?: (accepted: boolean) => boolean;
+
+    // used to configure how errors are rendered
+    errorDisplayConfig?: ErrorManagerProps;
 };

@@ -28,8 +28,10 @@ export const Login = (): JSX.Element => {
                     routeConfig={{}}
                     errorConfig={{
                         mode: 'message-box',
-                        dismissible: true,
-                        position: 'top',
+                        messageBoxConfig: {
+                            dismissible: true,
+                            position: 'top',
+                        },
                     }}
                     rememberMeDetails={{ rememberMe: rememberMe, email: rememberEmail }}
                 >

@@ -19,7 +19,7 @@ export const registrationContextProviderProps: RegistrationContextProviderProps 
 
 afterEach(cleanup);
 
-describe('Accont Details Screen', () => {
+describe('Account Details Screen', () => {
     let mockOnNext: any;
     let mockOnPrevious: any;
 
@@ -58,7 +58,7 @@ describe('Accont Details Screen', () => {
         expect(screen.getByText('Test Title')).toBeInTheDocument();
     });
 
-    it('should update instruction  when passed as props', () => {
+    it('should update instruction when passed as props', () => {
         renderer({
             WorkflowCardInstructionProps: {
                 instructions: 'Test Instruction',
