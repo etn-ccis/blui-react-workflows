@@ -1,6 +1,6 @@
 import { createContext, useContext } from 'react';
 
-type AppContextType = {
+export type AppContextType = {
     isAuthenticated: boolean;
     setIsAuthenticated: (isAuthenticated: boolean) => void;
     language: string;

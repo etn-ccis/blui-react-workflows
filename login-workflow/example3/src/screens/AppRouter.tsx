@@ -10,7 +10,6 @@ import {
     ForgotPasswordScreen,
     RegistrationContextProvider,
     ResetPasswordScreen,
-    useSecurityActions,
     RegistrationWorkflow,
     VerifyCodeScreen,
     RegistrationSuccessScreen,
@@ -31,14 +30,15 @@ export const AppRouter: React.FC = () => {
     // eslint-disable-next-line
     const [isAuthenticated, setIsAuthenticated] = useState(authData !== null ? true : false);
     const navigate = useNavigate();
-    const securityContextActions = useSecurityActions();
+    const appActions = useApp();
+
     return (
         <Routes>
             {/* AUTH ROUTES */}
             <Route
                 element={
                     <AuthContextProvider
-                        actions={ProjectAuthUIActions(securityContextActions)}
+                        actions={ProjectAuthUIActions(appActions)}
                         language={language}
                         navigate={navigate}
                         routeConfig={routes}
