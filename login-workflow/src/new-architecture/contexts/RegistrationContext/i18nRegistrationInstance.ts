@@ -1,6 +1,6 @@
 import i18next from 'i18next';
 import { RegistrationDictionaries } from './RegistrationDictionaries';
-import { SharedDictionaries } from '../sharedDictionaries';
+import { SharedDictionaries } from '../SharedDictionaries1';
 
 export const i18nRegistrationInstance = i18next.createInstance(
     {

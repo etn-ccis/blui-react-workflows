@@ -10,7 +10,7 @@ import { I18nextProvider } from 'react-i18next';
 import { i18nAuthInstance } from './i18nAuthInstance';
 import { ErrorContext } from '../ErrorContext';
 import { AuthDictionaries } from './AuthDictionaries';
-import { SharedDictionaries } from '../SharedDictionaries';
+import { SharedDictionaries } from '../SharedDictionaries1';
 
 export const AuthContextProvider: React.FC<React.PropsWithChildren<AuthContextProviderProps>> = (props) => {
     const { children, ...authContextProps } = props;
