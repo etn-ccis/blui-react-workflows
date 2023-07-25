@@ -63,11 +63,14 @@ export const ChangePasswordDialog: React.FC<ChangePasswordDialogProps> = (props)
         passwordRequirements,
         passwordNotMatchError: t('bluiCommon:FORMS.PASS_MATCH_ERROR'),
         ...PasswordProps,
+        onPasswordChange: (passwordData: { password: string; confirm: string }): void => {
+            updateFields(passwordData);
+            PasswordProps?.onPasswordChange?.(passwordData);
+        },
         onSubmit: (): void => {
             void changePasswordSubmit();
             PasswordProps?.onSubmit?.();
         },
-        onPasswordChange: updateFields,
     };
 
     const errorDialogProps = {

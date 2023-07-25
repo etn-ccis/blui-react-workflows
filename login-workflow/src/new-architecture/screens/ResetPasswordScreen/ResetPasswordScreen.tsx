@@ -116,7 +116,10 @@ export const ResetPasswordScreen: React.FC<ResetPasswordScreenProps> = (props) =
         passwordRef,
         confirmRef,
         ...PasswordProps,
-        onPasswordChange: updateFields,
+        onPasswordChange: (passwordData: { password: string; confirm: string }): void => {
+            updateFields(passwordData);
+            PasswordProps?.onPasswordChange?.(passwordData);
+        },
         onSubmit: (): void => {
             if (areValidMatchingPasswords()) {
                 void handleOnNext();

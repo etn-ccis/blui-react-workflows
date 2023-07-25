@@ -118,7 +118,10 @@ export const CreatePasswordScreen: React.FC<CreatePasswordScreenProps> = (props)
         passwordRef,
         confirmRef,
         ...PasswordProps,
-        onPasswordChange: updateFields,
+        onPasswordChange: (passwordData: { password: string; confirm: string }): void => {
+            updateFields(passwordData);
+            PasswordProps?.onPasswordChange?.(passwordData);
+        },
         onSubmit: (): void => {
             if (areValidMatchingPasswords()) {
                 void onNext();
