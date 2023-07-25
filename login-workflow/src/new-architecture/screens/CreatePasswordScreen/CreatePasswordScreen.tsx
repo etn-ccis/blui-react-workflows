@@ -91,11 +91,7 @@ export const CreatePasswordScreen: React.FC<CreatePasswordScreenProps> = (props)
     const workflowCardActionsProps = {
         showNext: true,
         nextLabel: t('bluiCommon:ACTIONS.NEXT'),
-        canGoNext:
-            passwordInput !== '' &&
-            confirmInput !== '' &&
-            passwordInput === confirmInput &&
-            areValidMatchingPasswords(),
+        canGoNext: passwordInput !== '' && confirmInput !== '' && passwordInput === confirmInput,
         showPrevious: true,
         previousLabel: t('bluiCommon:ACTIONS.BACK'),
         canGoPrevious: true,

@@ -1,4 +1,4 @@
-import React, { useCallback, useEffect, useRef, useState } from 'react';
+import React, { useCallback, useRef, useState } from 'react';
 import CheckCircle from '@mui/icons-material/CheckCircle';
 import { ResetPasswordScreenBase } from './ResetPasswordScreenBase';
 import { useLanguageLocale } from '../../hooks';
@@ -66,10 +66,6 @@ export const ResetPasswordScreen: React.FC<ResetPasswordScreenProps> = (props) =
         },
         [setPasswordInput, setConfirmInput]
     );
-
-    useEffect(() => {
-        setPasswordInput(areValidMatchingPasswords() ? passwordInput : '');
-    }, [setPasswordInput, passwordInput, confirmInput, areValidMatchingPasswords]);
 
     const {
         WorkflowCardBaseProps,
