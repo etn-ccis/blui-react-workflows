@@ -5,7 +5,6 @@ export const ExperimentalAuthGuard: React.FC<ExperimentalAuthGuardProps> = ({
     isAuthenticated,
     fallbackComponent,
 }) => {
-    console.log('inside auth guard', isAuthenticated);
     if (isAuthenticated) {
         return children;
     }

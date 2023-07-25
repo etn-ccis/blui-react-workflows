@@ -4,7 +4,6 @@ import { AppContext } from './context';
 import { AppContextProvider } from './provider';
 import { AppContextProviderProps } from './types';
 
-
 export const useAppContext = (): AppContextProviderProps => {
     const context = useContext(AppContext);
     if (context === null) {

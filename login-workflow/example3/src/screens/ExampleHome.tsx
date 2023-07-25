@@ -63,13 +63,14 @@ export const ExampleHome: React.FC<React.PropsWithChildren> = () => {
 
     const logOut = (): void => {
         LocalStorage.clearAuthCredentials();
-        app.setIsAuthenticated?.(false);
+        app.setIsAuthenticated(false);
         navigate('/login');
     };
 
     const changeAppLanguage = (event: SelectChangeEvent): void => {
         const appLanguage = event.target.value;
-        app.setLanguage?.(appLanguage);
+        app.setLanguage(appLanguage);
+        window.localStorage.setItem('language', appLanguage);
         void i18n.changeLanguage(appLanguage);
     };
 

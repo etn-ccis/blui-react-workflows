@@ -1,4 +1,4 @@
-import React, { useCallback, useEffect, useState } from 'react';
+import React from 'react';
 import {
     AccountDetailsScreen,
     AuthContextProvider,
@@ -24,43 +24,13 @@ import { routes } from '../navigation/Routing';
 import { ExampleHome } from './ExampleHome';
 import { CustomScreen } from './CustomScreen';
 import { useAppContext } from '../contexts';
-import {i18nAppInstance} from '../contexts/i18nAppInstance';
-import { LocalStorage } from '../store/local-storage';
+import { i18nAppInstance } from '../contexts/i18nAppInstance';
 
 export const AppRouter: React.FC = () => {
-    const { user, language, isAuthenticated } = useAppContext();
-    // const authData = LocalStorage.readAuthData();
-    // eslint-disable-next-line
-    const [appIsAuthenticated, setAppIsAuthenticated] = useState(user ? true : false);
+    const { language, isAuthenticated } = useAppContext();
     const navigate = useNavigate();
     const securityContextActions = useSecurityActions();
 
-    // const checkInitialData = useCallback(
-    //     async (): Promise<void> => {
-    //         try { 
-    //             const data = await LocalStorage.readAuthData();
-    //             setAppIsAuthenticated(data ? true: false);
-                
-    //         } catch (e) {
-    //             console.error('not able to retrieve local storage data ... ')
-    //         }
-    //     },
-    //     [isAuthenticated]
-    // );
-
-    // useEffect(() => {
-    //    void checkInitialData();
-
-
-    // }, [language, isAuthenticated, appIsAuthenticated]);
-
-
-
-//     console.log('app lan', language);
-//     console.log('app auth', isAuthenticated)
-// console.log('provider auth ', appIsAuthenticated);
-console.log(user, 'app user');
-    
     return (
         <Routes>
             {/* AUTH ROUTES */}
@@ -126,19 +96,19 @@ console.log(user, 'app user');
             <Route
                 path={'/homepage'}
                 element={
-                    // <ExperimentalAuthGuard
-                    //     isAuthenticated={user ? true : false}
-                    //     fallbackComponent={<Navigate to={`/login`} />}
-                    // >
+                    <ExperimentalAuthGuard
+                        isAuthenticated={isAuthenticated}
+                        fallbackComponent={<Navigate to={`/login`} />}
+                    >
                         <ExampleHome />
-                    // </ExperimentalAuthGuard>
+                    </ExperimentalAuthGuard>
                 }
             />
             <Route
                 path={'*'}
                 element={
                     <ExperimentalAuthGuard
-                        isAuthenticated={appIsAuthenticated}
+                        isAuthenticated={isAuthenticated}
                         fallbackComponent={<Navigate to={`/login`} />}
                     >
                         <Navigate to={'/login'} />
