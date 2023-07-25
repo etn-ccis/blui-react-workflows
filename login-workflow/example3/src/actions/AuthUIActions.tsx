@@ -15,7 +15,7 @@ function isRandomFailure(): boolean {
 }
 
 type AuthUIActionsFunction = () => AuthUIActions;
-type AuthUIActionsWithSecurity = (appHelper: AppContextType) => AuthUIActionsFunction;
+type AuthUIActionsWithApp = (appHelper: AppContextType) => AuthUIActionsFunction;
 
 /**
  * Example implementation of [[AuthUIActions]] to start with during development.
@@ -24,7 +24,7 @@ type AuthUIActionsWithSecurity = (appHelper: AppContextType) => AuthUIActionsFun
  * appropriate actions (often api calls, local network storage, credential updates, etc) and update
  * the global security state based on the actionable needs of the user.
  */
-export const ProjectAuthUIActions: AuthUIActionsWithSecurity = (appHelper) => (): AuthUIActions => ({
+export const ProjectAuthUIActions: AuthUIActionsWithApp = (appHelper) => (): AuthUIActions => ({
     /**
      * Initialize the application security state. This will involve reading any local storage,
      * validating existing credentials (token expiration, for example). At the end of validation,
@@ -49,17 +49,10 @@ export const ProjectAuthUIActions: AuthUIActionsWithSecurity = (appHelper) => ()
         // After restoring token, we may need to validate it in production apps
         // This will switch to the App screen or Auth screen and this loading
         // screen will be unmounted and thrown away.
-        // securityHelper.onUserAuthenticated()
         if (authData?.email !== undefined) {
-            // securityHelper.onUserAuthenticated({
-            //     email: authData?.email,
-            //     userId: authData.userId ?? '',
-            //     rememberMe: authData?.rememberMeData.rememberMe,
-            // });
             appHelper.setIsAuthenticated(true);
         } else {
             const rememberMeEmail = authData?.rememberMeData.rememberMe ? authData?.rememberMeData.user : undefined;
-            // securityHelper.onUserNotAuthenticated(false, rememberMeEmail);
             appHelper.setIsAuthenticated(false);
         }
     },
@@ -100,7 +93,6 @@ export const ProjectAuthUIActions: AuthUIActionsWithSecurity = (appHelper) => ()
         LocalStorage.saveAuthCredentials(email, email);
         LocalStorage.saveRememberMeData(email, rememberMe);
 
-        // securityHelper.onUserAuthenticated({ email: email, userId: email, rememberMe: rememberMe });
         appHelper.setIsAuthenticated(true);
     },
     /**
