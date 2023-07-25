@@ -9,7 +9,7 @@ import { RegistrationContext } from './context';
 import { I18nextProvider } from 'react-i18next';
 import { i18nRegistrationInstance } from './i18nRegistrationInstance';
 import { ErrorContext } from '../ErrorContext';
-import { SharedDictionaries } from '../SharedDictionaries1';
+import { SharedDictionaries } from '../SharedDictionaries';
 import { RegistrationDictionaries } from './RegistrationDictionaries';
 
 export const RegistrationContextProvider: React.FC<React.PropsWithChildren<RegistrationContextProviderProps>> = (
