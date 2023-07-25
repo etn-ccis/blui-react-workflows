@@ -1,89 +1,88 @@
 import { SxProps } from '@mui/material/styles';
-import React from 'react';
+import React, { useCallback } from 'react';
 import { BasicDialog } from '../Dialog/BasicDialog';
 import ErrorMessageBox from './ErrorMessageBox';
 
 export type AuthError = { cause: { title: string; errorMessage: string } };
 
 export type ErrorManagerProps = {
-    mode?: 'dialog' | 'message-box' | 'both' | 'none';
-    dismissible?: boolean;
-    position?: 'top' | 'bottom';
-    dismissButtonText?: string;
-    messageBoxFontColor?: string;
-    messageBoxBackgroundColor?: string;
-    errorMessage?: string;
+    mode?: 'dialog' | 'message-box' | 'none';
     onClose?: () => void;
-    messageBoxSx?: SxProps;
-    title?: string;
+    error: string;
+    dialogConfig?: {
+        title?: string;
+        dismissLabel?: string;
+    };
+    messageBoxConfig?: {
+        dismissible?: boolean;
+        position?: 'top' | 'bottom';
+        fontColor?: string;
+        backgroundColor?: string;
+        sx?: SxProps;
+    };
     children?: React.ReactNode;
 };
 /**
- * Component that manages the display of error messages. Can be configured to display a dialog, a message box, both, or neither.
+ * Component that manages the display of error messages. Can be configured to display a dialog, a message box, or neither.
  *
- * @param mode determines whether to display a dialog, a message box, both, or neither
- * @param dismissible whether the message box can be dismissed
- * @param dismissButtonText text to show in the close button
- * @param position determines whether the message box should be displayed at the top or bottom of the screen
- * @param messageBoxFontColor the font color of the text inside the message box
- * @param messageBoxBackgroundColor the background color of the message box
- * @param errorMessage error text to display
+ * @param mode determines whether to display a dialog, a message box, or neither
  * @param onClose function to call when the close/dismiss button is clicked
- * @param messageBoxSx sx styles passed to the underlying root(Box) component
- * @param title text to show in the title of the dialog
+ * @param error error text to display
+ * @param dialogConfig configuration for the error dialog
+ * @param dialogConfig.title text to show in the title of the dialog
+ * @param dialogConfig.dismissLabel text to show in the close button
+ * @param messageBoxConfig configuration for the error message box
+ * @param messageBoxConfig.dismissible whether the message box can be dismissed
+ * @param messageBoxConfig.position determines whether the message box should be displayed at the top or bottom of the screen
+ * @param messageBoxConfig.fontColor the font color of the text inside the message box
+ * @param messageBoxConfig.backgroundColor the background color of the message box
+ * @param messageBoxConfig.sx sx styles passed to the underlying root(Box) component
  *
  * @category Component
  */
 
 const ErrorManager: React.FC<ErrorManagerProps> = (props): JSX.Element => {
-    const {
-        children,
-        mode = 'dialog',
-        dismissible = true,
-        dismissButtonText,
-        messageBoxFontColor,
-        messageBoxBackgroundColor,
-        errorMessage,
-        onClose,
-        messageBoxSx,
-        title,
-        position,
-    } = props;
+    const { children, mode = 'dialog', error, onClose, dialogConfig, messageBoxConfig } = props;
 
-    //eslint-disable-next-line no-console
-    console.log('errorMessage:', errorMessage);
+    const ErrorDialogWithProps = useCallback((): JSX.Element => {
+        const { title, dismissLabel } = dialogConfig;
 
-    const ErrorDialogWithProps = (): JSX.Element => (
-        <BasicDialog
-            open={errorMessage.length > 0}
-            title={title}
-            body={errorMessage}
-            onClose={onClose}
-            dismissButtonText={dismissButtonText}
-        />
-    );
+        return (
+            <BasicDialog
+                open={error.length > 0}
+                title={title}
+                body={error}
+                onClose={onClose}
+                dismissButtonText={dismissLabel}
+            />
+        );
+    }, [dialogConfig, error, onClose]);
 
-    const ErrorMessageBoxWithProps = (): JSX.Element => (
-        <ErrorMessageBox
-            errorMessage={errorMessage}
-            dismissible={dismissible}
-            sx={messageBoxSx}
-            backgroundColor={messageBoxBackgroundColor}
-            fontColor={messageBoxFontColor}
-            onClose={onClose}
-        />
-    );
+    const ErrorMessageBoxWithProps = useCallback((): JSX.Element => {
+        const { dismissible = true, fontColor, backgroundColor, sx } = messageBoxConfig;
 
-    return mode === 'dialog' && errorMessage ? (
+        return (
+            <ErrorMessageBox
+                errorMessage={error}
+                dismissible={dismissible}
+                sx={sx}
+                backgroundColor={backgroundColor}
+                fontColor={fontColor}
+                onClose={onClose}
+            />
+        );
+    }, [error, messageBoxConfig, onClose]);
+
+    return mode === 'dialog' && error ? (
         <>
             {children}
             <ErrorDialogWithProps />
         </>
-    ) : mode === 'message-box' && errorMessage ? (
+    ) : mode === 'message-box' && error ? (
         <>
-            {position === 'top' && <ErrorMessageBoxWithProps />}
+            {messageBoxConfig.position === 'top' && <ErrorMessageBoxWithProps />}
             {children}
-            {position === 'bottom' && <ErrorMessageBoxWithProps />}
+            {messageBoxConfig.position === 'bottom' && <ErrorMessageBoxWithProps />}
         </>
     ) : (
         <>{children}</>
