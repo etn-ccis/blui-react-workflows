@@ -4,10 +4,11 @@ import { RegistrationSuccessScreen } from '../../screens';
 
 export type RegistrationWorkflowProps = {
     initialScreenIndex?: number;
+    successScreen?: JSX.Element;
 };
 
 export const RegistrationWorkflow: React.FC<React.PropsWithChildren<RegistrationWorkflowProps>> = (props) => {
-    const { initialScreenIndex = 0, children } = props;
+    const { initialScreenIndex = 0, children, successScreen = <RegistrationSuccessScreen /> } = props;
     const screens = [...(Array.isArray(children) ? children : [children])];
     const totalScreens = screens.length;
     const [currentScreen, setCurrentScreen] = useState(
@@ -97,7 +98,7 @@ export const RegistrationWorkflow: React.FC<React.PropsWithChildren<Registration
             screenData={screenData}
             updateScreenData={updateScreenData}
         >
-            {showSuccessScreen ? <RegistrationSuccessScreen /> : screens[currentScreen]}
+            {showSuccessScreen ? successScreen : screens[currentScreen]}
         </RegistrationWorkflowContextProvider>
     );
 };
