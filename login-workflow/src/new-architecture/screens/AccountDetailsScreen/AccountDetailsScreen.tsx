@@ -2,58 +2,32 @@ import React, { useCallback, useState } from 'react';
 import { AccountDetailsScreenBase, AccountDetailsScreenProps } from '../AccountDetailsScreen';
 import { useLanguageLocale } from '../../hooks';
 import { useRegistrationContext, useRegistrationWorkflowContext } from '../../contexts';
-import { AuthError } from '../../components/Error';
-import { useErrorContext } from '../../contexts/ErrorContext';
+import { useErrorManager } from '../../contexts/ErrorContext/useErrorManager';
 
 export const AccountDetailsScreen: React.FC<AccountDetailsScreenProps> = (props) => {
     const { t } = useLanguageLocale();
     const { actions } = useRegistrationContext();
     const regWorkflow = useRegistrationWorkflowContext();
-    const errorConfig = useErrorContext();
-    const { nextScreen, previousScreen, screenData, currentScreen, totalScreens, updateScreenData } = regWorkflow;
+    const { nextScreen, previousScreen, screenData, currentScreen, totalScreens } = regWorkflow;
     const [firstName, setFirstName] = useState(screenData.AccountDetails.firstName ?? '');
     const [lastName, setLastName] = useState(screenData.AccountDetails.lastName ?? '');
     const [isLoading, setIsLoading] = useState(false);
-    const [error, setError] = useState<AuthError>({ cause: { title: '', errorMessage: '' } });
+    const { triggerError, errorManagerConfig } = useErrorManager();
 
     const onNext = useCallback(async (): Promise<void> => {
         try {
             setIsLoading(true);
             await actions().setAccountDetails({ firstName, lastName });
-            if (currentScreen === totalScreens - 2) {
-                const { email, organizationName } = await actions().completeRegistration(
-                    { firstName, lastName },
-                    screenData.VerifyCode.code,
-                    screenData.CreateAccount.emailAddress
-                );
-                updateScreenData({ screenId: 'RegistrationSuccessScreen', values: { email, organizationName } });
-            }
-            nextScreen({
+            void nextScreen({
                 screenId: 'AccountDetails',
                 values: { firstName, lastName },
             });
         } catch (_error) {
-            setError({
-                cause: {
-                    title: (_error as AuthError).cause.title,
-                    errorMessage: (_error as AuthError).cause.errorMessage,
-                },
-            });
+            triggerError(_error as Error);
         } finally {
             setIsLoading(false);
         }
-    }, [
-        firstName,
-        lastName,
-        actions,
-        nextScreen,
-        setIsLoading,
-        screenData.VerifyCode.code,
-        screenData.CreateAccount.emailAddress,
-        totalScreens,
-        currentScreen,
-        updateScreenData,
-    ]);
+    }, [actions, firstName, lastName, nextScreen, triggerError]);
 
     const onPrevious = useCallback(() => {
         setFirstName(firstName);
@@ -85,7 +59,7 @@ export const AccountDetailsScreen: React.FC<AccountDetailsScreenProps> = (props)
             }
             return t('bluiCommon:FORMS.LAST_NAME_LENGTH_ERROR');
         },
-        errorDisplayConfig = errorConfig,
+        errorDisplayConfig = errorManagerConfig,
     } = props;
 
     const workflowCardHeaderProps = {
@@ -134,14 +108,7 @@ export const AccountDetailsScreen: React.FC<AccountDetailsScreenProps> = (props)
             lastNameLabel={lastNameLabel}
             lastNameValidator={lastNameValidator}
             WorkflowCardActionsProps={workflowCardActionsProps}
-            errorDisplayConfig={{
-                ...errorDisplayConfig,
-                title: error.cause.title,
-                errorMessage: error.cause.errorMessage,
-                onClose: (): void => {
-                    setError({ cause: { title: '', errorMessage: '' } });
-                },
-            }}
+            errorDisplayConfig={errorDisplayConfig}
         />
     );
 };

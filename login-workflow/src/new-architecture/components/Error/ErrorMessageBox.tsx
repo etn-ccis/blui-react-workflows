@@ -35,13 +35,14 @@ const ErrorMessageBox = (props: ErrorMessageBoxProps): JSX.Element => {
                     borderRadius: 4,
                     p: 2,
                     color: fontColor || Colors.white[50],
-                    mb: 2,
+                    my: 2,
                 },
                 ...(Array.isArray(sx) ? sx : [sx]),
             ]}
         >
             {dismissible !== false && (
                 <Close
+                    data-testid={'error-message-box-close'}
                     sx={{
                         '&:hover': {
                             cursor: 'pointer',

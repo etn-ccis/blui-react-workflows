@@ -76,7 +76,10 @@ export const CreateAccountScreenBase: React.FC<
                             handleEmailInputChange(e.target.value);
                         }}
                         onKeyUp={(e): void => {
-                            if (e.key === 'Enter' && emailInput.length > 0 && isEmailValid && actionsProps.canGoNext)
+                            if (
+                                e.key === 'Enter' &&
+                                ((emailInput.length > 0 && isEmailValid) || actionsProps.canGoNext)
+                            )
                                 actionsProps?.onNext?.();
                         }}
                         onBlur={(e): void => {

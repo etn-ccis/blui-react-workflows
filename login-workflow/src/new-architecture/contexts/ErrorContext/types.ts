@@ -5,4 +5,4 @@
 
 import { ErrorManagerProps } from '../../components/Error/ErrorManager';
 
-export type ErrorContextProviderProps = ErrorManagerProps;
+export type ErrorContextProviderProps = Omit<ErrorManagerProps, 'error'>;

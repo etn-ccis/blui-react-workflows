@@ -7,7 +7,6 @@ import {
     AccountDetailsScreen,
     CreatePasswordScreen,
     CreateAccountScreen,
-    RegistrationSuccessScreen,
     VerifyCodeScreen,
 } from '@brightlayer-ui/react-auth-workflow';
 import { useNavigate } from 'react-router-dom';
@@ -26,6 +25,13 @@ export const RegistrationWorkflowScreen = (): JSX.Element => {
             routeConfig={routes}
             navigate={navigate}
             actions={ProjectRegistrationUIActions}
+            errorConfig={{
+                mode: 'message-box',
+                messageBoxConfig: {
+                    dismissible: true,
+                    position: 'bottom',
+                },
+            }}
         >
             <RegistrationWorkflow initialScreenIndex={0}>
                 <EulaScreen />
@@ -33,7 +39,6 @@ export const RegistrationWorkflowScreen = (): JSX.Element => {
                 <VerifyCodeScreen />
                 <CreatePasswordScreen />
                 <AccountDetailsScreen />
-                <RegistrationSuccessScreen />
             </RegistrationWorkflow>
         </RegistrationContextProvider>
     );

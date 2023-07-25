@@ -23,7 +23,7 @@ export type IndividualScreenData =
 export type RegistrationWorkflowContextProps = {
     currentScreen: number;
     totalScreens: number;
-    nextScreen: (data: IndividualScreenData) => void;
+    nextScreen: (data: IndividualScreenData) => Promise<void>;
     previousScreen: (data: IndividualScreenData) => void;
     screenData: ScreenData;
     updateScreenData: (data: IndividualScreenData) => void;
