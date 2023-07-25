@@ -1,4 +1,4 @@
-import React, { useCallback, useRef, useState } from 'react';
+import React, { useCallback, useEffect, useRef, useState } from 'react';
 import CheckCircle from '@mui/icons-material/CheckCircle';
 import { ResetPasswordScreenBase } from './ResetPasswordScreenBase';
 import { useLanguageLocale } from '../../hooks';
@@ -130,49 +130,34 @@ export const ResetPasswordScreen: React.FC<ResetPasswordScreenProps> = (props) =
         },
     };
 
-    const errorDialog = (
-        <SimpleDialog
-            title={t('bluiCommon:MESSAGES.ERROR')}
-            body={t('bluiAuth:FORGOT_PASSWORD.ERROR')}
-            open={showErrorDialog}
-            onClose={(): void => {
-                setShowErrorDialog(false);
-            }}
-        />
-    );
-
     return (
-        <>
-            {showErrorDialog ? (
-                errorDialog
-            ) : (
-                <ResetPasswordScreenBase
-                    WorkflowCardBaseProps={workflowCardBaseProps}
-                    WorkflowCardHeaderProps={workflowCardHeaderProps}
-                    WorkflowCardInstructionProps={workflowCardInstructionProps}
-                    WorkflowCardActionsProps={workflowCardActionsProps}
-                    PasswordProps={passwordProps}
-                    slotProps={{
-                        SuccessScreen: {
-                            icon: <CheckCircle color="primary" sx={{ fontSize: 100 }} />,
-                            messageTitle: t('bluiAuth:PASSWORD_RESET.SUCCESS_MESSAGE'),
-                            message: t('bluiAuth:CHANGE_PASSWORD.SUCCESS_MESSAGE'),
-                            onDismiss: (): void => {
-                                navigate(routeConfig.LOGIN);
-                            },
-                            WorkflowCardActionsProps: {
-                                showPrevious: false,
-                                fullWidthButton: true,
-                                showNext: true,
-                                nextLabel: t('bluiCommon:ACTIONS.DONE'),
-                                onNext: (): void => {
-                                    navigate(routeConfig.LOGIN);
-                                },
-                            },
+        <ResetPasswordScreenBase
+            WorkflowCardBaseProps={workflowCardBaseProps}
+            WorkflowCardHeaderProps={workflowCardHeaderProps}
+            WorkflowCardInstructionProps={workflowCardInstructionProps}
+            WorkflowCardActionsProps={workflowCardActionsProps}
+            PasswordProps={passwordProps}
+            slotProps={{
+                SuccessScreen: {
+                    icon: <CheckCircle color="primary" sx={{ fontSize: 100 }} />,
+                    messageTitle: t('bluiAuth:PASSWORD_RESET.SUCCESS_MESSAGE'),
+                    message: t('bluiAuth:CHANGE_PASSWORD.SUCCESS_MESSAGE'),
+                    onDismiss: (): void => {
+                        navigate(routeConfig.LOGIN);
+                    },
+                    WorkflowCardActionsProps: {
+                        showPrevious: false,
+                        fullWidthButton: true,
+                        showNext: true,
+                        nextLabel: t('bluiCommon:ACTIONS.DONE'),
+                        onNext: (): void => {
+                            navigate(routeConfig.LOGIN);
                         },
-                     }}
-                  showSuccessScreen={showSuccessScreen}
-                  errorDisplayConfig={errorDisplayConfig}
-              />
+                    },
+                },
+            }}
+            showSuccessScreen={showSuccessScreen}
+            errorDisplayConfig={errorDisplayConfig}
+        />
     );
 };

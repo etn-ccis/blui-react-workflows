@@ -133,22 +133,13 @@ export const CreatePasswordScreen: React.FC<CreatePasswordScreenProps> = (props)
     };
 
     return (
-        <>
-            <CreatePasswordScreenBase
-                WorkflowCardActionsProps={workflowCardActionsProps}
-                WorkflowCardBaseProps={workflowCardBaseProps}
-                WorkflowCardHeaderProps={workflowCardHeaderProps}
-                WorkflowCardInstructionProps={workflowCardInstructionProps}
-                PasswordProps={passwordProps}
-                errorDisplayConfig={{
-                    ...errorDisplayConfig,
-                    title: error.cause.title,
-                    errorMessage: error.cause.errorMessage,
-                    onClose: (): void => {
-                        setError({ cause: { title: '', errorMessage: '' } });
-                    },
-                }}
-            />
-        </>
+        <CreatePasswordScreenBase
+            WorkflowCardActionsProps={workflowCardActionsProps}
+            WorkflowCardBaseProps={workflowCardBaseProps}
+            WorkflowCardHeaderProps={workflowCardHeaderProps}
+            WorkflowCardInstructionProps={workflowCardInstructionProps}
+            PasswordProps={passwordProps}
+            errorDisplayConfig={errorDisplayConfig}
+        />
     );
 };
