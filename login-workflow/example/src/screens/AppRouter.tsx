@@ -23,6 +23,7 @@ import { ProjectRegistrationUIActions } from '../actions/RegistrationUIActions';
 import { routes } from '../navigation/Routing';
 import { ExampleHome } from './ExampleHome';
 import { LocalStorage } from '../store/local-storage';
+import { i18nAppInstance } from '../translations/i18n';
 
 export const AppRouter: React.FC = () => {
     const { language } = useApp();
@@ -42,6 +43,7 @@ export const AppRouter: React.FC = () => {
                         language={language}
                         navigate={navigate}
                         routeConfig={routes}
+                        i18n={i18nAppInstance}
                     >
                         <Outlet />
                     </AuthContextProvider>
@@ -60,6 +62,7 @@ export const AppRouter: React.FC = () => {
                         routeConfig={routes}
                         navigate={navigate}
                         actions={ProjectRegistrationUIActions}
+                        i18n={i18nAppInstance}
                     >
                         <Outlet />
                     </RegistrationContextProvider>
