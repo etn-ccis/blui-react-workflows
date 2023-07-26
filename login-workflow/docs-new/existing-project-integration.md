@@ -87,9 +87,7 @@ export const AppRouter: React.FC = () => {
     );
 };
 ```
-<!-- @TODO: dont forget about these -->
-#### Individual Screen / Components
-#### Connecting the actions / API calls
+<!-- @TODO: dont forget about this -->
 #### Available Customizations / Configurations
 
 ### Registration
@@ -166,10 +164,7 @@ export const AppRouter: React.FC = () => {
 };
 ```
 
-<!-- @TODO: dont forget about these -->
-#### Individual Screens / Components
-#### Using the RegistrationWorkflow component
-#### Connecting to actions / API calls
+<!-- @TODO: dont forget about this -->
 #### Available Customizations / Configurations
 
 ### Protecting Your Application Routes

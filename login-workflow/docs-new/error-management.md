@@ -8,7 +8,7 @@ Text fields within the workflow have built in validator methods that you can use
 
 #### Custom Usage (using Login as an example)
 
-If you want to provide a custom validator you can import any of our components and pass in the appropriate validator prop. If, for example, you want to provide a custom usernameValidator you can import the `<LoginScreen>` and pass in a usernameValidator function. If the function returns true no message will be displayed. If the function returns false, no message will be displayed, but the text field will be rendered in an error state. If the function returns a string, the text field will be rendered in an error state with the return text displayed below the text field.
+If you want to provide a custom validator you can import any of our components and pass in the appropriate validator prop. If, for example, you want to provide a custom usernameValidator you can import the `<LoginScreen>` and pass in a `usernameValidator` function. If the function returns true no message will be displayed. If the function returns false, no message will be displayed, but the text field will be rendered in an error state. If the function returns a string, the text field will be rendered in an error state with the return text displayed below the text field.
 
 ```tsx
 ...
