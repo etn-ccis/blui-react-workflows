@@ -61,7 +61,7 @@ export const ExampleHome: React.FC<React.PropsWithChildren> = () => {
 
     const logOut = (): void => {
         LocalStorage.clearAuthCredentials();
-        app.setIsAuthenticated(false);
+        app.onUserNotAuthenticated();
         navigate('/login');
     };
 

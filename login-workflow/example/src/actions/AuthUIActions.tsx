@@ -1,5 +1,6 @@
 /* eslint-disable @typescript-eslint/no-unused-vars */
-import { AuthUIActions, SecurityContextActions } from '@brightlayer-ui/react-auth-workflow';
+import { AuthUIActions } from '@brightlayer-ui/react-auth-workflow';
+import { AppContextType } from '../contexts/AppContextProvider';
 import { LocalStorage } from '../store/local-storage';
 
 const sleep = (ms: number): Promise<void> => new Promise((resolve) => setTimeout(resolve, ms));
@@ -14,7 +15,7 @@ function isRandomFailure(): boolean {
 }
 
 type AuthUIActionsFunction = () => AuthUIActions;
-type AuthUIActionsWithSecurity = (securityHelper: SecurityContextActions) => AuthUIActionsFunction;
+type AuthUIActionsWithApp = (appHelper: AppContextType) => AuthUIActionsFunction;
 
 /**
  * Example implementation of [[AuthUIActions]] to start with during development.
@@ -23,7 +24,7 @@ type AuthUIActionsWithSecurity = (securityHelper: SecurityContextActions) => Aut
  * appropriate actions (often api calls, local network storage, credential updates, etc) and update
  * the global security state based on the actionable needs of the user.
  */
-export const ProjectAuthUIActions: AuthUIActionsWithSecurity = (securityHelper) => (): AuthUIActions => ({
+export const ProjectAuthUIActions: AuthUIActionsWithApp = (appHelper) => (): AuthUIActions => ({
     /**
      * Initialize the application security state. This will involve reading any local storage,
      * validating existing credentials (token expiration, for example). At the end of validation,
@@ -50,14 +51,16 @@ export const ProjectAuthUIActions: AuthUIActionsWithSecurity = (securityHelper) 
         // screen will be unmounted and thrown away.
         // securityHelper.onUserAuthenticated()
         if (authData?.email !== undefined) {
-            securityHelper.onUserAuthenticated({
-                email: authData?.email,
-                userId: authData.userId ?? '',
-                rememberMe: authData?.rememberMeData.rememberMe,
-            });
+            // securityHelper.onUserAuthenticated({
+            //     email: authData?.email,
+            //     userId: authData.userId ?? '',
+            //     rememberMe: authData?.rememberMeData.rememberMe,
+            // });
+            appHelper.onUserAuthenticated();
         } else {
             const rememberMeEmail = authData?.rememberMeData.rememberMe ? authData?.rememberMeData.user : undefined;
-            securityHelper.onUserNotAuthenticated(false, rememberMeEmail);
+            // securityHelper.onUserNotAuthenticated(false, rememberMeEmail);
+            appHelper.onUserNotAuthenticated();
         }
     },
     /**
@@ -97,7 +100,8 @@ export const ProjectAuthUIActions: AuthUIActionsWithSecurity = (securityHelper) 
         LocalStorage.saveAuthCredentials(email, email);
         LocalStorage.saveRememberMeData(email, rememberMe);
 
-        securityHelper.onUserAuthenticated({ email: email, userId: email, rememberMe: rememberMe });
+        // securityHelper.onUserAuthenticated({ email: email, userId: email, rememberMe: rememberMe });
+        appHelper.onUserAuthenticated();
     },
     /**
      * The user has forgotten their password and wants help.

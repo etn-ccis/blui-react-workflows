@@ -5,7 +5,7 @@ import { useApp } from '../contexts/AppContextProvider';
 import { DebugComponent } from '../components/DebugComponent';
 
 export const Login = (): JSX.Element => {
-    const { setIsAuthenticated } = useApp();
+    const { onUserAuthenticated } = useApp();
     const auth = useAuthContext();
 
     return (
@@ -14,7 +14,7 @@ export const Login = (): JSX.Element => {
                 onLogin={(username, password): void => {
                     // eslint-disable-next-line no-console
                     console.log('onLogin', username, password);
-                    setIsAuthenticated(true);
+                    onUserAuthenticated();
                     auth.navigate('homepage');
                 }}
                 usernameTextFieldProps={{

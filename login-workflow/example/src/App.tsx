@@ -2,7 +2,6 @@ import React, { useState } from 'react';
 import { AppContext } from './contexts/AppContextProvider';
 import { BrowserRouter } from 'react-router-dom';
 import { AppRouter } from './screens';
-import { SecurityContextProvider } from '@brightlayer-ui/react-auth-workflow';
 import './translations/i18n';
 
 export const App = (): JSX.Element => {
@@ -13,15 +12,14 @@ export const App = (): JSX.Element => {
         <AppContext.Provider
             value={{
                 isAuthenticated,
-                setIsAuthenticated,
+                onUserAuthenticated: () => setIsAuthenticated(true),
+                onUserNotAuthenticated: () => setIsAuthenticated(false),
                 language,
                 setLanguage,
             }}
         >
             <BrowserRouter basename={'/'}>
-                <SecurityContextProvider>
-                    <AppRouter />
-                </SecurityContextProvider>
+                <AppRouter />
             </BrowserRouter>
         </AppContext.Provider>
     );
