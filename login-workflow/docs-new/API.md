@@ -1,8 +1,6 @@
 # API
 This document outlines the various exports and configuration options for the React Auth Workflow package.
 
-The majority of the types and export used in this package come from @brightlayer-ui/react-auth-shared. You can read about those exported objects and functions in their [API](https://github.com/etn-ccis/blui-react-auth-shared/tree/master/docs/API.md) documentation.
-
 ## AuthContextProviderProps
 The `AuthContextProvider` manages the state of the authentication workflow. It is a React Context Provider that wraps the entire authentication workflow. It is responsible for managing the state of the authentication workflow and providing the necessary actions to the various screens. The `AuthContextProviderProps` type is used to configure the `AuthContextProvider`.
 
@@ -41,6 +39,7 @@ The `AuthContextProvider` manages the state of the authentication workflow. It i
 ## RegistrationContextProviderProps
 The `RegistrationContextProvider` manages the state of the registration workflow. It is a React Context Provider that wraps the entire registration workflow. It is responsible for managing the state of the registration workflow and providing the necessary actions to the various screens. The `RegistrationContextProviderProps` type is used to configure the `RegistrationContextProvider`.
 
+### Type Declaration
 -  **actions**:  _`() => RegistrationUIActions`_
     -   A function that returns an object of functions that are used to manage the registration workflow. See [RegistrationUIActions](#registrationuiactions) for more information.
 -  **language**: _`string`_
@@ -56,6 +55,7 @@ The `RegistrationContextProvider` manages the state of the registration workflow
 
 ## RegistrationUIActions
 
+### Type Declaration
 -  **loadEula**: _`(language: string) => Promise<string>`_
     -   A function that is used to load the EULA. This function will be called when the user lands on the EULA screen.
 - **acceptEula**: _`() => Promise<boolean>`_
@@ -89,3 +89,51 @@ Type to represent the customizable route configuration of the authentication scr
     -   The URL path for the create account via self-registration screens
 -   **SUPPORT**: (optional) _`string`_
     -   The URL path for the Contact/Support screen
+
+## ErrorContextProviderProps
+The `ErrorContextProvider` manages the state of the error handling. It is a React Context Provider that is embedded into the entire authentication workflow. It is responsible for managing the state of the error handling and providing the necessary actions to the various screens. The `ErrorContextProviderProps` type is used to configure the `ErrorContextProvider`.
+
+### Type Declaration
+-  **mode**: (default: "dialog") _`"dialog" | "message-box" | "none"`_
+    -   The mode to use for displaying errors. If set to "dialog", errors will be displayed in a dialog. If set to "message-box", errors will be displayed in a message box. If set to "none", errors will not be displayed.
+- **onClose**: (optional) _`() => void`_
+    -   A function that is called when the error dialog is closed.
+- **dialogConfig**: (optional) _`{ title?: string, dismissLabel?: string }`_
+    -   An optional object that is used to configure the error dialog. See [DialogConfig](#dialogconfig) for more information.
+- **messageBoxConfig**: (optional) _`{ dismissible?: boolean, position?: "top" | "bottom", fontColor?: string, backgroundColor?: string, sx?: SxProps }`_
+    -   An optional object that is used to configure the error message box. See [MessageBoxConfig](#messageboxconfig) for more information.
+  
+## DialogConfig
+Type to represent the customizable configuration of the error dialog.
+
+### Type Declaration
+- **title**: (optional) _`string`_
+    -   The title to display in the error dialog.
+- **dismissLabel**: (optional) _`string`_
+    -   The label to display on the dismiss button in the error dialog.
+
+## MessageBoxConfig
+Type to represent the customizable configuration of the error message box.
+
+### Type Declaration
+- **dismissible**: (default: true) _`boolean`_
+    -   Determines if the error message box can be dismissed.
+- **position**: (default: "top") _`"top" | "bottom"`_
+    -   Determines if the error message box should be displayed at the top or bottom of the screen.
+- **fontColor**: (default: "#ffffff") _`string`_
+    -   The font color to use for the error message box.
+- **backgroundColor**: (default: theme.palette.error.main) _`string`_
+    -   The background color to use for the error message box.
+
+## Components
+
+### Screens
+- [AccountDetailsScreen](https://github.com/etn-ccis/blui-react-workflows/tree/master/login-workflow/docs/screens/account-details.md)
+- [ContactScreen](https://github.com/etn-ccis/blui-react-workflows/tree/master/login-workflow/docs/screens/contact.md)
+- [CreateAccountScreen](https://github.com/etn-ccis/blui-react-workflows/tree/master/login-workflow/docs/screens/create-account.md)
+- [CreatePasswordScreen](https://github.com/etn-ccis/blui-react-workflows/tree/master/login-workflow/docs/screens/create-password.md)
+- [EulaScreen](https://github.com/etn-ccis/blui-react-workflows/tree/master/login-workflow/docs/screens/eula.md)
+- [ForgotPasswordScreen](https://github.com/etn-ccis/blui-react-workflows/tree/master/login-workflow/docs/screens/forgot-password.md)
+- [LoginScreen](https://github.com/etn-ccis/blui-react-workflows/tree/master/login-workflow/docs/screens/login.md)
+- [ResetPasswordScreen](https://github.com/etn-ccis/blui-react-workflows/tree/master/login-workflow/docs/screens/reset-password.md)
+- [VerifyCodeScreen](https://github.com/etn-ccis/blui-react-workflows/tree/master/login-workflow/docs/screens/verify-code.md)
