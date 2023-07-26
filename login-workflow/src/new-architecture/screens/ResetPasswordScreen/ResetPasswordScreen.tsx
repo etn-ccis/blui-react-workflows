@@ -59,25 +59,20 @@ export const ResetPasswordScreen: React.FC<ResetPasswordScreenProps> = (props) =
         return confirmInput === passwordInput;
     }, [passwordRequirements, passwordInput, confirmInput]);
 
+    const updateFields = useCallback(
+        (fields: { password: string; confirm: string }) => {
+            setPasswordInput(fields.password);
+            setConfirmInput(fields.confirm);
+        },
+        [setPasswordInput, setConfirmInput]
+    );
+
     const {
         WorkflowCardBaseProps,
         WorkflowCardHeaderProps,
         WorkflowCardInstructionProps,
         WorkflowCardActionsProps,
-        PasswordProps: passwordProps = {
-            newPasswordLabel: t('bluiAuth:CHANGE_PASSWORD.NEW_PASSWORD'),
-            confirmPasswordLabel: t('bluiAuth:CHANGE_PASSWORD.CONFIRM_NEW_PASSWORD'),
-            passwordNotMatchError: t('bluiCommon:FORMS.PASS_MATCH_ERROR'),
-            passwordRequirements: passwordRequirements,
-            passwordRef,
-            confirmRef,
-            onSubmit: (): void => {
-                if (areValidMatchingPasswords()) {
-                    void handleOnNext();
-                    WorkflowCardActionsProps?.onNext?.();
-                }
-            },
-        },
+        PasswordProps,
         errorDisplayConfig = errorManagerConfig,
     } = props;
 
@@ -113,13 +108,26 @@ export const ResetPasswordScreen: React.FC<ResetPasswordScreenProps> = (props) =
         },
     };
 
-    const updateFields = useCallback(
-        (fields: { password: string; confirm: string }) => {
-            setPasswordInput(fields.password);
-            setConfirmInput(fields.confirm);
+    const passwordProps = {
+        newPasswordLabel: t('bluiAuth:CHANGE_PASSWORD.NEW_PASSWORD'),
+        confirmPasswordLabel: t('bluiAuth:CHANGE_PASSWORD.CONFIRM_NEW_PASSWORD'),
+        passwordNotMatchError: t('bluiCommon:FORMS.PASS_MATCH_ERROR'),
+        passwordRequirements: passwordRequirements,
+        passwordRef,
+        confirmRef,
+        ...PasswordProps,
+        onPasswordChange: (passwordData: { password: string; confirm: string }): void => {
+            updateFields(passwordData);
+            PasswordProps?.onPasswordChange?.(passwordData);
         },
-        [setPasswordInput, setConfirmInput]
-    );
+        onSubmit: (): void => {
+            if (areValidMatchingPasswords()) {
+                void handleOnNext();
+                WorkflowCardActionsProps?.onNext?.();
+                PasswordProps?.onSubmit?.();
+            }
+        },
+    };
 
     return (
         <ResetPasswordScreenBase
@@ -127,10 +135,7 @@ export const ResetPasswordScreen: React.FC<ResetPasswordScreenProps> = (props) =
             WorkflowCardHeaderProps={workflowCardHeaderProps}
             WorkflowCardInstructionProps={workflowCardInstructionProps}
             WorkflowCardActionsProps={workflowCardActionsProps}
-            PasswordProps={{
-                ...passwordProps,
-                onPasswordChange: updateFields,
-            }}
+            PasswordProps={passwordProps}
             slotProps={{
                 SuccessScreen: {
                     icon: <CheckCircle color="primary" sx={{ fontSize: 100 }} />,

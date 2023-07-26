@@ -38,9 +38,9 @@ export const DialogButtonStyles = (fullWidth = false): SxProps<Theme> => ({
 });
 
 export type BasicDialogProps = DialogProps & {
-    title: string;
-    body: string;
-    onClose: () => void;
+    title?: string;
+    body?: string;
+    onClose?: () => void;
     dismissButtonText?: string;
 };
 
