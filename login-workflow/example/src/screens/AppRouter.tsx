@@ -99,14 +99,12 @@ export const AppRouter: React.FC = () => {
             <Route
                 path={'/homepage'}
                 element={
-                    // <I18nextProvider i18n={i18nAppInstance}>
                     <ExperimentalAuthGuard
                         isAuthenticated={isAuthenticated}
                         fallbackComponent={<Navigate to={`/login`} />}
                     >
                         <ExampleHome />
                     </ExperimentalAuthGuard>
-                    // </I18nextProvider>
                 }
             />
             <Route
