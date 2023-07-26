@@ -15,8 +15,9 @@ import { RegistrationDictionaries } from './RegistrationDictionaries';
 export const RegistrationContextProvider: React.FC<React.PropsWithChildren<RegistrationContextProviderProps>> = (
     props
 ) => {
+    const i18nInstance = props.i18n ?? i18nRegistrationInstance;
     const { children, ...registrationContextProps } = props;
-    const { language, i18n, errorConfig } = props;
+    const { language, i18n = i18nInstance, errorConfig } = props;
 
     if (props.i18n) {
         i18n.addResourceBundle('zh', 'bluiRegistration', RegistrationDictionaries.chinese.translation, true, true);
@@ -36,7 +37,7 @@ export const RegistrationContextProvider: React.FC<React.PropsWithChildren<Regis
     }, [i18n, language]);
 
     return (
-        <I18nextProvider i18n={props.i18n ?? i18nRegistrationInstance}>
+        <I18nextProvider i18n={i18nInstance}>
             <RegistrationContext.Provider value={registrationContextProps}>
                 <ErrorContext.Provider value={errorConfig}>{children}</ErrorContext.Provider>
             </RegistrationContext.Provider>

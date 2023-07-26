@@ -13,8 +13,9 @@ import { AuthDictionaries } from './AuthDictionaries';
 import { SharedDictionaries } from '../SharedDictionaries';
 
 export const AuthContextProvider: React.FC<React.PropsWithChildren<AuthContextProviderProps>> = (props) => {
+    const i18nInstance = props.i18n ?? i18nAuthInstance;
     const { children, ...authContextProps } = props;
-    const { language, i18n, errorConfig } = props;
+    const { language, i18n = i18nInstance, errorConfig } = props;
 
     if (props.i18n) {
         i18n.addResourceBundle('zh', 'bluiAuth', AuthDictionaries.chinese.translation, true, true);
@@ -34,7 +35,7 @@ export const AuthContextProvider: React.FC<React.PropsWithChildren<AuthContextPr
     }, [i18n, language]);
 
     return (
-        <I18nextProvider i18n={props.i18n ?? i18nAuthInstance}>
+        <I18nextProvider i18n={i18nInstance}>
             <AuthContext.Provider value={authContextProps}>
                 <ErrorContext.Provider value={errorConfig}>{children}</ErrorContext.Provider>
             </AuthContext.Provider>
