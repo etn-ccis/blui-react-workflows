@@ -1,4 +1,4 @@
-import React, { useCallback } from 'react';
+import React, { useCallback, useEffect } from 'react';
 import { CreateAccountScreenProps } from './types';
 import { WorkflowCard } from '../../components/WorkflowCard';
 import { WorkflowCardActions } from '../../components/WorkflowCard/WorkflowCardActions';
@@ -53,6 +53,12 @@ export const CreateAccountScreenBase: React.FC<
         },
         [emailValidator]
     );
+    useEffect(() => {
+        if (emailInput.length > 0) {
+            setShouldValidateEmail(true);
+            handleEmailInputChange(emailInput);
+        }
+    }, [handleEmailInputChange, emailInput]);
 
     return (
         <WorkflowCard {...cardBaseProps}>
