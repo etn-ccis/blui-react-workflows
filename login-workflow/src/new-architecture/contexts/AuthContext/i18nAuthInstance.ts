@@ -1,6 +1,6 @@
 import i18next from 'i18next';
 import { AuthDictionaries } from './AuthDictionaries';
-import { sharedDictionaries } from '../sharedDictionaries';
+import { SharedDictionaries } from '../SharedDictionaries';
 
 export const i18nAuthInstance = i18next.createInstance(
     {
@@ -22,7 +22,7 @@ export const i18nAuthInstance = i18next.createInstance(
                     ...AuthDictionaries.english.translation,
                 },
                 bluiCommon: {
-                    ...sharedDictionaries.english.translation,
+                    ...SharedDictionaries.english.translation,
                 },
             },
             fr: {
@@ -30,7 +30,7 @@ export const i18nAuthInstance = i18next.createInstance(
                     ...AuthDictionaries.french.translation,
                 },
                 bluiCommon: {
-                    ...sharedDictionaries.french.translation,
+                    ...SharedDictionaries.french.translation,
                 },
             },
             es: {
@@ -38,7 +38,7 @@ export const i18nAuthInstance = i18next.createInstance(
                     ...AuthDictionaries.spanish.translation,
                 },
                 bluiCommon: {
-                    ...sharedDictionaries.spanish.translation,
+                    ...SharedDictionaries.spanish.translation,
                 },
             },
             zh: {
@@ -46,7 +46,7 @@ export const i18nAuthInstance = i18next.createInstance(
                     ...AuthDictionaries.chinese.translation,
                 },
                 bluiCommon: {
-                    ...sharedDictionaries.chinese.translation,
+                    ...SharedDictionaries.chinese.translation,
                 },
             },
             pt: {
@@ -54,7 +54,7 @@ export const i18nAuthInstance = i18next.createInstance(
                     ...AuthDictionaries.portuguese.translation,
                 },
                 bluiCommon: {
-                    ...sharedDictionaries.portuguese.translation,
+                    ...SharedDictionaries.portuguese.translation,
                 },
             },
         },
