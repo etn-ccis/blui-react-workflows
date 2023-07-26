@@ -49,17 +49,10 @@ export const ProjectAuthUIActions: AuthUIActionsWithApp = (appHelper) => (): Aut
         // After restoring token, we may need to validate it in production apps
         // This will switch to the App screen or Auth screen and this loading
         // screen will be unmounted and thrown away.
-        // securityHelper.onUserAuthenticated()
         if (authData?.email !== undefined) {
-            // securityHelper.onUserAuthenticated({
-            //     email: authData?.email,
-            //     userId: authData.userId ?? '',
-            //     rememberMe: authData?.rememberMeData.rememberMe,
-            // });
             appHelper.onUserAuthenticated();
         } else {
             const rememberMeEmail = authData?.rememberMeData.rememberMe ? authData?.rememberMeData.user : undefined;
-            // securityHelper.onUserNotAuthenticated(false, rememberMeEmail);
             appHelper.onUserNotAuthenticated();
         }
     },
@@ -100,7 +93,6 @@ export const ProjectAuthUIActions: AuthUIActionsWithApp = (appHelper) => (): Aut
         LocalStorage.saveAuthCredentials(email, email);
         LocalStorage.saveRememberMeData(email, rememberMe);
 
-        // securityHelper.onUserAuthenticated({ email: email, userId: email, rememberMe: rememberMe });
         appHelper.onUserAuthenticated();
     },
     /**
