@@ -13,6 +13,9 @@ const resources: AppTranslationsFile = {
         PAGE_DETAILS: {
             AUTHORISED_MESSAGE: 'Authorised Message',
         },
+        ERROR_PAGE: {
+            PAGE_NOT_FOUND: 'Page non trouvée',
+        },
         USER_MENU: {
             LOG_OUT: 'Se déconnecter',
             MY_ACCOUNT: 'Mon compte',

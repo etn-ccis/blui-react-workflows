@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import React from 'react';
 import {
     AccountDetailsScreen,
     AuthContextProvider,
@@ -6,7 +6,7 @@ import {
     CreatePasswordScreen,
     ContactSupportScreen,
     EulaScreen,
-    ExperimentalAuthGuard,
+    ReactAuthGuard,
     ForgotPasswordScreen,
     RegistrationContextProvider,
     ResetPasswordScreen,
@@ -18,18 +18,15 @@ import {
 import { useApp } from '../contexts/AppContextProvider';
 import { useNavigate } from 'react-router';
 import { ProjectAuthUIActions } from '../actions/AuthUIActions';
-import { Navigate, Outlet, Route, Routes } from 'react-router-dom';
+import { Outlet, Route, Routes } from 'react-router-dom';
 import { Login } from './Login';
 import { ProjectRegistrationUIActions } from '../actions/RegistrationUIActions';
 import { routes } from '../navigation/Routing';
 import { ExampleHome } from './ExampleHome';
-import { LocalStorage } from '../store/local-storage';
+import { PageNotFound } from './PageNotFound';
 
 export const AppRouter: React.FC = () => {
-    const { language } = useApp();
-    const authData = LocalStorage.readAuthData();
-    // eslint-disable-next-line
-    const [isAuthenticated, setIsAuthenticated] = useState(authData !== null ? true : false);
+    const { language, isAuthenticated } = useApp();
     const navigate = useNavigate();
     const securityContextActions = useSecurityActions();
     return (
@@ -51,6 +48,7 @@ export const AppRouter: React.FC = () => {
                 <Route path={'/forgot-password'} element={<ForgotPasswordScreen />} />
                 <Route path={'/contact-support'} element={<ContactSupportScreen />} />
                 <Route path={'/reset-password'} element={<ResetPasswordScreen />} />
+                <Route path={'*'} element={<PageNotFound />} />
             </Route>
             {/* REGISTRATION ROUTES */}
             <Route
@@ -94,25 +92,14 @@ export const AppRouter: React.FC = () => {
             <Route
                 path={'/homepage'}
                 element={
-                    <ExperimentalAuthGuard
-                        isAuthenticated={isAuthenticated}
-                        fallbackComponent={<Navigate to={`/login`} />}
-                    >
+                    <ReactAuthGuard isAuthenticated={isAuthenticated} fallBackUrl={'/login'}>
                         <ExampleHome />
-                    </ExperimentalAuthGuard>
+                    </ReactAuthGuard>
                 }
             />
-            <Route
-                path={'*'}
-                element={
-                    <ExperimentalAuthGuard
-                        isAuthenticated={isAuthenticated}
-                        fallbackComponent={<Navigate to={`/login`} />}
-                    >
-                        <Navigate to={'/login'} />
-                    </ExperimentalAuthGuard>
-                }
-            />
+            <Route element={<ReactAuthGuard isAuthenticated={isAuthenticated} fallBackUrl={'/login'} />}>
+                <Route path="/homepage" element={<ExampleHome />} />
+            </Route>
         </Routes>
     );
 };

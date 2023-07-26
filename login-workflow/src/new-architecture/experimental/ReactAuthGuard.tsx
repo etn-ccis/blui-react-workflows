@@ -1,23 +1,19 @@
-import React, { useEffect } from 'react';
-import { Outlet, useLocation, useNavigate } from 'react-router-dom';
-import { useAuthContext } from '../contexts';
+import React from 'react';
+import { Navigate, Outlet, useLocation } from 'react-router-dom';
 
 type ReactAuthGuardProps = {
-    children: JSX.Element;
+    children?: JSX.Element;
     isAuthenticated: boolean;
-    fallBackUrl: string,
+    fallBackUrl: string;
 };
 
-export const ReactAuthGuard = (props: ReactAuthGuardProps): JSX.Element  | null => {
-    const { children, fallBackUrl, isAuthenticated  } = props;
+export const ReactAuthGuard = (props: ReactAuthGuardProps): JSX.Element | null => {
+    const { children, fallBackUrl, isAuthenticated } = props;
     const location = useLocation();
-    const navigate = useNavigate();
 
-    useEffect(() => {
-        if (!isAuthenticated) {
-            navigate(fallBackUrl, { replace: true, state: { from: location } });
-        }
-    }, [navigate, location, fallBackUrl]);
+    if (!isAuthenticated) {
+        return <Navigate to={fallBackUrl} replace state={{ from: location }} />;
+    }
 
-    return children;
+    return children ? children : <Outlet />;
 };
