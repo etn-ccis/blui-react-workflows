@@ -9,7 +9,7 @@ export type PasswordRequirement = {
 };
 
 export type SetPasswordProps = {
-    onPasswordChange: (passwords: { password: string; confirm: string }) => void;
+    onPasswordChange?: (passwords: { password: string; confirm: string }) => void;
     newPasswordLabel?: string;
     initialNewPasswordValue?: string;
     confirmPasswordLabel?: string;

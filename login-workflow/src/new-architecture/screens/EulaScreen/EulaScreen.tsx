@@ -3,10 +3,12 @@ import { EulaScreenProps } from './types';
 import { EulaScreenBase } from './EulaScreenBase';
 import { useLanguageLocale } from '../../hooks';
 import { useRegistrationContext, useRegistrationWorkflowContext } from '../../contexts';
+import { useErrorManager } from '../../contexts/ErrorContext/useErrorManager';
 
 export const EulaScreen: React.FC<EulaScreenProps> = (props) => {
     const { t } = useLanguageLocale();
     const { actions, navigate, routeConfig, language } = useRegistrationContext();
+    const { triggerError, errorManagerConfig } = useErrorManager();
     const regWorkflow = useRegistrationWorkflowContext();
     const { nextScreen, previousScreen, screenData, currentScreen, totalScreens } = regWorkflow;
     const {
@@ -16,10 +18,11 @@ export const EulaScreen: React.FC<EulaScreenProps> = (props) => {
         eulaContent,
         checkboxLabel = t('bluiRegistration:REGISTRATION.EULA.AGREE_TERMS'),
         initialCheckboxValue,
+        errorDisplayConfig = errorManagerConfig,
     } = props;
 
     const [eulaAccepted, setEulaAccepted] = useState(screenData.Eula.accepted ?? initialCheckboxValue);
-    const [eulaLoaded, setEulaLoaded] = useState(true);
+    const [isLoading, setIsLoading] = useState(true);
     const [eulaData, setEulaData] = useState<string>();
 
     const loadAndCacheEula = useCallback(async (): Promise<void> => {
@@ -28,19 +31,23 @@ export const EulaScreen: React.FC<EulaScreenProps> = (props) => {
             try {
                 const eulaText = await actions().loadEula(language);
                 setEulaData(eulaText);
-                setEulaLoaded(false);
-            } catch {
-                setEulaLoaded(false);
-                // TODO - Need better way to handle WorflowCard Error
-                console.error(t('bluiRegistration:REGISTRATION.FAILURE_MESSAGE'));
+                setIsLoading(false);
+            } catch (_error) {
+                // @TODO: we need to handle this failure more gracefully. The user should be able to attempt to reload the EULA and forward progress should be blocked
+                triggerError(_error as Error);
+                // @TODO: replace this hardcoded string with a proper error text translation
+                // setEulaData('End user license agreement failed to load');
+                // setEulaData(t('bluiRegistration:REGISTRATION.FAILURE_MESSAGE'));
+                setIsLoading(false);
             } finally {
-                setEulaLoaded(false);
+                setIsLoading(false);
             }
         }
-    }, [eulaContent, language, actions, setEulaData, setEulaLoaded, t]);
+        // eslint-disable-next-line react-hooks/exhaustive-deps
+    }, [eulaContent, t, actions, language]);
 
     const onNext = useCallback(async (): Promise<void> => {
-        setEulaLoaded(true);
+        setIsLoading(true);
         try {
             const acceptedEula = await actions().acceptEula();
             setEulaAccepted(acceptedEula);
@@ -48,15 +55,16 @@ export const EulaScreen: React.FC<EulaScreenProps> = (props) => {
                 screenId: 'Eula',
                 values: { accepted: acceptedEula },
             });
-        } catch {
+        } catch (_error) {
             console.error('Error while updating EULA acceptance...');
+            triggerError(_error as Error);
         } finally {
-            setEulaLoaded(false);
+            setIsLoading(false);
         }
-    }, [actions, nextScreen, setEulaAccepted, setEulaLoaded]);
+    }, [actions, nextScreen, triggerError]);
 
     const onPrevious = useCallback(async (): Promise<void> => {
-        setEulaLoaded(true);
+        setIsLoading(true);
         try {
             const acceptedEula = await actions().acceptEula();
             setEulaAccepted(acceptedEula);
@@ -64,12 +72,13 @@ export const EulaScreen: React.FC<EulaScreenProps> = (props) => {
                 screenId: 'Eula',
                 values: { accepted: acceptedEula },
             });
-        } catch {
+        } catch (_error) {
             console.error('Error while updating EULA acceptance...');
+            triggerError(_error as Error);
         } finally {
-            setEulaLoaded(false);
+            setIsLoading(false);
         }
-    }, [actions, previousScreen, setEulaAccepted, setEulaLoaded]);
+    }, [actions, previousScreen, triggerError]);
 
     useEffect(() => {
         void loadAndCacheEula();
@@ -106,13 +115,14 @@ export const EulaScreen: React.FC<EulaScreenProps> = (props) => {
             WorkflowCardHeaderProps={workflowCardHeaderProps}
             eulaContent={eulaData}
             WorkflowCardBaseProps={{
-                loading: eulaLoaded,
+                loading: isLoading,
             }}
             checkboxLabel={checkboxLabel}
             checkboxProps={{ disabled: false }}
             initialCheckboxValue={eulaAccepted}
             onEulaAcceptedChange={onEulaAcceptedChange}
             WorkflowCardActionsProps={workflowCardActionsProps}
+            errorDisplayConfig={errorDisplayConfig}
         />
     );
 };
