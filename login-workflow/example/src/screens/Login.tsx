@@ -1,11 +1,9 @@
 import React from 'react';
 import { LoginScreen, useAuthContext } from '@brightlayer-ui/react-auth-workflow';
 import EatonLogo from '../assets/images/eaton_stacked_logo.png';
-import { useApp } from '../contexts/AppContextProvider';
 import { DebugComponent } from '../components/DebugComponent';
 
 export const Login = (): JSX.Element => {
-    const { setIsAuthenticated } = useApp();
     const auth = useAuthContext();
 
     return (
@@ -14,7 +12,6 @@ export const Login = (): JSX.Element => {
                 onLogin={(username, password): void => {
                     // eslint-disable-next-line no-console
                     console.log('onLogin', username, password);
-                    setIsAuthenticated(true);
                     auth.navigate('homepage');
                 }}
                 usernameTextFieldProps={{
