@@ -50,10 +50,14 @@ export const ProjectAuthUIActions: AuthUIActionsWithApp = (appHelper) => (): Aut
         // This will switch to the App screen or Auth screen and this loading
         // screen will be unmounted and thrown away.
         if (authData?.email !== undefined) {
-            appHelper.onUserAuthenticated();
+            appHelper.onUserAuthenticated({
+                email: authData?.email,
+                userId: authData.userId ?? '',
+                rememberMe: authData?.rememberMeData.rememberMe,
+            });
         } else {
             const rememberMeEmail = authData?.rememberMeData.rememberMe ? authData?.rememberMeData.user : undefined;
-            appHelper.onUserNotAuthenticated();
+            appHelper.onUserNotAuthenticated(false, rememberMeEmail);
         }
     },
     /**
@@ -93,7 +97,7 @@ export const ProjectAuthUIActions: AuthUIActionsWithApp = (appHelper) => (): Aut
         LocalStorage.saveAuthCredentials(email, email);
         LocalStorage.saveRememberMeData(email, rememberMe);
 
-        appHelper.onUserAuthenticated();
+        appHelper.onUserAuthenticated({ email: email, userId: email, rememberMe: rememberMe });
     },
     /**
      * The user has forgotten their password and wants help.

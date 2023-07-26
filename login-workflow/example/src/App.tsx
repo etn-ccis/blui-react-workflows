@@ -12,8 +12,16 @@ export const App = (): JSX.Element => {
         <AppContext.Provider
             value={{
                 isAuthenticated,
-                onUserAuthenticated: () => setIsAuthenticated(true),
-                onUserNotAuthenticated: () => setIsAuthenticated(false),
+                onUserAuthenticated: (userData): void => {
+                    setIsAuthenticated(true);
+                    // eslint-disable-next-line no-console
+                    console.log(userData);
+                },
+                onUserNotAuthenticated: (userData): void => {
+                    setIsAuthenticated(false);
+                    // eslint-disable-next-line no-console
+                    console.log(userData);
+                },
                 language,
                 setLanguage,
             }}
