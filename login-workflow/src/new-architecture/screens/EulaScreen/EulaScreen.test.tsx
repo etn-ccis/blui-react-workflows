@@ -47,7 +47,7 @@ describe('Eula Screen', () => {
         expect(screen.getByText('Test Title')).toBeInTheDocument();
     });
 
-    it('should loader, when loading prop is passed to WorkflowCardBaseProps', () => {
+    it('should show loader, when loading prop is passed to WorkflowCardBaseProps', () => {
         renderer({ WorkflowCardBaseProps: { loading: true } });
 
         expect(screen.getByText('Loading End User License Agreement...')).toBeInTheDocument();

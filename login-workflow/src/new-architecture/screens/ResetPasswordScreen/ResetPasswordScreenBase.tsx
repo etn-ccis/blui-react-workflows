@@ -10,6 +10,7 @@ import {
 } from '../../components';
 import { SuccessScreenBase } from '../SuccessScreen/SuccessScreenBase';
 import { SuccessScreenProps } from '../SuccessScreen';
+import ErrorManager from '../../components/Error/ErrorManager';
 
 /**
  * Component that renders a ResetPassword screen that allows a user to reset their password and shows a success message upon a successful password reset..
@@ -34,7 +35,7 @@ export const ResetPasswordScreenBase: React.FC<React.PropsWithChildren<ResetPass
     const instructionsProps = props.WorkflowCardInstructionProps || {};
     const actionsProps = props.WorkflowCardActionsProps || {};
     const passwordProps = props.PasswordProps || { onPasswordChange: () => ({}) };
-    const { showSuccessScreen, slots, slotProps } = props;
+    const { showSuccessScreen, slots, slotProps, errorDisplayConfig } = props;
 
     const getSuccessScreen = (
         _props: SuccessScreenProps,
@@ -48,7 +49,9 @@ export const ResetPasswordScreenBase: React.FC<React.PropsWithChildren<ResetPass
             <WorkflowCardHeader {...headerProps} />
             <WorkflowCardBody>
                 <WorkflowCardInstructions {...instructionsProps} divider />
-                <SetPassword {...passwordProps} />
+                <ErrorManager {...errorDisplayConfig}>
+                    <SetPassword {...passwordProps} />
+                </ErrorManager>
             </WorkflowCardBody>
             <WorkflowCardActions {...actionsProps} divider />
         </WorkflowCard>

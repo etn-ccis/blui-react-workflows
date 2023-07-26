@@ -80,7 +80,7 @@ export const VerifyCodeScreenBase: React.FC<React.PropsWithChildren<VerifyCodeSc
                             handleVerifyCodeInputChange(evt.target.value);
                         }}
                         onKeyUp={(e): void => {
-                            if (e.key === 'Enter' && verifyCode.length > 0 && isCodeValid && actionsProps.canGoNext)
+                            if (e.key === 'Enter' && ((verifyCode.length > 0 && isCodeValid) || actionsProps.canGoNext))
                                 handleOnNext();
                         }}
                         variant="filled"

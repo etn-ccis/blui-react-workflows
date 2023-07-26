@@ -1,4 +1,3 @@
-/** eslint-ignore */
 import React, { useCallback, useState } from 'react';
 import { EulaScreenProps } from './types';
 import { WorkflowCard, WorkflowCardActions, WorkflowCardBody, WorkflowCardHeader } from '../../components/WorkflowCard';
@@ -6,6 +5,7 @@ import FormControlLabel from '@mui/material/FormControlLabel';
 import Checkbox from '@mui/material/Checkbox';
 import Box from '@mui/material/Box';
 import DOMPurify from 'dompurify';
+import ErrorManager from '../../components/Error/ErrorManager';
 
 /**
  * Component that renders a screen displaying the EULA and requests acceptance via a checkbox.
@@ -26,6 +26,7 @@ export const EulaScreenBase: React.FC<EulaScreenProps> = (props) => {
         htmlEula,
         initialCheckboxValue,
         checkboxProps,
+        errorDisplayConfig,
     } = props;
 
     const cardBaseProps = props.WorkflowCardBaseProps || {};
@@ -41,6 +42,11 @@ export const EulaScreenBase: React.FC<EulaScreenProps> = (props) => {
         [onEulaAcceptedChange]
     );
 
+    const handleOnNext = (): void => {
+        const { onNext } = actionsProps;
+        if (onNext) onNext({ accepted: eulaAccepted });
+    };
+
     return (
         <WorkflowCard {...cardBaseProps}>
             <WorkflowCardHeader {...headerProps} />
@@ -52,20 +58,25 @@ export const EulaScreenBase: React.FC<EulaScreenProps> = (props) => {
                         dangerouslySetInnerHTML={{ __html: DOMPurify.sanitize(eulaContent as string) }}
                     />
                 )}
-                <FormControlLabel
-                    control={
-                        <Checkbox
-                            color={'primary'}
-                            checked={eulaAccepted}
-                            onChange={(event: React.ChangeEvent<HTMLInputElement>): void =>
-                                handleEulaAcceptedChecked(event.target.checked)
-                            }
-                            {...checkboxProps}
-                        />
-                    }
-                    label={checkboxLabel}
-                    sx={{ flex: '0 0 auto', mr: 0, mt: 2 }}
-                />
+                <ErrorManager {...errorDisplayConfig}>
+                    <FormControlLabel
+                        control={
+                            <Checkbox
+                                color={'primary'}
+                                checked={eulaAccepted}
+                                onChange={(event: React.ChangeEvent<HTMLInputElement>): void =>
+                                    handleEulaAcceptedChecked(event.target.checked)
+                                }
+                                {...checkboxProps}
+                            />
+                        }
+                        label={checkboxLabel}
+                        sx={{ flex: '0 0 auto', mr: 0, mt: 2 }}
+                        onKeyUp={(e): void => {
+                            if (e.key === 'Enter' && eulaAccepted) handleOnNext();
+                        }}
+                    />
+                </ErrorManager>
             </WorkflowCardBody>
             <WorkflowCardActions divider {...actionsProps} canGoNext={eulaAccepted && actionsProps.canGoNext} />
         </WorkflowCard>
