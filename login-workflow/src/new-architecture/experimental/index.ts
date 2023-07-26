@@ -1,2 +1,1 @@
-export * from './ExperimentalAuthGuard';
-export * from './ExperimentalGuestGuard';
+export * from './ReactAuthGuard';
