@@ -1,5 +1,5 @@
 import React, { useState, useEffect } from 'react';
-import { AppContext } from './contexts/AppContextProvider';
+import { AppContext, AppContextType } from './contexts/AppContextProvider';
 import { BrowserRouter } from 'react-router-dom';
 import { AppRouter } from './screens';
 import { I18nextProvider } from 'react-i18next';
@@ -10,7 +10,7 @@ import { CircularProgress } from '@mui/material';
 export const App = (): JSX.Element => {
     const [isAuthenticated, setIsAuthenticated] = useState(false);
     const [language, setLanguage] = useState('en');
-    const [loginData, setLoginData] = useState<{ email: string; rememberMe: boolean }>({
+    const [loginData, setLoginData] = useState<AppContextType['loginData']>({
         email: '',
         rememberMe: false,
     });
@@ -40,6 +40,7 @@ export const App = (): JSX.Element => {
                 value={{
                     isAuthenticated,
                     onUserAuthenticated: (userData): void => {
+                        console.log('authenticating in App');
                         setIsAuthenticated(true);
                         setLoginData(userData);
                         // eslint-disable-next-line no-console

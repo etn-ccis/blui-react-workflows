@@ -1,13 +1,17 @@
 import { createContext, useContext } from 'react';
 
+export type LoginData = {
+    email: string;
+    rememberMe: boolean;
+};
 export type AppContextType = {
     isAuthenticated: boolean;
-    loginData: { email: string; rememberMe: boolean };
+    loginData: LoginData;
     onUserAuthenticated: (args: { email: string; userId: string; rememberMe: boolean }) => void;
     onUserNotAuthenticated: (clearRememberMe?: boolean, overrideRememberMeEmail?: string) => void;
     language: string;
     setLanguage: (language: string) => void;
-    setLoginData: (args: { email: string; rememberMe: boolean }) => void;
+    setLoginData: (args: LoginData) => void;
 };
 
 export const AppContext = createContext<AppContextType | null>(null);
