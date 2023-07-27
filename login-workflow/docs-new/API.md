@@ -127,7 +127,14 @@ Type to represent the customizable configuration of the error message box.
 
 ## Components
 
-### Screens
+Exported components that can be used to customize the auth workflow. 
+
+- [SetPassword](https://github.com/etn-ccis/blui-react-workflows/tree/master/login-workflow/docs/components/set-password.md)
+- [WorkflowCard](https://github.com/etn-ccis/blui-react-workflows/tree/master/login-workflow/docs/components/workflow-card.md)
+## Screens
+
+Exported screens that can be used to customize the auth workflow. 
+
 - [AccountDetailsScreen](https://github.com/etn-ccis/blui-react-workflows/tree/master/login-workflow/docs/screens/account-details.md)
 - [ContactScreen](https://github.com/etn-ccis/blui-react-workflows/tree/master/login-workflow/docs/screens/contact.md)
 - [CreateAccountScreen](https://github.com/etn-ccis/blui-react-workflows/tree/master/login-workflow/docs/screens/create-account.md)
@@ -136,4 +143,5 @@ Type to represent the customizable configuration of the error message box.
 - [ForgotPasswordScreen](https://github.com/etn-ccis/blui-react-workflows/tree/master/login-workflow/docs/screens/forgot-password.md)
 - [LoginScreen](https://github.com/etn-ccis/blui-react-workflows/tree/master/login-workflow/docs/screens/login.md)
 - [ResetPasswordScreen](https://github.com/etn-ccis/blui-react-workflows/tree/master/login-workflow/docs/screens/reset-password.md)
+- [SuccessScreen](https://github.com/etn-ccis/blui-react-workflows/tree/master/login-workflow/docs/screens/success.md)
 - [VerifyCodeScreen](https://github.com/etn-ccis/blui-react-workflows/tree/master/login-workflow/docs/screens/verify-code.md)
