@@ -45,6 +45,7 @@ export const AppRouter: React.FC = () => {
                 }
             >
                 <Route path={'/login'} element={<Login />} />
+                <Route path={'/'} element={<Login />} />
                 <Route path={'/forgot-password'} element={<ForgotPasswordScreen />} />
                 <Route path={'/contact-support'} element={<ContactSupportScreen />} />
                 <Route path={'/reset-password'} element={<ResetPasswordScreen />} />
@@ -97,9 +98,6 @@ export const AppRouter: React.FC = () => {
                     </ReactAuthGuard>
                 }
             />
-            <Route element={<ReactAuthGuard isAuthenticated={isAuthenticated} fallBackUrl={'/login'} />}>
-                <Route path="/homepage" element={<ExampleHome />} />
-            </Route>
         </Routes>
     );
 };
