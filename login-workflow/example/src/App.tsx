@@ -8,8 +8,9 @@ import { LocalStorage } from './store/local-storage';
 import { CircularProgress } from '@mui/material';
 
 export const App = (): JSX.Element => {
+    const appLanguage = window.localStorage.getItem('language');
     const [isAuthenticated, setIsAuthenticated] = useState(false);
-    const [language, setLanguage] = useState('en');
+    const [language, setLanguage] = useState(appLanguage || 'en');
     const [loginData, setLoginData] = useState<AppContextType['loginData']>({
         email: '',
         rememberMe: false,
@@ -22,6 +23,7 @@ export const App = (): JSX.Element => {
             try {
                 const userList = await LocalStorage.readAuthData();
                 setLoginData({ email: userList.rememberMeData.user, rememberMe: userList.rememberMeData.rememberMe });
+                setIsAuthenticated(userList.userId ? true : false);
             } catch (e) {
                 // handle any error state, rejected promises, etc..
             } finally {
@@ -30,6 +32,7 @@ export const App = (): JSX.Element => {
         };
         // eslint-disable-next-line
         rememberMeDetails();
+        void i18nAppInstance.changeLanguage(language);
     }, []);
 
     return isLoading ? (
@@ -40,7 +43,6 @@ export const App = (): JSX.Element => {
                 value={{
                     isAuthenticated,
                     onUserAuthenticated: (userData): void => {
-                        console.log('authenticating in App');
                         setIsAuthenticated(true);
                         setLoginData(userData);
                         // eslint-disable-next-line no-console
