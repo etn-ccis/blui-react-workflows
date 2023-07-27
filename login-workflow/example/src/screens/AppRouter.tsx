@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import React from 'react';
 import {
     AccountDetailsScreen,
     AuthContextProvider,
@@ -7,6 +7,7 @@ import {
     ContactSupportScreen,
     EulaScreen,
     ExperimentalAuthGuard,
+    ExperimentalGuestGuard,
     ForgotPasswordScreen,
     RegistrationContextProvider,
     ResetPasswordScreen,
@@ -22,16 +23,13 @@ import { Login } from './Login';
 import { ProjectRegistrationUIActions } from '../actions/RegistrationUIActions';
 import { routes } from '../navigation/Routing';
 import { ExampleHome } from './ExampleHome';
-import { LocalStorage } from '../store/local-storage';
 import { i18nAppInstance } from '../translations/i18n';
 
 export const AppRouter: React.FC = () => {
     const { language } = useApp();
-    const authData = LocalStorage.readAuthData();
-    // eslint-disable-next-line
-    const [isAuthenticated, setIsAuthenticated] = useState(authData !== null ? true : false);
     const navigate = useNavigate();
-    const appActions = useApp();
+    const app = useApp();
+    const { email, rememberMe } = app.loginData;
 
     return (
         <Routes>
@@ -39,13 +37,19 @@ export const AppRouter: React.FC = () => {
             <Route
                 element={
                     <AuthContextProvider
-                        actions={ProjectAuthUIActions(appActions)}
+                        actions={ProjectAuthUIActions(app)}
                         language={language}
                         navigate={navigate}
                         routeConfig={routes}
                         i18n={i18nAppInstance}
+                        rememberMeDetails={{ email: rememberMe ? email : '', rememberMe: rememberMe }}
                     >
-                        <Outlet />
+                        <ExperimentalGuestGuard
+                            isAuthenticated={app.isAuthenticated}
+                            fallbackComponent={<Navigate to={`/`} />}
+                        >
+                            <Outlet />
+                        </ExperimentalGuestGuard>
                     </AuthContextProvider>
                 }
             >
@@ -98,18 +102,19 @@ export const AppRouter: React.FC = () => {
                 path={'/homepage'}
                 element={
                     <ExperimentalAuthGuard
-                        isAuthenticated={isAuthenticated}
+                        isAuthenticated={app.isAuthenticated}
                         fallbackComponent={<Navigate to={`/login`} />}
                     >
                         <ExampleHome />
                     </ExperimentalAuthGuard>
                 }
             />
+            <Route path={'/'} element={<Navigate to={'/homepage'} replace />} />
             <Route
                 path={'*'}
                 element={
                     <ExperimentalAuthGuard
-                        isAuthenticated={isAuthenticated}
+                        isAuthenticated={app.isAuthenticated}
                         fallbackComponent={<Navigate to={`/login`} />}
                     >
                         <Navigate to={'/login'} />
