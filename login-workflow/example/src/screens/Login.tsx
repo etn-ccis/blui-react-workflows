@@ -1,31 +1,25 @@
-import React, { useState } from 'react';
-import {
-    LoginScreen,
-    AuthContextProvider,
-    useAuthContext,
-    useSecurityActions,
-} from '@brightlayer-ui/react-auth-workflow';
+import React from 'react';
+import { LoginScreen, useAuthContext } from '@brightlayer-ui/react-auth-workflow';
 import EatonLogo from '../assets/images/eaton_stacked_logo.png';
 import { DebugComponent } from '../components/DebugComponent';
-import { ProjectAuthUIActions } from '../actions/AuthUIActions';
-import { REMEMBER_ME_DATA } from '../constants';
+import { useApp } from '../contexts/AppContextProvider';
 
 export const Login = (): JSX.Element => {
     const auth = useAuthContext();
-    const securityContextActions = useSecurityActions();
+    const appActions = useApp();
+    //const jsonRememberMe = window.localStorage.getItem(REMEMBER_ME_DATA) || '{}';
+    //const rememberMeData = JSON.parse(jsonRememberMe);
 
-    const jsonRememberMe = window.localStorage.getItem(REMEMBER_ME_DATA) || '{}';
-    const rememberMeData = JSON.parse(jsonRememberMe);
-
-    const [rememberMe, setRememberMe] = useState(rememberMeData.rememberMe ? rememberMeData.rememberMe : false);
-    const [rememberEmail, setRememberEmail] = useState(rememberMeData.user ? rememberMeData.user : '');
+    //const [rememberMe, setRememberMe] = useState(rememberMeData.rememberMe ? rememberMeData.rememberMe : false);
+    //const [rememberEmail, setRememberEmail] = useState(rememberMeData.user ? rememberMeData.user : '');
 
     return (
         <>
             <LoginScreen
-                onLogin={(username, password): void => {
+                onLogin={(username = '', password, rememberMe = false): void => {
                     // eslint-disable-next-line no-console
                     console.log('onLogin', username, password);
+                    appActions.setLoginData({ email: username, rememberMe: rememberMe });
                     auth.navigate('homepage');
                 }}
                 usernameTextFieldProps={{
