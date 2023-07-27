@@ -71,6 +71,7 @@ export const ExampleHome: React.FC<React.PropsWithChildren> = () => {
         const appLanguage = event.target.value;
         app.setLanguage(appLanguage);
         void i18n.changeLanguage(appLanguage);
+        window.localStorage.setItem('language', appLanguage);
     };
 
     return (
