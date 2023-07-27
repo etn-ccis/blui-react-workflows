@@ -32,6 +32,7 @@ export const AppRouter: React.FC = () => {
     const [isAuthenticated, setIsAuthenticated] = useState(authData !== null ? true : false);
     const navigate = useNavigate();
     const appActions = useApp();
+    const { email, rememberMe } = appActions.loginData;
 
     return (
         <Routes>
@@ -44,6 +45,7 @@ export const AppRouter: React.FC = () => {
                         navigate={navigate}
                         routeConfig={routes}
                         i18n={i18nAppInstance}
+                        rememberMeDetails={{ email: rememberMe ? email : '', rememberMe: rememberMe }}
                     >
                         <Outlet />
                     </AuthContextProvider>
