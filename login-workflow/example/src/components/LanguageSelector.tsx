@@ -10,6 +10,7 @@ export const LanguageSelector = (props: SelectProps): JSX.Element => {
         const appLanguage = event.target.value;
         setSelectedLanguage(appLanguage);
         setLanguage(appLanguage);
+        window.localStorage.setItem('language', appLanguage);
     };
 
     return (
