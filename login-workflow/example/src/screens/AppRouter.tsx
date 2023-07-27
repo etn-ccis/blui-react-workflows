@@ -10,7 +10,6 @@ import {
     ForgotPasswordScreen,
     RegistrationContextProvider,
     ResetPasswordScreen,
-    useSecurityActions,
     RegistrationWorkflow,
     VerifyCodeScreen,
     RegistrationSuccessScreen,
@@ -24,21 +23,24 @@ import { ProjectRegistrationUIActions } from '../actions/RegistrationUIActions';
 import { routes } from '../navigation/Routing';
 import { ExampleHome } from './ExampleHome';
 import { PageNotFound } from './PageNotFound';
+import { i18nAppInstance } from '../translations/i18n';
 
 export const AppRouter: React.FC = () => {
     const { language, isAuthenticated } = useApp();
     const navigate = useNavigate();
-    const securityContextActions = useSecurityActions();
+    const appActions = useApp();
+
     return (
         <Routes>
             {/* AUTH ROUTES */}
             <Route
                 element={
                     <AuthContextProvider
-                        actions={ProjectAuthUIActions(securityContextActions)}
+                        actions={ProjectAuthUIActions(appActions)}
                         language={language}
                         navigate={navigate}
                         routeConfig={routes}
+                        i18n={i18nAppInstance}
                     >
                         <Outlet />
                     </AuthContextProvider>
@@ -59,6 +61,7 @@ export const AppRouter: React.FC = () => {
                         routeConfig={routes}
                         navigate={navigate}
                         actions={ProjectRegistrationUIActions}
+                        i18n={i18nAppInstance}
                     >
                         <Outlet />
                     </RegistrationContextProvider>

@@ -1,12 +1,10 @@
 import React from 'react';
 import { LoginScreen, useAuthContext } from '@brightlayer-ui/react-auth-workflow';
 import EatonLogo from '../assets/images/eaton_stacked_logo.png';
-import { useApp } from '../contexts/AppContextProvider';
 import { DebugComponent } from '../components/DebugComponent';
 import { useLocation } from 'react-router-dom';
 
 export const Login = (): JSX.Element => {
-    const { setIsAuthenticated } = useApp();
     const auth = useAuthContext();
     const location = useLocation();
     return (
@@ -15,8 +13,6 @@ export const Login = (): JSX.Element => {
                 onLogin={(username, password): void => {
                     // eslint-disable-next-line no-console
                     console.log('onLogin', username, password);
-                    setIsAuthenticated(true);
-
                     if (location.state?.from.pathname) {
                         auth.navigate(location.state?.from.pathname);
                     } else {

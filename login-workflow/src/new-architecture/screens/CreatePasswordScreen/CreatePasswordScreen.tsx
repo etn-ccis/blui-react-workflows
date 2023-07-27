@@ -69,23 +69,7 @@ export const CreatePasswordScreen: React.FC<CreatePasswordScreenProps> = (props)
         WorkflowCardHeaderProps,
         WorkflowCardInstructionProps,
         WorkflowCardActionsProps,
-        PasswordProps: passwordProps = {
-            initialNewPasswordValue: passwordInput,
-            initialConfirmPasswordValue: confirmInput,
-            newPasswordLabel: t('bluiCommon:FORMS.PASSWORD'),
-            confirmPasswordLabel: t('bluiCommon:FORMS.CONFIRM_PASSWORD'),
-            passwordNotMatchError: t('bluiCommon:FORMS.PASS_MATCH_ERROR'),
-            passwordRequirements: passwordRequirements,
-            passwordRef,
-            confirmRef,
-            onPasswordChange: updateFields,
-            onSubmit: (): void => {
-                if (areValidMatchingPasswords()) {
-                    void onNext();
-                    WorkflowCardActionsProps?.onNext?.();
-                }
-            },
-        },
+        PasswordProps,
         errorDisplayConfig = errorManagerConfig,
     } = props;
 
@@ -107,11 +91,7 @@ export const CreatePasswordScreen: React.FC<CreatePasswordScreenProps> = (props)
     const workflowCardActionsProps = {
         showNext: true,
         nextLabel: t('bluiCommon:ACTIONS.NEXT'),
-        canGoNext:
-            passwordInput !== '' &&
-            confirmInput !== '' &&
-            passwordInput === confirmInput &&
-            areValidMatchingPasswords(),
+        canGoNext: passwordInput !== '' && confirmInput !== '' && passwordInput === confirmInput,
         showPrevious: true,
         previousLabel: t('bluiCommon:ACTIONS.BACK'),
         canGoPrevious: true,
@@ -128,19 +108,37 @@ export const CreatePasswordScreen: React.FC<CreatePasswordScreenProps> = (props)
         },
     };
 
+    const passwordProps = {
+        initialNewPasswordValue: passwordInput,
+        initialConfirmPasswordValue: confirmInput,
+        newPasswordLabel: t('bluiCommon:FORMS.PASSWORD'),
+        confirmPasswordLabel: t('bluiCommon:FORMS.CONFIRM_PASSWORD'),
+        passwordNotMatchError: t('bluiCommon:FORMS.PASS_MATCH_ERROR'),
+        passwordRequirements: passwordRequirements,
+        passwordRef,
+        confirmRef,
+        ...PasswordProps,
+        onPasswordChange: (passwordData: { password: string; confirm: string }): void => {
+            updateFields(passwordData);
+            PasswordProps?.onPasswordChange?.(passwordData);
+        },
+        onSubmit: (): void => {
+            if (areValidMatchingPasswords()) {
+                void onNext();
+                WorkflowCardActionsProps?.onNext?.();
+                PasswordProps?.onSubmit?.();
+            }
+        },
+    };
+
     return (
-        <>
-            <CreatePasswordScreenBase
-                WorkflowCardActionsProps={workflowCardActionsProps}
-                WorkflowCardBaseProps={workflowCardBaseProps}
-                WorkflowCardHeaderProps={workflowCardHeaderProps}
-                WorkflowCardInstructionProps={workflowCardInstructionProps}
-                PasswordProps={{
-                    ...passwordProps,
-                    onPasswordChange: updateFields,
-                }}
-                errorDisplayConfig={errorDisplayConfig}
-            />
-        </>
+        <CreatePasswordScreenBase
+            WorkflowCardActionsProps={workflowCardActionsProps}
+            WorkflowCardBaseProps={workflowCardBaseProps}
+            WorkflowCardHeaderProps={workflowCardHeaderProps}
+            WorkflowCardInstructionProps={workflowCardInstructionProps}
+            PasswordProps={passwordProps}
+            errorDisplayConfig={errorDisplayConfig}
+        />
     );
 };

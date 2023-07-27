@@ -10,7 +10,7 @@ export { default as spanish } from './spanish';
 export { default as chinese } from './chinese';
 export { default as portuguese } from './portuguese';
 
-export const sharedDictionaries = {
+export const SharedDictionaries = {
     english: english,
     french: french,
     spanish: spanish,

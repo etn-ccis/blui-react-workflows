@@ -27,14 +27,16 @@ import { useTheme } from '@mui/material/styles';
 import { useTranslation } from 'react-i18next';
 import { useNavigate } from 'react-router-dom';
 import * as Colors from '@brightlayer-ui/colors';
-import { LanguageSelector } from '../components/LanguageSelector';
+import FormControl from '@mui/material/FormControl';
+import { MenuItem, Select, SelectChangeEvent } from '@mui/material';
 
 export const ExampleHome: React.FC<React.PropsWithChildren> = () => {
     const app = useApp();
-    const { t } = useTranslation();
+    const { t, i18n } = useTranslation();
     const [open, setOpen] = useState(false);
     const navigate = useNavigate();
     const theme = useTheme();
+
     const containerStyles = {
         width: '100%',
         height: `calc(100vh - ${theme.spacing(8)})`,
@@ -61,8 +63,14 @@ export const ExampleHome: React.FC<React.PropsWithChildren> = () => {
 
     const logOut = (): void => {
         LocalStorage.clearAuthCredentials();
-        app.setIsAuthenticated(false);
+        app.onUserNotAuthenticated();
         navigate('/login');
+    };
+
+    const changeAppLanguage = (event: SelectChangeEvent): void => {
+        const appLanguage = event.target.value;
+        app.setLanguage(appLanguage);
+        void i18n.changeLanguage(appLanguage);
     };
 
     return (
@@ -70,19 +78,15 @@ export const ExampleHome: React.FC<React.PropsWithChildren> = () => {
             drawer={
                 <Drawer open={true} width={332} variant={'persistent'}>
                     <DrawerHeader
-                        title={`${t('blui:DRAWER_MENU.TITLE')}`}
+                        title={`${t('DRAWER_MENU.TITLE')}`}
                         icon={<Menu />}
                         onClick={(): void => setOpen(!open)}
                     />
                     <DrawerBody>
                         <DrawerNavGroup>
+                            <DrawerNavItem title={`${t('DRAWER_MENU.DASHBOARD')}`} icon={<Dashboard />} itemID="1" />
                             <DrawerNavItem
-                                title={`${t('blui:DRAWER_MENU.DASHBOARD')}`}
-                                icon={<Dashboard />}
-                                itemID="1"
-                            />
-                            <DrawerNavItem
-                                title={`${t('blui:DRAWER_MENU.LOCATIONS')}`}
+                                title={`${t('DRAWER_MENU.LOCATIONS')}`}
                                 icon={<Notifications />}
                                 itemID="2"
                             />
@@ -94,22 +98,32 @@ export const ExampleHome: React.FC<React.PropsWithChildren> = () => {
             <Box>
                 <AppBar color="primary">
                     <Toolbar sx={{ px: 2, minHeight: 'unset', height: '4rem' }}>
-                        <Typography variant="h6">{`${t('blui:TOOLBAR_MENU.HOME_PAGE')}`}</Typography>
+                        <Typography variant="h6">{`${t('TOOLBAR_MENU.HOME_PAGE')}`}</Typography>
                         <Spacer />
                         <Box sx={{ py: 2 }}>
-                            <LanguageSelector
-                                variant="standard"
-                                sx={{
-                                    padding: '4px',
-                                    minWidth: '160px',
-                                    margin: '16px',
-                                    backgroundColor: 'transparent',
-                                    color: Colors.white[50],
-                                    '& .MuiSelect-icon': {
+                            <FormControl fullWidth>
+                                <Select
+                                    value={app.language}
+                                    onChange={changeAppLanguage}
+                                    variant={'standard'}
+                                    sx={{
+                                        padding: '4px',
+                                        minWidth: '160px',
+                                        margin: '16px',
+                                        backgroundColor: 'transparent',
                                         color: Colors.white[50],
-                                    },
-                                }}
-                            />
+                                        '& .MuiSelect-icon': {
+                                            color: Colors.white[50],
+                                        },
+                                    }}
+                                >
+                                    <MenuItem value={'en'}>English</MenuItem>
+                                    <MenuItem value={'es'}>Spanish</MenuItem>
+                                    <MenuItem value={'fr'}>French</MenuItem>
+                                    <MenuItem value={'zh'}>Chinese</MenuItem>
+                                    <MenuItem value={'pt'}>Portugese</MenuItem>
+                                </Select>
+                            </FormControl>
                         </Box>
                         <UserMenu
                             onClick={(): void => setOpen(!open)}
@@ -119,14 +133,14 @@ export const ExampleHome: React.FC<React.PropsWithChildren> = () => {
                                     items: [
                                         {
                                             icon: <AccountBox />,
-                                            title: `${t('blui:USER_MENU.MY_ACCOUNT')}`,
+                                            title: `${t('USER_MENU.MY_ACCOUNT')}`,
                                             onClick: (): void => {
                                                 setOpen(false);
                                             },
                                         },
                                         {
                                             icon: <ExitToApp />,
-                                            title: `${t('blui:USER_MENU.LOG_OUT')}`,
+                                            title: `${t('USER_MENU.LOG_OUT')}`,
                                             onClick: (): void => {
                                                 setOpen(false);
                                                 logOut();
@@ -143,8 +157,8 @@ export const ExampleHome: React.FC<React.PropsWithChildren> = () => {
                 <EmptyState
                     sx={emptyStateContainerStyles}
                     icon={<Event fontSize={'inherit'} />}
-                    title={`${t('blui:TOOLBAR_MENU.HOME_PAGE')}`}
-                    description={`${t('blui:PAGE_DETAILS.AUTHORISED_MESSAGE')}`}
+                    title={`${t('TOOLBAR_MENU.HOME_PAGE')}`}
+                    description={`${t('PAGE_DETAILS.AUTHORISED_MESSAGE')}`}
                 />
             </Box>
         </DrawerLayout>
