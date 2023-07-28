@@ -61,7 +61,8 @@ export const VerifyCodeScreenBase: React.FC<React.PropsWithChildren<VerifyCodeSc
             setShouldValidateCode(true);
             handleVerifyCodeInputChange(verifyCode);
         }
-    }, [handleVerifyCodeInputChange, verifyCode]);
+        // eslint-disable-next-line react-hooks/exhaustive-deps
+    }, []);
 
     const handleOnNext = (): void => {
         const { onNext } = actionsProps;

@@ -58,7 +58,8 @@ export const CreateAccountScreenBase: React.FC<
             setShouldValidateEmail(true);
             handleEmailInputChange(emailInput);
         }
-    }, [handleEmailInputChange, emailInput]);
+        // eslint-disable-next-line react-hooks/exhaustive-deps
+    }, []);
 
     return (
         <WorkflowCard {...cardBaseProps}>
