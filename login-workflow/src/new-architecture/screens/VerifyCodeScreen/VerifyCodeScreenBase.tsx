@@ -1,4 +1,4 @@
-import React, { useCallback } from 'react';
+import React, { useCallback, useEffect } from 'react';
 import { VerifyCodeScreenProps } from './types';
 import { WorkflowCard } from '../../components/WorkflowCard';
 import { WorkflowCardActions } from '../../components/WorkflowCard/WorkflowCardActions';
@@ -55,6 +55,14 @@ export const VerifyCodeScreenBase: React.FC<React.PropsWithChildren<VerifyCodeSc
         },
         [codeValidator]
     );
+
+    useEffect(() => {
+        if (verifyCode.length > 0) {
+            setShouldValidateCode(true);
+            handleVerifyCodeInputChange(verifyCode);
+        }
+        // eslint-disable-next-line react-hooks/exhaustive-deps
+    }, []);
 
     const handleOnNext = (): void => {
         const { onNext } = actionsProps;
