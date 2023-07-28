@@ -20,6 +20,7 @@ export const registrationContextProviderProps: RegistrationContextProviderProps 
     i18n: i18nRegistrationInstance,
     navigate: (): void => {},
     routeConfig: {},
+    actions: jest.fn().mockReturnValue({}),
 };
 
 export const registrationWorkflowContextProps: RegistrationWorkflowContextProps = {
