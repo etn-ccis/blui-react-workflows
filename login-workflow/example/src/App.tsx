@@ -1,7 +1,7 @@
 import React, { useState, useEffect } from 'react';
 import { AppContext, AppContextType } from './contexts/AppContextProvider';
 import { BrowserRouter } from 'react-router-dom';
-import { AppRouter } from './screens';
+import { AppRouter } from './navigation/AppRouter';
 import { I18nextProvider } from 'react-i18next';
 import { i18nAppInstance } from './translations/i18n';
 import { LocalStorage } from './store/local-storage';

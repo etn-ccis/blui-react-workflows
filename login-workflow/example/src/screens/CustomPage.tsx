@@ -1,5 +1,4 @@
 import React, { useState } from 'react';
-import { LocalStorage } from '../store/local-storage';
 import { useApp } from '../contexts/AppContextProvider';
 import {
     DrawerLayout,
@@ -9,7 +8,6 @@ import {
     DrawerNavItem,
     DrawerHeader,
     Spacer,
-    UserMenu,
     EmptyState,
 } from '@brightlayer-ui/react-components';
 import Box from '@mui/material/Box';
@@ -17,24 +15,19 @@ import Event from '@mui/icons-material/Event';
 import Dashboard from '@mui/icons-material/Dashboard';
 import Notifications from '@mui/icons-material/Notifications';
 import Menu from '@mui/icons-material/Menu';
-import AccountBox from '@mui/icons-material/AccountBox';
-import ExitToApp from '@mui/icons-material/ExitToApp';
-import Avatar from '@mui/material/Avatar';
 import AppBar from '@mui/material/AppBar';
 import Toolbar from '@mui/material/Toolbar';
 import Typography from '@mui/material/Typography';
 import { useTheme } from '@mui/material/styles';
 import { useTranslation } from 'react-i18next';
-import { useNavigate } from 'react-router-dom';
 import * as Colors from '@brightlayer-ui/colors';
 import FormControl from '@mui/material/FormControl';
 import { MenuItem, Select, SelectChangeEvent } from '@mui/material';
 
-export const ExampleHome: React.FC<React.PropsWithChildren> = () => {
+export const CustomPage: React.FC<React.PropsWithChildren> = () => {
     const app = useApp();
     const { t, i18n } = useTranslation();
     const [open, setOpen] = useState(false);
-    const navigate = useNavigate();
     const theme = useTheme();
 
     const containerStyles = {
@@ -61,12 +54,6 @@ export const ExampleHome: React.FC<React.PropsWithChildren> = () => {
         justifyContent: 'center',
     };
 
-    const logOut = (): void => {
-        LocalStorage.clearAuthCredentials();
-        app.onUserNotAuthenticated();
-        navigate('/login');
-    };
-
     const changeAppLanguage = (event: SelectChangeEvent): void => {
         const appLanguage = event.target.value;
         app.setLanguage(appLanguage);
@@ -90,9 +77,6 @@ export const ExampleHome: React.FC<React.PropsWithChildren> = () => {
                                 title={`${t('DRAWER_MENU.LOCATIONS')}`}
                                 icon={<Notifications />}
                                 itemID="2"
-                                onClick={(): void => {
-                                    navigate('/custompage');
-                                }}
                             />
                         </DrawerNavGroup>
                     </DrawerBody>
@@ -129,7 +113,7 @@ export const ExampleHome: React.FC<React.PropsWithChildren> = () => {
                                 </Select>
                             </FormControl>
                         </Box>
-                        <UserMenu
+                        {/* <UserMenu
                             onClick={(): void => setOpen(!open)}
                             avatar={<Avatar>AV</Avatar>}
                             menuGroups={[
@@ -153,7 +137,7 @@ export const ExampleHome: React.FC<React.PropsWithChildren> = () => {
                                     ],
                                 },
                             ]}
-                        />
+                        /> */}
                     </Toolbar>
                 </AppBar>
             </Box>
