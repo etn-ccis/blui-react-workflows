@@ -6,8 +6,8 @@ import {
     CreatePasswordScreen,
     ContactSupportScreen,
     EulaScreen,
-    ExperimentalAuthGuard,
-    ExperimentalGuestGuard,
+    ReactRouterAuthGuard,
+    ReactRouterGuestGuard,
     ForgotPasswordScreen,
     RegistrationContextProvider,
     ResetPasswordScreen,
@@ -19,10 +19,10 @@ import { useApp } from '../contexts/AppContextProvider';
 import { useNavigate } from 'react-router';
 import { ProjectAuthUIActions } from '../actions/AuthUIActions';
 import { Navigate, Outlet, Route, Routes } from 'react-router-dom';
-import { Login } from './Login';
+import { Login } from '../screens/Login';
 import { ProjectRegistrationUIActions } from '../actions/RegistrationUIActions';
-import { routes } from '../navigation/Routing';
-import { ExampleHome } from './ExampleHome';
+import { routes } from './Routing';
+import { ExampleHome } from '../screens/ExampleHome';
 import { i18nAppInstance } from '../translations/i18n';
 
 export const AppRouter: React.FC = () => {
@@ -44,12 +44,9 @@ export const AppRouter: React.FC = () => {
                         i18n={i18nAppInstance}
                         rememberMeDetails={{ email: rememberMe ? email : '', rememberMe: rememberMe }}
                     >
-                        <ExperimentalGuestGuard
-                            isAuthenticated={app.isAuthenticated}
-                            fallbackComponent={<Navigate to={`/`} />}
-                        >
+                        <ReactRouterGuestGuard isAuthenticated={app.isAuthenticated} fallBackUrl={'/'}>
                             <Outlet />
-                        </ExperimentalGuestGuard>
+                        </ReactRouterGuestGuard>
                     </AuthContextProvider>
                 }
             >
@@ -101,24 +98,18 @@ export const AppRouter: React.FC = () => {
             <Route
                 path={'/homepage'}
                 element={
-                    <ExperimentalAuthGuard
-                        isAuthenticated={app.isAuthenticated}
-                        fallbackComponent={<Navigate to={`/login`} />}
-                    >
+                    <ReactRouterAuthGuard isAuthenticated={app.isAuthenticated} fallBackUrl={'/login'}>
                         <ExampleHome />
-                    </ExperimentalAuthGuard>
+                    </ReactRouterAuthGuard>
                 }
             />
             <Route path={'/'} element={<Navigate to={'/homepage'} replace />} />
             <Route
                 path={'*'}
                 element={
-                    <ExperimentalAuthGuard
-                        isAuthenticated={app.isAuthenticated}
-                        fallbackComponent={<Navigate to={`/login`} />}
-                    >
+                    <ReactRouterAuthGuard isAuthenticated={app.isAuthenticated} fallBackUrl={'/login'}>
                         <Navigate to={'/login'} />
-                    </ExperimentalAuthGuard>
+                    </ReactRouterAuthGuard>
                 }
             />
         </Routes>
