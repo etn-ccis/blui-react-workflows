@@ -27,7 +27,7 @@ export const LanguageSelector = (props: SelectProps): JSX.Element => {
                 <MenuItem value={'es'}>Spanish</MenuItem>
                 <MenuItem value={'fr'}>French</MenuItem>
                 <MenuItem value={'zh'}>Chinese</MenuItem>
-                <MenuItem value={'pt'}>Portugese</MenuItem>
+                <MenuItem value={'pt'}>Portuguese</MenuItem>
             </Select>
         </FormControl>
     );
