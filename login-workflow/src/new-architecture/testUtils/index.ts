@@ -1,6 +1,5 @@
 import {
     AuthContextProviderProps,
-    IndividualScreenData,
     RegistrationContextProviderProps,
     RegistrationWorkflowContextProps,
 } from '../contexts';
@@ -34,10 +33,10 @@ export const registrationWorkflowContextProps: RegistrationWorkflowContextProps 
         CreatePassword: { password: 'password', confirmPassword: 'confirmPassword' },
         AccountDetails: { firstName: 'firstName', lastName: 'lastName' },
     },
-    nextScreen: function (data: IndividualScreenData): Promise<void> {
+    nextScreen: function (): Promise<void> {
         throw new Error('Function not implemented.');
     },
-    updateScreenData: function (data: IndividualScreenData): void {
+    updateScreenData: function (): void {
         throw new Error('Function not implemented.');
     },
 };
