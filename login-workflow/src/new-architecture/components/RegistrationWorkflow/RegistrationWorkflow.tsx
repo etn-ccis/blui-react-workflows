@@ -60,7 +60,7 @@ export const RegistrationWorkflow: React.FC<React.PropsWithChildren<Registration
         }
     };
 
-    const onNext = (): Promise<void> => {
+    const finishRegistration = (): Promise<void> => {
         const { firstName, lastName } = screenData.AccountDetails;
         if (actions && actions().completeRegistration)
             return actions()
@@ -88,7 +88,7 @@ export const RegistrationWorkflow: React.FC<React.PropsWithChildren<Registration
             totalScreens={totalScreens}
             nextScreen={(data): Promise<void> => {
                 updateScreenData(data);
-                if (currentScreen === totalScreens - 1) return onNext();
+                if (currentScreen === totalScreens - 1) return finishRegistration();
                 setCurrentScreen((i) => i + 1);
             }}
             previousScreen={(data): void => {

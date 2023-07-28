@@ -5,7 +5,7 @@ import { VerifyCodeScreen } from './VerifyCodeScreen';
 import { VerifyCodeScreenProps } from './types';
 import { RegistrationContextProvider } from '../../contexts';
 import { RegistrationWorkflow } from '../../components';
-import { defaultProps as registrationContextProviderProps } from '../../contexts/RegistrationContext/RegistrationContextProvider.test';
+import { registrationContextProviderProps } from '../../testUtils';
 
 afterEach(cleanup);
 

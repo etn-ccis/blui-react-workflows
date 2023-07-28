@@ -49,13 +49,14 @@ export const EulaScreen: React.FC<EulaScreenProps> = (props) => {
     const onNext = useCallback(async (): Promise<void> => {
         setIsLoading(true);
         try {
-            const acceptedEula = await actions().acceptEula();
+            const acceptedEula = await actions()?.acceptEula?.();
             setEulaAccepted(acceptedEula);
             void nextScreen({
                 screenId: 'Eula',
                 values: { accepted: acceptedEula },
             });
         } catch (_error) {
+            console.error(_error);
             console.error('Error while updating EULA acceptance...');
             triggerError(_error as Error);
         } finally {

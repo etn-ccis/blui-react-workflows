@@ -2,13 +2,9 @@ import React from 'react';
 import '@testing-library/jest-dom';
 import { render, cleanup, screen, fireEvent, RenderResult } from '@testing-library/react';
 import { RegistrationSuccessScreen } from './RegistrationSuccessScreen';
-import {
-    i18nRegistrationInstance,
-    RegistrationContextProvider,
-    RegistrationContextProviderProps,
-    RegistrationWorkflowContextProvider,
-} from '../../contexts';
+import { RegistrationContextProvider, RegistrationWorkflowContextProvider } from '../../contexts';
 import { SuccessScreenProps } from '../SuccessScreen';
+import { registrationContextProviderProps } from '../../testUtils';
 
 afterEach(cleanup);
 
@@ -28,13 +24,6 @@ const registrationWorkflowContextProps = {
     updateScreenData: jest.fn(),
 };
 
-const registrationContextDefaultProps: RegistrationContextProviderProps = {
-    language: 'en',
-    i18n: i18nRegistrationInstance,
-    navigate: jest.fn(),
-    routeConfig: {},
-};
-
 describe('RegistrationSuccessScreen', () => {
     let mockOnNext: any;
 
@@ -48,7 +37,7 @@ describe('RegistrationSuccessScreen', () => {
 
     const renderer = (props?: SuccessScreenProps): RenderResult =>
         render(
-            <RegistrationContextProvider {...registrationContextDefaultProps}>
+            <RegistrationContextProvider {...registrationContextProviderProps}>
                 <RegistrationWorkflowContextProvider {...registrationWorkflowContextProps}>
                     <RegistrationSuccessScreen {...props} />
                 </RegistrationWorkflowContextProvider>

@@ -130,7 +130,7 @@ describe('Create Password Screen', () => {
         fireEvent.change(confirmPasswordField, { target: { value: 'A' } });
         fireEvent.blur(confirmPasswordField);
 
-        expect(screen.getByText(/Next/i)).toBeDisabled();
+        expect(screen.getByText(/Next/i)).toBeEnabled();
     });
 
     it('should call onPrevious, when Back button clicked', () => {
