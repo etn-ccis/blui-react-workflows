@@ -90,9 +90,6 @@ export const ExampleHome: React.FC<React.PropsWithChildren> = () => {
                                 title={`${t('DRAWER_MENU.LOCATIONS')}`}
                                 icon={<Notifications />}
                                 itemID="2"
-                                onClick={(): void => {
-                                    navigate('/custompage');
-                                }}
                             />
                         </DrawerNavGroup>
                     </DrawerBody>
