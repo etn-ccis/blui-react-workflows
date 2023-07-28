@@ -1,5 +1,5 @@
 import React from 'react';
-import { Navigate, Outlet, useLocation } from 'react-router-dom';
+import { Navigate, useLocation } from 'react-router-dom';
 
 type ReactRouterAuthGuardProps = {
     children?: JSX.Element;
@@ -26,5 +26,5 @@ export const ReactRouterAuthGuard = (props: ReactRouterAuthGuardProps): JSX.Elem
         return <Navigate to={fallBackUrl} replace state={{ from: location }} />;
     }
 
-    return children ? children : <Outlet />;
+    return children;
 };

@@ -1,5 +1,5 @@
 import React from 'react';
-import { Navigate, Outlet, useLocation } from 'react-router-dom';
+import { Navigate, useLocation } from 'react-router-dom';
 
 type ReactRouterGuestProps = {
     children?: JSX.Element;
@@ -27,5 +27,5 @@ export const ReactRouterGuestGuard = (props: ReactRouterGuestProps): JSX.Element
         return <Navigate to={redirectedURL} replace />;
     }
 
-    return children ? children : <Outlet />;
+    return children;
 };

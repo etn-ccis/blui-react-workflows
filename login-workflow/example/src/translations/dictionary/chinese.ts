@@ -13,9 +13,6 @@ const resources: AppTranslationsFile = {
         PAGE_DETAILS: {
             AUTHORISED_MESSAGE: '授權留言',
         },
-        ERROR_PAGE: {
-            PAGE_NOT_FOUND: 'Page Not Found',
-        },
         USER_MENU: {
             LOG_OUT: '登出',
             MY_ACCOUNT: '我的賬戶',

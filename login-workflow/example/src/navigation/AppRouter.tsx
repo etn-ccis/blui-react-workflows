@@ -24,7 +24,6 @@ import { ProjectRegistrationUIActions } from '../actions/RegistrationUIActions';
 import { routes } from './Routing';
 import { ExampleHome } from '../screens/ExampleHome';
 import { i18nAppInstance } from '../translations/i18n';
-import { CustomPage } from '../screens/CustomPage';
 
 export const AppRouter: React.FC = () => {
     const { language } = useApp();
@@ -101,14 +100,6 @@ export const AppRouter: React.FC = () => {
                 element={
                     <ReactRouterAuthGuard isAuthenticated={app.isAuthenticated} fallBackUrl={'/login'}>
                         <ExampleHome />
-                    </ReactRouterAuthGuard>
-                }
-            />
-            <Route
-                path={'/custompage'}
-                element={
-                    <ReactRouterAuthGuard isAuthenticated={app.isAuthenticated} fallBackUrl={'/login'}>
-                        <CustomPage />
                     </ReactRouterAuthGuard>
                 }
             />
