@@ -62,9 +62,6 @@ describe('LoginScreenBase', () => {
         expect(screen.getByText('Log In')).toBeInTheDocument();
         expect(screen.getByText('Email Address')).toBeInTheDocument();
         expect(screen.getByText('Password')).toBeInTheDocument();
-        // expect(screen.getByText('Forgot your password?')).toBeInTheDocument();
-        // expect(screen.getByText('Register now!')).toBeInTheDocument();
-        // expect(screen.getByText('Contact an Eaton Support Representative')).toBeInTheDocument();
     });
 
     test('disables login button when username and password are invalid', () => {
@@ -89,18 +86,6 @@ describe('LoginScreenBase', () => {
         expect(loginButton).toBeEnabled();
     });
 
-    // test('displays error message when username is invalid', () => {
-    //     const usernameInput = screen.getByLabelText('Email Address');
-    //     fireEvent.change(usernameInput, { target: { value: 'us' } });
-    //     expect(screen.getByText('Enter a valid email address')).toBeInTheDocument();
-    // });
-
-    // test('displays error message when password is invalid', () => {
-    //     const passwordInput = screen.getByLabelText('Password');
-    //     fireEvent.change(passwordInput, { target: { value: 'p' } });
-    //     expect(screen.getByText('Password must be at least 2 characters')).toBeInTheDocument();
-    // });
-
     test('handles input and submits form', () => {
         const usernameInput = screen.getByLabelText('Email Address');
         const passwordInput = screen.getByLabelText('Password');
@@ -112,22 +97,4 @@ describe('LoginScreenBase', () => {
 
         expect(mockLogin).toHaveBeenCalledWith('email@email.com', 'pass');
     });
-
-    // test('triggers forgot password', () => {
-    //     const forgotPasswordLink = screen.getByText('Forgot your password?');
-    //     fireEvent.click(forgotPasswordLink);
-    //     expect(mockForgotPassword).toHaveBeenCalled();
-    // });
-
-    // test('triggers self registration', () => {
-    //     const selfRegisterLink = screen.getByText('Register now!');
-    //     fireEvent.click(selfRegisterLink);
-    //     expect(mockSelfRegister).toHaveBeenCalled();
-    // });
-
-    // test('triggers contact support', () => {
-    //     const contactSupportLink = screen.getByText('Contact an Eaton Support Representative');
-    //     fireEvent.click(contactSupportLink);
-    //     expect(mockContactSupport).toHaveBeenCalled();
-    // });
 });

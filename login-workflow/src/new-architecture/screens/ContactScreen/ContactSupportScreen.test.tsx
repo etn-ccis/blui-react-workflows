@@ -4,8 +4,8 @@ import { render, cleanup, screen, fireEvent, RenderResult } from '@testing-libra
 import { ContactSupportScreen } from './ContactSupportScreen';
 import { ContactScreenProps } from './types';
 import { AuthContextProvider } from '../../contexts';
-import { defaultProps as authContextProps } from '../../contexts/AuthContext/AuthContextProvider.test';
 import { BrowserRouter } from 'react-router-dom';
+import { authContextProviderProps } from '../../testUtils';
 
 afterEach(cleanup);
 
@@ -21,7 +21,7 @@ describe('ContactSupportScreen tests', () => {
     });
     const renderer = (props?: ContactScreenProps): RenderResult =>
         render(
-            <AuthContextProvider {...authContextProps}>
+            <AuthContextProvider {...authContextProviderProps}>
                 <BrowserRouter>
                     <ContactSupportScreen {...props} />
                 </BrowserRouter>

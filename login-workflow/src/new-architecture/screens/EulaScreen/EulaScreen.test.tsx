@@ -5,7 +5,7 @@ import { EulaScreen } from './EulaScreen';
 import { RegistrationContextProvider } from '../../contexts';
 import { EulaScreenProps } from './types';
 import { RegistrationWorkflow } from '../../components';
-import { defaultProps as registrationContextProviderProps } from '../../contexts/RegistrationContext/RegistrationContextProvider.test';
+import { registrationContextProviderProps } from '../../testUtils';
 
 type EulaFullScreenProps = EulaScreenProps & {
     title?: string;
