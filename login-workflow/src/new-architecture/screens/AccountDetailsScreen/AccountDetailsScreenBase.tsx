@@ -34,6 +34,9 @@ export const AccountDetailsScreenBase: React.FC<AccountDetailsScreenProps> = (pr
     const [firstNameInput, setFirstNameInput] = React.useState(initialFirstName ? initialFirstName : '');
     const [lastNameInput, setLastNameInput] = React.useState(initialLastName ? initialLastName : '');
 
+    const [shouldValidateFirstName, setShouldValidateFirstName] = React.useState(false);
+    const [shouldValidateLastName, setShouldValidateLastName] = React.useState(false);
+
     const [firstNameError, setFirstNameError] = React.useState('');
     const [lastNameError, setLastNameError] = React.useState('');
 
@@ -112,6 +115,18 @@ export const AccountDetailsScreenBase: React.FC<AccountDetailsScreenProps> = (pr
         isLastNameValid,
     ]);
 
+    useEffect(() => {
+        if (firstNameInput.length > 0) {
+            setShouldValidateFirstName(true);
+            onFirstNameChange(firstNameInput);
+        }
+        if (lastNameInput.length > 0) {
+            setShouldValidateLastName(true);
+            onLastNameChange(lastNameInput);
+        }
+        // eslint-disable-next-line react-hooks/exhaustive-deps
+    }, []);
+
     return (
         <WorkflowCard {...cardBaseProps}>
             <WorkflowCardHeader {...headerProps} />
@@ -130,11 +145,12 @@ export const AccountDetailsScreenBase: React.FC<AccountDetailsScreenProps> = (pr
                         onKeyUp={(e): void => {
                             if (e.key === 'Enter' && lastNameRef.current) lastNameRef.current.focus();
                         }}
-                        error={showFirstNameError}
-                        helperText={firstNameError}
+                        error={shouldValidateFirstName && showFirstNameError}
+                        helperText={shouldValidateFirstName && firstNameError}
                         sx={{
                             mb: { md: 0, sm: 1, xs: 4 },
                         }}
+                        onBlur={(): void => setShouldValidateFirstName(true)}
                     />
                     <TextField
                         id="last"
@@ -151,8 +167,9 @@ export const AccountDetailsScreenBase: React.FC<AccountDetailsScreenProps> = (pr
                         onKeyUp={(e): void => {
                             if (e.key === 'Enter' && isFormValid && actionsProps.canGoNext) actionsProps.onNext();
                         }}
-                        error={showLastNameError}
-                        helperText={lastNameError}
+                        error={shouldValidateLastName && showLastNameError}
+                        helperText={shouldValidateLastName && lastNameError}
+                        onBlur={(): void => setShouldValidateLastName(true)}
                     />
                 </ErrorManager>
             </WorkflowCardBody>
