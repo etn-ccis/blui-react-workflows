@@ -2,29 +2,21 @@ import React from 'react';
 import { render, cleanup, screen, renderHook } from '@testing-library/react';
 import '@testing-library/jest-dom';
 import { AuthContextProvider } from './provider';
-import { i18nAuthInstance } from './i18nAuthInstance';
-import { AuthContextProviderProps, useAuthContext } from '.';
+import { useAuthContext } from '.';
+import { authContextProviderProps } from '../../testUtils';
 
 afterEach(cleanup);
 
-export const defaultProps: AuthContextProviderProps = {
-    language: 'en',
-    i18n: i18nAuthInstance,
-    navigate: (): void => {},
-    routeConfig: {},
-    actions: jest.fn(),
-};
-
 describe('AuthContextProvider', () => {
     it('should render AuthContextProvider without crashing', () => {
-        render(<AuthContextProvider {...defaultProps}>Hello Auth</AuthContextProvider>);
+        render(<AuthContextProvider {...authContextProviderProps}>Hello Auth</AuthContextProvider>);
 
         expect(screen.getByText('Hello Auth')).toBeInTheDocument();
     });
 
     it('should read values from the context', () => {
-        const wrapper = ({ children }): JSX.Element => (
-            <AuthContextProvider {...defaultProps}>{children}</AuthContextProvider>
+        const wrapper = ({ children }: any): JSX.Element => (
+            <AuthContextProvider {...authContextProviderProps}>{children}</AuthContextProvider>
         );
         const { result } = renderHook(() => useAuthContext(), { wrapper });
 
@@ -32,8 +24,8 @@ describe('AuthContextProvider', () => {
     });
 
     it('should set values in the context', () => {
-        const wrapper = ({ children }): JSX.Element => (
-            <AuthContextProvider {...defaultProps} language="es">
+        const wrapper = ({ children }: any): JSX.Element => (
+            <AuthContextProvider {...authContextProviderProps} language="es">
                 {children}
             </AuthContextProvider>
         );
@@ -45,7 +37,7 @@ describe('AuthContextProvider', () => {
 
     it('should render multiple children', () => {
         render(
-            <AuthContextProvider {...defaultProps}>
+            <AuthContextProvider {...authContextProviderProps}>
                 <div>Child 1</div>
                 <div>Child 2</div>
             </AuthContextProvider>

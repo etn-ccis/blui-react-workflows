@@ -3,28 +3,24 @@ import { render, cleanup, screen, renderHook } from '@testing-library/react';
 import '@testing-library/jest-dom';
 import { RegistrationContextProvider } from './provider';
 import { useRegistrationContext } from './context';
-import { RegistrationContextProviderProps } from './types';
-import { i18nRegistrationInstance } from './i18nRegistrationInstance';
+import { registrationContextProviderProps } from '../../testUtils';
 
 afterEach(cleanup);
 
-export const defaultProps: RegistrationContextProviderProps = {
-    language: 'en',
-    i18n: i18nRegistrationInstance,
-    navigate: (): void => {},
-    routeConfig: {},
-};
-
 describe('RegistrationContextProvider', () => {
     it('should render RegistrationContextProvider without crashing', () => {
-        render(<RegistrationContextProvider {...defaultProps}>Hello Registration</RegistrationContextProvider>);
+        render(
+            <RegistrationContextProvider {...registrationContextProviderProps}>
+                Hello Registration
+            </RegistrationContextProvider>
+        );
 
         expect(screen.getByText('Hello Registration')).toBeInTheDocument();
     });
 
     it('should read values from the context', () => {
-        const wrapper = ({ children }): JSX.Element => (
-            <RegistrationContextProvider {...defaultProps}>{children}</RegistrationContextProvider>
+        const wrapper = ({ children }: any): JSX.Element => (
+            <RegistrationContextProvider {...registrationContextProviderProps}>{children}</RegistrationContextProvider>
         );
         const { result } = renderHook(() => useRegistrationContext(), { wrapper });
 
@@ -32,8 +28,8 @@ describe('RegistrationContextProvider', () => {
     });
 
     it('should set values in the context', () => {
-        const wrapper = ({ children }): JSX.Element => (
-            <RegistrationContextProvider {...defaultProps} language="es">
+        const wrapper = ({ children }: any): JSX.Element => (
+            <RegistrationContextProvider {...registrationContextProviderProps} language="es">
                 {children}
             </RegistrationContextProvider>
         );
@@ -45,7 +41,7 @@ describe('RegistrationContextProvider', () => {
 
     it('should render multiple children', () => {
         render(
-            <RegistrationContextProvider {...defaultProps}>
+            <RegistrationContextProvider {...registrationContextProviderProps}>
                 <div>Child 1</div>
                 <div>Child 2</div>
             </RegistrationContextProvider>

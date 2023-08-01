@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import React from 'react';
 import {
     AccountDetailsScreen,
     AuthContextProvider,
@@ -6,11 +6,11 @@ import {
     CreatePasswordScreen,
     ContactSupportScreen,
     EulaScreen,
-    ExperimentalAuthGuard,
+    ReactRouterAuthGuard,
+    ReactRouterGuestGuard,
     ForgotPasswordScreen,
     RegistrationContextProvider,
     ResetPasswordScreen,
-    useSecurityActions,
     RegistrationWorkflow,
     VerifyCodeScreen,
     RegistrationSuccessScreen,
@@ -19,31 +19,34 @@ import { useApp } from '../contexts/AppContextProvider';
 import { useNavigate } from 'react-router';
 import { ProjectAuthUIActions } from '../actions/AuthUIActions';
 import { Navigate, Outlet, Route, Routes } from 'react-router-dom';
-import { Login } from './Login';
+import { Login } from '../screens/Login';
 import { ProjectRegistrationUIActions } from '../actions/RegistrationUIActions';
-import { routes } from '../navigation/Routing';
-import { ExampleHome } from './ExampleHome';
-import { LocalStorage } from '../store/local-storage';
+import { routes } from './Routing';
+import { ExampleHome } from '../screens/ExampleHome';
+import { i18nAppInstance } from '../translations/i18n';
 
 export const AppRouter: React.FC = () => {
     const { language } = useApp();
-    const authData = LocalStorage.readAuthData();
-    // eslint-disable-next-line
-    const [isAuthenticated, setIsAuthenticated] = useState(authData !== null ? true : false);
     const navigate = useNavigate();
-    const securityContextActions = useSecurityActions();
+    const app = useApp();
+    const { email, rememberMe } = app.loginData;
+
     return (
         <Routes>
             {/* AUTH ROUTES */}
             <Route
                 element={
                     <AuthContextProvider
-                        actions={ProjectAuthUIActions(securityContextActions)}
+                        actions={ProjectAuthUIActions(app)}
                         language={language}
                         navigate={navigate}
                         routeConfig={routes}
+                        i18n={i18nAppInstance}
+                        rememberMeDetails={{ email: rememberMe ? email : '', rememberMe: rememberMe }}
                     >
-                        <Outlet />
+                        <ReactRouterGuestGuard isAuthenticated={app.isAuthenticated} fallBackUrl={'/'}>
+                            <Outlet />
+                        </ReactRouterGuestGuard>
                     </AuthContextProvider>
                 }
             >
@@ -60,6 +63,7 @@ export const AppRouter: React.FC = () => {
                         routeConfig={routes}
                         navigate={navigate}
                         actions={ProjectRegistrationUIActions}
+                        i18n={i18nAppInstance}
                     >
                         <Outlet />
                     </RegistrationContextProvider>
@@ -94,23 +98,18 @@ export const AppRouter: React.FC = () => {
             <Route
                 path={'/homepage'}
                 element={
-                    <ExperimentalAuthGuard
-                        isAuthenticated={isAuthenticated}
-                        fallbackComponent={<Navigate to={`/login`} />}
-                    >
+                    <ReactRouterAuthGuard isAuthenticated={app.isAuthenticated} fallBackUrl={'/login'}>
                         <ExampleHome />
-                    </ExperimentalAuthGuard>
+                    </ReactRouterAuthGuard>
                 }
             />
+            <Route path={'/'} element={<Navigate to={'/homepage'} replace />} />
             <Route
                 path={'*'}
                 element={
-                    <ExperimentalAuthGuard
-                        isAuthenticated={isAuthenticated}
-                        fallbackComponent={<Navigate to={`/login`} />}
-                    >
+                    <ReactRouterAuthGuard isAuthenticated={app.isAuthenticated} fallBackUrl={'/login'}>
                         <Navigate to={'/login'} />
-                    </ExperimentalAuthGuard>
+                    </ReactRouterAuthGuard>
                 }
             />
         </Routes>

@@ -2,20 +2,10 @@ import React from 'react';
 import '@testing-library/jest-dom';
 import { cleanup, render, screen, RenderResult, fireEvent } from '@testing-library/react';
 import { AccountDetailsScreen } from './AccountDetailsScreen';
-import {
-    i18nRegistrationInstance,
-    RegistrationContextProvider,
-    RegistrationContextProviderProps,
-} from '../../contexts';
+import { RegistrationContextProvider } from '../../contexts';
 import { AccountDetailsScreenProps } from './types';
 import { RegistrationWorkflow } from '../../components';
-
-export const registrationContextProviderProps: RegistrationContextProviderProps = {
-    language: 'en',
-    i18n: i18nRegistrationInstance,
-    navigate: (): void => {},
-    routeConfig: {},
-};
+import { registrationContextProviderProps } from '../../testUtils';
 
 afterEach(cleanup);
 
