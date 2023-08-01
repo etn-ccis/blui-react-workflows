@@ -16,6 +16,52 @@ const MyComponent = () => {
 };
 ```
 
+## AdvancedUsage
+
+```tsx
+import { ErrorManager } from '@brightlayer-ui/react-auth-workflow';
+
+const MyComponent = () => {
+  const [error, setError] = React.useState('');
+
+  const handleClose = () => {
+    setError('');
+  };
+
+  const dialogConfig = {
+    title: 'Custom Dialog Title',
+    dismissLabel: 'Dismiss'
+  };
+
+  const messageBoxConfig = {
+    dismissible: true,
+    position: 'bottom',
+    fontColor: '#ffffff',
+    backgroundColor: '#ff0000'
+  };
+
+  // Simulate an error after 3 seconds
+  React.useEffect(() => {
+    setTimeout(() => {
+      setError('This is an error message');
+    }, 3000);
+  }, []);
+
+  return (
+    <ErrorManager
+      mode="message-box"
+      error={error}
+      onClose={handleClose}
+      dialogConfig={dialogConfig}
+      messageBoxConfig={messageBoxConfig}
+    >
+      <div>Your main content goes here...</div>
+    </ErrorManager>
+  );
+};
+
+```
+
 ## API
 
  - **mode** (optional)
