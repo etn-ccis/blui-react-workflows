@@ -3,7 +3,7 @@ The authentication workflow is a set of screens that are used to authenticate a 
 
 To set up Authentication in your app you will need to import the `AuthContextProvider` and pass in the necessary props. You will pass in your routes as children to the `AuthContextProvider`. More information about React Auth Workflow's exported objects and functions can found in the [API](#api) documentation.
 
-### Implement AuthUIActions and RegistrationUIActions
+## Implement AuthUIActions
 
 You need to implement the backend networking for all networking within react-auth-workflow. Your implementation will likely involve writing calls to your APIs and caching the returned data, as needed, depending on the requirements of your application. The example application has these actions mocked with calls to `sleep` .
 
