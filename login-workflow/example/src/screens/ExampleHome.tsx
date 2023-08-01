@@ -63,7 +63,7 @@ export const ExampleHome: React.FC<React.PropsWithChildren> = () => {
 
     const logOut = (): void => {
         LocalStorage.clearAuthCredentials();
-        app.setIsAuthenticated(false);
+        app.onUserNotAuthenticated();
         navigate('/login');
     };
 
@@ -71,6 +71,7 @@ export const ExampleHome: React.FC<React.PropsWithChildren> = () => {
         const appLanguage = event.target.value;
         app.setLanguage(appLanguage);
         void i18n.changeLanguage(appLanguage);
+        window.localStorage.setItem('language', appLanguage);
     };
 
     return (
@@ -121,7 +122,7 @@ export const ExampleHome: React.FC<React.PropsWithChildren> = () => {
                                     <MenuItem value={'es'}>Spanish</MenuItem>
                                     <MenuItem value={'fr'}>French</MenuItem>
                                     <MenuItem value={'zh'}>Chinese</MenuItem>
-                                    <MenuItem value={'pt'}>Portugese</MenuItem>
+                                    <MenuItem value={'pt'}>Portuguese</MenuItem>
                                 </Select>
                             </FormControl>
                         </Box>

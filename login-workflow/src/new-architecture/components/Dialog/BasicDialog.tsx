@@ -37,11 +37,12 @@ export const DialogButtonStyles = (fullWidth = false): SxProps<Theme> => ({
     width: fullWidth ? '100%' : 100,
 });
 
-export type BasicDialogProps = DialogProps & {
+export type BasicDialogProps = Omit<DialogProps, 'open'> & {
     title?: string;
     body?: string;
     onClose?: () => void;
     dismissButtonText?: string;
+    open?: boolean;
 };
 
 /**
@@ -56,11 +57,11 @@ export type BasicDialogProps = DialogProps & {
  * @category Component
  */
 export const BasicDialog: React.FC<React.PropsWithChildren<React.PropsWithChildren<BasicDialogProps>>> = (props) => {
-    const { title, body, dismissButtonText, ...dialogProps } = props;
+    const { title, body, dismissButtonText, open = false, ...dialogProps } = props;
     const theme = useTheme();
 
     return (
-        <Dialog {...dialogProps}>
+        <Dialog {...dialogProps} open={open}>
             <DialogTitle sx={DialogTitleStyles(theme)}>{title}</DialogTitle>
             <DialogContent sx={{ ...DialogContentStyles(theme), flex: '1 1 auto' }}>
                 <Typography>{body}</Typography>
