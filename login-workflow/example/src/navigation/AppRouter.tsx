@@ -1,19 +1,13 @@
 import React from 'react';
 import {
-    AccountDetailsScreen,
     AuthContextProvider,
-    CreateAccountScreen,
-    CreatePasswordScreen,
     ContactSupportScreen,
-    EulaScreen,
     ReactRouterAuthGuard,
     ReactRouterGuestGuard,
     ForgotPasswordScreen,
     RegistrationContextProvider,
     ResetPasswordScreen,
     RegistrationWorkflow,
-    VerifyCodeScreen,
-    RegistrationSuccessScreen,
 } from '@brightlayer-ui/react-auth-workflow';
 import { useApp } from '../contexts/AppContextProvider';
 import { useNavigate } from 'react-router';
@@ -24,6 +18,7 @@ import { ProjectRegistrationUIActions } from '../actions/RegistrationUIActions';
 import { routes } from './Routing';
 import { ExampleHome } from '../screens/ExampleHome';
 import { i18nAppInstance } from '../translations/i18n';
+import { InviteRegistrationWorkflow } from '../screens/InviteRegistrationWorkflow';
 
 export const AppRouter: React.FC = () => {
     const { language } = useApp();
@@ -69,29 +64,8 @@ export const AppRouter: React.FC = () => {
                     </RegistrationContextProvider>
                 }
             >
-                <Route
-                    path={'/self-registration'}
-                    element={
-                        <RegistrationWorkflow initialScreenIndex={0}>
-                            <EulaScreen />
-                            <CreateAccountScreen />
-                            <VerifyCodeScreen />
-                            <CreatePasswordScreen />
-                            <AccountDetailsScreen />
-                        </RegistrationWorkflow>
-                    }
-                />
-                <Route
-                    path={'/register-by-invite'}
-                    element={
-                        <RegistrationWorkflow initialScreenIndex={0}>
-                            <EulaScreen />
-                            <CreatePasswordScreen />
-                            <AccountDetailsScreen />
-                            <RegistrationSuccessScreen />
-                        </RegistrationWorkflow>
-                    }
-                />
+                <Route path={'/self-registration'} element={<RegistrationWorkflow />} />
+                <Route path={'/register-by-invite'} element={<InviteRegistrationWorkflow />} />
             </Route>
 
             {/* USER APPLICATION ROUTES */}

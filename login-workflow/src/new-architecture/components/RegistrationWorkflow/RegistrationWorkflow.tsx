@@ -1,14 +1,67 @@
 import React, { useState } from 'react';
+import { useSearchParams } from 'react-router-dom';
 import { IndividualScreenData, RegistrationWorkflowContextProvider, useRegistrationContext } from '../../contexts';
-import { RegistrationSuccessScreen } from '../../screens';
+import {
+    AccountDetailsScreen,
+    CreateAccountScreen,
+    CreatePasswordScreen,
+    EulaScreen,
+    RegistrationSuccessScreen,
+    VerifyCodeScreen,
+} from '../../screens';
 
 export type RegistrationWorkflowProps = {
     initialScreenIndex?: number;
     successScreen?: JSX.Element;
+    isInviteRegistration?: boolean;
+    inviteCode?: any;
+    inviteEmail?: any;
 };
 
 export const RegistrationWorkflow: React.FC<React.PropsWithChildren<RegistrationWorkflowProps>> = (props) => {
-    const { initialScreenIndex = 0, children, successScreen = <RegistrationSuccessScreen /> } = props;
+    const {
+        initialScreenIndex = 0,
+        successScreen = <RegistrationSuccessScreen />,
+        isInviteRegistration = false,
+        inviteCode = '',
+        inviteEmail = '',
+        children = isInviteRegistration
+            ? [<EulaScreen />, <CreatePasswordScreen />, <AccountDetailsScreen />]
+            : [
+                  <EulaScreen />,
+                  <CreateAccountScreen />,
+                  <VerifyCodeScreen />,
+                  <CreatePasswordScreen />,
+                  <AccountDetailsScreen />,
+              ],
+    } = props;
+
+    // const [code, setCode] = useState('');
+    // const [email, setEmail] = useState('');
+
+    // const useQueryString = (search: any) => {
+    //     let noQuestion = search;
+    //     if (noQuestion.startsWith('?')) noQuestion = noQuestion.substr(1);
+
+    //     const params = noQuestion.split('&');
+
+    //     const ret: { [key: string]: string } = {};
+    //     params[0];
+    //     params.forEach((param: any) => {
+    //         const keyVal = param.split('=', 2);
+    //         if (keyVal.length > 1) {
+    //             ret[keyVal[0]] = decodeURI(keyVal[1]);
+    //         }
+    //     });
+
+    //     return ret;
+    // };
+    // const params = useQueryString(window.location.search);
+    // if (isInviteRegistration) {
+    //     setCode(params.code);
+    //     setEmail(params.email);
+    // }
+    // console.log('location', window.location, params);
     const screens = [...(Array.isArray(children) ? children : [children])];
     const totalScreens = screens.length;
     const [currentScreen, setCurrentScreen] = useState(
@@ -22,10 +75,10 @@ export const RegistrationWorkflow: React.FC<React.PropsWithChildren<Registration
             accepted: false,
         },
         CreateAccount: {
-            emailAddress: '',
+            emailAddress: isInviteRegistration ? inviteEmail : '',
         },
         VerifyCode: {
-            code: '',
+            code: isInviteRegistration ? inviteCode : '',
         },
         CreatePassword: {
             password: '',
@@ -60,15 +113,10 @@ export const RegistrationWorkflow: React.FC<React.PropsWithChildren<Registration
         }
     };
 
-    const finishRegistration = (): Promise<void> => {
-        const { firstName, lastName } = screenData.AccountDetails;
+    const finishRegistration = (data: IndividualScreenData): Promise<void> => {
         if (actions && actions().completeRegistration)
             return actions()
-                .completeRegistration(
-                    { firstName, lastName },
-                    screenData.VerifyCode.code,
-                    screenData.CreateAccount.emailAddress
-                )
+                .completeRegistration(data.values, screenData.VerifyCode.code, screenData.CreateAccount.emailAddress)
                 .then(({ email, organizationName }) => {
                     updateScreenData({
                         screenId: 'RegistrationSuccessScreen',
@@ -88,7 +136,7 @@ export const RegistrationWorkflow: React.FC<React.PropsWithChildren<Registration
             totalScreens={totalScreens}
             nextScreen={(data): Promise<void> => {
                 updateScreenData(data);
-                if (currentScreen === totalScreens - 1) return finishRegistration();
+                if (currentScreen === totalScreens - 1) return finishRegistration(data);
                 setCurrentScreen((i) => i + 1);
             }}
             previousScreen={(data): void => {
