@@ -36,7 +36,7 @@ import { useSecurityActions } from '../path-to-your-use-security-actions-impleme
 
 export const AppRouter: React.FC = () => {
    // Language will be managed by some state within your app, in this example, a useApp hook that gets the app language.
-    const { language } = useApp();
+    const { language, yourAppSecurityHelper } = useApp();
     const navigate = useNavigate();
     const securityContextActions = useSecurityActions();
     return (
@@ -45,13 +45,16 @@ export const AppRouter: React.FC = () => {
             <Route
                 element={
                     <AuthContextProvider
-                        // @TODO: whats up with the security context actions? 
-                        actions={ProjectAuthUIActions(securityContextActions)}
+                        actions={ProjectAuthUIActions(yourAppSecurityHelper)}
                         language={language}
                         navigate={navigate}
                         routeConfig={routes}
+                        i18n={yourI18nAppInstance}
+                        rememberMeDetails={{ email: rememberMe ? email : '', rememberMe: rememberMe }}
                     >
-                        <Outlet />
+                        <ReactRouterGuestGuard isAuthenticated={app.isAuthenticated} fallBackUrl={'/'}>
+                            <Outlet />
+                        </ReactRouterGuestGuard>
                     </AuthContextProvider>
                 }
             >
