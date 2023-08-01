@@ -5,11 +5,11 @@ Component that renders a basic dialog. This component provides a title, a body, 
 
 ## Usage
 ```tsx
-import { SimpleDialog } from '@brightlayer-ui/react-auth-workflow';
+import { BasicDialog } from '@brightlayer-ui/react-auth-workflow';
 
 const MyComponent = () => {
   return (
-    <SimpleDialog 
+    <BasicDialog 
       title="Notice!"
       body="This is an example notice"
       onClose={() => console.log('close')}  
