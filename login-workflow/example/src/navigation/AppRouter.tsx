@@ -18,7 +18,6 @@ import { ProjectRegistrationUIActions } from '../actions/RegistrationUIActions';
 import { routes } from './Routing';
 import { ExampleHome } from '../screens/ExampleHome';
 import { i18nAppInstance } from '../translations/i18n';
-import { InviteRegistrationWorkflow } from '../screens/InviteRegistrationWorkflow';
 
 export const AppRouter: React.FC = () => {
     const { language } = useApp();
@@ -65,7 +64,7 @@ export const AppRouter: React.FC = () => {
                 }
             >
                 <Route path={'/self-registration'} element={<RegistrationWorkflow />} />
-                <Route path={'/register-by-invite'} element={<InviteRegistrationWorkflow />} />
+                <Route path={'/register-by-invite'} element={<RegistrationWorkflow isInviteRegistration />} />
             </Route>
 
             {/* USER APPLICATION ROUTES */}

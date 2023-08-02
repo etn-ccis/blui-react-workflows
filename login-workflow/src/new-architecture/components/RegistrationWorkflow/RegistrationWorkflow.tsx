@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import React, { useEffect, useState } from 'react';
 import { useSearchParams } from 'react-router-dom';
 import { IndividualScreenData, RegistrationWorkflowContextProvider, useRegistrationContext } from '../../contexts';
 import {
@@ -14,8 +14,6 @@ export type RegistrationWorkflowProps = {
     initialScreenIndex?: number;
     successScreen?: JSX.Element;
     isInviteRegistration?: boolean;
-    inviteCode?: any;
-    inviteEmail?: any;
 };
 
 export const RegistrationWorkflow: React.FC<React.PropsWithChildren<RegistrationWorkflowProps>> = (props) => {
@@ -23,8 +21,6 @@ export const RegistrationWorkflow: React.FC<React.PropsWithChildren<Registration
         initialScreenIndex = 0,
         successScreen = <RegistrationSuccessScreen />,
         isInviteRegistration = false,
-        inviteCode = '',
-        inviteEmail = '',
         children = isInviteRegistration
             ? [<EulaScreen />, <CreatePasswordScreen />, <AccountDetailsScreen />]
             : [
@@ -36,32 +32,32 @@ export const RegistrationWorkflow: React.FC<React.PropsWithChildren<Registration
               ],
     } = props;
 
-    // const [code, setCode] = useState('');
-    // const [email, setEmail] = useState('');
+    const useQueryString = (search: string) => {
+        let noQuestion = search;
+        if (noQuestion.startsWith('?')) noQuestion = noQuestion.substr(1);
 
-    // const useQueryString = (search: any) => {
-    //     let noQuestion = search;
-    //     if (noQuestion.startsWith('?')) noQuestion = noQuestion.substr(1);
+        const params = noQuestion.split('&');
 
-    //     const params = noQuestion.split('&');
+        const ret: { [key: string]: string } = {};
+        params.forEach((param) => {
+            const keyVal = param.split('=', 2);
+            if (keyVal.length > 1) {
+                ret[keyVal[0]] = decodeURI(keyVal[1]);
+            }
+        });
 
-    //     const ret: { [key: string]: string } = {};
-    //     params[0];
-    //     params.forEach((param: any) => {
-    //         const keyVal = param.split('=', 2);
-    //         if (keyVal.length > 1) {
-    //             ret[keyVal[0]] = decodeURI(keyVal[1]);
-    //         }
-    //     });
+        return ret;
+    };
 
-    //     return ret;
-    // };
-    // const params = useQueryString(window.location.search);
-    // if (isInviteRegistration) {
-    //     setCode(params.code);
-    //     setEmail(params.email);
-    // }
-    // console.log('location', window.location, params);
+    useEffect(() => {
+        if (isInviteRegistration) {
+            const params = useQueryString(window.location.search);
+
+            updateScreenData({ screenId: 'CreateAccount', values: { emailAddress: params.email } });
+            updateScreenData({ screenId: 'VerifyCode', values: { code: params.code } });
+        }
+    }, []);
+
     const screens = [...(Array.isArray(children) ? children : [children])];
     const totalScreens = screens.length;
     const [currentScreen, setCurrentScreen] = useState(
@@ -75,10 +71,10 @@ export const RegistrationWorkflow: React.FC<React.PropsWithChildren<Registration
             accepted: false,
         },
         CreateAccount: {
-            emailAddress: isInviteRegistration ? inviteEmail : '',
+            emailAddress: '',
         },
         VerifyCode: {
-            code: isInviteRegistration ? inviteCode : '',
+            code: '',
         },
         CreatePassword: {
             password: '',
@@ -114,6 +110,7 @@ export const RegistrationWorkflow: React.FC<React.PropsWithChildren<Registration
     };
 
     const finishRegistration = (data: IndividualScreenData): Promise<void> => {
+        console.log('screenData', screenData);
         if (actions && actions().completeRegistration)
             return actions()
                 .completeRegistration(data.values, screenData.VerifyCode.code, screenData.CreateAccount.emailAddress)
