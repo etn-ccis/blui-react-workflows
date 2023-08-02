@@ -2,10 +2,10 @@ import React from 'react';
 import '@testing-library/jest-dom';
 import { cleanup, fireEvent, render, RenderResult, screen } from '@testing-library/react';
 import { ChangePasswordDialog } from './ChangePasswordDialog';
-import { defaultProps as authContextProps } from '../../contexts/AuthContext/AuthContextProvider.test';
 import { AuthContextProvider } from '../../contexts';
 import { BrowserRouter } from 'react-router-dom';
 import { ChangePasswordDialogProps } from './types';
+import { authContextProviderProps } from '../../testUtils';
 
 afterEach(cleanup);
 
@@ -22,7 +22,7 @@ describe('Change Password Dialog tests', () => {
 
     const renderer = (props?: ChangePasswordDialogProps): RenderResult =>
         render(
-            <AuthContextProvider {...authContextProps}>
+            <AuthContextProvider {...authContextProviderProps}>
                 <BrowserRouter>
                     <ChangePasswordDialog {...props} />
                 </BrowserRouter>

@@ -16,7 +16,7 @@ const MyComponent = () => {
 
 ## API
 
- - **icon**
+ - **icon** (optional)
    - The icon to be displayed on the screen.
    - **Type:** `React.ReactNode`
  - **messageTitle** (optional)

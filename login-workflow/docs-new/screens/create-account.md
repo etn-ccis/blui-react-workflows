@@ -48,5 +48,6 @@ const MyComponent = () => {
   ```
 - **emailTextFieldProps** (optional)
   - **Type:** `TextFieldProps`
+  - - See [MUI's TextFieldProps API](https://mui.com/material-ui/api/text-field/) for more details.
 - **ErrorDisplayConfig** 
   - See [Error Management](https://github.com/etn-ccis/blui-react-workflows/tree/master/login-workflow/docs/error-management.md)

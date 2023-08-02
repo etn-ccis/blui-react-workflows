@@ -4,26 +4,17 @@ import '@testing-library/jest-dom';
 import { RegistrationWorkflowContextProps, useRegistrationWorkflowContext } from '.';
 import { RegistrationWorkflowContextProvider } from './provider';
 import Typography from '@mui/material/Typography';
+import { registrationWorkflowContextProps } from '../../testUtils';
 
 afterEach(cleanup);
 
-export const defaultProps: RegistrationWorkflowContextProps = {
-    currentScreen: 0,
-    totalScreens: 2,
-    nextScreen: () => {},
-    previousScreen: () => {},
-    screenData: {
-        Eula: { accepted: true },
-        CreateAccount: { emailAddress: 'emailAddress@emailAddress.emailAddress' },
-        VerifyCode: { code: '12345' },
-        CreatePassword: { password: 'password', confirmPassword: 'confirmPassword' },
-        AccountDetails: { firstName: 'firstName', lastName: 'lastName' },
-    },
-};
-
 describe('RegistrationWorkflowContext', () => {
     it('should render RegistrationWorkflowContextProvider without crashing', () => {
-        render(<RegistrationWorkflowContextProvider {...defaultProps}>Test</RegistrationWorkflowContextProvider>);
+        render(
+            <RegistrationWorkflowContextProvider {...registrationWorkflowContextProps}>
+                Test
+            </RegistrationWorkflowContextProvider>
+        );
         expect(screen.getByText('Test')).toBeInTheDocument();
     });
 
@@ -33,7 +24,7 @@ describe('RegistrationWorkflowContext', () => {
         };
 
         const RegisterComponent: React.FC<React.PropsWithChildren<any>> = () => (
-            <RegistrationWorkflowContextProvider {...defaultProps} />
+            <RegistrationWorkflowContextProvider {...registrationWorkflowContextProps} />
         );
 
         const CustomFlow: React.FC = () => {

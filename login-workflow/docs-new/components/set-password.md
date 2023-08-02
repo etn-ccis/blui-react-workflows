@@ -19,9 +19,6 @@ const MyComponent = () => {
 - **onPasswordChange** 
   - Called when the new password or confirm new password fields value changes.
   - **Type:** `(passwords: { password: string; confirm: string }) => void`
-- **confirm** 
-  - The confirm password field value.
-  - **Type:** `string`
 - **newPasswordLabel** (optional)
   - The label for the new password field.
   - **Type:** `string`
