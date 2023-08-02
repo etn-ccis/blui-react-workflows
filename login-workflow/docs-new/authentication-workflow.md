@@ -9,7 +9,7 @@ You need to implement the backend networking for all networking within react-aut
 
 1. Create a `/src` folder in your application if it does not already exist
 2. Add an `/actions` folder inside the `src` directory.
-3. Create two files in the new `actions` directory: `AuthUIActions.tsx`
+3. Create a file in the new `actions` directory: `AuthUIActions.tsx`
     - The file you created, `AuthUIActions.tsx`, will handle the implementation of the authentication related actions (such as login and forgot password).
     - You can copy this file directly from the [example](https://github.com/etn-ccis/blui-react-workflows/tree/master/login-workflow/example) project as a starting point and then update the implementation details if you choose.
 4. You might also want to copy over the `example/src/store` and `example/src/constants` folders from react-auth-workflow for the purposes of compiling with the mock `AuthUIActions` before you write your own implementation. These sample implementations make use of the browser LocalStorage, but you may want to use a different approach in order to follow best practices for cybersecurity.
