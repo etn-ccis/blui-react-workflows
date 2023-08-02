@@ -73,10 +73,9 @@ export const App = (): JSX.Element => {
                         setIsAuthenticated(true);
                         setLoginData(userData);
                     },
+                    // eslint-disable-next-line
                     onUserNotAuthenticated: (userData): void => {
                         setIsAuthenticated(false);
-                        // eslint-disable-next-line no-console
-                        console.log(userData);
                     },
                     loginData,
                     setLoginData,

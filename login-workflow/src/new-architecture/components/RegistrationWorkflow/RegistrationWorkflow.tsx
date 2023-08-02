@@ -1,5 +1,5 @@
 import React, { useEffect, useState } from 'react';
-import { useSearchParams } from 'react-router-dom';
+import { useQueryString } from '../../hooks';
 import { IndividualScreenData, RegistrationWorkflowContextProvider, useRegistrationContext } from '../../contexts';
 import {
     AccountDetailsScreen,
@@ -32,23 +32,6 @@ export const RegistrationWorkflow: React.FC<React.PropsWithChildren<Registration
               ],
     } = props;
 
-    const useQueryString = (search: string) => {
-        let noQuestion = search;
-        if (noQuestion.startsWith('?')) noQuestion = noQuestion.substr(1);
-
-        const params = noQuestion.split('&');
-
-        const ret: { [key: string]: string } = {};
-        params.forEach((param) => {
-            const keyVal = param.split('=', 2);
-            if (keyVal.length > 1) {
-                ret[keyVal[0]] = decodeURI(keyVal[1]);
-            }
-        });
-
-        return ret;
-    };
-
     useEffect(() => {
         if (isInviteRegistration) {
             const params = useQueryString(window.location.search);
@@ -56,6 +39,7 @@ export const RegistrationWorkflow: React.FC<React.PropsWithChildren<Registration
             updateScreenData({ screenId: 'CreateAccount', values: { emailAddress: params.email } });
             updateScreenData({ screenId: 'VerifyCode', values: { code: params.code } });
         }
+        // eslint-disable-next-line react-hooks/exhaustive-deps
     }, []);
 
     const screens = [...(Array.isArray(children) ? children : [children])];
@@ -110,7 +94,6 @@ export const RegistrationWorkflow: React.FC<React.PropsWithChildren<Registration
     };
 
     const finishRegistration = (data: IndividualScreenData): Promise<void> => {
-        console.log('screenData', screenData);
         if (actions && actions().completeRegistration)
             return actions()
                 .completeRegistration(data.values, screenData.VerifyCode.code, screenData.CreateAccount.emailAddress)
