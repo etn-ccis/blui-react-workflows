@@ -16,6 +16,8 @@ const MyComponent = () => {
 
 ## API
 
+ - **WorkflowCardProps** 
+   - See [Workflow Card](https://github.com/etn-ccis/blui-react-workflows/tree/master/login-workflow/docs/components/workflow-card.md) for more details.
  - **icon** (optional)
    - The icon to be displayed on the screen.
    - **Type:** `React.ReactNode`
@@ -37,13 +39,4 @@ const MyComponent = () => {
  - **onDismiss** (optional)
    - A function to be called when the screen is dismissed.
    - **Type:** `() => void`
- - **WorkflowCardBaseProps** (optional)
-   - Props to be passed to the WorkflowCard component.
-   - **Type:** `WorkflowCardProps`
- - **WorkflowCardHeaderProps** (optional)
-   - Props to be passed to the WorkflowCardHeader component.
-   - **Type:** `WorkflowCardHeaderProps`
- - **WorkflowCardActionsProps** (optional)
-   - Props to be passed to the WorkflowCardActions component.
-   - **Type:** `WorkflowCardActionsProps`
   

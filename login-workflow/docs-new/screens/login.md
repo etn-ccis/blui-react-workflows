@@ -16,6 +16,9 @@ const MyComponent = () => {
 
 ## API
 
+- **WorkflowCardBaseProps** 
+  - See [Workflow Card](https://github.com/etn-ccis/blui-react-workflows/tree/master/login-workflow/docs/components/workflow-card.md) for more details.
+
 #### Configure Fields
  - **usernameLabel** (optional)
    - Label for the username field.
