@@ -1,14 +1,8 @@
 type SearchParams = {
     [key: string]: string;
 };
-/**
- * Hook that returns an object of query string parameters and values.
- *
- * @return an object whose keys/values are search param keys/values from the URL
- *
- * @category Hook
- */
-export const useQueryString = (search: string): SearchParams => {
+
+export const parseQueryString = (search: string): SearchParams => {
     let noQuestion = search;
     if (noQuestion.startsWith('?')) noQuestion = noQuestion.substr(1);
 

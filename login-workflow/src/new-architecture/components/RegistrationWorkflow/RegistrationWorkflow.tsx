@@ -1,5 +1,4 @@
 import React, { useEffect, useState } from 'react';
-import { useQueryString } from '../../hooks';
 import { IndividualScreenData, RegistrationWorkflowContextProvider, useRegistrationContext } from '../../contexts';
 import {
     AccountDetailsScreen,
@@ -9,6 +8,7 @@ import {
     RegistrationSuccessScreen,
     VerifyCodeScreen,
 } from '../../screens';
+import { parseQueryString } from '../../utils';
 
 export type RegistrationWorkflowProps = {
     initialScreenIndex?: number;
@@ -22,25 +22,19 @@ export const RegistrationWorkflow: React.FC<React.PropsWithChildren<Registration
         successScreen = <RegistrationSuccessScreen />,
         isInviteRegistration = false,
         children = isInviteRegistration
-            ? [<EulaScreen />, <CreatePasswordScreen />, <AccountDetailsScreen />]
+            ? [
+                  <EulaScreen key="EulaScreen" />,
+                  <CreatePasswordScreen key="CreatePasswordScreen" />,
+                  <AccountDetailsScreen key="AccountDetailsScreen" />,
+              ]
             : [
-                  <EulaScreen />,
-                  <CreateAccountScreen />,
-                  <VerifyCodeScreen />,
-                  <CreatePasswordScreen />,
-                  <AccountDetailsScreen />,
+                  <EulaScreen key="EulaScreen" />,
+                  <CreateAccountScreen key="CreateAccountScreen" />,
+                  <VerifyCodeScreen key="VerifyCodeScreen" />,
+                  <CreatePasswordScreen key="CreatePasswordScreen" />,
+                  <AccountDetailsScreen key="AccountDetailsScreen" />,
               ],
     } = props;
-
-    useEffect(() => {
-        if (isInviteRegistration) {
-            const params = useQueryString(window.location.search);
-
-            updateScreenData({ screenId: 'CreateAccount', values: { emailAddress: params.email } });
-            updateScreenData({ screenId: 'VerifyCode', values: { code: params.code } });
-        }
-        // eslint-disable-next-line react-hooks/exhaustive-deps
-    }, []);
 
     const screens = [...(Array.isArray(children) ? children : [children])];
     const totalScreens = screens.length;
@@ -109,6 +103,16 @@ export const RegistrationWorkflow: React.FC<React.PropsWithChildren<Registration
                     console.log(_error);
                 });
     };
+
+    useEffect(() => {
+        if (isInviteRegistration) {
+            const params = parseQueryString(window.location.search);
+
+            updateScreenData({ screenId: 'CreateAccount', values: { emailAddress: params.email } });
+            updateScreenData({ screenId: 'VerifyCode', values: { code: params.code } });
+        }
+        // eslint-disable-next-line react-hooks/exhaustive-deps
+    }, []);
 
     return (
         <RegistrationWorkflowContextProvider
