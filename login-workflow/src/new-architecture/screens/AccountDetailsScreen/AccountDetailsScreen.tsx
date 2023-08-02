@@ -20,7 +20,7 @@ export const AccountDetailsScreen: React.FC<AccountDetailsScreenProps> = (props)
             await actions().setAccountDetails({ firstName, lastName });
             void nextScreen({
                 screenId: 'AccountDetails',
-                values: { firstName: firstName, lastName: lastName },
+                values: { firstName, lastName },
             });
         } catch (_error) {
             triggerError(_error as Error);
@@ -32,7 +32,7 @@ export const AccountDetailsScreen: React.FC<AccountDetailsScreenProps> = (props)
     const onPrevious = useCallback(() => {
         previousScreen({
             screenId: 'AccountDetails',
-            values: { firstName: firstName, lastName: lastName },
+            values: { firstName, lastName },
         });
     }, [firstName, lastName, previousScreen]);
 
