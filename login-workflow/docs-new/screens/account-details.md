@@ -46,7 +46,8 @@ const MyComponent = () => {
         }```
 - **FirstNameTextFieldProps** 
   - Props to pass to the first name text field.
-  - **Type:** `MinifiedTextFieldProps`
+  - **Type:** `TextFieldProps`
+  - See [MUI's TextFieldProps API](https://mui.com/material-ui/api/text-field/) for more details.
 - **LastNameLabel** 
   - The label for the last name text field.
   - **Type:** `string`
@@ -65,7 +66,8 @@ const MyComponent = () => {
         }```
 - **LastNameTextFieldProps** 
   - Props to pass to the last name text field.
-  - **Type:** `MinifiedTextFieldProps`
+  - **Type:** `TextFieldProps`
+  - - See [MUI's TextFieldProps API](https://mui.com/material-ui/api/text-field/) for more details.
 - **ErrorDisplayConfig** 
   - See [Error Management](https://github.com/etn-ccis/blui-react-workflows/tree/master/login-workflow/docs/error-management.md)
 - **Sx** 
