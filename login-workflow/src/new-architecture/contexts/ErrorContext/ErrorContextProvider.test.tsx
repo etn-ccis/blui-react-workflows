@@ -7,20 +7,20 @@ import { useErrorContext } from '.';
 
 afterEach(cleanup);
 
-export const defaultProps: ErrorContextProviderProps = {
+export const errorContextProviderProps: ErrorContextProviderProps = {
     mode: 'dialog',
 };
 
 describe('ErrorContextProvider', () => {
     it('should render ErrorContextProvider without crashing', () => {
-        render(<ErrorContextProvider {...defaultProps}>Error</ErrorContextProvider>);
+        render(<ErrorContextProvider {...errorContextProviderProps}>Error</ErrorContextProvider>);
 
         expect(screen.getByText('Error')).toBeInTheDocument();
     });
 
     it('should read values from the context', () => {
         const wrapper = ({ children }: any): JSX.Element => (
-            <ErrorContextProvider {...defaultProps}>{children}</ErrorContextProvider>
+            <ErrorContextProvider {...errorContextProviderProps}>{children}</ErrorContextProvider>
         );
         const { result } = renderHook(() => useErrorContext(), { wrapper });
 
@@ -29,7 +29,7 @@ describe('ErrorContextProvider', () => {
 
     it('should set values in the context', () => {
         const wrapper = ({ children }: any): JSX.Element => (
-            <ErrorContextProvider {...defaultProps} mode="message-box">
+            <ErrorContextProvider {...errorContextProviderProps} mode="message-box">
                 {children}
             </ErrorContextProvider>
         );

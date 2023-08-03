@@ -20,9 +20,7 @@ describe('WorkflowCard tests', () => {
         );
         expect(screen.getByText('Test')).toBeInTheDocument();
     });
-});
 
-describe('WorkflowCard tests', () => {
     it('renders without crashing', () => {
         const darkTheme = createTheme({ palette: { mode: 'dark' } });
         render(
@@ -55,9 +53,7 @@ describe('WorkflowCardActions tests', () => {
         );
         expect(screen.getByTestId('BluiWorkflowCardActions-previousButton')).toHaveTextContent('Back');
     });
-});
 
-describe('WorkflowCardActions tests', () => {
     it('renders without crashing', () => {
         render(
             <WorkflowCardActions
@@ -75,9 +71,7 @@ describe('WorkflowCardActions tests', () => {
             ></WorkflowCardActions>
         );
     });
-});
 
-describe('WorkflowCardActions tests', () => {
     it('renders without crashing', () => {
         render(
             <WorkflowCardActions
@@ -95,9 +89,7 @@ describe('WorkflowCardActions tests', () => {
             ></WorkflowCardActions>
         );
     });
-});
 
-describe('WorkflowCardActions tests', () => {
     it('renders without crashing', () => {
         render(
             <WorkflowCardActions
@@ -126,11 +118,9 @@ describe('WorkflowCardHeader tests', () => {
         render(<WorkflowCardHeader title="Test" sx={{ color: 'red' }} />);
         expect(screen.getByText('Test')).toBeInTheDocument();
     });
-});
 
-describe('WorkflowCardHeader tests', () => {
     it('renders without crashing', () => {
-        render(<WorkflowCardHeader title={true} sx={{ color: 'red' }} />);
+        render(<WorkflowCardHeader title={'Test'} sx={{ color: 'red' }} />);
     });
 });
 
@@ -139,9 +129,7 @@ describe('WorkflowCardInstructions tests', () => {
         render(<WorkflowCardInstructions instructions="Test" divider={false} />);
         expect(screen.getByText('Test')).toBeInTheDocument();
     });
-});
 
-describe('WorkflowCardInstructions tests', () => {
     it('renders without crashing', () => {
         render(<WorkflowCardInstructions instructions="Test" divider={true} />);
         expect(screen.getByText('Test')).toBeInTheDocument();

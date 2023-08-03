@@ -26,7 +26,7 @@ To integrate the package into an existing project, read our [Existing Project In
 
 To generate a new authentication project using the [Brightlayer UI CLI](https://www.npmjs.com/package/@brightlayer-ui/cli), run:
 ```shell
-npx -p @brightlayer-ui/cli blui new --framework=react-native --template=authentication
+npx -p @brightlayer-ui/cli blui new --framework=react --template=authentication
 ```
 
 To use the example project as a starting point, read our [Sample Project Integration](https://github.com/etn-ccis/blui-react-workflows/tree/master/login-workflow/docs/sample-project-integration.md) instructions.

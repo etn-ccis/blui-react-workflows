@@ -2,6 +2,7 @@ import React from 'react';
 import '@testing-library/jest-dom';
 import { render, cleanup, screen, fireEvent } from '@testing-library/react';
 import { SuccessScreenBase } from './SuccessScreenBase';
+import { Circle } from '@mui/icons-material';
 
 afterEach(cleanup);
 
@@ -17,7 +18,7 @@ describe('SuccessScreenBase tests', () => {
     });
 
     it('rendering the screen without any props', () => {
-        render(<SuccessScreenBase />);
+        render(<SuccessScreenBase icon={<Circle />} />);
     });
 
     it('renders without crashing', () => {
@@ -30,7 +31,7 @@ describe('SuccessScreenBase tests', () => {
                     nextLabel: 'Continue',
                     onNext: (): void => {},
                 }}
-                icon={<></>}
+                icon={<Circle />}
                 messageTitle="Welcome"
                 message="This is welcome page"
                 onDismiss={mockOnDismiss}

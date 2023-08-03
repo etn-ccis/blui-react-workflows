@@ -16,6 +16,10 @@ const MyComponent = () => {
 
 ## API
 
+- **WorkflowCardBaseProps** 
+  - See [Workflow Card](https://github.com/etn-ccis/blui-react-workflows/tree/master/login-workflow/docs/components/workflow-card.md) for more details.
+
+#### Configure Fields
  - **usernameLabel** (optional)
    - Label for the username field.
    - **Type:** `string`
@@ -23,10 +27,17 @@ const MyComponent = () => {
  - **usernameTextFieldProps** (optional)
    - Props to pass to the username text field.
    - **Type:** `TextFieldProps`
+   - - See [MUI's TextFieldProps API](https://mui.com/material-ui/api/text-field/) for more details.
  - **usernameValidator** (optional)
    - Function used to validate the username.
    - **Type:** `(username: string) => string | boolean`
-   - **Default:** Validates if it's an email.
+   - **Default:** `(username: string): string | boolean => {
+            if (!EMAIL_REGEX.test(username)) {
+                return t('bluiCommon:MESSAGES.EMAIL_ENTRY_ERROR');
+            }
+            return true;
+        }`
+   - **Default:** Regex email test `/^[A-Z0-9._%+'-]+@[A-Z0-9.-]+\.[A-Z]{2,}$/i`
  - **initialUsernameValue** (optional)
    - Username used to pre-populate the field.
    - **Type:** `string`
@@ -38,10 +49,9 @@ const MyComponent = () => {
  - **passwordTextFieldProps** (optional)
    - Props to pass to the password text field.
    - **Type:** `TextFieldProps`
- - **passwordRequiredValidatorText** (optional)
-   - Text to display when the required error state is active on the password field.
-   - **Type:** `string`
-   - **Default:** `t('bluiCommon:MESSAGES.PASSWORD_REQUIRED_ERROR')`
+   - - See [MUI's TextFieldProps API](https://mui.com/material-ui/api/text-field/) for more details.
+
+#### Configure RememberMe
  - **showRememberMe** (optional)
    - Whether or not to show the 'remember me' checkbox.
    - **Type:** `boolean`
@@ -57,6 +67,8 @@ const MyComponent = () => {
  - **onRememberMeChanged** (optional)
    - Callback function that is called when the 'remember me' checkbox is changed.
    - **Type:** `(value: boolean) => void`
+
+#### Configure Login
  - **loginButtonLabel** (optional)
    - Label for the login button.
    - **Type:** `string`
@@ -64,6 +76,8 @@ const MyComponent = () => {
  - **onLogin** (optional)
    - Callback function that is called when the login button is clicked.
    - **Type:** `(username: string, password: string, rememberMe: boolean) => Promise<void>`
+
+#### Configure Forgot Password
  - **showForgotPassword** (optional)
    - Whether or not to show the 'forgot password' link.
    - **Type:** `boolean`
@@ -75,6 +89,8 @@ const MyComponent = () => {
  - **onForgotPassword** (optional)
    - Callback function that is called when the 'forgot password' link is clicked.
    - **Type:** `() => void`
+
+#### Configure Self Registration
  - **showSelfRegistration** (optional)
    - Whether or not to show the 'self registration' link.
    - **Type:** `boolean`
@@ -90,6 +106,8 @@ const MyComponent = () => {
  - **onSelfRegister** (optional)
    - Callback function that is called when the 'self registration' link is clicked.
    - **Type:** `() => void`
+
+#### Configure Support
  - **showContactSupport** (optional)
    - Whether or not to show the 'contact support' link.
    - **Type:** `boolean`
@@ -101,6 +119,8 @@ const MyComponent = () => {
  - **onContactSupport** (optional)
    - Callback function that is called when the 'contact support' link is clicked.
    - **Type:** `() => void`
+
+#### Configure Visual Customizations
  - **errorDisplayConfig** (optional)
    - Configuration for how errors should be displayed.
    - **Type:** `ErrorManagerProps`

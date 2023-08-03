@@ -64,6 +64,9 @@ const MyComponent = () => {
 
 ## API
 
+ - **error**
+   - Error text to display.
+   - **Type:** `string`
  - **mode** (optional)
    - Determines whether to display a dialog, a message box, or neither.
    - **Type:** `'dialog' | 'message-box' | 'none'`
@@ -71,19 +74,20 @@ const MyComponent = () => {
  - **onClose** (optional)
    - Function to call when the close/dismiss button is clicked.
    - **Type:** `() => void`
- - **error** (optional)
-   - Error text to display.
-   - **Type:** `string`
  - **dialogConfig** (optional)
    - Configuration for the error dialog.
-   - **Type:** `DialogProps`
+   - **Type:** `{title?: string, dismissLabel?: string}`
+   - see [DialogConfig Props](#dialogconfigprops)
  - **messageBoxConfig** (optional)
    - Configuration for the error message box.
    - **Type:** `MessageBoxProps`
+   - See [MessageBoxProps](#messageboxprops)
  - **children** (optional)
    - Children to render.
    - **Type:** `React.ReactNode`
- - **DialogProps**
+
+
+### DialogConfigProps
    - **title** (optional)
      - Text to show in the title of the dialog.
      - **Type:** `string`
@@ -92,7 +96,9 @@ const MyComponent = () => {
      - Text to show in the close button.
      - **Type:** `string`
      - **Default:** `t('bluiCommon:ACTIONS.CLOSE')`
-- **MessageBoxProps**
+
+
+### MessageBoxProps
   - **dismissible** (optional)
     - Whether the message box can be dismissed.
     - **Type:** `boolean`
