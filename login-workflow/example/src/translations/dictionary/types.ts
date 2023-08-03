@@ -12,6 +12,7 @@ export type AppTranslations = {
     };
     USER_MENU: {
         LOG_OUT: string;
+        CHANGE_PASSWORD: string;
         MY_ACCOUNT: string;
     };
 };

@@ -14,6 +14,7 @@ import {
     RegistrationWorkflow,
     VerifyCodeScreen,
     RegistrationSuccessScreen,
+    ChangePasswordDialog,
 } from '@brightlayer-ui/react-auth-workflow';
 import { useApp } from '../contexts/AppContextProvider';
 import { useNavigate } from 'react-router';
@@ -104,6 +105,7 @@ export const AppRouter: React.FC = () => {
                 }
             />
             <Route path={'/'} element={<Navigate to={'/homepage'} replace />} />
+            <Route path={'/change-password'} element={<ChangePasswordDialog open/>} />
             <Route
                 path={'*'}
                 element={

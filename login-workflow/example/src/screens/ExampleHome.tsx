@@ -22,6 +22,7 @@ import ExitToApp from '@mui/icons-material/ExitToApp';
 import Avatar from '@mui/material/Avatar';
 import AppBar from '@mui/material/AppBar';
 import Toolbar from '@mui/material/Toolbar';
+import LockIcon from '@mui/icons-material/Lock';
 import Typography from '@mui/material/Typography';
 import { useTheme } from '@mui/material/styles';
 import { useTranslation } from 'react-i18next';
@@ -29,6 +30,7 @@ import { useNavigate } from 'react-router-dom';
 import * as Colors from '@brightlayer-ui/colors';
 import FormControl from '@mui/material/FormControl';
 import { MenuItem, Select, SelectChangeEvent } from '@mui/material';
+import { ChangePasswordDialog } from '@brightlayer-ui/react-auth-workflow';
 
 export const ExampleHome: React.FC<React.PropsWithChildren> = () => {
     const app = useApp();
@@ -137,6 +139,14 @@ export const ExampleHome: React.FC<React.PropsWithChildren> = () => {
                                             title: `${t('USER_MENU.MY_ACCOUNT')}`,
                                             onClick: (): void => {
                                                 setOpen(false);
+                                            },
+                                        },
+                                        {
+                                            icon: <LockIcon />,
+                                            title: `${t('USER_MENU.CHANGE_PASSWORD')}`,
+                                            onClick: (): void => {
+                                                setOpen(true);
+                                                navigate('/change-password');
                                             },
                                         },
                                         {
