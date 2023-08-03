@@ -8,28 +8,39 @@ This package supports translations to different languages using [i18next](https:
 -   Spanish
 -   Simplified Chinese
 
-## Add/Override translations with our workflow
+## Add/Override translations within our workflow
 
 To add i18n in your application you can follow the instructions from [official website](https://react.i18next.com/getting-started).
+You need to wrap your app with <I18nextProvider/> for rendering translations in the app. For reference, you can check [I18nextProvider](https://react.i18next.com/latest/i18nextprovider).
 
-If you want to add/override your custom screens translations in our `Auth Workflow` you need to pass your app's `i18n instance` to `AuthContextProvider` via prop name `i18n`.
+
+If you want to add/override your custom screens translations in our `Auth Workflow` you need to pass your app's i18n instance to the `AuthContextProvider` via the `i18n` prop.
 
 ```tsx
-import { i18nAppInstance } from './i18nAppInstance';
+import { i18n } from './i18n';
 
 <AuthContextProvider
     ...
-    i18n={i18nAppInstance}
+    i18n={i18n}
 >
 ```
 
-Same for `Registraion workflow` you can pass via `i18n` prop.
+`Registration workflow` works in the same way, allowing you to pass an i18n instance via the `i18n` prop.
 
 ```tsx
-import { i18nAppInstance } from './i18nAppInstance';
+import { i18nAppInstance } from './i18n';
 
 <RegistrationContextProvider
     ...
-    i18n={i18nAppInstance}
+    i18n={i18n}
 >
+```
+
+If you need to override any of the translations used internally in our Workflow, you can do it in a similar way as below.
+
+```tsx
+import { useTranslation } from 'react-i18next';
+
+const { t } = useTranslation();
+<ForgotPasswordScreen WorkflowCardHeaderProps={{title: `${t('TITLE')}`}} />
 ```
