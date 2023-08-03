@@ -3,10 +3,10 @@ type SearchParams = {
 };
 
 export const parseQueryString = (search: string): SearchParams => {
-    let noQuestion = search;
-    if (noQuestion.startsWith('?')) noQuestion = noQuestion.substr(1);
+    let searchQuery = search;
+    if (searchQuery.startsWith('?')) searchQuery = searchQuery.substr(1);
 
-    const params = noQuestion.split('&');
+    const params = searchQuery.split('&');
     const ret: SearchParams = {};
 
     params.forEach((param) => {
