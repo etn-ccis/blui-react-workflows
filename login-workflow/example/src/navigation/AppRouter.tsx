@@ -55,6 +55,7 @@ export const AppRouter: React.FC = () => {
                 <Route path={'/forgot-password'} element={<ForgotPasswordScreen />} />
                 <Route path={'/contact-support'} element={<ContactSupportScreen />} />
                 <Route path={'/reset-password'} element={<ResetPasswordScreen />} />
+                <Route path={'/change-password'} element={<ChangePasswordDialog open/>} />
             </Route>
             {/* REGISTRATION ROUTES */}
             <Route
@@ -99,13 +100,21 @@ export const AppRouter: React.FC = () => {
             <Route
                 path={'/homepage'}
                 element={
-                    <ReactRouterAuthGuard isAuthenticated={app.isAuthenticated} fallBackUrl={'/login'}>
-                        <ExampleHome />
-                    </ReactRouterAuthGuard>
+                    <AuthContextProvider
+                        actions={ProjectAuthUIActions(app)}
+                        language={language}
+                        navigate={navigate}
+                        routeConfig={routes}
+                        i18n={i18nAppInstance}
+                        rememberMeDetails={{ email: rememberMe ? email : '', rememberMe: rememberMe }}
+                    >
+                        <ReactRouterAuthGuard isAuthenticated={app.isAuthenticated} fallBackUrl={'/login'}>
+                            <ExampleHome />
+                        </ReactRouterAuthGuard>
+                    </AuthContextProvider>
                 }
             />
             <Route path={'/'} element={<Navigate to={'/homepage'} replace />} />
-            <Route path={'/change-password'} element={<ChangePasswordDialog open/>} />
             <Route
                 path={'*'}
                 element={

@@ -32,12 +32,22 @@ import FormControl from '@mui/material/FormControl';
 import { MenuItem, Select, SelectChangeEvent } from '@mui/material';
 import { ChangePasswordDialog } from '@brightlayer-ui/react-auth-workflow';
 
+
 export const ExampleHome: React.FC<React.PropsWithChildren> = () => {
     const app = useApp();
     const { t, i18n } = useTranslation();
     const [open, setOpen] = useState(false);
     const navigate = useNavigate();
     const theme = useTheme();
+    const [openDialog, setOpenDialog] = React.useState(false);
+
+    const dialogClose = (): void => {
+        setOpenDialog(false);
+    };
+    
+    const openDialogBox = (): any => {
+        setOpenDialog(true);
+    };
 
     const containerStyles = {
         width: '100%',
@@ -77,6 +87,7 @@ export const ExampleHome: React.FC<React.PropsWithChildren> = () => {
     };
 
     return (
+        <>
         <DrawerLayout
             drawer={
                 <Drawer open={true} width={332} variant={'persistent'}>
@@ -144,9 +155,8 @@ export const ExampleHome: React.FC<React.PropsWithChildren> = () => {
                                         {
                                             icon: <LockIcon />,
                                             title: `${t('USER_MENU.CHANGE_PASSWORD')}`,
-                                            onClick: (): void => {
-                                                setOpen(true);
-                                                navigate('/change-password');
+                                            onClick: (): any => {
+                                                openDialogBox();
                                             },
                                         },
                                         {
@@ -173,5 +183,7 @@ export const ExampleHome: React.FC<React.PropsWithChildren> = () => {
                 />
             </Box>
         </DrawerLayout>
+        <ChangePasswordDialog open={openDialog} onClose={dialogClose} />
+        </>
     );
 };
