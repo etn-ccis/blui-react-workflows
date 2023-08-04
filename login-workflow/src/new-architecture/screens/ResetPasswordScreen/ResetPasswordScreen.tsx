@@ -1,10 +1,9 @@
 import React, { useCallback, useRef, useState } from 'react';
 import CheckCircle from '@mui/icons-material/CheckCircle';
 import { ResetPasswordScreenBase } from './ResetPasswordScreenBase';
-import { useLanguageLocale } from '../../hooks';
+import { useLanguageLocale, useQueryString } from '../../hooks';
 import { useAuthContext } from '../../contexts';
 import { defaultPasswordRequirements } from '../../constants';
-import { useQueryString } from '../../hooks/useQueryString';
 import { ResetPasswordScreenProps } from './types';
 import { useErrorManager } from '../../contexts/ErrorContext/useErrorManager';
 

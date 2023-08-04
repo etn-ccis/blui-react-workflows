@@ -106,9 +106,7 @@ describe('SetPassword', () => {
 
         rerender(
             <AuthContextProvider {...authContextProviderProps}>
-                <AuthUIContextProvider authActions={jest.fn()} registrationActions={jest.fn()}>
-                    <SetPassword {...setPasswordProps} />
-                </AuthUIContextProvider>
+                <SetPassword {...setPasswordProps} />
             </AuthContextProvider>
         );
 
@@ -135,9 +133,7 @@ describe('SetPassword', () => {
 
         rerender(
             <AuthContextProvider {...authContextProviderProps}>
-                <AuthUIContextProvider authActions={jest.fn()} registrationActions={jest.fn()}>
-                    <SetPassword {...props} />
-                </AuthUIContextProvider>
+                <SetPassword {...props} />
             </AuthContextProvider>
         );
 
