@@ -127,13 +127,13 @@ export const ProjectAuthUIActions: AuthUIActionsWithApp = (appHelper) => (): Aut
      *
      * @returns Resolve if code is valid, otherwise reject.
      */
-    verifyResetCode: async (code: string, email?: string): Promise<void> => {
+    verifyResetCode: async (code: string, email?: string): Promise<any> => {
         await sleep(500);
         if (isRandomFailure()) {
             throw new Error('Sorry, there was a problem sending your request.');
         }
-
-        return;
+        console.log('action code value', code);
+        return code === '123';
     },
     /**
      * A user who has previously used "forgotPassword" now has a valid password reset code

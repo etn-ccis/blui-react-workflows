@@ -1,11 +1,13 @@
-import React, { useCallback, useRef, useState } from 'react';
+import React, { useCallback, useRef, useState, useEffect } from 'react';
 import CheckCircle from '@mui/icons-material/CheckCircle';
 import { ResetPasswordScreenBase } from './ResetPasswordScreenBase';
 import { useLanguageLocale, useQueryString } from '../../hooks';
 import { useAuthContext } from '../../contexts';
 import { defaultPasswordRequirements } from '../../constants';
+import { parseQueryString } from '../../utils';
 import { ResetPasswordScreenProps } from './types';
 import { useErrorManager } from '../../contexts/ErrorContext/useErrorManager';
+import { Box } from '@mui/material';
 
 /**
  * Component that renders a ResetPassword screen that allows a user to reset their password and shows a success message upon a successful password reset..
@@ -30,14 +32,25 @@ export const ResetPasswordScreen: React.FC<ResetPasswordScreenProps> = (props) =
     const confirmRef = useRef(null);
     const [passwordInput, setPasswordInput] = useState('');
     const [confirmInput, setConfirmInput] = useState('');
+    const [validCode, setValidCode] = useState(false);
     const [isLoading, setIsLoading] = useState(false);
     const [showSuccessScreen, setShowSuccessScreen] = useState(props.showSuccessScreen);
     const { triggerError, errorManagerConfig } = useErrorManager();
 
-    const { code, email } = useQueryString();
+    const { code, email } = parseQueryString(window.location.search);
+    console.log('code', code, 'email', email);
 
     const { actions, navigate, routeConfig } = useAuthContext();
     const passwordRequirements = defaultPasswordRequirements(t);
+
+    useEffect(() => {
+        const getVerifyCodeData = async (): Promise<void> => {
+        const verifycode: any = await actions().verifyResetCode(code, email);
+            setValidCode(verifycode);
+            console.log('action return', verifycode);
+        }
+        getVerifyCodeData();
+    }, []);
 
     const handleOnNext = useCallback(async (): Promise<void> => {
         try {
@@ -127,8 +140,10 @@ export const ResetPasswordScreen: React.FC<ResetPasswordScreenProps> = (props) =
             }
         },
     };
-
+    console.log('valid code', validCode);
     return (
+        <>
+        {validCode?
         <ResetPasswordScreenBase
             WorkflowCardBaseProps={workflowCardBaseProps}
             WorkflowCardHeaderProps={workflowCardHeaderProps}
@@ -157,5 +172,8 @@ export const ResetPasswordScreen: React.FC<ResetPasswordScreenProps> = (props) =
             showSuccessScreen={showSuccessScreen}
             errorDisplayConfig={errorDisplayConfig}
         />
+        : <Box>Invalid verify code</Box>
+        } 
+        </>
     );
 };
