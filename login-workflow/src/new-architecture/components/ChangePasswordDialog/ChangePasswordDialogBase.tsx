@@ -15,7 +15,7 @@ import { ChangePasswordDialogProps } from './types';
 import { SetPassword } from '../SetPassword';
 import { PasswordTextField } from '../PasswordTextField';
 import { BasicDialog } from '../Dialog';
-import { Spinner } from '../../../components';
+import { Spinner } from '../../components';
 
 /**
  * Component that renders a dialog with textField to enter current password and a change password form with a new password and confirm password inputs.

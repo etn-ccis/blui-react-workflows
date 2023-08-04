@@ -4,7 +4,7 @@
  */
 
 import { i18n } from 'i18next';
-import { RouteConfig } from '../../../routing/AuthNavigationContainer';
+import { RouteConfig } from '../../types';
 import { ErrorContextProviderProps } from '../ErrorContext/types';
 
 export type AuthContextProviderProps = {
