@@ -32,7 +32,6 @@ import FormControl from '@mui/material/FormControl';
 import { MenuItem, Select, SelectChangeEvent } from '@mui/material';
 import { ChangePasswordDialog } from '@brightlayer-ui/react-auth-workflow';
 
-
 export const ExampleHome: React.FC<React.PropsWithChildren> = () => {
     const app = useApp();
     const { t, i18n } = useTranslation();
@@ -44,7 +43,7 @@ export const ExampleHome: React.FC<React.PropsWithChildren> = () => {
     const dialogClose = (): void => {
         setOpenDialog(false);
     };
-    
+
     const openDialogBox = (): any => {
         setOpenDialog(true);
     };
@@ -88,102 +87,106 @@ export const ExampleHome: React.FC<React.PropsWithChildren> = () => {
 
     return (
         <>
-        <DrawerLayout
-            drawer={
-                <Drawer open={true} width={332} variant={'persistent'}>
-                    <DrawerHeader
-                        title={`${t('DRAWER_MENU.TITLE')}`}
-                        icon={<Menu />}
-                        onClick={(): void => setOpen(!open)}
-                    />
-                    <DrawerBody>
-                        <DrawerNavGroup>
-                            <DrawerNavItem title={`${t('DRAWER_MENU.DASHBOARD')}`} icon={<Dashboard />} itemID="1" />
-                            <DrawerNavItem
-                                title={`${t('DRAWER_MENU.LOCATIONS')}`}
-                                icon={<Notifications />}
-                                itemID="2"
-                            />
-                        </DrawerNavGroup>
-                    </DrawerBody>
-                </Drawer>
-            }
-        >
-            <Box>
-                <AppBar color="primary">
-                    <Toolbar sx={{ px: 2, minHeight: 'unset', height: '4rem' }}>
-                        <Typography variant="h6">{`${t('TOOLBAR_MENU.HOME_PAGE')}`}</Typography>
-                        <Spacer />
-                        <Box sx={{ py: 2 }}>
-                            <FormControl fullWidth>
-                                <Select
-                                    value={app.language}
-                                    onChange={changeAppLanguage}
-                                    variant={'standard'}
-                                    sx={{
-                                        padding: '4px',
-                                        minWidth: '160px',
-                                        margin: '16px',
-                                        backgroundColor: 'transparent',
-                                        color: Colors.white[50],
-                                        '& .MuiSelect-icon': {
-                                            color: Colors.white[50],
-                                        },
-                                    }}
-                                >
-                                    <MenuItem value={'en'}>English</MenuItem>
-                                    <MenuItem value={'es'}>Spanish</MenuItem>
-                                    <MenuItem value={'fr'}>French</MenuItem>
-                                    <MenuItem value={'zh'}>Chinese</MenuItem>
-                                    <MenuItem value={'pt'}>Portuguese</MenuItem>
-                                </Select>
-                            </FormControl>
-                        </Box>
-                        <UserMenu
+            <DrawerLayout
+                drawer={
+                    <Drawer open={true} width={332} variant={'persistent'}>
+                        <DrawerHeader
+                            title={`${t('DRAWER_MENU.TITLE')}`}
+                            icon={<Menu />}
                             onClick={(): void => setOpen(!open)}
-                            avatar={<Avatar>AV</Avatar>}
-                            menuGroups={[
-                                {
-                                    items: [
-                                        {
-                                            icon: <AccountBox />,
-                                            title: `${t('USER_MENU.MY_ACCOUNT')}`,
-                                            onClick: (): void => {
-                                                setOpen(false);
-                                            },
-                                        },
-                                        {
-                                            icon: <LockIcon />,
-                                            title: `${t('USER_MENU.CHANGE_PASSWORD')}`,
-                                            onClick: (): any => {
-                                                openDialogBox();
-                                            },
-                                        },
-                                        {
-                                            icon: <ExitToApp />,
-                                            title: `${t('USER_MENU.LOG_OUT')}`,
-                                            onClick: (): void => {
-                                                setOpen(false);
-                                                logOut();
-                                            },
-                                        },
-                                    ],
-                                },
-                            ]}
                         />
-                    </Toolbar>
-                </AppBar>
-            </Box>
-            <Box sx={containerStyles}>
-                <EmptyState
-                    sx={emptyStateContainerStyles}
-                    icon={<Event fontSize={'inherit'} />}
-                    title={`${t('TOOLBAR_MENU.HOME_PAGE')}`}
-                    description={`${t('PAGE_DETAILS.AUTHORISED_MESSAGE')}`}
-                />
-            </Box>
-        </DrawerLayout>
-        <ChangePasswordDialog open={openDialog} onClose={dialogClose} />
+                        <DrawerBody>
+                            <DrawerNavGroup>
+                                <DrawerNavItem
+                                    title={`${t('DRAWER_MENU.DASHBOARD')}`}
+                                    icon={<Dashboard />}
+                                    itemID="1"
+                                />
+                                <DrawerNavItem
+                                    title={`${t('DRAWER_MENU.LOCATIONS')}`}
+                                    icon={<Notifications />}
+                                    itemID="2"
+                                />
+                            </DrawerNavGroup>
+                        </DrawerBody>
+                    </Drawer>
+                }
+            >
+                <Box>
+                    <AppBar color="primary">
+                        <Toolbar sx={{ px: 2, minHeight: 'unset', height: '4rem' }}>
+                            <Typography variant="h6">{`${t('TOOLBAR_MENU.HOME_PAGE')}`}</Typography>
+                            <Spacer />
+                            <Box sx={{ py: 2 }}>
+                                <FormControl fullWidth>
+                                    <Select
+                                        value={app.language}
+                                        onChange={changeAppLanguage}
+                                        variant={'standard'}
+                                        sx={{
+                                            padding: '4px',
+                                            minWidth: '160px',
+                                            margin: '16px',
+                                            backgroundColor: 'transparent',
+                                            color: Colors.white[50],
+                                            '& .MuiSelect-icon': {
+                                                color: Colors.white[50],
+                                            },
+                                        }}
+                                    >
+                                        <MenuItem value={'en'}>English</MenuItem>
+                                        <MenuItem value={'es'}>Spanish</MenuItem>
+                                        <MenuItem value={'fr'}>French</MenuItem>
+                                        <MenuItem value={'zh'}>Chinese</MenuItem>
+                                        <MenuItem value={'pt'}>Portuguese</MenuItem>
+                                    </Select>
+                                </FormControl>
+                            </Box>
+                            <UserMenu
+                                onClick={(): void => setOpen(!open)}
+                                avatar={<Avatar>AV</Avatar>}
+                                menuGroups={[
+                                    {
+                                        items: [
+                                            {
+                                                icon: <AccountBox />,
+                                                title: `${t('USER_MENU.MY_ACCOUNT')}`,
+                                                onClick: (): void => {
+                                                    setOpen(false);
+                                                },
+                                            },
+                                            {
+                                                icon: <LockIcon />,
+                                                title: `${t('USER_MENU.CHANGE_PASSWORD')}`,
+                                                onClick: (): any => {
+                                                    openDialogBox();
+                                                },
+                                            },
+                                            {
+                                                icon: <ExitToApp />,
+                                                title: `${t('USER_MENU.LOG_OUT')}`,
+                                                onClick: (): void => {
+                                                    setOpen(false);
+                                                    logOut();
+                                                },
+                                            },
+                                        ],
+                                    },
+                                ]}
+                            />
+                        </Toolbar>
+                    </AppBar>
+                </Box>
+                <Box sx={containerStyles}>
+                    <EmptyState
+                        sx={emptyStateContainerStyles}
+                        icon={<Event fontSize={'inherit'} />}
+                        title={`${t('TOOLBAR_MENU.HOME_PAGE')}`}
+                        description={`${t('PAGE_DETAILS.AUTHORISED_MESSAGE')}`}
+                    />
+                </Box>
+            </DrawerLayout>
+            <ChangePasswordDialog open={openDialog} onClose={dialogClose} />
         </>
     );
 };

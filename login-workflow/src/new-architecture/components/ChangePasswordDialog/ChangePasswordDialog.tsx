@@ -14,7 +14,7 @@ export const ChangePasswordDialog: React.FC<ChangePasswordDialogProps> = (props)
     const [currentInput, setCurrentInput] = useState('');
     const [showErrorDialog, setShowErrorDialog] = useState(false);
     const [isLoading, setIsLoading] = useState(false);
-    const { actions, navigate, routeConfig } = useAuthContext();
+    const { actions, navigate } = useAuthContext();
 
     const passwordRequirements = defaultPasswordRequirements(t);
 
