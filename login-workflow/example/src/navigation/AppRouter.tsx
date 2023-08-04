@@ -8,11 +8,6 @@ import {
     RegistrationContextProvider,
     ResetPasswordScreen,
     RegistrationWorkflow,
-    // EulaScreen,
-    // CreateAccountScreen,
-    // VerifyCodeScreen,
-    // CreatePasswordScreen,
-    // AccountDetailsScreen,
 } from '@brightlayer-ui/react-auth-workflow';
 import { useApp } from '../contexts/AppContextProvider';
 import { useNavigate } from 'react-router';
@@ -23,7 +18,6 @@ import { ProjectRegistrationUIActions } from '../actions/RegistrationUIActions';
 import { routes } from './Routing';
 import { ExampleHome } from '../screens/ExampleHome';
 import { i18nAppInstance } from '../translations/i18n';
-// import { CustomScreen } from '../screens/CustomScreen';
 
 export const AppRouter: React.FC = () => {
     const { language } = useApp();
@@ -69,20 +63,7 @@ export const AppRouter: React.FC = () => {
                     </RegistrationContextProvider>
                 }
             >
-                <Route
-                    path={'/self-registration'}
-                    element={
-                        <RegistrationWorkflow>
-                            {/* TODO: Remove custom screen added for test */}
-                            {/* <EulaScreen key="EulaScreen" />
-                            <CreateAccountScreen key="CreateAccountScreen" />
-                            <VerifyCodeScreen key="VerifyCodeScreen" />
-                            <CreatePasswordScreen key="CreatePasswordScreen" />
-                            <CustomScreen />
-                            <AccountDetailsScreen key="AccountDetailsScreen" /> */}
-                        </RegistrationWorkflow>
-                    }
-                />
+                <Route path={'/self-registration'} element={<RegistrationWorkflow></RegistrationWorkflow>} />
                 <Route path={'/register-by-invite'} element={<RegistrationWorkflow isInviteRegistration />} />
             </Route>
 
