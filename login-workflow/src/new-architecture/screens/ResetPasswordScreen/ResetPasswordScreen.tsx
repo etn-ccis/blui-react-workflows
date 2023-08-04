@@ -4,7 +4,7 @@ import { ResetPasswordScreenBase } from './ResetPasswordScreenBase';
 import { useLanguageLocale } from '../../hooks';
 import { useAuthContext } from '../../contexts';
 import { defaultPasswordRequirements } from '../../constants';
-import { useQueryString } from '../../../hooks/useQueryString';
+import { useQueryString } from '../../hooks/useQueryString';
 import { ResetPasswordScreenProps } from './types';
 import { useErrorManager } from '../../contexts/ErrorContext/useErrorManager';
 

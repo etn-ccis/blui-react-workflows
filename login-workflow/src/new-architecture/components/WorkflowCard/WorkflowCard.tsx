@@ -3,7 +3,7 @@ import Box from '@mui/material/Box';
 import { useTheme } from '@mui/material/styles';
 import defaultBackgroundImage from '../../../assets/images/background.svg';
 import Card from '@mui/material/Card';
-import { Spinner } from '../../../components/Spinner';
+import { Spinner } from '../Spinner/Spinner';
 import { WorkflowCardBaseProps } from './WorkflowCard.types';
 import { getWorkflowCardUtilityClass, WorkflowCardClassKey } from './Utility';
 import { unstable_composeClasses as composeClasses } from '@mui/base';
