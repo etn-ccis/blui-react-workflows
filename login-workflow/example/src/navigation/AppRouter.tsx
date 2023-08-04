@@ -63,7 +63,7 @@ export const AppRouter: React.FC = () => {
                     </RegistrationContextProvider>
                 }
             >
-                <Route path={'/self-registration'} element={<RegistrationWorkflow></RegistrationWorkflow>} />
+                <Route path={'/self-registration'} element={<RegistrationWorkflow />} />
                 <Route path={'/register-by-invite'} element={<RegistrationWorkflow isInviteRegistration />} />
             </Route>
 
