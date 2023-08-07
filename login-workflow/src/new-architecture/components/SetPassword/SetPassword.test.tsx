@@ -2,13 +2,11 @@ import React from 'react';
 import '@testing-library/jest-dom';
 import { cleanup, fireEvent, render, RenderResult, screen } from '@testing-library/react';
 import { SetPassword } from './SetPassword';
-import { AuthUIContextProvider } from '../../../auth-shared';
 import { AuthContextProvider } from '../../contexts';
-import { defaultProps as authContextProps } from '../../contexts/AuthContext/AuthContextProvider.test';
 import { PasswordRequirement, SetPasswordProps } from './types';
+import { authContextProviderProps } from '../../testUtils';
 
 afterEach(cleanup);
-// const t = jest.fn(),
 
 const passwordRequirements: PasswordRequirement[] = [
     {
@@ -20,7 +18,8 @@ const passwordRequirements: PasswordRequirement[] = [
         regex: /[a-z]+/,
     },
 ];
-const defaultProps: SetPasswordProps = {
+
+const setPasswordProps: SetPasswordProps = {
     newPasswordLabel: 'Password',
     confirmPasswordLabel: 'Confirm Password',
     initialNewPasswordValue: '',
@@ -38,12 +37,10 @@ const isValidPassword = (passwordInput: string): boolean => {
 };
 
 describe('SetPassword', () => {
-    const renderer = (props = defaultProps): RenderResult =>
+    const renderer = (props = setPasswordProps): RenderResult =>
         render(
-            <AuthContextProvider {...authContextProps}>
-                <AuthUIContextProvider authActions={jest.fn()} registrationActions={jest.fn()}>
-                    <SetPassword {...props} />
-                </AuthUIContextProvider>
+            <AuthContextProvider {...authContextProviderProps}>
+                <SetPassword {...props} />
             </AuthContextProvider>
         );
 
@@ -65,7 +62,7 @@ describe('SetPassword', () => {
 
     it('should display the passed props', () => {
         const props = {
-            ...defaultProps,
+            ...setPasswordProps,
             newPasswordLabel: 'New Password',
             confirmPasswordLabel: 'New Confirm Password',
         };
@@ -76,7 +73,7 @@ describe('SetPassword', () => {
     });
 
     it('should display the updated password requirements, when passed through passwordRequirements', () => {
-        const props = { ...defaultProps, passwordRequirements };
+        const props = { ...setPasswordProps, passwordRequirements };
         renderer(props);
 
         expect(screen.queryByText('8-16 Characters')).toBeNull();
@@ -85,7 +82,7 @@ describe('SetPassword', () => {
     });
 
     it('should check the password requirements', () => {
-        const props = { ...defaultProps, passwordRequirements };
+        const props = { ...setPasswordProps, passwordRequirements };
         renderer(props);
 
         expect(isValidPassword('123')).toBeFalsy();
@@ -108,10 +105,8 @@ describe('SetPassword', () => {
         fireEvent.blur(confirmPasswordField);
 
         rerender(
-            <AuthContextProvider {...authContextProps}>
-                <AuthUIContextProvider authActions={jest.fn()} registrationActions={jest.fn()}>
-                    <SetPassword {...defaultProps} />
-                </AuthUIContextProvider>
+            <AuthContextProvider {...authContextProviderProps}>
+                <SetPassword {...setPasswordProps} />
             </AuthContextProvider>
         );
 
@@ -119,7 +114,7 @@ describe('SetPassword', () => {
     });
 
     it('should display the green check icon, when passwords match', () => {
-        const props = { ...defaultProps };
+        const props = { ...setPasswordProps };
         props.passwordRequirements = [];
         const { getByLabelText, getByTestId, queryByTestId, rerender } = renderer();
 
@@ -137,10 +132,8 @@ describe('SetPassword', () => {
         fireEvent.blur(confirmPasswordField);
 
         rerender(
-            <AuthContextProvider {...authContextProps}>
-                <AuthUIContextProvider authActions={jest.fn()} registrationActions={jest.fn()}>
-                    <SetPassword {...props} />
-                </AuthUIContextProvider>
+            <AuthContextProvider {...authContextProviderProps}>
+                <SetPassword {...props} />
             </AuthContextProvider>
         );
 

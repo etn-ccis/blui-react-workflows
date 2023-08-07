@@ -5,7 +5,7 @@ import { cleanup, render, screen, fireEvent, RenderResult } from '@testing-libra
 import { ResetPasswordScreen } from './ResetPasswordScreen';
 import { AuthContextProvider } from '../../contexts';
 import { ResetPasswordScreenProps } from './types';
-import { defaultProps as authContextProps } from '../../contexts/AuthContext/AuthContextProvider.test';
+import { authContextProviderProps } from '../../testUtils';
 
 afterEach(cleanup);
 
@@ -24,7 +24,7 @@ describe('Reset Password Screen', () => {
 
     const renderer = (props?: ResetPasswordScreenProps): RenderResult =>
         render(
-            <AuthContextProvider {...authContextProps}>
+            <AuthContextProvider {...authContextProviderProps}>
                 <BrowserRouter>
                     <ResetPasswordScreen {...props} />
                 </BrowserRouter>

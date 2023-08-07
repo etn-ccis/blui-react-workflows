@@ -4,26 +4,15 @@ import { cleanup, fireEvent, render, screen, renderHook, act, RenderResult } fro
 import { RegistrationWorkflow, RegistrationWorkflowProps } from './RegistrationWorkflow';
 import Typography from '@mui/material/Typography';
 import Button from '@mui/material/Button';
-import {
-    i18nRegistrationInstance,
-    RegistrationContextProvider,
-    RegistrationContextProviderProps,
-    useRegistrationWorkflowContext,
-} from '../../contexts';
+import { RegistrationContextProvider, useRegistrationWorkflowContext } from '../../contexts';
 import Box from '@mui/material/Box';
 import { CreateAccountScreen } from '../../screens';
+import { registrationContextProviderProps } from '../../testUtils';
 
 afterEach(cleanup);
 
 const defaultProps: RegistrationWorkflowProps = {
     initialScreenIndex: 0,
-};
-
-export const registrationContextProviderProps: RegistrationContextProviderProps = {
-    language: 'en',
-    i18n: i18nRegistrationInstance,
-    navigate: (): void => {},
-    routeConfig: {},
 };
 
 const renderer = (props = defaultProps): RenderResult =>
@@ -77,7 +66,7 @@ describe('RegistrationWorkflow', () => {
     });
 
     it('should set screen data for default registration workflow in the context', async () => {
-        const wrapper = ({ children }): JSX.Element => (
+        const wrapper = ({ children }: any): JSX.Element => (
             <RegistrationContextProvider {...registrationContextProviderProps}>
                 <RegistrationWorkflow {...defaultProps}>{children}</RegistrationWorkflow>
             </RegistrationContextProvider>
@@ -105,7 +94,7 @@ describe('RegistrationWorkflow', () => {
     });
 
     it('should set screen data for custom registration workflow in the context', async () => {
-        const wrapper = ({ children }): JSX.Element => (
+        const wrapper = ({ children }: any): JSX.Element => (
             <RegistrationContextProvider {...registrationContextProviderProps}>
                 <RegistrationWorkflow {...defaultProps}>{children}</RegistrationWorkflow>
             </RegistrationContextProvider>

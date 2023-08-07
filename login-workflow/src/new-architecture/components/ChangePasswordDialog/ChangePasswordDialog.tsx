@@ -1,4 +1,4 @@
-import React, { useCallback, useEffect, useRef, useState } from 'react';
+import React, { useCallback, useRef, useState } from 'react';
 import { defaultPasswordRequirements } from '../../constants';
 import { useAuthContext } from '../../contexts';
 import { useLanguageLocale } from '../../hooks';
@@ -18,13 +18,6 @@ export const ChangePasswordDialog: React.FC<ChangePasswordDialogProps> = (props)
 
     const passwordRequirements = defaultPasswordRequirements(t);
 
-    const areValidMatchingPasswords = useCallback((): boolean => {
-        for (let i = 0; i < passwordRequirements.length; i++) {
-            if (!new RegExp(passwordRequirements[i].regex).test(passwordInput)) return false;
-        }
-        return confirmInput === passwordInput;
-    }, [passwordRequirements, passwordInput, confirmInput]);
-
     const updateFields = useCallback(
         (fields: { password: string; confirm: string }) => {
             setPasswordInput(fields.password);
@@ -33,12 +26,8 @@ export const ChangePasswordDialog: React.FC<ChangePasswordDialogProps> = (props)
         [setPasswordInput, setConfirmInput]
     );
 
-    useEffect(() => {
-        setPasswordInput(areValidMatchingPasswords() ? passwordInput : '');
-    }, [setPasswordInput, passwordInput, confirmInput, areValidMatchingPasswords]);
-
     const checkPasswords =
-        passwordInput !== '' && confirmInput !== '' && currentInput !== '' && passwordInput === confirmInput;
+        currentInput !== '' && passwordInput !== '' && confirmInput !== '' && passwordInput === confirmInput;
 
     const changePasswordSubmit = useCallback(async () => {
         if (checkPasswords) {
@@ -60,26 +49,38 @@ export const ChangePasswordDialog: React.FC<ChangePasswordDialogProps> = (props)
         previousLabel = t('bluiCommon:ACTIONS.BACK'),
         nextLabel = t('bluiCommon:ACTIONS.OKAY'),
         onPrevious = (): void => navigate(routeConfig.LOGIN),
-        PasswordProps = {
-            newPasswordLabel: t('bluiAuth:CHANGE_PASSWORD.NEW_PASSWORD'),
-            confirmPasswordLabel: t('bluiAuth:CHANGE_PASSWORD.CONFIRM_NEW_PASSWORD'),
-            onPasswordChange: updateFields,
-            passwordRef,
-            confirmRef,
-            initialNewPasswordValue: passwordInput,
-            initialConfirmPasswordValue: confirmInput,
-            passwordRequirements,
-            onSubmit: (): void => void changePasswordSubmit(),
-            passwordNotMatchError: t('bluiCommon:FORMS.PASS_MATCH_ERROR'),
-        },
-        ErrorDialogProps = {
-            open: showErrorDialog,
-            title: t('bluiCommon:MESSAGES.ERROR'),
-            body: t('bluiAuth:CHANGE_PASSWORD.PROBLEM_OCCURRED'),
-            onClose: (): void => setShowErrorDialog(false),
-            dismissButtonText: t('bluiCommon:ACTIONS.OKAY'),
-        },
+        PasswordProps,
+        ErrorDialogProps,
     } = props;
+
+    const passwordProps = {
+        newPasswordLabel: t('bluiAuth:CHANGE_PASSWORD.NEW_PASSWORD'),
+        confirmPasswordLabel: t('bluiAuth:CHANGE_PASSWORD.CONFIRM_NEW_PASSWORD'),
+        passwordRef,
+        confirmRef,
+        initialNewPasswordValue: passwordInput,
+        initialConfirmPasswordValue: confirmInput,
+        passwordRequirements,
+        passwordNotMatchError: t('bluiCommon:FORMS.PASS_MATCH_ERROR'),
+        ...PasswordProps,
+        onPasswordChange: (passwordData: { password: string; confirm: string }): void => {
+            updateFields(passwordData);
+            PasswordProps?.onPasswordChange?.(passwordData);
+        },
+        onSubmit: (): void => {
+            void changePasswordSubmit();
+            PasswordProps?.onSubmit?.();
+        },
+    };
+
+    const errorDialogProps = {
+        open: showErrorDialog,
+        title: t('bluiCommon:MESSAGES.ERROR'),
+        body: t('bluiAuth:CHANGE_PASSWORD.PROBLEM_OCCURRED'),
+        dismissButtonText: t('bluiCommon:ACTIONS.OKAY'),
+        ...ErrorDialogProps,
+        onClose: (): void => setShowErrorDialog(false),
+    };
 
     return (
         <ChangePasswordDialogBase
@@ -96,8 +97,8 @@ export const ChangePasswordDialog: React.FC<ChangePasswordDialogProps> = (props)
             onSubmit={(): void => {
                 void changePasswordSubmit();
             }}
-            PasswordProps={PasswordProps}
-            ErrorDialogProps={ErrorDialogProps}
+            PasswordProps={passwordProps}
+            ErrorDialogProps={errorDialogProps}
         />
     );
 };

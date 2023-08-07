@@ -3,19 +3,9 @@ import '@testing-library/jest-dom';
 import { cleanup, render, screen, fireEvent, RenderResult } from '@testing-library/react';
 import { CreateAccountScreen } from './CreateAccountScreen';
 import { CreateAccountScreenProps } from './types';
-import {
-    RegistrationContextProvider,
-    RegistrationContextProviderProps,
-    i18nRegistrationInstance,
-} from '../../contexts';
+import { RegistrationContextProvider } from '../../contexts';
 import { RegistrationWorkflow } from '../../components';
-
-const defaultProps: RegistrationContextProviderProps = {
-    language: 'en',
-    i18n: i18nRegistrationInstance,
-    navigate: (): void => {},
-    routeConfig: {},
-};
+import { registrationContextProviderProps } from '../../testUtils';
 
 afterEach(cleanup);
 
@@ -34,7 +24,7 @@ describe('Create Account Screen', () => {
 
     const renderer = (props?: CreateAccountScreenProps): RenderResult =>
         render(
-            <RegistrationContextProvider {...defaultProps}>
+            <RegistrationContextProvider {...registrationContextProviderProps}>
                 <RegistrationWorkflow initialScreenIndex={0}>
                     <CreateAccountScreen {...props} />
                 </RegistrationWorkflow>

@@ -1,9 +1,10 @@
 import React, { ChangeEvent, useState, useCallback } from 'react';
 import { useTheme } from '@mui/material/styles';
 import CheckCircleOutlinedIcon from '@mui/icons-material/CheckCircleOutlined';
-import { PasswordRequirements, SecureTextField } from '../../../components';
 import { TextFieldStyles } from '../../../styles';
 import { SetPasswordProps } from './types';
+import { PasswordTextField } from '../PasswordTextField';
+import { PasswordRequirements } from '../PasswordRequirements';
 
 /**
  * Component that renders a change password form with a new password and confirm password inputs.
@@ -47,7 +48,7 @@ export const SetPassword: React.FC<React.PropsWithChildren<SetPasswordProps>> = 
     const onPassChange = useCallback(
         (newPassword: any) => {
             setPasswordInput(newPassword);
-            onPasswordChange({ password: newPassword, confirm: confirmInput });
+            onPasswordChange?.({ password: newPassword, confirm: confirmInput });
         },
         [setPasswordInput, onPasswordChange, confirmInput]
     );
@@ -55,7 +56,7 @@ export const SetPassword: React.FC<React.PropsWithChildren<SetPasswordProps>> = 
     const onConfirmChange = useCallback(
         (newConfirm: any) => {
             setConfirmInput(newConfirm);
-            onPasswordChange({ password: passwordInput, confirm: newConfirm });
+            onPasswordChange?.({ password: passwordInput, confirm: newConfirm });
         },
         [setConfirmInput, onPasswordChange, passwordInput]
     );
@@ -75,7 +76,7 @@ export const SetPassword: React.FC<React.PropsWithChildren<SetPasswordProps>> = 
     return (
         <>
             {children}
-            <SecureTextField
+            <PasswordTextField
                 id="password"
                 data-testid="password"
                 name="password"
@@ -99,7 +100,7 @@ export const SetPassword: React.FC<React.PropsWithChildren<SetPasswordProps>> = 
                     passwordRequirements={passwordRequirements}
                 />
             )}
-            <SecureTextField
+            <PasswordTextField
                 id="confirm"
                 data-testid="confirm"
                 name="confirm"
