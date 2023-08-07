@@ -7,6 +7,7 @@ import { defaultPasswordRequirements } from '../../constants';
 import { parseQueryString } from '../../utils';
 import { ResetPasswordScreenProps } from './types';
 import { useErrorManager } from '../../contexts/ErrorContext/useErrorManager';
+import { ErrorManagerProps } from '../../components/Error';
 
 /**
  * Component that renders a ResetPassword screen that allows a user to reset their password and shows a success message upon a successful password reset..
@@ -80,7 +81,7 @@ export const ResetPasswordScreen: React.FC<ResetPasswordScreenProps> = (props) =
         [setPasswordInput, setConfirmInput]
     );
 
-    const errorConfig = {
+    const errorConfig: ErrorManagerProps = {
         mode: 'dialog',
         error: errorMsg,
         dialogConfig: {
