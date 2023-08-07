@@ -7,7 +7,6 @@ import { defaultPasswordRequirements } from '../../constants';
 import { parseQueryString } from '../../utils';
 import { ResetPasswordScreenProps } from './types';
 import { useErrorManager } from '../../contexts/ErrorContext/useErrorManager';
-import { ErrorManagerProps } from '../../components/Error';
 
 /**
  * Component that renders a ResetPassword screen that allows a user to reset their password and shows a success message upon a successful password reset..
@@ -32,9 +31,8 @@ export const ResetPasswordScreen: React.FC<ResetPasswordScreenProps> = (props) =
     const confirmRef = useRef(null);
     const [passwordInput, setPasswordInput] = useState('');
     const [confirmInput, setConfirmInput] = useState('');
-    const [validCode, setValidCode] = useState(false);
+    const [hasVerifyCodeError, setHasVerifyCodeError] = useState(false);
     const [isLoading, setIsLoading] = useState(false);
-    const [errorMsg, setErrorMsg] = useState('');
     const [showSuccessScreen, setShowSuccessScreen] = useState(props.showSuccessScreen);
     const { triggerError, errorManagerConfig } = useErrorManager();
 
@@ -43,15 +41,16 @@ export const ResetPasswordScreen: React.FC<ResetPasswordScreenProps> = (props) =
     const { actions, navigate, routeConfig } = useAuthContext();
     const passwordRequirements = defaultPasswordRequirements(t);
 
-    useEffect(() => {
-        const getVerifyCodeData = async (): Promise<void> => {
-        const verifycode: any = await actions().verifyResetCode(code, email);
-            setValidCode(verifycode);
-            if(!verifycode){
-                setErrorMsg(t('bluiAuth:PASSWORD_RESET.FAILURE_MESSAGE'));
-            }
+    const verifyResetCode = useCallback(async (): Promise<void> => {
+        try {
+            setIsLoading(true);
+            await actions().verifyResetCode(code, email);
+        } catch (_error) {
+            setHasVerifyCodeError(true);
+            triggerError(_error as Error);
+        } finally {
+            setIsLoading(false);
         }
-        getVerifyCodeData();
     }, []);
 
     const handleOnNext = useCallback(async (): Promise<void> => {
@@ -81,15 +80,9 @@ export const ResetPasswordScreen: React.FC<ResetPasswordScreenProps> = (props) =
         [setPasswordInput, setConfirmInput]
     );
 
-    const errorConfig: ErrorManagerProps = {
-        mode: 'dialog',
-        error: errorMsg,
-        dialogConfig: {
-            title: t('bluiCommon:MESSAGES.ERROR'),
-            dismissLabel: t('bluiCommon:ACTIONS.OKAY'),
-        },
-        onClose: (): void => { setErrorMsg(''); navigate(routeConfig.LOGIN)},
-    };
+    useEffect(() => {
+        verifyResetCode();
+    }, []);
 
     const {
         WorkflowCardBaseProps,
@@ -97,7 +90,7 @@ export const ResetPasswordScreen: React.FC<ResetPasswordScreenProps> = (props) =
         WorkflowCardInstructionProps,
         WorkflowCardActionsProps,
         PasswordProps,
-        errorDisplayConfig = errorConfig,
+        errorDisplayConfig = errorManagerConfig,
     } = props;
 
     const workflowCardBaseProps = {
@@ -180,7 +173,15 @@ export const ResetPasswordScreen: React.FC<ResetPasswordScreenProps> = (props) =
                 },
             }}
             showSuccessScreen={showSuccessScreen}
-            errorDisplayConfig={errorDisplayConfig}
+            errorDisplayConfig={{
+                ...errorDisplayConfig,
+                onClose: hasVerifyCodeError
+                    ? (): void => {
+                          navigate(routeConfig.LOGIN);
+                          errorDisplayConfig.onClose;
+                      }
+                    : errorDisplayConfig.onClose,
+            }}
         />
     );
 };
