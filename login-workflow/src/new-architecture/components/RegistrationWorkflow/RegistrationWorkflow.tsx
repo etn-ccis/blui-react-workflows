@@ -1,14 +1,41 @@
-import React, { useState } from 'react';
+import React, { useEffect, useState } from 'react';
 import { IndividualScreenData, RegistrationWorkflowContextProvider, useRegistrationContext } from '../../contexts';
-import { RegistrationSuccessScreen } from '../../screens';
+import {
+    AccountDetailsScreen,
+    CreateAccountScreen,
+    CreatePasswordScreen,
+    EulaScreen,
+    RegistrationSuccessScreen,
+    VerifyCodeScreen,
+} from '../../screens';
+import { parseQueryString } from '../../utils';
 
 export type RegistrationWorkflowProps = {
     initialScreenIndex?: number;
     successScreen?: JSX.Element;
+    isInviteRegistration?: boolean;
 };
 
 export const RegistrationWorkflow: React.FC<React.PropsWithChildren<RegistrationWorkflowProps>> = (props) => {
-    const { initialScreenIndex = 0, children, successScreen = <RegistrationSuccessScreen /> } = props;
+    const {
+        initialScreenIndex = 0,
+        successScreen = <RegistrationSuccessScreen />,
+        isInviteRegistration = false,
+        children = isInviteRegistration
+            ? [
+                  <EulaScreen key="EulaScreen" />,
+                  <CreatePasswordScreen key="CreatePasswordScreen" />,
+                  <AccountDetailsScreen key="AccountDetailsScreen" />,
+              ]
+            : [
+                  <EulaScreen key="EulaScreen" />,
+                  <CreateAccountScreen key="CreateAccountScreen" />,
+                  <VerifyCodeScreen key="VerifyCodeScreen" />,
+                  <CreatePasswordScreen key="CreatePasswordScreen" />,
+                  <AccountDetailsScreen key="AccountDetailsScreen" />,
+              ],
+    } = props;
+
     const screens = [...(Array.isArray(children) ? children : [children])];
     const totalScreens = screens.length;
     const [currentScreen, setCurrentScreen] = useState(
@@ -60,15 +87,10 @@ export const RegistrationWorkflow: React.FC<React.PropsWithChildren<Registration
         }
     };
 
-    const finishRegistration = (): Promise<void> => {
-        const { firstName, lastName } = screenData.AccountDetails;
+    const finishRegistration = (data: IndividualScreenData): Promise<void> => {
         if (actions && actions().completeRegistration)
             return actions()
-                .completeRegistration(
-                    { firstName, lastName },
-                    screenData.VerifyCode.code,
-                    screenData.CreateAccount.emailAddress
-                )
+                .completeRegistration(data.values, screenData.VerifyCode.code, screenData.CreateAccount.emailAddress)
                 .then(({ email, organizationName }) => {
                     updateScreenData({
                         screenId: 'RegistrationSuccessScreen',
@@ -82,13 +104,23 @@ export const RegistrationWorkflow: React.FC<React.PropsWithChildren<Registration
                 });
     };
 
+    useEffect(() => {
+        if (isInviteRegistration) {
+            const params = parseQueryString(window.location.search);
+
+            updateScreenData({ screenId: 'CreateAccount', values: { emailAddress: params.email } });
+            updateScreenData({ screenId: 'VerifyCode', values: { code: params.code } });
+        }
+        // eslint-disable-next-line react-hooks/exhaustive-deps
+    }, []);
+
     return (
         <RegistrationWorkflowContextProvider
             currentScreen={currentScreen}
             totalScreens={totalScreens}
             nextScreen={(data): Promise<void> => {
                 updateScreenData(data);
-                if (currentScreen === totalScreens - 1) return finishRegistration();
+                if (currentScreen === totalScreens - 1) return finishRegistration(data);
                 setCurrentScreen((i) => i + 1);
             }}
             previousScreen={(data): void => {

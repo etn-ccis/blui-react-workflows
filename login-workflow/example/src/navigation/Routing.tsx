@@ -6,4 +6,5 @@ export const routes: RouteConfig = {
     REGISTER_SELF: '/self-registration',
     FORGOT_PASSWORD: '/forgot-password',
     RESET_PASSWORD: '/reset-password',
+    SUPPORT: '/contact-support',
 };
