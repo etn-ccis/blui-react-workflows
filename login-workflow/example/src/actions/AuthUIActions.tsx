@@ -132,7 +132,6 @@ export const ProjectAuthUIActions: AuthUIActionsWithApp = (appHelper) => (): Aut
         if (isRandomFailure()) {
             throw new Error('Sorry, there was a problem sending your request.');
         }
-        console.log('action code value', code);
         return code === '123';
     },
     /**

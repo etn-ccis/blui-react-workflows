@@ -30,7 +30,7 @@ export type AuthUIActions = {
     initiateSecurity: () => Promise<void>;
     logIn: (email: string, password: string, rememberMe: boolean) => Promise<void>;
     forgotPassword: (email: string) => Promise<void>;
-    verifyResetCode: (code: string, email?: string) => Promise<any>;
+    verifyResetCode: (code: string, email?: string) => Promise<void>;
     setPassword: (code: string, password: string, email?: string) => Promise<void>;
     changePassword: (oldPassword: string, newPassword: string) => Promise<void>;
 };
