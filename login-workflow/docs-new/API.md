@@ -1,41 +1,6 @@
 # API
 This document outlines the various exports and configuration options for the React Auth Workflow package.
 
-## AuthContextProviderProps
-The `AuthContextProvider` manages the state of the authentication workflow. It is a React Context Provider that wraps the entire authentication workflow. It is responsible for managing the state of the authentication workflow and providing the necessary actions to the various screens. The `AuthContextProviderProps` type is used to configure the `AuthContextProvider`.
-
-### Type Declaration
--   **actions**:  _`() => AuthUIActions`_
-    -   A function that returns an object of functions that are used to manage the authentication workflow. See [AuthUIActions](#authuiactions) for more information.
--  **language**: _`string`_
-   -    The language code to use for the authentication workflow. This is used to determine which language to use for the UI and for the API calls.
--   **navigate**: _`(url: string) => void`_
-    -   A function that is used to navigate to a new URL. This is used to navigate to the various screens of the authentication workflow.
--  **routeConfig**: _`RouteConfig`_
-    -   An object that defines the various routes for the authentication workflow. See [RouteConfig](#routeconfig) for more information.
--  **i18n**: (optional) _`i18n`_
-    -   An optional i18n object that is used to translate the UI. If not provided, the default i18n object will be used.
-- **rememberMeDetails**: (optional) _`{ email?: string, rememberMe?: boolean }`_
-    -   An optional object that is used to pre-populate the email field of the Login screen and to determine if the user should be remembered. If not provided, the email field will be empty and the user will not be remembered.
-- **errorConfig**: (optional) _`ErrorContextProviderProps`_
-    -   An optional object that is used to configure the error handling of the authentication workflow. See [ErrorContextProviderProps](#errorcontextproviderprops) for more information.
-
-## AuthUIActions
-
-### Type Declaration
--   **initiateSecurity**: _`() => Promise<void>`_
-    -   A function that is used to initiate the security context. This function will be called when the application is first loaded.
--  **logIn**: _`(email: string, password: string, rememberMe: boolean) => Promise<void>`_
-   -    A function that is used to log in a user. This function will be called when the user clicks the Login button on the Login screen.
--  **forgotPassword**: _`(email: string) => Promise<void>`_
-   -    A function that is used to request a password reset code. This function will be called when the user clicks the Next button on the Forgot Password screen.
--  **verifyResetCode**: _`(code: string, email?: string) => Promise<void>`_
-   -    A function that is used to verify a password reset code.
--  **setPassword**: _`(code: string, password: string, email?: string) => Promise<void>`_
-   -   A function that is used to set a new password. This function will be called when the user clicks the Next button on the Reset Password screen.
--  **changePassword**: _`(oldPassword: string, newPassword: string) => Promise<void>`_
-   -   A function that is used to change a user's password. This function will be called when the user clicks the Next button on the Change Password screen.
-
 ## RegistrationContextProviderProps
 The `RegistrationContextProvider` manages the state of the registration workflow. It is a React Context Provider that wraps the entire registration workflow. It is responsible for managing the state of the registration workflow and providing the necessary actions to the various screens. The `RegistrationContextProviderProps` type is used to configure the `RegistrationContextProvider`.
 
@@ -129,6 +94,11 @@ Type to represent the customizable configuration of the error message box.
 
 Exported components that can be used to customize the auth workflow. 
 
+- [BasicDialog](https://github.com/etn-ccis/blui-react-workflows/tree/master/login-workflow/docs/components/basic-dialog.md)
+- [ChangePasswordDialog](https://github.com/etn-ccis/blui-react-workflows/tree/master/login-workflow/docs/components/change-password-dialog.md)
+- [ErrorManager](https://github.com/etn-ccis/blui-react-workflows/tree/master/login-workflow/docs/components/error-manager.md)
+- [PasswordTextField](https://github.com/etn-ccis/blui-react-workflows/tree/master/login-workflow/docs/components/password-text-field.md)
+- [RegistrationWorkflow](https://github.com/etn-ccis/blui-react-workflows/tree/master/login-workflow/docs/components/refistration-workflow.md)
 - [SetPassword](https://github.com/etn-ccis/blui-react-workflows/tree/master/login-workflow/docs/components/set-password.md)
 - [WorkflowCard](https://github.com/etn-ccis/blui-react-workflows/tree/master/login-workflow/docs/components/workflow-card.md)
 ## Screens

@@ -22,13 +22,16 @@ const MyComponent = () => {
 
  - **DialogProps** 
    - See [Dialog](https://mui.com/material-ui/react-dialog/) for more details.
+ - **open**
+   - Whether the dialog is open.
+   - **Type:** `boolean` 
  - **title** 
    - The title to display in the dialog.
    - **Type:** `string`
  - **body** 
    - The body to display in the dialog.
    - **Type:** `string`
- - **onClose** 
+ - **onClose**
    - A function that is called when the close button is clicked.
    - **Type:** `() => void`
  - **dismissButtonText** (optional)
