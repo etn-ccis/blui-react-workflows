@@ -97,6 +97,7 @@ export const ChangePasswordDialog: React.FC<ChangePasswordDialogProps> = (props)
             onPrevious={onPrevious}
             onSubmit={(): void => {
                 void changePasswordSubmit();
+                navigate('-1');
             }}
             PasswordProps={passwordProps}
             ErrorDialogProps={errorDialogProps}
