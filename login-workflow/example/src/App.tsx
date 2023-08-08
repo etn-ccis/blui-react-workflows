@@ -65,7 +65,7 @@ export const App = (): JSX.Element => {
             <CircularProgress sx={emptyStateContainerStyles} size={70} variant={'indeterminate'} />
         </Box>
     ) : (
-        <I18nextProvider i18n={i18nAppInstance} defaultNS={'blui'}>
+        <I18nextProvider i18n={i18nAppInstance} defaultNS={'app'}>
             <AppContext.Provider
                 value={{
                     isAuthenticated,

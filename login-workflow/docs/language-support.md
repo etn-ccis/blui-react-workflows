@@ -44,3 +44,65 @@ import { useTranslation } from 'react-i18next';
 const { t } = useTranslation();
 <ForgotPasswordScreen emailLabel={`${t('EMAIL')}`} />
 ```
+
+## Add New language within our workflow
+
+To add new languages other than English, French, Portuguese, Spanish, and Simplified Chinese. You need to override existing translation keys. You can check the following example.
+
+To override any of the strings or translations used internally in the Workflow you can do it same as below.
+```tsx
+const bluiAuthResources =  {
+    translation: {
+        SETTINGS: {
+            TITLE: '제목',
+        },
+    },
+}
+
+const bluiCommonResources =  {
+    translation: {
+        ACTIONS: {
+            NEXT: '다음',
+        },
+    },
+}
+
+const bluiRegistrationResources = {
+    translation: {
+        REGISTRATION: {
+            EULA: {
+                LOADING: '최종 사용자 라이선스 계약 로드 중...',
+            },
+        },
+    },
+};
+
+
+export const i18nAppInstance = i18next.createInstance(
+    {
+        ...
+        resources: {
+            ...
+            kr: {
+                app: {
+                    ...AppDictionaries.korean.translation,
+                },
+                bluiAuth: {
+                    ...AppDictionaries.korean.bluiAuthResources.translation,
+                },
+                bluiRegistration: {
+                    ...AppDictionaries.korean.bluiRegistrationResources.translation,
+                },
+                bluiCommon: {
+                    ...AppDictionaries.korean.bluiCommonResources.translation,
+                },
+            },
+        },
+    },
+);
+```
+
+> For a complete list of resource IDs available, refer to the documentation for 
+[Authentication Workflow](https://github.com/etn-ccis/blui-react-workflows/tree/master/login-workflow/src/new-architecture/contexts/AuthContext/AuthDictionaries/english.ts).
+[Registration Workflow](https://github.com/etn-ccis/blui-react-workflows/tree/master/login-workflow/src/new-architecture/contexts/RegistrationContext/RegistrationDictionaries).
+[Common translations](https://github.com/etn-ccis/blui-react-workflows/tree/master/login-workflow/src/new-architecture/contexts/SharedDictionaries/english.ts).
