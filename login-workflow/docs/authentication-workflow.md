@@ -32,13 +32,11 @@ import { ProjectAuthUIActions } from '../actions/AuthUIActions';
 import { Outlet, Route, Routes } from 'react-router-dom';
 import { Login } from './Login';
 import { routes } from '../navigation/Routing';
-import { useSecurityActions } from '../path-to-your-use-security-actions-implementation';
 
 export const AppRouter: React.FC = () => {
    // Language will be managed by some state within your app, in this example, a useApp hook that gets the app language.
     const { language, yourAppSecurityHelper } = useApp();
     const navigate = useNavigate();
-    const securityContextActions = useSecurityActions();
     return (
         <Routes>
             {/* AUTH ROUTES */}
@@ -52,16 +50,42 @@ export const AppRouter: React.FC = () => {
                         i18n={yourI18nAppInstance}
                         rememberMeDetails={{ email: rememberMe ? email : '', rememberMe: rememberMe }}
                     >
-                        <ReactRouterGuestGuard isAuthenticated={app.isAuthenticated} fallBackUrl={'/'}>
-                            <Outlet />
-                        </ReactRouterGuestGuard>
+                        <Outlet />
                     </AuthContextProvider>
                 }
             >
-                <Route path={'/login'} element={<Login />} />
-                <Route path={'/forgot-password'} element={<ForgotPasswordScreen />} />
-                <Route path={'/contact-support'} element={<ContactSupportScreen />} />
-                <Route path={'/reset-password'} element={<ResetPasswordScreen />} />
+                <Route
+                    path={'/login'}
+                    element={
+                        <ReactRouterGuestGuard isAuthenticated={app.isAuthenticated} fallBackUrl={'/'}>
+                            <Login />
+                        </ReactRouterGuestGuard>
+                    }
+                />
+                <Route
+                    path={'/forgot-password'}
+                    element={
+                        <ReactRouterGuestGuard isAuthenticated={app.isAuthenticated} fallBackUrl={'/'}>
+                            <ForgotPasswordScreen />
+                        </ReactRouterGuestGuard>
+                    }
+                />
+                <Route
+                    path={'/contact-support'}
+                    element={
+                        <ReactRouterGuestGuard isAuthenticated={app.isAuthenticated} fallBackUrl={'/'}>
+                            <ContactSupportScreen />
+                        </ReactRouterGuestGuard>
+                    }
+                />
+                <Route
+                    path={'/reset-password'}
+                    element={
+                        <ReactRouterGuestGuard isAuthenticated={app.isAuthenticated} fallBackUrl={'/'}>
+                            <ResetPasswordScreen />
+                        </ReactRouterGuestGuard>
+                    }
+                />
             </Route>
             ...
         </Routes>
@@ -74,24 +98,24 @@ export const AppRouter: React.FC = () => {
 ### AuthContextProviderProps
 The `AuthContextProvider` manages the state of the authentication workflow. It is a React Context Provider that wraps the entire authentication workflow. It is responsible for managing the state of the authentication workflow and providing the necessary actions to the various screens. The `AuthContextProviderProps` type is used to configure the `AuthContextProvider`.
 
--   **actions**:  _`() => AuthUIActions`_
+-  **actions**:  _`() => AuthUIActions`_
     -   A function that returns an object of functions that are used to manage the authentication workflow. See [AuthUIActions](#authuiactions) for more information.
 -  **language**: _`string`_
    -    The language code to use for the authentication workflow. This is used to determine which language to use for the UI and for the API calls.
--   **navigate**: _`(url: string) => void`_
+-  **navigate**: _`(url: string) => void`_
     -   A function that is used to navigate to a new URL. This is used to navigate to the various screens of the authentication workflow.
 -  **routeConfig**: _`RouteConfig`_
     -   An object that defines the various routes for the authentication workflow. See [RouteConfig](#routeconfig) for more information.
 -  **i18n**: (optional) _`i18n`_
     -   An optional i18n object that is used to translate the UI. If not provided, the default i18n object will be used.
-- **rememberMeDetails**: (optional) _`{ email?: string, rememberMe?: boolean }`_
+-  **rememberMeDetails**: (optional) _`{ email?: string, rememberMe?: boolean }`_
     -   An optional object that is used to pre-populate the email field of the Login screen and to determine if the user should be remembered. If not provided, the email field will be empty and the user will not be remembered.
-- **errorConfig**: (optional) _`ErrorContextProviderProps`_
+-  **errorConfig**: (optional) _`ErrorContextProviderProps`_
     -   An optional object that is used to configure the error handling of the authentication workflow. See [ErrorContextProviderProps](#errorcontextproviderprops) for more information.
 
 ### AuthUIActions
 
--   **initiateSecurity**: _`() => Promise<void>`_
+-  **initiateSecurity**: _`() => Promise<void>`_
     -   A function that is used to initiate the security context. This function will be called when the application is first loaded.
 -  **logIn**: _`(email: string, password: string, rememberMe: boolean) => Promise<void>`_
    -    A function that is used to log in a user. This function will be called when the user clicks the Login button on the Login screen.
@@ -121,29 +145,29 @@ The `ErrorContextProvider` manages the state of the error handling. It is a Reac
 
 -  **mode**: (default: "dialog") _`"dialog" | "message-box" | "none"`_
     -   The mode to use for displaying errors. If set to "dialog", errors will be displayed in a dialog. If set to "message-box", errors will be displayed in a message box. If set to "none", errors will not be displayed.
-- **onClose**: (optional) _`() => void`_
+-  **onClose**: (optional) _`() => void`_
     -   A function that is called when the error dialog is closed.
-- **dialogConfig**: (optional) _`{ title?: string, dismissLabel?: string }`_
+-  **dialogConfig**: (optional) _`{ title?: string, dismissLabel?: string }`_
     -   An optional object that is used to configure the error dialog. See [DialogConfig](#dialogconfig) for more information.
-- **messageBoxConfig**: (optional) _`{ dismissible?: boolean, position?: "top" | "bottom", fontColor?: string, backgroundColor?: string, sx?: SxProps }`_
+-  **messageBoxConfig**: (optional) _`{ dismissible?: boolean, position?: "top" | "bottom", fontColor?: string, backgroundColor?: string, sx?: SxProps }`_
     -   An optional object that is used to configure the error message box. See [MessageBoxConfig](#messageboxconfig) for more information.
   
 ### DialogConfig
 Type to represent the customizable configuration of the error dialog.
 
-- **title**: (optional) _`string`_
+-  **title**: (optional) _`string`_
     -   The title to display in the error dialog.
-- **dismissLabel**: (optional) _`string`_
+-  **dismissLabel**: (optional) _`string`_
     -   The label to display on the dismiss button in the error dialog.
 
 ### MessageBoxConfig
 Type to represent the customizable configuration of the error message box.
 
-- **dismissible**: (default: true) _`boolean`_
+-  **dismissible**: (default: true) _`boolean`_
     -   Determines if the error message box can be dismissed.
-- **position**: (default: "top") _`"top" | "bottom"`_
+-  **position**: (default: "top") _`"top" | "bottom"`_
     -   Determines if the error message box should be displayed at the top or bottom of the screen.
-- **fontColor**: (default: "#ffffff") _`string`_
+-  **fontColor**: (default: "#ffffff") _`string`_
     -   The font color to use for the error message box.
-- **backgroundColor**: (default: theme.palette.error.main) _`string`_
+-  **backgroundColor**: (default: theme.palette.error.main) _`string`_
     -   The background color to use for the error message box.
