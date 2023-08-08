@@ -145,7 +145,7 @@ export const AppRouter: React.FC = () => {
 
 ### Protecting Your Application Routes
 
-In order to protect your application routes you can make use of our `ReactRouterAuthGuard` to secure your app.
+If there are routes that you would like to protect and only be available if user is authenticated, you can make use of our `ReactRouterAuthGuard` component.
 
 #### Example Usage
 
@@ -187,7 +187,7 @@ export const AppRouter: React.FC = () => {
 
 ### Guest Guard Usage
 
-In order to access routes only when user is not authenticated you can make use of our `ReactRouterGuestGuard` component.
+If there are routes that you would like to be available without logging in (such as a Terms of Service page), you can make use of our `ReactRouterGuestGuard` component.
 
 #### Example Usage
 
