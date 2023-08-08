@@ -120,7 +120,7 @@ The `ErrorContextProvider` manages the state of the error handling. It is a Reac
 - **messageBoxConfig**: (optional) _`{ dismissible?: boolean, position?: "top" | "bottom", fontColor?: string, backgroundColor?: string, sx?: SxProps }`_
     -   An optional object that is used to configure the error message box. See [MessageBoxConfig](#messageboxconfig) for more information.
   
-  ### DialogConfig
+### DialogConfig
 Type to represent the customizable configuration of the error dialog.
 
 - **title**: (optional) _`string`_
