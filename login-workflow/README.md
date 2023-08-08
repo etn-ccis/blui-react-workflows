@@ -49,10 +49,10 @@ In short, you will need to:
 -   [Internationalization](/TODO)
 -   [Adding a Login Workflow](/TODO)
 -   [Adding a Registration Workflow](/TODO)
--   [Defining Actions](/TODO)
 -   [Handling Errors](/TODO)
 -   [Customizing Workflows](/TODO)
 -   [Components & APIs](/TODO)
+-   [Screens](/TODO)
 
 # Migrating from v4 => v5
 We have listened to your feedback and version 5 of this library is a significant rewrite that aims to address many requests for greater flexibility and customization of the workflows.
