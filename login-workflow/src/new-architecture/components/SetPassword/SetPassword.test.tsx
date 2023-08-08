@@ -2,7 +2,6 @@ import React from 'react';
 import '@testing-library/jest-dom';
 import { cleanup, fireEvent, render, RenderResult, screen } from '@testing-library/react';
 import { SetPassword } from './SetPassword';
-import { AuthUIContextProvider } from '../../../auth-shared';
 import { AuthContextProvider } from '../../contexts';
 import { PasswordRequirement, SetPasswordProps } from './types';
 import { authContextProviderProps } from '../../testUtils';
@@ -41,9 +40,7 @@ describe('SetPassword', () => {
     const renderer = (props = setPasswordProps): RenderResult =>
         render(
             <AuthContextProvider {...authContextProviderProps}>
-                <AuthUIContextProvider authActions={jest.fn()} registrationActions={jest.fn()}>
-                    <SetPassword {...props} />
-                </AuthUIContextProvider>
+                <SetPassword {...props} />
             </AuthContextProvider>
         );
 
@@ -109,9 +106,7 @@ describe('SetPassword', () => {
 
         rerender(
             <AuthContextProvider {...authContextProviderProps}>
-                <AuthUIContextProvider authActions={jest.fn()} registrationActions={jest.fn()}>
-                    <SetPassword {...setPasswordProps} />
-                </AuthUIContextProvider>
+                <SetPassword {...setPasswordProps} />
             </AuthContextProvider>
         );
 
@@ -138,9 +133,7 @@ describe('SetPassword', () => {
 
         rerender(
             <AuthContextProvider {...authContextProviderProps}>
-                <AuthUIContextProvider authActions={jest.fn()} registrationActions={jest.fn()}>
-                    <SetPassword {...props} />
-                </AuthUIContextProvider>
+                <SetPassword {...props} />
             </AuthContextProvider>
         );
 
