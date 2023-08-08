@@ -132,7 +132,7 @@ export const ProjectAuthUIActions: AuthUIActionsWithApp = (appHelper) => (): Aut
         if (isRandomFailure()) {
             throw new Error('Sorry, there was a problem sending your request.');
         }
-        return code === '123';
+        return;
     },
     /**
      * A user who has previously used "forgotPassword" now has a valid password reset code
