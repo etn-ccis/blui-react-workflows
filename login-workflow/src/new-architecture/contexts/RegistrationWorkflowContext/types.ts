@@ -27,4 +27,5 @@ export type RegistrationWorkflowContextProps = {
     previousScreen: (data: IndividualScreenData) => void;
     screenData: ScreenData;
     updateScreenData: (data: IndividualScreenData) => void;
+    isInviteRegistration: boolean;
 };

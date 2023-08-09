@@ -136,6 +136,7 @@ export const RegistrationWorkflow: React.FC<React.PropsWithChildren<Registration
             }}
             screenData={screenData}
             updateScreenData={updateScreenData}
+            isInviteRegistration={isInviteRegistration}
         >
             {showSuccessScreen ? successScreen : screens[currentScreen]}
         </RegistrationWorkflowContextProvider>
