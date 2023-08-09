@@ -127,7 +127,7 @@ export const ProjectAuthUIActions: AuthUIActionsWithApp = (appHelper) => (): Aut
      *
      * @returns Resolve if code is valid, otherwise reject.
      */
-    verifyResetCode: async (code: string, email?: string): Promise<any> => {
+    verifyResetCode: async (code: string, email?: string): Promise<void> => {
         await sleep(500);
         if (isRandomFailure()) {
             throw new Error('Sorry, there was a problem sending your request.');
