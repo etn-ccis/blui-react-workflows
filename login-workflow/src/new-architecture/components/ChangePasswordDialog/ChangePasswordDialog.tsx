@@ -14,7 +14,7 @@ export const ChangePasswordDialog: React.FC<ChangePasswordDialogProps> = (props)
     const [currentInput, setCurrentInput] = useState('');
     const [showErrorDialog, setShowErrorDialog] = useState(false);
     const [isLoading, setIsLoading] = useState(false);
-    const { actions, navigate } = useAuthContext();
+    const { actions, navigate, routeConfig } = useAuthContext();
 
     const passwordRequirements = defaultPasswordRequirements(t);
 
@@ -97,7 +97,7 @@ export const ChangePasswordDialog: React.FC<ChangePasswordDialogProps> = (props)
             onPrevious={onPrevious}
             onSubmit={(): void => {
                 void changePasswordSubmit();
-                navigate('-1');
+                navigate(routeConfig.LOGIN);
             }}
             PasswordProps={passwordProps}
             ErrorDialogProps={errorDialogProps}
