@@ -17,22 +17,22 @@ You need to wrap your app with <I18nextProvider/> for rendering translations in 
 If you want to use keys from your application dictionary in any of the workflow screens or any custom screens that you provide within the Auth or Login workflows, you need to pass your app's i18n instance to the `AuthContextProvider` via the `i18n` prop.
 
 ```tsx
-import { i18n } from './i18n';
+import { i18nAppInstance } from './i18n';
 
 <AuthContextProvider
     ...
-    i18n={i18n}
+    i18n={i18nAppInstance}
 >
 ```
 
 `Registration workflow` works in the same way, allowing you to pass an i18n instance via the `i18n` prop.
 
 ```tsx
-import { i18n } from './i18n';
+import { i18nAppInstance } from './i18n';
 
 <RegistrationContextProvider
     ...
-    i18n={i18n}
+    i18n={i18nAppInstance}
 >
 ```
 f you need to override any of the translations used internally in any of the components or screens, you can use the `t` function from `react-i18next` and pass the translation key.
