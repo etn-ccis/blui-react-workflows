@@ -1,6 +1,24 @@
 # Customization Guide
 While the default workflow is designed to work for most applications, we understand that you may need to customize the workflow to meet your needs. This guide will walk you through the various ways you can customize the workflow.
 
+## Customizing Authentication Workflow
+
+### Customizing Login
+You may want to customize which items are visible from the login screen. In order to do this you will need to customize the [Login Screen](https://github.com/etn-ccis/blui-react-workflows/tree/master/login-workflow/screens/login.md) via props to render the the appropriate items. You will also need to ensure that all routes that you wish to be accessible from the login screen are set up properly in your [Routing](https://github.com/etn-ccis/blui-react-workflows/tree/master/login-workflow/docs/routing.md) setup.
+
+Here is an example of how you would set up the Login Screen if you did not want to allow account creation or remember me functionality: 
+```tsx
+import React from 'react';
+import { LoginScreen } from '@brightlayer-ui/react-auth-workflow';
+
+export const Login = (): JSX.Element => (
+    <LoginScreen
+        showRememberMe={false}
+        showSelfRegistration={false}
+    />
+);
+```
+
 ## Customizing Registration Workflow
 
 ### Customizing the Screen Order
@@ -9,7 +27,7 @@ You may want to customize the order of your screens within the workflow. In orde
 Our default implementation looks like this:
   
 ```jsx
-<RegistrationWorkflow initialScreenIndex={0}>
+<RegistrationWorkflow>
     <EulaScreen />              // screen1
     <CreateAccountScreen />     // screen2
     <VerifyCodeScreen />        // screen3
@@ -32,8 +50,26 @@ Your custom implementation, removing the EulaScreen and VerifyCodeScreen, and ad
 </RegistrationWorkflow>
 ```
 
-<!-- ### Customizing the Registration Success Screen -->
-<!-- @TODO... or not to do. This is just a prop on the screens it is used for. Do we need an in depth example or do the API docs cover it? -->
+### Customizing the Registration Success Screen
+You may provide a custom success screen to be shown upon successful completion of the [Registration Workflow](https://github.com/etn-ccis/blui-react-workflows/tree/master/login-workflow/docs/components/registration-workflow.md). The [Success Screen](https://github.com/etn-ccis/blui-react-workflows/tree/master/login-workflow/docs/screens/success.md) is used by default, but may be customized via props. If you wish to build your own success screen it may look something like this:
+
+```jsx
+import { SuccessScreenBase } from '@brightlayer-ui/react-auth-workflow';
+
+const MyCustomSuccessScreen = () => {
+  return (
+    <SuccessScreenBase 
+        messageTitle={'Congratulations!'}
+        message={'You have been registered successfully'}
+    />
+  );
+};
+
+<RegistrationWorkflow successScreen={<MyCustomSuccessScreen />}>
+    // Registration Screens Go Here
+</RegistrationWorkflow>
+```
+
 
 ## Customizing the Pre-built Screens
 Many of the components and screens used to build the core workflow have been exported so you can easily customize the login and registration workflows. These Customization can be made via props on our [Components](https://github.com/etn-ccis/blui-react-workflows/tree/master/login-workflow/components/components.md) and [Screens](https://github.com/etn-ccis/blui-react-workflows/tree/master/login-workflow/screens/screens.md). 
@@ -69,6 +105,7 @@ export const Login = (): JSX.Element => (
 ## Customizing the Language Support
 
 For information about supporting multiple languages and customizing the translations, refer to our [Language Support](https://github.com/etn-ccis/blui-react-workflows/tree/master/login-workflow/docs/language-support.md) guidelines.
+
 ## Customizing the Routing
 
 We don't prescribe a routing solution, however we do recommend using [React Router](https://reactrouter.com/). For example usage details, refer to the [Routing](https://github.com/etn-ccis/blui-react-workflows/tree/master/login-workflow/docs/routing.md) documentation.
@@ -77,10 +114,8 @@ We don't prescribe a routing solution, however we do recommend using [React Rout
 
 For information about handling errors in your application, refer to our [Error Management](https://github.com/etn-ccis/blui-react-workflows/tree/master/login-workflow/docs/error-management.md) documentation.
 
-<!-- Is this clause/link redundant -->
 ## Components
 For more details on customizing our components, refer to our [Components](https://github.com/etn-ccis/blui-react-workflows/tree/master/login-workflow/components/components.md) documentation. 
 
-<!-- Is this clause/link redundant -->
 ## Screens
 For more details on customizing our screens, refer to our [Screens](https://github.com/etn-ccis/blui-react-workflows/tree/master/login-workflow/screens/screens.md) documentation.
