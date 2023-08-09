@@ -15,9 +15,9 @@ In latest version we have removed @brightlayer-ui/react-auth-shared.
 
 Since we have removed `@brightlayer-ui/react-auth-shared` package `SecurityContextActions` are not supported by latest workflow. Instead of this you need to manage your app's state by app context. 
 
-For e.g You can replace SecurityContextActions with `AppContextType` which you can declare in AppContextProvider. You can check [here](https://github.com/etn-ccis/blui-react-workflows/blob/dev/login-workflow/example/src/contexts/AppContextProvider.tsx) for detailed implementation.
+For e.g. you can replace SecurityContextActions with `AppContextType` which you can declare in AppContextProvider. You can check [here](https://github.com/etn-ccis/blui-react-workflows/blob/master/login-workflow/example/src/contexts/AppContextProvider.tsx) for detailed implementation.
 
-In previous package `onUserAuthenticated`, `onUserNotAuthenticated` were managed by `@brightlayer-ui/react-auth-shared` but in latest you need to manage through app state. For more details you can check Example app's [AuthUIActions Implementation](https://github.com/etn-ccis/blui-react-workflows/blob/dev/login-workflow/example/src/actions/AuthUIActions.tsx)
+In previous package `onUserAuthenticated`, `onUserNotAuthenticated` were managed by `@brightlayer-ui/react-auth-shared` but in latest you need to manage through app state. For more details you can check Example app's [AuthUIActions Implementation](https://github.com/etn-ccis/blui-react-workflows/blob/master/login-workflow/example/src/actions/AuthUIActions.tsx)
 
 ## Update RegistrationUIActions
 
@@ -70,7 +70,7 @@ loadEula: async (language: string): Promise<string> => {
 }
 ```
 
-#### update completeRegistration Action
+#### Update completeRegistration Action
 
 // Before
 ```tsx
@@ -116,15 +116,15 @@ completeRegistration: async (
 #### Add new actions
 
 We have added few more actions in registraionUIActions such as `acceptEula`, `requestRegistrationCode`, `createPassword`, and `setAccountDetails`.
-For more details you can check implementation of Example app's [registraionUIActions](https://github.com/etn-ccis/blui-react-workflows/blob/dev/login-workflow/example/src/actions/RegistrationUIActions.tsx).
+For more details you can check implementation of Example app's [RegistraionUIActions Implementation](https://github.com/etn-ccis/blui-react-workflows/blob/master/login-workflow/example/src/actions/RegistrationUIActions.tsx).
 
 
 ### Update you App.tsx
 
-In latest workflow package `SecurityContextProvider`, `useSecurityActions` are not availble instead of this you need to use app context. 
+In latest workflow package `SecurityContextProvider`, `useSecurityActions` are not availble instead of this you need to use app context manage app state. Also we have removed `AuthNavigationContainer`
 
-#### Update AuthUIContextProvider
-In earlier package we were passing `registrationActions` prop to `AuthUIContextProvider`. In latest we have divided our context provider into  `AuthUIContextProvider` and `RegistrationContextProvider`.
+#### Update AuthContextProvider
+In earlier package we were passing `registrationActions` prop to `AuthUIContextProvider`. In latest package we have removed `AuthUIContextProvider` and divided our context provider into  `AuthUIContextProvider` and `RegistrationContextProvider`.
 
 #### Router Setup
 In latest workflow you need to setup your own routing. For detail information please follow [Routing Guide](https://github.com/etn-ccis/blui-react-workflows/tree/master/login-workflow/docs/Routing.md)
