@@ -30,8 +30,6 @@ export const AccountDetailsScreen: React.FC<AccountDetailsScreenProps> = (props)
     }, [actions, firstName, lastName, nextScreen, triggerError]);
 
     const onPrevious = useCallback(() => {
-        setFirstName(firstName);
-        setLastName(lastName);
         previousScreen({
             screenId: 'AccountDetails',
             values: { firstName, lastName },
@@ -46,20 +44,20 @@ export const AccountDetailsScreen: React.FC<AccountDetailsScreenProps> = (props)
         firstNameLabel = t('bluiCommon:FORMS.FIRST_NAME'),
         lastNameLabel = t('bluiCommon:FORMS.LAST_NAME'),
         firstNameValidator = (name: string): boolean | string => {
-            setFirstName(name);
             if (name?.length > 0) {
                 return true;
             }
             return t('bluiCommon:FORMS.FIRST_NAME_LENGTH_ERROR');
         },
         lastNameValidator = (name: string): boolean | string => {
-            setLastName(name);
             if (name?.length > 0) {
                 return true;
             }
             return t('bluiCommon:FORMS.LAST_NAME_LENGTH_ERROR');
         },
         errorDisplayConfig = errorManagerConfig,
+        firstNameTextFieldProps,
+        lastNameTextFieldProps,
     } = props;
 
     const workflowCardHeaderProps = {
@@ -96,6 +94,13 @@ export const AccountDetailsScreen: React.FC<AccountDetailsScreenProps> = (props)
         },
     };
 
+    const onFirstNameInputChange = (e: any): void => {
+        setFirstName(e.target.value);
+    };
+    const onLastNameInputChange = (e: any): void => {
+        setLastName(e.target.value);
+    };
+
     return (
         <AccountDetailsScreenBase
             WorkflowCardBaseProps={workflowCardBaseProps}
@@ -104,8 +109,10 @@ export const AccountDetailsScreen: React.FC<AccountDetailsScreenProps> = (props)
             initialFirstName={firstName}
             initialLastName={lastName}
             firstNameLabel={firstNameLabel}
+            firstNameTextFieldProps={{ ...firstNameTextFieldProps, onChange: onFirstNameInputChange }}
             firstNameValidator={firstNameValidator}
             lastNameLabel={lastNameLabel}
+            lastNameTextFieldProps={{ ...lastNameTextFieldProps, onChange: onLastNameInputChange }}
             lastNameValidator={lastNameValidator}
             WorkflowCardActionsProps={workflowCardActionsProps}
             errorDisplayConfig={errorDisplayConfig}
