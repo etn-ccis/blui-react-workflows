@@ -1,9 +1,10 @@
-import React, { useCallback, useRef, useState } from 'react';
+import React, { useCallback, useRef, useState, useEffect } from 'react';
 import CheckCircle from '@mui/icons-material/CheckCircle';
 import { ResetPasswordScreenBase } from './ResetPasswordScreenBase';
-import { useLanguageLocale, useQueryString } from '../../hooks';
+import { useLanguageLocale } from '../../hooks';
 import { useAuthContext } from '../../contexts';
 import { defaultPasswordRequirements } from '../../constants';
+import { parseQueryString } from '../../utils';
 import { ResetPasswordScreenProps } from './types';
 import { useErrorManager } from '../../contexts/ErrorContext/useErrorManager';
 
@@ -30,14 +31,27 @@ export const ResetPasswordScreen: React.FC<ResetPasswordScreenProps> = (props) =
     const confirmRef = useRef(null);
     const [passwordInput, setPasswordInput] = useState('');
     const [confirmInput, setConfirmInput] = useState('');
+    const [hasVerifyCodeError, setHasVerifyCodeError] = useState(false);
     const [isLoading, setIsLoading] = useState(false);
     const [showSuccessScreen, setShowSuccessScreen] = useState(props.showSuccessScreen);
     const { triggerError, errorManagerConfig } = useErrorManager();
 
-    const { code, email } = useQueryString();
+    const { code, email } = parseQueryString(window.location.search);
 
     const { actions, navigate, routeConfig } = useAuthContext();
     const passwordRequirements = defaultPasswordRequirements(t);
+
+    const verifyResetCode = useCallback(async (): Promise<void> => {
+        try {
+            setIsLoading(true);
+            await actions().verifyResetCode(code, email);
+        } catch (_error) {
+            setHasVerifyCodeError(true);
+            triggerError(_error as Error);
+        } finally {
+            setIsLoading(false);
+        }
+    }, []);
 
     const handleOnNext = useCallback(async (): Promise<void> => {
         try {
@@ -65,6 +79,10 @@ export const ResetPasswordScreen: React.FC<ResetPasswordScreenProps> = (props) =
         },
         [setPasswordInput, setConfirmInput]
     );
+
+    useEffect(() => {
+        verifyResetCode();
+    }, []);
 
     const {
         WorkflowCardBaseProps,
@@ -155,7 +173,15 @@ export const ResetPasswordScreen: React.FC<ResetPasswordScreenProps> = (props) =
                 },
             }}
             showSuccessScreen={showSuccessScreen}
-            errorDisplayConfig={errorDisplayConfig}
+            errorDisplayConfig={{
+                ...errorDisplayConfig,
+                onClose: hasVerifyCodeError
+                    ? (): void => {
+                          navigate(routeConfig.LOGIN);
+                          errorDisplayConfig.onClose;
+                      }
+                    : errorDisplayConfig.onClose,
+            }}
         />
     );
 };
