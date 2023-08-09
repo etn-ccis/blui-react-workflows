@@ -9,7 +9,6 @@ updates:
       target-branch: 'dev'
       labels:
           - 'external-dependency'
-          - 'brightlayer-ui'
 
     - package-ecosystem: 'npm'
       directory: '/login-workflow/example'
@@ -20,4 +19,3 @@ updates:
       target-branch: 'dev'
       labels:
           - 'external-dependency'
-          - 'brightlayer-ui'
