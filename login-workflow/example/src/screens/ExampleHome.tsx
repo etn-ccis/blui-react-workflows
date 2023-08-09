@@ -40,14 +40,6 @@ export const ExampleHome: React.FC<React.PropsWithChildren> = () => {
     const theme = useTheme();
     const [openDialog, setOpenDialog] = React.useState(false);
 
-    const dialogClose = (): void => {
-        setOpenDialog(false);
-    };
-
-    const openDialogBox = (): any => {
-        setOpenDialog(true);
-    };
-
     const containerStyles = {
         width: '100%',
         height: `calc(100vh - ${theme.spacing(8)})`,
@@ -159,7 +151,7 @@ export const ExampleHome: React.FC<React.PropsWithChildren> = () => {
                                                 icon: <LockIcon />,
                                                 title: `${t('USER_MENU.CHANGE_PASSWORD')}`,
                                                 onClick: (): any => {
-                                                    openDialogBox();
+                                                    setOpenDialog(true);
                                                 },
                                             },
                                             {
@@ -186,7 +178,7 @@ export const ExampleHome: React.FC<React.PropsWithChildren> = () => {
                     />
                 </Box>
             </DrawerLayout>
-            <ChangePasswordDialog open={openDialog} onClose={dialogClose} />
+            <ChangePasswordDialog open={openDialog} />
         </>
     );
 };
