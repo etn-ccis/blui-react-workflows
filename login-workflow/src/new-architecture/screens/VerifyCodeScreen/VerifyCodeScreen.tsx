@@ -4,7 +4,6 @@ import { VerifyCodeScreenProps } from './types';
 import { useLanguageLocale } from '../../hooks';
 import { useRegistrationContext, useRegistrationWorkflowContext } from '../../contexts';
 import { useErrorManager } from '../../contexts/ErrorContext/useErrorManager';
-import { ExistingAccountSuccessScreen } from '../ExistingAccountSuccessScreen';
 
 /**
  * Component that renders a screen that prompts a user to enter the confirmation code
@@ -29,7 +28,6 @@ export const VerifyCodeScreen: React.FC<VerifyCodeScreenProps> = (props) => {
 
     const [verifyCode, setVerifyCode] = useState(screenData.VerifyCode.code);
     const [isLoading, setIsLoading] = useState(false);
-    const [isAccountExist, setIsAccountExist] = useState(false);
 
     const requestResendCode = useCallback(async (): Promise<void> => {
         try {
@@ -60,14 +58,11 @@ export const VerifyCodeScreen: React.FC<VerifyCodeScreenProps> = (props) => {
             try {
                 setIsLoading(true);
                 const isAccExist = await actions().validateUserRegistrationRequest(code);
-                if (isAccExist) {
-                    setIsAccountExist(isAccExist);
-                } else {
-                    void nextScreen({
-                        screenId: 'VerifyCode',
-                        values: { code: code },
-                    });
-                }
+                void nextScreen({
+                    screenId: 'VerifyCode',
+                    values: { code: code },
+                    isAccountExist: isAccExist,
+                });
             } catch (_error) {
                 triggerError(_error as Error);
             } finally {
@@ -123,24 +118,18 @@ export const VerifyCodeScreen: React.FC<VerifyCodeScreenProps> = (props) => {
     };
 
     return (
-        <>
-            {isAccountExist ? (
-                <ExistingAccountSuccessScreen />
-            ) : (
-                <VerifyCodeScreenBase
-                    WorkflowCardBaseProps={workflowCardBaseProps}
-                    WorkflowCardHeaderProps={workflowCardHeaderProps}
-                    WorkflowCardInstructionProps={workflowCardInstructionProps}
-                    WorkflowCardActionsProps={workflowCardActionsProps}
-                    resendInstructions={resendInstructions}
-                    resendLabel={resendLabel}
-                    verifyCodeInputLabel={verifyCodeInputLabel}
-                    initialValue={initialValue}
-                    onResend={onResend}
-                    codeValidator={codeValidator}
-                    errorDisplayConfig={errorDisplayConfig}
-                />
-            )}
-        </>
+        <VerifyCodeScreenBase
+            WorkflowCardBaseProps={workflowCardBaseProps}
+            WorkflowCardHeaderProps={workflowCardHeaderProps}
+            WorkflowCardInstructionProps={workflowCardInstructionProps}
+            WorkflowCardActionsProps={workflowCardActionsProps}
+            resendInstructions={resendInstructions}
+            resendLabel={resendLabel}
+            verifyCodeInputLabel={verifyCodeInputLabel}
+            initialValue={initialValue}
+            onResend={onResend}
+            codeValidator={codeValidator}
+            errorDisplayConfig={errorDisplayConfig}
+        />
     );
 };

@@ -13,12 +13,12 @@ export type ScreenData = {
 };
 
 export type IndividualScreenData =
-    | { screenId: 'Eula'; values: ScreenData['Eula'] }
-    | { screenId: 'CreateAccount'; values: ScreenData['CreateAccount'] }
-    | { screenId: 'VerifyCode'; values: ScreenData['VerifyCode'] }
-    | { screenId: 'CreatePassword'; values: ScreenData['CreatePassword'] }
-    | { screenId: 'AccountDetails'; values: ScreenData['AccountDetails'] }
-    | { screenId: string; values: { [key: string]: boolean | string | number } };
+    | { screenId: 'Eula'; values: ScreenData['Eula']; isAccountExist?: boolean }
+    | { screenId: 'CreateAccount'; values: ScreenData['CreateAccount']; isAccountExist?: boolean }
+    | { screenId: 'VerifyCode'; values: ScreenData['VerifyCode']; isAccountExist?: boolean }
+    | { screenId: 'CreatePassword'; values: ScreenData['CreatePassword']; isAccountExist?: boolean }
+    | { screenId: 'AccountDetails'; values: ScreenData['AccountDetails']; isAccountExist?: boolean }
+    | { screenId: string; values: { [key: string]: boolean | string | number }; isAccountExist?: boolean };
 
 export type RegistrationWorkflowContextProps = {
     currentScreen: number;
