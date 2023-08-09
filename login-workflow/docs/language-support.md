@@ -14,7 +14,7 @@ To add i18n in your application you can follow the instructions from [official w
 You need to wrap your app with <I18nextProvider/> for rendering translations in the app. For reference, you can check [I18nextProvider](https://react.i18next.com/latest/i18nextprovider).
 
 
-If you want to use keys from your application dictionary in any of the workflow screens or any custom screens that you provide within the Auth or Login workflows, you need to pass your app's i18n instance to the `AuthContextProvider`/`RegistrationContextProvider` via the `i18n` prop.
+If you want to use keys from your application dictionary in any of the workflow screens or any custom screens that you provide within the Auth or Login workflows, you need to pass your app's i18n instance to the `AuthContextProvider` via the `i18n` prop.
 
 ```tsx
 import { i18n } from './i18n';
@@ -28,16 +28,15 @@ import { i18n } from './i18n';
 `Registration workflow` works in the same way, allowing you to pass an i18n instance via the `i18n` prop.
 
 ```tsx
-import { i18nAppInstance } from './i18n';
+import { i18n } from './i18n';
 
 <RegistrationContextProvider
     ...
     i18n={i18n}
 >
 ```
-
-If you need to override any of the translations used internally in our Workflow, you can do it in a similar way as below.
-
+f you need to override any of the translations used internally in any of the components or screens, you can use the `t` function from `react-i18next` and pass the translation key.
+For e.g. if you want to override default `Email` label of `<ForgotPasswordScreen />` component you can pass key `EMAIL` to `t` function without namespace. It will take default namespace which you declare while creating an i18n instance.
 ```tsx
 import { useTranslation } from 'react-i18next';
 
@@ -47,10 +46,12 @@ const { t } = useTranslation();
 
 ## Add New language within our workflow
 
-To add new languages other than English, French, Portuguese, Spanish, and Simplified Chinese. You need to override existing translation keys. You can check the following example.
+To add new languages other than English, French, Portuguese, Spanish, and Simplified Chinese. You need to add your own translation dictionary which will have our existing translation keys.
 
-To override any of the strings or translations used internally in the Workflow you can do it same as below.
+To add new language with all translation keys of workflow you can do it same as below. The below example is only having a few keys to our workflow. You need to use all resource IDs to translate the complete workflow.
+
 ```tsx
+// Auth Workflow Keys
 const bluiAuthResources =  {
     translation: {
         SETTINGS: {
@@ -58,7 +59,7 @@ const bluiAuthResources =  {
         },
     },
 }
-
+// Common Keys used in Auth and Registration Workflow
 const bluiCommonResources =  {
     translation: {
         ACTIONS: {
@@ -66,7 +67,7 @@ const bluiCommonResources =  {
         },
     },
 }
-
+// Registration Workflow Keys
 const bluiRegistrationResources = {
     translation: {
         REGISTRATION: {
@@ -76,7 +77,6 @@ const bluiRegistrationResources = {
         },
     },
 };
-
 
 export const i18nAppInstance = i18next.createInstance(
     {
@@ -104,5 +104,5 @@ export const i18nAppInstance = i18next.createInstance(
 
 > For a complete list of resource IDs available, refer to the documentation for 
 [Authentication Workflow](https://github.com/etn-ccis/blui-react-workflows/tree/master/login-workflow/src/new-architecture/contexts/AuthContext/AuthDictionaries/english.ts).
-[Registration Workflow](https://github.com/etn-ccis/blui-react-workflows/tree/master/login-workflow/src/new-architecture/contexts/RegistrationContext/RegistrationDictionaries).
+[Registration Workflow](https://github.com/etn-ccis/blui-react-workflows/tree/master/login-workflow/src/new-architecture/contexts/RegistrationContext/RegistrationDictionaries/english.ts).
 [Common translations](https://github.com/etn-ccis/blui-react-workflows/tree/master/login-workflow/src/new-architecture/contexts/SharedDictionaries/english.ts).
