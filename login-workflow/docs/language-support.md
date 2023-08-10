@@ -8,13 +8,15 @@ This package supports translations to different languages using [i18next](https:
 -   Spanish
 -   Simplified Chinese
 
+Workflow dictionaries are independent of the user application dictionaries. However, you can add a new language other than above mentioned languages. For more details, refer to the section [Add New language within our workflow](#add-new-language-within-our-workflow).
+
 ## Add/Override translations within our workflow
 
 To add i18n in your application you can follow the instructions from [official website](https://react.i18next.com/getting-started).
 You need to wrap your app with <I18nextProvider/> for rendering translations in the app. For reference, you can check [I18nextProvider](https://react.i18next.com/latest/i18nextprovider).
 
 
-If you want to use keys from your application dictionary in any of the workflow screens or any custom screens that you provide within the Auth or Login workflows, you need to pass your app's i18n instance to the `AuthContextProvider` via the `i18n` prop.
+If you want to use keys from your application dictionary in any of the workflow screens or any custom screens that you provide within the Auth or Registration workflows, you need to pass your app's i18n instance to the `AuthContextProvider` and/or `RegistrationContextProvider` via the `i18n` prop.
 
 ```tsx
 import { i18nAppInstance } from './i18n';
@@ -35,8 +37,8 @@ import { i18nAppInstance } from './i18n';
     i18n={i18nAppInstance}
 >
 ```
-f you need to override any of the translations used internally in any of the components or screens, you can use the `t` function from `react-i18next` and pass the translation key.
-For e.g. if you want to override default `Email` label of `<ForgotPasswordScreen />` component you can pass key `EMAIL` to `t` function without namespace. It will take default namespace which you declare while creating an i18n instance.
+If you need to override any of the translations used internally in any of the components or screens, you can use the `t` function from `react-i18next` and pass the translation key.
+For example, if you want to override the default `Email` label of the `<ForgotPasswordScreen />` component you can pass the key `EMAIL` to the `t` function without namespace. It will take the default namespace which you declare while creating an i18n instance.
 ```tsx
 import { useTranslation } from 'react-i18next';
 
@@ -46,9 +48,9 @@ const { t } = useTranslation();
 
 ## Add New language within our workflow
 
-To add new languages other than English, French, Portuguese, Spanish, and Simplified Chinese. You need to add your own translation dictionary which will have our existing translation keys.
+To add a new languages other than English, French, Portuguese, Spanish, and Simplified Chinese. You need to add your own translation dictionary which will have our existing translation keys.
 
-To add new language with all translation keys of workflow you can do it same as below. The below example is only having a few keys to our workflow. You need to use all resource IDs to translate the complete workflow.
+For adding a new language with all translation keys of workflow, you can do it the same as below. The below example is only having a few keys to our workflow. You need to use all resource IDs to translate the complete workflow.
 
 ```tsx
 // Auth Workflow Keys
