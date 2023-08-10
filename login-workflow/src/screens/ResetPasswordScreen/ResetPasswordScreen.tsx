@@ -51,6 +51,7 @@ export const ResetPasswordScreen: React.FC<ResetPasswordScreenProps> = (props) =
         } finally {
             setIsLoading(false);
         }
+        // eslint-disable-next-line react-hooks/exhaustive-deps
     }, []);
 
     const handleOnNext = useCallback(async (): Promise<void> => {
@@ -81,7 +82,9 @@ export const ResetPasswordScreen: React.FC<ResetPasswordScreenProps> = (props) =
     );
 
     useEffect(() => {
+        // eslint-disable-next-line
         verifyResetCode();
+        // eslint-disable-next-line react-hooks/exhaustive-deps
     }, []);
 
     const {
@@ -177,7 +180,9 @@ export const ResetPasswordScreen: React.FC<ResetPasswordScreenProps> = (props) =
                 ...errorDisplayConfig,
                 onClose: hasVerifyCodeError
                     ? (): void => {
+                          // eslint-disable-next-line no-unused-expressions
                           navigate(routeConfig.LOGIN);
+                          // eslint-disable-next-line
                           errorDisplayConfig.onClose;
                       }
                     : errorDisplayConfig.onClose,

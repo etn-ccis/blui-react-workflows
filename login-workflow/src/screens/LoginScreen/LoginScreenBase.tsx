@@ -5,7 +5,7 @@ import { WorkflowCardBody } from '../../components/WorkflowCard/WorkflowCardBody
 import TextField from '@mui/material/TextField';
 import Box from '@mui/material/Box';
 import Typography from '@mui/material/Typography';
-import cyberSecurityBadge from '../../../assets/images/cybersecurity_certified.png';
+import cyberSecurityBadge from '../../assets/images/cybersecurity_certified.png';
 import { PasswordTextField } from '../../components';
 import Button from '@mui/material/Button';
 import { useTheme } from '@mui/material/styles';
