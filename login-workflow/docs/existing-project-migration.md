@@ -13,11 +13,11 @@ In latest version we have removed @brightlayer-ui/react-auth-shared.
 
 ## Update AuthUIActions
 
-Since we have removed `@brightlayer-ui/react-auth-shared` package `SecurityContextActions` are not supported by latest workflow. Instead of this you need to manage your app's state by app context. 
+`SecurityContextActions` are not supported by the latest workflow. Instead of this, you will need to manage your app's authentication state by other means e.g., a custom context. 
 
-For e.g. you can replace SecurityContextActions with `AppContextType` which you can declare in AppContextProvider. You can check [here](https://github.com/etn-ccis/blui-react-workflows/blob/master/login-workflow/example/src/contexts/AppContextProvider.tsx) for detailed implementation.
+For example, you can replace `SecurityContextActions` with `AppContextType` which you can declare in `AppContextProvider`. You can see how we handle this in our [Example Project AppContextProvider](https://github.com/etn-ccis/blui-react-workflows/blob/master/login-workflow/example/src/contexts/AppContextProvider.tsx).
 
-In previous package `onUserAuthenticated`, `onUserNotAuthenticated` were managed by `@brightlayer-ui/react-auth-shared` but in latest you need to manage through app state. For more details you can check Example app's [AuthUIActions Implementation](https://github.com/etn-ccis/blui-react-workflows/blob/master/login-workflow/example/src/actions/AuthUIActions.tsx)
+In previous versions of this package, the `onUserAuthenticated` and `onUserNotAuthenticated` values were managed for you, but in the latest version, you need to manage this state on your own. For more details, you can check the example app's [AuthUIActions Implementation](https://github.com/etn-ccis/blui-react-workflows/blob/master/login-workflow/example/src/actions/AuthUIActions.tsx).
 
 ## Update RegistrationUIActions
 
@@ -39,16 +39,7 @@ import { RegistrationUIActions, AccountDetails } from '@brightlayer-ui/react-aut
 // before
 ```tsx
 loadEULA: async (language: string): Promise<string> => {
-    await sleep(1000);
-
-    if (isRandomFailure()) {
-        throw new Error('Sorry, there was a problem sending your request.');
-    }
-
-    if (!language.includes('en')) {
-        return 'Other language EULA';
-    }
-
+    ...
     return SAMPLE_EULA;
 },
 ```
@@ -56,21 +47,13 @@ loadEULA: async (language: string): Promise<string> => {
 // after
 ```tsx
 loadEula: async (language: string): Promise<string> => {
-    await sleep(1000);
-
-    if (isRandomFailure()) {
-        throw new Error('Sorry, there was a problem sending your request.');
-    }
-
-    if (!language.includes('en')) {
-        return 'Other language EULA';
-    }
-
+    ...
     return SAMPLE_EULA;
-}
+},
 ```
 
 #### Update completeRegistration Action
+In the latest package type of few parameters of completeRegistration have changed. Such as the `userData` parameter accepting only password and accoundDetails. Now you can pass on other user-related details as well. Also, the earlier `validationCode` parameter supported only strings, now you can pass numbers also.
 
 // Before
 ```tsx
@@ -82,15 +65,7 @@ completeRegistration: async (
     validationCode: string,
     validationEmail?: string
 ): Promise<{ email: string; organizationName: string }> => {
-    const email = 'example@email.com';
-    const organizationName = 'Acme Co.';
-    const userInfo = { email, organizationName };
-
-    await sleep(1000);
-    if (isRandomFailure()) {
-        throw new Error('Sorry, there was a problem sending your request.');
-    }
-    return userInfo;
+    ...
 },
 ```
 
@@ -101,35 +76,27 @@ completeRegistration: async (
     validationCode: string | number,
     validationEmail?: string
 ): Promise<{ email: string; organizationName: string }> => {
-    const email = 'example@email.com';
-    const organizationName = 'Acme Co.';
-    const userInfo = { email, organizationName };
-
-    await sleep(1000);
-    if (isRandomFailure()) {
-        throw new Error('Sorry, there was a problem sending your request.');
-    }
-    return userInfo;
+    ...
 },
 ```
 
 #### Add new actions
 
-We have added few more actions in registraionUIActions such as `acceptEula`, `requestRegistrationCode`, `createPassword`, and `setAccountDetails`.
-For more details you can check implementation of Example app's [RegistraionUIActions Implementation](https://github.com/etn-ccis/blui-react-workflows/blob/master/login-workflow/example/src/actions/RegistrationUIActions.tsx).
+We have added a few more actions in registraionUIActions such as `acceptEula`, `requestRegistrationCode`, `createPassword`, and `setAccountDetails`.
+For more details, you can check the example app's [RegistraionUIActions Implementation](https://github.com/etn-ccis/blui-react-workflows/blob/master/login-workflow/example/src/actions/RegistrationUIActions.tsx).
 
 
-### Update you App.tsx
+### Update your App.tsx
 
-In latest workflow package `SecurityContextProvider`, `useSecurityActions` are not availble instead of this you need to use app context manage app state. Also we have removed `AuthNavigationContainer`
+In the latest workflow package the `SecurityContextProvider` and `useSecurityActions` are not available. Instead of these, you need to use some other means of managing the app state. We have also removed `AuthNavigationContainer`.
 
 #### Update AuthContextProvider
-In earlier package we were passing `registrationActions` prop to `AuthUIContextProvider`. In latest package we have removed `AuthUIContextProvider` and divided our context provider into  `AuthUIContextProvider` and `RegistrationContextProvider`.
+In previous versions of this package, we were passing a `registrationActions` prop to `AuthUIContextProvider`. In the latest package, we have removed `AuthUIContextProvider` and divided our context provider into  `AuthUIContextProvider` and `RegistrationContextProvider`.
 
 #### Router Setup
-In latest workflow you need to setup your own routing. For detail information please follow [Routing Guide](https://github.com/etn-ccis/blui-react-workflows/tree/master/login-workflow/docs/Routing.md)
+In the latest workflow, you need to set up your own routing. For detailed information please follow our [Routing Guide](https://github.com/etn-ccis/blui-react-workflows/tree/master/login-workflow/docs/Routing.md).
 
 
 #### i18n Setup
-In latest workflow you need to setup i18n for your app. For detail information you can check Example app's [i18n Setup](https://github.com/etn-ccis/blui-react-workflows/blob/master/login-workflow/example/src/translations/i18n.ts). For rendering translations in the app, you need to wrap your app with <I18nextProvider/> similar to [Example App](https://github.com/etn-ccis/blui-react-workflows/blob/master/login-workflow/example/src/App.tsx).
+In the latest workflow, you need to set up i18n for your app. For detailed information you can check the example app's [i18n Setup](https://github.com/etn-ccis/blui-react-workflows/blob/master/login-workflow/example/src/translations/i18n.ts). For rendering translations in the app, you need to wrap your app with an  <I18nextProvider/> similar to the [Example App](https://github.com/etn-ccis/blui-react-workflows/blob/master/login-workflow/example/src/App.tsx).
 
