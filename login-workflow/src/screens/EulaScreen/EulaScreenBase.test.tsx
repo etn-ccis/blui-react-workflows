@@ -3,7 +3,7 @@ import '@testing-library/jest-dom';
 import { cleanup, render, screen, fireEvent } from '@testing-library/react';
 import { EulaScreenBase } from './EulaScreenBase';
 // Constants
-import { SAMPLE_EULA } from '../../../constants/index';
+import { SAMPLE_EULA } from '../../constants/index';
 
 afterEach(cleanup);
 
