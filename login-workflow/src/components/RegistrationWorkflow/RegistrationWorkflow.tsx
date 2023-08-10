@@ -5,6 +5,7 @@ import {
     CreateAccountScreen,
     CreatePasswordScreen,
     EulaScreen,
+    ExistingAccountSuccessScreen,
     RegistrationSuccessScreen,
     VerifyCodeScreen,
 } from '../../screens';
@@ -17,9 +18,10 @@ export type RegistrationWorkflowProps = {
 };
 
 export const RegistrationWorkflow: React.FC<React.PropsWithChildren<RegistrationWorkflowProps>> = (props) => {
+    const [isAccountExist, setIsAccountExist] = useState(false);
     const {
         initialScreenIndex = 0,
-        successScreen = <RegistrationSuccessScreen />,
+        successScreen = isAccountExist ? <ExistingAccountSuccessScreen /> : <RegistrationSuccessScreen />,
         isInviteRegistration = false,
         children = isInviteRegistration
             ? [
@@ -53,6 +55,7 @@ export const RegistrationWorkflow: React.FC<React.PropsWithChildren<Registration
         },
         VerifyCode: {
             code: '',
+            isAccountExist: false,
         },
         CreatePassword: {
             password: '',
@@ -120,6 +123,10 @@ export const RegistrationWorkflow: React.FC<React.PropsWithChildren<Registration
             totalScreens={totalScreens}
             nextScreen={(data): Promise<void> => {
                 updateScreenData(data);
+                if (data.isAccountExist) {
+                    setIsAccountExist(true);
+                    setShowSuccessScreen(true);
+                }
                 if (currentScreen === totalScreens - 1) return finishRegistration(data);
                 setCurrentScreen((i) => i + 1);
             }}
@@ -129,6 +136,7 @@ export const RegistrationWorkflow: React.FC<React.PropsWithChildren<Registration
             }}
             screenData={screenData}
             updateScreenData={updateScreenData}
+            isInviteRegistration={isInviteRegistration}
         >
             {showSuccessScreen ? successScreen : screens[currentScreen]}
         </RegistrationWorkflowContextProvider>

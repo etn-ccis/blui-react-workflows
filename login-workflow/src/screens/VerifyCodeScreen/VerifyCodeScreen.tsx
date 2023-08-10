@@ -57,10 +57,11 @@ export const VerifyCodeScreen: React.FC<VerifyCodeScreenProps> = (props) => {
         async (code: string) => {
             try {
                 setIsLoading(true);
-                await actions().validateUserRegistrationRequest(code);
+                const isAccExist = await actions().validateUserRegistrationRequest(code);
                 void nextScreen({
                     screenId: 'VerifyCode',
                     values: { code: code },
+                    isAccountExist: isAccExist,
                 });
             } catch (_error) {
                 triggerError(_error as Error);

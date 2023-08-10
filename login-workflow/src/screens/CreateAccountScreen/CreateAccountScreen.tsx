@@ -49,6 +49,7 @@ export const CreateAccountScreen: React.FC<CreateAccountScreenProps> = (props) =
             values: { emailAddress: emailInputValue },
         });
     };
+
     const {
         WorkflowCardBaseProps,
         WorkflowCardHeaderProps,
