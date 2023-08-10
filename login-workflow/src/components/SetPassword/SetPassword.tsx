@@ -1,7 +1,7 @@
 import React, { ChangeEvent, useState, useCallback } from 'react';
 import { useTheme } from '@mui/material/styles';
 import CheckCircleOutlinedIcon from '@mui/icons-material/CheckCircleOutlined';
-import { TextFieldStyles } from '../../../styles';
+import { TextFieldStyles } from '../../styles';
 import { SetPasswordProps } from './types';
 import { PasswordTextField } from '../PasswordTextField';
 import { PasswordRequirements } from '../PasswordRequirements';
