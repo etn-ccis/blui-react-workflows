@@ -1,119 +1,121 @@
-# Customizing the Workflow
+# Customization Guide
+While the default workflow is designed to work for most applications, we understand that you may need to customize the workflow to meet your needs. This guide will walk you through the various ways you can customize the workflow.
 
-## Login Screen
+## Customizing Authentication Workflow
 
-The Login screen supports some simple customization (via the `AuthUIContextProvider`) to suit the needs of your application.
+### Customizing Login
+You may want to customize which items are visible from the login screen. In order to do this you will need to customize the [Login Screen](https://github.com/etn-ccis/blui-react-workflows/tree/master/login-workflow/screens/login.md) via props to render the the appropriate items. You will also need to ensure that all routes that you wish to be accessible from the login screen are set up properly in your [Routing](https://github.com/etn-ccis/blui-react-workflows/tree/master/login-workflow/docs/routing.md) setup.
 
--   You can pass in a custom header that will appear above the login form using the `loginHeader` prop. By default, we render your `productImage`.
--   You can pass in a custom footer that will appear below the login form and registration links with any content you like (such as links to Privacy Policy, Terms of Service, etc.) using the `loginFooter` prop.
--   You can customize the background of the workflow using the `background` prop including the color, tile image, etc.
--   You can disable and hide various aspects of the workflow using the following props: `enableInviteRegistration`, `enableResetPassword`, `enableCreatePassword`, `showContactSupport`, `showCybersecurityBadge`, `showRememberMe`, `showSelfRegistration`.
-
-For more details, read the [full API details](https://github.com/etn-ccis/blui-react-auth-shared/tree/master/docs/API.md).
-
-## Additional Routes
-
-The authentication workflow hides your application content behind a private routing mechanism that does not allow unauthenticated users to access any parts of the application.
-
-If there are routes that you would like to be available without logging in (such as a Terms of Service page), you need to provide these to the `AuthNavigationContainer` through the `extraRoutes` property. The content passed in here will be publicly accessible.
-
+Here is an example of how you would set up the Login Screen if you did not want to allow account creation or remember me functionality: 
 ```tsx
-<AuthNavigationContainer
-    extraRoutes={[
-        <Route path={'/new-route'}>{/* Route Content */}</Route>,
-        <Route path={'/new-route-two'}>{/* Route Content */}</Route>,
-    ]}
-    routeConfig={{ SUPPORT: '/custom-support-url' }}
->
-    <ExampleHome />
-</AuthNavigationContainer>
+import React from 'react';
+import { LoginScreen } from '@brightlayer-ui/react-auth-workflow';
+
+export const Login = (): JSX.Element => (
+    <LoginScreen
+        showRememberMe={false}
+        showSelfRegistration={false}
+    />
+);
 ```
 
-You can also customize the URL used for the default routes by passing a configuration object to the `routeConfig` prop.
+## Customizing Registration Workflow
 
-For more details, read the [full API details](https://github.com/etn-ccis/blui-react-auth-shared/tree/master/docs/API.md).
+### Customizing the Screen Order
+You may want to customize the order of your screens within the workflow. In order to do this you will need to import the screens you want to use and pass them as children to the `RegistrationWorkflow` component. The screens will render in the order they are passed in.
 
-## Registration Details
+Our default implementation looks like this:
+  
+```jsx
+<RegistrationWorkflow>
+    <EulaScreen />              // screen1
+    <CreateAccountScreen />     // screen2
+    <VerifyCodeScreen />        // screen3
+    <CreatePasswordScreen />    // screen4
+    <AccountDetailsScreen />    // screen5
+</RegistrationWorkflow>
+```
 
-By default, the user registration piece of the workflow will capture the minimum information that is required (i.e., First Name, Last Name, and email address).
+### Custom Screens
+You may inject your own custom screens into the workflow by creating your own custom screens. In order to make this easier for you we have provided components to keep the look and feel consistent with the rest of the workflow. For more information on how to use these components, refer to our [WorkflowCard](https://github.com/etn-ccis/blui-react-workflows/tree/master/login-workflow/components/workflow-card.md) component documentation. After you have created your custom screens, you can pass them as children to the `RegistrationWorkflow` component. The screens will render in the order they are passed in.
 
-Many applications will need to collect additional information about their users during registration. This can be achieved by passing in additional form components to the `AuthUIContextProvider` via the `customAccountDetails` prop.
+Your custom implementation, removing the EulaScreen and VerifyCodeScreen, and adding a custom screen, might look like this:
 
-### Syntax
+```jsx
+<RegistrationWorkflow initialScreenIndex={0}>
+    <CreateAccountScreen />    // screen1
+    <MyCustomScreen />         // screen2
+    <CreatePasswordScreen />   // screen3
+    <AccountDetailsScreen />   // screen4
+</RegistrationWorkflow>
+```
 
-The `customAccountDetails` prop takes an array of `CustomRegistrationForm`s describing components that you would like to insert into the registration flow (title, instructions, and form component).
+### Customizing the Registration Success Screen
+You may provide a custom success screen to be shown upon successful completion of the [Registration Workflow](https://github.com/etn-ccis/blui-react-workflows/tree/master/login-workflow/docs/components/registration-workflow.md). The [Success Screen](https://github.com/etn-ccis/blui-react-workflows/tree/master/login-workflow/docs/screens/success.md) is used by default, but may be customized via props. If you wish to build your own success screen it may look something like this:
 
-The first form in the array will render below the default fields (first and last name). Subsequent forms will be rendered on new pages (one page per item in the array). If you do not want to render your custom elements below the default fields, you can pass `null` as the first item in the array.
+```jsx
+import { SuccessScreenBase } from '@brightlayer-ui/react-auth-workflow';
 
+const MyCustomSuccessScreen = () => {
+  return (
+    <SuccessScreenBase 
+        messageTitle={'Congratulations!'}
+        message={'You have been registered successfully'}
+    />
+  );
+};
+
+<RegistrationWorkflow successScreen={<MyCustomSuccessScreen />}>
+    // Registration Screens Go Here
+</RegistrationWorkflow>
+```
+
+
+## Customizing the Pre-built Screens
+Many of the components and screens used to build the core workflow have been exported so you can easily customize the login and registration workflows. These Customization can be made via props on our [Components](https://github.com/etn-ccis/blui-react-workflows/tree/master/login-workflow/components/components.md) and [Screens](https://github.com/etn-ccis/blui-react-workflows/tree/master/login-workflow/screens/screens.md). 
+
+An example of this would be passing in props for the Login screen as follows:
 ```tsx
-import { CustomDetailsScreen, CustomDetailsScreenTwo } from './path/to/file';
-...
-<AuthUIContextProvider
-    customAccountDetails={[
-        null,
-        { component: CustomDetailsScreen},
-        { title: 'Job Info', instructions: 'Enter your employment information below.', component: CustomDetailsScreenTwo}
-    ]}
-/>
+import React from 'react';
+import { LoginScreen } from '@brightlayer-ui/react-auth-workflow';
+import Logo from '<path-to-logo>';
+
+export const Login = (): JSX.Element => (
+    <LoginScreen
+        projectImage={
+            <img src={Logo} alt="logo" style={{ maxHeight: 80 }} />
+        }
+        onLogin={(username: any, password: any): void => {
+            setRememberEmail(username);
+            setIsAuthenticated(true);
+            navigate('/guarded');
+        }}
+        usernameTextFieldProps={{
+            inputProps: {
+                maxLength: 30,
+            },
+        }}
+        passwordTextFieldProps={{
+            required: true,
+        }}
+    />
+);
 ```
 
-### Form Implementation
+## Customizing the Language Support
 
-In order to work correctly, custom form components that you pass into the workflow must match the interface `ComponentType<AccountDetailsFormProps>`, meaning your component must accept and hook up the following three props:
+For information about supporting multiple languages and customizing the translations, refer to our [Language Support](https://github.com/etn-ccis/blui-react-workflows/tree/master/login-workflow/docs/language-support.md) guidelines.
 
--   `initialDetails` (_`CustomAccountDetails`_): this is an object of key-value pairs representing the custom data that your form captures. Each key is the name of one of your custom properties and the value is the value of that property. You must use these values to initialize your form fields on render.
--   `onDetailsChanged` (_`(details: CustomAccountDetails | null, valid: boolean) => void`_): this is a callback function that you must call whenever any of your custom properties change. You must include all your custom properties in the details object, even if some of them are unchanged. You must also include a `valid` argument that indicate whether the current values pass your required validation checks (if all fields are optional, you can simply pass `true`).
--   `onSubmit` (_`() => void`_): this function should be called when a user presses the Enter key in the final input of your custom form. This will trigger the workflow to progress to the next page without having to manually click the button.
+## Customizing the Routing
 
-You can see a sample implementation of the custom details forms in the `/example` project.
+We don't prescribe a routing solution, however we do recommend using [React Router](https://reactrouter.com/). For example usage details, refer to the [Routing](https://github.com/etn-ccis/blui-react-workflows/tree/master/login-workflow/docs/routing.md) documentation.
 
-> **NOTE:** If you are using a useEffect hook to call the `onDetailsChanged` function, you must make sure NOT to include the `onDetailsChanged` prop in your list of dependencies. This will cause an infinite update loop.
+## Customizing Error Handling
 
-### Custom Registration Success Screen
+For information about handling errors in your application, refer to our [Error Management](https://github.com/etn-ccis/blui-react-workflows/tree/master/login-workflow/docs/error-management.md) documentation.
 
-You can customize the success screen shown at the end of the Registration flows using the `registrationSuccessScreen` prop on the `AuthUIContextProvider`. This prop gives you access to a `registrationData` object that contains a user's `AccountDetailInformation` and email:
+## Components
+For more details on customizing our components, refer to our [Components](https://github.com/etn-ccis/blui-react-workflows/tree/master/login-workflow/components/components.md) documentation. 
 
-```tsx
-registrationSuccessScreen={(registrationData) => <MySuccessScreen email={registrationData.email} firstName={registrationData.accountDetails.firstName}/>
-```
-
-#### Account Already Exists
-
-In the case when a user already has an existing account, a separate success screen is shown. You can customize this screen in the same way using the `accountAlreadyExistsScreen` prop on the `AuthUIContextProvider`.
-
-```tsx
-accountAlreadyExistsScreen={() => <MyAccountAlreadyExistsScreen />}
-```
-
-#### Error Message Display Options
-
-You can customize how login error messages are displayed using the `loginErrorDisplayConfig` prop on the `AuthUIContextProvider`. To show an error message you must throw an error with your message in the login function of `AuthUIActions`. Messages can be displayed in a dialog (default) or a message-box.
-
-If there is an error with credentials (i.e., wrong email or password), you should throw the `'LOGIN.INVALID_CREDENTIALS'` which will show input errors below those fields (this is the only error that should ever be shown in this style):
-
-![default login error display](https://raw.githubusercontent.com/etn-ccis/blui-react-workflows/master/login-workflow/media/default-login-error.png)
-
-##### Usage
-
-```diff
-<AuthUIContextProvider
-+      loginErrorDisplayConfig={{mode: 'message-box'}}
-/>
-```
-
-```diff
-// AuthUIActions.tsx
-
-logIn: async (email: string, password: string, rememberMe: boolean): Promise<void> => {
-    ...
-    // example app default
-+   throw new Error('LOGIN.INVALID_CREDENTIALS');
-
-    // custom error message
-+   throw new Error('My Custom Login Error');
-    ...
-
-},
-```
-
-For more details, read the [full API details](https://github.com/etn-ccis/blui-react-auth-shared/blob/master/docs/API.md#loginerrordisplayconfig)
+## Screens
+For more details on customizing our screens, refer to our [Screens](https://github.com/etn-ccis/blui-react-workflows/tree/master/login-workflow/screens/screens.md) documentation.

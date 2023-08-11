@@ -39,12 +39,3 @@ flag_management:
           target: 20%
         - type: patch
           target: 80%
-    - name: ui_tests
-      paths: 
-      - ./login-workflow/example/src
-      carryforward: true
-      statuses:
-      - type: project
-        target: 20%
-      - type: patch
-        target: 80%
