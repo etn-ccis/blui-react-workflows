@@ -15,6 +15,7 @@ const resources: AppTranslationsFile = {
         },
         USER_MENU: {
             LOG_OUT: 'Sair',
+            CHANGE_PASSWORD: 'alterar a senha',
             MY_ACCOUNT: 'Minha conta',
         },
     },

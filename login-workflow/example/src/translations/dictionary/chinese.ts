@@ -15,6 +15,7 @@ const resources: AppTranslationsFile = {
         },
         USER_MENU: {
             LOG_OUT: '登出',
+            CHANGE_PASSWORD: '更改密碼',
             MY_ACCOUNT: '我的賬戶',
         },
     },

@@ -38,16 +38,60 @@ export const AppRouter: React.FC = () => {
                         i18n={i18nAppInstance}
                         rememberMeDetails={{ email: rememberMe ? email : '', rememberMe: rememberMe }}
                     >
-                        <ReactRouterGuestGuard isAuthenticated={app.isAuthenticated} fallBackUrl={'/'}>
-                            <Outlet />
-                        </ReactRouterGuestGuard>
+                        <Outlet />
                     </AuthContextProvider>
                 }
             >
-                <Route path={'/login'} element={<Login />} />
-                <Route path={'/forgot-password'} element={<ForgotPasswordScreen />} />
-                <Route path={'/contact-support'} element={<ContactSupportScreen />} />
-                <Route path={'/reset-password'} element={<ResetPasswordScreen />} />
+                <Route
+                    path={'/login'}
+                    element={
+                        <ReactRouterGuestGuard isAuthenticated={app.isAuthenticated} fallBackUrl={'/'}>
+                            <Login />
+                        </ReactRouterGuestGuard>
+                    }
+                />
+                <Route
+                    path={'/forgot-password'}
+                    element={
+                        <ReactRouterGuestGuard isAuthenticated={app.isAuthenticated} fallBackUrl={'/'}>
+                            <ForgotPasswordScreen />
+                        </ReactRouterGuestGuard>
+                    }
+                />
+                <Route
+                    path={'/contact-support'}
+                    element={
+                        <ReactRouterGuestGuard isAuthenticated={app.isAuthenticated} fallBackUrl={'/'}>
+                            <ContactSupportScreen />
+                        </ReactRouterGuestGuard>
+                    }
+                />
+                <Route
+                    path={'/reset-password'}
+                    element={
+                        <ReactRouterGuestGuard isAuthenticated={app.isAuthenticated} fallBackUrl={'/'}>
+                            <ResetPasswordScreen />
+                        </ReactRouterGuestGuard>
+                    }
+                />
+                {/* USER APPLICATION ROUTES */}
+                <Route
+                    path={'/homepage'}
+                    element={
+                        <ReactRouterAuthGuard isAuthenticated={app.isAuthenticated} fallBackUrl={'/login'}>
+                            <ExampleHome />
+                        </ReactRouterAuthGuard>
+                    }
+                />
+                <Route path={'/'} element={<Navigate to={'/homepage'} replace />} />
+                <Route
+                    path={'*'}
+                    element={
+                        <ReactRouterAuthGuard isAuthenticated={app.isAuthenticated} fallBackUrl={'/login'}>
+                            <Navigate to={'/login'} />
+                        </ReactRouterAuthGuard>
+                    }
+                />
             </Route>
             {/* REGISTRATION ROUTES */}
             <Route
@@ -66,25 +110,6 @@ export const AppRouter: React.FC = () => {
                 <Route path={'/self-registration'} element={<RegistrationWorkflow />} />
                 <Route path={'/register-by-invite'} element={<RegistrationWorkflow isInviteRegistration />} />
             </Route>
-
-            {/* USER APPLICATION ROUTES */}
-            <Route
-                path={'/homepage'}
-                element={
-                    <ReactRouterAuthGuard isAuthenticated={app.isAuthenticated} fallBackUrl={'/login'}>
-                        <ExampleHome />
-                    </ReactRouterAuthGuard>
-                }
-            />
-            <Route path={'/'} element={<Navigate to={'/homepage'} replace />} />
-            <Route
-                path={'*'}
-                element={
-                    <ReactRouterAuthGuard isAuthenticated={app.isAuthenticated} fallBackUrl={'/login'}>
-                        <Navigate to={'/login'} />
-                    </ReactRouterAuthGuard>
-                }
-            />
         </Routes>
     );
 };
