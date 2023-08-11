@@ -19,9 +19,7 @@
         "tag:package": "npx -p @brightlayer-ui/tag blui-tag -s -blui-react-auth-workflow",
         "generate:licenses": "npm-license-crawler -onlyDirectDependencies -json LICENSES.json",
         "precommit": "yarn prettier && yarn lint && yarn test && yarn build",
-        "coverage": "yarn test --coverage --watchAll=false --no-cache",
-        "cy:stage": "yarn install:dependencies && yarn link:workflow",
-        "cytest": "cd example && yarn start-server-and-test start http://localhost:3000 cy:run"
+        "coverage": "yarn test --coverage --watchAll=false --no-cache"
     },
     "prettier": "@brightlayer-ui/prettier-config",
     "dependencies": {
