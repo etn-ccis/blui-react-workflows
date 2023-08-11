@@ -5,8 +5,8 @@ export const i18nAppInstance = i18next.createInstance(
     {
         lng: 'en',
         fallbackLng: 'en',
-        ns: ['blui'],
-        defaultNS: 'blui',
+        ns: ['app'],
+        defaultNS: 'app',
         load: 'languageOnly',
         detection: {
             order: ['querystring', 'localStorage', 'navigator'],
@@ -17,27 +17,27 @@ export const i18nAppInstance = i18next.createInstance(
         interpolation: { escapeValue: false },
         resources: {
             en: {
-                blui: {
+                app: {
                     ...AppDictionaries.english.translation,
                 },
             },
             fr: {
-                blui: {
+                app: {
                     ...AppDictionaries.french.translation,
                 },
             },
             es: {
-                blui: {
+                app: {
                     ...AppDictionaries.spanish.translation,
                 },
             },
             zh: {
-                blui: {
+                app: {
                     ...AppDictionaries.chinese.translation,
                 },
             },
             pt: {
-                blui: {
+                app: {
                     ...AppDictionaries.portuguese.translation,
                 },
             },
