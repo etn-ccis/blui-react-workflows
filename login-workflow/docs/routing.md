@@ -140,9 +140,6 @@ export const AppRouter: React.FC = () => {
     );
 };
 ```
-
-#### Available Customizations / Configurations
-
 ### Protecting Your Application Routes
 
 If there are routes that you would like to protect and only be available if user is authenticated, you can make use of our `ReactRouterAuthGuard` component.
