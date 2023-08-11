@@ -23,12 +23,12 @@ In previous versions of this package, the `onUserAuthenticated` and `onUserNotAu
 
 Update type name `AccountDetailInformation` to `AccountDetails`.
 
-// before
+**before:**
 ```tsx
 import { RegistrationUIActions, AccountDetailInformation } from '@brightlayer-ui/react-auth-workflow';
 ```
 
-// after
+**after:**
 ```tsx
 import { RegistrationUIActions, AccountDetails } from '@brightlayer-ui/react-auth-workflow';
 ```
@@ -36,7 +36,7 @@ import { RegistrationUIActions, AccountDetails } from '@brightlayer-ui/react-aut
 ### Fix Following Actions in RegistrationUIActions.tsx
 
 #### Rename `loadEULA` action to `loadEula`.
-// before
+**before:**
 ```tsx
 loadEULA: async (language: string): Promise<string> => {
     ...
@@ -44,7 +44,7 @@ loadEULA: async (language: string): Promise<string> => {
 },
 ```
 
-// after
+**after:**
 ```tsx
 loadEula: async (language: string): Promise<string> => {
     ...
@@ -55,7 +55,7 @@ loadEula: async (language: string): Promise<string> => {
 #### Update completeRegistration Action
 In the latest package type of few parameters of completeRegistration have changed. Such as the `userData` parameter accepting only password and accoundDetails. Now you can pass on other user-related details as well. Also, the earlier `validationCode` parameter supported only strings, now you can pass numbers also.
 
-// Before
+**before:**
 ```tsx
 completeRegistration: async (
     userData: {
@@ -69,7 +69,7 @@ completeRegistration: async (
 },
 ```
 
-// After
+**after:**
 ```tsx
 completeRegistration: async (
     userData: any,
@@ -82,8 +82,8 @@ completeRegistration: async (
 
 #### Add new actions
 
-We have added a few more actions in registraionUIActions such as `acceptEula`, `requestRegistrationCode`, `createPassword`, and `setAccountDetails`.
-For more details, you can check the example app's [RegistraionUIActions Implementation](https://github.com/etn-ccis/blui-react-workflows/blob/master/login-workflow/example/src/actions/RegistrationUIActions.tsx).
+We have added a few more actions in registrationUIActions such as `acceptEula`, `requestRegistrationCode`, `createPassword`, and `setAccountDetails`.
+For more details, you can check the example app's [RegistrationUIActions Implementation](https://github.com/etn-ccis/blui-react-workflows/blob/master/login-workflow/example/src/actions/RegistrationUIActions.tsx).
 
 
 ### Update your App.tsx
@@ -91,10 +91,10 @@ For more details, you can check the example app's [RegistraionUIActions Implemen
 In the latest workflow package the `SecurityContextProvider` and `useSecurityActions` are not available. Instead of these, you need to use some other means of managing the app state. We have also removed `AuthNavigationContainer`.
 
 #### Update AuthContextProvider
-In previous versions of this package, we were passing a `registrationActions` prop to `AuthUIContextProvider`. In the latest package, we have removed `AuthUIContextProvider` and divided our context provider into  `AuthContextProvider` and `RegistrationContextProvider`.
+In previous versions of this package we were passing a `registrationActions` prop to `AuthUIContextProvider`. In the latest package, we have removed `AuthUIContextProvider` and divided our context provider into  `AuthContextProvider` and `RegistrationContextProvider`.
 
 #### Manage App States
-you need to manage the state of user's authentication , credentials  by your own. You can handle it by context which will manage app state. For reference you can check how we have setup [Example App's Context](https://github.com/etn-ccis/blui-react-workflows/blob/dev/login-workflow/example/src/contexts/AppContextProvider.tsx).
+You need to manage the state of user's authentication credentials on your own. For reference, you can look at how we set up the [Example App's Context](https://github.com/etn-ccis/blui-react-workflows/blob/dev/login-workflow/example/src/contexts/AppContextProvider.tsx).
 
 #### Router Setup
 In the latest workflow, you need to set up your own routing. For detailed information please follow our [Routing Guide](https://github.com/etn-ccis/blui-react-workflows/tree/master/login-workflow/docs/Routing.md).
