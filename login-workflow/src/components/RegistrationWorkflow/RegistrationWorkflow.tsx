@@ -15,13 +15,15 @@ export type RegistrationWorkflowProps = {
     initialScreenIndex?: number;
     successScreen?: JSX.Element;
     isInviteRegistration?: boolean;
+    existingAccountSuccessScreen?: JSX.Element;
 };
 
 export const RegistrationWorkflow: React.FC<React.PropsWithChildren<RegistrationWorkflowProps>> = (props) => {
     const [isAccountExist, setIsAccountExist] = useState(false);
     const {
         initialScreenIndex = 0,
-        successScreen = isAccountExist ? <ExistingAccountSuccessScreen /> : <RegistrationSuccessScreen />,
+        successScreen = <RegistrationSuccessScreen />,
+        existingAccountSuccessScreen = <ExistingAccountSuccessScreen />,
         isInviteRegistration = false,
         children = isInviteRegistration
             ? [
@@ -138,7 +140,11 @@ export const RegistrationWorkflow: React.FC<React.PropsWithChildren<Registration
             updateScreenData={updateScreenData}
             isInviteRegistration={isInviteRegistration}
         >
-            {showSuccessScreen ? successScreen : screens[currentScreen]}
+            {showSuccessScreen
+                ? isAccountExist
+                    ? existingAccountSuccessScreen
+                    : successScreen
+                : screens[currentScreen]}
         </RegistrationWorkflowContextProvider>
     );
 };
