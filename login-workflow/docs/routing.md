@@ -11,6 +11,7 @@ import { RouteConfig } from '@brightlayer-ui/react-auth-workflow';
 export const routes: RouteConfig = {
     LOGIN: '/login',
     REGISTER_INVITE: '/register-by-invite',
+    REGISTER_SELF: '/self-registration',
     FORGOT_PASSWORD: '/forgot-password',
     RESET_PASSWORD: '/reset-password',
 };
@@ -37,7 +38,7 @@ import { ProjectAuthUIActions } from '../actions/AuthUIActions';
 import { Outlet, Route, Routes } from 'react-router-dom';
 import { Login } from './Login';
 import { routes } from '../navigation/Routing';
-
+import { i18nAppInstance } from './i18n';
 export const AppRouter: React.FC = () => {
    // Language will be managed by some state within your app, in this example, a useApp hook that gets the app language.
     const { language } = useApp();
@@ -53,18 +54,47 @@ export const AppRouter: React.FC = () => {
                         language={language}
                         navigate={navigate}
                         routeConfig={routes}
+                        i18n={i18nAppInstance}
+                        rememberMeDetails={{ email: rememberMe ? email : '', rememberMe: rememberMe }}
                     >
-                        
                         <Outlet />
                     </AuthContextProvider>
                 }
             >
-                <Route path={'/login'} element={<Login />} />
-                <Route path={'/forgot-password'} element={<ForgotPasswordScreen />} />
-                <Route path={'/contact-support'} element={<ContactSupportScreen />} />
-                <Route path={'/reset-password'} element={<ResetPasswordScreen />} />
+                <Route
+                    path={'/login'}
+                    element={
+                        <ReactRouterGuestGuard isAuthenticated={app.isAuthenticated} fallBackUrl={'/'}>
+                            <Login />
+                        </ReactRouterGuestGuard>
+                    }
+                />
+                <Route
+                    path={'/forgot-password'}
+                    element={
+                        <ReactRouterGuestGuard isAuthenticated={app.isAuthenticated} fallBackUrl={'/'}>
+                            <ForgotPasswordScreen />
+                        </ReactRouterGuestGuard>
+                    }
+                />
+                <Route
+                    path={'/contact-support'}
+                    element={
+                        <ReactRouterGuestGuard isAuthenticated={app.isAuthenticated} fallBackUrl={'/'}>
+                            <ContactSupportScreen />
+                        </ReactRouterGuestGuard>
+                    }
+                />
+                <Route
+                    path={'/reset-password'}
+                    element={
+                        <ReactRouterGuestGuard isAuthenticated={app.isAuthenticated} fallBackUrl={'/'}>
+                            <ResetPasswordScreen />
+                        </ReactRouterGuestGuard>
+                    }
+                />
+                ...
             </Route>
-            ...
         </Routes>
     );
 };
@@ -78,20 +108,15 @@ To set up Registration in your app you will need to import the `RegistrationCont
 ```tsx
 import React from 'react';
 import {
-    AccountDetailsScreen,
-    CreateAccountScreen,
-    CreatePasswordScreen,
-    EulaScreen,
     RegistrationContextProvider,
     RegistrationWorkflow,
-    VerifyCodeScreen,
-    RegistrationSuccessScreen,
 } from '@brightlayer-ui/react-auth-workflow';
 import { useApp } from '../contexts/AppContextProvider';
 import { useNavigate } from 'react-router';
 import { Outlet, Route, Routes } from 'react-router-dom';
 import { ProjectRegistrationUIActions } from '../actions/RegistrationUIActions';
 import { routes } from '../navigation/Routing';
+import { i18nAppInstance } from './i18n';
 
 export const AppRouter: React.FC = () => {
     // Language will be managed by some state within your app, in this example, a useApp hook that gets the app language.
@@ -107,6 +132,7 @@ export const AppRouter: React.FC = () => {
                         routeConfig={routes}
                         navigate={navigate}
                         actions={ProjectRegistrationUIActions}
+                        i18n={i18nAppInstance}
                     >
                         <Outlet />
                     </RegistrationContextProvider>
@@ -115,26 +141,10 @@ export const AppRouter: React.FC = () => {
                 <Route
                     path={'/self-registration'}
                     element={
-                        <RegistrationWorkflow initialScreenIndex={0}>
-                            <EulaScreen />
-                            <CreateAccountScreen />
-                            <VerifyCodeScreen />
-                            <CreatePasswordScreen />
-                            <AccountDetailsScreen />
-                        </RegistrationWorkflow>
+                        <RegistrationWorkflow />
                     }
                 />
-                <Route
-                    path={'/register-by-invite'}
-                    element={
-                        <RegistrationWorkflow initialScreenIndex={0}>
-                            <EulaScreen />
-                            <CreatePasswordScreen />
-                            <AccountDetailsScreen />
-                            <RegistrationSuccessScreen />
-                        </RegistrationWorkflow>
-                    }
-                />
+                <Route path={'/register-by-invite'} element={<RegistrationWorkflow isInviteRegistration />} />
             </Route>
         </Routes>
     );
