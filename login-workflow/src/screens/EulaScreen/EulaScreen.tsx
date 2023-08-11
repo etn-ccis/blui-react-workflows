@@ -10,7 +10,7 @@ export const EulaScreen: React.FC<EulaScreenProps> = (props) => {
     const { actions, navigate, routeConfig, language } = useRegistrationContext();
     const { triggerError, errorManagerConfig } = useErrorManager();
     const regWorkflow = useRegistrationWorkflowContext();
-    const { nextScreen, previousScreen, screenData, currentScreen, totalScreens } = regWorkflow;
+    const { nextScreen, previousScreen, screenData, currentScreen, totalScreens, isInviteRegistration } = regWorkflow;
     const {
         WorkflowCardHeaderProps,
         WorkflowCardActionsProps,
@@ -51,9 +51,17 @@ export const EulaScreen: React.FC<EulaScreenProps> = (props) => {
         try {
             const acceptedEula = await actions()?.acceptEula?.();
             setEulaAccepted(acceptedEula);
+            let isAccExist;
+            if (isInviteRegistration) {
+                isAccExist = await actions().validateUserRegistrationRequest(
+                    screenData.VerifyCode.code,
+                    screenData.CreateAccount.emailAddress
+                );
+            }
             void nextScreen({
                 screenId: 'Eula',
                 values: { accepted: acceptedEula },
+                isAccountExist: isAccExist,
             });
         } catch (_error) {
             console.error(_error);
@@ -62,7 +70,7 @@ export const EulaScreen: React.FC<EulaScreenProps> = (props) => {
         } finally {
             setIsLoading(false);
         }
-    }, [actions, nextScreen, triggerError]);
+    }, [actions, nextScreen, triggerError, isInviteRegistration, screenData]);
 
     const onPrevious = useCallback(async (): Promise<void> => {
         setIsLoading(true);
