@@ -25,6 +25,7 @@ export const VerifyCodeScreen: React.FC<VerifyCodeScreenProps> = (props) => {
     const { nextScreen, previousScreen, screenData, currentScreen, totalScreens } = regWorkflow;
     const { emailAddress } = screenData.CreateAccount;
     const { triggerError, errorManagerConfig } = useErrorManager();
+    const errorDisplayConfig = { ...errorManagerConfig, ...props.errorDisplayConfig };
 
     const [verifyCode, setVerifyCode] = useState(screenData.VerifyCode.code);
     const [isLoading, setIsLoading] = useState(false);
@@ -50,7 +51,6 @@ export const VerifyCodeScreen: React.FC<VerifyCodeScreenProps> = (props) => {
         resendLabel = t('bluiCommon:ACTIONS.RESEND'),
         verifyCodeInputLabel = t('bluiRegistration:SELF_REGISTRATION.VERIFY_EMAIL.VERIFICATION'),
         initialValue = verifyCode,
-        errorDisplayConfig = errorManagerConfig,
     } = props;
 
     const handleOnNext = useCallback(

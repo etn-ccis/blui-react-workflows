@@ -9,6 +9,7 @@ export const EulaScreen: React.FC<EulaScreenProps> = (props) => {
     const { t } = useLanguageLocale();
     const { actions, navigate, routeConfig, language } = useRegistrationContext();
     const { triggerError, errorManagerConfig } = useErrorManager();
+    const errorDisplayConfig = { ...errorManagerConfig, ...props.errorDisplayConfig };
     const regWorkflow = useRegistrationWorkflowContext();
     const { nextScreen, previousScreen, screenData, currentScreen, totalScreens, isInviteRegistration } = regWorkflow;
     const {
@@ -18,7 +19,6 @@ export const EulaScreen: React.FC<EulaScreenProps> = (props) => {
         eulaContent,
         checkboxLabel = t('bluiRegistration:REGISTRATION.EULA.AGREE_TERMS'),
         initialCheckboxValue,
-        errorDisplayConfig = errorManagerConfig,
     } = props;
 
     const [eulaAccepted, setEulaAccepted] = useState(screenData.Eula.accepted ?? initialCheckboxValue);
