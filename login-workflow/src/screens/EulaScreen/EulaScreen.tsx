@@ -17,11 +17,11 @@ export const EulaScreen: React.FC<EulaScreenProps> = (props) => {
         onEulaAcceptedChange = (accepted: boolean): boolean => accepted,
         eulaContent,
         checkboxLabel = t('bluiRegistration:REGISTRATION.EULA.AGREE_TERMS'),
-        initialCheckboxValue,
+        initialCheckboxValue = screenData.Eula.accepted,
         errorDisplayConfig = errorManagerConfig,
     } = props;
 
-    const [eulaAccepted, setEulaAccepted] = useState(screenData.Eula.accepted ?? initialCheckboxValue);
+    const [eulaAccepted, setEulaAccepted] = useState(screenData.Eula.accepted);
     const [isLoading, setIsLoading] = useState(true);
     const [eulaData, setEulaData] = useState<string>();
 
@@ -128,7 +128,7 @@ export const EulaScreen: React.FC<EulaScreenProps> = (props) => {
             }}
             checkboxLabel={checkboxLabel}
             checkboxProps={{ disabled: false }}
-            initialCheckboxValue={eulaAccepted}
+            initialCheckboxValue={eulaAccepted ?? initialCheckboxValue}
             onEulaAcceptedChange={onEulaAcceptedChange}
             WorkflowCardActionsProps={workflowCardActionsProps}
             errorDisplayConfig={errorDisplayConfig}

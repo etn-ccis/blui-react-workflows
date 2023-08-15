@@ -111,7 +111,9 @@ export const CreateAccountScreen: React.FC<CreateAccountScreenProps> = (props) =
             WorkflowCardHeaderProps={workflowCardHeaderProps}
             WorkflowCardInstructionProps={workflowCardInstructionProps}
             emailLabel={emailLabel}
-            initialValue={initialValue}
+            initialValue={
+                screenData.CreateAccount.emailAddress.length > 0 ? screenData.CreateAccount.emailAddress : initialValue
+            }
             emailTextFieldProps={{ ...emailTextFieldProps, onChange: onEmailInputValueChange }}
             emailValidator={emailValidator}
             WorkflowCardActionsProps={workflowCardActionsProps}

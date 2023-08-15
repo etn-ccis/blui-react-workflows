@@ -49,7 +49,7 @@ export const VerifyCodeScreen: React.FC<VerifyCodeScreenProps> = (props) => {
         resendInstructions = t('bluiRegistration:SELF_REGISTRATION.VERIFY_EMAIL.VERIFICATION_CODE_PROMPT'),
         resendLabel = t('bluiCommon:ACTIONS.RESEND'),
         verifyCodeInputLabel = t('bluiRegistration:SELF_REGISTRATION.VERIFY_EMAIL.VERIFICATION'),
-        initialValue = verifyCode,
+        initialValue = screenData.VerifyCode.code,
         errorDisplayConfig = errorManagerConfig,
     } = props;
 
@@ -113,7 +113,7 @@ export const VerifyCodeScreen: React.FC<VerifyCodeScreenProps> = (props) => {
         },
         onPrevious: (data: any): void => {
             void onPrevious(data.code);
-            WorkflowCardActionsProps?.onPrevious();
+            WorkflowCardActionsProps?.onPrevious?.();
         },
     };
 
@@ -126,7 +126,7 @@ export const VerifyCodeScreen: React.FC<VerifyCodeScreenProps> = (props) => {
             resendInstructions={resendInstructions}
             resendLabel={resendLabel}
             verifyCodeInputLabel={verifyCodeInputLabel}
-            initialValue={initialValue}
+            initialValue={verifyCode.length > 0 ? verifyCode : initialValue}
             onResend={onResend}
             codeValidator={codeValidator}
             errorDisplayConfig={errorDisplayConfig}
