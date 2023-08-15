@@ -71,7 +71,7 @@ export const RegistrationWorkflow: React.FC<React.PropsWithChildren<Registration
     });
 
     const updateScreenData = (data: IndividualScreenData): void => {
-        const { Other } = screenData;
+        const { Other }: any = screenData;
         const { screenId, values } = data;
         if (!Object.keys(screenData).includes(screenId)) {
             setScreenData((oldData) => ({
@@ -81,7 +81,6 @@ export const RegistrationWorkflow: React.FC<React.PropsWithChildren<Registration
         } else if (Object.keys(Other).includes(screenId)) {
             setScreenData((oldData) => ({
                 ...oldData,
-                /* @ts-ignore */
                 Other: { ...Other, [screenId]: { ...Other[screenId], ...values } },
             }));
         } else {

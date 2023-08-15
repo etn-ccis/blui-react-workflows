@@ -65,7 +65,7 @@ describe('RegistrationWorkflow', () => {
         expect(nextScreen).toHaveBeenCalledWith({ screenId: 'Eula', values: { accepted: true } });
     });
 
-    it('should set screen data for default registration workflow in the context', async () => {
+    it('should set screen data for default registration workflow in the context', () => {
         const wrapper = ({ children }: any): JSX.Element => (
             <RegistrationContextProvider {...registrationContextProviderProps}>
                 <RegistrationWorkflow {...defaultProps}>{children}</RegistrationWorkflow>
@@ -76,7 +76,6 @@ describe('RegistrationWorkflow', () => {
         expect(result.current.screenData['Eula'].accepted).toBeFalsy();
         expect(result.current.screenData['CreateAccount'].emailAddress).toBe('');
 
-        // eslint-disable-next-line
         act(() => {
             void result.current.nextScreen({ screenId: 'Eula', values: { accepted: true } });
         });
@@ -88,12 +87,12 @@ describe('RegistrationWorkflow', () => {
         });
 
         expect(result.current.screenData['Eula'].accepted).toBeTruthy();
-        // eslint-disable-next-line
-        await (() =>
+
+        void ((): void =>
             expect(result.current.screenData['CreateAccount'].emailAddress).toBe('emailAddress@emailAddress.com'));
     });
 
-    it('should set screen data for custom registration workflow in the context', async () => {
+    it('should set screen data for custom registration workflow in the context', () => {
         const wrapper = ({ children }: any): JSX.Element => (
             <RegistrationContextProvider {...registrationContextProviderProps}>
                 <RegistrationWorkflow {...defaultProps}>{children}</RegistrationWorkflow>
@@ -110,10 +109,9 @@ describe('RegistrationWorkflow', () => {
                 values: { test2: 'test2' },
             });
         });
-        /* @ts-ignore */
         expect(result.current.screenData['Other']['Screen1'].test).toBe('test');
-        // eslint-disable-next-line
-        await (() => expect(result.current.screenData['Other']['Screen2'].test2).toBe('test2'));
+
+        void ((): void => expect(result.current.screenData['Other']['Screen2'].test2).toBe('test2'));
     });
 
     it('should check for lower bound of initialScreenIndex props', () => {
