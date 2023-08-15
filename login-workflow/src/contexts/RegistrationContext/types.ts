@@ -1,14 +1,13 @@
 import { i18n } from 'i18next';
 import { ErrorContextProviderProps } from '../ErrorContext';
 
-// @TODO: this will need migrated to AuthContext types when that is ready
+
 export type AccountDetails = {
     firstName: string;
     lastName: string;
     extra?: { [key: string]: boolean | string | number };
 };
 
-// @TODO: this will need migrated to routing types when the routing
 export type RouteConfig = {
     LOGIN?: string;
     FORGOT_PASSWORD?: string;
@@ -18,7 +17,6 @@ export type RouteConfig = {
     SUPPORT?: string;
 };
 
-// this should be updated to add new actions for greater control
 export type RegistrationUIActions = {
     loadEula?: (language: string) => Promise<string>;
     acceptEula?: () => Promise<boolean>;
