@@ -10,16 +10,21 @@ import {
     VerifyCodeScreen,
 } from '../../screens';
 import { parseQueryString } from '../../utils';
+import { useErrorManager } from '../../contexts/ErrorContext/useErrorManager';
+import ErrorManager, { ErrorManagerProps } from '../Error/ErrorManager';
 
 export type RegistrationWorkflowProps = {
     initialScreenIndex?: number;
     successScreen?: JSX.Element;
     isInviteRegistration?: boolean;
     existingAccountSuccessScreen?: JSX.Element;
+    errorDisplayConfig?: ErrorManagerProps;
 };
 
 export const RegistrationWorkflow: React.FC<React.PropsWithChildren<RegistrationWorkflowProps>> = (props) => {
     const [isAccountExist, setIsAccountExist] = useState(false);
+    const { triggerError, errorManagerConfig } = useErrorManager();
+    const errorDisplayConfig = { ...errorManagerConfig, ...props.errorDisplayConfig };
     const {
         initialScreenIndex = 0,
         successScreen = <RegistrationSuccessScreen />,
@@ -103,8 +108,7 @@ export const RegistrationWorkflow: React.FC<React.PropsWithChildren<Registration
                     setShowSuccessScreen(true);
                 })
                 .catch((_error) => {
-                    // eslint-disable-next-line no-console
-                    console.log(_error);
+                    triggerError(_error);
                 });
     };
 
@@ -139,11 +143,13 @@ export const RegistrationWorkflow: React.FC<React.PropsWithChildren<Registration
             updateScreenData={updateScreenData}
             isInviteRegistration={isInviteRegistration}
         >
-            {showSuccessScreen
-                ? isAccountExist
-                    ? existingAccountSuccessScreen
-                    : successScreen
-                : screens[currentScreen]}
+            <ErrorManager {...errorDisplayConfig}>
+                {showSuccessScreen
+                    ? isAccountExist
+                        ? existingAccountSuccessScreen
+                        : successScreen
+                    : screens[currentScreen]}
+            </ErrorManager>
         </RegistrationWorkflowContextProvider>
     );
 };
