@@ -9,7 +9,7 @@ jobs:
     docker:
       - image: cimg/node:14.19.0-browsers
     resource_class: large
-    parallelism: 2
+    parallelism: 4
     steps:
       - checkout
       - restore_cache:
@@ -35,9 +35,6 @@ jobs:
           command: |
             cd login-workflow
             yarn lint
-      - run:
-          command: cat /sys/fs/cgroup/memory/memory.max_usage_in_bytes
-          when: always
       - run:
           name: Tests
           command: |
