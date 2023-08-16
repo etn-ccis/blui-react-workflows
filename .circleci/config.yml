@@ -33,7 +33,7 @@ jobs:
           name: Lint
           command: |
             cd login-workflow
-            yarn lint
+            yarn lint --maxWorkers=2
       - run:
           name: Tests
           command: |
