@@ -36,6 +36,9 @@ jobs:
             cd login-workflow
             yarn lint
       - run:
+          command: cat /sys/fs/cgroup/memory/memory.max_usage_in_bytes
+          when: always
+      - run:
           name: Tests
           command: |
             cd login-workflow
