@@ -1,10 +1,15 @@
 import i18next from 'i18next';
 import { RegistrationDictionaries } from './RegistrationDictionaries';
+import { initReactI18next } from 'react-i18next';
+import LanguageDetector from 'i18next-browser-languagedetector';
 import { SharedDictionaries } from '../SharedDictionaries';
 
-export const i18nRegistrationInstance = i18next.createInstance(
+export const i18nRegistrationInstance = 
+    i18next
+    .use(initReactI18next) // passes i18n down to react-i18next
+    .use(LanguageDetector) // allows us to infer the language from browser language selection
+    .init(
     {
-        lng: 'en',
         fallbackLng: 'en',
         ns: ['bluiRegistration', 'bluiCommon'],
         defaultNS: 'bluiRegistration',
@@ -13,6 +18,7 @@ export const i18nRegistrationInstance = i18next.createInstance(
             order: ['querystring', 'localStorage', 'navigator'],
             caches: ['localStorage'],
             lookupLocalStorage: 'blui-registration-i18nextLng',
+            lookupQuerystring: 'lng',
         },
         react: { useSuspense: false },
         interpolation: { escapeValue: false },
@@ -68,4 +74,4 @@ export const i18nRegistrationInstance = i18next.createInstance(
     }
 );
 
-export default { i18nRegistrationInstance };
+export default i18nRegistrationInstance;

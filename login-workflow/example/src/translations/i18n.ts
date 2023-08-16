@@ -1,9 +1,13 @@
 import i18next from 'i18next';
 import { AppDictionaries } from './dictionary';
+import { initReactI18next } from 'react-i18next';
+import LanguageDetector from 'i18next-browser-languagedetector';
 
-export const i18nAppInstance = i18next.createInstance(
+void i18next
+.use(initReactI18next) // passes i18n down to react-i18next
+.use(LanguageDetector) // allows us to infer the language from browser language selection
+.init(
     {
-        lng: 'en',
         fallbackLng: 'en',
         ns: ['app'],
         defaultNS: 'app',
@@ -11,7 +15,8 @@ export const i18nAppInstance = i18next.createInstance(
         detection: {
             order: ['querystring', 'localStorage', 'navigator'],
             caches: ['localStorage'],
-            lookupLocalStorage: 'blui-authentication-i18nextLng',
+            lookupLocalStorage: 'app-i18nextLng',
+            lookupQuerystring: 'lng',
         },
         react: { useSuspense: false },
         interpolation: { escapeValue: false },
@@ -51,4 +56,4 @@ export const i18nAppInstance = i18next.createInstance(
     }
 );
 
-export default { i18nAppInstance };
+export default i18next;
