@@ -8,7 +8,7 @@ jobs:
     working_directory: ~/login-workflow
     docker:
       - image: cimg/node:14.19.0-browsers
-    resource_class: large
+    resource_class: xlarge
     parallelism: 4
     steps:
       - checkout
