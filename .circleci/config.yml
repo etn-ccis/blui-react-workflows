@@ -9,6 +9,7 @@ jobs:
     docker:
       - image: cimg/node:14.19.0-browsers
     resource_class: large
+    parallelism: 2
     steps:
       - checkout
       - restore_cache:
