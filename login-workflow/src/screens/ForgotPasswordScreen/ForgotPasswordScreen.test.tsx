@@ -197,6 +197,7 @@ describe('Forgot Password Screen tests', () => {
         fireEvent.click(nextButton);
 
         const successMessage = screen.findByText('Success');
+        // eslint-disable-next-line
         await (() => expect(successMessage).toBeInTheDocument());
     });
 
