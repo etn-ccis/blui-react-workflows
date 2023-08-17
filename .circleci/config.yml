@@ -60,7 +60,7 @@ jobs:
           command: |
             cd login-workflow
             yarn test --maxWorkers=2 --coverage --watchAll=false
-            
+
   "build_login_workflow":
     docker:
       - image: cimg/node:16.19.1-browsers
