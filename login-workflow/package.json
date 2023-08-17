@@ -10,7 +10,7 @@
         "test": "jest",
         "build": "tsc --p tsconfig.lib.json && cp -r src/assets/. dist/assets && cp -r src/index.css dist/index.css",
         "link:workflow": "bash ./scripts/linkWorkflow.sh",
-        "lint": "eslint --cache \"src/**/**.{tsx,ts}\"",
+        "lint": "eslint \"src/**/**.{tsx,ts}\"",
         "lint:fix": "eslint \"src/**/**.{tsx,ts}\" --fix",
         "start:example": "yarn install:dependencies && yarn link:workflow && cd example && yarn start",
         "prettier": "prettier \"**/**.{ts,tsx,js,jsx,json,css,scss,html}\" --write",
