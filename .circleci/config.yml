@@ -4,10 +4,10 @@ orbs:
     gh: circleci/github-cli@1.0.3
     browser-tools: circleci/browser-tools@1.2.4
 jobs:
-  build_login_workflow:
-    working_directory: ~/login-workflow
+  "install_dependencies":
     docker:
       - image: cimg/node:16.19.1-browsers
+    working_directory: ~/login-workflow
     resource_class: large
     steps:
       - checkout
@@ -24,21 +24,49 @@ jobs:
           paths:
             - node_modules
           key: v2-dependencies-{{ checksum "login-workflow/yarn.lock" }}
+
+  "prettier_check":
+    docker:
+      - image: cimg/node:16.19.1-browsers
+    working_directory: ~/login-workflow
+    resource_class: large
+    steps:
       - run:
           name: Prettier Check
           command: |
             cd login-workflow
             yarn prettier:check
+
+  "lint_check":
+    docker:
+      - image: cimg/node:16.19.1-browsers
+    working_directory: ~/login-workflow
+    resource_class: large
+    steps:
       - run:
           name: Lint
           command: |
             cd login-workflow
             yarn lint
+
+  "unit_test":
+    docker:
+      - image: cimg/node:16.19.1-browsers
+    working_directory: ~/login-workflow
+    resource_class: large
+    steps:
       - run:
           name: Tests
           command: |
             cd login-workflow
             yarn test --maxWorkers=2 --coverage --watchAll=false
+            
+  "build_login_workflow":
+    docker:
+      - image: cimg/node:16.19.1-browsers
+    working_directory: ~/login-workflow
+    resource_class: large
+    steps:
       - run:
           name: Build
           command: |
