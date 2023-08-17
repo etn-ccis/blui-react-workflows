@@ -7,7 +7,7 @@ jobs:
   build_login_workflow:
     working_directory: ~/login-workflow
     docker:
-      - image: cimg/node:14.19.0-browsers
+      - image: cimg/node:16.19.1-browsers
     resource_class: large
     steps:
       - checkout
@@ -53,7 +53,7 @@ jobs:
   coverage_report:
         working_directory: ~/login-workflow
         docker:
-            - image: cimg/node:14.19.0-browsers
+            - image: cimg/node:16.19.1-browsers
         steps:
             - checkout
             - attach_workspace:
@@ -65,7 +65,7 @@ jobs:
 
   publish_login_workflow:
     docker:
-      - image: cimg/node:14.19.0-browsers
+      - image: cimg/node:16.19.1-browsers
     steps:
       - checkout
       - attach_workspace:
