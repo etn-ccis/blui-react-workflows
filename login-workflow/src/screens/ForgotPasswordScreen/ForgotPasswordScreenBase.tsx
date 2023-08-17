@@ -12,9 +12,7 @@ import { SuccessScreenProps } from '../SuccessScreen';
 import ErrorManager from '../../components/Error/ErrorManager';
 
 type ForgotPasswordScreenBaseProps = Omit<ForgotPasswordScreenProps, 'slots'> & {
-    slots: {
-        SuccessScreen: (props: SuccessScreenProps) => JSX.Element;
-    };
+    slots: { SuccessScreen: (props: SuccessScreenProps) => JSX.Element };
 };
 
 export const ForgotPasswordScreenBase: React.FC<React.PropsWithChildren<ForgotPasswordScreenBaseProps>> = (props) => {
