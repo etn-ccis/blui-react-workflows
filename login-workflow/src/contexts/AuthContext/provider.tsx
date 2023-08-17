@@ -7,13 +7,13 @@ import React, { useEffect } from 'react';
 import { AuthContextProviderProps } from './types';
 import { AuthContext } from './context';
 import { I18nextProvider } from 'react-i18next';
-import { i18nAuthInstance } from './i18nAuthInstance';
+import i18next from './i18nAuthInstance';
 import { ErrorContext } from '../ErrorContext';
 import { AuthDictionaries } from './AuthDictionaries';
 import { SharedDictionaries } from '../SharedDictionaries';
 
 export const AuthContextProvider: React.FC<React.PropsWithChildren<AuthContextProviderProps>> = (props) => {
-    const i18nInstance = props.i18n ?? i18nAuthInstance;
+    const i18nInstance = props.i18n ?? i18next;
     const { children, ...authContextProps } = props;
     const { language, i18n = i18nInstance, errorConfig } = props;
 

@@ -3,7 +3,8 @@ import { AppContext, AppContextType } from './contexts/AppContextProvider';
 import { BrowserRouter } from 'react-router-dom';
 import { AppRouter } from './navigation/AppRouter';
 import { I18nextProvider } from 'react-i18next';
-import  i18next  from './translations/i18n';
+import i18n from "./translations/i18n";
+// const i18nAppInstance = require('./translations/i18n').default
 import { LocalStorage } from './store/local-storage';
 import { Box, CircularProgress, SxProps, Theme } from '@mui/material';
 
@@ -40,7 +41,7 @@ export const App = (): JSX.Element => {
 
     // handle language change
     useEffect(() => {
-        void i18next.changeLanguage(language);
+        void i18n.changeLanguage(language);
     }, [language]);
 
     // handle initialization of auth data on first load
@@ -65,7 +66,7 @@ export const App = (): JSX.Element => {
             <CircularProgress sx={emptyStateContainerStyles} size={70} variant={'indeterminate'} />
         </Box>
     ) : (
-        <I18nextProvider i18n={i18next} defaultNS={'app'}>
+        <I18nextProvider i18n={i18n} defaultNS={'app'}>
             <AppContext.Provider
                 value={{
                     isAuthenticated,

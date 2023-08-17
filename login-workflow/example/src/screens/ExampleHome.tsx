@@ -31,12 +31,12 @@ import * as Colors from '@brightlayer-ui/colors';
 import FormControl from '@mui/material/FormControl';
 import { MenuItem, Select, SelectChangeEvent } from '@mui/material';
 import { ChangePasswordDialog } from '@brightlayer-ui/react-auth-workflow';
-import i18next from '../translations/i18n';
-
+import i18n from '../translations/i18n';
+// const i18nAppInstance = require('../translations/i18n').default
 export const ExampleHome: React.FC<React.PropsWithChildren> = () => {
     const app = useApp();
     const language = window.localStorage.getItem('app-i18nextLng')?.toString() ?? 'en';
-    const { t, i18n } = useTranslation();
+    const { t } = useTranslation();
     const [open, setOpen] = useState(false);
     const navigate = useNavigate();
     const theme = useTheme();
@@ -75,7 +75,7 @@ export const ExampleHome: React.FC<React.PropsWithChildren> = () => {
     const changeAppLanguage = (event: SelectChangeEvent): void => {
         const appLanguage = event.target.value;
         // app.setLanguage(appLanguage);
-        void i18next.changeLanguage(appLanguage);
+        void i18n.changeLanguage(appLanguage);
         // window.localStorage.setItem('blui-registration-i18nextLng', appLanguage);
         // window.localStorage.setItem('blui-authentication-i18nextLng', appLanguage);
     };

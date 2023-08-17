@@ -17,7 +17,8 @@ import { Login } from '../screens/Login';
 import { ProjectRegistrationUIActions } from '../actions/RegistrationUIActions';
 import { routes } from './Routing';
 import { ExampleHome } from '../screens/ExampleHome';
-import i18next from '../translations/i18n';
+import i18n from '../translations/i18n';
+// const i18nAppInstance = require('../translations/i18n').default;
 
 export const AppRouter: React.FC = () => {
     // const { language } = useApp();
@@ -36,7 +37,7 @@ export const AppRouter: React.FC = () => {
                         language={language}
                         navigate={navigate}
                         routeConfig={routes}
-                        i18n={i18next}
+                        i18n={i18n}
                         rememberMeDetails={{ email: rememberMe ? email : '', rememberMe: rememberMe }}
                     >
                         <Outlet />
@@ -102,7 +103,7 @@ export const AppRouter: React.FC = () => {
                         routeConfig={routes}
                         navigate={navigate}
                         actions={ProjectRegistrationUIActions}
-                        i18n={i18next}
+                        i18n={i18n}
                     >
                         <Outlet />
                     </RegistrationContextProvider>

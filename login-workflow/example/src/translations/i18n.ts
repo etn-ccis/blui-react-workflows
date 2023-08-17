@@ -12,6 +12,7 @@ void i18next
         ns: ['app'],
         defaultNS: 'app',
         load: 'languageOnly',
+        supportedLngs: ['en', 'fr', 'es', 'zh', 'pt'],
         detection: {
             order: ['querystring', 'localStorage', 'navigator'],
             caches: ['localStorage'],
