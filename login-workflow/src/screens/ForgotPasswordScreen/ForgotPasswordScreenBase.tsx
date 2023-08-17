@@ -13,7 +13,6 @@ import ErrorManager from '../../components/Error/ErrorManager';
 
 type ForgotPasswordScreenBaseProps = Omit<ForgotPasswordScreenProps, 'slots'> & {
     slots: {
-        // eslint-disable-next-line
         SuccessScreen: (props: SuccessScreenProps) => JSX.Element;
     };
 };

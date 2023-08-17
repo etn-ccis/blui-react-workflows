@@ -39,7 +39,6 @@ export const ResetPasswordScreenBase: React.FC<React.PropsWithChildren<ResetPass
 
     const getSuccessScreen = (
         _props: SuccessScreenProps,
-        // eslint-disable-next-line
         SuccessScreen?: (props: SuccessScreenProps) => JSX.Element
     ): JSX.Element => (SuccessScreen ? SuccessScreen(_props) : <SuccessScreenBase {..._props} />);
 
