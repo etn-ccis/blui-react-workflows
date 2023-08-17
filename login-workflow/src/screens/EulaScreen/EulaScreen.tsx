@@ -22,9 +22,11 @@ export const EulaScreen: React.FC<EulaScreenProps> = (props) => {
         initialCheckboxValue,
         errorDisplayConfig = errorManagerConfig,
     } = props;
-    const [eulaAccepted, setEulaAccepted] = useState(initialCheckboxValue ?? screenData.Eula.accepted);
+    const [eulaAccepted, setEulaAccepted] = useState(
+        initialCheckboxValue ? initialCheckboxValue : screenData.Eula.accepted
+    );
     const [isLoading, setIsLoading] = useState(true);
-    const [eulaData, setEulaData] = useState<any>();
+    const [eulaData, setEulaData] = useState<string | JSX.Element>();
 
     const loadAndCacheEula = useCallback(async (): Promise<void> => {
         if (!eulaContent) {
