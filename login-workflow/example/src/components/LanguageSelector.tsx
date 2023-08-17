@@ -1,27 +1,23 @@
-import { FormControl, InputLabel, MenuItem, Select, SelectChangeEvent, SelectProps } from '@mui/material';
 import React, { useState } from 'react';
-// import { useApp } from '../contexts/AppContextProvider';
-// import { useTranslation } from 'react-i18next';
-// import {i18nAppInstance} from '../translations/i18n';
-// const i18nAppInstance = require('../translations/i18n').default;
-import i18n from "../translations/i18n"
+import { FormControl, InputLabel, MenuItem, Select, SelectChangeEvent, SelectProps } from '@mui/material';
+import i18n from '../translations/i18n';
 
 export const LanguageSelector = (props: SelectProps): JSX.Element => {
-    // const { language, setLanguage } = useApp();
-    const [selectedLanguage, setSelectedLanguage] = useState(window.localStorage.getItem('app-i18nextLng')?.toString() ?? 'en');
+    const supportedLanguages = ['en', 'fr', 'es', 'zh', 'pt'];
+    const [selectedLanguage, setSelectedLanguage] = useState(
+        window.localStorage.getItem('app-i18nextLng')?.toString() ?? 'en'
+    );
     const changeAppLanguage = (event: SelectChangeEvent): void => {
         const appLanguage = event.target.value;
         setSelectedLanguage(appLanguage);
-        // setLanguage(appLanguage);
         void i18n.changeLanguage(appLanguage);
-        // window.localStorage.setItem('app-i18nextLng', appLanguage);
     };
 
     return (
         <FormControl fullWidth>
             {props.label && <InputLabel id="select-label">{props.label}</InputLabel>}
             <Select
-                value={selectedLanguage === 'en-GB' ? 'en' : selectedLanguage}
+                value={supportedLanguages.includes(selectedLanguage) ? selectedLanguage : 'en'}
                 label={props.label}
                 onChange={changeAppLanguage}
                 variant={props.variant}

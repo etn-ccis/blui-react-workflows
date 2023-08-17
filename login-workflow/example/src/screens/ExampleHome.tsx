@@ -34,6 +34,7 @@ import { ChangePasswordDialog } from '@brightlayer-ui/react-auth-workflow';
 import i18n from '../translations/i18n';
 export const ExampleHome: React.FC<React.PropsWithChildren> = () => {
     const app = useApp();
+    const supportedLanguages = ['en', 'fr', 'es', 'zh', 'pt'];
     const language = window.localStorage.getItem('app-i18nextLng')?.toString() ?? 'en';
     const { t } = useTranslation();
     const [open, setOpen] = useState(false);
@@ -114,7 +115,7 @@ export const ExampleHome: React.FC<React.PropsWithChildren> = () => {
                             <Box sx={{ py: 2 }}>
                                 <FormControl fullWidth>
                                     <Select
-                                        value={language === 'en-GB' ? 'en' : language}
+                                        value={supportedLanguages.includes(language) ? language : 'en'}
                                         onChange={changeAppLanguage}
                                         variant={'standard'}
                                         sx={{

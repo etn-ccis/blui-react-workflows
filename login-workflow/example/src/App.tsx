@@ -3,7 +3,7 @@ import { AppContext, AppContextType } from './contexts/AppContextProvider';
 import { BrowserRouter } from 'react-router-dom';
 import { AppRouter } from './navigation/AppRouter';
 import { I18nextProvider } from 'react-i18next';
-import i18n from "./translations/i18n";
+import i18n from './translations/i18n';
 // const i18nAppInstance = require('./translations/i18n').default
 import { LocalStorage } from './store/local-storage';
 import { Box, CircularProgress, SxProps, Theme } from '@mui/material';
