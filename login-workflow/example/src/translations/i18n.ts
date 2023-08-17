@@ -19,7 +19,7 @@ void i18next
             lookupLocalStorage: 'app-i18nextLng',
             lookupQuerystring: 'lng',
         },
-        react: { useSuspense: false },
+        // react: { useSuspense: false },
         interpolation: { escapeValue: false },
         resources: {
             en: {

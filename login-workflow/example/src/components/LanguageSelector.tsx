@@ -21,7 +21,7 @@ export const LanguageSelector = (props: SelectProps): JSX.Element => {
         <FormControl fullWidth>
             {props.label && <InputLabel id="select-label">{props.label}</InputLabel>}
             <Select
-                value={selectedLanguage}
+                value={selectedLanguage === 'en-GB' ? 'en' : selectedLanguage}
                 label={props.label}
                 onChange={changeAppLanguage}
                 variant={props.variant}
