@@ -182,7 +182,9 @@ describe('Forgot Password Screen tests', () => {
         const { getByLabelText } = render(
             <AuthContextProvider {...props}>
                 <BrowserRouter>
-                    <ForgotPasswordScreen slots={{ SuccessScreen: (): JSX.Element => <Box>Success</Box> }} />
+                    <ForgotPasswordScreen slots={{ 
+                        // eslint-disable-next-line
+                        SuccessScreen: (): JSX.Element => <Box>Success</Box> }} />
                 </BrowserRouter>
             </AuthContextProvider>
         );

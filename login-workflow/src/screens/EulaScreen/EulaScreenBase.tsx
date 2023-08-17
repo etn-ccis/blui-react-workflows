@@ -55,6 +55,7 @@ export const EulaScreenBase: React.FC<EulaScreenProps> = (props) => {
                 {htmlEula && (
                     <Box
                         sx={{ flex: '1 1 0px', overflow: 'auto' }}
+                        // eslint-disable-next-line
                         dangerouslySetInnerHTML={{ __html: DOMPurify.sanitize(eulaContent as string) }}
                     />
                 )}

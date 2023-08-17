@@ -83,6 +83,7 @@ describe('Forgot Password Screen Base', () => {
                 }}
                 showSuccessScreen={true}
                 slots={{
+                    // eslint-disable-next-line
                     SuccessScreen: (): JSX.Element => (
                         <div>
                             <p>Success Screen</p>

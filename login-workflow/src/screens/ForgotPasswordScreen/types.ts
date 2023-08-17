@@ -14,6 +14,7 @@ export type ForgotPasswordScreenProps = WorkflowCardProps & {
 
     // used for each slot in `ForgotPasswordScreenBase`
     slots?: {
+        // eslint-disable-next-line
         SuccessScreen?: (props: SuccessScreenProps) => JSX.Element;
     };
 

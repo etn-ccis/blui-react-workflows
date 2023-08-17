@@ -12,6 +12,7 @@ export function getWorkflowCardUtilityClass(slot: string): string {
 }
 
 // For WorkflowCardActions component
+// eslint-disable-next-line
 export type workflowCardActionsClasses = {
     root?: string;
     nextButton?: string;

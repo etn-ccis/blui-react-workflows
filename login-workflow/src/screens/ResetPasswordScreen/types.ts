@@ -4,6 +4,7 @@ import { WorkflowCardProps } from '../../components/WorkflowCard/WorkflowCard.ty
 import { SuccessScreenProps } from '../SuccessScreen';
 
 export type ResetPasswordScreenSlots = {
+    // eslint-disable-next-line
     SuccessScreen?: (props?: SuccessScreenProps) => JSX.Element;
 };
 
