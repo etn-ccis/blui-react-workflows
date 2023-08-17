@@ -3,8 +3,9 @@ orbs:
     codecov: codecov/codecov@3.2.2
     gh: circleci/github-cli@1.0.3
     browser-tools: circleci/browser-tools@1.2.4
+
 jobs:
-  "install_dependencies":
+  install_dependencies:
     docker:
       - image: cimg/node:16.19.1-browsers
     working_directory: ~/login-workflow
@@ -25,7 +26,7 @@ jobs:
             - node_modules
           key: v2-dependencies-{{ checksum "login-workflow/yarn.lock" }}
 
-  "prettier_check":
+  prettier_check:
     docker:
       - image: cimg/node:16.19.1-browsers
     working_directory: ~/login-workflow
@@ -37,7 +38,7 @@ jobs:
             cd login-workflow
             yarn prettier:check
 
-  "lint_check":
+  lint_check:
     docker:
       - image: cimg/node:16.19.1-browsers
     working_directory: ~/login-workflow
@@ -49,7 +50,7 @@ jobs:
             cd login-workflow
             yarn lint
 
-  "unit_test":
+  unit_test:
     docker:
       - image: cimg/node:16.19.1-browsers
     working_directory: ~/login-workflow
@@ -61,7 +62,7 @@ jobs:
             cd login-workflow
             yarn test --maxWorkers=2 --coverage --watchAll=false
 
-  "build_login_workflow":
+  build_login_workflow:
     docker:
       - image: cimg/node:16.19.1-browsers
     working_directory: ~/login-workflow
@@ -114,9 +115,12 @@ jobs:
             cd login-workflow && yarn publish:package -b $CIRCLE_BRANCH
 
 workflows:
-  version: 2
   react_workflows:
     jobs:
+      - install_dependencies
+      - prettier_check
+      - lint_check
+      - unit_test
       - build_login_workflow
       - publish_login_workflow:
           requires:
