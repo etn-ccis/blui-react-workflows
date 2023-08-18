@@ -72,6 +72,8 @@ jobs:
   store_test_results:
     docker:
       - image: cimg/node:18.17.0-browsers
+        environment:
+          NODE_OPTIONS=--max-old-space-size=4096
     working_directory: ~/login-workflow
     resource_class: large
     steps:
