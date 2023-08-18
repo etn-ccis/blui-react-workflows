@@ -73,6 +73,7 @@ jobs:
   store_test_results:
     docker:
       - image: cimg/node:18.17.0-browsers
+    parallelism: 4
     working_directory: ~/login-workflow
     resource_class: large
     steps:
