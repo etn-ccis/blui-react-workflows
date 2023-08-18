@@ -40,7 +40,6 @@ export const App = (): JSX.Element => {
 
     // handle initialization of auth data on first load
     useEffect(() => {
-        // void i18nAppInstance.changeLanguage(language);
         const initialize = async (): Promise<void> => {
             try {
                 const userData = await LocalStorage.readAuthData();
