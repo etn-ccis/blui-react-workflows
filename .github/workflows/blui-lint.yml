@@ -1,0 +1,24 @@
+# lint checker
+name: Lint Check
+on:
+  pull_request_target:
+    types:
+      - opened
+      - edited
+      - synchronize
+    branches:
+      - "*/*"
+jobs:
+  build:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v3
+      - name: Use Node.js
+        uses: actions/setup-node@v3
+        with:
+          node-version: '16.x'
+          cache: yarn
+      - name: Install dependencies
+        run: yarn
+      - name: Eslint
+        run: yarn lint
