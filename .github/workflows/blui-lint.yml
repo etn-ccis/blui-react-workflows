@@ -1,4 +1,3 @@
-# lint checker
 name: Check Code
 on:
   pull_request:
