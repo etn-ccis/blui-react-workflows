@@ -17,12 +17,9 @@ import { Login } from '../screens/Login';
 import { ProjectRegistrationUIActions } from '../actions/RegistrationUIActions';
 import { routes } from './Routing';
 import { ExampleHome } from '../screens/ExampleHome';
-import i18n from '../translations/i18n';
-// const i18nAppInstance = require('../translations/i18n').default;
+import i18nAppInstance from '../translations/i18n';
 
 export const AppRouter: React.FC = () => {
-    // const { language } = useApp();
-    const language = window.localStorage.getItem('app-i18nextLng')?.toString() ?? 'en';
     const navigate = useNavigate();
     const app = useApp();
     const { email, rememberMe } = app.loginData;
@@ -34,10 +31,10 @@ export const AppRouter: React.FC = () => {
                 element={
                     <AuthContextProvider
                         actions={ProjectAuthUIActions(app)}
-                        language={language}
+                        language={app.language}
                         navigate={navigate}
                         routeConfig={routes}
-                        i18n={i18n}
+                        i18n={i18nAppInstance}
                         rememberMeDetails={{ email: rememberMe ? email : '', rememberMe: rememberMe }}
                     >
                         <Outlet />
@@ -99,11 +96,11 @@ export const AppRouter: React.FC = () => {
             <Route
                 element={
                     <RegistrationContextProvider
-                        language={language}
+                        language={app.language}
                         routeConfig={routes}
                         navigate={navigate}
                         actions={ProjectRegistrationUIActions}
-                        i18n={i18n}
+                        i18n={i18nAppInstance}
                     >
                         <Outlet />
                     </RegistrationContextProvider>

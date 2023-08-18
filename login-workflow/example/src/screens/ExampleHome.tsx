@@ -35,7 +35,6 @@ import i18n from '../translations/i18n';
 export const ExampleHome: React.FC<React.PropsWithChildren> = () => {
     const app = useApp();
     const supportedLanguages = ['en', 'fr', 'es', 'zh', 'pt'];
-    const language = window.localStorage.getItem('app-i18nextLng')?.toString() ?? 'en';
     const { t } = useTranslation();
     const [open, setOpen] = useState(false);
     const navigate = useNavigate();
@@ -74,10 +73,8 @@ export const ExampleHome: React.FC<React.PropsWithChildren> = () => {
 
     const changeAppLanguage = (event: SelectChangeEvent): void => {
         const appLanguage = event.target.value;
-        // app.setLanguage(appLanguage);
+        app.setLanguage(appLanguage);
         void i18n.changeLanguage(appLanguage);
-        // window.localStorage.setItem('blui-registration-i18nextLng', appLanguage);
-        // window.localStorage.setItem('blui-authentication-i18nextLng', appLanguage);
     };
 
     return (
@@ -115,7 +112,7 @@ export const ExampleHome: React.FC<React.PropsWithChildren> = () => {
                             <Box sx={{ py: 2 }}>
                                 <FormControl fullWidth>
                                     <Select
-                                        value={supportedLanguages.includes(language) ? language : 'en'}
+                                        value={supportedLanguages.includes(app.language) ? app.language : 'en'}
                                         onChange={changeAppLanguage}
                                         variant={'standard'}
                                         sx={{

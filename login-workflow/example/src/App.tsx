@@ -3,8 +3,7 @@ import { AppContext, AppContextType } from './contexts/AppContextProvider';
 import { BrowserRouter } from 'react-router-dom';
 import { AppRouter } from './navigation/AppRouter';
 import { I18nextProvider } from 'react-i18next';
-import i18n from './translations/i18n';
-// const i18nAppInstance = require('./translations/i18n').default
+import i18nAppInstance from './translations/i18n';
 import { LocalStorage } from './store/local-storage';
 import { Box, CircularProgress, SxProps, Theme } from '@mui/material';
 
@@ -31,7 +30,7 @@ const emptyStateContainerStyles = {
 
 export const App = (): JSX.Element => {
     const [isAuthenticated, setIsAuthenticated] = useState(false);
-    const [language, setLanguage] = useState(window.localStorage.getItem('app-i18nextLng') ?? 'en');
+    const [language, setLanguage] = useState(window.localStorage.getItem('app-i18nextLng')?.toString() ?? 'en');
     const [loginData, setLoginData] = useState<AppContextType['loginData']>({
         email: '',
         rememberMe: false,
@@ -39,13 +38,9 @@ export const App = (): JSX.Element => {
 
     const [isLoading, setIsLoading] = useState(true);
 
-    // handle language change
-    useEffect(() => {
-        void i18n.changeLanguage(language);
-    }, [language]);
-
     // handle initialization of auth data on first load
     useEffect(() => {
+        // void i18nAppInstance.changeLanguage(language);
         const initialize = async (): Promise<void> => {
             try {
                 const userData = await LocalStorage.readAuthData();
@@ -66,7 +61,7 @@ export const App = (): JSX.Element => {
             <CircularProgress sx={emptyStateContainerStyles} size={70} variant={'indeterminate'} />
         </Box>
     ) : (
-        <I18nextProvider i18n={i18n} defaultNS={'app'}>
+        <I18nextProvider i18n={i18nAppInstance} defaultNS={'app'}>
             <AppContext.Provider
                 value={{
                     isAuthenticated,
@@ -80,8 +75,8 @@ export const App = (): JSX.Element => {
                     },
                     loginData,
                     setLoginData,
-                    // language,
-                    // setLanguage,
+                    language,
+                    setLanguage,
                 }}
             >
                 <BrowserRouter basename={'/'}>

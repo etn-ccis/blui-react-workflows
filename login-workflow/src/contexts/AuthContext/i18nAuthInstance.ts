@@ -16,10 +16,10 @@ void i18next
             detection: {
                 order: ['querystring', 'localStorage', 'navigator'],
                 caches: ['localStorage'],
-                lookupLocalStorage: 'blui-authentication-i18nextLng',
                 lookupQuerystring: 'lng',
+                lookupLocalStorage: 'blui-i18nextLng',
             },
-            // react: { useSuspense: false },
+            react: { useSuspense: false },
             interpolation: { escapeValue: false },
             resources: {
                 en: {

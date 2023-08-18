@@ -1,15 +1,18 @@
 import React, { useState } from 'react';
 import { FormControl, InputLabel, MenuItem, Select, SelectChangeEvent, SelectProps } from '@mui/material';
 import i18n from '../translations/i18n';
+import { useApp } from '../contexts/AppContextProvider';
 
 export const LanguageSelector = (props: SelectProps): JSX.Element => {
     const supportedLanguages = ['en', 'fr', 'es', 'zh', 'pt'];
-    const [selectedLanguage, setSelectedLanguage] = useState(
-        window.localStorage.getItem('app-i18nextLng')?.toString() ?? 'en'
-    );
+
+    const { language, setLanguage } = useApp();
+    const [selectedLanguage, setSelectedLanguage] = useState(language);
+
     const changeAppLanguage = (event: SelectChangeEvent): void => {
         const appLanguage = event.target.value;
         setSelectedLanguage(appLanguage);
+        setLanguage(appLanguage);
         void i18n.changeLanguage(appLanguage);
     };
 

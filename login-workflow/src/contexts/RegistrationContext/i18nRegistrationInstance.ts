@@ -16,10 +16,10 @@ void i18next
             detection: {
                 order: ['querystring', 'localStorage', 'navigator'],
                 caches: ['localStorage'],
-                lookupLocalStorage: 'blui-registration-i18nextLng',
                 lookupQuerystring: 'lng',
+                lookupLocalStorage: 'blui-i18nextLng',
             },
-            // react: { useSuspense: false },
+            react: { useSuspense: false },
             interpolation: { escapeValue: false },
             resources: {
                 en: {
@@ -67,9 +67,8 @@ void i18next
         // We must provide a function as second parameter, otherwise i18next errors
         // eslint-disable-next-line @typescript-eslint/no-unused-vars
         (err, _t) => {
-            if (err) {
-                throw new Error(`i18nRegistrationInstance error: ${err}`);
-            }
+            // eslint-disable-next-line no-console
+            if (err) return console.log(err);
         }
     );
 
