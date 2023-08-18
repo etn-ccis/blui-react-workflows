@@ -24,20 +24,24 @@ export const EulaScreen: React.FC<EulaScreenProps> = (props) => {
     const [eulaAccepted, setEulaAccepted] = useState(screenData.Eula.accepted ?? initialCheckboxValue);
     const [isLoading, setIsLoading] = useState(true);
     const [eulaData, setEulaData] = useState<string>();
+    const [isError, setIsError] = useState(false);
 
     const loadAndCacheEula = useCallback(async (): Promise<void> => {
+        setIsLoading(true);
         if (!eulaContent) {
             setEulaData(t('bluiRegistration:REGISTRATION.EULA.LOADING'));
             try {
                 const eulaText = await actions().loadEula(language);
                 setEulaData(eulaText);
                 setIsLoading(false);
+                setIsError(false);
             } catch (_error) {
                 // @TODO: we need to handle this failure more gracefully. The user should be able to attempt to reload the EULA and forward progress should be blocked
                 triggerError(_error as Error);
                 // @TODO: replace this hardcoded string with a proper error text translation
                 // setEulaData('End user license agreement failed to load');
                 // setEulaData(t('bluiRegistration:REGISTRATION.FAILURE_MESSAGE'));
+                setIsError(true);
                 setIsLoading(false);
             } finally {
                 setIsLoading(false);
@@ -93,6 +97,12 @@ export const EulaScreen: React.FC<EulaScreenProps> = (props) => {
         void loadAndCacheEula();
     }, [loadAndCacheEula]);
 
+    const {
+        onRefetch = (): void => {
+            void loadAndCacheEula();
+        },
+    } = props;
+
     const workflowCardHeaderProps = {
         title: t('bluiRegistration:REGISTRATION.STEPS.LICENSE'),
         ...WorkflowCardHeaderProps,
@@ -127,11 +137,12 @@ export const EulaScreen: React.FC<EulaScreenProps> = (props) => {
                 loading: isLoading,
             }}
             checkboxLabel={checkboxLabel}
-            checkboxProps={{ disabled: false }}
+            checkboxProps={{ disabled: isError }}
             initialCheckboxValue={eulaAccepted}
             onEulaAcceptedChange={onEulaAcceptedChange}
             WorkflowCardActionsProps={workflowCardActionsProps}
             errorDisplayConfig={errorDisplayConfig}
+            onRefetch={onRefetch}
         />
     );
 };

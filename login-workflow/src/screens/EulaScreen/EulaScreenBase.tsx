@@ -6,6 +6,7 @@ import Checkbox from '@mui/material/Checkbox';
 import Box from '@mui/material/Box';
 import DOMPurify from 'dompurify';
 import ErrorManager from '../../components/Error/ErrorManager';
+import { Button } from '@mui/material';
 
 /**
  * Component that renders a screen displaying the EULA and requests acceptance via a checkbox.
@@ -27,6 +28,7 @@ export const EulaScreenBase: React.FC<EulaScreenProps> = (props) => {
         initialCheckboxValue,
         checkboxProps,
         errorDisplayConfig,
+        onRefetch,
     } = props;
 
     const cardBaseProps = props.WorkflowCardBaseProps || {};
@@ -51,12 +53,24 @@ export const EulaScreenBase: React.FC<EulaScreenProps> = (props) => {
         <WorkflowCard {...cardBaseProps}>
             <WorkflowCardHeader {...headerProps} />
             <WorkflowCardBody>
-                {!htmlEula && <Box sx={{ flex: '1 1 0px', overflow: 'auto' }}>{eulaContent}</Box>}
+                {/* {!htmlEula && <Box sx={{ flex: '1 1 0px', overflow: 'auto' }}>{eulaContent}</Box>}
                 {htmlEula && (
                     <Box
                         sx={{ flex: '1 1 0px', overflow: 'auto' }}
                         dangerouslySetInnerHTML={{ __html: DOMPurify.sanitize(eulaContent as string) }}
                     />
+                )} */}
+                {checkboxProps.disabled ? (
+                    <Button variant="outlined" color="primary" onClick={onRefetch}>
+                        Refetch
+                    </Button>
+                ) : htmlEula ? (
+                    <Box
+                        sx={{ flex: '1 1 0px', overflow: 'auto' }}
+                        dangerouslySetInnerHTML={{ __html: DOMPurify.sanitize(eulaContent as string) }}
+                    />
+                ) : (
+                    <Box sx={{ flex: '1 1 0px', overflow: 'auto' }}>{eulaContent}</Box>
                 )}
                 <ErrorManager {...errorDisplayConfig}>
                     <FormControlLabel

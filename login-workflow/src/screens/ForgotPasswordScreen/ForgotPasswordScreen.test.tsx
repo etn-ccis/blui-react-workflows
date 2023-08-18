@@ -196,8 +196,8 @@ describe('Forgot Password Screen tests', () => {
         expect(screen.getByText(/Submit/i)).toBeEnabled();
         fireEvent.click(nextButton);
 
-        const successMessage = screen.findByText('Success');
-        await (() => expect(successMessage).toBeInTheDocument());
+        const successMessage = await screen.findByText('Success');
+        expect(successMessage).toBeInTheDocument();
     });
 
     it('should show loader, when loading prop is passed to WorkflowCardBaseProps', () => {
