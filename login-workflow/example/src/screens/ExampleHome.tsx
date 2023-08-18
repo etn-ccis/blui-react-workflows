@@ -31,10 +31,11 @@ import * as Colors from '@brightlayer-ui/colors';
 import FormControl from '@mui/material/FormControl';
 import { MenuItem, Select, SelectChangeEvent } from '@mui/material';
 import { ChangePasswordDialog } from '@brightlayer-ui/react-auth-workflow';
-
+import i18n from '../translations/i18n';
 export const ExampleHome: React.FC<React.PropsWithChildren> = () => {
     const app = useApp();
-    const { t, i18n } = useTranslation();
+    const supportedLanguages = ['en', 'fr', 'es', 'zh', 'pt'];
+    const { t } = useTranslation();
     const [open, setOpen] = useState(false);
     const navigate = useNavigate();
     const theme = useTheme();
@@ -74,7 +75,6 @@ export const ExampleHome: React.FC<React.PropsWithChildren> = () => {
         const appLanguage = event.target.value;
         app.setLanguage(appLanguage);
         void i18n.changeLanguage(appLanguage);
-        window.localStorage.setItem('language', appLanguage);
     };
 
     return (
@@ -112,7 +112,7 @@ export const ExampleHome: React.FC<React.PropsWithChildren> = () => {
                             <Box sx={{ py: 2 }}>
                                 <FormControl fullWidth>
                                     <Select
-                                        value={app.language}
+                                        value={supportedLanguages.includes(app.language) ? app.language : 'en'}
                                         onChange={changeAppLanguage}
                                         variant={'standard'}
                                         sx={{
