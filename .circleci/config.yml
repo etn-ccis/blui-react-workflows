@@ -47,27 +47,28 @@ jobs:
             cd login-workflow
             yarn prettier:check
 
-  # lint_check:
-  #   docker:
-  #     - image: cimg/node:18.17.0-browsers
-  #   environment: export NODE_OPTIONS=--max-old-space-size=8192
-  #   working_directory: ~/login-workflow
-  #   resource_class: large
-  #   steps:
-  #     - checkout
-  #     - restore_cache:
-  #         keys:
-  #           - v2-dependencies-{{ checksum "login-workflow/yarn.lock" }}
-  #     - run:
-  #         name: Install Dependencies
-  #         command: |
-  #           cd login-workflow
-  #           yarn install --frozen-lockfile
-  #     - run:
-  #         name: Lint
-  #         command: |
-  #           cd login-workflow
-  #           yarn lint
+  lint_check:
+    docker:
+      - image: cimg/node:18.17.0-browsers
+        environment:
+          NODE_OPTIONS=--max-old-space-size=5120
+    working_directory: ~/login-workflow
+    resource_class: large
+    steps:
+      - checkout
+      - restore_cache:
+          keys:
+            - v2-dependencies-{{ checksum "login-workflow/yarn.lock" }}
+      - run:
+          name: Install Dependencies
+          command: |
+            cd login-workflow
+            yarn install --frozen-lockfile
+      - run:
+          name: Lint
+          command: |
+            cd login-workflow
+            yarn lint
 
   store_test_results:
     docker:
@@ -93,6 +94,8 @@ jobs:
   build_login_workflow:
     docker:
       - image: cimg/node:18.17.0-browsers
+        environment:
+          NODE_OPTIONS=--max-old-space-size=5120
     working_directory: ~/login-workflow
     resource_class: large
     steps:
@@ -151,7 +154,7 @@ workflows:
     jobs:
       - install_dependencies
       - prettier_check
-      # - lint_check
+      - lint_check
       - store_test_results
       - build_login_workflow
       - publish_login_workflow:
