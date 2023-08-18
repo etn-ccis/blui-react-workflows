@@ -61,16 +61,16 @@ export const EulaScreenBase: React.FC<EulaScreenProps> = (props) => {
                     />
                 )} */}
                 {checkboxProps.disabled ? (
-                    <Button variant="outlined" color="primary" onClick={onRefetch}>
+                    <Button variant="outlined" color="primary" onClick={onRefetch} sx={{ mt: 'auto', mb: '50%' }}>
                         Refetch
                     </Button>
                 ) : htmlEula ? (
                     <Box
-                        sx={{ flex: '1 1 0px', overflow: 'auto' }}
+                        sx={{ flex: '1 1 0', overflow: 'auto' }}
                         dangerouslySetInnerHTML={{ __html: DOMPurify.sanitize(eulaContent as string) }}
                     />
                 ) : (
-                    <Box sx={{ flex: '1 1 0px', overflow: 'auto' }}>{eulaContent}</Box>
+                    <Box sx={{ flex: '1 1 0', overflow: 'auto' }}>{eulaContent}</Box>
                 )}
                 <ErrorManager {...errorDisplayConfig}>
                     <FormControlLabel
