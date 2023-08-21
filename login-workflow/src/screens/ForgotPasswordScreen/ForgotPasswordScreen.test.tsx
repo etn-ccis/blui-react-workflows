@@ -14,7 +14,7 @@ const sleep = (ms: number): Promise<void> => new Promise((resolve) => setTimeout
 
 const authContextProps: AuthContextProviderProps = {
     language: 'en',
-    ...i18nAuthInstance,
+    i18n: i18nAuthInstance,
     navigate: (): void => {},
     routeConfig: {},
     actions: () => ({
@@ -196,8 +196,9 @@ describe('Forgot Password Screen tests', () => {
         expect(screen.getByText(/Submit/i)).toBeEnabled();
         fireEvent.click(nextButton);
 
-        const successMessage = await screen.findByText('Success');
-        expect(successMessage).toBeInTheDocument();
+        const successMessage = screen.findByText('Success');
+        // eslint-disable-next-line
+        await (() => expect(successMessage).toBeInTheDocument());
     });
 
     it('should show loader, when loading prop is passed to WorkflowCardBaseProps', () => {

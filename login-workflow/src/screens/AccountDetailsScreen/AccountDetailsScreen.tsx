@@ -9,8 +9,8 @@ export const AccountDetailsScreen: React.FC<AccountDetailsScreenProps> = (props)
     const { actions } = useRegistrationContext();
     const regWorkflow = useRegistrationWorkflowContext();
     const { nextScreen, previousScreen, screenData, currentScreen, totalScreens } = regWorkflow;
-    const [firstName, setFirstName] = useState(screenData.AccountDetails.firstName ?? '');
-    const [lastName, setLastName] = useState(screenData.AccountDetails.lastName ?? '');
+    const [firstName, setFirstName] = useState(screenData.AccountDetails.firstName);
+    const [lastName, setLastName] = useState(screenData.AccountDetails.lastName);
     const [isLoading, setIsLoading] = useState(false);
     const { triggerError, errorManagerConfig } = useErrorManager();
     const errorDisplayConfig = { ...errorManagerConfig, ...props.errorDisplayConfig };
@@ -58,6 +58,8 @@ export const AccountDetailsScreen: React.FC<AccountDetailsScreenProps> = (props)
         },
         firstNameTextFieldProps,
         lastNameTextFieldProps,
+        initialFirstName = screenData.AccountDetails.firstName,
+        initialLastName = screenData.AccountDetails.lastName,
     } = props;
 
     const workflowCardHeaderProps = {
@@ -106,8 +108,8 @@ export const AccountDetailsScreen: React.FC<AccountDetailsScreenProps> = (props)
             WorkflowCardBaseProps={workflowCardBaseProps}
             WorkflowCardHeaderProps={workflowCardHeaderProps}
             WorkflowCardInstructionProps={workflowCardInstructionProps}
-            initialFirstName={firstName}
-            initialLastName={lastName}
+            initialFirstName={firstName.length > 0 ? firstName : initialFirstName}
+            initialLastName={lastName.length > 0 ? lastName : initialLastName}
             firstNameLabel={firstNameLabel}
             firstNameTextFieldProps={{ ...firstNameTextFieldProps, onChange: onFirstNameInputChange }}
             firstNameValidator={firstNameValidator}

@@ -18,12 +18,15 @@ export const EulaScreen: React.FC<EulaScreenProps> = (props) => {
         onEulaAcceptedChange = (accepted: boolean): boolean => accepted,
         eulaContent,
         checkboxLabel = t('bluiRegistration:REGISTRATION.EULA.AGREE_TERMS'),
+        checkboxProps,
+        htmlEula,
         initialCheckboxValue,
     } = props;
-
-    const [eulaAccepted, setEulaAccepted] = useState(screenData.Eula.accepted ?? initialCheckboxValue);
+    const [eulaAccepted, setEulaAccepted] = useState(
+        initialCheckboxValue ? initialCheckboxValue : screenData.Eula.accepted
+    );
     const [isLoading, setIsLoading] = useState(true);
-    const [eulaData, setEulaData] = useState<string>();
+    const [eulaData, setEulaData] = useState<string | JSX.Element>();
 
     const loadAndCacheEula = useCallback(async (): Promise<void> => {
         if (!eulaContent) {
@@ -42,6 +45,9 @@ export const EulaScreen: React.FC<EulaScreenProps> = (props) => {
             } finally {
                 setIsLoading(false);
             }
+        } else {
+            setIsLoading(false);
+            setEulaData(eulaContent);
         }
         // eslint-disable-next-line react-hooks/exhaustive-deps
     }, [eulaContent, t, actions, language]);
@@ -127,7 +133,8 @@ export const EulaScreen: React.FC<EulaScreenProps> = (props) => {
                 loading: isLoading,
             }}
             checkboxLabel={checkboxLabel}
-            checkboxProps={{ disabled: false }}
+            checkboxProps={checkboxProps}
+            htmlEula={htmlEula}
             initialCheckboxValue={eulaAccepted}
             onEulaAcceptedChange={onEulaAcceptedChange}
             WorkflowCardActionsProps={workflowCardActionsProps}

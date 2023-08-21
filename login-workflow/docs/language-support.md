@@ -10,6 +10,23 @@ This package supports translations to different languages using [i18next](https:
 
 Workflow dictionaries are independent of the user application dictionaries. However, you can add a new language other than above mentioned languages. For more details, refer to the section [Add New language within our workflow](#add-new-language-within-our-workflow).
 
+## Query String
+
+If you navigate to your application URL and append the `lng` query string, the specified language will be loaded:
+
+```
+https://www.yourwebsite.com/page?lng=fr
+```
+
+## Local Storage
+
+You can also manually modify the value that is stored in Local Storage to edit or remove the stored value. Removing the value will tell the application to default to the browser default value.
+
+```tsx
+localStorage.setItem('blui-i18nextLng', 'fr');
+localStorage.removeItem('blui-i18nextLng');
+```
+
 ## Add/Override translations within our workflow
 
 To add i18n in your application you can follow the instructions from [official website](https://react.i18next.com/getting-started).

@@ -1,13 +1,14 @@
 version: 2.1
 orbs:
     codecov: codecov/codecov@3.2.2
-    gh: circleci/github-cli@1.0.3
-    browser-tools: circleci/browser-tools@1.2.4
+    gh: circleci/github-cli@2.2.0
+    browser-tools: circleci/browser-tools@1.4.3
+
 jobs:
-  build_login_workflow:
-    working_directory: ~/login-workflow
+  install_dependencies:
     docker:
-      - image: cimg/node:14.19.0-browsers
+      - image: cimg/node:18.17.0-browsers
+    working_directory: ~/login-workflow
     resource_class: large
     steps:
       - checkout
@@ -24,21 +25,89 @@ jobs:
           paths:
             - node_modules
           key: v2-dependencies-{{ checksum "login-workflow/yarn.lock" }}
+
+  prettier_check:
+    docker:
+      - image: cimg/node:18.17.0-browsers
+    working_directory: ~/login-workflow
+    resource_class: large
+    steps:
+      - checkout
+      - restore_cache:
+          keys:
+            - v2-dependencies-{{ checksum "login-workflow/yarn.lock" }}
+      - run:
+          name: Install Dependencies
+          command: |
+            cd login-workflow
+            yarn install --frozen-lockfile
       - run:
           name: Prettier Check
           command: |
             cd login-workflow
             yarn prettier:check
+
+  lint_check:
+    docker:
+      - image: cimg/node:18.17.0-browsers
+        environment:
+          NODE_OPTIONS=--max-old-space-size=5120
+    working_directory: ~/login-workflow
+    resource_class: large
+    steps:
+      - checkout
+      - restore_cache:
+          keys:
+            - v2-dependencies-{{ checksum "login-workflow/yarn.lock" }}
+      - run:
+          name: Install Dependencies
+          command: |
+            cd login-workflow
+            yarn install --frozen-lockfile
       - run:
           name: Lint
           command: |
             cd login-workflow
             yarn lint
+
+  store_test_results:
+    docker:
+      - image: cimg/node:18.17.0-browsers
+    working_directory: ~/login-workflow
+    resource_class: large
+    steps:
+      - checkout
+      - restore_cache:
+          keys:
+            - v2-dependencies-{{ checksum "login-workflow/yarn.lock" }}
+      - run:
+          name: Install Dependencies
+          command: |
+            cd login-workflow
+            yarn install --frozen-lockfile
       - run:
           name: Tests
           command: |
             cd login-workflow
             yarn test --maxWorkers=2 --coverage --watchAll=false
+
+  build_login_workflow:
+    docker:
+      - image: cimg/node:18.17.0-browsers
+        environment:
+          NODE_OPTIONS=--max-old-space-size=5120
+    working_directory: ~/login-workflow
+    resource_class: large
+    steps:
+      - checkout
+      - restore_cache:
+          keys:
+            - v2-dependencies-{{ checksum "login-workflow/yarn.lock" }}
+      - run:
+          name: Install Dependencies
+          command: |
+            cd login-workflow
+            yarn install --frozen-lockfile
       - run:
           name: Build
           command: |
@@ -53,7 +122,7 @@ jobs:
   coverage_report:
         working_directory: ~/login-workflow
         docker:
-            - image: cimg/node:14.19.0-browsers
+            - image: cimg/node:18.17.0-browsers
         steps:
             - checkout
             - attach_workspace:
@@ -65,7 +134,7 @@ jobs:
 
   publish_login_workflow:
     docker:
-      - image: cimg/node:14.19.0-browsers
+      - image: cimg/node:18.17.0-browsers
     steps:
       - checkout
       - attach_workspace:
@@ -81,9 +150,12 @@ jobs:
             cd login-workflow && yarn publish:package -b $CIRCLE_BRANCH
 
 workflows:
-  version: 2
   react_workflows:
     jobs:
+      - install_dependencies
+      - prettier_check
+      - lint_check
+      - store_test_results
       - build_login_workflow
       - publish_login_workflow:
           requires:

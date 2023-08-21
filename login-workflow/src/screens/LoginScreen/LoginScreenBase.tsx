@@ -193,7 +193,7 @@ export const LoginScreenBase: React.FC<React.PropsWithChildren<LoginScreenProps>
                 <WorkflowCardBody sx={{ py: { xs: 4, sm: 4, md: 4 }, px: { xs: 4, sm: 8, md: 8 } }}>
                     {header}
                     <Box
-                        sx={{ display: 'flex', maxWidth: '100%', mb: 6.75 }}
+                        sx={{ display: 'flex', maxWidth: '100%', mb: 6 }}
                         className={defaultClasses.projectImageWrapper}
                         data-testid={defaultClasses.projectImageWrapper}
                     >
