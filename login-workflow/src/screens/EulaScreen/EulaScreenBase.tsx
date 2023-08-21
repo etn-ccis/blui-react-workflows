@@ -6,7 +6,8 @@ import Checkbox from '@mui/material/Checkbox';
 import Box from '@mui/material/Box';
 import DOMPurify from 'dompurify';
 import ErrorManager from '../../components/Error/ErrorManager';
-import { Button } from '@mui/material';
+import { Button, IconButton } from '@mui/material';
+import Autorenew from '@mui/icons-material/Autorenew';
 
 /**
  * Component that renders a screen displaying the EULA and requests acceptance via a checkbox.
@@ -53,17 +54,12 @@ export const EulaScreenBase: React.FC<EulaScreenProps> = (props) => {
         <WorkflowCard {...cardBaseProps}>
             <WorkflowCardHeader {...headerProps} />
             <WorkflowCardBody>
-                {/* {!htmlEula && <Box sx={{ flex: '1 1 0px', overflow: 'auto' }}>{eulaContent}</Box>}
-                {htmlEula && (
-                    <Box
-                        sx={{ flex: '1 1 0px', overflow: 'auto' }}
-                        dangerouslySetInnerHTML={{ __html: DOMPurify.sanitize(eulaContent as string) }}
-                    />
-                )} */}
                 {checkboxProps.disabled ? (
-                    <Button variant="outlined" color="primary" onClick={onRefetch} sx={{ mt: 'auto', mb: '50%' }}>
-                        Refetch
-                    </Button>
+                    <Box sx={{ display: 'flex', alignItems: 'center', justifyContent: 'center', height: '100%' }}>
+                        <IconButton onClick={onRefetch}>
+                            <Autorenew sx={{ width: 64, height: 64 }} />
+                        </IconButton>
+                    </Box>
                 ) : htmlEula ? (
                     <Box
                         sx={{ flex: '1 1 0', overflow: 'auto' }}
