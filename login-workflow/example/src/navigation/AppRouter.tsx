@@ -17,10 +17,9 @@ import { Login } from '../screens/Login';
 import { ProjectRegistrationUIActions } from '../actions/RegistrationUIActions';
 import { routes } from './Routing';
 import { ExampleHome } from '../screens/ExampleHome';
-import { i18nAppInstance } from '../translations/i18n';
+import i18nAppInstance from '../translations/i18n';
 
 export const AppRouter: React.FC = () => {
-    const { language } = useApp();
     const navigate = useNavigate();
     const app = useApp();
     const { email, rememberMe } = app.loginData;
@@ -32,7 +31,7 @@ export const AppRouter: React.FC = () => {
                 element={
                     <AuthContextProvider
                         actions={ProjectAuthUIActions(app)}
-                        language={language}
+                        language={app.language}
                         navigate={navigate}
                         routeConfig={routes}
                         i18n={i18nAppInstance}
@@ -97,7 +96,7 @@ export const AppRouter: React.FC = () => {
             <Route
                 element={
                     <RegistrationContextProvider
-                        language={language}
+                        language={app.language}
                         routeConfig={routes}
                         navigate={navigate}
                         actions={ProjectRegistrationUIActions}
