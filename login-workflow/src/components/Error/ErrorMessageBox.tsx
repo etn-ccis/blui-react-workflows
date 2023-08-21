@@ -1,16 +1,14 @@
 import React from 'react';
-import Box from '@mui/material/Box';
+import Box, { BoxProps } from '@mui/material/Box';
 import Close from '@mui/icons-material/Close';
-import { SxProps } from '@mui/material/styles';
 import Typography from '@mui/material/Typography';
 import * as Colors from '@brightlayer-ui/colors';
-export type ErrorMessageBoxProps = {
+export type ErrorMessageBoxProps = BoxProps & {
     errorMessage: string;
     backgroundColor?: string;
     dismissible?: boolean;
     fontColor?: string;
     onClose?: () => void;
-    sx?: SxProps;
 };
 /**
  * Component that renders a basic message box with an error message and a configurable dismiss button.

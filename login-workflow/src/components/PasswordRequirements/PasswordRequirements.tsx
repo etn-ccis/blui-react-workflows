@@ -1,16 +1,15 @@
 import React, { HTMLAttributes } from 'react';
 import { PasswordRequirementsCheck } from './PasswordRequirementsCheck';
-import Box from '@mui/material/Box';
-import { SxProps, Theme } from '@mui/material/styles';
+import Box, { BoxProps } from '@mui/material/Box';
 import { PasswordRequirement } from '../SetPassword';
 import { useLanguageLocale } from '../../hooks';
 import { defaultPasswordRequirements } from '../../constants';
 
-export type PasswordRequirementsProps = HTMLAttributes<HTMLDivElement> & {
-    passwordText: string;
-    passwordRequirements?: PasswordRequirement[];
-    sx?: SxProps<Theme>;
-};
+export type PasswordRequirementsProps = HTMLAttributes<HTMLDivElement> &
+    BoxProps & {
+        passwordText: string;
+        passwordRequirements?: PasswordRequirement[];
+    };
 
 /**
  * Component that renders all of the password requirement line items with check indicators.
