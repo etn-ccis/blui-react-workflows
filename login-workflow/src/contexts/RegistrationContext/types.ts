@@ -1,7 +1,6 @@
 import { i18n } from 'i18next';
 import { ErrorContextProviderProps } from '../ErrorContext';
 
-
 export type AccountDetails = {
     firstName: string;
     lastName: string;
