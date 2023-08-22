@@ -14,7 +14,7 @@ const sleep = (ms: number): Promise<void> => new Promise((resolve) => setTimeout
 
 const authContextProps: AuthContextProviderProps = {
     language: 'en',
-    ...i18nAuthInstance,
+    i18n: i18nAuthInstance,
     navigate: (): void => {},
     routeConfig: {},
     actions: () => ({
