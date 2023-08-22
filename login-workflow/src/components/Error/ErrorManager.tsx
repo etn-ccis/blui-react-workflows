@@ -70,7 +70,7 @@ const ErrorManager: React.FC<ErrorManagerProps> = (props): JSX.Element => {
     }, [dialogConfig, error, onClose, t]);
 
     const ErrorMessageBoxWithProps = useCallback((): JSX.Element => {
-        const { dismissible, fontColor, backgroundColor, sx } = messageBoxConfig;
+        const { dismissible = true, fontColor, backgroundColor, sx } = messageBoxConfig;
 
         return (
             <ErrorMessageBox
