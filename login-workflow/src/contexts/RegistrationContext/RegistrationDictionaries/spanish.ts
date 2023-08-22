@@ -21,9 +21,9 @@ const resources: RegistrationLanguageFile = {
                     'Por favor, seleccione una contraseña. Asegúrese de que su contraseña cumple con los requisitos de complejidad necesarios que se describen a continuación. ',
             },
             SUCCESS_MESSAGE:
-                'Su cuenta se ha creado correctamente con el correo electrónico <b> {{email}} </b>.\n\nTu cuenta ya se ha agregado a la organización <b> {{organization}} </b>.\n\nPulse continuar para finalizar. ',
+                'Su cuenta se ha creado correctamente con el correo electrónico <b> {{email}} </b>.\n\nTu cuenta ya se ha agregado a la organización <b> {{organization}} </b>.\n\nPresione finalizar para continuar. ',
             SUCCESS_MESSAGE_ALT:
-                'Su cuenta se ha creado correctamente con el correo electrónico <1> {{email}} </1>.\n\nTu cuenta ya se ha agregado a la organización <3> {{organization}} </3>.\n\nPulse continuar para finalizar. ',
+                'Su cuenta se ha creado correctamente con el correo electrónico <1> {{email}} </1>.\n\nTu cuenta ya se ha agregado a la organización <3> {{organization}} </3>.\n\nPresione finalizar para continuar. ',
             SUCCESS_EXISTING:
                 'Tu cuenta ha sido creada con éxito. Inicie sesión con el correo electrónico y la contraseña de su cuenta Eaton. ',
             FAILURE_MESSAGE: 'No pudimos completar su registro. Pulse continuar para terminar. ',
