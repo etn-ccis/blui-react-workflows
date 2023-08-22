@@ -1,8 +1,8 @@
 import React, { useCallback } from 'react';
 import { BasicDialog } from '../Dialog/BasicDialog';
 import ErrorMessageBox from './ErrorMessageBox';
-import { BoxProps } from '@mui/material/Box';
 import { useLanguageLocale } from '../../hooks';
+import { SxProps } from '@mui/material/styles';
 
 export type AuthError = { cause: { title: string; errorMessage: string } };
 
@@ -14,11 +14,12 @@ export type ErrorManagerProps = {
         title?: string;
         dismissLabel?: string;
     };
-    messageBoxConfig?: BoxProps & {
+    messageBoxConfig?: {
         dismissible?: boolean;
         position?: 'top' | 'bottom';
         fontColor?: string;
         backgroundColor?: string;
+        sx?: SxProps;
     };
     children?: React.ReactNode;
 };
