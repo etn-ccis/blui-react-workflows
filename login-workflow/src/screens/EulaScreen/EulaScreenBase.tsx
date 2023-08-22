@@ -6,8 +6,8 @@ import Checkbox from '@mui/material/Checkbox';
 import Box from '@mui/material/Box';
 import DOMPurify from 'dompurify';
 import ErrorManager from '../../components/Error/ErrorManager';
-import { Button, IconButton } from '@mui/material';
-import Autorenew from '@mui/icons-material/Autorenew';
+import { IconButton, Typography } from '@mui/material';
+import ReplaySharpIcon from '@mui/icons-material/ReplaySharp';
 
 /**
  * Component that renders a screen displaying the EULA and requests acceptance via a checkbox.
@@ -55,10 +55,28 @@ export const EulaScreenBase: React.FC<EulaScreenProps> = (props) => {
             <WorkflowCardHeader {...headerProps} />
             <WorkflowCardBody>
                 {checkboxProps.disabled ? (
-                    <Box sx={{ display: 'flex', alignItems: 'center', justifyContent: 'center', height: '100%' }}>
+                    <Box
+                        sx={{
+                            display: 'flex',
+                            flexDirection: 'column',
+                            alignItems: 'center',
+                            justifyContent: 'center',
+                            height: '100%',
+                        }}
+                    >
                         <IconButton onClick={onRefetch}>
-                            <Autorenew sx={{ width: 64, height: 64 }} />
+                            <ReplaySharpIcon color="primary" sx={{ width: 64, height: 64 }} />
                         </IconButton>
+                        <Typography
+                            onClick={onRefetch}
+                            color="primary"
+                            fontSize="30px"
+                            display="block"
+                            fontWeight={600}
+                            sx={{ cursor: 'pointer' }}
+                        >
+                            Retry
+                        </Typography>
                     </Box>
                 ) : htmlEula ? (
                     <Box
