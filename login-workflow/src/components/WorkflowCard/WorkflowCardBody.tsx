@@ -8,9 +8,9 @@ export const WorkflowCardBody: React.FC<CardContentProps> = (props) => {
         <CardContent
             sx={[
                 {
-                    flex: '1 1 0px',
-                    overflow: 'auto',
                     display: 'flex',
+                    flex: '1 1 0',
+                    overflow: 'auto',
                     flexDirection: 'column',
                     pt: 2,
                     pb: { sm: 3, md: 2 },
