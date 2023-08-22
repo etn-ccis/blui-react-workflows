@@ -27,6 +27,7 @@ export const CreateAccountScreen: React.FC<CreateAccountScreenProps> = (props) =
     const [emailInputValue, setEmailInputValue] = useState(screenData.CreateAccount.emailAddress);
     const [isLoading, setIsLoading] = useState(false);
     const { triggerError, errorManagerConfig } = useErrorManager();
+    const errorDisplayConfig = { ...errorManagerConfig, ...props.errorDisplayConfig };
 
     const onNext = useCallback(async () => {
         try {
@@ -64,7 +65,6 @@ export const CreateAccountScreen: React.FC<CreateAccountScreenProps> = (props) =
             return true;
         },
         emailTextFieldProps,
-        errorDisplayConfig = errorManagerConfig,
     } = props;
 
     const workflowCardBaseProps = {

@@ -13,6 +13,7 @@ export const AccountDetailsScreen: React.FC<AccountDetailsScreenProps> = (props)
     const [lastName, setLastName] = useState(screenData.AccountDetails.lastName);
     const [isLoading, setIsLoading] = useState(false);
     const { triggerError, errorManagerConfig } = useErrorManager();
+    const errorDisplayConfig = { ...errorManagerConfig, ...props.errorDisplayConfig };
 
     const onNext = useCallback(async (): Promise<void> => {
         try {
@@ -55,7 +56,6 @@ export const AccountDetailsScreen: React.FC<AccountDetailsScreenProps> = (props)
             }
             return t('bluiCommon:FORMS.LAST_NAME_LENGTH_ERROR');
         },
-        errorDisplayConfig = errorManagerConfig,
         firstNameTextFieldProps,
         lastNameTextFieldProps,
         initialFirstName = screenData.AccountDetails.firstName,

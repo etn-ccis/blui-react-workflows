@@ -9,6 +9,7 @@ export const EulaScreen: React.FC<EulaScreenProps> = (props) => {
     const { t } = useLanguageLocale();
     const { actions, navigate, routeConfig, language } = useRegistrationContext();
     const { triggerError, errorManagerConfig } = useErrorManager();
+    const errorDisplayConfig = { ...errorManagerConfig, ...props.errorDisplayConfig };
     const regWorkflow = useRegistrationWorkflowContext();
     const { nextScreen, previousScreen, screenData, currentScreen, totalScreens, isInviteRegistration } = regWorkflow;
     const {
@@ -20,7 +21,6 @@ export const EulaScreen: React.FC<EulaScreenProps> = (props) => {
         checkboxProps,
         htmlEula,
         initialCheckboxValue,
-        errorDisplayConfig = errorManagerConfig,
     } = props;
     const [eulaAccepted, setEulaAccepted] = useState(
         initialCheckboxValue ? initialCheckboxValue : screenData.Eula.accepted
