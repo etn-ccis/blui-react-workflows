@@ -28,7 +28,10 @@ import { Spinner } from '../../components';
  * @param nextLabel label to display for the next button
  * @param currentPasswordChange called when the current password field changes
  * @param enableButton boolean to enable and disable the button
- * @param onSubmit Callback function to call when the form is submitted
+ * @param onSubmit callback function to call when the form is submitted
+ * @param onPrevious called when the previous button is clicked
+ * @param sx styles passed to the underlying root component 
+ * @param loading boolean that indicates whether the loading spinner should be displayed
  *
  * @category Component
  */
