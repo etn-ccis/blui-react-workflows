@@ -2,13 +2,14 @@ import React, { useCallback } from 'react';
 import { BasicDialog } from '../Dialog/BasicDialog';
 import ErrorMessageBox from './ErrorMessageBox';
 import { BoxProps } from '@mui/material/Box';
+import { useLanguageLocale } from '../../hooks';
 
 export type AuthError = { cause: { title: string; errorMessage: string } };
 
 export type ErrorManagerProps = {
     mode?: 'dialog' | 'message-box' | 'none';
     onClose?: () => void;
-    error: string;
+    error?: string;
     dialogConfig?: {
         title?: string;
         dismissLabel?: string;
@@ -41,10 +42,20 @@ export type ErrorManagerProps = {
  */
 
 const ErrorManager: React.FC<ErrorManagerProps> = (props): JSX.Element => {
-    const { children, mode = 'dialog', error, onClose, dialogConfig, messageBoxConfig } = props;
+    const { t } = useLanguageLocale();
+    const {
+        children,
+        mode = 'dialog',
+        error = '',
+        onClose = (): void => {},
+        dialogConfig,
+        messageBoxConfig = {
+            position: 'top',
+        },
+    } = props;
 
     const ErrorDialogWithProps = useCallback((): JSX.Element => {
-        const { title, dismissLabel } = dialogConfig;
+        const { title = t('bluiCommon:MESSAGES.ERROR'), dismissLabel } = dialogConfig;
 
         return (
             <BasicDialog
@@ -55,10 +66,10 @@ const ErrorManager: React.FC<ErrorManagerProps> = (props): JSX.Element => {
                 dismissButtonText={dismissLabel}
             />
         );
-    }, [dialogConfig, error, onClose]);
+    }, [dialogConfig, error, onClose, t]);
 
     const ErrorMessageBoxWithProps = useCallback((): JSX.Element => {
-        const { dismissible = true, fontColor, backgroundColor, sx } = messageBoxConfig;
+        const { dismissible, fontColor, backgroundColor, sx } = messageBoxConfig;
 
         return (
             <ErrorMessageBox
@@ -72,14 +83,14 @@ const ErrorManager: React.FC<ErrorManagerProps> = (props): JSX.Element => {
         );
     }, [error, messageBoxConfig, onClose]);
 
-    return mode === 'dialog' && error ? (
+    return mode === 'dialog' && error.length > 0 ? (
         <>
             {children}
             <ErrorDialogWithProps />
         </>
-    ) : mode === 'message-box' && error ? (
+    ) : mode === 'message-box' && error.length > 0 ? (
         <>
-            {messageBoxConfig.position === 'top' && <ErrorMessageBoxWithProps />}
+            {messageBoxConfig.position !== 'bottom' && <ErrorMessageBoxWithProps />}
             {children}
             {messageBoxConfig.position === 'bottom' && <ErrorMessageBoxWithProps />}
         </>

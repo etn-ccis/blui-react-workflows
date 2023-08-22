@@ -49,6 +49,7 @@ export const LoginScreen: React.FC<React.PropsWithChildren<LoginScreenPropsPubli
     const auth = useAuthContext();
     const { actions, navigate, routeConfig, rememberMeDetails } = auth;
     const { triggerError, errorManagerConfig } = useErrorManager();
+    const errorDisplayConfig = { ...errorManagerConfig, ...props.errorDisplayConfig };
 
     useEffect(() => {
         void actions().initiateSecurity();
@@ -85,7 +86,6 @@ export const LoginScreen: React.FC<React.PropsWithChildren<LoginScreenPropsPubli
         showContactSupport = true,
         contactSupportLabel = t('bluiCommon:MESSAGES.CONTACT'),
         onContactSupport = (): void => navigate(routeConfig.SUPPORT),
-        errorDisplayConfig = errorManagerConfig,
         showCyberSecurityBadge = true,
         projectImage,
         header,

@@ -6,6 +6,8 @@ import Checkbox from '@mui/material/Checkbox';
 import Box from '@mui/material/Box';
 import DOMPurify from 'dompurify';
 import ErrorManager from '../../components/Error/ErrorManager';
+import { Typography } from '@mui/material';
+import ReplaySharpIcon from '@mui/icons-material/ReplaySharp';
 
 /**
  * Component that renders a screen displaying the EULA and requests acceptance via a checkbox.
@@ -27,6 +29,7 @@ export const EulaScreenBase: React.FC<EulaScreenProps> = (props) => {
         initialCheckboxValue,
         checkboxProps,
         errorDisplayConfig,
+        onRefetch,
     } = props;
 
     const cardBaseProps = props.WorkflowCardBaseProps || {};
@@ -51,12 +54,39 @@ export const EulaScreenBase: React.FC<EulaScreenProps> = (props) => {
         <WorkflowCard {...cardBaseProps}>
             <WorkflowCardHeader {...headerProps} />
             <WorkflowCardBody>
-                {!htmlEula && <Box sx={{ flex: '1 1 0px', overflow: 'auto' }}>{eulaContent}</Box>}
-                {htmlEula && (
+                {checkboxProps?.disabled ? (
                     <Box
-                        sx={{ flex: '1 1 0px', overflow: 'auto' }}
+                        sx={{
+                            display: 'flex',
+                            flexDirection: 'column',
+                            alignItems: 'center',
+                            justifyContent: 'center',
+                            height: '100%',
+                        }}
+                    >
+                        <Box
+                            sx={{
+                                flexDirection: 'column',
+                                alignItems: 'center',
+                                justifyContent: 'center',
+                                cursor: 'pointer',
+                                p: 1,
+                            }}
+                            onClick={onRefetch}
+                        >
+                            <ReplaySharpIcon color="primary" sx={{ width: 36, height: 36 }} />
+                            <Typography variant="subtitle2" color="primary">
+                                Retry
+                            </Typography>
+                        </Box>
+                    </Box>
+                ) : htmlEula ? (
+                    <Box
+                        sx={{ flex: '1 1 0', overflow: 'auto' }}
                         dangerouslySetInnerHTML={{ __html: DOMPurify.sanitize(eulaContent as string) }}
                     />
+                ) : (
+                    <Box sx={{ flex: '1 1 0', overflow: 'auto' }}>{eulaContent}</Box>
                 )}
                 <ErrorManager {...errorDisplayConfig}>
                     <FormControlLabel

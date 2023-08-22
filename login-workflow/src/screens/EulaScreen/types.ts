@@ -23,4 +23,7 @@ export type EulaScreenProps = WorkflowCardProps & {
 
     // used to configure how errors are rendered
     errorDisplayConfig?: ErrorManagerProps;
+
+    // called when refetch button clicked
+    onRefetch?: () => void;
 };

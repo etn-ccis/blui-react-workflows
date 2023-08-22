@@ -14,6 +14,7 @@ export const ForgotPasswordScreen: React.FC<ForgotPasswordScreenProps> = (props)
     const { t } = useLanguageLocale();
     const { actions, navigate, routeConfig } = useAuthContext();
     const { triggerError, errorManagerConfig } = useErrorManager();
+    const errorDisplayConfig = { ...errorManagerConfig, ...props.errorDisplayConfig };
 
     const [emailInput, setEmailInput] = useState('');
     const [isLoading, setIsLoading] = useState(false);
@@ -57,7 +58,6 @@ export const ForgotPasswordScreen: React.FC<ForgotPasswordScreenProps> = (props)
         showSuccessScreen: enableSuccessScreen = true,
         slotProps = { SuccessScreen: {} },
         slots,
-        errorDisplayConfig = errorManagerConfig,
     } = props;
 
     const workflowCardBaseProps = {

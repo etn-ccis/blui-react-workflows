@@ -26,6 +26,7 @@ export const CreatePasswordScreen: React.FC<CreatePasswordScreenProps> = (props)
     const [isLoading, setIsLoading] = useState(false);
     const passwordRequirements = defaultPasswordRequirements(t);
     const { triggerError, errorManagerConfig } = useErrorManager();
+    const errorDisplayConfig = { ...errorManagerConfig, ...props.errorDisplayConfig };
 
     const onNext = useCallback(async (): Promise<void> => {
         try {
@@ -70,7 +71,6 @@ export const CreatePasswordScreen: React.FC<CreatePasswordScreenProps> = (props)
         WorkflowCardInstructionProps,
         WorkflowCardActionsProps,
         PasswordProps,
-        errorDisplayConfig = errorManagerConfig,
     } = props;
 
     const workflowCardBaseProps = {
