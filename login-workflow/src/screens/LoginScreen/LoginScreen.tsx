@@ -33,7 +33,7 @@ const EMAIL_REGEX = /^[A-Z0-9._%+'-]+@[A-Z0-9.-]+\.[A-Z]{2,}$/i;
  * @param showContactSupport whether or not to show the 'contact support' link
  * @param contactSupportLabel label for the 'contact support' link
  * @param onContactSupport callback function that is called when the 'contact support' link is clicked
- * @param errorDisplayConfig configuration for how errors should be displayed
+ * @param errorDisplayConfig configuration for customizing how errors are displayed
  * @param showCyberSecurityBadge whether or not to show the cyber security badge
  * @param projectImage image to display at the top of the screen
  * @param header header to display at the top of the screen

@@ -9,12 +9,12 @@ import { useAuthContext } from '../../contexts';
  * Component renders a screen with contact information for support with the application.
  * Contact information is pulled from the context passed into the workflow.
  *
- * @param title to display in the header
- * @param icon to display in the icon
+ * @param title to show text in the title
+ * @param icon to pass in the Icon JSX element
  * @param description to display the contact support content
  * @param contactEmail to display the contact email
  * @param contactPhone to display contact phone number
- * @param dismissButtonLabel to display label text in button
+ * @param dismissButtonLabel to display label for the button
  * @param onDismiss function to call when user clicks button
  * @param slots used for each slot in `ContactScreen`
  * @param slotProps applied to each slot

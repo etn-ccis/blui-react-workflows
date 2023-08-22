@@ -15,6 +15,9 @@ import ErrorManager from '../../components/Error/ErrorManager';
  * @param checkboxLabel label for the EULA checkbox
  * @param initialCheckboxValue used to pre-populate the checked/unchecked checkbox when the screen loads
  * @param checkboxProps used to set checkbox props
+ * @param onEulaAcceptedChange used to test eula checkbox accepted
+ * @param errorDisplayConfig configuration for customizing how errors are displayed
+ *
  * @category Component
  */
 

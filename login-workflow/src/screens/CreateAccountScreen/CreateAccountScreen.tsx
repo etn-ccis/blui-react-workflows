@@ -10,13 +10,15 @@ import { useErrorManager } from '../../contexts/ErrorContext/useErrorManager';
  * Component that renders a screen for the user to enter their email address to start the
  * account creation process.
  *
- * @param emailLabel label for the textfield
- * @param initialValue used to pre-populate the email input field
+ * @param emailLabel label for the email field
+ * @param initialValue initial value for the email text field
  * @param emailValidator used to test the input for valid formatting
  * @param emailTextFieldProps props to pass to the email text field
+ * @param errorDisplayConfig configuration for customizing how errors are displayed
  *
  * @category Component
  */
+
 const EMAIL_REGEX = /^[A-Z0-9._%+'-]+@[A-Z0-9.-]+\.[A-Z]{2,}$/i;
 
 export const CreateAccountScreen: React.FC<CreateAccountScreenProps> = (props) => {

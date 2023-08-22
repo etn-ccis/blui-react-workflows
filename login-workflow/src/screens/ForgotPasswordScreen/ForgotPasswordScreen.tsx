@@ -10,6 +10,21 @@ import CheckCircle from '@mui/icons-material/CheckCircle';
 import { LinkStyles } from '../../styles';
 import { useErrorManager } from '../../contexts/ErrorContext/useErrorManager';
 
+/**
+ * Component renders a screen with forgot password for support with the application.
+ *
+ * @param emailLabel label for the email field
+ * @param initialEmailValue initial value for the email text field
+ * @param emailValidator used to test the input for valid format
+ * @param canGoNext boolean or function that indicates whether the next button should be enabled
+ * @param showSuccessScreen used to determine whether to show a success screen after the form is submitted
+ * @param slots used for ForgotPasswordScreen SuccessScreen
+ * @param slotProps applied to slot from SuccessScreen
+ * @param errorDisplayConfig configuration for customizing how errors are displayed
+ *
+ * @category Component
+ */
+
 export const ForgotPasswordScreen: React.FC<ForgotPasswordScreenProps> = (props) => {
     const { t } = useLanguageLocale();
     const { actions, navigate, routeConfig } = useAuthContext();

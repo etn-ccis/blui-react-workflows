@@ -3,6 +3,15 @@ import CardHeader from '@mui/material/CardHeader';
 import Typography from '@mui/material/Typography';
 import { WorkflowCardHeaderProps } from './WorkflowCard.types';
 
+/**
+ * Component that renders the header content for the workflow card.
+ *
+ * @param children
+ * @param otherCardContentProps
+ *
+ * @category Component
+ */
+
 export const WorkflowCardHeader: React.FC<WorkflowCardHeaderProps> = (props) => {
     const { title, sx, ...otherCardHeaderProps } = props;
 

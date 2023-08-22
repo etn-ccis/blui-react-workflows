@@ -7,6 +7,18 @@ import DialogContent from '@mui/material/DialogContent';
 import DialogActions from '@mui/material/DialogActions';
 import { useTheme, SxProps, Theme } from '@mui/material/styles';
 
+/**
+ * Component that renders a basic dialog with a title, body description, and a close button.
+ *
+ * @param title to show text in the title
+ * @param body text to show in the body
+ * @param onClose function to call when the close button is clicked
+ * @param props all other props will be spread to the underlying Dialog component
+ * @param dismissButtonText text to show in the close button
+ *
+ * @category Component
+ */
+
 export const DialogTitleStyles = (theme: Theme): SxProps<Theme> => ({
     p: `${theme.spacing(4)} ${theme.spacing(3)} 0 ${theme.spacing(3)}`,
     [theme.breakpoints.down('sm')]: {
@@ -45,17 +57,6 @@ export type BasicDialogProps = Omit<DialogProps, 'open'> & {
     open?: boolean;
 };
 
-/**
- * Component that renders a basic dialog with a title, body description, and a close button.
- *
- * @param title text to show in the title
- * @param body text to show in the body
- * @param onClose function to call when the close button is clicked
- * @param props all other props will be spread to the underlying Dialog component
- * @param dismissButtonText text to show in the close button
- *
- * @category Component
- */
 export const BasicDialog: React.FC<React.PropsWithChildren<React.PropsWithChildren<BasicDialogProps>>> = (props) => {
     const { title, body, dismissButtonText, open = false, ...dialogProps } = props;
     const theme = useTheme();

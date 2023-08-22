@@ -11,6 +11,17 @@ import {
 } from '../../screens';
 import { parseQueryString } from '../../utils';
 
+/**
+ * Component that contain the registration workflow and index of screens.
+ *
+ * @param initialScreenIndex initial screen index to start the registration workflow from
+ * @param successScreen success screen to display upon successful registration
+ * @param isInviteRegistration boolean when true verifies validateUserRegistrationRequest for verifyCode
+ * @param existingAccountSuccessScreen component that displays the success screen
+ *
+ * @category Component
+ */
+
 export type RegistrationWorkflowProps = {
     initialScreenIndex?: number;
     successScreen?: JSX.Element;

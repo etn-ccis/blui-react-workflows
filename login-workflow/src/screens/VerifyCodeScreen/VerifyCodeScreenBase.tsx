@@ -14,11 +14,13 @@ import ErrorManager from '../../components/Error/ErrorManager';
  * Component that renders a screen that prompts a user to enter the confirmation code
  * that was sent to the email address that they used to register.
  *
- * @param codeValidator used to test the input for valid formatting
- * @param onResend function to call when the user clicks the 'resend code' button
+ * @param codeValidator function that validates the code text field
+ * @param onResend function that is called when the resend link/button is clicked
  * @param resendInstructions text to display ahead of the resend link/button
- * @param resendLabel label for the resend link/button
- * @param initialValue code used to pre-populate the field
+ * @param resendLabel text to display for the resend link/button
+ * @param initialValue the initial value for the code text field
+ * @param verifyCodeInputLabel the label for the code text field
+ * @param errorDisplayConfig configuration for customizing how errors are displayed
  *
  * @category Component
  */

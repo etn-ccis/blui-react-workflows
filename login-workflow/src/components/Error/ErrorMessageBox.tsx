@@ -20,7 +20,6 @@ export type ErrorMessageBoxProps = {
  * @param dismissible whether the message box can be dismissed
  * @param fontColor the font color of the text inside the message box
  * @param onClose function to call when the close button is clicked
- * @param sx sx styles passed to the underlying root(Box) component
  *
  * @category Component
  */

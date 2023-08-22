@@ -6,6 +6,16 @@ import { CreatePasswordScreenProps } from './types';
 import { useRegistrationContext, useRegistrationWorkflowContext } from '../../contexts';
 import { useErrorManager } from '../../contexts/ErrorContext/useErrorManager';
 
+/**
+ * Component renders a screen with account details information for support with the application.
+ * Contact information is pulled from the context passed into the workflow.
+ *
+ * @param errorDisplayConfig configuration for customizing how errors are displayed
+ * @param PasswordProps props passed from SetPassword component
+ *
+ * @category Component
+ */
+
 export const CreatePasswordScreen: React.FC<CreatePasswordScreenProps> = (props) => {
     const { t } = useLanguageLocale();
     const { actions } = useRegistrationContext();

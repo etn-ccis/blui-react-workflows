@@ -21,14 +21,14 @@ import { Spinner } from '../../components';
  * Component that renders a dialog with textField to enter current password and a change password form with a new password and confirm password inputs.
  * It includes callbacks so you can respond to changes in the inputs.
  *
- * @param dialogTitle Optional title for the DialogTitle component (default = 'Change Password')
- * @param dialogDescription Optional description inside the DialogContent component (default = 'Please select a password. Make sure that your password meets the necessary complexity requirements outlined below.')
- * @param currentPasswordLabel Optional label for the current password field (default = 'Current Password')
- * @param previousLabel Optional label for the Back button (default = 'Back')
- * @param nextLabel Optional label for the Next button (default = 'Okay')
- * @param currentPasswordChange Callback function that fire when the current password field value changes
- * @param enableButton Flag to enable and disable the Okay button
- * @param onSubmit Callback function that fire when form gets validated or clicked on the enabled Okay button.
+ * @param dialogTitle title to display in the dialog
+ * @param dialogDescription description to display in the dialog
+ * @param currentPasswordLabel label to display for the current password field
+ * @param previousLabel label to display for the previous button
+ * @param nextLabel label to display for the next button
+ * @param currentPasswordChange called when the current password field changes
+ * @param enableButton boolean to enable and disable the button
+ * @param onSubmit Callback function to call when the form is submitted
  *
  * @category Component
  */
