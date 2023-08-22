@@ -6,7 +6,7 @@ import Checkbox from '@mui/material/Checkbox';
 import Box from '@mui/material/Box';
 import DOMPurify from 'dompurify';
 import ErrorManager from '../../components/Error/ErrorManager';
-import { IconButton, Typography } from '@mui/material';
+import { Typography } from '@mui/material';
 import ReplaySharpIcon from '@mui/icons-material/ReplaySharp';
 
 /**
@@ -64,19 +64,21 @@ export const EulaScreenBase: React.FC<EulaScreenProps> = (props) => {
                             height: '100%',
                         }}
                     >
-                        <IconButton onClick={onRefetch}>
-                            <ReplaySharpIcon color="primary" sx={{ width: 64, height: 64 }} />
-                        </IconButton>
-                        <Typography
+                        <Box
+                            sx={{
+                                flexDirection: 'column',
+                                alignItems: 'center',
+                                justifyContent: 'center',
+                                cursor: 'pointer',
+                                p: 1,
+                            }}
                             onClick={onRefetch}
-                            color="primary"
-                            fontSize="30px"
-                            display="block"
-                            fontWeight={600}
-                            sx={{ cursor: 'pointer' }}
                         >
-                            Retry
-                        </Typography>
+                            <ReplaySharpIcon color="primary" sx={{ width: 36, height: 36 }} />
+                            <Typography variant="subtitle2" color="primary">
+                                Retry
+                            </Typography>
+                        </Box>
                     </Box>
                 ) : htmlEula ? (
                     <Box
