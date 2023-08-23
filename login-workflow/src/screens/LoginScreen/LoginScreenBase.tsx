@@ -47,6 +47,10 @@ import { LinkStyles } from '../../styles';
  * @param projectImage image to display at the top of the screen
  * @param header header to display at the top of the screen
  * @param footer footer to display at the bottom of the screen
+ * @param WorkflowCardBaseProps props that will be passed to the WorkflowCard component
+ * @param WorkflowCardHeaderProps props that will be passed to the WorkflowCardHeader component
+ * @param WorkflowCardInstructionProps props that will be passed to the WorkflowCardInstructions component
+ * @param WorkflowCardActionsProps props that will be passed to the WorkflowCardActions component
  *
  * @category Component
  */

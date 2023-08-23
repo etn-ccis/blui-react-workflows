@@ -20,11 +20,15 @@ type ForgotPasswordScreenBaseProps = Omit<ForgotPasswordScreenProps, 'slots'> & 
  *
  * @param emailLabel label for the email field
  * @param initialEmailValue initial value for the email text field
- * @param emailValidator used to test the input for valid format
+ * @param emailValidator function used to test the input for valid formatting
  * @param canGoNext boolean or function that indicates whether the next button should be enabled
  * @param showSuccessScreen used to determine whether to show a success screen after the form is submitted
  * @param slots used for ForgotPasswordScreen SuccessScreen
  * @param slotProps applied to slot from SuccessScreen
+ * @param WorkflowCardBaseProps props that will be passed to the WorkflowCard component
+ * @param WorkflowCardHeaderProps props that will be passed to the WorkflowCardHeader component
+ * @param WorkflowCardInstructionProps props that will be passed to the WorkflowCardInstructions component
+ * @param WorkflowCardActionsProps props that will be passed to the WorkflowCardActions component
  * @param errorDisplayConfig configuration for customizing how errors are displayed
  *
  * @category Component

@@ -22,6 +22,10 @@ import ErrorManager from '../../components/Error/ErrorManager';
  * @param initialLastName initial value for the last name text field
  * @param lastNameValidator function that validates the last name text field
  * @param lastNameTextFieldProps props to pass to the last name field
+ * @param WorkflowCardBaseProps props that will be passed to the WorkflowCard component
+ * @param WorkflowCardHeaderProps props that will be passed to the WorkflowCardHeader component
+ * @param WorkflowCardInstructionProps props that will be passed to the WorkflowCardInstructions component
+ * @param WorkflowCardActionsProps props that will be passed to the WorkflowCardActions component
  * @param errorDisplayConfig configuration for customizing how errors are displayed
  *
  * @category Component

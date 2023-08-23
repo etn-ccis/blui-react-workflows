@@ -16,6 +16,10 @@ import { useErrorManager } from '../../contexts/ErrorContext/useErrorManager';
  * @param initialValue the initial value for the code text field
  * @param verifyCodeInputLabel the label for the code text field
  * @param errorDisplayConfig configuration for customizing how errors are displayed
+ * @param WorkflowCardBaseProps props that will be passed to the WorkflowCard component
+ * @param WorkflowCardHeaderProps props that will be passed to the WorkflowCardHeader component
+ * @param WorkflowCardInstructionProps props that will be passed to the WorkflowCardInstructions component
+ * @param WorkflowCardActionsProps props that will be passed to the WorkflowCardActions component
  *
  * @category Component
  */

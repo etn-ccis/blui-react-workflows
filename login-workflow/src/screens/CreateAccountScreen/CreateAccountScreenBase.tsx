@@ -14,8 +14,12 @@ import ErrorManager from '../../components/Error/ErrorManager';
  *
  * @param emailLabel label for the email field
  * @param initialValue initial value for the email text field
- * @param emailValidator used to test the input for valid formatting
+ * @param emailValidator function used to test the input for valid formatting
  * @param emailTextFieldProps props to pass to the email text field
+ * @param WorkflowCardBaseProps props that will be passed to the WorkflowCard component
+ * @param WorkflowCardHeaderProps props that will be passed to the WorkflowCardHeader component
+ * @param WorkflowCardInstructionProps props that will be passed to the WorkflowCardInstructions component
+ * @param WorkflowCardActionsProps props that will be passed to the WorkflowCardActions component
  * @param errorDisplayConfig configuration for customizing how errors are displayed
  *
  * @category Component

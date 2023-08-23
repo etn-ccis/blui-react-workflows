@@ -13,6 +13,10 @@ import { WorkflowFinishState } from '../../components';
  * @param dismissButtonLabel to display label for the button
  * @param canDismiss function to call when the dismiss button is clicked
  * @param onDismiss function to call when user clicks button
+ * @param WorkflowCardBaseProps props that will be passed to the WorkflowCard component
+ * @param WorkflowCardHeaderProps props that will be passed to the WorkflowCardHeader component
+ * @param WorkflowCardInstructionProps props that will be passed to the WorkflowCardInstructions component
+ * @param WorkflowCardActionsProps props that will be passed to the WorkflowCardActions component
  *
  * @category Component
  */

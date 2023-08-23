@@ -12,6 +12,10 @@ import { useErrorManager } from '../../contexts/ErrorContext/useErrorManager';
  *
  * @param errorDisplayConfig configuration for customizing how errors are displayed
  * @param PasswordProps props passed from SetPassword component
+ * @param WorkflowCardBaseProps props that will be passed to the WorkflowCard component
+ * @param WorkflowCardHeaderProps props that will be passed to the WorkflowCardHeader component
+ * @param WorkflowCardInstructionProps props that will be passed to the WorkflowCardInstructions component
+ * @param WorkflowCardActionsProps props that will be passed to the WorkflowCardActions component
  *
  * @category Component
  */

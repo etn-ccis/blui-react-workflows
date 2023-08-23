@@ -16,6 +16,10 @@ import ErrorManager from '../../components/Error/ErrorManager';
  * @param initialCheckboxValue used to pre-populate the checked/unchecked checkbox when the screen loads
  * @param checkboxProps used to set checkbox props
  * @param onEulaAcceptedChange used to test eula checkbox accepted
+ * @param WorkflowCardBaseProps props that will be passed to the WorkflowCard component
+ * @param WorkflowCardHeaderProps props that will be passed to the WorkflowCardHeader component
+ * @param WorkflowCardInstructionProps props that will be passed to the WorkflowCardInstructions component
+ * @param WorkflowCardActionsProps props that will be passed to the WorkflowCardActions component
  * @param errorDisplayConfig configuration for customizing how errors are displayed
  *
  * @category Component
