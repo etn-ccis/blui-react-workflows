@@ -4,7 +4,7 @@ import CardContent, { CardContentProps } from '@mui/material/CardContent';
 /**
  * Component that renders the body content for the workflow card.
  *
- * @param children
+ * @param children content to render in the WorkflowCardBody
  *
  * @category Component
  */
