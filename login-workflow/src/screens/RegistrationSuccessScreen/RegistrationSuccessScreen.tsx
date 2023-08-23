@@ -42,7 +42,7 @@ export const RegistrationSuccessScreen: React.FC<SuccessScreenProps> = (props) =
     };
 
     const workflowCardActionsProps = {
-        nextLabel: t('bluiCommon:ACTIONS.CONTINUE'),
+        nextLabel: t('bluiCommon:ACTIONS.FINISH'),
         showNext: true,
         canGoNext: canDismiss,
         fullWidthButton: true,
