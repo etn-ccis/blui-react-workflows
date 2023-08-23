@@ -67,7 +67,7 @@ const ErrorManager: React.FC<ErrorManagerProps> = (props): JSX.Element => {
                 dismissButtonText={dismissLabel}
             />
         );
-    }, [dialogConfig, error, onClose]);
+    }, [dialogConfig, error, onClose, t]);
 
     const ErrorMessageBoxWithProps = useCallback((): JSX.Element => {
         const { dismissible = true, fontColor, backgroundColor, sx } = messageBoxConfig;
