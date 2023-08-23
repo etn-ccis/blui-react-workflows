@@ -10,6 +10,7 @@ import Box from '@mui/material/Box';
  *
  * @category Component
  */
+
 export const WorkflowFinishState: React.FC<React.PropsWithChildren<React.PropsWithChildren<EmptyStateProps>>> = (
     props
 ) => {

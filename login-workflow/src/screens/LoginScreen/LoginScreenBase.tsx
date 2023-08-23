@@ -42,11 +42,12 @@ import { LinkStyles } from '../../styles';
  * @param showContactSupport whether or not to show the 'contact support' link
  * @param contactSupportLabel label for the 'contact support' link
  * @param onContactSupport callback function that is called when the 'contact support' link is clicked
- * @param errorDisplayConfig configuration for how errors should be displayed
+ * @param errorDisplayConfig configuration for customizing how errors are displayed
  * @param showCyberSecurityBadge whether or not to show the cyber security badge
  * @param projectImage image to display at the top of the screen
  * @param header header to display at the top of the screen
  * @param footer footer to display at the bottom of the screen
+ * @param WorkflowCardBaseProps props that will be passed to the WorkflowCard component
  *
  * @category Component
  */

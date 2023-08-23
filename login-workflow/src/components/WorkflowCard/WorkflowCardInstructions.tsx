@@ -3,6 +3,15 @@ import Divider from '@mui/material/Divider';
 import Typography from '@mui/material/Typography';
 import { WorkflowCardInstructionProps } from './WorkflowCard.types';
 
+/**
+ * Component that renders the instructions content for the workflow card.
+ *
+ * @param instructions text to display as instructions
+ * @param divider whether or not to show a divider below the instructions
+ *
+ * @category Component
+ */
+
 export const WorkflowCardInstructions: React.FC<WorkflowCardInstructionProps> = (props) => {
     const { instructions, divider, ...otherProps } = props;
 
