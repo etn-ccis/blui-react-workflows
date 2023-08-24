@@ -1,39 +1,44 @@
 # Error Management
 
-In order to give you more control over how error messages are displayed we employed a few methods of configuring error messages throughout the application.
+There are points throughout the workflow where a user may encounter errors, particularly when making calls to your back-end / API. There are a number of ways that you can control / configure how errors are presented throughout the UI.
 
 ## TextField Validator Errors
 
-Text fields within the workflow have built in validator methods that you can use out of the box or customize. For more information on each screens validator functions, read our [Screens](https://github.com/etn-ccis/blui-react-workflows/tree/master/login-workflow/docs/screens.md) documentation.
+Text fields within the workflow have built in validator methods that you can customize. For more information on each screens validator functions, read our [Screens](https://github.com/etn-ccis/blui-react-workflows/tree/master/login-workflow/docs/screens.md) documentation.
 
-### Custom Usage (using Login as an example)
+Text field validator props accept a function. We pass the current value of the field as an argument and you should return a boolean value (true if there is no error) or string (for a custom message). When a text field has a validator error (i.e., the input is not valid), the error message that you returned in the validator function will be displayed below the input (if you return false, the text field will be rendered in an error state but no message will be displayed).
 
-If you want to provide a custom validator you can import any of our components and pass in the appropriate validator prop. If, for example, you want to provide a custom usernameValidator you can import the `<LoginScreen>` and pass in a `usernameValidator` function. If the function returns true, no message will be displayed. If the function returns false, the text field will be rendered in an error state with no additional text. If the function returns a string, the text field will be rendered in an error state with the return text displayed below the text field.
+### Example
+
+As an example, if you wanted to change what is accepted as a valid username on the Login screen (default is any valid email address), you can do so as follows:
 
 ```tsx
-...
-const EMAIL_REGEX = /^[A-Z0-9._%+'-]+@[A-Z0-9.-]+\.[A-Z]{2,}$/i;
+
+// accept ONLY @eaton.com email addresses
+const EMAIL_REGEX = /^[A-Z0-9._%+'-]+@eaton\.com$/i;
 ...
 
 <LoginScreen
-    ...
-    usernameValidator = (username: string): string | boolean => {
-            if (!EMAIL_REGEX.test(username)) {
-                return 'custom error message';
-            }
-            return true;
-        },
->
+    {...otherProps}
+    usernameValidator={{
+        (username: string): string | boolean => (
+            !EMAIL_REGEX.test(username) ? 'You must use your Eaton email address' : true
+        )
+    )}
+/>
 ```
 
-## API Error Configuration
+## API Errors
 
-In order to handle errors throughout the auth workflow we have provided an `ErrorManager` component that is embedded in each screen that makes an API call. You can customize errors in multiple ways. By default the `ErrorManager` uses a dialog to present errors to the end user. The easiest way to customize how the dialog is presented is by throwing an error with a `cause` object in the Error options. For more details on the errorManager API, read the [ErrorManager](https://github.com/etn-ccis/blui-react-workflows/tree/master/login-workflow/docs/components/error-manager.md) docs.
+For API-related errors, we have implemented a common `ErrorManager` component that manages the display of error messages across screens. It can be customized to present API errors in a Dialog (default) or in a Message Box. For full details, read the [ErrorManager](https://github.com/etn-ccis/blui-react-workflows/tree/master/login-workflow/docs/components/error-manager.md) API docs.
 
-### Usage
-To throw an error in a dialog with a custom title and error message throw the error as follows:
+To trigger the ErrorManager to display an error, you need to throw an error in your AuthUIAction or RegistrationUIAction function. 
 
 ```tsx
+// throw a basic error
+throw new Error('My Custom Error');
+
+// customize the title via the cause property
 throw new Error('My Custom Error', {
     cause: {
         title: 'Custom Title',
@@ -42,21 +47,13 @@ throw new Error('My Custom Error', {
 });
 ```
 
-You can still throw your error with just a message and the title will show the default "Error" text:
+### Global Configuration
 
-```tsx
-throw new Error('My Custom Error');
-```
-
-### Global Error Configuration
-
-You can configure how errors are rendered throughout the entire workflow by adding an errorConfig object as a prop directly on the Auth or Registration context providers.
-
-#### Usage
+You can customize how errors are displayed throughout the entire workflow by passing an `errorConfig` prop to the `AuthContextProvider` and / or `RegistrationContextProvider`. This will change the default used by all of the screens nested under the provider.
 
 ```tsx
 <AuthContextProvider
-    ...
+    {...otherProps}
     errorConfig={{
         mode: 'message-box',
         messageBoxConfig: {
@@ -67,15 +64,13 @@ You can configure how errors are rendered throughout the entire workflow by addi
 >
 ```
 
-### Granular Error Configuration
+### Local Configuration
 
-You can configure how errors are rendered on each individual screen by adding an errorConfig object as a prop directly on a screen component.
-
-#### Usage
+You can configure how errors are rendered on each individual screen by adding an `errorConfig` prop directly on a screen component (e.g., if you want to show errors differently on the login screen vs. in the registration workflow).
 
 ```tsx
 <LoginScreen
-    ...
+    {...otherProps}
     errorConfig={{
         mode: 'message-box',
         messageBoxConfig: {
@@ -85,3 +80,5 @@ You can configure how errors are rendered on each individual screen by adding an
     }}
 >
 ```
+
+

@@ -1,56 +1,70 @@
 # Customization Guide
-While the default workflow is designed to work for most applications, we understand that you may need to customize the workflow to meet your needs. This guide will walk you through the various ways you can customize the workflow.
 
-## Customizing Authentication Workflow
+These workflows are designed to work out of the box without any additional configuration. However, we understand that you may need to customize certain aspects of the workflows to meet your needs. This guide will walk you through the various ways you can customize the workflow.
 
-### Customizing Login
-You may want to customize which items are visible from the login screen. In order to do this you will need to customize the [Login Screen](https://github.com/etn-ccis/blui-react-workflows/tree/master/login-workflow/screens/login.md) via props to render the the appropriate items. You will also need to ensure that all routes that you wish to be accessible from the login screen are set up properly in your [Routing](https://github.com/etn-ccis/blui-react-workflows/tree/master/login-workflow/docs/routing.md) setup.
+## Customizing Screens
 
-Here is an example of how you would set up the Login Screen if you did not want to allow account creation or remember me functionality: 
-```tsx
-import React from 'react';
-import { LoginScreen } from '@brightlayer-ui/react-auth-workflow';
+All of the screens in the workflow support various levels of customization. Refer to the [Screens](./screens/README.md) documentation for specific options available on each screen.
 
-export const Login = (): JSX.Element => (
-    <LoginScreen
-        showRememberMe={false}
-        showSelfRegistration={false}
-    />
-);
-```
 
 ## Customizing Registration Workflow
 
-### Customizing the Screen Order
-You may want to customize the order of your screens within the workflow. In order to do this you will need to import the screens you want to use and pass them as children to the `RegistrationWorkflow` component. The screens will render in the order they are passed in.
+The Registration is provided as a single component that will provide the default behavior without requiring any configuration or props.
 
-Our default implementation looks like this:
-  
-```jsx
+```tsx
+// default appearance / behavior
+<RegistrationWorkflow />
+```
+
+If you wish to customize any aspects of the workflow screens, you will need to provide them as children in order to access their screen-level props.
+
+```tsx
 <RegistrationWorkflow>
-    <EulaScreen />              // screen1
-    <CreateAccountScreen />     // screen2
-    <VerifyCodeScreen />        // screen3
-    <CreatePasswordScreen />    // screen4
-    <AccountDetailsScreen />    // screen5
+    <EulaScreen />
+    <CreateAccountScreen />
+    <VerifyCodeScreen codeValidator={customValidator}/>
+    <CreatePasswordScreen />
+    <AccountDetailsScreen />
 </RegistrationWorkflow>
 ```
 
-### Custom Screens
-You may inject your own custom screens into the workflow by creating your own custom screens. In order to make this easier for you we have provided components to keep the look and feel consistent with the rest of the workflow. For more information on how to use these components, refer to our [WorkflowCard](https://github.com/etn-ccis/blui-react-workflows/tree/master/login-workflow/components/workflow-card.md) component documentation. After you have created your custom screens, you can pass them as children to the `RegistrationWorkflow` component. The screens will render in the order they are passed in.
+### Customizing the Screen Order
+
+When passing children to the `RegistrationWorkflow` component, you can easily adjust the order of screens by simply placing them in the order you wish for them to appear.
+  
+```tsx
+<RegistrationWorkflow>
+    {/* Create Account screen will now come before the Eula screen */}
+    <CreateAccountScreen />
+    <EulaScreen />           
+    <VerifyCodeScreen />  
+    <CreatePasswordScreen />   
+    <AccountDetailsScreen /> 
+</RegistrationWorkflow>
+```
+
+### Removing / Injecting Screens
+
+If you want to skip a particular screen in the workflow, simply omit it in the list of children. Likewise, if you wish to add your own custom screens into the workflow, you simply pass them as another child element.
+
+When passing custom children, it is important to match the look and feel of the other steps in the workflow. In order to support this, we provide several WorkflowCard components that you can use to create your custom screens. For more information on how to use these components, refer to our [WorkflowCard](https://github.com/etn-ccis/blui-react-workflows/tree/master/login-workflow/components/workflow-card.md) component documentation. 
 
 Your custom implementation, removing the EulaScreen and VerifyCodeScreen, and adding a custom screen, might look like this:
 
 ```jsx
 <RegistrationWorkflow initialScreenIndex={0}>
-    <CreateAccountScreen />    // screen1
-    <MyCustomScreen />         // screen2
-    <CreatePasswordScreen />   // screen3
-    <AccountDetailsScreen />   // screen4
+    <EulaScreen />
+    <CreateAccountScreen />
+    <VerifyCodeScreen codeValidator={customValidator}/>
+    {/* Skip the Create Password scree */}
+    {/* <CreatePasswordScreen /> */}
+    <AccountDetailsScreen />
+    {/* Add a custom screen to collect more information */}
+    <CustomAdditionalDetailsScreen>
 </RegistrationWorkflow>
 ```
 
-### Customizing the Registration Success Screen
+### Customizing the Success Screen
 You may provide a custom success screen to be shown upon successful completion of the [Registration Workflow](https://github.com/etn-ccis/blui-react-workflows/tree/master/login-workflow/docs/components/registration-workflow.md). The [Success Screen](https://github.com/etn-ccis/blui-react-workflows/tree/master/login-workflow/docs/screens/success.md) is used by default, but may be customized via props. If you wish to build your own success screen it may look something like this:
 
 ```jsx
@@ -65,50 +79,15 @@ const MyCustomSuccessScreen = () => {
   );
 };
 
-<RegistrationWorkflow successScreen={<MyCustomSuccessScreen />}>
-    // Registration Screens Go Here
-</RegistrationWorkflow>
+<RegistrationWorkflow successScreen={<MyCustomSuccessScreen />} />
 ```
 
+A similar prop exists for `existingAccountSuccessScreen` which will be used if the account being registered already exists.
 
-## Customizing the Pre-built Screens
-Many of the components and screens used to build the core workflow have been exported so you can easily customize the login and registration workflows. These Customization can be made via props on our [Components](https://github.com/etn-ccis/blui-react-workflows/tree/master/login-workflow/components/components.md) and [Screens](https://github.com/etn-ccis/blui-react-workflows/tree/master/login-workflow/screens/screens.md). 
-
-An example of this would be passing in props for the Login screen as follows:
-```tsx
-import React from 'react';
-import { LoginScreen } from '@brightlayer-ui/react-auth-workflow';
-import Logo from '<path-to-logo>';
-
-export const Login = (): JSX.Element => (
-    <LoginScreen
-        projectImage={
-            <img src={Logo} alt="logo" style={{ maxHeight: 80 }} />
-        }
-        onLogin={(username: any, password: any): void => {
-            setRememberEmail(username);
-            setIsAuthenticated(true);
-            navigate('/guarded');
-        }}
-        usernameTextFieldProps={{
-            inputProps: {
-                maxLength: 30,
-            },
-        }}
-        passwordTextFieldProps={{
-            required: true,
-        }}
-    />
-);
-```
 
 ## Customizing the Language Support
 
 For information about supporting multiple languages and customizing the translations, refer to our [Language Support](https://github.com/etn-ccis/blui-react-workflows/tree/master/login-workflow/docs/language-support.md) guidelines.
-
-## Customizing the Routing
-
-We don't prescribe a routing solution, however we do recommend using [React Router](https://reactrouter.com/). For example usage details, refer to the [Routing](https://github.com/etn-ccis/blui-react-workflows/tree/master/login-workflow/docs/routing.md) documentation.
 
 ## Customizing Error Handling
 

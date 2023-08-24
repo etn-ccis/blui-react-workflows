@@ -1,62 +1,75 @@
-# Update React Auth Workflow Package
+# Migration Guide: v4.x => v5.x
 
-Update @brightlayer-ui/react-auth-workflow package to latest version.
+## Update Dependencies
+
+First, update your @brightlayer-ui/react-auth-workflow dependency to the latest version.
 ```shell
-npm install --save @brightlayer-ui/react-auth-workflow
+npm install --save @brightlayer-ui/react-auth-workflow@^5.0.0
 // or
-yarn upgrade @brightlayer-ui/react-auth-workflow
+yarn upgrade @brightlayer-ui/react-auth-workflow@^5.0.0
 ```
 
-## Remove @brightlayer-ui/react-auth-shared package
+## Managing Auth State
 
-In latest version we have removed @brightlayer-ui/react-auth-shared.
+In order to be more flexible / customizable, the workflow no longer manages the authentication status of the user internally. You will need to establish your own mechanism (such as using a ContextProvider or Redux) to track whether or not a user is authenticated to your application. For reference, you can look at how we set up the [AppContext](https://github.com/etn-ccis/blui-react-workflows/blob/dev/login-workflow/example/src/contexts/AppContextProvider.tsx) in the example project.
 
-## Update AuthUIActions
 
-`SecurityContextActions` are not supported by the latest workflow. Instead of this, you will need to manage your app's authentication state by other means e.g., a custom context. 
+## Managing Routing
 
-For example, you can replace `SecurityContextActions` with `AppContextType` which you can declare in `AppContextProvider`. You can see how we handle this in our [Example Project AppContextProvider](https://github.com/etn-ccis/blui-react-workflows/blob/master/login-workflow/example/src/contexts/AppContextProvider.tsx).
+In order to be more flexible / customizable, the workflow no longer manages routing. The `AuthNavigationContainer` has been removed and will need to be replaced by your own routing solution (we recommend React Router). Please follow our [Routing Guide](https://github.com/etn-ccis/blui-react-workflows/tree/master/login-workflow/docs/routing.md) for detailed information on setup.
 
-In previous versions of this package, the `onUserAuthenticated` and `onUserNotAuthenticated` values were managed for you, but in the latest version, you need to manage this state on your own. For more details, you can check the example app's [AuthUIActions Implementation](https://github.com/etn-ccis/blui-react-workflows/blob/master/login-workflow/example/src/actions/AuthUIActions.tsx).
 
-## Update RegistrationUIActions
+## Managing Workflow Providers
 
-Update type name `AccountDetailInformation` to `AccountDetails`.
+We previously provided a `AuthUIContextProvider` component that was used to configure / wrap both the Authentication workflow and the Registration workflow. In version 5, we have split the management of the workflows so that they can be used independently. You will need to implement the [`AuthContextProvider`](authentication-workflow.md) and [`RegistrationContextProvider`](./registration-workflow.md) instead.
 
-**before:**
+## Managing Translations / Internationalization
+
+You no longer need to merge your apps translation data into the workflow — they an exist independently for the sake of simplifying your setup. If you aren't already, you will need to set up [react-i18next](https://react.i18next.com/) to manage your application side translations. Refer to our [Language Support](./language-support.md) guide for more information.
+
+
+## Updated Actions
+
+### AuthUIActions
+
+The `SecurityContextActions` no longer exist in the newest version and so they will not be available to your action definitions (i.e., `onUserAuthenticated` and `onUserNotAuthenticated` are no longer available). You will need to pass your own self-managed auth state/functions and use those instead (refer to above).
+
+
+## RegistrationUIActions
+
+1) Update type name `AccountDetailInformation` to `AccountDetails`.
+
 ```tsx
+// before 
 import { RegistrationUIActions, AccountDetailInformation } from '@brightlayer-ui/react-auth-workflow';
-```
-
-**after:**
-```tsx
+// after
 import { RegistrationUIActions, AccountDetails } from '@brightlayer-ui/react-auth-workflow';
 ```
 
-### Fix Following Actions in RegistrationUIActions.tsx
+2) LoadEULA renamed to loadEula
 
-#### Rename `loadEULA` action to `loadEula`.
-**before:**
 ```tsx
+// before 
 loadEULA: async (language: string): Promise<string> => {
     ...
     return SAMPLE_EULA;
 },
-```
 
-**after:**
-```tsx
+// after
 loadEula: async (language: string): Promise<string> => {
     ...
     return SAMPLE_EULA;
 },
 ```
 
-#### Update completeRegistration Action
-In the latest package type of few parameters of completeRegistration have changed. Such as the `userData` parameter accepting only password and accoundDetails. Now you can pass on other user-related details as well. Also, the earlier `validationCode` parameter supported only strings, now you can pass numbers also.
+3) Additional data available in completeRegistration
 
-**before:**
+The `userData` parameter will now pass all data collected from the registration workflow, including custom data.
+
+The `validationCode` parameter now supports numbers or string.
+
 ```tsx
+// before
 completeRegistration: async (
     userData: {
         password: string;
@@ -67,12 +80,10 @@ completeRegistration: async (
 ): Promise<{ email: string; organizationName: string }> => {
     ...
 },
-```
 
-**after:**
-```tsx
+// after
 completeRegistration: async (
-    userData: any,
+    userData: any, // TODO: this should be properly typed
     validationCode: string | number,
     validationEmail?: string
 ): Promise<{ email: string; organizationName: string }> => {
@@ -80,36 +91,20 @@ completeRegistration: async (
 },
 ```
 
-#### Add new actions
+4) New actions available
 
-We have added a few more actions in registrationUIActions such as `acceptEula`, `requestRegistrationCode`, `createPassword`, and `setAccountDetails`.
-For more details, you can check the example app's [RegistrationUIActions Implementation](https://github.com/etn-ccis/blui-react-workflows/blob/master/login-workflow/example/src/actions/RegistrationUIActions.tsx).
-
-
-### Update your App.tsx
-
-In the latest workflow package the `SecurityContextProvider` and `useSecurityActions` are not available. Instead of these, you need to use some other means of managing the app state. We have also removed `AuthNavigationContainer`.
-
-#### Update AuthContextProvider
-In previous versions of this package we were passing a `registrationActions` prop to `AuthUIContextProvider`. In the latest package, we have removed `AuthUIContextProvider` and divided our context provider into  `AuthContextProvider` and `RegistrationContextProvider`.
-
-#### Manage App States
-You need to manage the state of user's authentication credentials on your own. For reference, you can look at how we set up the [Example App's Context](https://github.com/etn-ccis/blui-react-workflows/blob/dev/login-workflow/example/src/contexts/AppContextProvider.tsx).
-
-#### Router Setup
-In the latest workflow, you need to set up your own routing. For detailed information please follow our [Routing Guide](https://github.com/etn-ccis/blui-react-workflows/tree/master/login-workflow/docs/Routing.md).
+To give greater flexibility / granularity in the workflow, we have added a few more actions in registrationUIActions such as `acceptEula`, `requestRegistrationCode`, `createPassword`, and `setAccountDetails`. Refer to the [Registration Workflow](./registration-workflow.md) Guide for information about these new actions.
 
 
-#### i18n Setup
-In the latest workflow, you need to set up i18n for your app. For detailed information you can check the example app's [i18n Setup](https://github.com/etn-ccis/blui-react-workflows/blob/master/login-workflow/example/src/translations/i18n.ts). For rendering translations in the app, you need to wrap your app with an  [I18nextProvider](https://react.i18next.com/latest/i18nextprovider) you can refer [Example App](https://github.com/etn-ccis/blui-react-workflows/blob/master/login-workflow/example/src/App.tsx).
+## New Setup
 
-
-Once you are done with [State Management Setup](#manage-app-states), [Router Setup](#router-setup) and [i18n setup](#i18n-setup). You can setup your app similar like below.
+Your new app architecture will look something like this once you have made all of the necessary updates:
 
 
 ```tsx
-// To render translations in your app, wrap with <I18nextProvider/>
+// Your application instance of i18n
 <I18nextProvider i18n={i18nAppInstance} defaultNS={'app'}> 
+    {/* Your custom context provider for managing auth state, etc. */}
     <AppContext.Provider
         value={{
             isAuthenticated,
@@ -126,10 +121,17 @@ Once you are done with [State Management Setup](#manage-app-states), [Router Set
             setLanguage,
         }}
     >
+        {/* Your implementation of a routing solution */}
         <BrowserRouter basename={'/'}>
-            <AppRouter />
+            <AuthContextProvider>
+                {/* Auth Routes */}
+            </AuthContextProvider>
+            <RegistrationContextProvider>
+                {/* Registration Routes */}
+            </RegistrationContextProvider>
         </BrowserRouter>
     </AppContext.Provider>
 </I18nextProvider>
 ```
 
+Refer to the [Example](../example/) application for detailed reference.
