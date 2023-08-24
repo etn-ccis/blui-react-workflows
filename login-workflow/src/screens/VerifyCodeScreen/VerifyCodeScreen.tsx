@@ -34,7 +34,7 @@ export const VerifyCodeScreen: React.FC<VerifyCodeScreenProps> = (props) => {
     const errorDisplayConfig = {
         ...errorManagerConfig,
         ...props.errorDisplayConfig,
-        onClose: () => {
+        onClose: (): void => {
             if (props.errorDisplayConfig && props.errorDisplayConfig.onClose) props.errorDisplayConfig.onClose();
             if (errorManagerConfig.onClose) errorManagerConfig?.onClose();
         },
