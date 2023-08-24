@@ -21,7 +21,7 @@ export type RouteConfig = {
 // this should be updated to add new actions for greater control
 export type RegistrationUIActions = {
     loadEula?: (language: string) => Promise<string>;
-    acceptEula?: () => Promise<boolean>;
+    acceptEula?: () => Promise<void>;
     requestRegistrationCode?: (email: string) => Promise<string>;
     validateUserRegistrationRequest?: (validationCode: string, validationEmail?: string) => Promise<boolean>;
     createPassword?: (password: string) => Promise<boolean>;

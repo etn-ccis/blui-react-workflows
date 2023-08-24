@@ -71,8 +71,8 @@ export const EulaScreen: React.FC<EulaScreenProps> = (props) => {
     const onNext = useCallback(async (): Promise<void> => {
         setIsLoading(true);
         try {
-            const acceptedEula = await actions()?.acceptEula?.();
-            setEulaAccepted(acceptedEula);
+            await actions()?.acceptEula?.();
+            setEulaAccepted(true);
             let isAccExist;
             if (isInviteRegistration) {
                 isAccExist = await actions().validateUserRegistrationRequest(
@@ -82,7 +82,7 @@ export const EulaScreen: React.FC<EulaScreenProps> = (props) => {
             }
             void nextScreen({
                 screenId: 'Eula',
-                values: { accepted: acceptedEula },
+                values: { accepted: true },
                 isAccountExist: isAccExist,
             });
         } catch (_error) {
@@ -94,21 +94,19 @@ export const EulaScreen: React.FC<EulaScreenProps> = (props) => {
         }
     }, [actions, nextScreen, triggerError, isInviteRegistration, screenData]);
 
-    const onPrevious = useCallback(async (): Promise<void> => {
+    const onPrevious = useCallback((): void => {
         setIsLoading(true);
         try {
-            const acceptedEula = await actions().acceptEula();
-            setEulaAccepted(acceptedEula);
             previousScreen({
                 screenId: 'Eula',
-                values: { accepted: acceptedEula },
+                values: { accepted: eulaAccepted },
             });
         } catch (_error) {
             triggerError(_error as Error);
         } finally {
             setIsLoading(false);
         }
-    }, [actions, previousScreen, triggerError]);
+    }, [previousScreen, triggerError, eulaAccepted]);
 
     useEffect(() => {
         void loadAndCacheEula();
