@@ -5,6 +5,18 @@ import CheckCircle from '@mui/icons-material/CheckCircle';
 import { SuccessScreenBase, SuccessScreenProps } from '..';
 import { useRegistrationWorkflowContext, useRegistrationContext } from '../../contexts';
 
+/**
+ * Component that renders a success screen for when registration completes.
+ *
+ * @param icon the icon to be displayed on the screen
+ * @param messageTitle title of the success message
+ * @param message success message to be displayed on the screen
+ * @param onDismiss function to call when user clicks button
+ * @param canDismiss function to call when the dismiss button is clicked
+ *
+ * @category Component
+ */
+
 export const RegistrationSuccessScreen: React.FC<SuccessScreenProps> = (props) => {
     const { navigate, routeConfig } = useRegistrationContext();
     const { t } = useTranslation();
@@ -42,7 +54,7 @@ export const RegistrationSuccessScreen: React.FC<SuccessScreenProps> = (props) =
     };
 
     const workflowCardActionsProps = {
-        nextLabel: t('bluiCommon:ACTIONS.CONTINUE'),
+        nextLabel: t('bluiCommon:ACTIONS.FINISH'),
         showNext: true,
         canGoNext: canDismiss,
         fullWidthButton: true,

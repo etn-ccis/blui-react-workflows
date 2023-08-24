@@ -3,7 +3,7 @@ import { AppContext, AppContextType } from './contexts/AppContextProvider';
 import { BrowserRouter } from 'react-router-dom';
 import { AppRouter } from './navigation/AppRouter';
 import { I18nextProvider } from 'react-i18next';
-import { i18nAppInstance } from './translations/i18n';
+import i18nAppInstance from './translations/i18n';
 import { LocalStorage } from './store/local-storage';
 import { Box, CircularProgress, SxProps, Theme } from '@mui/material';
 
@@ -30,18 +30,13 @@ const emptyStateContainerStyles = {
 
 export const App = (): JSX.Element => {
     const [isAuthenticated, setIsAuthenticated] = useState(false);
-    const [language, setLanguage] = useState(window.localStorage.getItem('language') ?? 'en');
+    const [language, setLanguage] = useState(window.localStorage.getItem('app-i18nextLng')?.toString() ?? 'en');
     const [loginData, setLoginData] = useState<AppContextType['loginData']>({
         email: '',
         rememberMe: false,
     });
 
     const [isLoading, setIsLoading] = useState(true);
-
-    // handle language change
-    useEffect(() => {
-        void i18nAppInstance.changeLanguage(language);
-    }, [language]);
 
     // handle initialization of auth data on first load
     useEffect(() => {

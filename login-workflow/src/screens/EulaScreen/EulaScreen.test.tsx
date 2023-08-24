@@ -47,10 +47,23 @@ describe('Eula Screen', () => {
         expect(screen.getByText('Test Title')).toBeInTheDocument();
     });
 
-    it('should show loader, when loading prop is passed to WorkflowCardBaseProps', () => {
-        renderer({ WorkflowCardBaseProps: { loading: true } });
+    it('should update content of Eula Screen when eulaContent prop set ', () => {
+        renderer({ eulaContent: 'Test Eula Content' });
+        expect(screen.getByText('Test Eula Content')).toBeInTheDocument();
+    });
 
-        expect(screen.getByText('Loading End User License Agreement...')).toBeInTheDocument();
+    it('should show button when htmlEula prop is true', () => {
+        renderer({ htmlEula: true, eulaContent: '<button>Submit</button>' });
+        expect(
+            screen.getByRole('button', {
+                name: /Submit/i,
+            })
+        ).toBeVisible();
+    });
+
+    it('should show button element as as a string when htmlEula prop is true', () => {
+        renderer({ htmlEula: false, eulaContent: '<button>Submit</button>' });
+        expect(screen.getByText('<button>Submit</button>')).toBeInTheDocument();
     });
 
     it('should call onNext, when Next button clicked', () => {

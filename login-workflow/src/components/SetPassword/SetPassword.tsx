@@ -10,19 +10,20 @@ import { PasswordRequirements } from '../PasswordRequirements';
  * Component that renders a change password form with a new password and confirm password inputs.
  * It includes callbacks so you can respond to changes in the inputs.
  *
- * @param onPasswordChange Fired when the new password or confirm new password fields value changes
- * @param initialNewPasswordValue to initialize the password field
- * @param initialConfirmPasswordValue to initialize the confirm field
- * @param passwordRequirements Optional requirements to set password
- * @param newPasswordLabel Optional label for the new password field (default = 'Password')
- * @param confirmPasswordLabel Optional label for the confirm password field (default = 'Confirm')
- * @param passwordRef Optional ref to forward to the password input.
- * @param confirmRef Optional ref to forward to the confirm password input.
- * @param passwordNotMatchError Optional text for showing message when passwords not match.
- * @param onSubmit Optional callback function to call when the mini form is submitted.
+ * @param onPasswordChange called when the new password or confirm new password fields value changes
+ * @param initialNewPasswordValue initial value for the new password field
+ * @param initialConfirmPasswordValue initial value for the confirm password field
+ * @param passwordRequirements requirements to set password
+ * @param newPasswordLabel label for the new password field (default = 'Password')
+ * @param confirmPasswordLabel label for the confirm password field (default = 'Confirm')
+ * @param passwordRef ref to forward to the password input.
+ * @param confirmRef ref to forward to the confirm password input.
+ * @param passwordNotMatchError text for showing message when passwords do not match.
+ * @param onSubmit function to call when the form is submitted
  *
  * @category Component
  */
+
 export const SetPassword: React.FC<React.PropsWithChildren<SetPasswordProps>> = (props) => {
     const {
         newPasswordLabel,

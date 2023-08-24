@@ -8,6 +8,25 @@ import { unstable_composeClasses as composeClasses } from '@mui/base';
 import Divider from '@mui/material/Divider';
 import Box from '@mui/material/Box';
 
+/**
+ * Component that renders the workflow card action elements used for all screen components.
+ *
+ * @param divider boolean value to display a divider above workflow card action buttons
+ * @param canGoNext boolean or function that indicates whether the next button should be enabled
+ * @param canGoPrevious boolean or function that indicates whether the previous button should be enabled
+ * @param showPrevious boolean that indicates whether the previous button should be displayed
+ * @param showNext boolean that indicates whether the next button should be displayed
+ * @param previousLabel label to display for the previous button
+ * @param nextLabel label to display for the next button
+ * @param onPrevious function called when the previous button is clicked
+ * @param onNext function that is called when the next button is clicked
+ * @param currentStep current step in the registration workflow
+ * @param totalSteps total number of steps in the registration workflow
+ * @param fullWidthButton boolean that indicates whether a button should be full width
+ *
+ * @category Component
+ */
+
 const useUtilityClasses = (ownerState: WorkflowCardActionsProps): Record<WorkflowCardActionsClassKey, string> => {
     const { classes } = ownerState;
 

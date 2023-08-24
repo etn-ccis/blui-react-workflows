@@ -6,6 +6,20 @@ import { CreatePasswordScreenProps } from './types';
 import { useRegistrationContext, useRegistrationWorkflowContext } from '../../contexts';
 import { useErrorManager } from '../../contexts/ErrorContext/useErrorManager';
 
+/**
+ * Component renders a screen with account details information for support with the application.
+ * Contact information is pulled from the context passed into the workflow.
+ *
+ * @param errorDisplayConfig configuration for customizing how errors are displayed
+ * @param PasswordProps props passed from SetPassword component
+ * @param WorkflowCardBaseProps props that will be passed to the WorkflowCard component
+ * @param WorkflowCardHeaderProps props that will be passed to the WorkflowCardHeader component
+ * @param WorkflowCardInstructionProps props that will be passed to the WorkflowCardInstructions component
+ * @param WorkflowCardActionsProps props that will be passed to the WorkflowCardActions component
+ *
+ * @category Component
+ */
+
 export const CreatePasswordScreen: React.FC<CreatePasswordScreenProps> = (props) => {
     const { t } = useLanguageLocale();
     const { actions } = useRegistrationContext();
@@ -26,6 +40,7 @@ export const CreatePasswordScreen: React.FC<CreatePasswordScreenProps> = (props)
     const [isLoading, setIsLoading] = useState(false);
     const passwordRequirements = defaultPasswordRequirements(t);
     const { triggerError, errorManagerConfig } = useErrorManager();
+    const errorDisplayConfig = { ...errorManagerConfig, ...props.errorDisplayConfig };
 
     const onNext = useCallback(async (): Promise<void> => {
         try {
@@ -70,7 +85,6 @@ export const CreatePasswordScreen: React.FC<CreatePasswordScreenProps> = (props)
         WorkflowCardInstructionProps,
         WorkflowCardActionsProps,
         PasswordProps,
-        errorDisplayConfig = errorManagerConfig,
     } = props;
 
     const workflowCardBaseProps = {

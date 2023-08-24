@@ -1,6 +1,14 @@
 import React from 'react';
 import CardContent, { CardContentProps } from '@mui/material/CardContent';
 
+/**
+ * Component that renders the body content for the workflow card.
+ *
+ * @param children content to render in the WorkflowCardBody
+ *
+ * @category Component
+ */
+
 export const WorkflowCardBody: React.FC<CardContentProps> = (props) => {
     const { children, sx, ...otherCardContentProps } = props;
 
@@ -8,9 +16,9 @@ export const WorkflowCardBody: React.FC<CardContentProps> = (props) => {
         <CardContent
             sx={[
                 {
-                    flex: '1 1 0px',
-                    overflow: 'auto',
                     display: 'flex',
+                    flex: '1 1 0',
+                    overflow: 'auto',
                     flexDirection: 'column',
                     pt: 2,
                     pb: { sm: 3, md: 2 },

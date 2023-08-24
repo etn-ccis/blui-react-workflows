@@ -5,6 +5,22 @@ import { useLanguageLocale } from '../../hooks';
 import { ChangePasswordDialogBase } from './ChangePasswordDialogBase';
 import { ChangePasswordDialogProps } from './types';
 
+/**
+ * Component that renders a dialog with textField to enter current password and a change password form with a new password and confirm password inputs.
+ * It includes callbacks so you can respond to changes in the inputs.
+ *
+ * @param dialogTitle title to display in the dialog
+ * @param dialogDescription description to display in the dialog
+ * @param currentPasswordLabel label to display for the current password field
+ * @param previousLabel label to display for the previous button
+ * @param nextLabel label to display for the next button
+ * @param currentPasswordChange called when the current password field changes
+ * @param enableButton boolean to enable and disable the button
+ * @param onSubmit Callback function to call when the form is submitted
+ *
+ * @category Component
+ */
+
 export const ChangePasswordDialog: React.FC<ChangePasswordDialogProps> = (props) => {
     const { t } = useLanguageLocale();
     const passwordRef = useRef(null);

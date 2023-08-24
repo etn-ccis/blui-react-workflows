@@ -3,8 +3,8 @@ import {
     RegistrationContextProviderProps,
     RegistrationWorkflowContextProps,
 } from '../contexts';
-import { i18nAuthInstance } from '../contexts/AuthContext/i18nAuthInstance';
-import { i18nRegistrationInstance } from '../contexts/RegistrationContext/i18nRegistrationInstance';
+import i18nAuthInstance from '../contexts/AuthContext/i18nAuthInstance';
+import i18nRegistrationInstance from '../contexts/RegistrationContext/i18nRegistrationInstance';
 
 export const authContextProviderProps: AuthContextProviderProps = {
     language: 'en',

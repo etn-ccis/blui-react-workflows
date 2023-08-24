@@ -16,7 +16,7 @@ const EMAIL_REGEX = /^[A-Z0-9._%+'-]+@[A-Z0-9.-]+\.[A-Z]{2,}$/i;
  * @param initialUsernameValue username used to pre-populate the field
  * @param passwordLabel label for the password field
  * @param passwordTextFieldProps props to pass to the password text field
- * @param passwordRequiredValidatorText text to display when the required error state is active on the password field
+ * @param passwordValidator function used to validate the password
  * @param showRememberMe whether or not to show the 'remember me' checkbox
  * @param rememberMeLabel label for the 'remember me' checkbox
  * @param rememberMeInitialValue whether or not the 'remember me' checkbox should be checked by default
@@ -33,11 +33,12 @@ const EMAIL_REGEX = /^[A-Z0-9._%+'-]+@[A-Z0-9.-]+\.[A-Z]{2,}$/i;
  * @param showContactSupport whether or not to show the 'contact support' link
  * @param contactSupportLabel label for the 'contact support' link
  * @param onContactSupport callback function that is called when the 'contact support' link is clicked
- * @param errorDisplayConfig configuration for how errors should be displayed
+ * @param errorDisplayConfig configuration for customizing how errors are displayed
  * @param showCyberSecurityBadge whether or not to show the cyber security badge
  * @param projectImage image to display at the top of the screen
  * @param header header to display at the top of the screen
  * @param footer footer to display at the bottom of the screen
+ * @param WorkflowCardBaseProps props that will be passed to the WorkflowCard component
  *
  * @category Component
  */
@@ -49,6 +50,7 @@ export const LoginScreen: React.FC<React.PropsWithChildren<LoginScreenPropsPubli
     const auth = useAuthContext();
     const { actions, navigate, routeConfig, rememberMeDetails } = auth;
     const { triggerError, errorManagerConfig } = useErrorManager();
+    const errorDisplayConfig = { ...errorManagerConfig, ...props.errorDisplayConfig };
 
     useEffect(() => {
         void actions().initiateSecurity();
@@ -85,7 +87,6 @@ export const LoginScreen: React.FC<React.PropsWithChildren<LoginScreenPropsPubli
         showContactSupport = true,
         contactSupportLabel = t('bluiCommon:MESSAGES.CONTACT'),
         onContactSupport = (): void => navigate(routeConfig.SUPPORT),
-        errorDisplayConfig = errorManagerConfig,
         showCyberSecurityBadge = true,
         projectImage,
         header,

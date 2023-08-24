@@ -7,7 +7,7 @@ import React, { useEffect } from 'react';
 import { RegistrationContextProviderProps } from './types';
 import { RegistrationContext } from './context';
 import { I18nextProvider } from 'react-i18next';
-import { i18nRegistrationInstance } from './i18nRegistrationInstance';
+import i18nRegistrationInstance from './i18nRegistrationInstance';
 import { ErrorContext } from '../ErrorContext';
 import { SharedDictionaries } from '../SharedDictionaries';
 import { RegistrationDictionaries } from './RegistrationDictionaries';
@@ -34,6 +34,7 @@ export const RegistrationContextProvider: React.FC<React.PropsWithChildren<Regis
 
     useEffect(() => {
         void i18n.changeLanguage(language);
+        window.localStorage.setItem('blui-i18nextLng', language);
     }, [i18n, language]);
 
     return (

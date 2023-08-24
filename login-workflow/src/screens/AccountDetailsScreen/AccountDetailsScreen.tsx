@@ -4,15 +4,37 @@ import { useLanguageLocale } from '../../hooks';
 import { useRegistrationContext, useRegistrationWorkflowContext } from '../../contexts';
 import { useErrorManager } from '../../contexts/ErrorContext/useErrorManager';
 
+/**
+ * Component renders a screen with account details information for support with the application.
+ * Contact information is pulled from the context passed into the workflow.
+ *
+ * @param firstNameLabel label for the first name text field
+ * @param initialFirstName initial value for the first name text field
+ * @param firstNameValidator function that validates the first name text field
+ * @param firstNameTextFieldProp props to pass to the first name field
+ * @param lastNameLabel label for the last name text field
+ * @param initialLastName initial value for the last name text field
+ * @param lastNameValidator function that validates the last name text field
+ * @param lastNameTextFieldProps props to pass to the last name field
+ * @param WorkflowCardBaseProps props that will be passed to the WorkflowCard component
+ * @param WorkflowCardHeaderProps props that will be passed to the WorkflowCardHeader component
+ * @param WorkflowCardInstructionProps props that will be passed to the WorkflowCardInstructions component
+ * @param WorkflowCardActionsProps props that will be passed to the WorkflowCardActions component
+ * @param errorDisplayConfig configuration for customizing how errors are displayed
+ *
+ * @category Component
+ */
+
 export const AccountDetailsScreen: React.FC<AccountDetailsScreenProps> = (props) => {
     const { t } = useLanguageLocale();
     const { actions } = useRegistrationContext();
     const regWorkflow = useRegistrationWorkflowContext();
     const { nextScreen, previousScreen, screenData, currentScreen, totalScreens } = regWorkflow;
-    const [firstName, setFirstName] = useState(screenData.AccountDetails.firstName ?? '');
-    const [lastName, setLastName] = useState(screenData.AccountDetails.lastName ?? '');
+    const [firstName, setFirstName] = useState(screenData.AccountDetails.firstName);
+    const [lastName, setLastName] = useState(screenData.AccountDetails.lastName);
     const [isLoading, setIsLoading] = useState(false);
     const { triggerError, errorManagerConfig } = useErrorManager();
+    const errorDisplayConfig = { ...errorManagerConfig, ...props.errorDisplayConfig };
 
     const onNext = useCallback(async (): Promise<void> => {
         try {
@@ -55,9 +77,10 @@ export const AccountDetailsScreen: React.FC<AccountDetailsScreenProps> = (props)
             }
             return t('bluiCommon:FORMS.LAST_NAME_LENGTH_ERROR');
         },
-        errorDisplayConfig = errorManagerConfig,
         firstNameTextFieldProps,
         lastNameTextFieldProps,
+        initialFirstName = screenData.AccountDetails.firstName,
+        initialLastName = screenData.AccountDetails.lastName,
     } = props;
 
     const workflowCardHeaderProps = {
@@ -106,8 +129,8 @@ export const AccountDetailsScreen: React.FC<AccountDetailsScreenProps> = (props)
             WorkflowCardBaseProps={workflowCardBaseProps}
             WorkflowCardHeaderProps={workflowCardHeaderProps}
             WorkflowCardInstructionProps={workflowCardInstructionProps}
-            initialFirstName={firstName}
-            initialLastName={lastName}
+            initialFirstName={firstName.length > 0 ? firstName : initialFirstName}
+            initialLastName={lastName.length > 0 ? lastName : initialLastName}
             firstNameLabel={firstNameLabel}
             firstNameTextFieldProps={{ ...firstNameTextFieldProps, onChange: onFirstNameInputChange }}
             firstNameValidator={firstNameValidator}
