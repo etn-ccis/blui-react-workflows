@@ -7,7 +7,7 @@ import { useErrorManager } from '../../contexts/ErrorContext/useErrorManager';
 
 export const EulaScreen: React.FC<EulaScreenProps> = (props) => {
     const { t } = useLanguageLocale();
-    const { actions, navigate, routeConfig, language } = useRegistrationContext();
+    const { actions, language } = useRegistrationContext();
     const { triggerError, errorManagerConfig } = useErrorManager();
     const regWorkflow = useRegistrationWorkflowContext();
     const { nextScreen, previousScreen, screenData, currentScreen, totalScreens, isInviteRegistration } = regWorkflow;
@@ -114,7 +114,6 @@ export const EulaScreen: React.FC<EulaScreenProps> = (props) => {
         },
         onPrevious: (): void => {
             void onPrevious();
-            navigate(routeConfig.LOGIN);
             WorkflowCardActionsProps?.onPrevious?.();
         },
     };

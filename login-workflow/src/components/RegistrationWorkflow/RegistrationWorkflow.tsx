@@ -1,4 +1,5 @@
-import React, { useEffect, useState } from 'react';
+import React, { cloneElement, useEffect, useState } from 'react';
+import { useNavigate } from 'react-router';
 import { IndividualScreenData, RegistrationWorkflowContextProvider, useRegistrationContext } from '../../contexts';
 import {
     AccountDetailsScreen,
@@ -20,27 +21,46 @@ export type RegistrationWorkflowProps = {
 
 export const RegistrationWorkflow: React.FC<React.PropsWithChildren<RegistrationWorkflowProps>> = (props) => {
     const [isAccountExist, setIsAccountExist] = useState(false);
+    const navigate = useNavigate();
+
     const {
         initialScreenIndex = 0,
         successScreen = <RegistrationSuccessScreen />,
         existingAccountSuccessScreen = <ExistingAccountSuccessScreen />,
         isInviteRegistration = false,
-        children = isInviteRegistration
+        children,
+    } = props;
+
+    let screens;
+
+    if (children) {
+        screens = [...(Array.isArray(children) ? children : [children])];
+        const overrideElement = cloneElement(screens[0], {
+            WorkflowCardActionsProps: {
+                onPrevious: () => {
+                    navigate(-1);
+                },
+            },
+        });
+        screens[0] = overrideElement;
+    } else {
+        const defaultChildren = isInviteRegistration
             ? [
-                  <EulaScreen key="EulaScreen" />,
+                  <EulaScreen key="EulaScreen" WorkflowCardActionsProps={{ onPrevious: () => navigate(-1) }} />,
                   <CreatePasswordScreen key="CreatePasswordScreen" />,
                   <AccountDetailsScreen key="AccountDetailsScreen" />,
               ]
             : [
-                  <EulaScreen key="EulaScreen" />,
+                  <EulaScreen key="EulaScreen" WorkflowCardActionsProps={{ onPrevious: () => navigate(-1) }} />,
                   <CreateAccountScreen key="CreateAccountScreen" />,
                   <VerifyCodeScreen key="VerifyCodeScreen" />,
                   <CreatePasswordScreen key="CreatePasswordScreen" />,
                   <AccountDetailsScreen key="AccountDetailsScreen" />,
-              ],
-    } = props;
+              ];
 
-    const screens = [...(Array.isArray(children) ? children : [children])];
+        screens = defaultChildren;
+    }
+
     const totalScreens = screens.length;
     const [currentScreen, setCurrentScreen] = useState(
         initialScreenIndex < 0 ? 0 : initialScreenIndex > totalScreens - 1 ? totalScreens - 1 : initialScreenIndex
