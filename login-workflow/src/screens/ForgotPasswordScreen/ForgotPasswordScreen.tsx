@@ -33,7 +33,14 @@ export const ForgotPasswordScreen: React.FC<ForgotPasswordScreenProps> = (props)
     const { t } = useLanguageLocale();
     const { actions, navigate, routeConfig } = useAuthContext();
     const { triggerError, errorManagerConfig } = useErrorManager();
-    const errorDisplayConfig = { ...errorManagerConfig, ...props.errorDisplayConfig };
+    const errorDisplayConfig = {
+        ...errorManagerConfig,
+        ...props.errorDisplayConfig,
+        onClose: () => {
+            if (props.errorDisplayConfig && props.errorDisplayConfig.onClose) props.errorDisplayConfig.onClose();
+            if (errorManagerConfig.onClose) errorManagerConfig?.onClose();
+        },
+    };
 
     const [emailInput, setEmailInput] = useState('');
     const [isLoading, setIsLoading] = useState(false);

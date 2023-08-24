@@ -27,7 +27,14 @@ export const EulaScreen: React.FC<EulaScreenProps> = (props) => {
     const { t } = useLanguageLocale();
     const { actions, navigate, routeConfig, language } = useRegistrationContext();
     const { triggerError, errorManagerConfig } = useErrorManager();
-    const errorDisplayConfig = { ...errorManagerConfig, ...props.errorDisplayConfig };
+    const errorDisplayConfig = {
+        ...errorManagerConfig,
+        ...props.errorDisplayConfig,
+        onClose: () => {
+            if (props.errorDisplayConfig && props.errorDisplayConfig.onClose) props.errorDisplayConfig.onClose();
+            if (errorManagerConfig.onClose) errorManagerConfig?.onClose();
+        },
+    };
     const regWorkflow = useRegistrationWorkflowContext();
     const { nextScreen, previousScreen, screenData, currentScreen, totalScreens, isInviteRegistration } = regWorkflow;
     const {
@@ -86,8 +93,6 @@ export const EulaScreen: React.FC<EulaScreenProps> = (props) => {
                 isAccountExist: isAccExist,
             });
         } catch (_error) {
-            console.error(_error);
-            console.error('Error while updating EULA acceptance...');
             triggerError(_error as Error);
         } finally {
             setIsLoading(false);

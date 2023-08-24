@@ -31,7 +31,14 @@ export const VerifyCodeScreen: React.FC<VerifyCodeScreenProps> = (props) => {
     const { nextScreen, previousScreen, screenData, currentScreen, totalScreens } = regWorkflow;
     const { emailAddress } = screenData.CreateAccount;
     const { triggerError, errorManagerConfig } = useErrorManager();
-    const errorDisplayConfig = { ...errorManagerConfig, ...props.errorDisplayConfig };
+    const errorDisplayConfig = {
+        ...errorManagerConfig,
+        ...props.errorDisplayConfig,
+        onClose: () => {
+            if (props.errorDisplayConfig && props.errorDisplayConfig.onClose) props.errorDisplayConfig.onClose();
+            if (errorManagerConfig.onClose) errorManagerConfig?.onClose();
+        },
+    };
 
     const [verifyCode, setVerifyCode] = useState(screenData.VerifyCode.code);
     const [isLoading, setIsLoading] = useState(false);
