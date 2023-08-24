@@ -11,9 +11,11 @@ import { useErrorManager } from '../../contexts/ErrorContext/useErrorManager';
 /**
  * Component that renders a ResetPassword screen that allows a user to reset their password and shows a success message upon a successful password reset..
  *
- * @param showSuccessScreen boolean that determines whether to show the success screen or not
- * @param slotProps props that will be passed to the SuccessScreen component
  * @param PasswordProps props that will be passed to the SetPassword component
+ * @param showSuccessScreen boolean that determines whether to show the success screen or not
+ * @param slots used for ResetPasswordScreen SuccessScreen props
+ * @param slotProps props that will be passed to the SuccessScreen component
+ * @param errorDisplayConfig configuration for customizing how errors are displayed
  * @param SuccessScreen component that will be rendered when showSuccessScreen is true
  * @param WorkflowCardBaseProps props that will be passed to the WorkflowCard component
  * @param WorkflowCardHeaderProps props that will be passed to the WorkflowCardHeader component

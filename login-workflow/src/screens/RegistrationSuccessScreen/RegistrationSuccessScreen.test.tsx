@@ -64,7 +64,7 @@ describe('RegistrationSuccessScreen', () => {
             },
         });
 
-        const continueButton = screen.getByText('Continue');
+        const continueButton = screen.getByText('Finish');
         expect(continueButton).toBeInTheDocument();
         fireEvent.click(continueButton);
         expect(mockOnNext).toHaveBeenCalled();
