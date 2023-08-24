@@ -1,28 +1,20 @@
-# Routing
+# Setting up Routing
 
-This library does not prescribe which routing solution you use, however we recommend using [React Router](https://reactrouter.com/).
+While this workflow library will work with different routing providers, we generally recommend using [React Router](https://reactrouter.com/) and will do so in all of the examples.
 
 ## Usage
-Declare the custom routes to use for any or all of the screens in the workflow. 
 
-```tsx
-import { RouteConfig } from '@brightlayer-ui/react-auth-workflow';
+Because this workflow package is router-agnostic, you will be required to set up your routing solution and configure which of the workflow screens will appear on each of your routes.
 
-export const routes: RouteConfig = {
-    LOGIN: '/login',
-    REGISTER_INVITE: '/register-by-invite',
-    REGISTER_SELF: '/self-registration',
-    FORGOT_PASSWORD: '/forgot-password',
-    RESET_PASSWORD: '/reset-password',
-};
-```
+You will also want to set up Auth/Guest Guard wrappers to control which users can access which screens / routes. For more information see [Protecting Routes](#protecting-routes) below.
+
 ### Authentication
 
-To set up Authentication in your app you will need to import the `AuthContextProvider` and pass in the necessary props. You will pass in your routes as children to the `AuthContextProvider`. More information about React Auth Workflow's exported objects and functions can found in the [API](https://github.com/etn-ccis/blui-react-workflows/tree/master/login-workflow/docs/API.md) documentation.
+The **Authentication** workflow screens are rendered individually on separate routes (e.g., the Login screen is on '/login' and the support screen is on '/support'). This means you can deep-link to any of these screens directly if you have them configured.
 
-#### Example Usage
+For more information on the `AuthContextProvider` , refer to the [Authentication Workflow](./authentication-workflow.md) Guide.
 
-Here is an example of how you would set this up using our recommended routing solution, [React Router](https://reactrouter.com/):
+#### Example Setup
 
 ```tsx
 import React from 'react';
@@ -31,46 +23,55 @@ import {
     ContactSupportScreen,
     ForgotPasswordScreen,
     ResetPasswordScreen,
+    LoginScreen,
+    ReactRouterGuestGuard,
+    ContactSupportScreen,
 } from '@brightlayer-ui/react-auth-workflow';
-import { useApp } from '../contexts/AppContextProvider';
 import { useNavigate } from 'react-router';
 import { ProjectAuthUIActions } from '../actions/AuthUIActions';
 import { Outlet, Route, Routes } from 'react-router-dom';
-import { Login } from './Login';
-import { routes } from '../navigation/Routing';
-import { i18nAppInstance } from './i18n';
+
+export const routes: RouteConfig = {
+    LOGIN: '/login',
+    REGISTER_INVITE: '/register-by-invite',
+    REGISTER_SELF: '/self-registration',
+    FORGOT_PASSWORD: '/forgot-password',
+    RESET_PASSWORD: '/reset-password',
+    SUPPORT: '/support',
+};
+
+// Retrieve data that you are storing about the logged-in status of the user
+const getAuthState = () => ({
+    isAuthenticated: true;
+})
+
 export const AppRouter: React.FC = () => {
-   // Language will be managed by some state within your app, in this example, a useApp hook that gets the app language.
-    const { language } = useApp();
     const navigate = useNavigate();
-    const app = useApp();
+    const authState = getAuthState();
     return (
         <Routes>
-            {/* AUTH ROUTES */}
             <Route
                 element={
                     <AuthContextProvider
-                        actions={ProjectAuthUIActions(app)}
-                        language={language}
+                        actions={ProjectAuthUIActions}
+                        language={'en'}
                         navigate={navigate}
                         routeConfig={routes}
-                        i18n={i18nAppInstance}
-                        rememberMeDetails={{ email: rememberMe ? email : '', rememberMe: rememberMe }}
                     >
                         <Outlet />
                     </AuthContextProvider>
                 }
             >
                 <Route
-                    path={'/login'}
+                    path={routes.LOGIN}
                     element={
-                        <ReactRouterGuestGuard isAuthenticated={app.isAuthenticated} fallBackUrl={'/'}>
-                            <Login />
+                        <ReactRouterGuestGuard isAuthenticated={appState.isAuthenticated} fallBackUrl={'/'}>
+                            <LoginScreen />
                         </ReactRouterGuestGuard>
                     }
                 />
                 <Route
-                    path={'/forgot-password'}
+                    path={routes.FORGOT_PASSWORD}
                     element={
                         <ReactRouterGuestGuard isAuthenticated={app.isAuthenticated} fallBackUrl={'/'}>
                             <ForgotPasswordScreen />
@@ -78,30 +79,31 @@ export const AppRouter: React.FC = () => {
                     }
                 />
                 <Route
-                    path={'/contact-support'}
-                    element={
-                        <ReactRouterGuestGuard isAuthenticated={app.isAuthenticated} fallBackUrl={'/'}>
-                            <ContactSupportScreen />
-                        </ReactRouterGuestGuard>
-                    }
-                />
-                <Route
-                    path={'/reset-password'}
+                    path={routes.RESET_PASSWORD}
                     element={
                         <ReactRouterGuestGuard isAuthenticated={app.isAuthenticated} fallBackUrl={'/'}>
                             <ResetPasswordScreen />
                         </ReactRouterGuestGuard>
                     }
                 />
-                ...
+                <Route
+                    path={routes.SUPPORT}
+                    element={
+                        // No GuestGuard means this screen can be accessed by any user regardless of whether or not they are logged in
+                        <ContactSupportScreen />
+                    }
+                />
             </Route>
         </Routes>
     );
 };
 ```
+
 ### Registration
 
-To set up Registration in your app you will need to import the `RegistrationContextProvider` and pass in the necessary props. You will pass in your routes as children to the `RegistrationContextProvider`. More information about React Auth Workflow's exported objects and functions can found in the [API](https://github.com/etn-ccis/blui-react-workflows/tree/master/login-workflow/docs/API.md) documentation.
+The **Registration** workflow is intended to be used on a _single_ route (e.g., '/register') because the screens work together and share data, etc. This single route renders a component that manages the transitions between the screens. You are not intended to be able to deep-link to any particular screen in the flow (e.g., you would not want a user to be able to jump right to '/register/create-password' — it wouldn't make sense without the context of the other screens in the flow). However, all of these screens are exported as individual components if you wanted to build the workflow differently (see [Customization](./customization.md)).
+
+For more information on the `RegistrationContextProvider`, refer to the [Registration Workflow](./registration-workflow.md) Guide.
 
 #### Example Usage
 
@@ -111,20 +113,30 @@ import {
     RegistrationContextProvider,
     RegistrationWorkflow,
 } from '@brightlayer-ui/react-auth-workflow';
-import { useApp } from '../contexts/AppContextProvider';
 import { useNavigate } from 'react-router';
 import { Outlet, Route, Routes } from 'react-router-dom';
 import { ProjectRegistrationUIActions } from '../actions/RegistrationUIActions';
-import { routes } from '../navigation/Routing';
 import { i18nAppInstance } from './i18n';
 
+export const routes: RouteConfig = {
+    LOGIN: '/login',
+    REGISTER_INVITE: '/register-by-invite',
+    REGISTER_SELF: '/self-registration',
+    FORGOT_PASSWORD: '/forgot-password',
+    RESET_PASSWORD: '/reset-password',
+    SUPPORT: '/support',
+};
+
+// Retrieve data that you are storing about the logged-in status of the user
+const getAuthState = () => ({
+    isAuthenticated: true;
+})
+
 export const AppRouter: React.FC = () => {
-    // Language will be managed by some state within your app, in this example, a useApp hook that gets the app language.
-    const { language } = useApp();
-    const navigate = useNavigate();
+   const navigate = useNavigate();
+    const authState = getAuthState();
     return (
         <Routes>
-            {/* REGISTRATION ROUTES */}
             <Route
                 element={
                     <RegistrationContextProvider
@@ -139,124 +151,67 @@ export const AppRouter: React.FC = () => {
                 }
             >
                 <Route
-                    path={'/self-registration'}
+                    path={routes.REGISTER_SELF}
                     element={
-                        <RegistrationWorkflow />
+                        <ReactRouterGuestGuard isAuthenticated={appState.isAuthenticated} fallBackUrl={'/'}>
+                            <RegistrationWorkflow />
+                        </ReactRouterGuestGuard>
                     }
                 />
-                <Route path={'/register-by-invite'} element={<RegistrationWorkflow isInviteRegistration />} />
+                <Route 
+                    path={routes.REGISTER_INVITE} 
+                    element={
+                        <ReactRouterGuestGuard isAuthenticated={appState.isAuthenticated} fallBackUrl={'/'}>
+                            <RegistrationWorkflow isInviteRegistration />
+                        </ReactRouterGuestGuard>
+                    } 
+                />
             </Route>
         </Routes>
     );
 };
 ```
-### Protecting Your Application Routes
 
-If there are routes that you would like to protect and only be available if user is authenticated, you can make use of our `ReactRouterAuthGuard` component.
+### Protecting Routes
 
-#### Example Usage
+Different routes in your application should be accessible under different conditions. Some routes (e.g., Login or Reset Password) should only be available when a user is unauthenticated (a logged in user should never be able to get back to the login screen without logging out first). Other routes (like your main application content) should only be accessible when a user is authenticated. Some routes (like Contact Support or Terms and Conditions) may be available to any user regardless of authentication status.
 
-```tsx
-import React, { useState } from 'react';
-import { ReactRouterAuthGuard } from '@brightlayer-ui/react-auth-workflow';
-import { Navigate, Route, Routes } from 'react-router-dom';
-import { Login } from './Login';
-import { ExampleHome } from './ExampleHome';
+This is where Route Guard components / protected routes are handy. We provide implementations of a `ReactRouterAuthGuard` (prevents access to the child unless the user is logged in) and `ReactRouterGuestGuard` (prevents access to child routes if the user is logged in) for use with React Router. If you are using another routing provider, you will need to implement these guards yourself.
 
-export const AppRouter: React.FC = () => {
-    // You will need to manage the end user's authentication state. isAuthenticated will be managed by some state within your app, in this example, a useApp hook that gets the authentication state.
-    const app = useApp();
-    
-    return (
-        <Routes>
-            {/* USER APPLICATION ROUTES */}
-            <Route
-                path={'/homepage'}
-                element={
-                    <ReactRouterAuthGuard isAuthenticated={app.isAuthenticated} fallBackUrl={'/login'}>
-                        <ExampleHome />
-                    </ReactRouterAuthGuard>
-                }
-            />
-            <Route path={'/'} element={<Navigate to={'/homepage'} replace />} />
-            <Route
-                path={'*'}
-                element={
-                    <ReactRouterAuthGuard isAuthenticated={app.isAuthenticated} fallBackUrl={'/login'}>
-                        <Navigate to={'/login'} />
-                    </ReactRouterAuthGuard>
-                }
-            />
-        </Routes>
-    );
-};
-```
 
-### Guest Guard Usage
-
-If there are routes that you would like to be available without logging in (such as a Terms of Service page), you can make use of our `ReactRouterGuestGuard` component.
-
-#### Example Usage
+#### Examples
 
 ```tsx
-import React, { useState } from 'react';
 import { 
-    AuthContextProvider,
-    ContactSupportScreen,
-    ForgotPasswordScreen,
-    ResetPasswordScreen,
     ReactRouterAuthGuard,
     ReactRouterGuestGuard
 } from '@brightlayer-ui/react-auth-workflow';
-import { Navigate, Route, Routes } from 'react-router-dom';
-import { Login } from './Login';
-import { ExampleHome } from './ExampleHome';
 
-export const AppRouter: React.FC = () => {
-    // You will need to manage the end user's authentication state via the isAuthenticated prop which will be managed by some state within your app, in this example, a useApp hook that gets the authentication state.
-    const app = useApp();
-    
-    return (
-        <Routes>
-           {/* AUTH ROUTES */}
-            <Route
-                element={
-                    <AuthContextProvider
-                        actions={ProjectAuthUIActions(app)}
-                        language={language}
-                        navigate={navigate}
-                        routeConfig={routes}
-                    >
-                        <ReactRouterGuestGuard isAuthenticated={app.isAuthenticated} fallBackUrl={'/'}>
-                            <Outlet />
-                        </ReactRouterGuestGuard>
-                    </AuthContextProvider>
-                }
-            >
-                <Route path={'/login'} element={<Login />} />
-                <Route path={'/forgot-password'} element={<ForgotPasswordScreen />} />
-                <Route path={'/contact-support'} element={<ContactSupportScreen />} />
-                <Route path={'/reset-password'} element={<ResetPasswordScreen />} />
-            </Route>
-            {/* USER APPLICATION ROUTES */}
-            <Route
-                path={'/homepage'}
-                element={
-                    <ReactRouterAuthGuard isAuthenticated={app.isAuthenticated} fallBackUrl={'/login'}>
-                        <ExampleHome />
-                    </ReactRouterAuthGuard>
-                }
-            />
-            <Route path={'/'} element={<Navigate to={'/homepage'} replace />} />
-            <Route
-                path={'*'}
-                element={
-                    <ReactRouterAuthGuard isAuthenticated={app.isAuthenticated} fallBackUrl={'/login'}>
-                        <Navigate to={'/login'} />
-                    </ReactRouterAuthGuard>
-                }
-            />
-        </Routes>
-    );
-};
+...
+
+// AUTH GUARD
+
+// This will redirect to the login screen since the user is not authenticated
+// The user will be returned to Page1 after they enter their credentials
+<ReactRouterAuthGuard isAuthenticated={false} fallBackUrl={'/login'}>
+    <Page1 />
+</ReactRouterAuthGuard>
+
+// Page1 will be rendered because the user is authenticated
+<ReactRouterAuthGuard isAuthenticated={true} fallBackUrl={'/login'}>
+    <Page1 />
+</ReactRouterAuthGuard>
+
+
+// GUEST GUARD
+
+// Page1 will be rendered because the user is NOT authenticated
+<ReactRouterGuestGuard isAuthenticated={false} fallBackUrl={'/'}>
+    <Page1 />
+</ReactRouterGuestGuard>
+
+// This will redirect to the base url because the user is authenticated and this screen is for guests only
+<ReactRouterGuestGuard isAuthenticated={true} fallBackUrl={'/'}>
+    <Page1 />
+</ReactRouterGuestGuard>
 ```

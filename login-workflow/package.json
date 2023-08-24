@@ -27,7 +27,6 @@
         "i18next-browser-languagedetector": "^6.1.0"
     },
     "peerDependencies": {
-        "@brightlayer-ui/colors": "^3.0.0",
         "@brightlayer-ui/react-components": "^6.1.2",
         "@emotion/react": "^11.7.1",
         "@emotion/styled": "^11.6.0",
@@ -37,7 +36,9 @@
         "i18next": "^22.0.0",
         "react": "^16.13.1 || ^17.0.0 || ^18.0.0",
         "react-dom": "^16.8.6 || ^17.0.0 || ^18.0.0",
-        "react-i18next": "^11.3.4",
+        "react-i18next": "^11.3.4"
+    },
+    "optionalDependencies": {
         "react-router-dom": "^6.8.0"
     },
     "repository": {

@@ -1,173 +1,101 @@
-# Authentication Workflow Guide
-The authentication workflow is a set of screens that are used to authenticate a user. The authentication workflow is managed by the `AuthContextProvider` component. The `AuthContextProvider` is a React Context Provider that wraps the entire authentication workflow. It is responsible for managing the state of the authentication workflow and providing the necessary actions to the various screens.
+# Login / Authentication Workflow Guide
 
-To set up Authentication in your app you will need to import the `AuthContextProvider` and pass in the necessary props. You will pass in your routes as children to the `AuthContextProvider`. More information about React Auth Workflow's exported objects and functions can found in the [API](#api) documentation.
+The authentication workflow includes screens related to user authentication including Login, Forgot Password, Reset Password, etc.
+
+
+## AuthContextProvider
+
+The screens in this workflow access shared data / configuration / API definitions through an `AuthContextProvider` which should wrap all of the relevant routes / screens.
+
+You must supply the `AuthContextProvider` with the following props / data:
+-   `actions`: defines the API calls / functions to execute when certain actions are performed in the UI (such as pressing the Login button)
+-   `language`: configures the language displayed on the screens
+-   `navigate`: a function that can be called to navigate to a new route
+-   `routeConfig`: an object describing the URLs you are using for the relevant routes so the workflow can correctly navigate between screens
+
+More information about the required and optional props can found in the [API](#api) section.
 
 ## Implement AuthUIActions
 
-You need to implement the backend networking for all networking within react-auth-workflow. Your implementation will likely involve writing calls to your APIs and caching the returned data, as needed, depending on the requirements of your application. The example application has these actions mocked with calls to `sleep` .
+Because this workflow package is back-end agnostic, you must provide an implementation for what happens when the user triggers certain behaviors in the UI.
 
-1. Create a `/src` folder in your application if it does not already exist
-2. Add an `/actions` folder inside the `src` directory.
-3. Create a file in the new `actions` directory: `AuthUIActions.tsx`
-    - The file you created, `AuthUIActions.tsx`, will handle the implementation of the authentication related actions (such as login and forgot password).
-    - You can copy this file directly from the [example](https://github.com/etn-ccis/blui-react-workflows/tree/master/login-workflow/example) project as a starting point and then update the implementation details if you choose.
-4. You might also want to copy over the `example/src/store` and `example/src/constants` folders from react-auth-workflow for the purposes of compiling with the mock `AuthUIActions` before you write your own implementation. These sample implementations make use of the browser LocalStorage, but you may want to use a different approach in order to follow best practices for cybersecurity.
+The example project includes a skeleton implementation of all required functions using mocks / sleeps. You will need to replace these implementations with appropriate calls to your APIs, caching the returned data, etc. depending on the requirements of your application.
 
-## Example Usage
+1. Create a `AuthUIActions.ts` file
+    - This file will handle the implementation of the authentication related actions (such as login and forgot password).
+    - You can copy this file directly from the [example](https://github.com/etn-ccis/blui-react-workflows/tree/master/login-workflow/example/src/actions/AuthUIActions.tsx) project as a starting point and then update the implementation details if you choose.
+2. You might also want to copy over the `example/src/store` and `example/src/constants` folders, which provide a very basic mechanism for storing important data using LocalStorage
+    -   You will want to switch this out for a more secure approach before going to production with your application.
 
-Here is an example of how you would set this up using our recommended routing solution, [React Router](https://reactrouter.com/):
+## Example
+
+Here is an example of how you would set up the Login workflow using our recommended routing solution ([React Router](https://reactrouter.com/)).
+
+Each feature/screen from the Auth Workflow that you wish to use should be rendered on a separate route.
 
 ```tsx
-import React from 'react';
-import {
-    AuthContextProvider,
-    ContactSupportScreen,
-    ForgotPasswordScreen,
-    ResetPasswordScreen,
-} from '@brightlayer-ui/react-auth-workflow';
-import { useApp } from '../contexts/AppContextProvider';
-import { useNavigate } from 'react-router';
-import { ProjectAuthUIActions } from '../actions/AuthUIActions';
-import { Outlet, Route, Routes } from 'react-router-dom';
-import { Login } from './Login';
-import { routes } from '../navigation/Routing';
-
-export const AppRouter: React.FC = () => {
-   // Language will be managed by some state within your app, in this example, a useApp hook that gets the app language.
-    const { language, yourAppSecurityHelper } = useApp();
-    const navigate = useNavigate();
-    return (
-        <Routes>
-            {/* AUTH ROUTES */}
-            <Route
-                element={
-                    <AuthContextProvider
-                        actions={ProjectAuthUIActions(yourAppSecurityHelper)}
-                        language={language}
-                        navigate={navigate}
-                        routeConfig={routes}
-                        i18n={yourI18nAppInstance}
-                        rememberMeDetails={{ email: rememberMe ? email : '', rememberMe: rememberMe }}
-                    >
-                        <Outlet />
-                    </AuthContextProvider>
-                }
+<Routes>
+    {/* Wrap all routes in a single shared AuthContextProvider */}
+    <Route
+        element={
+            <AuthContextProvider
+                actions={actions}
+                language={'en'}
+                navigate={navigate}
+                routeConfig={{}}
+                rememberMeDetails={{}}
             >
-                <Route
-                    path={'/login'}
-                    element={
-                        <ReactRouterGuestGuard isAuthenticated={app.isAuthenticated} fallBackUrl={'/'}>
-                            <Login />
-                        </ReactRouterGuestGuard>
-                    }
-                />
-                <Route
-                    path={'/forgot-password'}
-                    element={
-                        <ReactRouterGuestGuard isAuthenticated={app.isAuthenticated} fallBackUrl={'/'}>
-                            <ForgotPasswordScreen />
-                        </ReactRouterGuestGuard>
-                    }
-                />
-                <Route
-                    path={'/contact-support'}
-                    element={
-                        <ReactRouterGuestGuard isAuthenticated={app.isAuthenticated} fallBackUrl={'/'}>
-                            <ContactSupportScreen />
-                        </ReactRouterGuestGuard>
-                    }
-                />
-                <Route
-                    path={'/reset-password'}
-                    element={
-                        <ReactRouterGuestGuard isAuthenticated={app.isAuthenticated} fallBackUrl={'/'}>
-                            <ResetPasswordScreen />
-                        </ReactRouterGuestGuard>
-                    }
-                />
-            </Route>
-            ...
-        </Routes>
-    );
-};
+                <Outlet />
+            </AuthContextProvider>
+        }
+    >
+        {/* Routes for each workflow screen you want to include */}
+        <Route/>
+        <Route/>
+        <Route/>
+        <Route/>
+    </Route>
+    ...
+</Routes>
 ```
+
+For a detailed explanation of setting up routes, see the [Routing](./routing.md) guide.
 
 ## API
 
 ### AuthContextProviderProps
-The `AuthContextProvider` manages the state of the authentication workflow. It is a React Context Provider that wraps the entire authentication workflow. It is responsible for managing the state of the authentication workflow and providing the necessary actions to the various screens. The `AuthContextProviderProps` type is used to configure the `AuthContextProvider`.
 
--  **actions**:  _`() => AuthUIActions`_
-    -   A function that returns an object of functions that are used to manage the authentication workflow. See [AuthUIActions](#authuiactions) for more information.
--  **language**: _`string`_
-   -    The language code to use for the authentication workflow. This is used to determine which language to use for the UI and for the API calls.
--  **navigate**: _`(url: string) => void`_
-    -   A function that is used to navigate to a new URL. This is used to navigate to the various screens of the authentication workflow.
--  **routeConfig**: _`RouteConfig`_
-    -   An object that defines the various routes for the authentication workflow. See [RouteConfig](#routeconfig) for more information.
--  **i18n**: (optional) _`i18n`_
-    -   An optional i18n object that is used to translate the UI. If not provided, the default i18n object will be used.
--  **rememberMeDetails**: (optional) _`{ email?: string, rememberMe?: boolean }`_
-    -   An optional object that is used to pre-populate the email field of the Login screen and to determine if the user should be remembered. If not provided, the email field will be empty and the user will not be remembered.
--  **errorConfig**: (optional) _`ErrorContextProviderProps`_
-    -   An optional object that is used to configure the error handling of the authentication workflow. See [ErrorContextProviderProps](#errorcontextproviderprops) for more information.
+| Prop Name | Type | Description | Default |
+|---|---|---|---|
+| actions* | `AuthUIActions` | An object of functions that are used to manage the authentication workflow. See [AuthUIActions](#authuiactions) for more information |  |
+| language* | `string` | The language code specifying which language to use for the UI | `'en'` |
+| navigate* | `(url: string) => void` | A function that is used to navigate to a new URL. This is used to navigate to the various screens of the authentication workflow. |  |
+| routeConfig* | `RouteConfig` | An object that defines the various routes for the authentication workflow. See [RouteConfig](#routeconfig) for more information. |  |
+| i18n | `i18n` | An optional i18n object that is used to translate the UI. This is only needed if you want to use custom translation keys / languages inside any of the workflow screens |  |
+| rememberMeDetails | `{ email?: string, rememberMe?: boolean }` | An optional object that is used to initialize the data on the Login screen. If not provided, the email field will be empty and the remember me checkbox will be unchecked. |  |
+| errorConfig | `ErrorContextProviderProps` | An object that is used to configure error handling within the workflow. See [Error Management](./error-management.md) for more information. |  |
+
 
 ### AuthUIActions
 
--  **initiateSecurity**: _`() => Promise<void>`_
-    -   A function that is used to initiate the security context. This function will be called when the application is first loaded.
--  **logIn**: _`(email: string, password: string, rememberMe: boolean) => Promise<void>`_
-   -    A function that is used to log in a user. This function will be called when the user clicks the Login button on the Login screen.
--  **forgotPassword**: _`(email: string) => Promise<void>`_
-   -    A function that is used to request a password reset code. This function will be called when the user clicks the Next button on the Forgot Password screen.
--  **verifyResetCode**: _`(code: string, email?: string) => Promise<void>`_
-   -    A function that is used to verify a password reset code.
--  **setPassword**: _`(code: string, password: string, email?: string) => Promise<void>`_
-   -   A function that is used to set a new password. This function will be called when the user clicks the Next button on the Reset Password screen.
--  **changePassword**: _`(oldPassword: string, newPassword: string) => Promise<void>`_
-   -   A function that is used to change a user's password. This function will be called when the user clicks the Next button on the Change Password screen.
+| Prop Name | Type | Description | Default |
+|---|---|---|---|
+| initiateSecurity | `() => Promise<void>` | This function will be called when the AuthContext is first loaded. It's an opportunity for you to initialize the security state of the application. |  |
+| logIn | `(email: string, password: string, rememberMe: boolean) => Promise<void>` | A function that is used to log in a user. This function will be called when the user clicks the Login button on the Login screen. |  |
+| forgotPassword | `(email: string) => Promise<void>` | A function that is used to request a password reset code. This function will be called when the user clicks the Next button on the Forgot Password screen. |  |
+| verifyResetCode | `(code: string, email?: string) => Promise<void>` | This function is called on the ResetPassword screen to validate the code passed in the URL |  |
+| setPassword | `(code: string, password: string, email?: string) => Promise<void>` | A function that is used to set a new password. This function will be called when the user clicks the Next button on the Reset Password screen. |  |
+| changePassword | `(oldPassword: string, newPassword: string) => Promise<void>` | A function that is used to change a user's password. This function will be called when the user clicks the Next button in the Change Password dialog. |  |
 
-### RouteConfig
-Type to represent the customizable route configuration of the authentication screens.
+### RouteConfig Object
 
--   **LOGIN**: (optional) _`string`_
-    -   The URL path for the Login screen
--   **FORGOT_PASSWORD**: (optional) _`string`_
-    -   The URL path for the Forgot Password screen
--   **RESET_PASSWORD**: (optional) _`string`_
-    -   The URL path for the Reset Password screen
--   **SUPPORT**: (optional) _`string`_
-    -   The URL path for the Contact/Support screen
+The RouteConfig is an object that specifies the paths you are using for the routes / screens in your application to facilitate navigating between screens within the workflows.
 
-### ErrorContextProviderProps
-The `ErrorContextProvider` manages the state of the error handling. It is a React Context Provider that is embedded into the entire authentication workflow. It is responsible for managing the state of the error handling and providing the necessary actions to the various screens. The `ErrorContextProviderProps` type is used to configure the `ErrorContextProvider`.
-
--  **mode**: (default: "dialog") _`"dialog" | "message-box" | "none"`_
-    -   The mode to use for displaying errors. If set to "dialog", errors will be displayed in a dialog. If set to "message-box", errors will be displayed in a message box. If set to "none", errors will not be displayed.
--  **onClose**: (optional) _`() => void`_
-    -   A function that is called when the error dialog is closed.
--  **dialogConfig**: (optional) _`{ title?: string, dismissLabel?: string }`_
-    -   An optional object that is used to configure the error dialog. See [DialogConfig](#dialogconfig) for more information.
--  **messageBoxConfig**: (optional) _`{ dismissible?: boolean, position?: "top" | "bottom", fontColor?: string, backgroundColor?: string, sx?: SxProps }`_
-    -   An optional object that is used to configure the error message box. See [MessageBoxConfig](#messageboxconfig) for more information.
-  
-### DialogConfig
-Type to represent the customizable configuration of the error dialog.
-
--  **title**: (optional) _`string`_
-    -   The title to display in the error dialog.
--  **dismissLabel**: (optional) _`string`_
-    -   The label to display on the dismiss button in the error dialog.
-
-### MessageBoxConfig
-Type to represent the customizable configuration of the error message box.
-
--  **dismissible**: (default: true) _`boolean`_
-    -   Determines if the error message box can be dismissed.
--  **position**: (default: "top") _`"top" | "bottom"`_
-    -   Determines if the error message box should be displayed at the top or bottom of the screen.
--  **fontColor**: (default: "#ffffff") _`string`_
-    -   The font color to use for the error message box.
--  **backgroundColor**: (default: theme.palette.error.main) _`string`_
-    -   The background color to use for the error message box.
+| Key | Type | Description | Default |
+|---|---|---|---|
+| LOGIN | `string` | The URL path for the Login screen |  |
+| FORGOT_PASSWORD | `string` | The URL path for the Forgot Password screen |  |
+| RESET_PASSWORD | `string` | The URL path for the Reset Password screen |  |
+| REGISTER_INVITE | `string` | The URL path for the invitation-based registration workflow |  |
+| REGISTER_SELF | `string` | The URL path for the self-registration workflow |  |
+| SUPPORT | `string` | The URL path for the Contact/Support screen |  |
