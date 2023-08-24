@@ -26,7 +26,7 @@ const resources: RegistrationLanguageFile = {
                 'A sua conta foi criada corretamente com o e-mail <1>{{email}}</1>.\n\nA sua conta já foi adicionada à organização <3>{{organization}}</3>.',
             SUCCESS_EXISTING:
                 'A sua conta foi criada corretamente. Por favor inicie sessão com o e-mail e palavra-passe da sua conta Eaton.',
-            FAILURE_MESSAGE: 'Foi impossível concluir o seu registo. Clique em continuar para concluir.',
+            FAILURE_MESSAGE: 'Foi impossível concluir o seu registo.',
             UNKNOWN_EMAIL: 'E-mail desconhecido',
             UNKNOWN_ORGANIZATION: 'Organização desconhecida',
         },
