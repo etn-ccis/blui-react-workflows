@@ -52,7 +52,7 @@ export const AuthContextProvider: React.FC<
             <AuthContext.Provider value={{ ...authContextProps, showPasswordDialog: setDialogOpen }}>
                 <ErrorContext.Provider value={errorConfig}>
                     {children}
-                    {PasswordDialog}
+                    {dialogOpen && PasswordDialog}
                 </ErrorContext.Provider>
             </AuthContext.Provider>
         </I18nextProvider>
