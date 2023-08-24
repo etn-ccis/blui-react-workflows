@@ -18,6 +18,7 @@ export type RegistrationTranslations = {
         };
         SUCCESS_MESSAGE: string;
         SUCCESS_MESSAGE_ALT: string;
+        SUCCESS_MESSAGE_ALT_WITHOUT_EMAIL_PROVIDED: string;
         SUCCESS_EXISTING: string;
         FAILURE_MESSAGE: string;
         UNKNOWN_EMAIL: string;
