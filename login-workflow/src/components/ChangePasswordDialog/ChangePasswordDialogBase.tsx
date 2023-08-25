@@ -109,7 +109,7 @@ export const ChangePasswordDialogBase: React.FC<ChangePasswordDialogProps> = (pr
                     />
                 </SetPassword>
             </DialogContent>
-            <Divider sx={{ mt: 2 }} />
+            <Divider />
             <DialogActions
                 sx={{
                     justifyContent: 'flex-end',

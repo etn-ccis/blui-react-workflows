@@ -26,7 +26,7 @@ const resources: RegistrationLanguageFile = {
                 'Su cuenta se ha creado correctamente con el correo electrónico <1> {{email}} </1>.\n\nTu cuenta ya se ha agregado a la organización <3> {{organization}} </3>.',
             SUCCESS_EXISTING:
                 'Tu cuenta ha sido creada con éxito. Inicie sesión con el correo electrónico y la contraseña de su cuenta Eaton. ',
-            FAILURE_MESSAGE: 'No pudimos completar su registro. Pulse continuar para terminar. ',
+            FAILURE_MESSAGE: 'No pudimos completar su registro. ',
             UNKNOWN_EMAIL: 'Correo electrónico desconocido',
             UNKNOWN_ORGANIZATION: 'Organización desconocida',
         },
