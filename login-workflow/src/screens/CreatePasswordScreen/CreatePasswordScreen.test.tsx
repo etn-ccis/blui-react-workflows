@@ -1,4 +1,5 @@
 import React from 'react';
+import { BrowserRouter } from 'react-router-dom';
 import '@testing-library/jest-dom';
 import { cleanup, render, screen, fireEvent, RenderResult } from '@testing-library/react';
 import { CreatePasswordScreen } from './CreatePasswordScreen';
@@ -45,11 +46,13 @@ describe('Create Password Screen', () => {
 
     const renderer = (props?: CreatePasswordScreenProps): RenderResult =>
         render(
-            <RegistrationContextProvider {...defaultProps}>
-                <RegistrationWorkflow initialScreenIndex={0}>
-                    <CreatePasswordScreen {...props} />
-                </RegistrationWorkflow>
-            </RegistrationContextProvider>
+            <BrowserRouter>
+                <RegistrationContextProvider {...defaultProps}>
+                    <RegistrationWorkflow initialScreenIndex={0}>
+                        <CreatePasswordScreen {...props} />
+                    </RegistrationWorkflow>
+                </RegistrationContextProvider>
+            </BrowserRouter>
         );
 
     it('renders without crashing', () => {

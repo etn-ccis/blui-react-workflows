@@ -1,4 +1,5 @@
 import React from 'react';
+import { BrowserRouter } from 'react-router-dom';
 import '@testing-library/jest-dom';
 import { cleanup, render, screen, RenderResult, fireEvent } from '@testing-library/react';
 import { AccountDetailsScreen } from './AccountDetailsScreen';
@@ -24,11 +25,13 @@ describe('Account Details Screen', () => {
 
     const renderer = (props?: AccountDetailsScreenProps): RenderResult =>
         render(
-            <RegistrationContextProvider {...registrationContextProviderProps}>
-                <RegistrationWorkflow initialScreenIndex={0}>
-                    <AccountDetailsScreen {...props} />
-                </RegistrationWorkflow>
-            </RegistrationContextProvider>
+            <BrowserRouter>
+                <RegistrationContextProvider {...registrationContextProviderProps}>
+                    <RegistrationWorkflow initialScreenIndex={0}>
+                        <AccountDetailsScreen {...props} />
+                    </RegistrationWorkflow>
+                </RegistrationContextProvider>
+            </BrowserRouter>
         );
 
     it('renders without crashing', () => {
