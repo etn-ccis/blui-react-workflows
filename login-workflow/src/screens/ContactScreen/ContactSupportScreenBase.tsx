@@ -1,7 +1,7 @@
 import React from 'react';
 import { Divider, Typography } from '@mui/material';
 import { WorkflowCard, WorkflowCardActions, WorkflowCardBody, WorkflowCardHeader } from '../../components/WorkflowCard';
-import { ContactScreenProps } from './types';
+import { ContactSupportScreenProps } from './types';
 import Box, { BoxProps } from '@mui/material/Box';
 import { ContactScreenClassKey, getContactScreenUtilityClass } from './utilityClasses';
 import { unstable_composeClasses as composeClasses } from '@mui/base';
@@ -31,7 +31,7 @@ import { LinkStyles } from '../../styles';
  * @category Component
  */
 
-const useUtilityClasses = (ownerState: ContactScreenProps & BoxProps): Record<ContactScreenClassKey, string> => {
+const useUtilityClasses = (ownerState: ContactSupportScreenProps & BoxProps): Record<ContactScreenClassKey, string> => {
     const { classes } = ownerState;
 
     const slots = {
@@ -50,9 +50,8 @@ const useUtilityClasses = (ownerState: ContactScreenProps & BoxProps): Record<Co
     return composeClasses(slots, getContactScreenUtilityClass, classes);
 };
 
-export const ContactScreenBase: React.FC<ContactScreenProps> = (props) => {
+export const ContactSupportScreenBase: React.FC<ContactSupportScreenProps> = (props) => {
     const {
-        title,
         icon,
         emailSupportTitle,
         emailSupportContent,
@@ -72,12 +71,7 @@ export const ContactScreenBase: React.FC<ContactScreenProps> = (props) => {
 
     return (
         <WorkflowCard {...cardBaseProps} className={defaultClasses.root} data-testid={defaultClasses.root}>
-            <WorkflowCardHeader
-                {...headerProps}
-                className={defaultClasses.title}
-                data-testid={defaultClasses.title}
-                title={title || headerProps.title}
-            />
+            <WorkflowCardHeader {...headerProps} className={defaultClasses.title} data-testid={defaultClasses.title} />
             {icon && (
                 <Box sx={{ m: 3, mb: 5, textAlign: 'center' }} className={defaultClasses.icon}>
                     {icon}

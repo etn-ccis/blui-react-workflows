@@ -1,4 +1,4 @@
-import { SxProps, TextFieldProps } from '@mui/material';
+import { TextFieldProps } from '@mui/material';
 import { WorkflowCardProps } from '../../components/WorkflowCard/WorkflowCard.types';
 import { ErrorManagerProps } from '../../components/Error';
 
@@ -16,5 +16,4 @@ export type AccountDetailsScreenProps = WorkflowCardProps & {
     lastNameTextFieldProps?: TextFieldProps;
 
     errorDisplayConfig?: ErrorManagerProps;
-    sx?: SxProps;
 };

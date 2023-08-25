@@ -1,42 +1,29 @@
 # SuccessScreenBase
 
-## Description
-A component that renders a success screen with a message, an icon, and a dismiss button.
+A component to use as a simple success screen for mini 1-step workflows (like Forgot Paswsword). It renders a a message, an icon, and a dismiss button.
+
+![Success](../../media/screens/success.png)
 
 ## Usage
+
 ```tsx
 import { SuccessScreenBase } from '@brightlayer-ui/react-auth-workflow';
 
-const MyComponent = () => {
-  return (
-    <SuccessScreenBase />
-  );
-};
+...
+
+<SuccessScreenBase />
 ```
 
 ## API
 
- - **WorkflowCardProps** 
-   - See [Workflow Card](https://github.com/etn-ccis/blui-react-workflows/tree/master/login-workflow/docs/components/workflow-card.md) for more details.
- - **icon** (optional)
-   - The icon to be displayed on the screen.
-   - **Type:** `React.ReactNode`
- - **messageTitle** (optional)
-   - The title of the success message.
-   - **Type:** `string`
-   - **Default:** `''`
- - **message** (optional)
-   - The success message to be displayed on the screen.
-   - **Type:** `string`
-   - **Default:** `''`
- - **dismissButtonLabel** (optional)
-   - The label of the dismiss button.
-   - **Type:** `string`
-   - **Default:** `''`
- - **canDismiss** (optional)
-   - A boolean determining if the screen can be dismissed.
-   - **Type:** `boolean`
- - **onDismiss** (optional)
-   - A function to be called when the screen is dismissed.
-   - **Type:** `() => void`
+| Prop Name | Type | Description | Default |
+|---|---|---|---|
+| icon | `React.ReactNode` | The icon to be displayed on the screen. |  |
+| messageTitle | `string` | The title of the success message. |  |
+| message | `ReactNode` | The success message to be displayed on the screen. |  |
+| dismissButtonLabel | `string` | The label of the dismiss button. |  |
+| canDismiss | `boolean` | A boolean determining if the screen can be dismissed. |  |
+| onDismiss | `() => void` | A function to be called when the screen is dismissed. |  |
+
+This screen also extends the `WorkflowCardProps` type for updating the title, instructions, buttons, etc. See [Workflow Card](https://github.com/etn-ccis/blui-react-workflows/tree/master/login-workflow/docs/components/workflow-card.md) for more details.
   

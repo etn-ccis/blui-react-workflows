@@ -1,36 +1,26 @@
 # CreatePasswordScreen
 
-## Description
-A screen that displays text fields to set the user's password. The CreatePasswordScreen must be used in the context of the `RegistrationContextProvider`.
+A screen that displays text fields to create a new user's password. The CreatePasswordScreen must be used within a `RegistrationContextProvider`.
+
+![Create Password](../../media/screens/create-password.png)
 
 ## Usage
-```tsx
-import { CreatePasswordScreen } from '@brightlayer-ui/react-auth-workflow';
 
-const MyComponent = () => {
-  return (
-    <RegistrationContextProvider
-        language={language}
-        routeConfig={routes}
-        navigate={navigate}
-        actions={ProjectRegistrationUIActions}
-    >
-        <CreatePassword
-          PasswordProps={{
-            passwordLabel: 'Password',
-            confirmPasswordLabel: 'Confirm Password',
-          }}
-        />
-    </RegistrationContextProvider>
-  );
-};
+```tsx
+import { RegistrationContextProvider, CreatePasswordScreen } from '@brightlayer-ui/react-auth-workflow';
+
+...
+
+<RegistrationContextProvider {...props}>
+    <CreatePasswordScreen />
+</RegistrationContextProvider>
 ```
 
 ## API
 
-- **WorkflowCardProps** 
-  - See [Workflow Card](https://github.com/etn-ccis/blui-react-workflows/tree/master/login-workflow/docs/components/workflow-card.md) for more details.
-- **PasswordProps** 
-  - See [Set Password](https://github.com/etn-ccis/blui-react-workflows/tree/master/login-workflow/docs/components/set-password.md)
-- **errorDisplayConfig**
-  - See [Error Management](https://github.com/etn-ccis/blui-react-workflows/tree/master/login-workflow/docs/error-management.md)
+| Prop Name | Type | Description | Default |
+|---|---|---|---|
+| PasswordProps | `SetPasswordProps` | See [Set Password](https://github.com/etn-ccis/blui-react-workflows/tree/master/login-workflow/docs/components/set-password.md) |  |
+| errorDisplayConfig | `ErrorManagerProps` | See [Error Management](https://github.com/etn-ccis/blui-react-workflows/tree/master/login-workflow/docs/error-management.md) |  |
+
+This screen also extends the `WorkflowCardProps` type for updating the title, instructions, buttons, etc. See [Workflow Card](https://github.com/etn-ccis/blui-react-workflows/tree/master/login-workflow/docs/components/workflow-card.md) for more details.
