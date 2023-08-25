@@ -4,7 +4,7 @@ There are points throughout the workflow where a user may encounter errors, part
 
 ## TextField Validator Errors
 
-Text fields within the workflow have built in validator methods that you can customize. For more information on each screens validator functions, read our [Screens](https://github.com/etn-ccis/blui-react-workflows/tree/master/login-workflow/docs/screens.md) documentation.
+Text fields within the workflow have built in validator methods that you can customize. For more information on each screens validator functions, read our [Screens](./screens/README.md) documentation.
 
 Text field validator props accept a function. We pass the current value of the field as an argument and you should return a boolean value (true if there is no error) or string (for a custom message). When a text field has a validator error (i.e., the input is not valid), the error message that you returned in the validator function will be displayed below the input (if you return false, the text field will be rendered in an error state but no message will be displayed).
 
@@ -30,7 +30,7 @@ const EMAIL_REGEX = /^[A-Z0-9._%+'-]+@eaton\.com$/i;
 
 ## API Errors
 
-For API-related errors, we have implemented a common `ErrorManager` component that manages the display of error messages across screens. It can be customized to present API errors in a Dialog (default) or in a Message Box. For full details, read the [ErrorManager](https://github.com/etn-ccis/blui-react-workflows/tree/master/login-workflow/docs/components/error-manager.md) API docs.
+For API-related errors, we have implemented a common `ErrorManager` component that manages the display of error messages across screens. It can be customized to present API errors in a Dialog (default) or in a Message Box. For full details, read the [ErrorManager](./components/error-manager.md) API docs.
 
 To trigger the ErrorManager to display an error, you need to throw an error in your AuthUIAction or RegistrationUIAction function. 
 

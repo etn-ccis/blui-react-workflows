@@ -19,22 +19,22 @@ import { AuthContextProvider, ResetPasswordScreen } from '@brightlayer-ui/react-
 
 | Prop Name | Type | Description | Default |
 |---|---|---|---|
-| PasswordProps | `SetPasswordProps` | See [Set Password](https://github.com/etn-ccis/blui-react-workflows/tree/master/login-workflow/docs/components/set-password.md) |  |
+| PasswordProps | `SetPasswordProps` | See [Set Password](../components/set-password.md) |  |
 | showSuccessScreen | `boolean` | If true, a success screen will appear after submitting the form | `true` |
 | slots | `ResetPasswordScreenSlots` | Components to use in place of the defaults. See [ResetPasswordScreenSlots](#resetpasswordscreenslots) |  |
 | slotProps | `ResetPasswordScreenSlotProps` | Props to pass to the custom slot components. See [ResetPasswordScreenSlotProps](#resetpasswordscreenslotprops) |  |
-| errorDisplayConfig | `ErrorManagerProps` | See [Error Management](https://github.com/etn-ccis/blui-react-workflows/tree/master/login-workflow/docs/error-management.md) |  |
+| errorDisplayConfig | `ErrorManagerProps` | See [Error Management](../error-management.md) |  |
 
-This screen also extends the `WorkflowCardProps` type for updating the title, instructions, buttons, etc. See [Workflow Card](https://github.com/etn-ccis/blui-react-workflows/tree/master/login-workflow/docs/components/workflow-card.md) for more details.
+This screen also extends the `WorkflowCardProps` type for updating the title, instructions, buttons, etc. See [Workflow Card](../components/workflow-card.md) for more details.
 
 ### ResetPasswordScreenSlots
 
 | Key | Type | Description |
 |---|---|---|
-| SuccessScreen | `(props: SuccessScreenProps) => JSX.Element` | A custom success screen component to render. See [SuccessScreen](https://github.com/etn-ccis/blui-react-workflows/tree/master/login-workflow/docs/screens/success.md) |
+| SuccessScreen | `(props: SuccessScreenProps) => JSX.Element` | A custom success screen component to render. See [SuccessScreen](./success.md) |
 
 ### ResetPasswordScreenSlotProps
 
 | Key | Type | Description |
 |---|---|---|
-| SuccessScreen | `SuccessScreenProps` | Props to pass to the custom success screen component. See [SuccessScreen](https://github.com/etn-ccis/blui-react-workflows/tree/master/login-workflow/docs/screens/success.md) |
+| SuccessScreen | `SuccessScreenProps` | Props to pass to the custom success screen component. See [SuccessScreen](./success.md) |

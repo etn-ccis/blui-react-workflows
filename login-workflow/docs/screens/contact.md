@@ -29,4 +29,4 @@ import { AuthContextProvider, ContactSupportScreen } from '@brightlayer-ui/react
 | dismissButtonLabel | `string` | Text to display on the dismiss button. | `t('bluiCommon:ACTIONS.OKAY')` |
 | onDismiss | `() => void` | Function to call when the dismiss button is clicked. |  |
 
-This screen also extends the `WorkflowCardProps` type for updating the title, instructions, buttons, etc. See [Workflow Card](https://github.com/etn-ccis/blui-react-workflows/tree/master/login-workflow/docs/components/workflow-card.md) for more details.
+This screen also extends the `WorkflowCardProps` type for updating the title, instructions, buttons, etc. See [Workflow Card](../components/workflow-card.md) for more details.

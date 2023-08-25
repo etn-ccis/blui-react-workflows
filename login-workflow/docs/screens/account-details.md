@@ -28,6 +28,6 @@ import { RegistrationContextProvider, AccountDetailsScreen } from '@brightlayer-
 | initialLastName | `string` | Initial value to populate in the lastName text field |  |
 | lastNameValidator | `(lastName: string) => boolean \| string` | A function to validate the last name input value | required to be > 0 characters |
 | lastNameTextFieldProps | `TextFieldProps` | Props to pass to the lastName component. See MUI's [TextFieldProps API](https://mui.com/material-ui/api/text-field/). |  |
-| errorDisplayConfig | `ErrorManagerProps` | See [Error Management](https://github.com/etn-ccis/blui-react-workflows/tree/master/login-workflow/docs/error-management.md) |  |
+| errorDisplayConfig | `ErrorManagerProps` | See [Error Management](../error-management.md) |  |
 
-This screen also extends the `WorkflowCardProps` type for updating the title, instructions, buttons, etc. See [Workflow Card](https://github.com/etn-ccis/blui-react-workflows/tree/master/login-workflow/docs/components/workflow-card.md) for more details.
+This screen also extends the `WorkflowCardProps` type for updating the title, instructions, buttons, etc. See [Workflow Card](../components/workflow-card.md) for more details.

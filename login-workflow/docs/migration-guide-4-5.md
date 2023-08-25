@@ -16,7 +16,7 @@ In order to be more flexible / customizable, the workflow no longer manages the 
 
 ## Managing Routing
 
-In order to be more flexible / customizable, the workflow no longer manages routing. The `AuthNavigationContainer` has been removed and will need to be replaced by your own routing solution (we recommend React Router). Please follow our [Routing Guide](https://github.com/etn-ccis/blui-react-workflows/tree/master/login-workflow/docs/routing.md) for detailed information on setup.
+In order to be more flexible / customizable, the workflow no longer manages routing. The `AuthNavigationContainer` has been removed and will need to be replaced by your own routing solution (we recommend React Router). Please follow our [Routing Guide](./routing.md) for detailed information on setup.
 
 
 ## Managing Workflow Providers

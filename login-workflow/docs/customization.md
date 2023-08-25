@@ -47,7 +47,7 @@ When passing children to the `RegistrationWorkflow` component, you can easily ad
 
 If you want to skip a particular screen in the workflow, simply omit it in the list of children. Likewise, if you wish to add your own custom screens into the workflow, you simply pass them as another child element.
 
-When passing custom children, it is important to match the look and feel of the other steps in the workflow. In order to support this, we provide several WorkflowCard components that you can use to create your custom screens. For more information on how to use these components, refer to our [WorkflowCard](https://github.com/etn-ccis/blui-react-workflows/tree/master/login-workflow/components/workflow-card.md) component documentation. 
+When passing custom children, it is important to match the look and feel of the other steps in the workflow. In order to support this, we provide several WorkflowCard components that you can use to create your custom screens. For more information on how to use these components, refer to our [WorkflowCard](./components/workflow-card.md) component documentation. 
 
 Your custom implementation, removing the EulaScreen and VerifyCodeScreen, and adding a custom screen, might look like this:
 
@@ -65,7 +65,7 @@ Your custom implementation, removing the EulaScreen and VerifyCodeScreen, and ad
 ```
 
 ### Customizing the Success Screen
-You may provide a custom success screen to be shown upon successful completion of the [Registration Workflow](https://github.com/etn-ccis/blui-react-workflows/tree/master/login-workflow/docs/components/registration-workflow.md). The [Success Screen](https://github.com/etn-ccis/blui-react-workflows/tree/master/login-workflow/docs/screens/success.md) is used by default, but may be customized via props. If you wish to build your own success screen it may look something like this:
+You may provide a custom success screen to be shown upon successful completion of the [Registration Workflow](./components/registration-workflow.md). The [Success Screen](./screens/success.md) is used by default, but may be customized via props. If you wish to build your own success screen it may look something like this:
 
 ```jsx
 import { SuccessScreenBase } from '@brightlayer-ui/react-auth-workflow';
@@ -87,14 +87,14 @@ A similar prop exists for `existingAccountSuccessScreen` which will be used if t
 
 ## Customizing the Language Support
 
-For information about supporting multiple languages and customizing the translations, refer to our [Language Support](https://github.com/etn-ccis/blui-react-workflows/tree/master/login-workflow/docs/language-support.md) guidelines.
+For information about supporting multiple languages and customizing the translations, refer to our [Language Support](./language-support.md) guidelines.
 
 ## Customizing Error Handling
 
-For information about handling errors in your application, refer to our [Error Management](https://github.com/etn-ccis/blui-react-workflows/tree/master/login-workflow/docs/error-management.md) documentation.
+For information about handling errors in your application, refer to our [Error Management](./error-management.md) documentation.
 
 ## Components
-For more details on customizing our components, refer to our [Components](https://github.com/etn-ccis/blui-react-workflows/tree/master/login-workflow/components/components.md) documentation. 
+For more details on customizing our components, refer to our [Components](./components/components.md) documentation. 
 
 ## Screens
-For more details on customizing our screens, refer to our [Screens](https://github.com/etn-ccis/blui-react-workflows/tree/master/login-workflow/screens/screens.md) documentation.
+For more details on customizing our screens, refer to our [Screens](./screens/screens.md) documentation.

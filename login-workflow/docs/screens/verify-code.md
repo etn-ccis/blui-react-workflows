@@ -26,6 +26,6 @@ import { RegistrationContextProvider, VerifyCodeScreen } from '@brightlayer-ui/r
 | resendLabel | `string` | Label/text for the resend link/button. | `t('bluiAuth:VERIFY_CODE.RESEND')` |
 | initialValue | `string` | The initial value for the code input. |  |
 | verifyCodeInputLabel | `string` | The label for the code text field. | `t('bluiAuth:VERIFY_CODE.VERIFICATION_CODE')` |
-| errorDisplayConfig | `ErrorManagerProps` | See [Error Management](https://github.com/etn-ccis/blui-react-workflows/tree/master/login-workflow/docs/error-management.md) |  |
+| errorDisplayConfig | `ErrorManagerProps` | See [Error Management](../error-management.md) |  |
 
-This screen also extends the `WorkflowCardProps` type for updating the title, instructions, buttons, etc. See [Workflow Card](https://github.com/etn-ccis/blui-react-workflows/tree/master/login-workflow/docs/components/workflow-card.md) for more details.
+This screen also extends the `WorkflowCardProps` type for updating the title, instructions, buttons, etc. See [Workflow Card](../components/workflow-card.md) for more details.

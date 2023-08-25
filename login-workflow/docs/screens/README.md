@@ -6,13 +6,13 @@ Each of the screens in both the Login / Authentication  and Registration workflo
 
 The following screen components are available:
 
-- [AccountDetailsScreen](https://github.com/etn-ccis/blui-react-workflows/tree/master/login-workflow/docs/screens/account-details.md)
-- [ContactSupportScreen](https://github.com/etn-ccis/blui-react-workflows/tree/master/login-workflow/docs/screens/contact.md)
-- [CreateAccountScreen](https://github.com/etn-ccis/blui-react-workflows/tree/master/login-workflow/docs/screens/create-account.md)
-- [CreatePasswordScreen](https://github.com/etn-ccis/blui-react-workflows/tree/master/login-workflow/docs/screens/create-password.md)
-- [EulaScreen](https://github.com/etn-ccis/blui-react-workflows/tree/master/login-workflow/docs/screens/eula.md)
-- [ForgotPasswordScreen](https://github.com/etn-ccis/blui-react-workflows/tree/master/login-workflow/docs/screens/forgot-password.md)
-- [LoginScreen](https://github.com/etn-ccis/blui-react-workflows/tree/master/login-workflow/docs/screens/account-details.md)
-- [ResetPasswordScreen](https://github.com/etn-ccis/blui-react-workflows/tree/master/login-workflow/docs/screens/reset-password.md)
-- [SuccessScreen](https://github.com/etn-ccis/blui-react-workflows/tree/master/login-workflow/docs/screens/success.md)
-- [VerifyCodeScreen](https://github.com/etn-ccis/blui-react-workflows/tree/master/login-workflow/docs/screens/verify-code.md)
+- [AccountDetailsScreen](./account-details.md)
+- [ContactSupportScreen](./contact.md)
+- [CreateAccountScreen](./create-account.md)
+- [CreatePasswordScreen](./create-password.md)
+- [EulaScreen](./eula.md)
+- [ForgotPasswordScreen](./forgot-password.md)
+- [LoginScreen](./account-details.md)
+- [ResetPasswordScreen](./reset-password.md)
+- [SuccessScreen](./success.md)
+- [VerifyCodeScreen](./verify-code.md)

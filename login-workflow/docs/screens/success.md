@@ -25,5 +25,5 @@ import { SuccessScreenBase } from '@brightlayer-ui/react-auth-workflow';
 | canDismiss | `boolean` | A boolean determining if the screen can be dismissed. |  |
 | onDismiss | `() => void` | A function to be called when the screen is dismissed. |  |
 
-This screen also extends the `WorkflowCardProps` type for updating the title, instructions, buttons, etc. See [Workflow Card](https://github.com/etn-ccis/blui-react-workflows/tree/master/login-workflow/docs/components/workflow-card.md) for more details.
+This screen also extends the `WorkflowCardProps` type for updating the title, instructions, buttons, etc. See [Workflow Card](../components/workflow-card.md) for more details.
   

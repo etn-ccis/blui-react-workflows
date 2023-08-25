@@ -24,6 +24,6 @@ import { RegistrationContextProvider, CreateAccountScreen } from '@brightlayer-u
 | initialValue | `string` | The initial value for the email text field. |  |
 | emailValidator | `(email: string) => boolean \| string` | A function that validates the email text field input. | checks against valid email regex |
 | emailTextFieldProps | `TextFieldProps` | Props to pass to the MUI [TextField](https://mui.com/material-ui/api/text-field/) component. |  |
-| errorDisplayConfig | `ErrorManagerProps` | See [Error Management](https://github.com/etn-ccis/blui-react-workflows/tree/master/login-workflow/docs/error-management.md) |  |
+| errorDisplayConfig | `ErrorManagerProps` | See [Error Management](../error-management.md) |  |
 
-This screen also extends the `WorkflowCardProps` type for updating the title, instructions, buttons, etc. See [Workflow Card](https://github.com/etn-ccis/blui-react-workflows/tree/master/login-workflow/docs/components/workflow-card.md) for more details.
+This screen also extends the `WorkflowCardProps` type for updating the title, instructions, buttons, etc. See [Workflow Card](../components/workflow-card.md) for more details.

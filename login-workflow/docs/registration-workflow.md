@@ -22,7 +22,7 @@ The example project includes a skeleton implementation of all required functions
 
 1. Create a `RegistrationUIActions.ts` file
     - This file will handle the implementation of the registration related actions (such as create password, verify code, and create account).
-    - You can copy this file directly from the [example](https://github.com/etn-ccis/blui-react-workflows/tree/master/login-workflow/example/src/actions/RegistrationUIActions.tsx) project as a starting point and then update the implementation details if you choose.
+    - You can copy this file directly from the [example](../example/src/actions/RegistrationUIActions.tsx) project as a starting point and then update the implementation details if you choose.
 2. You might also want to copy over the `example/src/store` and `example/src/constants` folders, which provide a very basic mechanism for storing important data using LocalStorage
     -   You will want to switch this out for a more secure approach before going to production with your application.
 

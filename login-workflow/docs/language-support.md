@@ -110,6 +110,6 @@ export const i18nAppInstance = i18next.createInstance(
 You will then need to pass this i18n instance through the `i18n` prop on the `AuthContextProvider` and / or `RegistrationContextProvider` wrappers.
 
 > For a complete list of resource IDs available, refer to the documentation for 
-[Authentication Workflow](https://github.com/etn-ccis/blui-react-workflows/tree/master/login-workflow/src/contexts/AuthContext/AuthDictionaries/english.ts).
-[Registration Workflow](https://github.com/etn-ccis/blui-react-workflows/tree/master/login-workflow/src/contexts/RegistrationContext/RegistrationDictionaries/english.ts).
-[Common translations](https://github.com/etn-ccis/blui-react-workflows/tree/master/login-workflow/src/contexts/SharedDictionaries/english.ts).
+[Authentication Workflow](../src/contexts/AuthContext/AuthDictionaries/english.ts).
+[Registration Workflow](../src/contexts/RegistrationContext/RegistrationDictionaries/english.ts).
+[Common translations](../src/contexts/SharedDictionaries/english.ts).

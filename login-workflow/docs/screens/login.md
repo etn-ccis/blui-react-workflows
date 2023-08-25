@@ -80,6 +80,6 @@ import { AuthContextProvider, LoginScreen } from '@brightlayer-ui/react-auth-wor
 | projectImage | `ReactNode` | Image to display at the top of the screen. |  |
 | header | `ReactNode` | Custom content to display at the top of the screen. |  |
 | footer | `ReactNode` | Custom content to display at the bottom of the screen. |  |
-| errorDisplayConfig | `ErrorManagerProps` | See [Error Management](https://github.com/etn-ccis/blui-react-workflows/tree/master/login-workflow/docs/error-management.md) |  |
+| errorDisplayConfig | `ErrorManagerProps` | See [Error Management](../error-management.md) |  |
 
-This screen also extends the `WorkflowCardProps` type for updating the title, instructions, buttons, etc. See [Workflow Card](https://github.com/etn-ccis/blui-react-workflows/tree/master/login-workflow/docs/components/workflow-card.md) for more details.
+This screen also extends the `WorkflowCardProps` type for updating the title, instructions, buttons, etc. See [Workflow Card](../components/workflow-card.md) for more details.

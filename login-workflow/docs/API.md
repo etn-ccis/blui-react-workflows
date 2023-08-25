@@ -94,24 +94,24 @@ Type to represent the customizable configuration of the error message box.
 
 Exported components that can be used to customize the auth workflow. 
 
-- [BasicDialog](https://github.com/etn-ccis/blui-react-workflows/tree/master/login-workflow/docs/components/basic-dialog.md)
-- [ChangePasswordDialog](https://github.com/etn-ccis/blui-react-workflows/tree/master/login-workflow/docs/components/change-password-dialog.md)
-- [ErrorManager](https://github.com/etn-ccis/blui-react-workflows/tree/master/login-workflow/docs/components/error-manager.md)
-- [PasswordTextField](https://github.com/etn-ccis/blui-react-workflows/tree/master/login-workflow/docs/components/password-text-field.md)
-- [RegistrationWorkflow](https://github.com/etn-ccis/blui-react-workflows/tree/master/login-workflow/docs/components/refistration-workflow.md)
-- [SetPassword](https://github.com/etn-ccis/blui-react-workflows/tree/master/login-workflow/docs/components/set-password.md)
-- [WorkflowCard](https://github.com/etn-ccis/blui-react-workflows/tree/master/login-workflow/docs/components/workflow-card.md)
+- [BasicDialog](./components/basic-dialog.md)
+- [ChangePasswordDialog](./components/change-password-dialog.md)
+- [ErrorManager](./components/error-manager.md)
+- [PasswordTextField](./components/password-text-field.md)
+- [RegistrationWorkflow](./components/refistration-workflow.md)
+- [SetPassword](./components/set-password.md)
+- [WorkflowCard](./components/workflow-card.md)
 ## Screens
 
 Exported screens that can be used to customize the auth workflow. 
 
-- [AccountDetailsScreen](https://github.com/etn-ccis/blui-react-workflows/tree/master/login-workflow/docs/screens/account-details.md)
-- [ContactScreen](https://github.com/etn-ccis/blui-react-workflows/tree/master/login-workflow/docs/screens/contact.md)
-- [CreateAccountScreen](https://github.com/etn-ccis/blui-react-workflows/tree/master/login-workflow/docs/screens/create-account.md)
-- [CreatePasswordScreen](https://github.com/etn-ccis/blui-react-workflows/tree/master/login-workflow/docs/screens/create-password.md)
-- [EulaScreen](https://github.com/etn-ccis/blui-react-workflows/tree/master/login-workflow/docs/screens/eula.md)
-- [ForgotPasswordScreen](https://github.com/etn-ccis/blui-react-workflows/tree/master/login-workflow/docs/screens/forgot-password.md)
-- [LoginScreen](https://github.com/etn-ccis/blui-react-workflows/tree/master/login-workflow/docs/screens/login.md)
-- [ResetPasswordScreen](https://github.com/etn-ccis/blui-react-workflows/tree/master/login-workflow/docs/screens/reset-password.md)
-- [SuccessScreen](https://github.com/etn-ccis/blui-react-workflows/tree/master/login-workflow/docs/screens/success.md)
-- [VerifyCodeScreen](https://github.com/etn-ccis/blui-react-workflows/tree/master/login-workflow/docs/screens/verify-code.md)
+- [AccountDetailsScreen](./screens/account-details.md)
+- [ContactScreen](./screens/contact.md)
+- [CreateAccountScreen](./screens/create-account.md)
+- [CreatePasswordScreen](./screens/create-password.md)
+- [EulaScreen](./screens/eula.md)
+- [ForgotPasswordScreen](./screens/forgot-password.md)
+- [LoginScreen](./screens/login.md)
+- [ResetPasswordScreen](./screens/reset-password.md)
+- [SuccessScreen](./screens/success.md)
+- [VerifyCodeScreen](./screens/verify-code.md)

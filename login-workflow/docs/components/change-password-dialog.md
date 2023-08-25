@@ -19,8 +19,8 @@ import { ChangePasswordDialog } from '@brightlayer-ui/react-auth-workflow';
 
 | Prop Name | Type | Description | Default |
 |---|---|---|---|
-| PasswordProps | `SetPasswordProps` | See [Set Password](https://github.com/etn-ccis/blui-react-workflows/tree/master/login-workflow/docs/components/set-password.md) |  |
-| ErrorDialogProps | `BasicDialogProps` | Props to configure a nested error dialog if there are errors changing the password. See [Basic Dialog](https://github.com/etn-ccis/blui-react-workflows/tree/master/login-workflow/docs/components/basic-dialog.md). |  |
+| PasswordProps | `SetPasswordProps` | See [Set Password](./set-password.md) |  |
+| ErrorDialogProps | `BasicDialogProps` | Props to configure a nested error dialog if there are errors changing the password. See [Basic Dialog](./basic-dialog.md). |  |
 | dialogTitle | `string` | The title to display in the dialog. | `t('bluiAuth:CHANGE_PASSWORD_DIALOG.TITLE')` |
 | dialogDescription | `string` | The description to display in the dialog. | `t('bluiAuth:CHANGE_PASSWORD_DIALOG.DESCRIPTION')` |
 | currentPasswordLabel | `string` | The label to display for the current password field. | `t('bluiAuth:CHANGE_PASSWORD_DIALOG.CURRENT_PASSWORD_LABEL')` |

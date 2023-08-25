@@ -27,9 +27,9 @@ import { AuthContextProvider, ForgotPasswordScreen } from '@brightlayer-ui/react
 | contactPhone | `string` | The phone number to display in the contact section. | `1-800-123-4567` |
 | responseTime | `string` | The response time to display in the contact section. | `24 hours` |
 | showSuccessScreen | `boolean` | If true, a success screen will appear after submitting the form | `true` |
-| errorDisplayConfig | `ErrorManagerProps` | See [Error Management](https://github.com/etn-ccis/blui-react-workflows/tree/master/login-workflow/docs/error-management.md) |  |
+| errorDisplayConfig | `ErrorManagerProps` | See [Error Management](../error-management.md) |  |
 
-This screen also extends the `WorkflowCardProps` type for updating the title, instructions, buttons, etc. See [Workflow Card](https://github.com/etn-ccis/blui-react-workflows/tree/master/login-workflow/docs/components/workflow-card.md) for more details.
+This screen also extends the `WorkflowCardProps` type for updating the title, instructions, buttons, etc. See [Workflow Card](../components/workflow-card.md) for more details.
 
 
 TODO: Should this be from WorkflowCardInstructionsProps?
@@ -54,11 +54,11 @@ TODO: Should this be from WorkflowCardInstructionsProps?
 
 | Key | Type | Description |
 |---|---|---|
-| SuccessScreen | `(props: SuccessScreenProps) => JSX.Element` | A custom success screen component to render. See [SuccessScreen](https://github.com/etn-ccis/blui-react-workflows/tree/master/login-workflow/docs/screens/success.md) |
+| SuccessScreen | `(props: SuccessScreenProps) => JSX.Element` | A custom success screen component to render. See [SuccessScreen](./success.md) |
 
 ### ForgotPasswordScreenSlotProps
 
 | Key | Type | Description |
 |---|---|---|
-| SuccessScreen | `SuccessScreenProps` | Props to pass to the custom success screen component. See [SuccessScreen](https://github.com/etn-ccis/blui-react-workflows/tree/master/login-workflow/docs/screens/success.md) |
+| SuccessScreen | `SuccessScreenProps` | Props to pass to the custom success screen component. See [SuccessScreen](./success.md) |
 
