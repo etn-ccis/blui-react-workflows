@@ -4,7 +4,7 @@ import { WorkflowCardProps } from '../../components/WorkflowCard/WorkflowCard.ty
 
 export type CreatePasswordScreenProps = WorkflowCardProps & {
     /**
-     * @param PasswordProps The title for the screen
+     * @param PasswordProps The props passed from SetPassword component
      * @returns SetPasswordProps
      */
     PasswordProps?: SetPasswordProps;
