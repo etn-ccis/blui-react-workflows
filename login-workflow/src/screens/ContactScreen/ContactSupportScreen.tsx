@@ -1,7 +1,7 @@
 import React from 'react';
 import { ChatBubbleOutline } from '@mui/icons-material';
-import { ContactScreenBase } from './ContactSupportScreenBase';
-import { ContactScreenProps } from './types';
+import { ContactSupportScreenBase } from './ContactSupportScreenBase';
+import { ContactSupportScreenProps } from './types';
 import { useLanguageLocale } from '../../hooks';
 import { useAuthContext } from '../../contexts';
 
@@ -19,7 +19,7 @@ import { useAuthContext } from '../../contexts';
  * @param contactPhone to display contact phone number
  * @param dismissButtonLabel to display label for the button
  * @param onDismiss function to call when user clicks button
- * @param slots used for each slot in `ContactScreen`
+ * @param slots used for each slot in `ContactSupportScreen`
  * @param slotProps applied to each slot
  * @param WorkflowCardBaseProps props that will be passed to the WorkflowCard component
  * @param WorkflowCardHeaderProps props that will be passed to the WorkflowCardHeader component
@@ -29,7 +29,7 @@ import { useAuthContext } from '../../contexts';
  * @category Component
  */
 
-export const ContactSupportScreen: React.FC<ContactScreenProps> = (props) => {
+export const ContactSupportScreen: React.FC<ContactSupportScreenProps> = (props) => {
     const { t } = useLanguageLocale();
     const { navigate, routeConfig } = useAuthContext();
 
@@ -62,7 +62,7 @@ export const ContactSupportScreen: React.FC<ContactScreenProps> = (props) => {
     };
 
     return (
-        <ContactScreenBase
+        <ContactSupportScreenBase
             WorkflowCardHeaderProps={workflowCardHeaderProps}
             icon={icon}
             emailSupportTitle={emailSupportTitle}

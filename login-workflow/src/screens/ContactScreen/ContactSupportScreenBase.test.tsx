@@ -1,12 +1,12 @@
 import React from 'react';
 import '@testing-library/jest-dom';
 import { render, cleanup, screen, fireEvent } from '@testing-library/react';
-import { ContactScreenBase } from './ContactSupportScreenBase';
+import { ContactSupportScreenBase } from './ContactSupportScreenBase';
 import ChatBubbleOutline from '@mui/icons-material/ChatBubbleOutline';
 
 afterEach(cleanup);
 
-describe('ContactScreenBase tests', () => {
+describe('ContactSupportScreenBase tests', () => {
     let mockOnNext: any;
 
     afterEach(() => {
@@ -17,12 +17,12 @@ describe('ContactScreenBase tests', () => {
         mockOnNext = jest.fn();
     });
     it('rendering the screen without any props', () => {
-        render(<ContactScreenBase />);
+        render(<ContactSupportScreenBase />);
     });
 
     it('renders without crashing', () => {
         render(
-            <ContactScreenBase
+            <ContactSupportScreenBase
                 WorkflowCardHeaderProps={{ title: 'Test Contact Us' }}
                 icon={<ChatBubbleOutline color={'primary'} sx={{ fontSize: 70 }} />}
                 emailSupportTitle="General Questions"
@@ -49,7 +49,7 @@ describe('ContactScreenBase tests', () => {
     });
     it('calls onNext when the Okay button is clicked', () => {
         const { getByText } = render(
-            <ContactScreenBase
+            <ContactSupportScreenBase
                 WorkflowCardActionsProps={{
                     onNext: mockOnNext(),
                     showNext: true,
