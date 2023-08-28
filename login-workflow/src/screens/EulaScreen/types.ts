@@ -3,27 +3,51 @@ import { WorkflowCardProps } from '../../components/WorkflowCard/WorkflowCard.ty
 import { ErrorManagerProps } from '../../components/Error';
 
 export type EulaScreenProps = WorkflowCardProps & {
-    // the content to render for the EULA. Can be a plain string or HTML
+    /**
+     * @param eulaContent The content to render for the EULA. Can be a plain string or HTML
+     * @returns string | JSX.Element
+     */
     eulaContent?: string | JSX.Element;
 
-    // label for the EULA checkbox
+    /**
+     * @param checkboxLabel The label for the EULA checkbox
+     * @returns string
+     */
     checkboxLabel?: string;
 
-    // EULA checkbox props
+    /**
+     * @param checkboxProps Used to set checkbox props
+     * @returns CheckboxProps
+     */
     checkboxProps?: CheckboxProps;
 
-    // true if the EULA should be rendered as HTML
+    /**
+     * @param htmlEula true if the EULA should be rendered as HTML
+     * @returns boolean
+     */
     htmlEula?: boolean;
 
-    // used to pre-populate the checked/unchecked checkbox when the screen loads
+    /**
+     * @param initialCheckboxValue Used to pre-populate the checked/unchecked checkbox when the screen loads
+     * @returns boolean
+     */
     initialCheckboxValue?: boolean;
 
-    // called when the checkbox clicked
+    /**
+     * @param onEulaAcceptedChange Called when the checkbox clicked
+     * @returns boolean
+     */
     onEulaAcceptedChange?: (accepted: boolean) => boolean;
 
-    // used to configure how errors are rendered
+    /**
+     * @param errorDisplayConfig The configuration for customizing how errors are displayed
+     * @returns ErrorManagerProps
+     */
     errorDisplayConfig?: ErrorManagerProps;
 
-    // called when refetch button clicked
+    /**
+     * @param onRefetch TODO Need description what this does
+     * @returns void
+     */
     onRefetch?: () => void;
 };

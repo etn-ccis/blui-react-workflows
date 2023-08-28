@@ -2,23 +2,45 @@ import { ErrorManagerProps } from '../../components/Error';
 import { WorkflowCardProps } from '../../components/WorkflowCard/WorkflowCard.types';
 
 export type VerifyCodeScreenProps = WorkflowCardProps & {
-    // used to test the input for valid formatting
+    /**
+     * @param codeValidator The function that validates the code text field
+     * @returns boolean | string
+     */
     codeValidator?: (code: string) => boolean | string;
 
-    // called when the resend link/button is clicked
+    /**
+     * @param onResend The function that is called when the resend link/button is clicked
+     * @returns void
+     */
     onResend?: () => void;
 
-    // text to display ahead of the resend link/button
+    /**
+     * @param resendInstructions The text to display ahead of the resend link/button
+     * @returns string
+     */
     resendInstructions?: string;
 
-    // label for the resend link/button
+    /**
+     * @param resendLabel The text to display for the resend link/button
+     * @returns string
+     */
     resendLabel?: string;
 
-    // used to pre-populate the data in the field when the screen loads
+    /**
+     * @param initialValue The initial value for the code text field
+     * @returns string
+     */
     initialValue?: string;
 
-    // used to set the label for verify code input
+    /**
+     * @param verifyCodeInputLabel The label for the code text field
+     * @returns string
+     */
     verifyCodeInputLabel?: string;
 
+    /**
+     * @param errorDisplayConfig The configuration for customizing how errors are displayed
+     * @returns ErrorManagerProps
+     */
     errorDisplayConfig?: ErrorManagerProps;
 };

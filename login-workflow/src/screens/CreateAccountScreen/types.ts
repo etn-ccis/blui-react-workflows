@@ -3,17 +3,33 @@ import { WorkflowCardProps } from '../../components/WorkflowCard/WorkflowCard.ty
 import { ErrorManagerProps } from '../../components/Error';
 
 export type CreateAccountScreenProps = WorkflowCardProps & {
-    // label for the textfield
+    /**
+     * @param emailLabel The label for the email field
+     * @returns string
+     */
     emailLabel?: string;
 
-    // used to pre-populate the email input field
+    /**
+     * @param initialValue The initial value for the email text field
+     * @returns string
+     */
     initialValue?: string;
 
-    // used to test the input for valid formatting
+    /**
+     * @param emailValidator The function used to test the input for valid formatting
+     * @returns boolean | string
+     */
     emailValidator?: (email: string) => boolean | string;
 
-    // props to pass to the email text field
+    /**
+     * @param emailTextFieldProps The props to pass to the email text field
+     * @returns TextFieldProps
+     */
     emailTextFieldProps?: TextFieldProps;
 
+    /**
+     * @param errorDisplayConfig The configuration for customizing how errors are displayed
+     * @returns ErrorManagerProps
+     */
     errorDisplayConfig?: ErrorManagerProps;
 };
