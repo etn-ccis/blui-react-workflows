@@ -19,7 +19,7 @@ export type EulaScreenProps = WorkflowCardProps & {
     initialCheckboxValue?: boolean;
 
     // called when the checkbox clicked
-    onEulaAcceptedChange?: (accepted: boolean) => boolean;
+    onEulaAcceptedChange?: (accepted: boolean) => void;
 
     // used to configure how errors are rendered
     errorDisplayConfig?: ErrorManagerProps;

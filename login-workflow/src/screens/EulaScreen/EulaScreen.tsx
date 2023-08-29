@@ -33,7 +33,11 @@ export const EulaScreen: React.FC<EulaScreenProps> = (props) => {
     const {
         WorkflowCardHeaderProps,
         WorkflowCardActionsProps,
-        onEulaAcceptedChange = (accepted: boolean): boolean => accepted,
+        onEulaAcceptedChange = (accepted: boolean): void => {
+            // setEulaAccepted(accepted);
+            screenData.Eula = {...screenData, accepted};
+            console.log('screendata',screenData);
+        },
         eulaContent,
         checkboxLabel = t('bluiRegistration:REGISTRATION.EULA.AGREE_TERMS'),
         htmlEula,
@@ -71,8 +75,7 @@ export const EulaScreen: React.FC<EulaScreenProps> = (props) => {
     const onNext = useCallback(async (): Promise<void> => {
         setIsLoading(true);
         try {
-            await actions()?.acceptEula?.();
-            setEulaAccepted(true);
+            await actions().acceptEula?.();
             let isAccExist;
             if (isInviteRegistration) {
                 isAccExist = await actions().validateUserRegistrationRequest(
@@ -82,7 +85,7 @@ export const EulaScreen: React.FC<EulaScreenProps> = (props) => {
             }
             void nextScreen({
                 screenId: 'Eula',
-                values: { accepted: true },
+                values: { accepted: screenData.Eula.accepted },
                 isAccountExist: isAccExist,
             });
         } catch (_error) {
