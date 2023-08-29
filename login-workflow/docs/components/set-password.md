@@ -1,64 +1,37 @@
 # SetPassword
 
-## Description
 Component that renders a change password form with a new password and confirm password inputs. It includes callbacks so you can respond to changes in the inputs.
 
+![Set Password](../../media/screens/set-password.png)
+
 ## Usage
+
 ```tsx
 import { SetPassword } from '@brightlayer-ui/react-auth-workflow';
 
-const MyComponent = () => {
-  return (
-    <SetPassword />
-  );
-};
+...
+
+<SetPassword />
 ```
 
 ## API
 
-- **onPasswordChange** 
-  - Called when the new password or confirm new password fields value changes.
-  - **Type:** `(passwords: { password: string; confirm: string }) => void`
-- **newPasswordLabel** (optional)
-  - The label for the new password field.
-  - **Type:** `string`
-  - **Default:** `t('bluiAuth:SET_PASSWORD.NEW_PASSWORD_LABEL')`
-- **initialNewPasswordValue** (optional)
-  - The initial value for the new password field.
-  - **Type:** `string`
-  - **Default:** `''`
-- **confirmPasswordLabel** (optional)
-  - The label for the confirm password field.
-  - **Type:** `string`
-  - **Default:** `t('bluiAuth:SET_PASSWORD.CONFIRM_PASSWORD_LABEL')`
-- **initialConfirmPasswordValue** (optional)
-  - The initial value for the confirm password field.
-  - **Type:** `string`
-  - **Default:** `''`
-- **passwordRequirements** (optional)
-  - Optional requirements to set password.
-  - **Type:** `PasswordRequirement[] | []`
-  - See [PasswordRequirements](#PasswordRequirements) for more details.
-- **passwordRef** (optional)
-  - Optional ref to forward to the password input.
-  - **Type:** `MutableRefObject<any>`
-- **confirmRef** (optional)
-  - Optional ref to forward to the confirm password input.
-  - **Type:** `MutableRefObject<any>`
-- **passwordNotMatchError** (optional)
-  - Optional text for showing message when passwords not match.
-  - **Type:** `string`
-  - **Default:** `t('bluiAuth:SET_PASSWORD.PASSWORD_NOT_MATCH')`
-- **onSubmit** (optional)
-  - Optional callback function to call when the mini form is submitted.
-  - **Type:** `() => void`
-
+| Prop Name | Type | Description | Default |
+|---|---|---|---|
+| onPasswordChange | `(passwords: { password: string; confirm: string }) => void` | Called when the new password or confirm new password fields value changes. |  |
+| newPasswordLabel | `string` | The label for the new password field. | |
+| initialNewPasswordValue | `string` | The initial value for the new password field. |  |
+| confirmPasswordLabel | `string` | The label for the confirm password field. | |
+| initialConfirmPasswordValue | `string` | The initial value for the confirm password field. |  |
+| passwordRequirements | `PasswordRequirement[]` | An array of password complexity requirements . See [PasswordRequirements](#PasswordRequirements) for more details. |  |
+| passwordRef | `MutableRefObject<any>` | Optional ref to forward to the password input. |  |
+| confirmRef | `MutableRefObject<any>` | Optional ref to forward to the confirm password input. |  |
+| passwordNotMatchError | `string` | Optional text for showing message when passwords not match. | |
+| onSubmit | `() => void` | Callback function to fire when the Enter key is pressed in the confirm field. |  |
 
 ### PasswordRequirements
 
-- **description** 
-  - The description of the password requirement.
-  - **Type:** `string`
-- **regex** 
-  - The regex to validate the password.
-  - **Type:** `RegExp`
+| Prop Name | Type | Description | Default |
+|---|---|---|---|
+| description | `string` | The text description / label of the password requirement. |  |
+| regex | `RegExp` | The regex to compare the password against. |  |

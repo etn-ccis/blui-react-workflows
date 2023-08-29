@@ -1,21 +1,20 @@
 # PasswordTextField
 
-## Description
 Component that renders a text field with a visibility toggle.
 
+![Password Field](../../media/screens/password-field.png)
+
 ## Usage
+
 ```tsx
 import { PasswordTextField } from '@brightlayer-ui/react-auth-workflow';
 
-const MyComponent = () => {
-  return (
-    <PasswordTextField/>
-  );
-};
+...
+
+<PasswordTextField/>
 ```
 
 ## API
 
-- **TextFieldProps** 
-    - See [TextField](https://mui.com/components/text-fields/) for more details.
+See MUI [TextFieldProps](https://mui.com/components/text-fields/).
 
