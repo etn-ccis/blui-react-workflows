@@ -24,7 +24,14 @@ export type RegistrationWorkflowProps = {
 export const RegistrationWorkflow: React.FC<React.PropsWithChildren<RegistrationWorkflowProps>> = (props) => {
     const [isAccountExist, setIsAccountExist] = useState(false);
     const { triggerError, errorManagerConfig } = useErrorManager();
-    const errorDisplayConfig = { ...errorManagerConfig, ...props.errorDisplayConfig };
+    const errorDisplayConfig = {
+        ...errorManagerConfig,
+        ...props.errorDisplayConfig,
+        onClose: (): void => {
+            if (props.errorDisplayConfig && props.errorDisplayConfig.onClose) props.errorDisplayConfig.onClose();
+            if (errorManagerConfig.onClose) errorManagerConfig?.onClose();
+        },
+    };
     const {
         initialScreenIndex = 0,
         successScreen = <RegistrationSuccessScreen />,
@@ -143,7 +150,7 @@ export const RegistrationWorkflow: React.FC<React.PropsWithChildren<Registration
             updateScreenData={updateScreenData}
             isInviteRegistration={isInviteRegistration}
         >
-            <ErrorManager {...errorDisplayConfig}>
+            <ErrorManager {...errorDisplayConfig} mode="dialog">
                 {showSuccessScreen
                     ? isAccountExist
                         ? existingAccountSuccessScreen
