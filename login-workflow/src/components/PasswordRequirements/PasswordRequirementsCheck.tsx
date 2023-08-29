@@ -4,7 +4,16 @@ import Check from '@mui/icons-material/Check';
 import Box from '@mui/material/Box';
 
 export type PasswordRequirementsCheckProps = {
+    /**
+     * @param isChecked True if the line item should have a blue check (false for gray)
+     * @returns boolean
+     */
     isChecked: boolean;
+
+    /**
+     * @param label The text to display beside the check icon
+     * @returns string
+     */
     label: string;
 };
 

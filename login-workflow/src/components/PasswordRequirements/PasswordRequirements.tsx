@@ -7,8 +7,22 @@ import { useLanguageLocale } from '../../hooks';
 import { defaultPasswordRequirements } from '../../constants';
 
 export type PasswordRequirementsProps = HTMLAttributes<HTMLDivElement> & {
+    /**
+     * @param passwordText The string to conduct the complexity checks against
+     * @returns string
+     */
     passwordText: string;
+
+    /**
+     * @param passwordRequirements Optional requirements to set password
+     * @returns PasswordRequirement array
+     */
     passwordRequirements?: PasswordRequirement[];
+
+    /**
+     * @param sx The styles passed to the underlying root component
+     * @returns string
+     */
     sx?: SxProps<Theme>;
 };
 

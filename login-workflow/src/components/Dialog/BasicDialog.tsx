@@ -50,10 +50,34 @@ export const DialogButtonStyles = (fullWidth = false): SxProps<Theme> => ({
 });
 
 export type BasicDialogProps = Omit<DialogProps, 'open'> & {
+    /**
+     * @param title The title for the screen
+     * @returns string
+     */
     title?: string;
+
+    /**
+     * @param body The text to show in the body
+     * @returns string
+     */
     body?: string;
+
+    /**
+     * @param onClose The function to call when the close button is clicked
+     * @returns void
+     */
     onClose?: () => void;
+
+    /**
+     * @param dismissButtonText The text to show in the close button
+     * @returns string
+     */
     dismissButtonText?: string;
+
+    /**
+     * @param open boolean used to set open and close dialog
+     * @returns boolean
+     */
     open?: boolean;
 };
 

@@ -23,9 +23,28 @@ import { parseQueryString } from '../../utils';
  */
 
 export type RegistrationWorkflowProps = {
+    /**
+     * @param initialScreenIndex The initial screen index to start the registration workflow from
+     * @returns number
+     */
     initialScreenIndex?: number;
+
+    /**
+     * @param successScreen The success screen to display upon successful registration
+     * @returns JSX.Element
+     */
     successScreen?: JSX.Element;
+
+    /**
+     * @param isInviteRegistration Boolean when true verifies validateUserRegistrationRequest for verifyCode
+     * @returns boolean
+     */
     isInviteRegistration?: boolean;
+
+    /**
+     * @param existingAccountSuccessScreen Component that displays the success screen
+     * @returns JSX.Element
+     */
     existingAccountSuccessScreen?: JSX.Element;
 };
 
