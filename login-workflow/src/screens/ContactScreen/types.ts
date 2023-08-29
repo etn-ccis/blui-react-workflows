@@ -2,56 +2,47 @@ import { WorkflowCardProps } from '../../components/WorkflowCard/WorkflowCard.ty
 
 export type ContactScreenProps = WorkflowCardProps & {
     /**
-     * @param title The title for the screen
-     * @returns string
+     * The title for the screen
      */
     title?: string;
 
     /**
-     * @param icon The icon to display in the header
-     * @returns JSX.Element
+     * The icon to display in the header
      */
     icon?: JSX.Element;
 
     /**
-     * @param emailSupportTitle The title for the email support section
-     * @returns string
+     * The title for the email support section
      */
     emailSupportTitle?: string;
 
     /**
-     * @param emailSupportContent The content for the email support section
-     * @returns string | JSX.Element
+     * The content for the email support section
      */
     emailSupportContent?: (email: string) => string | JSX.Element;
 
     /**
-     * @param phoneSupportTitle The title for the phone support section
-     * @returns string
+     * The title for the phone support section
      */
     phoneSupportTitle?: string;
 
     /**
-     * @param phoneSupportContent The content for the phone support section
-     * @returns string | JSX.Element
+     * The content for the phone support section
      */
     phoneSupportContent?: (phone: string) => string | JSX.Element;
 
     /**
-     * @param contactEmail The email address to display in the email support section
-     * @returns string
+     * The email address to display in the email support section
      */
     contactEmail?: string;
 
     /**
-     * @param contactPhone The phone number to display in the phone support section
-     * @returns string
+     * The phone number to display in the phone support section
      */
     contactPhone?: string;
 
     /**
-     * @param dismissButtonLabel The text to display on the dismiss button
-     * @returns string
+     * The text to display on the dismiss button
      */
     dismissButtonLabel?: string;
 
