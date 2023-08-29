@@ -1,6 +1,15 @@
 import { DialogProps, SxProps } from '@mui/material';
+import { SuccessScreenProps } from '../../screens';
 import { BasicDialogProps } from '../Dialog';
 import { SetPasswordProps } from '../SetPassword';
+
+export type ChangePasswordDialogSlots = {
+    SuccessScreen?: (props?: SuccessScreenProps) => JSX.Element;
+};
+
+export type ChangePasswordDialogSlotsProps = {
+    SuccessScreen?: SuccessScreenProps;
+};
 
 export type ChangePasswordDialogProps = DialogProps & { PasswordProps?: SetPasswordProps } & {
     ErrorDialogProps?: BasicDialogProps;
@@ -16,4 +25,7 @@ export type ChangePasswordDialogProps = DialogProps & { PasswordProps?: SetPassw
     onPrevious?: () => void;
     sx?: SxProps;
     loading?: boolean;
+    showSuccessScreen?: boolean;
+    slots?: ChangePasswordDialogSlots;
+    slotProps?: ChangePasswordDialogSlotsProps;
 };

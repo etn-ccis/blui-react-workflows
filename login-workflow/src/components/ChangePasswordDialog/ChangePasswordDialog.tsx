@@ -4,6 +4,8 @@ import { useAuthContext } from '../../contexts';
 import { useLanguageLocale } from '../../hooks';
 import { ChangePasswordDialogBase } from './ChangePasswordDialogBase';
 import { ChangePasswordDialogProps } from './types';
+import CheckCircle from '@mui/icons-material/CheckCircle';
+import { Box } from '@mui/material';
 
 /**
  * Component that renders a dialog with textField to enter current password and a change password form with a new password and confirm password inputs.
@@ -17,6 +19,9 @@ import { ChangePasswordDialogProps } from './types';
  * @param currentPasswordChange called when the current password field changes
  * @param enableButton boolean to enable and disable the button
  * @param onSubmit Callback function to call when the form is submitted
+ * @param showSuccessScreen boolean that determines whether to show the success screen or not
+ * @param slots used for ChangePasswordDialog SuccessScreen props
+ * @param slotProps props that will be passed to the SuccessScreen component
  *
  * @category Component
  */
@@ -30,7 +35,8 @@ export const ChangePasswordDialog: React.FC<ChangePasswordDialogProps> = (props)
     const [confirmInput, setConfirmInput] = useState('');
     const [showErrorDialog, setShowErrorDialog] = useState(false);
     const [isLoading, setIsLoading] = useState(false);
-    const { actions, navigate, routeConfig } = useAuthContext();
+    const [showSuccessScreen, setShowSuccessScreen] = useState(props.showSuccessScreen);
+    const { actions } = useAuthContext();
 
     const {
         open,
@@ -63,7 +69,7 @@ export const ChangePasswordDialog: React.FC<ChangePasswordDialogProps> = (props)
             try {
                 setIsLoading(true);
                 await actions().changePassword(currentInput, passwordInput);
-                onSubmit();
+                setShowSuccessScreen(true);
             } catch {
                 setShowErrorDialog(true);
             } finally {
@@ -115,10 +121,29 @@ export const ChangePasswordDialog: React.FC<ChangePasswordDialogProps> = (props)
             onPrevious={onPrevious}
             onSubmit={(): void => {
                 void changePasswordSubmit();
-                navigate(routeConfig.LOGIN);
             }}
             PasswordProps={passwordProps}
             ErrorDialogProps={errorDialogProps}
+            slotProps={{
+                SuccessScreen: {
+                    icon: <CheckCircle color="primary" sx={{ fontSize: 100 }} />,
+                    messageTitle: t('bluiAuth:PASSWORD_RESET.SUCCESS_MESSAGE'),
+                    message: t('bluiAuth:CHANGE_PASSWORD.SUCCESS_MESSAGE'),
+                    onDismiss: (): void => {
+                        onSubmit();
+                    },
+                    WorkflowCardActionsProps: {
+                        showPrevious: false,
+                        fullWidthButton: true,
+                        showNext: true,
+                        nextLabel: t('bluiCommon:ACTIONS.DONE'),
+                        onNext: (): void => {
+                            onSubmit();
+                        },
+                    },
+                },
+            }}
+            showSuccessScreen={showSuccessScreen}
         />
     );
 };
