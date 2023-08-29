@@ -98,7 +98,7 @@ Exported components that can be used to customize the auth workflow.
 - [ChangePasswordDialog](./components/change-password-dialog.md)
 - [ErrorManager](./components/error-manager.md)
 - [PasswordTextField](./components/password-text-field.md)
-- [RegistrationWorkflow](./components/refistration-workflow.md)
+- [RegistrationWorkflow](./components/registration-workflow.md)
 - [SetPassword](./components/set-password.md)
 - [WorkflowCard](./components/workflow-card.md)
 ## Screens
