@@ -1,5 +1,4 @@
 import React from 'react';
-import { BrowserRouter } from 'react-router-dom';
 import '@testing-library/jest-dom';
 import { cleanup, render, screen, fireEvent, RenderResult } from '@testing-library/react';
 import { VerifyCodeScreen } from './VerifyCodeScreen';
