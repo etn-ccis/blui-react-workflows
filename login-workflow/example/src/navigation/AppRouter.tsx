@@ -1,68 +1,113 @@
 import React from 'react';
 import {
-    AccountDetailsScreen,
-    CreateAccountScreen,
-    CreatePasswordScreen,
-    EulaScreen,
+    AuthContextProvider,
+    ContactSupportScreen,
+    ReactRouterAuthGuard,
+    ReactRouterGuestGuard,
+    ForgotPasswordScreen,
     RegistrationContextProvider,
+    ResetPasswordScreen,
     RegistrationWorkflow,
-    VerifyCodeScreen,
-    RegistrationSuccessScreen,
 } from '@brightlayer-ui/react-auth-workflow';
 import { useApp } from '../contexts/AppContextProvider';
 import { useNavigate } from 'react-router';
-import { Outlet, Route, Routes } from 'react-router-dom';
+import { ProjectAuthUIActions } from '../actions/AuthUIActions';
+import { Navigate, Outlet, Route, Routes } from 'react-router-dom';
+import { Login } from '../screens/Login';
 import { ProjectRegistrationUIActions } from '../actions/RegistrationUIActions';
-import { routes } from '../navigation/Routing';
+import { routes } from './Routing';
+import { ExampleHome } from '../screens/ExampleHome';
+import i18nAppInstance from '../translations/i18n';
 
 export const AppRouter: React.FC = () => {
-    // Language will be managed by some state within your app, in this example, a useApp hook that gets the app language.
-    const { language } = useApp();
     const navigate = useNavigate();
+    const app = useApp();
+    const { email, rememberMe } = app.loginData;
+
     return (
         <Routes>
+            {/* AUTH ROUTES */}
+            <Route
+                element={
+                    <AuthContextProvider
+                        actions={ProjectAuthUIActions(app)}
+                        language={app.language}
+                        navigate={navigate}
+                        routeConfig={routes}
+                        i18n={i18nAppInstance}
+                        rememberMeDetails={{ email: rememberMe ? email : '', rememberMe: rememberMe }}
+                    >
+                        <Outlet />
+                    </AuthContextProvider>
+                }
+            >
+                <Route
+                    path={'/login'}
+                    element={
+                        <ReactRouterGuestGuard isAuthenticated={app.isAuthenticated} fallBackUrl={'/'}>
+                            <Login />
+                        </ReactRouterGuestGuard>
+                    }
+                />
+                <Route
+                    path={'/forgot-password'}
+                    element={
+                        <ReactRouterGuestGuard isAuthenticated={app.isAuthenticated} fallBackUrl={'/'}>
+                            <ForgotPasswordScreen />
+                        </ReactRouterGuestGuard>
+                    }
+                />
+                <Route
+                    path={'/contact-support'}
+                    element={
+                        <ReactRouterGuestGuard isAuthenticated={app.isAuthenticated} fallBackUrl={'/'}>
+                            <ContactSupportScreen />
+                        </ReactRouterGuestGuard>
+                    }
+                />
+                <Route
+                    path={'/reset-password'}
+                    element={
+                        <ReactRouterGuestGuard isAuthenticated={app.isAuthenticated} fallBackUrl={'/'}>
+                            <ResetPasswordScreen />
+                        </ReactRouterGuestGuard>
+                    }
+                />
+                {/* USER APPLICATION ROUTES */}
+                <Route
+                    path={'/homepage'}
+                    element={
+                        <ReactRouterAuthGuard isAuthenticated={app.isAuthenticated} fallBackUrl={'/login'}>
+                            <ExampleHome />
+                        </ReactRouterAuthGuard>
+                    }
+                />
+                <Route path={'/'} element={<Navigate to={'/homepage'} replace />} />
+                <Route
+                    path={'*'}
+                    element={
+                        <ReactRouterAuthGuard isAuthenticated={app.isAuthenticated} fallBackUrl={'/login'}>
+                            <Navigate to={'/login'} />
+                        </ReactRouterAuthGuard>
+                    }
+                />
+            </Route>
             {/* REGISTRATION ROUTES */}
             <Route
                 element={
                     <RegistrationContextProvider
-                        language={language}
+                        language={app.language}
                         routeConfig={routes}
                         navigate={navigate}
                         actions={ProjectRegistrationUIActions}
+                        i18n={i18nAppInstance}
                     >
                         <Outlet />
                     </RegistrationContextProvider>
                 }
             >
-                <Route
-                    path={'/self-registration'}
-                    element={
-                        <RegistrationWorkflow initialScreenIndex={0}>
-                            <EulaScreen />
-                            <CreateAccountScreen
-                            emailValidator={(email): boolean | string => email.length > 1 ? true : 'error must be 2 chars'}/>
-                            <VerifyCodeScreen 
-                            codeValidator={(code): boolean | string => code.length > 1 ? true : 'error must be 2 chars'}/>
-                            <CreatePasswordScreen />
-                            {/* <AccountDetailsScreen /> */}
-                            <AccountDetailsScreen
-                            firstNameValidator={(name): boolean | string => name.length > 1 ? true : 'error must be 2 chars'}
-                            lastNameValidator={(name): boolean | string => name.length > 1 ? true : 'error must be 2 chars'} />
-                        </RegistrationWorkflow>
-                    }
-                />
-                <Route
-                    path={'/register-by-invite'}
-                    element={
-                        <RegistrationWorkflow initialScreenIndex={0}>
-                            <EulaScreen />
-                            <CreatePasswordScreen />
-                            <AccountDetailsScreen
-                            lastNameTextFieldProps />
-                            <RegistrationSuccessScreen />
-                        </RegistrationWorkflow>
-                    }
-                />
+                <Route path={'/self-registration'} element={<RegistrationWorkflow />} />
+                <Route path={'/register-by-invite'} element={<RegistrationWorkflow isInviteRegistration />} />
             </Route>
         </Routes>
     );
