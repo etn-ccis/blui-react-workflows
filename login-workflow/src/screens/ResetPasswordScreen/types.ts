@@ -13,32 +13,27 @@ export type ResetPasswordScreenSlotsProps = {
 
 export type ResetPasswordScreenProps = Omit<WorkflowCardProps, 'currentStep | totalSteps'> & {
     /**
-     * @param PasswordProps The props that will be passed to the SetPassword component
-     * @returns SetPasswordProps
+     * The props that will be passed to the SetPassword component
      */
     PasswordProps?: SetPasswordProps;
 
     /**
-     * @param showSuccessScreen Boolean that determines whether to show the success screen or not
-     * @returns boolean
+     * Boolean that determines whether to show the success screen or not
      */
     showSuccessScreen?: boolean;
 
     /**
-     * @param slots Used for ResetPasswordScreen SuccessScreen props
-     * @returns ResetPasswordScreenSlots
+     * Used for ResetPasswordScreen SuccessScreen props
      */
     slots?: ResetPasswordScreenSlots;
 
     /**
-     * @param slotProps The props that will be passed to the SuccessScreen component
-     * @returns ResetPasswordScreenSlotsProps
+     * The props that will be passed to the SuccessScreen component
      */
     slotProps?: ResetPasswordScreenSlotsProps;
 
     /**
-     * @param errorDisplayConfig The configuration for customizing how errors are displayed
-     * @returns ErrorManagerProps
+     * The configuration for customizing how errors are displayed
      */
     errorDisplayConfig?: ErrorManagerProps;
 };

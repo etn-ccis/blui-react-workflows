@@ -7,6 +7,9 @@ import { useLanguageLocale } from '../../hooks';
 export type AuthError = { cause: { title: string; errorMessage: string } };
 
 export type ErrorManagerProps = {
+    /**
+     * The mode for customizing how errors are displayed
+     */
     mode?: 'dialog' | 'message-box' | 'none';
     onClose?: () => void;
     error?: string;

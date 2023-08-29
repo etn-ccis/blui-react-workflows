@@ -3,44 +3,40 @@ import { WorkflowCardProps } from '../../components/WorkflowCard/WorkflowCard.ty
 
 export type VerifyCodeScreenProps = WorkflowCardProps & {
     /**
-     * @param codeValidator The function that validates the code text field
+     * The function that validates the code text field
+     * @param {string} code - validates code input length
      * @returns boolean | string
      */
     codeValidator?: (code: string) => boolean | string;
 
     /**
-     * @param onResend The function that is called when the resend link/button is clicked
+     * The function that is called when the resend link/button is clicked
      * @returns void
      */
     onResend?: () => void;
 
     /**
-     * @param resendInstructions The text to display ahead of the resend link/button
-     * @returns string
+     * The text to display ahead of the resend link/button
      */
     resendInstructions?: string;
 
     /**
-     * @param resendLabel The text to display for the resend link/button
-     * @returns string
+     * The text to display for the resend link/button
      */
     resendLabel?: string;
 
     /**
-     * @param initialValue The initial value for the code text field
-     * @returns string
+     * The initial value for the code text field
      */
     initialValue?: string;
 
     /**
-     * @param verifyCodeInputLabel The label for the code text field
-     * @returns string
+     * The label for the code text field
      */
     verifyCodeInputLabel?: string;
 
     /**
-     * @param errorDisplayConfig The configuration for customizing how errors are displayed
-     * @returns ErrorManagerProps
+     * The configuration for customizing how errors are displayed
      */
     errorDisplayConfig?: ErrorManagerProps;
 };

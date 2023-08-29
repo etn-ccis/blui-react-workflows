@@ -4,49 +4,46 @@ import { ErrorManagerProps } from '../../components/Error';
 
 export type EulaScreenProps = WorkflowCardProps & {
     /**
-     * @param eulaContent The content to render for the EULA. Can be a plain string or HTML
-     * @returns string | JSX.Element
+     * The content to render for the EULA. Can be a plain string or HTML
      */
     eulaContent?: string | JSX.Element;
 
     /**
-     * @param checkboxLabel The label for the EULA checkbox
-     * @returns string
+     * The label for the EULA checkbox
      */
     checkboxLabel?: string;
 
     /**
-     * @param checkboxProps Used to set checkbox props
-     * @returns CheckboxProps
+     * Used to set checkbox props
      */
     checkboxProps?: CheckboxProps;
 
     /**
-     * @param htmlEula true if the EULA should be rendered as HTML
-     * @returns boolean
+     * The EULA should be rendered as HTML
+     * @default true
      */
     htmlEula?: boolean;
 
     /**
-     * @param initialCheckboxValue Used to pre-populate the checked/unchecked checkbox when the screen loads
-     * @returns boolean
+     * Used to pre-populate the checked/unchecked checkbox when the screen loads
+     * @default false
      */
     initialCheckboxValue?: boolean;
 
     /**
-     * @param onEulaAcceptedChange Called when the checkbox clicked
+     * Function called when the checkbox clicked
+     * @param {boolean} accepted - verify Eula accepted
      * @returns boolean
      */
     onEulaAcceptedChange?: (accepted: boolean) => boolean;
 
     /**
-     * @param errorDisplayConfig The configuration for customizing how errors are displayed
-     * @returns ErrorManagerProps
+     * The configuration for customizing how errors are displayed
      */
     errorDisplayConfig?: ErrorManagerProps;
 
     /**
-     * @param onRefetch TODO Need description what this does
+     * Function to refectch verify code for retry link 
      * @returns void
      */
     onRefetch?: () => void;

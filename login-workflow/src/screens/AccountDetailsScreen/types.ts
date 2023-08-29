@@ -4,62 +4,58 @@ import { ErrorManagerProps } from '../../components/Error';
 
 export type AccountDetailsScreenProps = WorkflowCardProps & {
     /**
-     * @param firstNameLabel The label for the first name text field
-     * @returns string
+     * The label for the first name text field
      */
     firstNameLabel?: string;
 
     /**
-     * @param initialFirstName The initial value for the first name text field
-     * @returns string
+     * The initial value for the first name text field
      */
     initialFirstName?: string;
 
     /**
-     * @param firstNameValidator The function that validates the first name text field
+     * The function that validates the first name text field
+     * @param {string} firstName - validates first name input length
      * @returns boolean | string
      */
     firstNameValidator?: (firstName: string) => boolean | string;
 
     /**
-     * @param firstNameTextFieldProps The props to pass to the first name field
-     * @returns TextFieldProps
+     * The props to pass to the first name field.
+     * See [MUI's TextFieldProps API](https://mui.com/material-ui/api/text-field/) for more details.
      */
     firstNameTextFieldProps?: TextFieldProps;
 
     /**
-     * @param lastNameLabel The label for the last name text field
-     * @returns string
+     * The label for the last name text field
      */
     lastNameLabel?: string;
 
     /**
-     * @param initialLastName The initial value for the last name text field
-     * @returns string
+     * The initial value for the last name text field
      */
     initialLastName?: string;
 
     /**
-     * @param lastNameValidator The function that validates the last name text field
+     * The function that validates the last name text field
+     * @param {string} lastName - validates last name input length
      * @returns boolean | string
      */
     lastNameValidator?: (lastName: string) => boolean | string;
 
     /**
-     * @param lastNameTextFieldProps The props to pass to the last name field
-     * @returns TextFieldProps
+     * The props to pass to the last name field.
+     * See [MUI's TextFieldProps API](https://mui.com/material-ui/api/text-field/) for more details.
      */
     lastNameTextFieldProps?: TextFieldProps;
 
     /**
-     * @param errorDisplayConfig The configuration for customizing how errors are displayed
-     * @returns ErrorManagerProps
+     * The configuration for customizing how errors are displayed
      */
     errorDisplayConfig?: ErrorManagerProps;
 
     /**
-     * @param sx The styles applied to text field
-     * @returns SxProps
+     * The styles applied to text field
      */
     sx?: SxProps;
 };

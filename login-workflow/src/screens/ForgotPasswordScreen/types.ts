@@ -34,14 +34,12 @@ export type ForgotPasswordScreenProps = WorkflowCardProps & {
     canGoNext?: boolean | (() => boolean);
 
     /**
-     * @param emailLabel The label for the email field
-     * @returns string
+     * The label for the email field
      */
     emailLabel?: string;
 
     /**
-     * @param initialEmailValue The initial value for the email text field
-     * @returns string
+     * The initial value for the email text field
      */
     initialEmailValue?: string;
 
@@ -52,30 +50,26 @@ export type ForgotPasswordScreenProps = WorkflowCardProps & {
     emailValidator?: (email: string) => boolean | string;
 
     /**
-     * @param slots Used for ForgotPasswordScreen SuccessScreen
-     * @returns JSX.Element
+     * Used for ForgotPasswordScreen SuccessScreen
      */
     slots?: {
         SuccessScreen?: (props: SuccessScreenProps) => JSX.Element;
     };
 
     /**
-     * @param slotProps Applied to slot from SuccessScreen
-     * @returns SuccessScreenProps
+     * Applied to slot from SuccessScreen
      */
     slotProps?: {
         SuccessScreen?: SuccessScreenProps;
     };
 
     /**
-     * @param showSuccessScreen Used to determine whether to show a success screen after the form is submitted
-     * @returns boolean
+     * Used to determine whether to show a success screen after the form is submitted
      */
     showSuccessScreen?: boolean;
 
     /**
-     * @param errorDisplayConfig The configuration for customizing how errors are displayed
-     * @returns ErrorManagerProps
+     * The configuration for customizing how errors are displayed
      */
     errorDisplayConfig?: ErrorManagerProps;
 };

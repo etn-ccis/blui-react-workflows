@@ -18,6 +18,8 @@ export type ContactScreenProps = WorkflowCardProps & {
 
     /**
      * The content for the email support section
+     * @param {string} email - the email address for contacting support
+     * @returns string | JSX.Element
      */
     emailSupportContent?: (email: string) => string | JSX.Element;
 
@@ -28,6 +30,8 @@ export type ContactScreenProps = WorkflowCardProps & {
 
     /**
      * The content for the phone support section
+     * @param {string} phone - the phone number for contacting support
+     * @returns string | JSX.Element
      */
     phoneSupportContent?: (phone: string) => string | JSX.Element;
 
@@ -47,7 +51,7 @@ export type ContactScreenProps = WorkflowCardProps & {
     dismissButtonLabel?: string;
 
     /**
-     * @param onDismiss The function to call when the dismiss button is clicked
+     * The function to call when the dismiss button is clicked
      * @returns void
      */
     onDismiss?: () => void;

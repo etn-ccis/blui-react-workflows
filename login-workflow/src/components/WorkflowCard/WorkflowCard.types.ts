@@ -21,13 +21,13 @@ export type WorkflowCardBaseProps = BoxProps & {
      * @param backgroundImage To display card background
      * @returns string
      */
-    backgroundImage?: string; // card background
+    backgroundImage?: string;
 
     /**
      * @param error The error state for each workflowCard
      * @returns boolean | string
      */
-    error?: boolean | string; // each screen should have an error state
+    error?: boolean | string;
 };
 
 export type WorkflowCardHeaderProps = CardHeaderProps;

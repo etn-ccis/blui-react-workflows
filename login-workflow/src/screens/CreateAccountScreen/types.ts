@@ -4,32 +4,30 @@ import { ErrorManagerProps } from '../../components/Error';
 
 export type CreateAccountScreenProps = WorkflowCardProps & {
     /**
-     * @param emailLabel The label for the email field
-     * @returns string
+     * The label for the email field
      */
     emailLabel?: string;
 
     /**
-     * @param initialValue The initial value for the email text field
-     * @returns string
+     * The initial value for the email text field
      */
     initialValue?: string;
 
     /**
-     * @param emailValidator The function used to test the input for valid formatting
+     * The function used to test the input for valid formatting
+     * @param {string} email - validate format via EMAIL_REGEX
      * @returns boolean | string
      */
     emailValidator?: (email: string) => boolean | string;
 
     /**
-     * @param emailTextFieldProps The props to pass to the email text field
-     * @returns TextFieldProps
+     * The props to pass to the email text field.
+     * See [MUI's TextFieldProps API](https://mui.com/material-ui/api/text-field/) for more details.
      */
     emailTextFieldProps?: TextFieldProps;
 
     /**
-     * @param errorDisplayConfig The configuration for customizing how errors are displayed
-     * @returns ErrorManagerProps
+     * The configuration for customizing how errors are displayed
      */
     errorDisplayConfig?: ErrorManagerProps;
 };
