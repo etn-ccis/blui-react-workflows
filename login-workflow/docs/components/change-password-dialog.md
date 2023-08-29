@@ -7,7 +7,7 @@ This component provides a form to enter the user's current password and a new pa
 ## Usage
 
 ```tsx
-import { ChangePasswordDialog } from '@brightlayer-ui/react-auth-workflow';
+import { AuthContextProvider, ChangePasswordDialog } from '@brightlayer-ui/react-auth-workflow';
 
 ...
 <AuthContextProvider {...props}>
