@@ -1,5 +1,4 @@
 import React from 'react';
-import { BrowserRouter } from 'react-router-dom';
 import '@testing-library/jest-dom';
 import { cleanup, render, screen, RenderResult, fireEvent } from '@testing-library/react';
 import { EulaScreen } from './EulaScreen';
@@ -28,13 +27,11 @@ describe('Eula Screen', () => {
 
     const renderer = (props?: EulaFullScreenProps): RenderResult =>
         render(
-            <BrowserRouter>
-                <RegistrationContextProvider {...registrationContextProviderProps}>
-                    <RegistrationWorkflow initialScreenIndex={0}>
-                        <EulaScreen {...props} />
-                    </RegistrationWorkflow>
-                </RegistrationContextProvider>
-            </BrowserRouter>
+            <RegistrationContextProvider {...registrationContextProviderProps}>
+                <RegistrationWorkflow initialScreenIndex={0}>
+                    <EulaScreen {...props} />
+                </RegistrationWorkflow>
+            </RegistrationContextProvider>
         );
 
     it('renders without crashing', () => {

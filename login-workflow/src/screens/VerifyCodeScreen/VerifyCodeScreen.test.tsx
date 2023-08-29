@@ -25,13 +25,11 @@ describe('Verify Code Screen', () => {
 
     const renderer = (props?: VerifyCodeScreenProps): RenderResult =>
         render(
-            <BrowserRouter>
-                <RegistrationContextProvider {...registrationContextProviderProps}>
-                    <RegistrationWorkflow initialScreenIndex={0}>
-                        <VerifyCodeScreen {...props} />
-                    </RegistrationWorkflow>
-                </RegistrationContextProvider>
-            </BrowserRouter>
+            <RegistrationContextProvider {...registrationContextProviderProps}>
+                <RegistrationWorkflow initialScreenIndex={0}>
+                    <VerifyCodeScreen {...props} />
+                </RegistrationWorkflow>
+            </RegistrationContextProvider>
         );
 
     it('renders without crashing', () => {
@@ -56,22 +54,20 @@ describe('Verify Code Screen', () => {
 
         // Rerender to ensure state changes have taken effect
         rerender(
-            <BrowserRouter>
-                <RegistrationContextProvider {...registrationContextProviderProps}>
-                    <RegistrationWorkflow initialScreenIndex={0}>
-                        <VerifyCodeScreen
-                            onResend={mockOnResend}
-                            verifyCodeInputLabel="Verify Code"
-                            codeValidator={(code: string): boolean | string => {
-                                if (code?.length > 2) {
-                                    return true;
-                                }
-                                return 'Code must be at least 3 characters';
-                            }}
-                        />
-                    </RegistrationWorkflow>
-                </RegistrationContextProvider>
-            </BrowserRouter>
+            <RegistrationContextProvider {...registrationContextProviderProps}>
+                <RegistrationWorkflow initialScreenIndex={0}>
+                    <VerifyCodeScreen
+                        onResend={mockOnResend}
+                        verifyCodeInputLabel="Verify Code"
+                        codeValidator={(code: string): boolean | string => {
+                            if (code?.length > 2) {
+                                return true;
+                            }
+                            return 'Code must be at least 3 characters';
+                        }}
+                    />
+                </RegistrationWorkflow>
+            </RegistrationContextProvider>
         );
 
         const verifyCodeInput = getByLabelText('Verify Code');
@@ -86,22 +82,20 @@ describe('Verify Code Screen', () => {
 
         // Rerender to ensure state changes have taken effect
         rerender(
-            <BrowserRouter>
-                <RegistrationContextProvider {...registrationContextProviderProps}>
-                    <RegistrationWorkflow initialScreenIndex={0}>
-                        <VerifyCodeScreen
-                            onResend={mockOnResend}
-                            verifyCodeInputLabel="Verify Code"
-                            codeValidator={(code: string): boolean | string => {
-                                if (code?.length > 2) {
-                                    return true;
-                                }
-                                return 'Code must be at least 3 characters';
-                            }}
-                        />
-                    </RegistrationWorkflow>
-                </RegistrationContextProvider>
-            </BrowserRouter>
+            <RegistrationContextProvider {...registrationContextProviderProps}>
+                <RegistrationWorkflow initialScreenIndex={0}>
+                    <VerifyCodeScreen
+                        onResend={mockOnResend}
+                        verifyCodeInputLabel="Verify Code"
+                        codeValidator={(code: string): boolean | string => {
+                            if (code?.length > 2) {
+                                return true;
+                            }
+                            return 'Code must be at least 3 characters';
+                        }}
+                    />
+                </RegistrationWorkflow>
+            </RegistrationContextProvider>
         );
 
         const verifyCodeInput = getByLabelText('Verify Code');
@@ -113,13 +107,11 @@ describe('Verify Code Screen', () => {
 
     it('calls onResend when the resend link is clicked', () => {
         const { getByText } = render(
-            <BrowserRouter>
-                <RegistrationContextProvider {...registrationContextProviderProps}>
-                    <RegistrationWorkflow initialScreenIndex={0}>
-                        <VerifyCodeScreen onResend={mockOnResend} resendLabel="Resend" />
-                    </RegistrationWorkflow>
-                </RegistrationContextProvider>
-            </BrowserRouter>
+            <RegistrationContextProvider {...registrationContextProviderProps}>
+                <RegistrationWorkflow initialScreenIndex={0}>
+                    <VerifyCodeScreen onResend={mockOnResend} resendLabel="Resend" />
+                </RegistrationWorkflow>
+            </RegistrationContextProvider>
         );
 
         const resendLink = getByText('Resend');
@@ -148,17 +140,11 @@ describe('Verify Code Screen', () => {
 
     it('pre-populates the input field with initialValue', () => {
         const { getByLabelText } = render(
-            <BrowserRouter>
-                <RegistrationContextProvider {...registrationContextProviderProps}>
-                    <RegistrationWorkflow initialScreenIndex={0}>
-                        <VerifyCodeScreen
-                            onResend={mockOnResend}
-                            initialValue="123"
-                            verifyCodeInputLabel="Verify Code"
-                        />
-                    </RegistrationWorkflow>
-                </RegistrationContextProvider>
-            </BrowserRouter>
+            <RegistrationContextProvider {...registrationContextProviderProps}>
+                <RegistrationWorkflow initialScreenIndex={0}>
+                    <VerifyCodeScreen onResend={mockOnResend} initialValue="123" verifyCodeInputLabel="Verify Code" />
+                </RegistrationWorkflow>
+            </RegistrationContextProvider>
         );
 
         const verifyCodeInput = getByLabelText('Verify Code');
@@ -167,19 +153,17 @@ describe('Verify Code Screen', () => {
 
     it('displays title, instructions, resendInstructions, and resendLabel correctly', () => {
         const { getByText } = render(
-            <BrowserRouter>
-                <RegistrationContextProvider {...registrationContextProviderProps}>
-                    <RegistrationWorkflow initialScreenIndex={0}>
-                        <VerifyCodeScreen
-                            onResend={mockOnResend}
-                            WorkflowCardHeaderProps={{ title: 'Title' }}
-                            WorkflowCardInstructionProps={{ instructions: 'Instructions' }}
-                            resendInstructions="Resend Instructions"
-                            resendLabel="Resend"
-                        />
-                    </RegistrationWorkflow>
-                </RegistrationContextProvider>
-            </BrowserRouter>
+            <RegistrationContextProvider {...registrationContextProviderProps}>
+                <RegistrationWorkflow initialScreenIndex={0}>
+                    <VerifyCodeScreen
+                        onResend={mockOnResend}
+                        WorkflowCardHeaderProps={{ title: 'Title' }}
+                        WorkflowCardInstructionProps={{ instructions: 'Instructions' }}
+                        resendInstructions="Resend Instructions"
+                        resendLabel="Resend"
+                    />
+                </RegistrationWorkflow>
+            </RegistrationContextProvider>
         );
 
         expect(getByText('Title')).toBeInTheDocument();
