@@ -1,5 +1,4 @@
-import React, { cloneElement, useEffect, useState } from 'react';
-import { useNavigate } from 'react-router';
+import React, { useEffect, useState } from 'react';
 import { IndividualScreenData, RegistrationWorkflowContextProvider, useRegistrationContext } from '../../contexts';
 import {
     AccountDetailsScreen,
@@ -32,52 +31,34 @@ export type RegistrationWorkflowProps = {
 
 export const RegistrationWorkflow: React.FC<React.PropsWithChildren<RegistrationWorkflowProps>> = (props) => {
     const [isAccountExist, setIsAccountExist] = useState(false);
-    const navigate = useNavigate();
 
     const {
         initialScreenIndex = 0,
         successScreen = <RegistrationSuccessScreen />,
         existingAccountSuccessScreen = <ExistingAccountSuccessScreen />,
         isInviteRegistration = false,
-        children,
-    } = props;
-
-    let screens;
-
-    if (children) {
-        screens = [...(Array.isArray(children) ? children : [children])];
-        const overrideElement = cloneElement(screens[0], {
-            WorkflowCardActionsProps: {
-                onPrevious: () => {
-                    navigate(-1);
-                },
-            },
-        });
-        screens[0] = overrideElement;
-    } else {
-        const defaultChildren = isInviteRegistration
+        children = isInviteRegistration
             ? [
-                  <EulaScreen key="EulaScreen" WorkflowCardActionsProps={{ onPrevious: () => navigate(-1) }} />,
+                  <EulaScreen key="EulaScreen" />,
                   <CreatePasswordScreen key="CreatePasswordScreen" />,
                   <AccountDetailsScreen key="AccountDetailsScreen" />,
               ]
             : [
-                  <EulaScreen key="EulaScreen" WorkflowCardActionsProps={{ onPrevious: () => navigate(-1) }} />,
+                  <EulaScreen key="EulaScreen" />,
                   <CreateAccountScreen key="CreateAccountScreen" />,
                   <VerifyCodeScreen key="VerifyCodeScreen" />,
                   <CreatePasswordScreen key="CreatePasswordScreen" />,
                   <AccountDetailsScreen key="AccountDetailsScreen" />,
-              ];
+              ],
+    } = props;
 
-        screens = defaultChildren;
-    }
-
+    const screens = [...(Array.isArray(children) ? children : [children])];
     const totalScreens = screens.length;
     const [currentScreen, setCurrentScreen] = useState(
         initialScreenIndex < 0 ? 0 : initialScreenIndex > totalScreens - 1 ? totalScreens - 1 : initialScreenIndex
     );
     const [showSuccessScreen, setShowSuccessScreen] = useState(false);
-    const { actions } = useRegistrationContext();
+    const { actions, navigate } = useRegistrationContext();
 
     const [screenData, setScreenData] = useState({
         Eula: {
@@ -165,6 +146,9 @@ export const RegistrationWorkflow: React.FC<React.PropsWithChildren<Registration
             }}
             previousScreen={(data): void => {
                 updateScreenData(data);
+                if (currentScreen === 0) {
+                    navigate(-1);
+                }
                 setCurrentScreen((i) => i - 1);
             }}
             screenData={screenData}
