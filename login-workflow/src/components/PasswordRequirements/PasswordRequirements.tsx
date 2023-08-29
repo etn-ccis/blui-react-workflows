@@ -8,20 +8,18 @@ import { defaultPasswordRequirements } from '../../constants';
 
 export type PasswordRequirementsProps = HTMLAttributes<HTMLDivElement> & {
     /**
-     * @param passwordText The string to conduct the complexity checks against
-     * @returns string
+     * The string to conduct the complexity checks against
      */
     passwordText: string;
 
     /**
-     * @param passwordRequirements Optional requirements to set password
-     * @returns PasswordRequirement array
+     * Optional requirements to set password
+     * TODO anything for array?
      */
     passwordRequirements?: PasswordRequirement[];
 
     /**
-     * @param sx The styles passed to the underlying root component
-     * @returns string
+     * The styles passed to the underlying root component
      */
     sx?: SxProps<Theme>;
 };

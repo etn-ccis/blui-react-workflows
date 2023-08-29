@@ -8,11 +8,24 @@ export type AuthError = { cause: { title: string; errorMessage: string } };
 
 export type ErrorManagerProps = {
     /**
-     * The mode for customizing how errors are displayed
+     * Determines whether to display a dialog, a message box, or neither
      */
     mode?: 'dialog' | 'message-box' | 'none';
+
+    /**
+     * The function to call when the close/dismiss button is clicked
+     * @returns void
+     */
     onClose?: () => void;
+
+    /**
+     * The error text to display
+     */
     error?: string;
+
+    /**
+     * TODO dialog config & messageBox config
+     */
     dialogConfig?: {
         title?: string;
         dismissLabel?: string;

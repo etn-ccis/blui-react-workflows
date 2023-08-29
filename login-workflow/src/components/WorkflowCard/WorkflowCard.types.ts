@@ -4,28 +4,24 @@ import { CardProps } from '@mui/material/Card';
 
 export type ErrorStateProps = TypographyProps & {
     /**
-     * @param message The text to display for error
-     * @returns string
+     * The text to display for error
      */
     message?: string;
 };
 
 export type WorkflowCardBaseProps = BoxProps & {
     /**
-     * @param loading Boolean value for isLoading
-     * @returns boolean
+     * Boolean value for isLoading
      */
     loading?: boolean;
 
     /**
-     * @param backgroundImage To display card background
-     * @returns string
+     * To display card background
      */
     backgroundImage?: string;
 
     /**
-     * @param error The error state for each workflowCard
-     * @returns boolean | string
+     * The error state for each workflowCard
      */
     error?: boolean | string;
 };
@@ -34,14 +30,12 @@ export type WorkflowCardHeaderProps = CardHeaderProps;
 
 export type WorkflowCardInstructionProps = TypographyProps & {
     /**
-     * @param instructions The text to display as instructions
-     * @returns string | JSX.Element
+     * The text to display as instructions
      */
     instructions?: string | JSX.Element;
 
     /**
-     * @param divider Whether or not to show a divider below the instructions
-     * @returns boolean
+     * Whether or not to show a divider below the instructions
      */
     divider?: boolean;
 };
@@ -50,74 +44,66 @@ export type WorkflowCardInstructionProps = TypographyProps & {
 
 export type WorkflowCardActionsProps = CardActionsProps & {
     /**
-     * @param divider Boolean value to display a divider above workflow card action buttons
-     * @returns boolean
+     * Boolean value to display a divider above workflow card action buttons
      */
     divider?: boolean;
 
     /**
-     * @param canGoNext Boolean or function that indicates whether the next button should be enabled
-     * @returns boolean
+     * Boolean or function that indicates whether the next button should be enabled
      */
     canGoNext?: boolean | (() => boolean);
 
     /**
-     * @param canGoPrevious Boolean or function that indicates whether the previous button should be enabled
-     * @returns boolean
+     * Boolean or function that indicates whether the previous button should be enabled
      */
     canGoPrevious?: boolean | (() => boolean);
 
     /**
-     * @param showPrevious Boolean that indicates whether the previous button should be displayed
-     * @returns boolean
+     * Boolean that indicates whether the previous button should be displayed
      */
     showPrevious?: boolean;
 
     /**
-     * @param showNext Boolean that indicates whether the next button should be displayed
-     * @returns boolean
+     * Boolean that indicates whether the next button should be displayed
      */
     showNext?: boolean;
 
     /**
-     * @param previousLabel The label to display for the previous button
-     * @returns string
+     * The label to display for the previous button
      */
     previousLabel?: string;
 
     /**
-     * @param nextLabel The label to display for the next button
-     * @returns string
+     * The label to display for the next button
      */
     nextLabel?: string;
 
     /**
-     * @param onPrevious Function called when the previous button is clicked
+     * Function called when the previous button is clicked
+     * @param {string} key TODO here data?
      * @returns void
      */
     onPrevious?: (data?: { [key: string]: any }) => void;
 
     /**
-     * @param onNext Function that is called when the next button is clicked
+     * Function that is called when the next button is clicked
+     * @param {string} key TODO here data?
      * @returns void
      */
     onNext?: (data?: { [key: string]: any }) => void;
 
     /**
-     * @param currentStep The current step in the registration workflow
-     * @returns number
+     * The current step in the registration workflow
      */
     currentStep?: number;
 
     /**
-     * @param totalSteps The total number of steps in the registration workflow
-     * @returns number
+     * The total number of steps in the registration workflow
      */
     totalSteps?: number;
 
     /**
-     * @param fullWidthButton Boolean that indicates whether a button should be full width
-     * @returns boolean
+     * Boolean that indicates whether a button should be full width
      */
     fullWidthButton?: boolean;
 };

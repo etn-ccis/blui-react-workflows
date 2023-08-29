@@ -6,38 +6,34 @@ import Typography from '@mui/material/Typography';
 import * as Colors from '@brightlayer-ui/colors';
 export type ErrorMessageBoxProps = {
     /**
-     * @param errorMessage The text to show in the title
-     * @returns string
+     * The text to show in the title
      */
     errorMessage: string;
 
     /**
-     * @param backgroundColor The background color of the message box
-     * @returns string
+     * The background color of the message box
      */
     backgroundColor?: string;
 
     /**
-     * @param dismissible Whether the message box can be dismissed
-     * @returns boolean
+     * Boolean whether the message box can be dismissed
+     * @default true
      */
     dismissible?: boolean;
 
     /**
-     * @param fontColor The font color of the text inside the message box
-     * @returns string
+     * The font color of the text inside the message box
      */
     fontColor?: string;
 
     /**
-     * @param onClose The function to call when the close button is clicked
+     * The function to call when the close button is clicked
      * @returns void
      */
     onClose?: () => void;
 
     /**
-     * @param sx Styles passed to the underlying root component
-     * @returns SxProps
+     * Styles passed to the underlying root component
      */
     sx?: SxProps;
 };

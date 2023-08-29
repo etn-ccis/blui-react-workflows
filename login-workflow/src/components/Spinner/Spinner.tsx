@@ -5,8 +5,7 @@ import Box, { BoxProps } from '@mui/material/Box';
 
 export type SpinnerProps = BoxProps & {
     /**
-     * @param visible True if the spinner should be displayed, false to render nothing
-     * @returns boolean
+     * True if the spinner should be displayed, false to render nothing
      */
     visible?: boolean;
 };

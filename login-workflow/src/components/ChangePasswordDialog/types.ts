@@ -6,68 +6,61 @@ export type ChangePasswordDialogProps = DialogProps & { PasswordProps?: SetPassw
     ErrorDialogProps?: BasicDialogProps;
 } & {
     /**
-     * @param dialogTitle The title to display in the dialog
-     * @returns string
+     * The title to display in the dialog
      */
     dialogTitle?: string;
 
     /**
-     * @param dialogDescription The description to display in the dialog
-     * @returns string
+     * The description to display in the dialog
      */
     dialogDescription?: string;
 
     /**
-     * @param currentPasswordLabel The label to display for the current password field
-     * @returns string
+     * The label to display for the current password field
      */
     currentPasswordLabel?: string;
 
     /**
-     * @param previousLabel The label to display for the previous button
-     * @returns string
+     * The label to display for the previous button
      */
     previousLabel?: string;
 
     /**
-     * @param nextLabel The label to display for the next button
-     * @returns string
+     * The label to display for the next button
      */
     nextLabel?: string;
 
     /**
-     * @param currentPasswordChange Called when the current password field changes
+     * Function called when the current password field changes
+     * @param {string} currentPassword - check if password field changed
      * @returns void
      */
     currentPasswordChange?: (currentPassword: string) => void;
 
     /**
-     * @param enableButton Boolean to enable and disable the button
-     * @returns boolean
+     * Boolean to enable and disable the button
      */
     enableButton?: boolean | (() => boolean);
 
     /**
-     * @param onSubmit Callback function to call when the form is submitted
+     * Callback function to call when the form is submitted
      * @returns void
      */
     onSubmit?: () => void;
 
     /**
-     * @param onPrevious Called when the previous button is clicked
+     * Function called when the previous button is clicked
      * @returns void
      */
     onPrevious?: () => void;
 
     /**
-     * @param sx The styles passed to the underlying root component
-     * @returns SxProps
+     * The styles passed to the underlying root component
      */
     sx?: SxProps;
 
     /**
-     * @param loading Boolean that indicates whether the loading spinner should be displayed
-     * @returns boolean
+     * Boolean that indicates whether the loading spinner should be displayed
      */
     loading?: boolean;
 };
