@@ -104,8 +104,8 @@ export const RegistrationWorkflow: React.FC<React.PropsWithChildren<Registration
     };
 
     const finishRegistration = (data: IndividualScreenData): Promise<void> => {
-        if (actions && actions().completeRegistration)
-            return actions()
+        if (actions && actions.completeRegistration)
+            return actions
                 .completeRegistration(data.values, screenData.VerifyCode.code, screenData.CreateAccount.emailAddress)
                 .then(({ email, organizationName }) => {
                     updateScreenData({

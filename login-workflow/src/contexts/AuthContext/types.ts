@@ -8,7 +8,7 @@ import { RouteConfig } from '../../types';
 import { ErrorContextProviderProps } from '../ErrorContext/types';
 
 export type AuthContextProviderProps = {
-    actions: () => AuthUIActions;
+    actions: AuthUIActions;
     language: string;
     navigate: (url: string) => void;
     routeConfig: RouteConfig;

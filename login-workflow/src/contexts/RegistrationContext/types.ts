@@ -34,7 +34,7 @@ export type RegistrationUIActions = {
 };
 
 export type RegistrationContextProviderProps = {
-    actions?: () => RegistrationUIActions;
+    actions?: RegistrationUIActions;
     language: string;
     navigate: (url: string) => void;
     routeConfig: RouteConfig;

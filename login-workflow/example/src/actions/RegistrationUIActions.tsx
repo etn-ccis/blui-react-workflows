@@ -76,9 +76,9 @@ export const ProjectRegistrationUIActions: () => RegistrationUIActions = () => (
 
     setAccountDetails: async (details: AccountDetails): Promise<boolean> => {
         await sleep(800);
-        if (isRandomFailure()) {
-            throw new Error('Sorry, there was a problem sending your request.');
-        }
+        // if (isRandomFailure()) {
+        //     throw new Error('Sorry, there was a problem sending your request.');
+        // }
         return true;
     },
 

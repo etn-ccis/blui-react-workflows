@@ -121,7 +121,7 @@ describe('Forgot Password Screen tests', () => {
 
     it('should show success screen, when next button is clicked', async () => {
         const props = { ...authContextProps };
-        props.actions().forgotPassword = async (email: string): Promise<void> => {
+        props.actions.forgotPassword = async (email: string): Promise<void> => {
             await sleep(800);
             throw new Error('Error');
         };
@@ -148,7 +148,7 @@ describe('Forgot Password Screen tests', () => {
 
     it('should not show success screen, when showSuccessScreen is false', () => {
         const props = { ...authContextProps };
-        props.actions().forgotPassword = async (email: string): Promise<void> => {
+        props.actions.forgotPassword = async (email: string): Promise<void> => {
             await sleep(800);
             throw new Error('Error');
         };
@@ -175,7 +175,7 @@ describe('Forgot Password Screen tests', () => {
 
     it('should show custom success screen, when passed in slots', async () => {
         const props = { ...authContextProps };
-        props.actions().forgotPassword = async (email: string): Promise<void> => {
+        props.actions.forgotPassword = async (email: string): Promise<void> => {
             await sleep(800);
             throw new Error('Error');
         };

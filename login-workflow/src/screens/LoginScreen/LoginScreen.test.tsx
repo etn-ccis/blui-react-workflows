@@ -4,13 +4,14 @@ import '@testing-library/jest-dom';
 import { LoginScreen } from './LoginScreen';
 import { AuthContextProvider } from '../../contexts';
 import { ProjectAuthUIActions } from './AuthUIActions';
+import { authContextProviderProps } from '../../testUtils';
 
 afterEach(cleanup);
 
 describe('LoginScreen', () => {
     it('renders without crashing', () => {
         render(
-            <AuthContextProvider actions={ProjectAuthUIActions} language="en" navigate={jest.fn()} routeConfig={{}}>
+            <AuthContextProvider actions={ProjectAuthUIActions()} language="en" navigate={jest.fn()} routeConfig={{}}>
                 <LoginScreen
                     loginButtonLabel="Login"
                     forgotPasswordLabel="forgot password?"
@@ -29,7 +30,7 @@ describe('LoginScreen', () => {
     it('Login is disabled when the form is invalid', () => {
         const onLogin = jest.fn();
         render(
-            <AuthContextProvider actions={ProjectAuthUIActions} language="en" navigate={jest.fn()} routeConfig={{}}>
+            <AuthContextProvider actions={ProjectAuthUIActions()} language="en" navigate={jest.fn()} routeConfig={{}}>
                 <LoginScreen
                     onLogin={onLogin}
                     passwordLabel={'password'}
@@ -49,7 +50,7 @@ describe('LoginScreen', () => {
     it('calls onForgotPassword when the forgot password link is clicked', () => {
         const onForgotPassword = jest.fn();
         render(
-            <AuthContextProvider actions={ProjectAuthUIActions} language="en" navigate={jest.fn()} routeConfig={{}}>
+            <AuthContextProvider {...authContextProviderProps}>
                 <LoginScreen onForgotPassword={onForgotPassword} forgotPasswordLabel="forgot password?" />
             </AuthContextProvider>
         );
@@ -60,7 +61,7 @@ describe('LoginScreen', () => {
     it('calls onSelfRegister when the sign up link is clicked', () => {
         const onSelfRegister = jest.fn();
         render(
-            <AuthContextProvider actions={ProjectAuthUIActions} language="en" navigate={jest.fn()} routeConfig={{}}>
+            <AuthContextProvider {...authContextProviderProps}>
                 <LoginScreen onSelfRegister={onSelfRegister} selfRegisterButtonLabel="register" />
             </AuthContextProvider>
         );
@@ -71,7 +72,7 @@ describe('LoginScreen', () => {
     it('calls onContactSupport when the contact support link is clicked', () => {
         const onContactSupport = jest.fn();
         render(
-            <AuthContextProvider actions={ProjectAuthUIActions} language="en" navigate={jest.fn()} routeConfig={{}}>
+            <AuthContextProvider {...authContextProviderProps}>
                 <LoginScreen onContactSupport={onContactSupport} contactSupportLabel="contact" />
             </AuthContextProvider>
         );
