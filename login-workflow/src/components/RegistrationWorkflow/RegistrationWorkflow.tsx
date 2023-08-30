@@ -40,7 +40,7 @@ export type RegistrationWorkflowProps = {
     isInviteRegistration?: boolean;
 
     /**
-     * Component that displays the success screen
+     * Component to display for the success screen if the account already exists.
      */
     existingAccountSuccessScreen?: JSX.Element;
 };
