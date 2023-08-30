@@ -43,7 +43,7 @@ export type WorkflowCardInstructionProps = TypographyProps & {
 
 export type WorkflowCardActionsProps = CardActionsProps & {
     /**
-     * Boolean value to display a divider above workflow card action buttons
+     * True to display a divider above workflow card action buttons
      */
     divider?: boolean;
 
