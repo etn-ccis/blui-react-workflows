@@ -51,7 +51,6 @@ export type SetPasswordProps = {
 
     /**
      * The ref to forward to the password input
-     * TODO for object
      */
     passwordRef?: MutableRefObject<any>;
 
