@@ -69,7 +69,7 @@ export type RegistrationUIActions = {
 export type RegistrationContextProviderProps = {
     /**
      * An object of functions that are used to manage the authentication workflow
-     * @object RegistrationUIActions
+     * @returns RegistrationUIActions
      */
     actions?: () => RegistrationUIActions;
 
