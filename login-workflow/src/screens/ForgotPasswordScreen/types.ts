@@ -46,7 +46,8 @@ export type ForgotPasswordScreenProps = WorkflowCardProps & {
     initialEmailValue?: string;
 
     /**
-     * @param emailValidator The function used to test the input for valid formatting
+     * A function used to test the input for valid formatting
+     * @param {string} email - the provided email address
      * @returns boolean | string
      */
     emailValidator?: (email: string) => boolean | string;
