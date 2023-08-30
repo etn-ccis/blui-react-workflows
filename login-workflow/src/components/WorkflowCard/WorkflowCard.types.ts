@@ -10,7 +10,7 @@ export type ErrorStateProps = TypographyProps & {
 
 export type WorkflowCardBaseProps = BoxProps & {
     /**
-     * Boolean value for isLoading
+     * If true, a blocking progress spinner will be displayed over the card
      */
     loading?: boolean;
 
