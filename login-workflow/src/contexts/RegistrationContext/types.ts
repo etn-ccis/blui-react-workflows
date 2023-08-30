@@ -1,5 +1,6 @@
 import { i18n } from 'i18next';
 import { ErrorContextProviderProps } from '../ErrorContext';
+import { RouteConfig } from '../../types';
 
 export type AccountDetails = {
     firstName: string;
@@ -7,18 +8,10 @@ export type AccountDetails = {
     extra?: { [key: string]: boolean | string | number };
 };
 
-export type RouteConfig = {
-    LOGIN?: string;
-    FORGOT_PASSWORD?: string;
-    RESET_PASSWORD?: string;
-    REGISTER_INVITE?: string;
-    REGISTER_SELF?: string;
-    SUPPORT?: string;
-};
-
+// this should be updated to add new actions for greater control
 export type RegistrationUIActions = {
     loadEula?: (language: string) => Promise<string>;
-    acceptEula?: () => Promise<boolean>;
+    acceptEula?: () => Promise<void>;
     requestRegistrationCode?: (email: string) => Promise<string>;
     validateUserRegistrationRequest?: (validationCode: string, validationEmail?: string) => Promise<boolean>;
     createPassword?: (password: string) => Promise<boolean>;

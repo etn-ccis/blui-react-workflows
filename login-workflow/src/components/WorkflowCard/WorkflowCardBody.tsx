@@ -1,6 +1,14 @@
 import React from 'react';
 import CardContent, { CardContentProps } from '@mui/material/CardContent';
 
+/**
+ * Component that renders the body content for the workflow card.
+ *
+ * @param children content to render in the WorkflowCardBody
+ *
+ * @category Component
+ */
+
 export const WorkflowCardBody: React.FC<CardContentProps> = (props) => {
     const { children, sx, ...otherCardContentProps } = props;
 

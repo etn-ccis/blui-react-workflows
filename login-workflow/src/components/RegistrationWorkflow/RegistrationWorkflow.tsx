@@ -13,6 +13,17 @@ import { parseQueryString } from '../../utils';
 import { useErrorManager } from '../../contexts/ErrorContext/useErrorManager';
 import ErrorManager, { ErrorManagerProps } from '../Error/ErrorManager';
 
+/**
+ * Component that contain the registration workflow and index of screens.
+ *
+ * @param initialScreenIndex initial screen index to start the registration workflow from
+ * @param successScreen success screen to display upon successful registration
+ * @param isInviteRegistration boolean when true verifies validateUserRegistrationRequest for verifyCode
+ * @param existingAccountSuccessScreen component that displays the success screen
+ *
+ * @category Component
+ */
+
 export type RegistrationWorkflowProps = {
     initialScreenIndex?: number;
     successScreen?: JSX.Element;
@@ -105,6 +116,7 @@ export const RegistrationWorkflow: React.FC<React.PropsWithChildren<Registration
 
     const finishRegistration = (data: IndividualScreenData): Promise<void> => {
         if (actions && actions().completeRegistration)
+            // TODO: THIS LOOKS BROKEN — ARE WE ONLY PASSING THE DATA FROM THE LAST SCREEN OF THE WORKFLOW???
             return actions()
                 .completeRegistration(data.values, screenData.VerifyCode.code, screenData.CreateAccount.emailAddress)
                 .then(({ email, organizationName }) => {

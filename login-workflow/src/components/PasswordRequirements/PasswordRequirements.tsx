@@ -15,6 +15,7 @@ export type PasswordRequirementsProps = BoxProps & {
  *
  * @param passwordText The string to conduct the complexity checks against
  * @param passwordRequirements Optional requirements to set password
+ * @param sx styles passed to the underlying root component
  *
  * @category Component
  */

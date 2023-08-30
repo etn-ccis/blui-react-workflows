@@ -51,12 +51,11 @@ export const ProjectRegistrationUIActions: () => RegistrationUIActions = () => (
      *
      * @returns Resolve when the server accepted the request.
      */
-    acceptEula: async (): Promise<boolean> => {
+    acceptEula: async (): Promise<void> => {
         await sleep(800);
         if (isRandomFailure()) {
             throw new Error('Sorry, there was a problem sending your request.');
         }
-        return true;
     },
 
     requestRegistrationCode: async (email: string): Promise<string> => {

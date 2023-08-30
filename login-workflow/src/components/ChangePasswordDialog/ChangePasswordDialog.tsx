@@ -5,16 +5,45 @@ import { useLanguageLocale } from '../../hooks';
 import { ChangePasswordDialogBase } from './ChangePasswordDialogBase';
 import { ChangePasswordDialogProps } from './types';
 
+/**
+ * Component that renders a dialog with textField to enter current password and a change password form with a new password and confirm password inputs.
+ * It includes callbacks so you can respond to changes in the inputs.
+ *
+ * @param dialogTitle title to display in the dialog
+ * @param dialogDescription description to display in the dialog
+ * @param currentPasswordLabel label to display for the current password field
+ * @param previousLabel label to display for the previous button
+ * @param nextLabel label to display for the next button
+ * @param currentPasswordChange called when the current password field changes
+ * @param enableButton boolean to enable and disable the button
+ * @param onSubmit Callback function to call when the form is submitted
+ *
+ * @category Component
+ */
+
 export const ChangePasswordDialog: React.FC<ChangePasswordDialogProps> = (props) => {
     const { t } = useLanguageLocale();
     const passwordRef = useRef(null);
     const confirmRef = useRef(null);
+    const [currentInput, setCurrentInput] = useState('');
     const [passwordInput, setPasswordInput] = useState('');
     const [confirmInput, setConfirmInput] = useState('');
-    const [currentInput, setCurrentInput] = useState('');
     const [showErrorDialog, setShowErrorDialog] = useState(false);
     const [isLoading, setIsLoading] = useState(false);
     const { actions, navigate, routeConfig } = useAuthContext();
+
+    const {
+        open,
+        dialogTitle = t('bluiAuth:CHANGE_PASSWORD.PASSWORD'),
+        dialogDescription = t('bluiAuth:CHANGE_PASSWORD.PASSWORD_INFO'),
+        currentPasswordLabel = t('bluiCommon:LABELS.CURRENT_PASSWORD'),
+        previousLabel = t('bluiCommon:ACTIONS.BACK'),
+        nextLabel = t('bluiCommon:ACTIONS.OKAY'),
+        onPrevious,
+        onSubmit,
+        PasswordProps,
+        ErrorDialogProps,
+    } = props;
 
     const passwordRequirements = defaultPasswordRequirements(t);
 
@@ -34,25 +63,14 @@ export const ChangePasswordDialog: React.FC<ChangePasswordDialogProps> = (props)
             try {
                 setIsLoading(true);
                 await actions().changePassword(currentInput, passwordInput);
+                onSubmit();
             } catch {
                 setShowErrorDialog(true);
             } finally {
                 setIsLoading(false);
             }
         }
-    }, [checkPasswords, currentInput, passwordInput, actions, setIsLoading, setShowErrorDialog]);
-
-    const {
-        open,
-        dialogTitle = t('bluiAuth:CHANGE_PASSWORD.PASSWORD'),
-        dialogDescription = t('bluiAuth:CHANGE_PASSWORD.PASSWORD_INFO'),
-        currentPasswordLabel = t('bluiCommon:LABELS.CURRENT_PASSWORD'),
-        previousLabel = t('bluiCommon:ACTIONS.BACK'),
-        nextLabel = t('bluiCommon:ACTIONS.OKAY'),
-        onPrevious = (): void => navigate('/'),
-        PasswordProps,
-        ErrorDialogProps,
-    } = props;
+    }, [checkPasswords, currentInput, passwordInput, actions, setIsLoading, setShowErrorDialog, onSubmit]);
 
     const passwordProps = {
         newPasswordLabel: t('bluiAuth:CHANGE_PASSWORD.NEW_PASSWORD'),

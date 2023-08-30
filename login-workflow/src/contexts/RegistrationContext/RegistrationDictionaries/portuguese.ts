@@ -21,12 +21,14 @@ const resources: RegistrationLanguageFile = {
                     'Por favor selecione uma palavra-passe. Certifique-se de que sua senha atenda aos requisitos de complexidade necessários descritos abaixo.',
             },
             SUCCESS_MESSAGE:
-                'A sua conta foi criada corretamente com o e-mail <b>{{email}}</b>.\n\nA sua conta já foi adicionada à organização <b>{{organization}}</b>.\n\nClique em continuar para concluir.',
+                'A sua conta foi criada corretamente com o e-mail <b>{{email}}</b>.\n\nA sua conta já foi adicionada à organização <b>{{organization}}</b>.',
             SUCCESS_MESSAGE_ALT:
-                'A sua conta foi criada corretamente com o e-mail <1>{{email}}</1>.\n\nA sua conta já foi adicionada à organização <3>{{organization}}</3>.\n\nClique em continuar para concluir.',
+                'A sua conta foi criada corretamente com o e-mail <1>{{email}}</1>.\n\nA sua conta já foi adicionada à organização <3>{{organization}}</3>.',
+            SUCCESS_MESSAGE_ALT_WITHOUT_EMAIL_PROVIDED:
+                'A Sua conta foi criada com sucesso.\n\nA sua conta já foi adicionada à organização <3>{{organization}}</3>.',
             SUCCESS_EXISTING:
                 'A sua conta foi criada corretamente. Por favor inicie sessão com o e-mail e palavra-passe da sua conta Eaton.',
-            FAILURE_MESSAGE: 'Foi impossível concluir o seu registo. Clique em continuar para concluir.',
+            FAILURE_MESSAGE: 'Foi impossível concluir o seu registo.',
             UNKNOWN_EMAIL: 'E-mail desconhecido',
             UNKNOWN_ORGANIZATION: 'Organização desconhecida',
         },

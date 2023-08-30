@@ -5,6 +5,24 @@ import { useLanguageLocale } from '../../hooks';
 import { useRegistrationContext, useRegistrationWorkflowContext } from '../../contexts';
 import { useErrorManager } from '../../contexts/ErrorContext/useErrorManager';
 
+/**
+ * Component that renders a screen displaying the EULA and requests acceptance via a checkbox.
+ *
+ * @param eulaContent the content to render for the EULA. Can be a plain string or HTML
+ * @param html true if the EULA should be rendered as HTML
+ * @param checkboxLabel label for the EULA checkbox
+ * @param initialCheckboxValue used to pre-populate the checked/unchecked checkbox when the screen loads
+ * @param checkboxProps used to set checkbox props
+ * @param onEulaAcceptedChange used to test eula checkbox accepted
+ * @param WorkflowCardBaseProps props that will be passed to the WorkflowCard component
+ * @param WorkflowCardHeaderProps props that will be passed to the WorkflowCardHeader component
+ * @param WorkflowCardInstructionProps props that will be passed to the WorkflowCardInstructions component
+ * @param WorkflowCardActionsProps props that will be passed to the WorkflowCardActions component
+ * @param errorDisplayConfig configuration for customizing how errors are displayed
+ *
+ * @category Component
+ */
+
 export const EulaScreen: React.FC<EulaScreenProps> = (props) => {
     const { t } = useLanguageLocale();
     const { actions, navigate, routeConfig, language } = useRegistrationContext();
@@ -18,7 +36,7 @@ export const EulaScreen: React.FC<EulaScreenProps> = (props) => {
         onEulaAcceptedChange = (accepted: boolean): boolean => accepted,
         eulaContent,
         checkboxLabel = t('bluiRegistration:REGISTRATION.EULA.AGREE_TERMS'),
-        htmlEula,
+        html,
         initialCheckboxValue,
     } = props;
     const [eulaAccepted, setEulaAccepted] = useState(
@@ -53,8 +71,8 @@ export const EulaScreen: React.FC<EulaScreenProps> = (props) => {
     const onNext = useCallback(async (): Promise<void> => {
         setIsLoading(true);
         try {
-            const acceptedEula = await actions()?.acceptEula?.();
-            setEulaAccepted(acceptedEula);
+            await actions()?.acceptEula?.();
+            setEulaAccepted(true);
             let isAccExist;
             if (isInviteRegistration) {
                 isAccExist = await actions().validateUserRegistrationRequest(
@@ -64,7 +82,7 @@ export const EulaScreen: React.FC<EulaScreenProps> = (props) => {
             }
             void nextScreen({
                 screenId: 'Eula',
-                values: { accepted: acceptedEula },
+                values: { accepted: true },
                 isAccountExist: isAccExist,
             });
         } catch (_error) {
@@ -76,21 +94,19 @@ export const EulaScreen: React.FC<EulaScreenProps> = (props) => {
         }
     }, [actions, nextScreen, triggerError, isInviteRegistration, screenData]);
 
-    const onPrevious = useCallback(async (): Promise<void> => {
+    const onPrevious = useCallback((): void => {
         setIsLoading(true);
         try {
-            const acceptedEula = await actions().acceptEula();
-            setEulaAccepted(acceptedEula);
             previousScreen({
                 screenId: 'Eula',
-                values: { accepted: acceptedEula },
+                values: { accepted: eulaAccepted },
             });
         } catch (_error) {
             triggerError(_error as Error);
         } finally {
             setIsLoading(false);
         }
-    }, [actions, previousScreen, triggerError]);
+    }, [previousScreen, triggerError, eulaAccepted]);
 
     useEffect(() => {
         void loadAndCacheEula();
@@ -139,7 +155,7 @@ export const EulaScreen: React.FC<EulaScreenProps> = (props) => {
             }}
             checkboxLabel={checkboxLabel}
             checkboxProps={checkboxProps}
-            htmlEula={htmlEula}
+            html={html}
             initialCheckboxValue={eulaAccepted}
             onEulaAcceptedChange={onEulaAcceptedChange}
             WorkflowCardActionsProps={workflowCardActionsProps}
