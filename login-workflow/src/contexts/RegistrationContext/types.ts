@@ -41,7 +41,7 @@ export type RegistrationUIActions = {
 
     /**
      * A function that is used to create a password. This function will be called when the user clicks the Next button on the Create Password screen
-     * @param {string} password - validates password input
+     * @param {string} password - the provided password
      * @returns Promise<boolean>
      */
     createPassword?: (password: string) => Promise<boolean>;
