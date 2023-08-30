@@ -30,9 +30,18 @@ npm install --save @brightlayer-ui/react-auth-workflow
 yarn add @brightlayer-ui/react-auth-workflow
 ```
 
-# Integration
+### Peer Dependencies
+This package also has a number of peer dependency requirements that you will need to install in your project. To install the latest version of all of these peer dependencies, run the following command in your project root:
 
-To integrate the package into an existing project, read our [Existing Project Integration](https://github.com/etn-ccis/blui-react-workflows/tree/master/login-workflow/docs/existing-project-integration.md) instructions. Even if you are starting from scratch, it may be useful for you to refer to the [Example](https://github.com/etn-ccis/blui-react-workflows/tree/master/login-workflow/example) project while getting started.
+```
+npm install --save @mui/material @emotion/react @emotion/styled @mui/icons-material @brightlayer-ui/react-components date-fns i18next react-i18next
+// or
+yarn add @mui/material @emotion/react @emotion/styled @mui/icons-material @brightlayer-ui/react-components date-fns i18next react-i18next
+```
+
+# Usage
+
+To use the package, read our [Integration](https://github.com/etn-ccis/blui-react-workflows/tree/master/login-workflow/docs/integration.md) instructions. Even if you are starting from scratch, it may be useful for you to refer to the [Example](https://github.com/etn-ccis/blui-react-workflows/tree/master/login-workflow/example) project while getting started.
 
 In short, you will need to:
 -   Add routes for each of the Login Workflow screens you wish to include
@@ -45,14 +54,14 @@ In short, you will need to:
 
 ## Learn More
 
--   [Setting Up Routing](/TODO)
--   [Internationalization](/TODO)
--   [Adding a Login Workflow](/TODO)
--   [Adding a Registration Workflow](/TODO)
--   [Handling Errors](/TODO)
--   [Customizing Workflows](/TODO)
--   [Components & APIs](/TODO)
--   [Screens](/TODO)
+-   [Setting Up Routing](https://github.com/etn-ccis/blui-react-workflows/tree/master/login-workflow/docs/routing.md)
+-   [Language Support](https://github.com/etn-ccis/blui-react-workflows/tree/master/login-workflow/docs/language-support.md)
+-   [Adding an Authentication/Login Workflow](https://github.com/etn-ccis/blui-react-workflows/tree/master/login-workflow/docs/authentication-workflow.md)
+-   [Adding a Registration Workflow](https://github.com/etn-ccis/blui-react-workflows/tree/master/login-workflow/docs/registration-workflow.md)
+-   [Handling Errors](https://github.com/etn-ccis/blui-react-workflows/tree/master/login-workflow/docs/error-management.md)
+-   [Customizing Workflows](https://github.com/etn-ccis/blui-react-workflows/tree/master/login-workflow/docs/customization.md)
+-   [Components & APIs](https://github.com/etn-ccis/blui-react-workflows/tree/master/login-workflow/docs/components/README.md)
+-   [Screens](https://github.com/etn-ccis/blui-react-workflows/tree/master/login-workflow/docs/screens/README.md)
 
 # Migrating from v4 => v5
 We have listened to your feedback and version 5 of this library is a significant rewrite that aims to address many requests for greater flexibility and customization of the workflows.
@@ -67,7 +76,7 @@ Some notable changes include:
 -   Greater customization of screens through props (and moving customization properties to the screens they affect instead of handling all customizations through a monolithic wrapper component)
 - Improved error management mechanism (customizable)
 
-Learn more about upgrading your existing application by reading our [Migrating Guide](/TODO)
+Learn more about upgrading your existing application by reading our [Migrating Guide](https://github.com/etn-ccis/blui-react-workflows/tree/master/login-workflow/docs/migration-guide-4-5.md)
 
 # Contributors
 

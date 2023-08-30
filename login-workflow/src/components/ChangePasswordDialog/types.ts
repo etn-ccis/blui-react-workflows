@@ -1,4 +1,4 @@
-import { DialogProps, SxProps } from '@mui/material';
+import { DialogProps } from '@mui/material';
 import { BasicDialogProps } from '../Dialog';
 import { SetPasswordProps } from '../SetPassword';
 
@@ -14,6 +14,5 @@ export type ChangePasswordDialogProps = DialogProps & { PasswordProps?: SetPassw
     enableButton?: boolean | (() => boolean);
     onSubmit?: () => void;
     onPrevious?: () => void;
-    sx?: SxProps;
     loading?: boolean;
 };

@@ -9,7 +9,7 @@ import { useErrorManager } from '../../contexts/ErrorContext/useErrorManager';
  * Component that renders a screen displaying the EULA and requests acceptance via a checkbox.
  *
  * @param eulaContent the content to render for the EULA. Can be a plain string or HTML
- * @param htmlEula true if the EULA should be rendered as HTML
+ * @param html true if the EULA should be rendered as HTML
  * @param checkboxLabel label for the EULA checkbox
  * @param initialCheckboxValue used to pre-populate the checked/unchecked checkbox when the screen loads
  * @param checkboxProps used to set checkbox props
@@ -36,7 +36,7 @@ export const EulaScreen: React.FC<EulaScreenProps> = (props) => {
         onEulaAcceptedChange = (accepted: boolean): boolean => accepted,
         eulaContent,
         checkboxLabel = t('bluiRegistration:REGISTRATION.EULA.AGREE_TERMS'),
-        htmlEula,
+        html,
         initialCheckboxValue,
     } = props;
     const [eulaAccepted, setEulaAccepted] = useState(
@@ -155,7 +155,7 @@ export const EulaScreen: React.FC<EulaScreenProps> = (props) => {
             }}
             checkboxLabel={checkboxLabel}
             checkboxProps={checkboxProps}
-            htmlEula={htmlEula}
+            html={html}
             initialCheckboxValue={eulaAccepted}
             onEulaAcceptedChange={onEulaAcceptedChange}
             WorkflowCardActionsProps={workflowCardActionsProps}

@@ -57,6 +57,7 @@ export const ForgotPasswordScreen: React.FC<ForgotPasswordScreenProps> = (props)
     );
 
     const {
+        // TODO: THIS ALL NEEDS TO BE FIXED...CARD CONFIGURATIONS SHOULD BE COMING THROUGH THE WORKFLOWCARDPROPS, NOT DUPLICATED ON THE SCREEN COMPONENT
         emailLabel = t('bluiCommon:LABELS.EMAIL'),
         contactPhone = '1-800-123-4567',
         initialEmailValue,
