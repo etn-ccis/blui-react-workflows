@@ -39,7 +39,6 @@ export const AppRouter: React.FC = () => {
                         rememberMeDetails={{ email: rememberMe ? email : '', rememberMe: rememberMe }}
                     >
                         <Outlet />
-                        {app.showChangePasswordDialog && <ChangePassword />}
                     </AuthContextProvider>
                 }
             >
@@ -77,14 +76,23 @@ export const AppRouter: React.FC = () => {
                 />
                 {/* USER APPLICATION ROUTES */}
                 <Route
-                    path={'/homepage'}
                     element={
-                        <ReactRouterAuthGuard isAuthenticated={app.isAuthenticated} fallBackUrl={'/login'}>
-                            <ExampleHome />
-                        </ReactRouterAuthGuard>
+                        <>
+                            <Outlet />
+                            {app.showChangePasswordDialog && <ChangePassword />}
+                        </>
                     }
-                />
-                <Route path={'/'} element={<Navigate to={'/homepage'} replace />} />
+                >
+                    <Route
+                        path={'/homepage'}
+                        element={
+                            <ReactRouterAuthGuard isAuthenticated={app.isAuthenticated} fallBackUrl={'/login'}>
+                                <ExampleHome />
+                            </ReactRouterAuthGuard>
+                        }
+                    />
+                    <Route path={'/'} element={<Navigate to={'/homepage'} replace />} />
+                </Route>
                 <Route
                     path={'*'}
                     element={
