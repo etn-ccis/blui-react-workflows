@@ -38,7 +38,7 @@ export type ChangePasswordDialogProps = DialogProps & { PasswordProps?: SetPassw
     currentPasswordChange?: (currentPassword: string) => void;
 
     /**
-     * Boolean to enable and disable the button
+     * Configure whether the next button is enabled or disabled. 
      */
     enableButton?: boolean | (() => boolean);
 
