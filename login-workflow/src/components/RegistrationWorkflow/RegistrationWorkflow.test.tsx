@@ -1,5 +1,4 @@
 import React from 'react';
-import { BrowserRouter } from 'react-router-dom';
 import '@testing-library/jest-dom';
 import { cleanup, fireEvent, render, screen, renderHook, act, RenderResult } from '@testing-library/react';
 import { RegistrationWorkflow, RegistrationWorkflowProps } from './RegistrationWorkflow';
@@ -18,14 +17,12 @@ const defaultProps: RegistrationWorkflowProps = {
 
 const renderer = (props = defaultProps): RenderResult =>
     render(
-        <BrowserRouter>
-            <RegistrationContextProvider {...registrationContextProviderProps}>
-                <RegistrationWorkflow {...props}>
-                    <Typography>Screen 1</Typography>
-                    <Typography>Screen 2</Typography>
-                </RegistrationWorkflow>
-            </RegistrationContextProvider>
-        </BrowserRouter>
+        <RegistrationContextProvider {...registrationContextProviderProps}>
+            <RegistrationWorkflow {...props}>
+                <Typography>Screen 1</Typography>
+                <Typography>Screen 2</Typography>
+            </RegistrationWorkflow>
+        </RegistrationContextProvider>
     );
 
 describe('RegistrationWorkflow', () => {
@@ -48,23 +45,21 @@ describe('RegistrationWorkflow', () => {
     it('should call nextScreen function', () => {
         const nextScreen = jest.fn();
         const { getByText } = render(
-            <BrowserRouter>
-                <RegistrationContextProvider {...registrationContextProviderProps}>
-                    <RegistrationWorkflow>
-                        <>
-                            <Typography>Indexed Screen 1</Typography>
-                            <Button
-                                onClick={(): void => {
-                                    nextScreen({ screenId: 'Eula', values: { accepted: true } });
-                                }}
-                            >
-                                Next
-                            </Button>
-                        </>
-                        <Typography>Indexed Screen 2</Typography>
-                    </RegistrationWorkflow>
-                </RegistrationContextProvider>
-            </BrowserRouter>
+            <RegistrationContextProvider {...registrationContextProviderProps}>
+                <RegistrationWorkflow>
+                    <>
+                        <Typography>Indexed Screen 1</Typography>
+                        <Button
+                            onClick={(): void => {
+                                nextScreen({ screenId: 'Eula', values: { accepted: true } });
+                            }}
+                        >
+                            Next
+                        </Button>
+                    </>
+                    <Typography>Indexed Screen 2</Typography>
+                </RegistrationWorkflow>
+            </RegistrationContextProvider>
         );
         fireEvent.click(getByText('Next'));
         expect(nextScreen).toHaveBeenCalledWith({ screenId: 'Eula', values: { accepted: true } });
@@ -72,11 +67,9 @@ describe('RegistrationWorkflow', () => {
 
     it('should set screen data for default registration workflow in the context', async () => {
         const wrapper = ({ children }: any): JSX.Element => (
-            <BrowserRouter>
-                <RegistrationContextProvider {...registrationContextProviderProps}>
-                    <RegistrationWorkflow {...defaultProps}>{children}</RegistrationWorkflow>
-                </RegistrationContextProvider>
-            </BrowserRouter>
+            <RegistrationContextProvider {...registrationContextProviderProps}>
+                <RegistrationWorkflow {...defaultProps}>{children}</RegistrationWorkflow>
+            </RegistrationContextProvider>
         );
         const { result } = renderHook(() => useRegistrationWorkflowContext(), { wrapper });
 
@@ -102,11 +95,9 @@ describe('RegistrationWorkflow', () => {
 
     it('should set screen data for custom registration workflow in the context', async () => {
         const wrapper = ({ children }: any): JSX.Element => (
-            <BrowserRouter>
-                <RegistrationContextProvider {...registrationContextProviderProps}>
-                    <RegistrationWorkflow {...defaultProps}>{children}</RegistrationWorkflow>
-                </RegistrationContextProvider>
-            </BrowserRouter>
+            <RegistrationContextProvider {...registrationContextProviderProps}>
+                <RegistrationWorkflow {...defaultProps}>{children}</RegistrationWorkflow>
+            </RegistrationContextProvider>
         );
         const { result } = renderHook(() => useRegistrationWorkflowContext(), { wrapper });
 
@@ -139,13 +130,11 @@ describe('RegistrationWorkflow', () => {
         const props = defaultProps;
         defaultProps.successScreen = <Box>Success</Box>;
         const { getByLabelText, getByText } = render(
-            <BrowserRouter>
-                <RegistrationContextProvider {...registrationContextProviderProps}>
-                    <RegistrationWorkflow {...props}>
-                        <CreateAccountScreen />
-                    </RegistrationWorkflow>
-                </RegistrationContextProvider>
-            </BrowserRouter>
+            <RegistrationContextProvider {...registrationContextProviderProps}>
+                <RegistrationWorkflow {...props}>
+                    <CreateAccountScreen />
+                </RegistrationWorkflow>
+            </RegistrationContextProvider>
         );
         const verifyEmailInput = getByLabelText('Email Address');
         fireEvent.change(verifyEmailInput, { target: { value: 'test@test.net' } });
