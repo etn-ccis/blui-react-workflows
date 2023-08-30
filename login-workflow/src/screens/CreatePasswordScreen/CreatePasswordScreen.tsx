@@ -40,7 +40,14 @@ export const CreatePasswordScreen: React.FC<CreatePasswordScreenProps> = (props)
     const [isLoading, setIsLoading] = useState(false);
     const passwordRequirements = defaultPasswordRequirements(t);
     const { triggerError, errorManagerConfig } = useErrorManager();
-    const errorDisplayConfig = { ...errorManagerConfig, ...props.errorDisplayConfig };
+    const errorDisplayConfig = {
+        ...errorManagerConfig,
+        ...props.errorDisplayConfig,
+        onClose: (): void => {
+            if (props.errorDisplayConfig && props.errorDisplayConfig.onClose) props.errorDisplayConfig.onClose();
+            if (errorManagerConfig.onClose) errorManagerConfig?.onClose();
+        },
+    };
 
     const onNext = useCallback(async (): Promise<void> => {
         try {
