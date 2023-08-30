@@ -20,7 +20,7 @@ export type WorkflowCardBaseProps = BoxProps & {
     backgroundImage?: string;
 
     /**
-     * The error state for each workflowCard
+     * An error message to render for the card
      */
     error?: boolean | string;
 };
