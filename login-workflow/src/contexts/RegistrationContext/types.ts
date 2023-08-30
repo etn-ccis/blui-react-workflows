@@ -34,7 +34,7 @@ export type RegistrationUIActions = {
     /**
      * A function that is used to validate a registration code. This function will be called when the user clicks the Next button on the Verify Code screen screen
      * @param {string} validationCode - the provided verification code
-     * @param {string} validationEmail - verify email input
+     * @param {string} validationEmail - the provided email address
      * @returns Promise<boolean>
      */
     validateUserRegistrationRequest?: (validationCode: string, validationEmail?: string) => Promise<boolean>;
