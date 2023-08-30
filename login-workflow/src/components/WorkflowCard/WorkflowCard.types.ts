@@ -79,7 +79,7 @@ export type WorkflowCardActionsProps = CardActionsProps & {
 
     /**
      * Function called when the previous button is clicked
-     * @param {string} key TODO here data?
+     * @param {Object} data - data collected from the card / screen
      * @returns void
      */
     onPrevious?: (data?: { [key: string]: any }) => void;
