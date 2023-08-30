@@ -72,7 +72,7 @@ export type BasicDialogProps = Omit<DialogProps, 'open'> & {
     dismissButtonText?: string;
 
     /**
-     * Boolean used to set open and close dialog
+     * Set the open / closed state of the dialog
      * @default false
      */
     open?: boolean;
