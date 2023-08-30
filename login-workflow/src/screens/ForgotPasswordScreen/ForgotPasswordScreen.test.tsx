@@ -2,34 +2,14 @@
 import React from 'react';
 import { cleanup, fireEvent, render, RenderResult, screen } from '@testing-library/react';
 import { ForgotPasswordScreenProps } from './types';
-import { AuthContextProvider, AuthContextProviderProps, i18nAuthInstance } from '../../contexts';
+import { AuthContextProvider, i18nAuthInstance } from '../../contexts';
 import { BrowserRouter } from 'react-router-dom';
 import { ForgotPasswordScreen } from './ForgotPasswordScreen';
 import '@testing-library/jest-dom';
 import Box from '@mui/material/Box';
+import { authContextProviderProps } from '../../testUtils';
 
 afterEach(cleanup);
-
-const sleep = (ms: number): Promise<void> => new Promise((resolve) => setTimeout(resolve, ms));
-
-const authContextProps: AuthContextProviderProps = {
-    language: 'en',
-    i18n: i18nAuthInstance,
-    navigate: (): void => {},
-    routeConfig: {},
-    actions: () => ({
-        initiateSecurity: jest.fn(),
-        logIn: jest.fn(),
-
-        forgotPassword: async (email: string): Promise<void> => {
-            await sleep(800);
-            return;
-        },
-        verifyResetCode: jest.fn(),
-        setPassword: jest.fn(),
-        changePassword: jest.fn(),
-    }),
-};
 
 describe('Forgot Password Screen tests', () => {
     let mockOnNext: any;
@@ -46,7 +26,7 @@ describe('Forgot Password Screen tests', () => {
 
     const renderer = (props?: ForgotPasswordScreenProps): RenderResult =>
         render(
-            <AuthContextProvider {...authContextProps}>
+            <AuthContextProvider {...authContextProviderProps}>
                 <BrowserRouter>
                     <ForgotPasswordScreen {...props} />
                 </BrowserRouter>
@@ -120,13 +100,8 @@ describe('Forgot Password Screen tests', () => {
     });
 
     it('should show success screen, when next button is clicked', async () => {
-        const props = { ...authContextProps };
-        props.actions.forgotPassword = async (email: string): Promise<void> => {
-            await sleep(800);
-            throw new Error('Error');
-        };
         const { getByLabelText } = render(
-            <AuthContextProvider {...props}>
+            <AuthContextProvider {...authContextProviderProps}>
                 <BrowserRouter>
                     <ForgotPasswordScreen />
                 </BrowserRouter>
@@ -147,13 +122,8 @@ describe('Forgot Password Screen tests', () => {
     });
 
     it('should not show success screen, when showSuccessScreen is false', () => {
-        const props = { ...authContextProps };
-        props.actions.forgotPassword = async (email: string): Promise<void> => {
-            await sleep(800);
-            throw new Error('Error');
-        };
         const { getByLabelText } = render(
-            <AuthContextProvider {...props}>
+            <AuthContextProvider {...authContextProviderProps}>
                 <BrowserRouter>
                     <ForgotPasswordScreen showSuccessScreen={false} />
                 </BrowserRouter>
@@ -174,13 +144,8 @@ describe('Forgot Password Screen tests', () => {
     });
 
     it('should show custom success screen, when passed in slots', async () => {
-        const props = { ...authContextProps };
-        props.actions.forgotPassword = async (email: string): Promise<void> => {
-            await sleep(800);
-            throw new Error('Error');
-        };
         const { getByLabelText } = render(
-            <AuthContextProvider {...props}>
+            <AuthContextProvider {...authContextProviderProps}>
                 <BrowserRouter>
                     <ForgotPasswordScreen slots={{ SuccessScreen: (): JSX.Element => <Box>Success</Box> }} />
                 </BrowserRouter>

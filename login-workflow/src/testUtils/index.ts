@@ -1,5 +1,4 @@
 import {
-    AccountDetails,
     AuthContextProviderProps,
     RegistrationContextProviderProps,
     RegistrationWorkflowContextProps,
@@ -10,68 +9,38 @@ import i18nRegistrationInstance from '../contexts/RegistrationContext/i18nRegist
 export const authContextProviderProps: AuthContextProviderProps = {
     language: 'en',
     i18n: i18nAuthInstance,
-    navigate: (): void => { },
+    navigate: (): void => {},
     routeConfig: {},
     actions: {
-        initiateSecurity: function (): Promise<void> {
-            throw new Error('Function not implemented.');
-        },
-        logIn: function (email: string, password: string, rememberMe: boolean): Promise<void> {
-            throw new Error('Function not implemented.');
-        },
-        forgotPassword: function (email: string): Promise<void> {
-            throw new Error('Function not implemented.');
-        },
-        verifyResetCode: function (code: string, email?: string): Promise<void> {
-            throw new Error('Function not implemented.');
-        },
-        setPassword: function (code: string, password: string, email?: string): Promise<void> {
-            throw new Error('Function not implemented.');
-        },
-        changePassword: function (oldPassword: string, newPassword: string): Promise<void> {
-            throw new Error('Function not implemented.');
-        }
-    }
+        initiateSecurity: jest.fn(),
+        logIn: jest.fn(),
+        forgotPassword: jest.fn(),
+        verifyResetCode: jest.fn(),
+        setPassword: jest.fn(),
+        changePassword: jest.fn(),
+    },
 };
 
 export const registrationContextProviderProps: RegistrationContextProviderProps = {
     language: 'en',
     i18n: i18nRegistrationInstance,
-    navigate: (): void => { },
+    navigate: (): void => {},
     routeConfig: {},
     actions: {
-        loadEula: function (language: string): Promise<string> {
-            throw new Error('Function not implemented.');
-        },
-        acceptEula: function (): Promise<void> {
-            throw new Error('Function not implemented.');
-        },
-        requestRegistrationCode: function (email: string): Promise<string> {
-            throw new Error('Function not implemented.');
-        },
-        validateUserRegistrationRequest: function (validationCode: string, validationEmail?: string): Promise<boolean> {
-            throw new Error('Function not implemented.');
-        },
-        createPassword: function (password: string): Promise<boolean> {
-            throw new Error('Function not implemented.');
-        },
-        setAccountDetails: function (details: AccountDetails): Promise<boolean> {
-            throw new Error('Function not implemented.');
-        },
-        completeRegistration: function (
-            userData: any,
-            validationCode: number | string,
-            validationEmail: string
-        ): Promise<{ email: string; organizationName: string }> {
-            throw new Error('Function not implemented.');
-        }
-    }
+        loadEula: jest.fn(),
+        acceptEula: jest.fn(),
+        requestRegistrationCode: jest.fn(),
+        validateUserRegistrationRequest: jest.fn(),
+        createPassword: jest.fn(),
+        setAccountDetails: jest.fn(),
+        completeRegistration: jest.fn(),
+    },
 };
 
 export const registrationWorkflowContextProps: RegistrationWorkflowContextProps = {
     currentScreen: 0,
     totalScreens: 2,
-    previousScreen: () => { },
+    previousScreen: () => {},
     screenData: {
         Eula: { accepted: true },
         CreateAccount: { emailAddress: 'emailAddress@emailAddress.emailAddress' },

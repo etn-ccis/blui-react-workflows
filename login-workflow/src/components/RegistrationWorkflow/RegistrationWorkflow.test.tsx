@@ -1,3 +1,4 @@
+/* eslint-disable @typescript-eslint/no-unused-vars */
 import React from 'react';
 import '@testing-library/jest-dom';
 import { cleanup, fireEvent, render, screen, renderHook, act, RenderResult } from '@testing-library/react';
@@ -14,7 +15,7 @@ afterEach(cleanup);
 const defaultProps: RegistrationWorkflowProps = {
     initialScreenIndex: 0,
 };
-
+const sleep = (ms: number): Promise<void> => new Promise((resolve) => setTimeout(resolve, ms));
 const renderer = (props = defaultProps): RenderResult =>
     render(
         <RegistrationContextProvider {...registrationContextProviderProps}>
@@ -66,8 +67,21 @@ describe('RegistrationWorkflow', () => {
     });
 
     it('should set screen data for default registration workflow in the context', async () => {
+        const props = { ...registrationContextProviderProps };
+        
+        props.actions.completeRegistration = async (
+            userData: any,
+            validationCode: string | number,
+            validationEmail?: string 
+        ): Promise<{ email: string; organizationName: string }> => {
+            await sleep(1000);
+            const email = 'example@email.com';
+            const organizationName = 'Acme Co.';
+            const userInfo = { email, organizationName };
+            return userInfo;
+        };
         const wrapper = ({ children }: any): JSX.Element => (
-            <RegistrationContextProvider {...registrationContextProviderProps}>
+            <RegistrationContextProvider {...props}>
                 <RegistrationWorkflow {...defaultProps}>{children}</RegistrationWorkflow>
             </RegistrationContextProvider>
         );
