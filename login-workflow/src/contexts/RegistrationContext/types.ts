@@ -92,7 +92,6 @@ export type RegistrationContextProviderProps = {
 
     /**
      * An optional i18n object that is used to translate the UI. This is only needed if you want to use custom translation keys / languages inside any of the workflow screens
-     * @object i18n
      */
     i18n?: i18n; // add languages / override strings in bulk
 
