@@ -32,7 +32,7 @@ export type ChangePasswordDialogProps = DialogProps & { PasswordProps?: SetPassw
 
     /**
      * Function called when the current password field changes
-     * @param {string} currentPassword - check if password field changed
+     * @param {string} currentPassword - the updated value from the currentPassword field
      * @returns void
      */
     currentPasswordChange?: (currentPassword: string) => void;
