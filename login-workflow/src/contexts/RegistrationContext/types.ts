@@ -99,7 +99,6 @@ export type RegistrationContextProviderProps = {
 
     /**
      * An object that is used to configure error handling within the workflow.
-     * @object ErrorContextProviderProps
      */
     errorConfig?: ErrorContextProviderProps;
 };
