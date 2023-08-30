@@ -9,6 +9,8 @@ export type ForgotPasswordScreenProps = WorkflowCardProps & {
     // used to display response time
     responseTime?: string;
 
+    // TODO: These need cleaned up to use the WorkflowCardProps instead
+
     // used to update the instruction
     description?: (responseTime: string) => React.ReactNode;
 

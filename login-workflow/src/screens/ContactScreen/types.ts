@@ -1,14 +1,6 @@
 import { WorkflowCardProps } from '../../components/WorkflowCard/WorkflowCard.types';
 
-export type ContactScreenProps = WorkflowCardProps & {
-    /**
-     * The title for the screen
-     */
-    title?: string;
-
-    /**
-     * The icon to display in the header
-     */
+export type ContactSupportScreenProps = WorkflowCardProps & {
     icon?: JSX.Element;
 
     /**

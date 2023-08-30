@@ -1,4 +1,4 @@
-import { DialogProps, SxProps } from '@mui/material';
+import { DialogProps } from '@mui/material';
 import { BasicDialogProps } from '../Dialog';
 import { SetPasswordProps } from '../SetPassword';
 
@@ -53,14 +53,5 @@ export type ChangePasswordDialogProps = DialogProps & { PasswordProps?: SetPassw
      * @returns void
      */
     onPrevious?: () => void;
-
-    /**
-     * The styles passed to the underlying root component
-     */
-    sx?: SxProps;
-
-    /**
-     * Boolean that indicates whether the loading spinner should be displayed
-     */
     loading?: boolean;
 };

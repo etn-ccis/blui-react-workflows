@@ -1,4 +1,4 @@
-import React from 'react';
+import { ReactNode } from 'react';
 import { ErrorManagerProps } from '../../components/Error';
 import { WorkflowCardProps } from '../../components/WorkflowCard/WorkflowCard.types';
 
@@ -16,7 +16,7 @@ export type SuccessScreenProps = WorkflowCardProps & {
     /**
      * The success message to be displayed on the screen
      */
-    message?: string | React.ReactNode;
+    message?: ReactNode;
 
     /**
      * To display label for the button

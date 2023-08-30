@@ -13,7 +13,7 @@ import ReplaySharpIcon from '@mui/icons-material/ReplaySharp';
  * Component that renders a screen displaying the EULA and requests acceptance via a checkbox.
  *
  * @param eulaContent the content to render for the EULA. Can be a plain string or HTML
- * @param htmlEula true if the EULA should be rendered as HTML
+ * @param html true if the EULA should be rendered as HTML
  * @param checkboxLabel label for the EULA checkbox
  * @param initialCheckboxValue used to pre-populate the checked/unchecked checkbox when the screen loads
  * @param checkboxProps used to set checkbox props
@@ -32,7 +32,7 @@ export const EulaScreenBase: React.FC<EulaScreenProps> = (props) => {
         onEulaAcceptedChange = (accepted: boolean): boolean => accepted,
         eulaContent,
         checkboxLabel,
-        htmlEula,
+        html,
         initialCheckboxValue,
         checkboxProps,
         errorDisplayConfig,
@@ -87,7 +87,7 @@ export const EulaScreenBase: React.FC<EulaScreenProps> = (props) => {
                             </Typography>
                         </Box>
                     </Box>
-                ) : htmlEula ? (
+                ) : html ? (
                     <Box
                         sx={{ flex: '1 1 0', overflow: 'auto' }}
                         dangerouslySetInnerHTML={{ __html: DOMPurify.sanitize(eulaContent as string) }}

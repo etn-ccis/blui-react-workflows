@@ -1,4 +1,4 @@
-import { SxProps, TextFieldProps } from '@mui/material';
+import { TextFieldProps } from '@mui/material';
 import { WorkflowCardProps } from '../../components/WorkflowCard/WorkflowCard.types';
 import { ErrorManagerProps } from '../../components/Error';
 
@@ -53,9 +53,4 @@ export type AccountDetailsScreenProps = WorkflowCardProps & {
      * The configuration for customizing how errors are displayed
      */
     errorDisplayConfig?: ErrorManagerProps;
-
-    /**
-     * The styles applied to text field
-     */
-    sx?: SxProps;
 };

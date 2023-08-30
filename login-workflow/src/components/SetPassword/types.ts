@@ -49,7 +49,7 @@ export type SetPasswordProps = {
      * The requirements to set password
      * TODO anything for array?
      */
-    passwordRequirements?: PasswordRequirement[] | [];
+    passwordRequirements?: PasswordRequirement[];
 
     /**
      * The ref to forward to the password input

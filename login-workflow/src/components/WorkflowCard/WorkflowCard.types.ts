@@ -1,6 +1,5 @@
 import { CardActionsProps, CardHeaderProps, TypographyProps } from '@mui/material';
 import { BoxProps } from '@mui/material/Box';
-import { CardProps } from '@mui/material/Card';
 
 export type ErrorStateProps = TypographyProps & {
     /**
@@ -109,7 +108,6 @@ export type WorkflowCardActionsProps = CardActionsProps & {
 };
 
 export type WorkflowCardProps = {
-    CardProps?: CardProps;
     WorkflowCardBaseProps?: WorkflowCardBaseProps;
     WorkflowCardHeaderProps?: WorkflowCardHeaderProps;
     WorkflowCardInstructionProps?: WorkflowCardInstructionProps;

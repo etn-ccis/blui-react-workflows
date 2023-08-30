@@ -1,9 +1,9 @@
 import React from 'react';
 import Box from '@mui/material/Box';
 import Close from '@mui/icons-material/Close';
-import { SxProps } from '@mui/material/styles';
+import { SxProps, Theme } from '@mui/material/styles';
 import Typography from '@mui/material/Typography';
-import * as Colors from '@brightlayer-ui/colors';
+
 export type ErrorMessageBoxProps = {
     /**
      * The text to show in the title
@@ -35,7 +35,7 @@ export type ErrorMessageBoxProps = {
     /**
      * Styles passed to the underlying root component
      */
-    sx?: SxProps;
+    sx?: SxProps<Theme>;
 };
 /**
  * Component that renders a basic message box with an error message and a configurable dismiss button.
@@ -59,7 +59,7 @@ const ErrorMessageBox = (props: ErrorMessageBoxProps): JSX.Element => {
                     backgroundColor: backgroundColor || 'error.main',
                     borderRadius: 4,
                     p: 2,
-                    color: fontColor || Colors.white[50],
+                    color: (t) => fontColor || t.palette.error.contrastText,
                     my: 2,
                 },
                 ...(Array.isArray(sx) ? sx : [sx]),
