@@ -6,10 +6,6 @@ import { RegistrationContextProvider } from '../../contexts';
 import { EulaScreenProps } from './types';
 import { RegistrationWorkflow } from '../../components';
 import { registrationContextProviderProps } from '../../testUtils';
-
-type EulaFullScreenProps = EulaScreenProps & {
-    title?: string;
-};
 afterEach(cleanup);
 
 describe('Eula Screen', () => {
@@ -25,7 +21,7 @@ describe('Eula Screen', () => {
         mockOnPrevious = jest.fn();
     });
 
-    const renderer = (props?: EulaFullScreenProps): RenderResult =>
+    const renderer = (props?: EulaScreenProps): RenderResult =>
         render(
             <RegistrationContextProvider {...registrationContextProviderProps}>
                 <RegistrationWorkflow initialScreenIndex={0}>

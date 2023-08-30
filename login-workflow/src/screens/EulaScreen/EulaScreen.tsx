@@ -33,19 +33,13 @@ export const EulaScreen: React.FC<EulaScreenProps> = (props) => {
     const {
         WorkflowCardHeaderProps,
         WorkflowCardActionsProps,
-        onEulaAcceptedChange = (accepted: boolean): void => {
-            // setEulaAccepted(accepted);
-            screenData.Eula = {...screenData, accepted};
-            console.log('screendata',screenData);
-        },
         eulaContent,
         checkboxLabel = t('bluiRegistration:REGISTRATION.EULA.AGREE_TERMS'),
         htmlEula,
         initialCheckboxValue,
     } = props;
-    const [eulaAccepted, setEulaAccepted] = useState(
-        initialCheckboxValue ? initialCheckboxValue : screenData.Eula.accepted
-    );
+
+    const eulaAccepted = initialCheckboxValue ? initialCheckboxValue : screenData.Eula.accepted;
     const [isLoading, setIsLoading] = useState(true);
     const [eulaData, setEulaData] = useState<string | JSX.Element>();
     const [eulaFetchError, setEulaFetchError] = useState(false);
@@ -75,7 +69,9 @@ export const EulaScreen: React.FC<EulaScreenProps> = (props) => {
     const onNext = useCallback(async (): Promise<void> => {
         setIsLoading(true);
         try {
-            await actions().acceptEula?.();
+            if (screenData.Eula.accepted) {
+                await actions().acceptEula?.();
+            }
             let isAccExist;
             if (isInviteRegistration) {
                 isAccExist = await actions().validateUserRegistrationRequest(
@@ -110,6 +106,15 @@ export const EulaScreen: React.FC<EulaScreenProps> = (props) => {
             setIsLoading(false);
         }
     }, [previousScreen, triggerError, eulaAccepted]);
+
+    const updateEulaAcceptedStatus = useCallback(
+        (accepted: boolean): void => {
+            screenData.Eula = { ...screenData, accepted };
+            props?.onEulaAcceptedChange?.(accepted);
+        },
+        // eslint-disable-next-line react-hooks/exhaustive-deps
+        [screenData]
+    );
 
     useEffect(() => {
         void loadAndCacheEula();
@@ -160,7 +165,7 @@ export const EulaScreen: React.FC<EulaScreenProps> = (props) => {
             checkboxProps={checkboxProps}
             htmlEula={htmlEula}
             initialCheckboxValue={eulaAccepted}
-            onEulaAcceptedChange={onEulaAcceptedChange}
+            onEulaAcceptedChange={updateEulaAcceptedStatus}
             WorkflowCardActionsProps={workflowCardActionsProps}
             errorDisplayConfig={errorDisplayConfig}
             onRefetch={onRefetch}
