@@ -20,7 +20,7 @@ export type EulaScreenProps = WorkflowCardProps & {
 
     /**
      * The EULA should be rendered as HTML
-     * @default true
+     * @default false
      */
     html?: boolean;
 

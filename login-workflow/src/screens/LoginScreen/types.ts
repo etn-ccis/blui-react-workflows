@@ -17,10 +17,10 @@ export type LoginScreenProps = WorkflowCardBaseProps & {
 
     /**
      * The function used to validate the username
-     * @param {string} foo - validates username
+     * @param {string} username - validates username
      * @returns boolean | string
      */
-    usernameValidator?: (foo: string) => boolean | string;
+    usernameValidator?: (username: string) => boolean | string;
 
     /**
      * The username used to pre-populate the field
@@ -65,9 +65,10 @@ export type LoginScreenProps = WorkflowCardBaseProps & {
 
     /**
      * The callback function that is called when the 'remember me' checkbox is changed
+     * @param {boolean} onRememberMeChanged - function when remember me has changed
      * @returns void
      */
-    onRememberMeChanged?: (foo: boolean) => void;
+    onRememberMeChanged?: (onRememberMeChanged: boolean) => void;
 
     // configure Login
     /**
