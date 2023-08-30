@@ -87,7 +87,6 @@ export type RegistrationContextProviderProps = {
 
     /**
      * An object that defines the various routes for the workflow
-     * @object RouteConfig
      */
     routeConfig: RouteConfig;
 
