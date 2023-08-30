@@ -101,11 +101,9 @@ export const ProjectRegistrationUIActions: () => RegistrationUIActions = () => (
         return isRandomFailure();
     },
 
-    completeRegistration: async (
-        userData: any,
-        validationCode: string | number,
-        validationEmail?: string
-    ): Promise<{ email: string; organizationName: string }> => {
+    completeRegistration: async (userData: object): Promise<{ email: string; organizationName: string }> => {
+        // eslint-disable-next-line no-console
+        console.log('userData::', userData);
         const email = 'example@email.com';
         const organizationName = 'Acme Co.';
         const userInfo = { email, organizationName };

@@ -36,7 +36,14 @@ export const RegistrationSuccessScreen: React.FC<SuccessScreenProps> = (props) =
         messageTitle = `${t('bluiCommon:MESSAGES.WELCOME')}, ${firstName} ${lastName}!`,
         message = (
             <Typography variant="subtitle2">
-                <Trans i18nKey={email? 'bluiRegistration:REGISTRATION.SUCCESS_MESSAGE_ALT' : 'bluiRegistration:REGISTRATION.SUCCESS_MESSAGE_ALT_WITHOUT_EMAIL_PROVIDED'} values={{ email, organization }}>
+                <Trans
+                    i18nKey={
+                        email
+                            ? 'bluiRegistration:REGISTRATION.SUCCESS_MESSAGE_ALT'
+                            : 'bluiRegistration:REGISTRATION.SUCCESS_MESSAGE_ALT_WITHOUT_EMAIL_PROVIDED'
+                    }
+                    values={{ email, organization }}
+                >
                     Your account has successfully been created with the email <b>{email}</b> belonging to the
                     <b>{` ${String(organization)}`}</b> org.
                 </Trans>
