@@ -45,8 +45,7 @@ export type SetPasswordProps = {
     initialConfirmPasswordValue?: string;
 
     /**
-     * The requirements to set password
-     * TODO anything for array?
+     * A list of password complexity requirements
      */
     passwordRequirements?: PasswordRequirement[];
 
