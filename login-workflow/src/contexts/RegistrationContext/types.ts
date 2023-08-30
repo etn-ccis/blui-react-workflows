@@ -48,7 +48,7 @@ export type RegistrationUIActions = {
 
     /**
      * A function that is used to set the account details. This function will be called when the user clicks the Next button on the Account Details screen
-     * @param {AccountDetails} details - verify first and last name input
+     * @param {AccountDetails} details - information collected from the screen, including firstName and lastName
      * @returns Promise<boolean>
      */
     setAccountDetails?: (details: AccountDetails) => Promise<boolean>;
