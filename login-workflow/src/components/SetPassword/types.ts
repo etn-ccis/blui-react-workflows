@@ -11,7 +11,6 @@ export type PasswordRequirement = {
 
     /**
      * The regex to validate the password
-     * @returns RegExp
      */
     regex: RegExp;
 };
