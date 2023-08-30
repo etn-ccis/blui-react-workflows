@@ -2,11 +2,9 @@ import i18next from 'i18next';
 import { RegistrationDictionaries } from './RegistrationDictionaries';
 import { SharedDictionaries } from '../SharedDictionaries';
 import { initReactI18next } from 'react-i18next';
-import LanguageDetector from 'i18next-browser-languagedetector';
 
 void i18next
     .use(initReactI18next) // passes i18n down to react-i18next
-    .use(LanguageDetector) // allows us to infer the language from browser language selection
     .init(
         {
             fallbackLng: 'en',
@@ -16,8 +14,6 @@ void i18next
             detection: {
                 order: ['querystring', 'localStorage', 'navigator'],
                 caches: ['localStorage'],
-                lookupQuerystring: 'lng',
-                lookupLocalStorage: 'blui-i18nextLng',
             },
             react: { useSuspense: false },
             interpolation: { escapeValue: false },
