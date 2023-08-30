@@ -34,7 +34,8 @@ export type RegistrationWorkflowProps = {
     successScreen?: JSX.Element;
 
     /**
-     * Boolean when true verifies validateUserRegistrationRequest for verifyCode
+     * When true verifies validateUserRegistrationRequest for verifyCode and several of the default screens will be skipped
+     * not requiring user input for email and the validation code will be pulled from the url
      * @default false
      */
     isInviteRegistration?: boolean;

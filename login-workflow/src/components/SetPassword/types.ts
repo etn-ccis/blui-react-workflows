@@ -25,7 +25,8 @@ export type SetPasswordProps = {
     onPasswordChange?: (passwords: { password: string; confirm: string }) => void;
 
     /**
-     * The label for the new password field (default = 'Password')
+     * The label for the new password field
+     * @default Password
      */
     newPasswordLabel?: string;
 
@@ -35,7 +36,8 @@ export type SetPasswordProps = {
     initialNewPasswordValue?: string;
 
     /**
-     * The label for the confirm password field (default = 'Confirm')
+     * The label for the confirm password field
+     * @default Confirm
      */
     confirmPasswordLabel?: string;
 

@@ -14,7 +14,6 @@ export type PasswordRequirementsProps = HTMLAttributes<HTMLDivElement> & {
 
     /**
      * Optional requirements to set password
-     * TODO anything for array?
      */
     passwordRequirements?: PasswordRequirement[];
 
