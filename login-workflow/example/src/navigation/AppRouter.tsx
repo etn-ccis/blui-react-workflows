@@ -18,6 +18,7 @@ import { ProjectRegistrationUIActions } from '../actions/RegistrationUIActions';
 import { routes } from './Routing';
 import { ExampleHome } from '../screens/ExampleHome';
 import i18nAppInstance from '../translations/i18n';
+import { ChangePassword } from '../components/ChangePassword';
 
 export const AppRouter: React.FC = () => {
     const navigate = useNavigate();
@@ -38,6 +39,7 @@ export const AppRouter: React.FC = () => {
                         rememberMeDetails={{ email: rememberMe ? email : '', rememberMe: rememberMe }}
                     >
                         <Outlet />
+                        {app.showChangePasswordDialog && <ChangePassword />}
                     </AuthContextProvider>
                 }
             >
