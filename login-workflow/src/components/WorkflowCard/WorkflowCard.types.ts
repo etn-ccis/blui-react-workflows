@@ -15,7 +15,7 @@ export type WorkflowCardBaseProps = BoxProps & {
     loading?: boolean;
 
     /**
-     * To display card background
+     * A custom background to render behind the card
      */
     backgroundImage?: string;
 
