@@ -56,7 +56,7 @@ export type BasicDialogProps = Omit<DialogProps, 'open'> & {
     title?: string;
 
     /**
-     * The text to show in the body
+     * The text to show in the main dialog body
      */
     body?: string;
 
