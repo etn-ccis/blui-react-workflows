@@ -24,7 +24,9 @@ export type ErrorManagerProps = {
     error?: string;
 
     /**
-     * TODO dialog config & messageBox config
+     * Configuration options when using mode='dialog'
+     * @param {string} dialogConfig.title - The title used in the dialog header
+     * @param {string} dialogConfig.dismissLabel - The label on the dismiss button.
      */
     dialogConfig?: {
         title?: string;
