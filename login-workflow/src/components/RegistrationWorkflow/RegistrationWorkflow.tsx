@@ -126,21 +126,18 @@ export const RegistrationWorkflow: React.FC<React.PropsWithChildren<Registration
                 ...Other,
                 ...data.values,
             };
-            return (
-                actions()
-                    // TODO: THIS LOOKS BROKEN — ARE WE ONLY PASSING THE DATA FROM THE LAST SCREEN OF THE WORKFLOW???
-                    .completeRegistration(userInfo)
-                    .then(({ email, organizationName }) => {
-                        updateScreenData({
-                            screenId: 'RegistrationSuccessScreen',
-                            values: { email, organizationName },
-                        });
-                        setShowSuccessScreen(true);
-                    })
-                    .catch((_error) => {
-                        triggerError(_error);
-                    })
-            );
+            return actions()
+                .completeRegistration(userInfo)
+                .then(({ email, organizationName }) => {
+                    updateScreenData({
+                        screenId: 'RegistrationSuccessScreen',
+                        values: { email, organizationName },
+                    });
+                    setShowSuccessScreen(true);
+                })
+                .catch((_error) => {
+                    triggerError(_error);
+                });
         }
     };
 
