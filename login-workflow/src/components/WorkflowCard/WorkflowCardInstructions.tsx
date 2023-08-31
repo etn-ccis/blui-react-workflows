@@ -17,7 +17,13 @@ export const WorkflowCardInstructions: React.FC<WorkflowCardInstructionProps> = 
 
     return (
         <>
-            {typeof instructions === 'string' ? <Typography {...otherProps}>{instructions}</Typography> : instructions}
+            {typeof instructions === 'string' ? (
+                <Typography sx={{ px: 3, pt: 2 }} {...otherProps}>
+                    {instructions}
+                </Typography>
+            ) : (
+                instructions
+            )}
             {divider ? <Divider sx={{ mt: 5, mb: 4, mx: { md: -3, xs: -2 } }} /> : null}
         </>
     );
