@@ -1,4 +1,3 @@
-/* eslint-disable @typescript-eslint/naming-convention */
 import i18n from 'i18next';
 import { fr, enUS, es, zhCN, ptBR } from 'date-fns/locale';
 
