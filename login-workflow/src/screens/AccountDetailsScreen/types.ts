@@ -1,4 +1,4 @@
-import { TextFieldProps } from '@mui/material';
+import { BoxProps, TextFieldProps } from '@mui/material';
 import { WorkflowCardProps } from '../../components/WorkflowCard/WorkflowCard.types';
 import { ErrorManagerProps } from '../../components/Error';
 

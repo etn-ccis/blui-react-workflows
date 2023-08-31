@@ -1,12 +1,11 @@
-import React, { HTMLAttributes } from 'react';
+import React from 'react';
 import { PasswordRequirementsCheck } from './PasswordRequirementsCheck';
-import Box from '@mui/material/Box';
-import { SxProps, Theme } from '@mui/material/styles';
+import Box, { BoxProps } from '@mui/material/Box';
 import { PasswordRequirement } from '../SetPassword';
 import { useLanguageLocale } from '../../hooks';
 import { defaultPasswordRequirements } from '../../constants';
 
-export type PasswordRequirementsProps = HTMLAttributes<HTMLDivElement> & {
+export type PasswordRequirementsProps = BoxProps & {
     /**
      * The string to conduct the complexity checks against
      */
@@ -16,11 +15,6 @@ export type PasswordRequirementsProps = HTMLAttributes<HTMLDivElement> & {
      * Optional requirements to set password
      */
     passwordRequirements?: PasswordRequirement[];
-
-    /**
-     * The styles passed to the underlying root component
-     */
-    sx?: SxProps<Theme>;
 };
 
 /**
@@ -28,7 +22,6 @@ export type PasswordRequirementsProps = HTMLAttributes<HTMLDivElement> & {
  *
  * @param passwordText The string to conduct the complexity checks against
  * @param passwordRequirements Optional requirements to set password
- * @param sx styles passed to the underlying root component
  *
  * @category Component
  */

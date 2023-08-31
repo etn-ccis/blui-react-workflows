@@ -2,7 +2,6 @@ import { i18n } from 'i18next';
 import { ErrorContextProviderProps } from '../ErrorContext';
 import { RouteConfig } from '../../types';
 
-// @TODO: this will need migrated to AuthContext types when that is ready
 export type AccountDetails = {
     firstName: string;
     lastName: string;
@@ -59,11 +58,7 @@ export type RegistrationUIActions = {
      * @param {string} organizationName - Used to display on final screen
      * @returns Promise<{ email: string; organizationName: string }>
      */
-    completeRegistration?: (
-        userData: any,
-        validationCode: number | string,
-        validationEmail: string
-    ) => Promise<{ email: string; organizationName: string }>;
+    completeRegistration?: (userData: object) => Promise<{ email: string; organizationName: string }>;
 };
 
 export type RegistrationContextProviderProps = {

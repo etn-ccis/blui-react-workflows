@@ -189,285 +189,283 @@ export const LoginScreenBase: React.FC<React.PropsWithChildren<LoginScreenProps>
     };
 
     return (
-        <>
-            <WorkflowCard className={defaultClasses.root} data-testid={defaultClasses.root}>
-                <WorkflowCardBody sx={{ py: { xs: 4, sm: 4, md: 4 }, px: { xs: 4, sm: 8, md: 8 } }}>
-                    {header}
-                    <Box
-                        sx={{ display: 'flex', maxWidth: '100%', mb: 6 }}
-                        className={defaultClasses.projectImageWrapper}
-                        data-testid={defaultClasses.projectImageWrapper}
-                    >
-                        {projectImage}
-                    </Box>
+        <WorkflowCard className={defaultClasses.root} data-testid={defaultClasses.root}>
+            <WorkflowCardBody sx={{ py: { xs: 4, sm: 4, md: 4 }, px: { xs: 4, sm: 8, md: 8 } }}>
+                {header}
+                <Box
+                    sx={{ display: 'flex', maxWidth: '100%', mb: 6 }}
+                    className={defaultClasses.projectImageWrapper}
+                    data-testid={defaultClasses.projectImageWrapper}
+                >
+                    {projectImage}
+                </Box>
 
-                    <ErrorManager {...errorDisplayConfig}>
-                        <Box
-                            sx={{
-                                display: 'flex',
-                                flexDirection: 'column',
-                                justifyContent: 'center',
-                                alignItems: 'center',
-                                width: '100%',
-                            }}
-                            className={defaultClasses.inputFieldsWrapper}
-                            data-testid={defaultClasses.inputFieldsWrapper}
-                        >
-                            <Box
-                                sx={{
-                                    width: '100%',
-                                    mb:
-                                        username.length > 0 && !isUsernameValid && shouldValidateUsername
-                                            ? 4
-                                            : `${(parseInt(theme.spacing(4)) + HELPER_TEXT_HEIGHT).toString()}px`,
-                                    [theme.breakpoints.down('sm')]: {
-                                        mb:
-                                            username.length > 0 && !isUsernameValid && shouldValidateUsername
-                                                ? 3
-                                                : `${(parseInt(theme.spacing(3)) + HELPER_TEXT_HEIGHT).toString()}px`,
-                                    },
-                                }}
-                            >
-                                <TextField
-                                    fullWidth
-                                    id="username"
-                                    className={defaultClasses.usernameTextField}
-                                    data-testid={defaultClasses.usernameTextField}
-                                    label={usernameLabel || 'Username'}
-                                    name="username"
-                                    variant="filled"
-                                    value={username}
-                                    error={shouldValidateUsername && !isUsernameValid}
-                                    helperText={shouldValidateUsername && !isUsernameValid ? usernameError : ''}
-                                    {...usernameTextFieldProps}
-                                    onChange={(e): void => {
-                                        // eslint-disable-next-line no-unused-expressions
-                                        usernameTextFieldProps?.onChange && usernameTextFieldProps.onChange(e);
-                                        handleUsernameInputChange(e.target.value);
-                                    }}
-                                    onSubmit={(e: any): void => {
-                                        // eslint-disable-next-line no-unused-expressions
-                                        usernameTextFieldProps?.onSubmit && usernameTextFieldProps.onSubmit(e);
-                                        if (e.key === 'Enter' && passwordField.current) passwordField.current.focus();
-                                    }}
-                                    onBlur={(e): void => {
-                                        // eslint-disable-next-line no-unused-expressions
-                                        usernameTextFieldProps?.onBlur && usernameTextFieldProps.onBlur(e);
-                                        setShouldValidateUsername(true);
-                                    }}
-                                    onKeyUp={(e): void => {
-                                        if (e.key === 'Enter' && passwordField.current) passwordField.current.focus();
-                                    }}
-                                />
-                            </Box>
-                            <Box
-                                sx={{
-                                    width: '100%',
-                                    mb:
-                                        username.length > 0 && !isPasswordValid && shouldValidatePassword
-                                            ? 2
-                                            : `${(parseInt(theme.spacing(2)) + HELPER_TEXT_HEIGHT).toString()}px`,
-                                }}
-                            >
-                                <PasswordTextField
-                                    fullWidth
-                                    inputRef={passwordField}
-                                    id="password"
-                                    className={defaultClasses.passwordTextField}
-                                    data-testid={defaultClasses.passwordTextField}
-                                    name="password"
-                                    label={passwordLabel || 'Password'}
-                                    variant="filled"
-                                    value={password}
-                                    error={shouldValidatePassword && !isPasswordValid}
-                                    helperText={shouldValidatePassword && !isPasswordValid ? passwordError : ''}
-                                    {...passwordTextFieldProps}
-                                    onChange={(e: any): void => {
-                                        // eslint-disable-next-line no-unused-expressions
-                                        passwordTextFieldProps?.onChange && passwordTextFieldProps.onChange(e);
-                                        handlePasswordInputChange(e.target.value);
-                                    }}
-                                    onSubmit={(e: any): void => {
-                                        // eslint-disable-next-line no-unused-expressions
-                                        passwordTextFieldProps?.onSubmit && passwordTextFieldProps.onSubmit(e);
-                                        handleLoginSubmit(e);
-                                    }}
-                                    onBlur={(e): void => {
-                                        // eslint-disable-next-line no-unused-expressions
-                                        passwordTextFieldProps?.onBlur && passwordTextFieldProps.onBlur(e);
-                                        setShouldValidatePassword(true);
-                                    }}
-                                    onKeyUp={(e): void => {
-                                        // eslint-disable-next-line no-unused-expressions
-                                        passwordTextFieldProps?.onSubmit && passwordTextFieldProps.onSubmit(e);
-                                        handleLoginSubmit(e);
-                                    }}
-                                />
-                            </Box>
-                        </Box>
-                    </ErrorManager>
+                <ErrorManager {...errorDisplayConfig}>
                     <Box
                         sx={{
                             display: 'flex',
-                            flexDirection: 'row',
-                            justifyContent: 'space-between',
+                            flexDirection: 'column',
+                            justifyContent: 'center',
                             alignItems: 'center',
                             width: '100%',
-                            mt: 1,
-                            mb: 5,
-                            flexWrap: 'nowrap',
-                            [theme.breakpoints.down('sm')]: {
-                                flexWrap: 'wrap',
-                                flexDirection: 'column',
-                                justifyContent: 'center',
-                            },
                         }}
-                        className={defaultClasses.rememberMeLoginRowWrapper}
-                        data-testid={defaultClasses.rememberMeLoginRowWrapper}
+                        className={defaultClasses.inputFieldsWrapper}
+                        data-testid={defaultClasses.inputFieldsWrapper}
                     >
-                        {showRememberMe && (
-                            <Box
-                                sx={{
-                                    display: 'flex',
-                                    alignItems: 'center',
-                                    ml: -1.5,
-                                    mr: 1,
-                                    [theme.breakpoints.down('sm')]: {
-                                        mr: 0,
-                                    },
-                                }}
-                                className={defaultClasses.rememberMeWrapper}
-                                data-testid={defaultClasses.rememberMeWrapper}
-                            >
-                                <Checkbox
-                                    color="primary"
-                                    checked={rememberMe}
-                                    onChange={(e: any): void => handleRememberMeChanged(e.target.checked)}
-                                    className={defaultClasses.rememberMeCheckbox}
-                                    data-testid={defaultClasses.rememberMeCheckbox}
-                                />
-                                <Typography
-                                    variant="body1"
-                                    className={defaultClasses.rememberMeLabel}
-                                    data-testid={defaultClasses.rememberMeLabel}
-                                >
-                                    {rememberMeLabel || 'Remember Me'}
-                                </Typography>
-                            </Box>
-                        )}
                         <Box
                             sx={{
-                                display: 'flex',
-                                flex: 1,
-                                justifyContent: 'flex-end',
-                                width: showRememberMe ? 'auto' : '100%',
+                                width: '100%',
+                                mb:
+                                    username.length > 0 && !isUsernameValid && shouldValidateUsername
+                                        ? 4
+                                        : `${(parseInt(theme.spacing(4)) + HELPER_TEXT_HEIGHT).toString()}px`,
+                                [theme.breakpoints.down('sm')]: {
+                                    mb:
+                                        username.length > 0 && !isUsernameValid && shouldValidateUsername
+                                            ? 3
+                                            : `${(parseInt(theme.spacing(3)) + HELPER_TEXT_HEIGHT).toString()}px`,
+                                },
                             }}
-                            className={defaultClasses.loginButtonWrapper}
-                            data-testid={defaultClasses.loginButtonWrapper}
                         >
-                            <Button
-                                className={defaultClasses.loginButton}
-                                data-testid={defaultClasses.loginButton}
-                                onClick={handleLogin}
-                                disabled={!isFormValid()}
-                                variant="contained"
-                                color="primary"
-                                sx={{
-                                    width: showRememberMe ? 150 : '100%',
+                            <TextField
+                                fullWidth
+                                id="username"
+                                className={defaultClasses.usernameTextField}
+                                data-testid={defaultClasses.usernameTextField}
+                                label={usernameLabel || 'Username'}
+                                name="username"
+                                variant="filled"
+                                value={username}
+                                error={shouldValidateUsername && !isUsernameValid}
+                                helperText={shouldValidateUsername && !isUsernameValid ? usernameError : ''}
+                                {...usernameTextFieldProps}
+                                onChange={(e): void => {
+                                    // eslint-disable-next-line no-unused-expressions
+                                    usernameTextFieldProps?.onChange && usernameTextFieldProps.onChange(e);
+                                    handleUsernameInputChange(e.target.value);
                                 }}
-                            >
-                                {loginButtonLabel || 'Log In'}
-                            </Button>
-                        </Box>
-                    </Box>
-
-                    {showForgotPassword && (
-                        <Box
-                            sx={{ display: 'flex', justifyContent: 'center', textAlign: 'center' }}
-                            className={defaultClasses.forgotPasswordWrapper}
-                            data-testid={defaultClasses.forgotPasswordWrapper}
-                        >
-                            <Typography
-                                variant="body2"
-                                sx={LinkStyles}
-                                onClick={handleForgotPassword}
-                                className={defaultClasses.forgotPasswordLabel}
-                                data-testid={defaultClasses.forgotPasswordLabel}
-                            >
-                                {forgotPasswordLabel || 'Forgot your password?'}
-                            </Typography>
-                        </Box>
-                    )}
-
-                    {showSelfRegistration && (
-                        <Box
-                            sx={{
-                                display: 'flex',
-                                justifyContent: 'center',
-                                alignItems: 'center',
-                                flexDirection: 'column',
-                                marginTop: 4,
-                                textAlign: 'center',
-                            }}
-                            className={defaultClasses.selfRegisterWrapper}
-                            data-testid={defaultClasses.selfRegisterWrapper}
-                        >
-                            <Typography
-                                variant="body2"
-                                className={defaultClasses.selfRegisterInstructionLabel}
-                                data-testid={defaultClasses.selfRegisterInstructionLabel}
-                            >
-                                {selfRegisterInstructions || 'Need an account?'}
-                            </Typography>
-                            <Typography
-                                variant="body2"
-                                sx={LinkStyles}
-                                onClick={handleSelfRegister}
-                                className={defaultClasses.selfRegisterLabel}
-                                data-testid={defaultClasses.selfRegisterLabel}
-                            >
-                                {selfRegisterButtonLabel || 'Register now!'}
-                            </Typography>
-                        </Box>
-                    )}
-
-                    {showContactSupport && (
-                        <Box
-                            sx={{ display: 'flex', justifyContent: 'center', marginTop: 4, textAlign: 'center' }}
-                            className={defaultClasses.contactSupportWrapper}
-                            data-testid={defaultClasses.contactSupportWrapper}
-                        >
-                            <Typography
-                                variant="body2"
-                                sx={LinkStyles}
-                                onClick={handleContactSupport}
-                                className={defaultClasses.contactSupportLabel}
-                                data-testid={defaultClasses.contactSupportLabel}
-                            >
-                                {contactSupportLabel || 'Contact Support'}
-                            </Typography>
-                        </Box>
-                    )}
-
-                    <Box sx={{ display: 'flex', justifyContent: 'center' }}>{footer}</Box>
-
-                    {showCyberSecurityBadge && (
-                        <Box
-                            sx={{ display: 'flex', justifyContent: 'center', marginTop: 2 }}
-                            className={defaultClasses.cyberSecurityBadgeWrapper}
-                            data-testid={defaultClasses.cyberSecurityBadgeWrapper}
-                        >
-                            <img
-                                className={defaultClasses.cyberSecurityBadge}
-                                data-testid={defaultClasses.cyberSecurityBadge}
-                                src={cyberSecurityBadge}
-                                alt="Cyber Security Badge"
-                                style={{ width: '100px' }}
+                                onSubmit={(e: any): void => {
+                                    // eslint-disable-next-line no-unused-expressions
+                                    usernameTextFieldProps?.onSubmit && usernameTextFieldProps.onSubmit(e);
+                                    if (e.key === 'Enter' && passwordField.current) passwordField.current.focus();
+                                }}
+                                onBlur={(e): void => {
+                                    // eslint-disable-next-line no-unused-expressions
+                                    usernameTextFieldProps?.onBlur && usernameTextFieldProps.onBlur(e);
+                                    setShouldValidateUsername(true);
+                                }}
+                                onKeyUp={(e): void => {
+                                    if (e.key === 'Enter' && passwordField.current) passwordField.current.focus();
+                                }}
                             />
                         </Box>
+                        <Box
+                            sx={{
+                                width: '100%',
+                                mb:
+                                    username.length > 0 && !isPasswordValid && shouldValidatePassword
+                                        ? 2
+                                        : `${(parseInt(theme.spacing(2)) + HELPER_TEXT_HEIGHT).toString()}px`,
+                            }}
+                        >
+                            <PasswordTextField
+                                fullWidth
+                                inputRef={passwordField}
+                                id="password"
+                                className={defaultClasses.passwordTextField}
+                                data-testid={defaultClasses.passwordTextField}
+                                name="password"
+                                label={passwordLabel || 'Password'}
+                                variant="filled"
+                                value={password}
+                                error={shouldValidatePassword && !isPasswordValid}
+                                helperText={shouldValidatePassword && !isPasswordValid ? passwordError : ''}
+                                {...passwordTextFieldProps}
+                                onChange={(e: any): void => {
+                                    // eslint-disable-next-line no-unused-expressions
+                                    passwordTextFieldProps?.onChange && passwordTextFieldProps.onChange(e);
+                                    handlePasswordInputChange(e.target.value);
+                                }}
+                                onSubmit={(e: any): void => {
+                                    // eslint-disable-next-line no-unused-expressions
+                                    passwordTextFieldProps?.onSubmit && passwordTextFieldProps.onSubmit(e);
+                                    handleLoginSubmit(e);
+                                }}
+                                onBlur={(e): void => {
+                                    // eslint-disable-next-line no-unused-expressions
+                                    passwordTextFieldProps?.onBlur && passwordTextFieldProps.onBlur(e);
+                                    setShouldValidatePassword(true);
+                                }}
+                                onKeyUp={(e): void => {
+                                    // eslint-disable-next-line no-unused-expressions
+                                    passwordTextFieldProps?.onSubmit && passwordTextFieldProps.onSubmit(e);
+                                    handleLoginSubmit(e);
+                                }}
+                            />
+                        </Box>
+                    </Box>
+                </ErrorManager>
+                <Box
+                    sx={{
+                        display: 'flex',
+                        flexDirection: 'row',
+                        justifyContent: 'space-between',
+                        alignItems: 'center',
+                        width: '100%',
+                        mt: 1,
+                        mb: 5,
+                        flexWrap: 'nowrap',
+                        [theme.breakpoints.down('sm')]: {
+                            flexWrap: 'wrap',
+                            flexDirection: 'column',
+                            justifyContent: 'center',
+                        },
+                    }}
+                    className={defaultClasses.rememberMeLoginRowWrapper}
+                    data-testid={defaultClasses.rememberMeLoginRowWrapper}
+                >
+                    {showRememberMe && (
+                        <Box
+                            sx={{
+                                display: 'flex',
+                                alignItems: 'center',
+                                ml: -1.5,
+                                mr: 1,
+                                [theme.breakpoints.down('sm')]: {
+                                    mr: 0,
+                                },
+                            }}
+                            className={defaultClasses.rememberMeWrapper}
+                            data-testid={defaultClasses.rememberMeWrapper}
+                        >
+                            <Checkbox
+                                color="primary"
+                                checked={rememberMe}
+                                onChange={(e: any): void => handleRememberMeChanged(e.target.checked)}
+                                className={defaultClasses.rememberMeCheckbox}
+                                data-testid={defaultClasses.rememberMeCheckbox}
+                            />
+                            <Typography
+                                variant="body1"
+                                className={defaultClasses.rememberMeLabel}
+                                data-testid={defaultClasses.rememberMeLabel}
+                            >
+                                {rememberMeLabel || 'Remember Me'}
+                            </Typography>
+                        </Box>
                     )}
-                </WorkflowCardBody>
-            </WorkflowCard>
-        </>
+                    <Box
+                        sx={{
+                            display: 'flex',
+                            flex: 1,
+                            justifyContent: 'flex-end',
+                            width: showRememberMe ? 'auto' : '100%',
+                        }}
+                        className={defaultClasses.loginButtonWrapper}
+                        data-testid={defaultClasses.loginButtonWrapper}
+                    >
+                        <Button
+                            className={defaultClasses.loginButton}
+                            data-testid={defaultClasses.loginButton}
+                            onClick={handleLogin}
+                            disabled={!isFormValid()}
+                            variant="contained"
+                            color="primary"
+                            sx={{
+                                width: showRememberMe ? 150 : '100%',
+                            }}
+                        >
+                            {loginButtonLabel || 'Log In'}
+                        </Button>
+                    </Box>
+                </Box>
+
+                {showForgotPassword && (
+                    <Box
+                        sx={{ display: 'flex', justifyContent: 'center', textAlign: 'center' }}
+                        className={defaultClasses.forgotPasswordWrapper}
+                        data-testid={defaultClasses.forgotPasswordWrapper}
+                    >
+                        <Typography
+                            variant="body2"
+                            sx={LinkStyles}
+                            onClick={handleForgotPassword}
+                            className={defaultClasses.forgotPasswordLabel}
+                            data-testid={defaultClasses.forgotPasswordLabel}
+                        >
+                            {forgotPasswordLabel || 'Forgot your password?'}
+                        </Typography>
+                    </Box>
+                )}
+
+                {showSelfRegistration && (
+                    <Box
+                        sx={{
+                            display: 'flex',
+                            justifyContent: 'center',
+                            alignItems: 'center',
+                            flexDirection: 'column',
+                            marginTop: 4,
+                            textAlign: 'center',
+                        }}
+                        className={defaultClasses.selfRegisterWrapper}
+                        data-testid={defaultClasses.selfRegisterWrapper}
+                    >
+                        <Typography
+                            variant="body2"
+                            className={defaultClasses.selfRegisterInstructionLabel}
+                            data-testid={defaultClasses.selfRegisterInstructionLabel}
+                        >
+                            {selfRegisterInstructions || 'Need an account?'}
+                        </Typography>
+                        <Typography
+                            variant="body2"
+                            sx={LinkStyles}
+                            onClick={handleSelfRegister}
+                            className={defaultClasses.selfRegisterLabel}
+                            data-testid={defaultClasses.selfRegisterLabel}
+                        >
+                            {selfRegisterButtonLabel || 'Register now!'}
+                        </Typography>
+                    </Box>
+                )}
+
+                {showContactSupport && (
+                    <Box
+                        sx={{ display: 'flex', justifyContent: 'center', marginTop: 4, textAlign: 'center' }}
+                        className={defaultClasses.contactSupportWrapper}
+                        data-testid={defaultClasses.contactSupportWrapper}
+                    >
+                        <Typography
+                            variant="body2"
+                            sx={LinkStyles}
+                            onClick={handleContactSupport}
+                            className={defaultClasses.contactSupportLabel}
+                            data-testid={defaultClasses.contactSupportLabel}
+                        >
+                            {contactSupportLabel || 'Contact Support'}
+                        </Typography>
+                    </Box>
+                )}
+
+                <Box sx={{ display: 'flex', justifyContent: 'center' }}>{footer}</Box>
+
+                {showCyberSecurityBadge && (
+                    <Box
+                        sx={{ display: 'flex', justifyContent: 'center', marginTop: 2 }}
+                        className={defaultClasses.cyberSecurityBadgeWrapper}
+                        data-testid={defaultClasses.cyberSecurityBadgeWrapper}
+                    >
+                        <img
+                            className={defaultClasses.cyberSecurityBadge}
+                            data-testid={defaultClasses.cyberSecurityBadge}
+                            src={cyberSecurityBadge}
+                            alt="Cyber Security Badge"
+                            style={{ width: '100px' }}
+                        />
+                    </Box>
+                )}
+            </WorkflowCardBody>
+        </WorkflowCard>
     );
 };
