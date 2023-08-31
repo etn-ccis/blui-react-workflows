@@ -138,8 +138,7 @@ export const RegistrationWorkflow: React.FC<React.PropsWithChildren<Registration
                         setShowSuccessScreen(true);
                     })
                     .catch((_error) => {
-                        // eslint-disable-next-line no-console
-                        console.log(_error);
+                        triggerError(_error);
                     })
             );
         }
