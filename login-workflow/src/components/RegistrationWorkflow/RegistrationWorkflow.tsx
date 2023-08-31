@@ -115,9 +115,9 @@ export const RegistrationWorkflow: React.FC<React.PropsWithChildren<Registration
     };
 
     const finishRegistration = (data: IndividualScreenData): Promise<void> => {
-        if (actions && actions().completeRegistration)
+        if (actions && actions.completeRegistration)
             // TODO: THIS LOOKS BROKEN — ARE WE ONLY PASSING THE DATA FROM THE LAST SCREEN OF THE WORKFLOW???
-            return actions()
+            return actions
                 .completeRegistration(data.values, screenData.VerifyCode.code, screenData.CreateAccount.emailAddress)
                 .then(({ email, organizationName }) => {
                     updateScreenData({
