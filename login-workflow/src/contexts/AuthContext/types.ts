@@ -34,7 +34,7 @@ export type AuthContextProviderProps = {
      * An optional i18n object that is used to translate the UI. This is only needed if you want to use custom translation keys / languages inside any of the workflow screens
      */
     i18n?: i18n;
-    
+
     rememberMeDetails?: {
         /**
          * Email address to show in the email field of Login after logout.
