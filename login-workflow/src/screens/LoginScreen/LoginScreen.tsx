@@ -50,7 +50,14 @@ export const LoginScreen: React.FC<React.PropsWithChildren<LoginScreenPropsPubli
     const auth = useAuthContext();
     const { actions, navigate, routeConfig, rememberMeDetails } = auth;
     const { triggerError, errorManagerConfig } = useErrorManager();
-    const errorDisplayConfig = { ...errorManagerConfig, ...props.errorDisplayConfig };
+    const errorDisplayConfig = {
+        ...errorManagerConfig,
+        ...props.errorDisplayConfig,
+        onClose: (): void => {
+            if (props.errorDisplayConfig && props.errorDisplayConfig.onClose) props.errorDisplayConfig.onClose();
+            if (errorManagerConfig.onClose) errorManagerConfig?.onClose();
+        },
+    };
 
     useEffect(() => {
         void actions().initiateSecurity();

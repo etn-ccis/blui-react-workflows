@@ -1,8 +1,8 @@
-import { SxProps } from '@mui/material/styles';
 import React, { useCallback } from 'react';
 import { BasicDialog } from '../Dialog/BasicDialog';
 import ErrorMessageBox from './ErrorMessageBox';
 import { useLanguageLocale } from '../../hooks';
+import { SxProps } from '@mui/material/styles';
 
 export type AuthError = { cause: { title: string; errorMessage: string } };
 

@@ -1,7 +1,6 @@
 import { WorkflowCardProps } from '../../components/WorkflowCard/WorkflowCard.types';
 
-export type ContactScreenProps = WorkflowCardProps & {
-    title?: string;
+export type ContactSupportScreenProps = WorkflowCardProps & {
     icon?: JSX.Element;
     emailSupportTitle?: string;
     emailSupportContent?: (email: string) => string | JSX.Element;

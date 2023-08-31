@@ -52,8 +52,8 @@ describe('Eula Screen', () => {
         expect(screen.getByText('Test Eula Content')).toBeInTheDocument();
     });
 
-    it('should show button when htmlEula prop is true', () => {
-        renderer({ htmlEula: true, eulaContent: '<button>Submit</button>' });
+    it('should show button when html prop is true', () => {
+        renderer({ html: true, eulaContent: '<button>Submit</button>' });
         expect(
             screen.getByRole('button', {
                 name: /Submit/i,
@@ -61,8 +61,8 @@ describe('Eula Screen', () => {
         ).toBeVisible();
     });
 
-    it('should show button element as as a string when htmlEula prop is true', () => {
-        renderer({ htmlEula: false, eulaContent: '<button>Submit</button>' });
+    it('should show button element as as a string when html prop is true', () => {
+        renderer({ html: false, eulaContent: '<button>Submit</button>' });
         expect(screen.getByText('<button>Submit</button>')).toBeInTheDocument();
     });
 

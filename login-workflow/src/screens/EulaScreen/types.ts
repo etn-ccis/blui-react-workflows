@@ -13,7 +13,7 @@ export type EulaScreenProps = WorkflowCardProps & {
     checkboxProps?: CheckboxProps;
 
     // true if the EULA should be rendered as HTML
-    htmlEula?: boolean;
+    html?: boolean;
 
     // used to pre-populate the checked/unchecked checkbox when the screen loads
     initialCheckboxValue?: boolean;

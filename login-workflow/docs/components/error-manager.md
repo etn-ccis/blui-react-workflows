@@ -1,120 +1,47 @@
 # ErrorManager
 
-## Description
-Component that manages the display of error messages. Can be configured to display a dialog, a message box, or neither.
+Component that manages the display of error messages. Can be configured to display a dialog, a message box, or neither. This component must be used within an `AuthContextProvider` or a `RegistrationContextProvider` for default values to work.
+
+![Error Dialog](../../media/screens/error-dialog.png)
+![Error Box](../../media/screens/error-box.png)
 
 ## Usage
 ```tsx
 import { ErrorManager } from '@brightlayer-ui/react-auth-workflow';
 
-const MyComponent = () => {
-  return (
-    <ErrorManager>
-        {children}
-    </ErrorManager>
-  );
-};
-```
+...
 
-## AdvancedUsage
-
-```tsx
-import { ErrorManager } from '@brightlayer-ui/react-auth-workflow';
-
-const MyComponent = () => {
-  const [error, setError] = React.useState('');
-
-  const handleClose = () => {
-    setError('');
-  };
-
-  const dialogConfig = {
-    title: 'Custom Dialog Title',
-    dismissLabel: 'Dismiss'
-  };
-
-  const messageBoxConfig = {
-    dismissible: true,
-    position: 'bottom',
-    fontColor: '#ffffff',
-    backgroundColor: '#ff0000'
-  };
-
-  // Simulate an error after 3 seconds
-  React.useEffect(() => {
-    setTimeout(() => {
-      setError('This is an error message');
-    }, 3000);
-  }, []);
-
-  return (
-    <ErrorManager
-      mode="message-box"
-      error={error}
-      onClose={handleClose}
-      dialogConfig={dialogConfig}
-      messageBoxConfig={messageBoxConfig}
-    >
-      <div>Your main content goes here...</div>
-    </ErrorManager>
-  );
-};
-
+<ErrorManager>
+    {/* When configured as a message-box, the box will appear before or after the elements passed as children */}
+    {children} 
+</ErrorManager>
 ```
 
 ## API
 
- - **error**
-   - Error text to display.
-   - **Type:** `string`
- - **mode** (optional)
-   - Determines whether to display a dialog, a message box, or neither.
-   - **Type:** `'dialog' | 'message-box' | 'none'`
-   - **Default:** `'dialog'`
- - **onClose** (optional)
-   - Function to call when the close/dismiss button is clicked.
-   - **Type:** `() => void`
- - **dialogConfig** (optional)
-   - Configuration for the error dialog.
-   - **Type:** `{title?: string, dismissLabel?: string}`
-   - see [DialogConfig Props](#dialogconfigprops)
- - **messageBoxConfig** (optional)
-   - Configuration for the error message box.
-   - **Type:** `MessageBoxProps`
-   - See [MessageBoxProps](#messageboxprops)
- - **children** (optional)
-   - Children to render.
-   - **Type:** `React.ReactNode`
-
+| Prop Name | Type | Description | Default |
+|---|---|---|---|
+| error | `string` | Error text to display. If string is empty, the error will not be shown. |  |
+| mode | `'dialog' \| 'message-box' \| 'none'` | Determines whether to display a dialog, a message box, or neither. | `'dialog'` |
+| onClose | `() => void` | Function to call when the close/dismiss button is clicked. |  |
+| dialogConfig | `{title?: string, dismissLabel?: string}` | Configuration options for the dialog. See [DialogConfig Props](#dialogconfigprops) |  |
+| messageBoxConfig | `MessageBoxProps` | Configuration options for the message box. See [MessageBoxProps](#messageboxprops) |  |
+| children | `ReactNode` | Message box errors will appear before or after content passed as children. |  |
 
 ### DialogConfigProps
-   - **title** (optional)
-     - Text to show in the title of the dialog.
-     - **Type:** `string`
-     - **Default:** `t('bluiCommon:ERRORS.ERROR')`
-   - **dismissLabel** (optional)
-     - Text to show in the close button.
-     - **Type:** `string`
-     - **Default:** `t('bluiCommon:ACTIONS.CLOSE')`
+
+| Prop Name | Type | Description | Default |
+|---|---|---|---|
+| title | `string` | Text to show in the title of the dialog. | `t('bluiCommon:ERRORS.ERROR')` |
+| dismissLabel | `string` | Label to show in the close button. | `t('bluiCommon:ACTIONS.CLOSE')` |
 
 
 ### MessageBoxProps
-  - **dismissible** (optional)
-    - Whether the message box can be dismissed.
-    - **Type:** `boolean`
-    - **Default:** `true`
-  - **position** (optional)
-    - Determines whether the message box should be displayed at the top or bottom of the screen.
-    - **Type:** `'top' | 'bottom'`
-    - **Default:** `'top'`
-  - **fontColor** (optional)
-    - The font color of the text inside the message box.
-    - **Type:** `string`
-    - **Default:** `theme.palette.error.main`
-  - **backgroundColor** (optional)
-    - The background color of the message box.
-    - **Type:** `string`
-    - **Default:** `theme.palette.error.light`
-  - **sx** (optional)
-    - sx styles passed to the underlying root(Box) component.
-    - **Type:** `SxProps`
+
+| Prop Name | Type | Description | Default |
+|---|---|---|---|
+| dismissible | `boolean` | Whether the message box can be dismissed. | `true` |
+| position | `'top' \| 'bottom'` | Determines whether the message box should be displayed before or after children elements. | `'top'` |
+| fontColor | `string` | The font color of the text inside the message box. | `'error.contrastText'` |
+| backgroundColor | `string` | The background color of the message box. | `'error.main` |
+| sx | `SxProps<Theme>` | MUI sx style overrides object |  |

@@ -2,7 +2,7 @@ import React from 'react';
 import '@testing-library/jest-dom';
 import { render, cleanup, screen, fireEvent, RenderResult } from '@testing-library/react';
 import { ContactSupportScreen } from './ContactSupportScreen';
-import { ContactScreenProps } from './types';
+import { ContactSupportScreenProps } from './types';
 import { AuthContextProvider } from '../../contexts';
 import { BrowserRouter } from 'react-router-dom';
 import { authContextProviderProps } from '../../testUtils';
@@ -19,7 +19,7 @@ describe('ContactSupportScreen tests', () => {
     beforeEach(() => {
         mockOnNext = jest.fn();
     });
-    const renderer = (props?: ContactScreenProps): RenderResult =>
+    const renderer = (props?: ContactSupportScreenProps): RenderResult =>
         render(
             <AuthContextProvider {...authContextProviderProps}>
                 <BrowserRouter>

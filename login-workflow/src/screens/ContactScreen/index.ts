@@ -1,3 +1,3 @@
-export * from './ContactScreenBase';
+export * from './ContactSupportScreenBase';
 export * from './types';
 export * from './ContactSupportScreen';
