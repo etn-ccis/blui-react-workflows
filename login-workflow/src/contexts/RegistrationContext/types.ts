@@ -16,11 +16,7 @@ export type RegistrationUIActions = {
     validateUserRegistrationRequest?: (validationCode: string, validationEmail?: string) => Promise<boolean>;
     createPassword?: (password: string) => Promise<boolean>;
     setAccountDetails?: (details: AccountDetails) => Promise<boolean>;
-    completeRegistration?: (
-        userData: any,
-        validationCode: number | string,
-        validationEmail: string
-    ) => Promise<{ email: string; organizationName: string }>;
+    completeRegistration?: (userData: object) => Promise<{ email: string; organizationName: string }>;
 };
 
 export type RegistrationContextProviderProps = {
