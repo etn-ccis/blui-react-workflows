@@ -2,7 +2,6 @@ import { i18n } from 'i18next';
 import { ErrorContextProviderProps } from '../ErrorContext';
 import { RouteConfig } from '../../types';
 
-// @TODO: this will need migrated to AuthContext types when that is ready
 export type AccountDetails = {
     firstName: string;
     lastName: string;
