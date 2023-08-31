@@ -82,8 +82,8 @@ export const ForgotPasswordScreenBase: React.FC<React.PropsWithChildren<ForgotPa
             ) : (
                 <WorkflowCard {...cardBaseProps}>
                     <WorkflowCardHeader {...headerProps} />
+                    <WorkflowCardInstructions divider {...instructionsProps} />
                     <WorkflowCardBody>
-                        <WorkflowCardInstructions divider {...instructionsProps} />
                         <ErrorManager {...errorDisplayConfig}>
                             <TextField
                                 id="email"
