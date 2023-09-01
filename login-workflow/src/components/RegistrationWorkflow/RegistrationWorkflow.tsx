@@ -69,7 +69,7 @@ export const RegistrationWorkflow: React.FC<React.PropsWithChildren<Registration
         initialScreenIndex < 0 ? 0 : initialScreenIndex > totalScreens - 1 ? totalScreens - 1 : initialScreenIndex
     );
     const [showSuccessScreen, setShowSuccessScreen] = useState(false);
-    const { actions } = useRegistrationContext();
+    const { actions, navigate } = useRegistrationContext();
 
     const [screenData, setScreenData] = useState({
         Eula: {
@@ -115,10 +115,19 @@ export const RegistrationWorkflow: React.FC<React.PropsWithChildren<Registration
     };
 
     const finishRegistration = (data: IndividualScreenData): Promise<void> => {
-        if (actions && actions.completeRegistration)
-            // TODO: THIS LOOKS BROKEN — ARE WE ONLY PASSING THE DATA FROM THE LAST SCREEN OF THE WORKFLOW???
+        if (actions && actions.completeRegistration) {
+            const { Eula, CreateAccount, VerifyCode, CreatePassword, AccountDetails, Other } = screenData;
+            const userInfo = {
+                ...Eula,
+                ...CreateAccount,
+                ...VerifyCode,
+                ...CreatePassword,
+                ...AccountDetails,
+                ...Other,
+                ...data.values,
+            };
             return actions
-                .completeRegistration(data.values, screenData.VerifyCode.code, screenData.CreateAccount.emailAddress)
+                .completeRegistration(userInfo)
                 .then(({ email, organizationName }) => {
                     updateScreenData({
                         screenId: 'RegistrationSuccessScreen',
@@ -129,6 +138,7 @@ export const RegistrationWorkflow: React.FC<React.PropsWithChildren<Registration
                 .catch((_error) => {
                     triggerError(_error);
                 });
+        }
     };
 
     useEffect(() => {
@@ -156,6 +166,9 @@ export const RegistrationWorkflow: React.FC<React.PropsWithChildren<Registration
             }}
             previousScreen={(data): void => {
                 updateScreenData(data);
+                if (currentScreen === 0) {
+                    navigate(-1);
+                }
                 setCurrentScreen((i) => i - 1);
             }}
             screenData={screenData}

@@ -25,7 +25,7 @@ import { useErrorManager } from '../../contexts/ErrorContext/useErrorManager';
 
 export const EulaScreen: React.FC<EulaScreenProps> = (props) => {
     const { t } = useLanguageLocale();
-    const { actions, navigate, routeConfig, language } = useRegistrationContext();
+    const { actions, language } = useRegistrationContext();
     const { triggerError, errorManagerConfig } = useErrorManager();
     const errorDisplayConfig = {
         ...errorManagerConfig,
@@ -40,15 +40,13 @@ export const EulaScreen: React.FC<EulaScreenProps> = (props) => {
     const {
         WorkflowCardHeaderProps,
         WorkflowCardActionsProps,
-        onEulaAcceptedChange = (accepted: boolean): boolean => accepted,
         eulaContent,
         checkboxLabel = t('bluiRegistration:REGISTRATION.EULA.AGREE_TERMS'),
         html,
         initialCheckboxValue,
     } = props;
-    const [eulaAccepted, setEulaAccepted] = useState(
-        initialCheckboxValue ? initialCheckboxValue : screenData.Eula.accepted
-    );
+
+    const eulaAccepted = initialCheckboxValue ? initialCheckboxValue : screenData.Eula.accepted;
     const [isLoading, setIsLoading] = useState(true);
     const [eulaData, setEulaData] = useState<string | JSX.Element>();
     const [eulaFetchError, setEulaFetchError] = useState(false);
@@ -78,8 +76,9 @@ export const EulaScreen: React.FC<EulaScreenProps> = (props) => {
     const onNext = useCallback(async (): Promise<void> => {
         setIsLoading(true);
         try {
-            await actions.acceptEula?.();
-            setEulaAccepted(true);
+            if (screenData.Eula.accepted) {
+                await actions.acceptEula?.();
+            }
             let isAccExist;
             if (isInviteRegistration) {
                 isAccExist = await actions.validateUserRegistrationRequest(
@@ -89,7 +88,7 @@ export const EulaScreen: React.FC<EulaScreenProps> = (props) => {
             }
             void nextScreen({
                 screenId: 'Eula',
-                values: { accepted: true },
+                values: { accepted: screenData.Eula.accepted },
                 isAccountExist: isAccExist,
             });
         } catch (_error) {
@@ -112,6 +111,15 @@ export const EulaScreen: React.FC<EulaScreenProps> = (props) => {
             setIsLoading(false);
         }
     }, [previousScreen, triggerError, eulaAccepted]);
+
+    const updateEulaAcceptedStatus = useCallback(
+        (accepted: boolean): void => {
+            screenData.Eula = { ...screenData, accepted };
+            props?.onEulaAcceptedChange?.(accepted);
+        },
+        // eslint-disable-next-line react-hooks/exhaustive-deps
+        [screenData]
+    );
 
     useEffect(() => {
         void loadAndCacheEula();
@@ -146,7 +154,6 @@ export const EulaScreen: React.FC<EulaScreenProps> = (props) => {
         },
         onPrevious: (): void => {
             void onPrevious();
-            navigate(routeConfig.LOGIN);
             WorkflowCardActionsProps?.onPrevious?.();
         },
     };
@@ -162,7 +169,7 @@ export const EulaScreen: React.FC<EulaScreenProps> = (props) => {
             checkboxProps={checkboxProps}
             html={html}
             initialCheckboxValue={eulaAccepted}
-            onEulaAcceptedChange={onEulaAcceptedChange}
+            onEulaAcceptedChange={updateEulaAcceptedStatus}
             WorkflowCardActionsProps={workflowCardActionsProps}
             errorDisplayConfig={errorDisplayConfig}
             onRefetch={onRefetch}

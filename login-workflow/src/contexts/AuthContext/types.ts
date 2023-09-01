@@ -4,13 +4,14 @@
  */
 
 import { i18n } from 'i18next';
+import { NavigateFunction } from 'react-router-dom';
 import { RouteConfig } from '../../types';
 import { ErrorContextProviderProps } from '../ErrorContext/types';
 
 export type AuthContextProviderProps = {
     actions: AuthUIActions;
     language: string;
-    navigate: (url: string) => void;
+    navigate: NavigateFunction;
     routeConfig: RouteConfig;
     i18n?: i18n;
     rememberMeDetails?: {
