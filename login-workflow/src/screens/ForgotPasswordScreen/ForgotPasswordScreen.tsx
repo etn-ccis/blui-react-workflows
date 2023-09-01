@@ -96,7 +96,7 @@ export const ForgotPasswordScreen: React.FC<ForgotPasswordScreenProps> = (props)
         instructions: description ? (
             <> {description(responseTime)} </>
         ) : (
-            <Typography>
+            <Typography sx={{ px: 3, pt: 2 }}>
                 <Trans
                     i18nKey={'bluiAuth:FORGOT_PASSWORD.INSTRUCTIONS_ALT'}
                     values={{ phone: contactPhone, responseTime }}
