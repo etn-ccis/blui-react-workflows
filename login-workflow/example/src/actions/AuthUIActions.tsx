@@ -14,7 +14,6 @@ function isRandomFailure(): boolean {
     return false; // randomResponseNumber < 10;
 }
 
-// type AuthUIActionsFunction = () => AuthUIActions;
 type AuthUIActionsWithApp = (appHelper: AppContextType) => AuthUIActions;
 
 /**
@@ -25,7 +24,6 @@ type AuthUIActionsWithApp = (appHelper: AppContextType) => AuthUIActions;
  * the global security state based on the actionable needs of the user.
  */
 export const ProjectAuthUIActions: AuthUIActionsWithApp = (appHelper) => ({
-    // export const ProjectAuthUIActions: () => AuthUIActions = () => ({
     /**
      * Initialize the application security state. This will involve reading any local storage,
      * validating existing credentials (token expiration, for example). At the end of validation,
