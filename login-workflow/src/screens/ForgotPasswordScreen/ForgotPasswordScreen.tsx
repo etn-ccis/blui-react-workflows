@@ -1,5 +1,6 @@
 import React, { useCallback, useState } from 'react';
 import { Trans } from 'react-i18next';
+import Box from '@mui/material/Box';
 import { useAuthContext } from '../../contexts';
 import { useLanguageLocale } from '../../hooks';
 import { ForgotPasswordScreenBase } from './ForgotPasswordScreenBase';
@@ -94,7 +95,7 @@ export const ForgotPasswordScreen: React.FC<ForgotPasswordScreenProps> = (props)
 
     const workflowCardInstructionProps = {
         instructions: description ? (
-            <> {description(responseTime)} </>
+            <Box sx={{ px: 3, pt: 2 }}> {description(responseTime)} </Box>
         ) : (
             <Typography sx={{ px: 3, pt: 2 }}>
                 <Trans
