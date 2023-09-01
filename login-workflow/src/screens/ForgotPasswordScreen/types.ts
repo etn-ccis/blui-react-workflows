@@ -33,27 +33,6 @@ export type ForgotPasswordScreenProps = WorkflowCardProps & {
     // used to update the instruction
     description?: (responseTime: string) => React.ReactNode;
 
-    // used to update the screen title
-    title?: string;
-
-    // used to display back button
-    showBackButton?: boolean;
-
-    // used to display back button label
-    backButtonLabel?: string;
-
-    // used to enable to back button
-    canGoBack?: boolean | (() => boolean);
-
-    // used to display next button
-    showNextButton?: boolean;
-
-    // used to display next button label
-    nextButtonLabel?: string;
-
-    // used to enable to next button
-    canGoNext?: boolean | (() => boolean);
-
     // used to determine whether to show a success screen after the form is submitted
     showSuccessScreen?: boolean;
 
