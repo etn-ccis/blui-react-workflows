@@ -86,7 +86,7 @@ export const RegistrationWorkflow: React.FC<React.PropsWithChildren<Registration
         initialScreenIndex < 0 ? 0 : initialScreenIndex > totalScreens - 1 ? totalScreens - 1 : initialScreenIndex
     );
     const [showSuccessScreen, setShowSuccessScreen] = useState(false);
-    const { actions } = useRegistrationContext();
+    const { actions, navigate } = useRegistrationContext();
 
     const [screenData, setScreenData] = useState({
         Eula: {
@@ -183,6 +183,9 @@ export const RegistrationWorkflow: React.FC<React.PropsWithChildren<Registration
             }}
             previousScreen={(data): void => {
                 updateScreenData(data);
+                if (currentScreen === 0) {
+                    navigate(-1);
+                }
                 setCurrentScreen((i) => i - 1);
             }}
             screenData={screenData}

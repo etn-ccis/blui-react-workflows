@@ -4,6 +4,7 @@
  */
 
 import { i18n } from 'i18next';
+import { NavigateFunction } from 'react-router-dom';
 import { RouteConfig } from '../../types';
 import { ErrorContextProviderProps } from '../ErrorContext/types';
 
@@ -20,10 +21,8 @@ export type AuthContextProviderProps = {
 
     /**
      * Function that can be called to navigate to a new route
-     * @param {string} url - path to route to
-     * @returns void
      */
-    navigate: (url: string) => void;
+    navigate: NavigateFunction;
 
     /**
      * Object describing the URLs you are using for the relevant routes so the workflow can correctly navigate between screens

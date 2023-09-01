@@ -1,4 +1,5 @@
 import { i18n } from 'i18next';
+import { NavigateFunction } from 'react-router-dom';
 import { ErrorContextProviderProps } from '../ErrorContext';
 import { RouteConfig } from '../../types';
 
@@ -75,10 +76,8 @@ export type RegistrationContextProviderProps = {
 
     /**
      * A function that is used to navigate to a new URL. This is used to navigate to the various screens of the workflow
-     * @param {string} url - path to url
-     * @returns void
      */
-    navigate: (url: string) => void;
+    navigate: NavigateFunction;
 
     /**
      * An object that defines the various routes for the workflow

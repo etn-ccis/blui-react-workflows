@@ -33,9 +33,9 @@ export type EulaScreenProps = WorkflowCardProps & {
     /**
      * Function called when the checkbox clicked
      * @param {boolean} accepted - verify Eula accepted
-     * @returns boolean
+     * @returns void
      */
-    onEulaAcceptedChange?: (accepted: boolean) => boolean;
+    onEulaAcceptedChange?: (accepted: boolean) => void;
 
     /**
      * The configuration for customizing how errors are displayed
