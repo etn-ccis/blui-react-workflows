@@ -1,7 +1,11 @@
 import React from 'react';
 import '@testing-library/jest-dom';
-import { cleanup, render, screen, fireEvent } from '@testing-library/react';
+import { cleanup, render, screen, fireEvent, RenderResult } from '@testing-library/react';
 import { VerifyCodeScreenBase } from './VerifyCodeScreenBase';
+import { registrationContextProviderProps } from '../../testUtils';
+import { RegistrationContextProvider } from '../../contexts';
+import { VerifyCodeScreenProps } from './types';
+import { RegistrationWorkflow } from '../../components';
 
 afterEach(cleanup);
 
@@ -18,7 +22,17 @@ describe('Verify Code Screen Base', () => {
         mockOnNext = jest.fn();
     });
 
+    const renderer = (props?: VerifyCodeScreenProps): RenderResult =>
+        render(
+            <RegistrationContextProvider {...registrationContextProviderProps}>
+                <RegistrationWorkflow initialScreenIndex={0}>
+                    <VerifyCodeScreenBase {...props} />
+                </RegistrationWorkflow>
+            </RegistrationContextProvider>
+        );
+
     it('renders without crashing', () => {
+        renderer();
         render(
             <VerifyCodeScreenBase
                 WorkflowCardHeaderProps={{ title: 'Verify Email' }}
