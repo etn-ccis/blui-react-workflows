@@ -5,11 +5,36 @@ import { SxProps, Theme } from '@mui/material/styles';
 import Typography from '@mui/material/Typography';
 
 export type ErrorMessageBoxProps = {
+    /**
+     * The text to show in the title
+     */
     errorMessage: string;
+
+    /**
+     * The background color of the message box
+     */
     backgroundColor?: string;
+
+    /**
+     * Boolean whether the message box can be dismissed
+     * @default true
+     */
     dismissible?: boolean;
+
+    /**
+     * The font color of the text inside the message box
+     */
     fontColor?: string;
+
+    /**
+     * The function to call when the close button is clicked
+     * @returns void
+     */
     onClose?: () => void;
+
+    /**
+     * Styles passed to the underlying root component
+     */
     sx?: SxProps<Theme>;
 };
 /**

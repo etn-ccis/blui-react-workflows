@@ -7,9 +7,27 @@ import { SxProps } from '@mui/material/styles';
 export type AuthError = { cause: { title: string; errorMessage: string } };
 
 export type ErrorManagerProps = {
+    /**
+     * Determines whether to display a dialog, a message box, or neither
+     */
     mode?: 'dialog' | 'message-box' | 'none';
+
+    /**
+     * The function to call when the close/dismiss button is clicked
+     * @returns void
+     */
     onClose?: () => void;
+
+    /**
+     * The error text to display
+     */
     error?: string;
+
+    /**
+     * Configuration options when using mode='dialog'
+     * @param {string} dialogConfig.title - The title used in the dialog header
+     * @param {string} dialogConfig.dismissLabel - The label on the dismiss button.
+     */
     dialogConfig?: {
         title?: string;
         dismissLabel?: string;
