@@ -1,8 +1,8 @@
 import { i18n } from 'i18next';
+import { NavigateFunction } from 'react-router-dom';
 import { ErrorContextProviderProps } from '../ErrorContext';
 import { RouteConfig } from '../../types';
 
-// @TODO: this will need migrated to AuthContext types when that is ready
 export type AccountDetails = {
     firstName: string;
     lastName: string;
@@ -17,17 +17,13 @@ export type RegistrationUIActions = {
     validateUserRegistrationRequest?: (validationCode: string, validationEmail?: string) => Promise<boolean>;
     createPassword?: (password: string) => Promise<boolean>;
     setAccountDetails?: (details: AccountDetails) => Promise<boolean>;
-    completeRegistration?: (
-        userData: any,
-        validationCode: number | string,
-        validationEmail: string
-    ) => Promise<{ email: string; organizationName: string }>;
+    completeRegistration?: (userData: object) => Promise<{ email: string; organizationName: string }>;
 };
 
 export type RegistrationContextProviderProps = {
     actions?: () => RegistrationUIActions;
     language: string;
-    navigate: (url: string) => void;
+    navigate: NavigateFunction;
     routeConfig: RouteConfig;
     i18n?: i18n; // add languages / override strings in bulk
     errorConfig?: ErrorContextProviderProps;

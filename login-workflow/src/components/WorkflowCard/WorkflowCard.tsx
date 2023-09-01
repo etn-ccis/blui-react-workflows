@@ -30,15 +30,7 @@ const useUtilityClasses = (ownerState: WorkflowCardBaseProps): Record<WorkflowCa
 };
 
 export const WorkflowCard: React.FC<WorkflowCardBaseProps> = (props) => {
-    const {
-        loading,
-        backgroundImage,
-        // eslint-disable-next-line @typescript-eslint/no-unused-vars
-        error,
-        sx,
-        children,
-        ...otherBoxProps
-    } = props;
+    const { loading, backgroundImage, sx, children, ...otherBoxProps } = props;
     const theme = useTheme();
     const defaultClasses = useUtilityClasses(props);
 

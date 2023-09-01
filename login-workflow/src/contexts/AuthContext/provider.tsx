@@ -36,7 +36,6 @@ export const AuthContextProvider: React.FC<
 
     useEffect(() => {
         void i18n.changeLanguage(language);
-        window.localStorage.setItem('blui-i18nextLng', language);
     }, [i18n, language]);
 
     return (

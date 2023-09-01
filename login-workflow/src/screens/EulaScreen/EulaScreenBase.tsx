@@ -29,7 +29,7 @@ import ReplaySharpIcon from '@mui/icons-material/ReplaySharp';
 
 export const EulaScreenBase: React.FC<EulaScreenProps> = (props) => {
     const {
-        onEulaAcceptedChange = (accepted: boolean): boolean => accepted,
+        onEulaAcceptedChange,
         eulaContent,
         checkboxLabel,
         html,
@@ -43,11 +43,12 @@ export const EulaScreenBase: React.FC<EulaScreenProps> = (props) => {
     const headerProps = props.WorkflowCardHeaderProps || {};
     const actionsProps = props.WorkflowCardActionsProps || {};
 
-    const [eulaAccepted, setEulaAccepted] = useState(onEulaAcceptedChange(initialCheckboxValue) ?? false);
+    const [eulaAccepted, setEulaAccepted] = useState(initialCheckboxValue ?? false);
 
     const handleEulaAcceptedChecked = useCallback(
         (accepted: boolean) => {
-            setEulaAccepted(onEulaAcceptedChange(accepted));
+            setEulaAccepted(accepted);
+            onEulaAcceptedChange(accepted);
         },
         [onEulaAcceptedChange]
     );
