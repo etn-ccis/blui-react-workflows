@@ -6,7 +6,14 @@ import { useLanguageLocale } from '../../hooks';
 import { defaultPasswordRequirements } from '../../constants';
 
 export type PasswordRequirementsProps = BoxProps & {
+    /**
+     * The string to conduct the complexity checks against
+     */
     passwordText: string;
+
+    /**
+     * Optional requirements to set password
+     */
     passwordRequirements?: PasswordRequirement[];
 };
 
@@ -15,7 +22,6 @@ export type PasswordRequirementsProps = BoxProps & {
  *
  * @param passwordText The string to conduct the complexity checks against
  * @param passwordRequirements Optional requirements to set password
- * @param sx styles passed to the underlying root component
  *
  * @category Component
  */
