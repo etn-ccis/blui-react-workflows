@@ -1,3 +1,4 @@
+import { TextFieldProps } from '@mui/material';
 import { ErrorManagerProps } from '../../components/Error';
 import { WorkflowCardProps } from '../../components/WorkflowCard/WorkflowCard.types';
 import { SuccessScreenProps } from '../SuccessScreen';
@@ -75,4 +76,7 @@ export type ForgotPasswordScreenProps = WorkflowCardProps & {
      * The configuration for customizing how errors are displayed
      */
     errorDisplayConfig?: ErrorManagerProps;
+
+    // The props to pass to the forgot password email text field.
+    emailTextFieldProps?: TextFieldProps;
 };

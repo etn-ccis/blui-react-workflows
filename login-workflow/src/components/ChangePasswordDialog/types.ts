@@ -1,4 +1,4 @@
-import { DialogProps } from '@mui/material';
+import { DialogProps, TextFieldProps } from '@mui/material';
 import { BasicDialogProps } from '../Dialog';
 import { SetPasswordProps } from '../SetPassword';
 
@@ -53,5 +53,9 @@ export type ChangePasswordDialogProps = DialogProps & { PasswordProps?: SetPassw
      * @returns void
      */
     onPrevious?: () => void;
+
     loading?: boolean;
+
+    // The props to pass to the current password text field.
+    currentPasswordTextFieldProps?: TextFieldProps;
 };

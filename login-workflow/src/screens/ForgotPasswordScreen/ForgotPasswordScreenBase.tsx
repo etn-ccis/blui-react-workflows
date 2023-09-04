@@ -46,6 +46,7 @@ export const ForgotPasswordScreenBase: React.FC<React.PropsWithChildren<ForgotPa
         slotProps = {},
         showSuccessScreen,
         errorDisplayConfig,
+        emailTextFieldProps,
     } = props;
 
     const cardBaseProps = props.WorkflowCardBaseProps || {};
@@ -90,6 +91,11 @@ export const ForgotPasswordScreenBase: React.FC<React.PropsWithChildren<ForgotPa
                                 label={emailLabel}
                                 fullWidth
                                 value={emailInput}
+                                variant="filled"
+                                error={shouldValidateEmail && !isEmailValid}
+                                helperText={shouldValidateEmail && emailError}
+                                {...emailTextFieldProps}
+                                onBlur={(): void => setShouldValidateEmail(true)}
                                 onChange={(evt): void => {
                                     handleEmailInputChange(evt.target.value);
                                 }}
@@ -100,10 +106,6 @@ export const ForgotPasswordScreenBase: React.FC<React.PropsWithChildren<ForgotPa
                                     )
                                         handleOnNext();
                                 }}
-                                variant="filled"
-                                error={shouldValidateEmail && !isEmailValid}
-                                helperText={shouldValidateEmail && emailError}
-                                onBlur={(): void => setShouldValidateEmail(true)}
                             />
                         </ErrorManager>
                     </WorkflowCardBody>

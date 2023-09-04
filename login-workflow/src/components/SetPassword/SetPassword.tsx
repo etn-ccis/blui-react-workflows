@@ -37,6 +37,8 @@ export const SetPassword: React.FC<React.PropsWithChildren<SetPasswordProps>> = 
         confirmRef,
         passwordNotMatchError,
         onSubmit,
+        passwordTextFieldProps,
+        confirmPasswordTextFieldProps,
     } = props;
     const theme = useTheme();
 
@@ -84,14 +86,15 @@ export const SetPassword: React.FC<React.PropsWithChildren<SetPasswordProps>> = 
                 inputRef={passwordRef}
                 label={newPasswordLabel}
                 value={passwordInput}
-                onChange={(evt: ChangeEvent<HTMLInputElement>): void => onPassChange(evt.target.value)}
+                error={shouldValidatePassword && !isValidPassword()}
                 sx={TextFieldStyles(theme)}
+                {...passwordTextFieldProps}
+                onChange={(evt: ChangeEvent<HTMLInputElement>): void => onPassChange(evt.target.value)}
                 onKeyUp={(e): void => {
                     if (e.key === 'Enter' && confirmRef.current) {
                         confirmRef.current.focus();
                     }
                 }}
-                error={shouldValidatePassword && !isValidPassword()}
                 onBlur={(): void => setShouldValidatePassword(true)}
             />
             {passwordRequirements && passwordRequirements.length > 0 && (
@@ -109,10 +112,6 @@ export const SetPassword: React.FC<React.PropsWithChildren<SetPasswordProps>> = 
                 label={confirmPasswordLabel}
                 sx={TextFieldStyles(theme)}
                 value={confirmInput}
-                onChange={(evt: ChangeEvent<HTMLInputElement>): void => onConfirmChange(evt.target.value)}
-                onKeyUp={(e): void => {
-                    if (e.key === 'Enter' && onSubmit) onSubmit();
-                }}
                 error={hasConfirmPasswordError()}
                 helperText={hasConfirmPasswordError() ? passwordNotMatchError : ''}
                 icon={
@@ -120,6 +119,11 @@ export const SetPassword: React.FC<React.PropsWithChildren<SetPasswordProps>> = 
                         <CheckCircleOutlinedIcon data-testid="check" color="success" />
                     ) : undefined
                 }
+                {...confirmPasswordTextFieldProps}
+                onChange={(evt: ChangeEvent<HTMLInputElement>): void => onConfirmChange(evt.target.value)}
+                onKeyUp={(e): void => {
+                    if (e.key === 'Enter' && onSubmit) onSubmit();
+                }}
                 onBlur={(): void => setShouldValidateConfirmPassword(true)}
             />
         </>

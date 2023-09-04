@@ -32,6 +32,7 @@ import FormControl from '@mui/material/FormControl';
 import { MenuItem, Select, SelectChangeEvent } from '@mui/material';
 import { useAuthContext } from '@brightlayer-ui/react-auth-workflow';
 import i18n from '../translations/i18n';
+
 export const ExampleHome: React.FC<React.PropsWithChildren> = () => {
     const app = useApp();
     const supportedLanguages = ['en', 'fr', 'es', 'zh', 'pt'];

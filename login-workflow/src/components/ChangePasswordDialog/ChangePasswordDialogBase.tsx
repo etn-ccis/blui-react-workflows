@@ -52,6 +52,7 @@ export const ChangePasswordDialogBase: React.FC<ChangePasswordDialogProps> = (pr
         ErrorDialogProps,
         PasswordProps,
         loading,
+        currentPasswordTextFieldProps,
     } = props;
     const theme = useTheme();
     const matchesSM = useMediaQuery(theme.breakpoints.down('sm'));
@@ -99,6 +100,7 @@ export const ChangePasswordDialogBase: React.FC<ChangePasswordDialogProps> = (pr
                         id="current-password"
                         label={currentPasswordLabel}
                         value={currentPassword}
+                        {...currentPasswordTextFieldProps}
                         onChange={handleChange}
                         onKeyUp={(e): void => {
                             const { current } = PasswordProps.passwordRef;

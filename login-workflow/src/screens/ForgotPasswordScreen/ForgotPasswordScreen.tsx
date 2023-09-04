@@ -85,6 +85,7 @@ export const ForgotPasswordScreen: React.FC<ForgotPasswordScreenProps> = (props)
         showSuccessScreen: enableSuccessScreen = true,
         slotProps = { SuccessScreen: {} },
         slots,
+        emailTextFieldProps,
     } = props;
 
     const workflowCardBaseProps = {
@@ -145,6 +146,7 @@ export const ForgotPasswordScreen: React.FC<ForgotPasswordScreenProps> = (props)
             emailLabel={emailLabel}
             initialEmailValue={initialEmailValue}
             emailValidator={emailValidator}
+            emailTextFieldProps={emailTextFieldProps}
             showSuccessScreen={enableSuccessScreen && showSuccessScreen}
             slots={{
                 SuccessScreen:

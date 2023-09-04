@@ -1,3 +1,4 @@
+import { TextFieldProps } from '@mui/material';
 import { ErrorManagerProps } from '../../components/Error';
 import { WorkflowCardProps } from '../../components/WorkflowCard/WorkflowCard.types';
 
@@ -39,4 +40,7 @@ export type VerifyCodeScreenProps = WorkflowCardProps & {
      * The configuration for customizing how errors are displayed
      */
     errorDisplayConfig?: ErrorManagerProps;
+
+    // The props to pass to the verify code text field.
+    verifyCodeTextFieldProps?: TextFieldProps;
 };

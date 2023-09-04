@@ -43,6 +43,7 @@ export const ChangePasswordDialog: React.FC<ChangePasswordDialogProps> = (props)
         onSubmit,
         PasswordProps,
         ErrorDialogProps,
+        currentPasswordTextFieldProps,
     } = props;
 
     const passwordRequirements = defaultPasswordRequirements(t);
@@ -119,6 +120,7 @@ export const ChangePasswordDialog: React.FC<ChangePasswordDialogProps> = (props)
             }}
             PasswordProps={passwordProps}
             ErrorDialogProps={errorDialogProps}
+            currentPasswordTextFieldProps={currentPasswordTextFieldProps}
         />
     );
 };

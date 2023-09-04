@@ -38,6 +38,7 @@ export const VerifyCodeScreenBase: React.FC<React.PropsWithChildren<VerifyCodeSc
         verifyCodeInputLabel,
         initialValue,
         errorDisplayConfig,
+        verifyCodeTextFieldProps,
     } = props;
 
     const cardBaseProps = props.WorkflowCardBaseProps || {};
@@ -90,6 +91,11 @@ export const VerifyCodeScreenBase: React.FC<React.PropsWithChildren<VerifyCodeSc
                         label={verifyCodeInputLabel}
                         fullWidth
                         value={verifyCode}
+                        variant="filled"
+                        error={shouldValidateCode && !isCodeValid}
+                        helperText={shouldValidateCode && codeError}
+                        {...verifyCodeTextFieldProps}
+                        onBlur={(): void => setShouldValidateCode(true)}
                         onChange={(evt): void => {
                             handleVerifyCodeInputChange(evt.target.value);
                         }}
@@ -97,10 +103,6 @@ export const VerifyCodeScreenBase: React.FC<React.PropsWithChildren<VerifyCodeSc
                             if (e.key === 'Enter' && ((verifyCode.length > 0 && isCodeValid) || actionsProps.canGoNext))
                                 handleOnNext();
                         }}
-                        variant="filled"
-                        error={shouldValidateCode && !isCodeValid}
-                        helperText={shouldValidateCode && codeError}
-                        onBlur={(): void => setShouldValidateCode(true)}
                     />
                     <Box sx={{ mt: 2 }}>
                         <Typography>
