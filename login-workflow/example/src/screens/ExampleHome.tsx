@@ -134,7 +134,6 @@ export const ExampleHome: React.FC<React.PropsWithChildren> = () => {
                                 </FormControl>
                             </Box>
                             <UserMenu
-                                onClick={(): void => setOpen(!open)}
                                 avatar={<Avatar>AV</Avatar>}
                                 menuGroups={[
                                     {
@@ -142,9 +141,7 @@ export const ExampleHome: React.FC<React.PropsWithChildren> = () => {
                                             {
                                                 icon: <AccountBox />,
                                                 title: `${t('USER_MENU.MY_ACCOUNT')}`,
-                                                onClick: (): void => {
-                                                    setOpen(false);
-                                                },
+                                                onClick: (): void => {},
                                             },
                                             {
                                                 icon: <LockIcon />,
@@ -157,7 +154,6 @@ export const ExampleHome: React.FC<React.PropsWithChildren> = () => {
                                                 icon: <ExitToApp />,
                                                 title: `${t('USER_MENU.LOG_OUT')}`,
                                                 onClick: (): void => {
-                                                    setOpen(false);
                                                     logOut();
                                                 },
                                             },
