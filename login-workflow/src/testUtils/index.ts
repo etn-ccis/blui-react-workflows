@@ -33,7 +33,7 @@ export const registrationContextProviderProps: RegistrationContextProviderProps 
         validateUserRegistrationRequest: jest.fn(),
         createPassword: jest.fn(),
         setAccountDetails: jest.fn(),
-        completeRegistration: jest.fn(),
+        completeRegistration: jest.fn().mockImplementation(() => Promise.resolve()),
     },
 };
 
