@@ -30,8 +30,8 @@ import { useNavigate } from 'react-router-dom';
 import * as Colors from '@brightlayer-ui/colors';
 import FormControl from '@mui/material/FormControl';
 import { MenuItem, Select, SelectChangeEvent } from '@mui/material';
-import { useAuthContext } from '@brightlayer-ui/react-auth-workflow';
 import i18n from '../translations/i18n';
+
 export const ExampleHome: React.FC<React.PropsWithChildren> = () => {
     const app = useApp();
     const supportedLanguages = ['en', 'fr', 'es', 'zh', 'pt'];
@@ -39,7 +39,6 @@ export const ExampleHome: React.FC<React.PropsWithChildren> = () => {
     const [open, setOpen] = useState(false);
     const navigate = useNavigate();
     const theme = useTheme();
-    const { showPasswordDialog } = useAuthContext();
 
     const containerStyles = {
         width: '100%',
@@ -151,7 +150,7 @@ export const ExampleHome: React.FC<React.PropsWithChildren> = () => {
                                                 icon: <LockIcon />,
                                                 title: `${t('USER_MENU.CHANGE_PASSWORD')}`,
                                                 onClick: (): any => {
-                                                    showPasswordDialog(true);
+                                                    app.setShowChangePasswordDialog(true);
                                                 },
                                             },
                                             {

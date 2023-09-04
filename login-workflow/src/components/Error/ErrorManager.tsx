@@ -1,4 +1,4 @@
-import { SxProps } from '@mui/material/styles';
+import { SxProps, Theme } from '@mui/material/styles';
 import React, { useCallback } from 'react';
 import { BasicDialog } from '../Dialog/BasicDialog';
 import ErrorMessageBox from './ErrorMessageBox';
@@ -19,7 +19,7 @@ export type ErrorManagerProps = {
         position?: 'top' | 'bottom';
         fontColor?: string;
         backgroundColor?: string;
-        sx?: SxProps;
+        sx?: SxProps<Theme>;
     };
     children?: React.ReactNode;
 };

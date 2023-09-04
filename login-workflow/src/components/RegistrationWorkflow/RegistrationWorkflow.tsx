@@ -105,19 +105,26 @@ export const RegistrationWorkflow: React.FC<React.PropsWithChildren<Registration
 
     const finishRegistration = (data: IndividualScreenData): Promise<void> => {
         if (actions && actions().completeRegistration)
-            return actions()
-                .completeRegistration(data.values, screenData.VerifyCode.code, screenData.CreateAccount.emailAddress)
-                .then(({ email, organizationName }) => {
-                    updateScreenData({
-                        screenId: 'RegistrationSuccessScreen',
-                        values: { email, organizationName },
-                    });
-                    setShowSuccessScreen(true);
-                })
-                .catch((_error) => {
-                    // eslint-disable-next-line no-console
-                    console.log(_error);
-                });
+            return (
+                actions()
+                    // TODO: THIS LOOKS BROKEN — ARE WE ONLY PASSING THE DATA FROM THE LAST SCREEN OF THE WORKFLOW???
+                    .completeRegistration(
+                        data.values,
+                        screenData.VerifyCode.code,
+                        screenData.CreateAccount.emailAddress
+                    )
+                    .then(({ email, organizationName }) => {
+                        updateScreenData({
+                            screenId: 'RegistrationSuccessScreen',
+                            values: { email, organizationName },
+                        });
+                        setShowSuccessScreen(true);
+                    })
+                    .catch((_error) => {
+                        // eslint-disable-next-line no-console
+                        console.log(_error);
+                    })
+            );
     };
 
     useEffect(() => {
