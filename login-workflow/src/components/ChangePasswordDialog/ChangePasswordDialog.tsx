@@ -5,7 +5,6 @@ import { useLanguageLocale } from '../../hooks';
 import { ChangePasswordDialogBase } from './ChangePasswordDialogBase';
 import { ChangePasswordDialogProps } from './types';
 import CheckCircle from '@mui/icons-material/CheckCircle';
-import { Box } from '@mui/material';
 
 /**
  * Component that renders a dialog with textField to enter current password and a change password form with a new password and confirm password inputs.
@@ -46,7 +45,7 @@ export const ChangePasswordDialog: React.FC<ChangePasswordDialogProps> = (props)
         previousLabel = t('bluiCommon:ACTIONS.BACK'),
         nextLabel = t('bluiCommon:ACTIONS.OKAY'),
         onPrevious,
-        onSubmit,
+        onFinish,
         PasswordProps,
         ErrorDialogProps,
     } = props;
@@ -76,7 +75,7 @@ export const ChangePasswordDialog: React.FC<ChangePasswordDialogProps> = (props)
                 setIsLoading(false);
             }
         }
-    }, [checkPasswords, currentInput, passwordInput, actions, setIsLoading, setShowErrorDialog, onSubmit]);
+    }, [checkPasswords, currentInput, passwordInput, actions, setIsLoading, setShowErrorDialog]);
 
     const passwordProps = {
         newPasswordLabel: t('bluiAuth:CHANGE_PASSWORD.NEW_PASSWORD'),
@@ -130,7 +129,7 @@ export const ChangePasswordDialog: React.FC<ChangePasswordDialogProps> = (props)
                     messageTitle: t('bluiAuth:PASSWORD_RESET.SUCCESS_MESSAGE'),
                     message: t('bluiAuth:CHANGE_PASSWORD.SUCCESS_MESSAGE'),
                     onDismiss: (): void => {
-                        onSubmit();
+                        onFinish();
                     },
                     WorkflowCardActionsProps: {
                         showPrevious: false,
@@ -138,7 +137,7 @@ export const ChangePasswordDialog: React.FC<ChangePasswordDialogProps> = (props)
                         showNext: true,
                         nextLabel: t('bluiCommon:ACTIONS.DONE'),
                         onNext: (): void => {
-                            onSubmit();
+                            onFinish();
                         },
                     },
                 },
