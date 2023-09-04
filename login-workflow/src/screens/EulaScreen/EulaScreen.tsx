@@ -56,7 +56,7 @@ export const EulaScreen: React.FC<EulaScreenProps> = (props) => {
         if (!eulaContent) {
             setEulaData(t('bluiRegistration:REGISTRATION.EULA.LOADING'));
             try {
-                const eulaText = await actions().loadEula(language);
+                const eulaText = await actions.loadEula(language);
                 setEulaData(eulaText);
                 setIsLoading(false);
             } catch (_error) {
@@ -77,11 +77,11 @@ export const EulaScreen: React.FC<EulaScreenProps> = (props) => {
         setIsLoading(true);
         try {
             if (screenData.Eula.accepted) {
-                await actions().acceptEula?.();
+                await actions.acceptEula?.();
             }
             let isAccExist;
             if (isInviteRegistration) {
-                isAccExist = await actions().validateUserRegistrationRequest(
+                isAccExist = await actions.validateUserRegistrationRequest(
                     screenData.VerifyCode.code,
                     screenData.CreateAccount.emailAddress
                 );

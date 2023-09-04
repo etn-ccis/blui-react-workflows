@@ -52,7 +52,7 @@ export const ForgotPasswordScreen: React.FC<ForgotPasswordScreenProps> = (props)
         async (email: string): Promise<void> => {
             try {
                 setIsLoading(true);
-                await actions().forgotPassword(email);
+                await actions.forgotPassword(email);
                 setShowSuccessScreen(true);
             } catch (_error) {
                 triggerError(_error as Error);

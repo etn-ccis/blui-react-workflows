@@ -5,8 +5,8 @@ This document outlines the various exports and configuration options for the Rea
 The `RegistrationContextProvider` manages the state of the registration workflow. It is a React Context Provider that wraps the entire registration workflow. It is responsible for managing the state of the registration workflow and providing the necessary actions to the various screens. The `RegistrationContextProviderProps` type is used to configure the `RegistrationContextProvider`.
 
 ### Type Declaration
--  **actions**:  _`() => RegistrationUIActions`_
-    -   A function that returns an object of functions that are used to manage the registration workflow. See [RegistrationUIActions](#registrationuiactions) for more information.
+-  **actions**:  _`RegistrationUIActions`_
+    -   Returns an object of functions that are used to manage the registration workflow. See [RegistrationUIActions](#registrationuiactions) for more information.
 -  **language**: _`string`_
     -   The language code to use for the registration workflow. This is used to determine which language to use for the UI and for the API calls.
 -  **navigate**: _`(url: string) => void`_

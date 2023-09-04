@@ -67,7 +67,7 @@ export type RegistrationContextProviderProps = {
      * An object of functions that are used to manage the authentication workflow
      * @returns RegistrationUIActions
      */
-    actions?: () => RegistrationUIActions;
+    actions?: RegistrationUIActions;
 
     /**
      * The language code specifying which language to use for the UI
