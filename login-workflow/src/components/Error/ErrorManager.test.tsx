@@ -2,25 +2,16 @@ import React from 'react';
 import '@testing-library/jest-dom';
 import { render, cleanup, screen, RenderResult } from '@testing-library/react';
 import ErrorManager, { ErrorManagerProps } from './ErrorManager';
-import {
-    RegistrationContextProvider,
-    RegistrationContextProviderProps,
-    i18nRegistrationInstance,
-} from '../../contexts';
+import { RegistrationContextProvider } from '../../contexts';
 import { RegistrationWorkflow } from '../../components';
+import { registrationContextProviderProps } from '../../testUtils';
 
-const defaultProps: RegistrationContextProviderProps = {
-    language: 'en',
-    i18n: i18nRegistrationInstance,
-    navigate: (): void => {},
-    routeConfig: {},
-};
 
 afterEach(cleanup);
 
 const renderer = (props?: ErrorManagerProps): RenderResult =>
     render(
-        <RegistrationContextProvider {...defaultProps}>
+        <RegistrationContextProvider {...registrationContextProviderProps}>
             <RegistrationWorkflow initialScreenIndex={0}>
                 <ErrorManager {...props} />
             </RegistrationWorkflow>
