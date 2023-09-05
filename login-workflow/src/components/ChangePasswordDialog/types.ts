@@ -54,6 +54,7 @@ export type ChangePasswordDialogProps = DialogProps & { PasswordProps?: SetPassw
     /**
      * Function called when the button is clicked on success screen
      * @returns void
+     */
     onFinish?: () => void;
 
     /**
