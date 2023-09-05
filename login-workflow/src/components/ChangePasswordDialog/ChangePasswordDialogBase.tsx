@@ -132,7 +132,9 @@ export const ChangePasswordDialogBase: React.FC<ChangePasswordDialogProps> = (pr
                         sx={{ width: 100 }}
                         disabled={buttonState}
                         color="primary"
-                        onClick={onSubmit}
+                        onClick={(): void => {
+                            void onSubmit();
+                        }}
                     >
                         {nextLabel}
                     </Button>
