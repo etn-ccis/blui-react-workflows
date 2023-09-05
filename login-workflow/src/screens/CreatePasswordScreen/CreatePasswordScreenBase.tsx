@@ -35,8 +35,8 @@ export const CreatePasswordScreenBase: React.FC<React.PropsWithChildren<CreatePa
     return (
         <WorkflowCard {...cardBaseProps}>
             <WorkflowCardHeader {...headerProps} />
+            <WorkflowCardInstructions {...instructionsProps} divider />
             <WorkflowCardBody>
-                <WorkflowCardInstructions {...instructionsProps} divider />
                 <ErrorManager {...errorDisplayConfig}>
                     <SetPassword {...passwordProps} />
                 </ErrorManager>

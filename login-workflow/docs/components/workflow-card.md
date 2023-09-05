@@ -10,8 +10,8 @@ import { WorkflowCard, WorkflowCardHeader, WorkflowCardBody, WorkflowCardInstruc
 
 <WorkflowCard {...cardBaseProps}>
   <WorkflowCardHeader {...headerProps} />
+  <WorkflowCardInstructions {...instructionsProps} divider />
   <WorkflowCardBody>
-    <WorkflowCardInstructions {...instructionsProps} divider />
     {/* Your Screen Contents */}          
   </WorkflowCardBody>
   <WorkflowCardActions {...actionsProps} />

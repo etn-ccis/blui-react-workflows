@@ -3,25 +3,6 @@ import { WorkflowCardProps } from '../../components/WorkflowCard/WorkflowCard.ty
 import { SuccessScreenProps } from '../SuccessScreen';
 
 export type ForgotPasswordScreenProps = WorkflowCardProps & {
-    // label for the textfield
-    emailLabel?: string;
-
-    // used to pre-populate the email input field
-    initialEmailValue?: string;
-
-    // used to test the input for valid formatting
-    emailValidator?: (email: string) => boolean | string;
-
-    // used for each slot in `ForgotPasswordScreenBase`
-    slots?: {
-        SuccessScreen?: (props: SuccessScreenProps) => JSX.Element;
-    };
-
-    // props applied to each slot
-    slotProps?: {
-        SuccessScreen?: SuccessScreenProps;
-    };
-
     // used to display contact phone number
     contactPhone?: string;
 
@@ -54,9 +35,44 @@ export type ForgotPasswordScreenProps = WorkflowCardProps & {
     // used to enable to next button
     canGoNext?: boolean | (() => boolean);
 
-    // used to determine whether to show a success screen after the form is submitted
+    /**
+     * The label for the email field
+     */
+    emailLabel?: string;
+
+    /**
+     * The initial value for the email text field
+     */
+    initialEmailValue?: string;
+
+    /**
+     * A function used to test the input for valid formatting
+     * @param {string} email - the provided email address
+     * @returns boolean | string
+     */
+    emailValidator?: (email: string) => boolean | string;
+
+    /**
+     * Used for ForgotPasswordScreen SuccessScreen
+     */
+    slots?: {
+        SuccessScreen?: (props: SuccessScreenProps) => JSX.Element;
+    };
+
+    /**
+     * Applied to slot from SuccessScreen
+     */
+    slotProps?: {
+        SuccessScreen?: SuccessScreenProps;
+    };
+
+    /**
+     * Used to determine whether to show a success screen after the form is submitted
+     */
     showSuccessScreen?: boolean;
 
-    // used to configure how errors are rendered
+    /**
+     * The configuration for customizing how errors are displayed
+     */
     errorDisplayConfig?: ErrorManagerProps;
 };

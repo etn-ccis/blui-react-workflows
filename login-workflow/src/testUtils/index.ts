@@ -11,7 +11,14 @@ export const authContextProviderProps: AuthContextProviderProps = {
     i18n: i18nAuthInstance,
     navigate: (): void => {},
     routeConfig: {},
-    actions: jest.fn(),
+    actions: {
+        initiateSecurity: jest.fn(),
+        logIn: jest.fn(),
+        forgotPassword: jest.fn(),
+        verifyResetCode: jest.fn(),
+        setPassword: jest.fn(),
+        changePassword: jest.fn(),
+    },
 };
 
 export const registrationContextProviderProps: RegistrationContextProviderProps = {
@@ -19,7 +26,15 @@ export const registrationContextProviderProps: RegistrationContextProviderProps 
     i18n: i18nRegistrationInstance,
     navigate: (): void => {},
     routeConfig: {},
-    actions: jest.fn().mockReturnValue({}),
+    actions: {
+        loadEula: jest.fn(),
+        acceptEula: jest.fn(),
+        requestRegistrationCode: jest.fn(),
+        validateUserRegistrationRequest: jest.fn(),
+        createPassword: jest.fn(),
+        setAccountDetails: jest.fn(),
+        completeRegistration: jest.fn().mockImplementation(() => Promise.resolve()),
+    },
 };
 
 export const registrationWorkflowContextProps: RegistrationWorkflowContextProps = {

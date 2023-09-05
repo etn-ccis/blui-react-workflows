@@ -31,7 +31,14 @@ export const VerifyCodeScreen: React.FC<VerifyCodeScreenProps> = (props) => {
     const { nextScreen, previousScreen, screenData, currentScreen, totalScreens } = regWorkflow;
     const { emailAddress } = screenData.CreateAccount;
     const { triggerError, errorManagerConfig } = useErrorManager();
-    const errorDisplayConfig = { ...errorManagerConfig, ...props.errorDisplayConfig };
+    const errorDisplayConfig = {
+        ...errorManagerConfig,
+        ...props.errorDisplayConfig,
+        onClose: (): void => {
+            if (props.errorDisplayConfig && props.errorDisplayConfig.onClose) props.errorDisplayConfig.onClose();
+            if (errorManagerConfig.onClose) errorManagerConfig?.onClose();
+        },
+    };
 
     const [verifyCode, setVerifyCode] = useState(screenData.VerifyCode.code);
     const [isLoading, setIsLoading] = useState(false);
@@ -39,7 +46,7 @@ export const VerifyCodeScreen: React.FC<VerifyCodeScreenProps> = (props) => {
     const requestResendCode = useCallback(async (): Promise<void> => {
         try {
             setIsLoading(true);
-            await actions().requestRegistrationCode(emailAddress ? emailAddress : '');
+            await actions.requestRegistrationCode(emailAddress ? emailAddress : '');
         } catch (_error) {
             triggerError(_error as Error);
         } finally {
@@ -56,14 +63,14 @@ export const VerifyCodeScreen: React.FC<VerifyCodeScreenProps> = (props) => {
         resendInstructions = t('bluiRegistration:SELF_REGISTRATION.VERIFY_EMAIL.VERIFICATION_CODE_PROMPT'),
         resendLabel = t('bluiCommon:ACTIONS.RESEND'),
         verifyCodeInputLabel = t('bluiRegistration:SELF_REGISTRATION.VERIFY_EMAIL.VERIFICATION'),
-        initialValue = verifyCode,
+        initialValue = screenData.VerifyCode.code,
     } = props;
 
     const handleOnNext = useCallback(
         async (code: string) => {
             try {
                 setIsLoading(true);
-                const isAccExist = await actions().validateUserRegistrationRequest(code);
+                const isAccExist = await actions.validateUserRegistrationRequest(code);
                 void nextScreen({
                     screenId: 'VerifyCode',
                     values: { code: code },
@@ -119,7 +126,7 @@ export const VerifyCodeScreen: React.FC<VerifyCodeScreenProps> = (props) => {
         },
         onPrevious: (data: any): void => {
             void onPrevious(data.code);
-            WorkflowCardActionsProps?.onPrevious();
+            WorkflowCardActionsProps?.onPrevious?.();
         },
     };
 
@@ -132,7 +139,7 @@ export const VerifyCodeScreen: React.FC<VerifyCodeScreenProps> = (props) => {
             resendInstructions={resendInstructions}
             resendLabel={resendLabel}
             verifyCodeInputLabel={verifyCodeInputLabel}
-            initialValue={initialValue}
+            initialValue={verifyCode.length > 0 ? verifyCode : initialValue}
             onResend={onResend}
             codeValidator={codeValidator}
             errorDisplayConfig={errorDisplayConfig}

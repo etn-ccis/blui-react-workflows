@@ -17,7 +17,7 @@ import ReplaySharpIcon from '@mui/icons-material/ReplaySharp';
  * @param checkboxLabel label for the EULA checkbox
  * @param initialCheckboxValue used to pre-populate the checked/unchecked checkbox when the screen loads
  * @param checkboxProps used to set checkbox props
- * @param onEulaAcceptedChange used to test eula checkbox accepted
+ * @param onEulaAcceptedChange called when the checkbox clicked
  * @param WorkflowCardBaseProps props that will be passed to the WorkflowCard component
  * @param WorkflowCardHeaderProps props that will be passed to the WorkflowCardHeader component
  * @param WorkflowCardInstructionProps props that will be passed to the WorkflowCardInstructions component
@@ -29,7 +29,7 @@ import ReplaySharpIcon from '@mui/icons-material/ReplaySharp';
 
 export const EulaScreenBase: React.FC<EulaScreenProps> = (props) => {
     const {
-        onEulaAcceptedChange = (accepted: boolean): boolean => accepted,
+        onEulaAcceptedChange,
         eulaContent,
         checkboxLabel,
         html,
@@ -43,11 +43,12 @@ export const EulaScreenBase: React.FC<EulaScreenProps> = (props) => {
     const headerProps = props.WorkflowCardHeaderProps || {};
     const actionsProps = props.WorkflowCardActionsProps || {};
 
-    const [eulaAccepted, setEulaAccepted] = useState(onEulaAcceptedChange(initialCheckboxValue) ?? false);
+    const [eulaAccepted, setEulaAccepted] = useState(initialCheckboxValue ?? false);
 
     const handleEulaAcceptedChecked = useCallback(
         (accepted: boolean) => {
-            setEulaAccepted(onEulaAcceptedChange(accepted));
+            setEulaAccepted(accepted);
+            onEulaAcceptedChange(accepted);
         },
         [onEulaAcceptedChange]
     );

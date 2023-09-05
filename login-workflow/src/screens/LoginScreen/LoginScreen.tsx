@@ -50,10 +50,17 @@ export const LoginScreen: React.FC<React.PropsWithChildren<LoginScreenPropsPubli
     const auth = useAuthContext();
     const { actions, navigate, routeConfig, rememberMeDetails } = auth;
     const { triggerError, errorManagerConfig } = useErrorManager();
-    const errorDisplayConfig = { ...errorManagerConfig, ...props.errorDisplayConfig };
+    const errorDisplayConfig = {
+        ...errorManagerConfig,
+        ...props.errorDisplayConfig,
+        onClose: (): void => {
+            if (props.errorDisplayConfig && props.errorDisplayConfig.onClose) props.errorDisplayConfig.onClose();
+            if (errorManagerConfig.onClose) errorManagerConfig?.onClose();
+        },
+    };
 
     useEffect(() => {
-        void actions().initiateSecurity();
+        void actions.initiateSecurity();
         // eslint-disable-next-line react-hooks/exhaustive-deps
     }, []);
 
@@ -114,7 +121,7 @@ export const LoginScreen: React.FC<React.PropsWithChildren<LoginScreenPropsPubli
             loginButtonLabel={loginButtonLabel}
             onLogin={async (username: string, password: string, rememberMe: boolean): Promise<void> => {
                 try {
-                    await actions().logIn(username, password, rememberMe);
+                    await actions.logIn(username, password, rememberMe);
                     await props.onLogin?.(username, password, rememberMe);
                 } catch (_error) {
                     triggerError(_error as Error);

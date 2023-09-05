@@ -45,6 +45,7 @@ export const ChangePasswordDialog: React.FC<ChangePasswordDialogProps> = (props)
         previousLabel = t('bluiCommon:ACTIONS.BACK'),
         nextLabel = t('bluiCommon:ACTIONS.OKAY'),
         onPrevious,
+        onSubmit,
         onFinish,
         PasswordProps,
         ErrorDialogProps,
@@ -67,8 +68,9 @@ export const ChangePasswordDialog: React.FC<ChangePasswordDialogProps> = (props)
         if (checkPasswords) {
             try {
                 setIsLoading(true);
-                await actions().changePassword(currentInput, passwordInput);
+                await actions.changePassword(currentInput, passwordInput);
                 setShowSuccessScreen(true);
+                await onSubmit();
             } catch {
                 setShowErrorDialog(true);
             } finally {
@@ -91,8 +93,8 @@ export const ChangePasswordDialog: React.FC<ChangePasswordDialogProps> = (props)
             updateFields(passwordData);
             PasswordProps?.onPasswordChange?.(passwordData);
         },
-        onSubmit: (): void => {
-            void changePasswordSubmit();
+        onSubmit: async (): Promise<void> => {
+            await changePasswordSubmit();
             PasswordProps?.onSubmit?.();
         },
     };
@@ -118,8 +120,8 @@ export const ChangePasswordDialog: React.FC<ChangePasswordDialogProps> = (props)
             currentPasswordChange={(currentPwd): void => setCurrentInput(currentPwd)}
             enableButton={checkPasswords}
             onPrevious={onPrevious}
-            onSubmit={(): void => {
-                void changePasswordSubmit();
+            onSubmit={async (): Promise<void> => {
+                await changePasswordSubmit();
             }}
             PasswordProps={passwordProps}
             ErrorDialogProps={errorDialogProps}

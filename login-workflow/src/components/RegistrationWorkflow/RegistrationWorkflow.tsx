@@ -10,6 +10,8 @@ import {
     VerifyCodeScreen,
 } from '../../screens';
 import { parseQueryString } from '../../utils';
+import { useErrorManager } from '../../contexts/ErrorContext/useErrorManager';
+import ErrorManager, { ErrorManagerProps } from '../Error/ErrorManager';
 
 /**
  * Component that contain the registration workflow and index of screens.
@@ -23,14 +25,41 @@ import { parseQueryString } from '../../utils';
  */
 
 export type RegistrationWorkflowProps = {
+    /**
+     * The initial screen index to start the registration workflow from
+     */
     initialScreenIndex?: number;
+
+    /**
+     * The success screen to display upon successful registration
+     */
     successScreen?: JSX.Element;
+
+    /**
+     * When true verifies validateUserRegistrationRequest for verifyCode and several of the default screens will be skipped
+     * not requiring user input for email and the validation code will be pulled from the url
+     * @default false
+     */
     isInviteRegistration?: boolean;
+
+    /**
+     * Component to display for the success screen if the account already exists.
+     */
     existingAccountSuccessScreen?: JSX.Element;
+    errorDisplayConfig?: ErrorManagerProps;
 };
 
 export const RegistrationWorkflow: React.FC<React.PropsWithChildren<RegistrationWorkflowProps>> = (props) => {
     const [isAccountExist, setIsAccountExist] = useState(false);
+    const { triggerError, errorManagerConfig } = useErrorManager();
+    const errorDisplayConfig = {
+        ...errorManagerConfig,
+        ...props.errorDisplayConfig,
+        onClose: (): void => {
+            if (props.errorDisplayConfig && props.errorDisplayConfig.onClose) props.errorDisplayConfig.onClose();
+            if (errorManagerConfig.onClose) errorManagerConfig?.onClose();
+        },
+    };
     const {
         initialScreenIndex = 0,
         successScreen = <RegistrationSuccessScreen />,
@@ -57,7 +86,7 @@ export const RegistrationWorkflow: React.FC<React.PropsWithChildren<Registration
         initialScreenIndex < 0 ? 0 : initialScreenIndex > totalScreens - 1 ? totalScreens - 1 : initialScreenIndex
     );
     const [showSuccessScreen, setShowSuccessScreen] = useState(false);
-    const { actions } = useRegistrationContext();
+    const { actions, navigate } = useRegistrationContext();
 
     const [screenData, setScreenData] = useState({
         Eula: {
@@ -82,7 +111,7 @@ export const RegistrationWorkflow: React.FC<React.PropsWithChildren<Registration
     });
 
     const updateScreenData = (data: IndividualScreenData): void => {
-        const { Other } = screenData;
+        const { Other }: { [key: string]: any } = screenData;
         const { screenId, values } = data;
         if (!Object.keys(screenData).includes(screenId)) {
             setScreenData((oldData) => ({
@@ -92,7 +121,6 @@ export const RegistrationWorkflow: React.FC<React.PropsWithChildren<Registration
         } else if (Object.keys(Other).includes(screenId)) {
             setScreenData((oldData) => ({
                 ...oldData,
-                /* @ts-ignore */
                 Other: { ...Other, [screenId]: { ...Other[screenId], ...values } },
             }));
         } else {
@@ -104,27 +132,30 @@ export const RegistrationWorkflow: React.FC<React.PropsWithChildren<Registration
     };
 
     const finishRegistration = (data: IndividualScreenData): Promise<void> => {
-        if (actions && actions().completeRegistration)
-            return (
-                actions()
-                    // TODO: THIS LOOKS BROKEN — ARE WE ONLY PASSING THE DATA FROM THE LAST SCREEN OF THE WORKFLOW???
-                    .completeRegistration(
-                        data.values,
-                        screenData.VerifyCode.code,
-                        screenData.CreateAccount.emailAddress
-                    )
-                    .then(({ email, organizationName }) => {
-                        updateScreenData({
-                            screenId: 'RegistrationSuccessScreen',
-                            values: { email, organizationName },
-                        });
-                        setShowSuccessScreen(true);
-                    })
-                    .catch((_error) => {
-                        // eslint-disable-next-line no-console
-                        console.log(_error);
-                    })
-            );
+        if (actions && actions.completeRegistration) {
+            const { Eula, CreateAccount, VerifyCode, CreatePassword, AccountDetails, Other } = screenData;
+            const userInfo = {
+                ...Eula,
+                ...CreateAccount,
+                ...VerifyCode,
+                ...CreatePassword,
+                ...AccountDetails,
+                ...Other,
+                ...data.values,
+            };
+            return actions
+                .completeRegistration(userInfo)
+                .then(({ email, organizationName }) => {
+                    updateScreenData({
+                        screenId: 'RegistrationSuccessScreen',
+                        values: { email, organizationName },
+                    });
+                    setShowSuccessScreen(true);
+                })
+                .catch((_error) => {
+                    triggerError(_error);
+                });
+        }
     };
 
     useEffect(() => {
@@ -152,17 +183,22 @@ export const RegistrationWorkflow: React.FC<React.PropsWithChildren<Registration
             }}
             previousScreen={(data): void => {
                 updateScreenData(data);
+                if (currentScreen === 0) {
+                    navigate(-1);
+                }
                 setCurrentScreen((i) => i - 1);
             }}
             screenData={screenData}
             updateScreenData={updateScreenData}
             isInviteRegistration={isInviteRegistration}
         >
-            {showSuccessScreen
-                ? isAccountExist
-                    ? existingAccountSuccessScreen
-                    : successScreen
-                : screens[currentScreen]}
+            <ErrorManager {...errorDisplayConfig} mode="dialog">
+                {showSuccessScreen
+                    ? isAccountExist
+                        ? existingAccountSuccessScreen
+                        : successScreen
+                    : screens[currentScreen]}
+            </ErrorManager>
         </RegistrationWorkflowContextProvider>
     );
 };
