@@ -60,7 +60,7 @@ export const LoginScreen: React.FC<React.PropsWithChildren<LoginScreenPropsPubli
     };
 
     useEffect(() => {
-        void actions().initiateSecurity();
+        void actions.initiateSecurity();
         // eslint-disable-next-line react-hooks/exhaustive-deps
     }, []);
 
@@ -121,7 +121,7 @@ export const LoginScreen: React.FC<React.PropsWithChildren<LoginScreenPropsPubli
             loginButtonLabel={loginButtonLabel}
             onLogin={async (username: string, password: string, rememberMe: boolean): Promise<void> => {
                 try {
-                    await actions().logIn(username, password, rememberMe);
+                    await actions.logIn(username, password, rememberMe);
                     await props.onLogin?.(username, password, rememberMe);
                 } catch (_error) {
                     triggerError(_error as Error);

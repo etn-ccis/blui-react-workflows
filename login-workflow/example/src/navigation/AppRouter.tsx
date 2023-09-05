@@ -109,7 +109,7 @@ export const AppRouter: React.FC = () => {
                         language={app.language}
                         routeConfig={routes}
                         navigate={navigate}
-                        actions={ProjectRegistrationUIActions}
+                        actions={ProjectRegistrationUIActions()}
                         i18n={i18nAppInstance}
                     >
                         <Outlet />

@@ -12,7 +12,7 @@ export type AuthContextProviderProps = {
     /**
      * Defines the API calls / functions to execute when certain actions are performed in the UI (such as pressing the Login button)
      */
-    actions: () => AuthUIActions;
+    actions: AuthUIActions;
 
     /**
      * Configures the language displayed on the screens

@@ -46,7 +46,7 @@ export const ResetPasswordScreen: React.FC<ResetPasswordScreenProps> = (props) =
     const verifyResetCode = useCallback(async (): Promise<void> => {
         try {
             setIsLoading(true);
-            await actions().verifyResetCode(code, email);
+            await actions.verifyResetCode(code, email);
         } catch (_error) {
             setHasVerifyCodeError(true);
             triggerError(_error as Error);
@@ -59,7 +59,7 @@ export const ResetPasswordScreen: React.FC<ResetPasswordScreenProps> = (props) =
     const handleOnNext = useCallback(async (): Promise<void> => {
         try {
             setIsLoading(true);
-            await actions().setPassword(code, passwordInput, email);
+            await actions.setPassword(code, passwordInput, email);
             setShowSuccessScreen(true);
         } catch (_error) {
             triggerError(_error as Error);
