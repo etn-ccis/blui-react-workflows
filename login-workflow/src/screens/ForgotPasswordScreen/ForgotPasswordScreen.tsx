@@ -106,7 +106,7 @@ export const ForgotPasswordScreen: React.FC<ForgotPasswordScreenProps> = (props)
                     <Typography component="a" href={`tel:${contactPhone}`} sx={LinkStyles}>
                         {contactPhone}
                     </Typography>
-                    .
+                    {'.'}
                 </Trans>
             </Typography>
         ),
@@ -155,12 +155,21 @@ export const ForgotPasswordScreen: React.FC<ForgotPasswordScreenProps> = (props)
                             icon={<CheckCircle color={'primary'} sx={{ fontSize: 100, mb: 5 }} />}
                             messageTitle={t('bluiCommon:MESSAGES.EMAIL_SENT')}
                             message={
-                                <Trans
-                                    i18nKey={'bluiAuth:FORGOT_PASSWORD.LINK_SENT_ALT'}
-                                    values={{ email: emailInput }}
+                                <Box
+                                    sx={{
+                                        overflow: 'hidden',
+                                        whiteSpace: 'normal',
+                                        wordBreak: 'break-word',
+                                    }}
+                                    component={'span'}
                                 >
-                                    Link has been sent to <b>{emailInput}</b>.
-                                </Trans>
+                                    <Trans
+                                        i18nKey={'bluiAuth:FORGOT_PASSWORD.LINK_SENT_ALT'}
+                                        values={{ email: emailInput }}
+                                    >
+                                        Link has been sent to <b>{emailInput}</b>.
+                                    </Trans>
+                                </Box>
                             }
                             {...slotProps.SuccessScreen}
                             WorkflowCardHeaderProps={{
