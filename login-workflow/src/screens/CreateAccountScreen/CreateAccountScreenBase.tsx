@@ -68,9 +68,9 @@ export const CreateAccountScreenBase: React.FC<
 
     return (
         <WorkflowCard {...cardBaseProps}>
-            <WorkflowCardHeader {...headerProps}></WorkflowCardHeader>
+            <WorkflowCardHeader {...headerProps} />
+            <WorkflowCardInstructions {...instructionsProps} divider />
             <WorkflowCardBody>
-                <WorkflowCardInstructions {...instructionsProps} divider />
                 <ErrorManager {...errorDisplayConfig}>
                     <TextField
                         ref={inputRef}
