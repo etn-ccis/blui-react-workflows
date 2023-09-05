@@ -6,7 +6,6 @@ import { RegistrationContextProvider } from '../../contexts';
 import { RegistrationWorkflow } from '../../components';
 import { registrationContextProviderProps } from '../../testUtils';
 
-
 afterEach(cleanup);
 
 const renderer = (props?: ErrorManagerProps): RenderResult =>
