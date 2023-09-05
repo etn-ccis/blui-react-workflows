@@ -67,4 +67,13 @@ describe('Change Password Dialog tests', () => {
         fireEvent.change(confirmPasswordInput, { target: { value: 'Abc@1234' } });
         expect(confirmPasswordInput).toHaveValue('Abc@1234');
     });
+
+    it('should show success screen, when showSuccessScreen is true', () => {
+        renderer({
+            open: true,
+            showSuccessScreen: true,
+        });
+
+        expect(screen.getByText('Your password was successfully reset.'));
+    });
 });
