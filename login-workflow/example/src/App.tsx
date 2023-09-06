@@ -35,6 +35,7 @@ export const App = (): JSX.Element => {
         email: '',
         rememberMe: false,
     });
+    const [showChangePasswordDialog, setShowChangePasswordDialog] = useState(false);
 
     const [isLoading, setIsLoading] = useState(true);
 
@@ -76,6 +77,8 @@ export const App = (): JSX.Element => {
                     setLoginData,
                     language,
                     setLanguage,
+                    showChangePasswordDialog,
+                    setShowChangePasswordDialog,
                 }}
             >
                 <BrowserRouter basename={'/'}>

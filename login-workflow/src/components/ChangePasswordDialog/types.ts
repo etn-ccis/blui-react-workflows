@@ -44,9 +44,9 @@ export type ChangePasswordDialogProps = DialogProps & { PasswordProps?: SetPassw
 
     /**
      * Callback function to call when the form is submitted
-     * @returns void
+     * @returns void | Promise<void>
      */
-    onSubmit?: () => void;
+    onSubmit?: () => void | Promise<void>;
 
     /**
      * Function called when the previous button is clicked

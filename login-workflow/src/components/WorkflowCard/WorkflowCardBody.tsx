@@ -14,18 +14,16 @@ export const WorkflowCardBody: React.FC<CardContentProps> = (props) => {
 
     return (
         <CardContent
-            sx={[
-                {
-                    display: 'flex',
-                    flex: '1 1 0',
-                    overflow: 'auto',
-                    flexDirection: 'column',
-                    pt: 2,
-                    pb: { sm: 3, md: 2 },
-                    px: { sm: 2, md: 3 },
-                },
-                ...(Array.isArray(sx) ? sx : [sx]),
-            ]}
+            sx={{
+                display: 'flex',
+                flex: '1 1 0',
+                overflow: 'auto',
+                flexDirection: 'column',
+                pt: 0,
+                pb: { sm: 2, md: 3 },
+                px: { xs: 2, md: 3 },
+                ...sx,
+            }}
             {...otherCardContentProps}
         >
             {children}

@@ -49,8 +49,8 @@ export const ResetPasswordScreenBase: React.FC<React.PropsWithChildren<ResetPass
     ) : (
         <WorkflowCard {...cardBaseProps}>
             <WorkflowCardHeader {...headerProps} />
+            <WorkflowCardInstructions {...instructionsProps} divider />
             <WorkflowCardBody>
-                <WorkflowCardInstructions {...instructionsProps} divider />
                 <ErrorManager {...errorDisplayConfig}>
                     <SetPassword {...passwordProps} />
                 </ErrorManager>

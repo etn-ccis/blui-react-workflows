@@ -46,7 +46,7 @@ export const VerifyCodeScreen: React.FC<VerifyCodeScreenProps> = (props) => {
     const requestResendCode = useCallback(async (): Promise<void> => {
         try {
             setIsLoading(true);
-            await actions().requestRegistrationCode(emailAddress ? emailAddress : '');
+            await actions.requestRegistrationCode(emailAddress ? emailAddress : '');
         } catch (_error) {
             triggerError(_error as Error);
         } finally {
@@ -71,7 +71,7 @@ export const VerifyCodeScreen: React.FC<VerifyCodeScreenProps> = (props) => {
         async (code: string) => {
             try {
                 setIsLoading(true);
-                const isAccExist = await actions().validateUserRegistrationRequest(code);
+                const isAccExist = await actions.validateUserRegistrationRequest(code);
                 void nextScreen({
                     screenId: 'VerifyCode',
                     values: { code: code },

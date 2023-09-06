@@ -63,8 +63,8 @@ export const ChangePasswordDialog: React.FC<ChangePasswordDialogProps> = (props)
         if (checkPasswords) {
             try {
                 setIsLoading(true);
-                await actions().changePassword(currentInput, passwordInput);
-                onSubmit();
+                await actions.changePassword(currentInput, passwordInput);
+                await onSubmit();
             } catch {
                 setShowErrorDialog(true);
             } finally {
@@ -87,8 +87,8 @@ export const ChangePasswordDialog: React.FC<ChangePasswordDialogProps> = (props)
             updateFields(passwordData);
             PasswordProps?.onPasswordChange?.(passwordData);
         },
-        onSubmit: (): void => {
-            void changePasswordSubmit();
+        onSubmit: async (): Promise<void> => {
+            await changePasswordSubmit();
             PasswordProps?.onSubmit?.();
         },
     };
@@ -114,13 +114,13 @@ export const ChangePasswordDialog: React.FC<ChangePasswordDialogProps> = (props)
             currentPasswordChange={(currentPwd): void => setCurrentInput(currentPwd)}
             enableButton={checkPasswords}
             onPrevious={onPrevious}
-            onSubmit={(): void => {
-                void changePasswordSubmit();
-                navigate(routeConfig.LOGIN);
-            }}
             PasswordProps={passwordProps}
             ErrorDialogProps={errorDialogProps}
             currentPasswordTextFieldProps={currentPasswordTextFieldProps}
+            onSubmit={async (): Promise<void> => {
+                await changePasswordSubmit();
+                navigate(routeConfig.LOGIN);
+            }}
         />
     );
 };

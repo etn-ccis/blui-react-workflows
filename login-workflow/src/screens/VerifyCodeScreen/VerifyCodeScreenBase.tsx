@@ -83,9 +83,9 @@ export const VerifyCodeScreenBase: React.FC<React.PropsWithChildren<VerifyCodeSc
 
     return (
         <WorkflowCard {...cardBaseProps}>
-            <WorkflowCardHeader {...headerProps}></WorkflowCardHeader>
+            <WorkflowCardHeader {...headerProps} />
+            <WorkflowCardInstructions {...instructionsProps} divider />
             <WorkflowCardBody>
-                <WorkflowCardInstructions {...instructionsProps} divider />
                 <ErrorManager {...errorDisplayConfig}>
                     <TextField
                         label={verifyCodeInputLabel}

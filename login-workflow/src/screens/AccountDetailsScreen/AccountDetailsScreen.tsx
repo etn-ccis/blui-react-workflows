@@ -46,7 +46,7 @@ export const AccountDetailsScreen: React.FC<AccountDetailsScreenProps> = (props)
     const onNext = useCallback(async (): Promise<void> => {
         try {
             setIsLoading(true);
-            await actions().setAccountDetails({ firstName, lastName });
+            await actions.setAccountDetails({ firstName, lastName });
             void nextScreen({
                 screenId: 'AccountDetails',
                 values: { firstName, lastName },

@@ -12,7 +12,7 @@ import { AuthDictionaries } from './AuthDictionaries';
  * @private
  * @internal
  */
-export const useAuthContext = (): AuthContextProviderProps & { showPasswordDialog: (arg: boolean) => void } => {
+export const useAuthContext = (): AuthContextProviderProps => {
     const context = useContext(AuthContext);
     if (context === null) {
         throw new Error('useAuthContext must be used within AuthContextProvider');

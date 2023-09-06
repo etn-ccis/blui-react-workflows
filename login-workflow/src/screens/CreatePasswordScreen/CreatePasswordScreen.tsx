@@ -52,7 +52,7 @@ export const CreatePasswordScreen: React.FC<CreatePasswordScreenProps> = (props)
     const onNext = useCallback(async (): Promise<void> => {
         try {
             setIsLoading(true);
-            await actions().createPassword(passwordInput);
+            await actions.createPassword(passwordInput);
             void nextScreen({
                 screenId: 'CreatePassword',
                 values: { password: passwordInput, confirmPassword: confirmInput },

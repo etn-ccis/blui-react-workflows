@@ -1,5 +1,6 @@
 import React, { useCallback, useState } from 'react';
 import { Trans } from 'react-i18next';
+import Box from '@mui/material/Box';
 import { useAuthContext } from '../../contexts';
 import { useLanguageLocale } from '../../hooks';
 import { ForgotPasswordScreenBase } from './ForgotPasswordScreenBase';
@@ -52,7 +53,7 @@ export const ForgotPasswordScreen: React.FC<ForgotPasswordScreenProps> = (props)
         async (email: string): Promise<void> => {
             try {
                 setIsLoading(true);
-                await actions().forgotPassword(email);
+                await actions.forgotPassword(email);
                 setShowSuccessScreen(true);
             } catch (_error) {
                 triggerError(_error as Error);
@@ -95,9 +96,9 @@ export const ForgotPasswordScreen: React.FC<ForgotPasswordScreenProps> = (props)
 
     const workflowCardInstructionProps = {
         instructions: description ? (
-            <> {description(responseTime)} </>
+            <Box sx={{ px: { md: 3, xs: 2 }, pt: 2 }}> {description(responseTime)} </Box>
         ) : (
-            <Typography>
+            <Typography sx={{ px: { md: 3, xs: 2 }, pt: 2 }}>
                 <Trans
                     i18nKey={'bluiAuth:FORGOT_PASSWORD.INSTRUCTIONS_ALT'}
                     values={{ phone: contactPhone, responseTime }}
@@ -106,7 +107,7 @@ export const ForgotPasswordScreen: React.FC<ForgotPasswordScreenProps> = (props)
                     <Typography component="a" href={`tel:${contactPhone}`} sx={LinkStyles}>
                         {contactPhone}
                     </Typography>
-                    .
+                    {'.'}
                 </Trans>
             </Typography>
         ),
@@ -156,12 +157,21 @@ export const ForgotPasswordScreen: React.FC<ForgotPasswordScreenProps> = (props)
                             icon={<CheckCircle color={'primary'} sx={{ fontSize: 100, mb: 5 }} />}
                             messageTitle={t('bluiCommon:MESSAGES.EMAIL_SENT')}
                             message={
-                                <Trans
-                                    i18nKey={'bluiAuth:FORGOT_PASSWORD.LINK_SENT_ALT'}
-                                    values={{ email: emailInput }}
+                                <Box
+                                    sx={{
+                                        overflow: 'hidden',
+                                        whiteSpace: 'normal',
+                                        wordBreak: 'break-word',
+                                    }}
+                                    component={'span'}
                                 >
-                                    Link has been sent to <b>{emailInput}</b>.
-                                </Trans>
+                                    <Trans
+                                        i18nKey={'bluiAuth:FORGOT_PASSWORD.LINK_SENT_ALT'}
+                                        values={{ email: emailInput }}
+                                    >
+                                        Link has been sent to <b>{emailInput}</b>.
+                                    </Trans>
+                                </Box>
                             }
                             {...slotProps.SuccessScreen}
                             WorkflowCardHeaderProps={{
