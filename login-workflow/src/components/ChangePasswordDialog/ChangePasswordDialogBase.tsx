@@ -113,7 +113,7 @@ export const ChangePasswordDialogBase: React.FC<ChangePasswordDialogProps> = (pr
                             px: { xs: 2, md: 3 },
                         }}
                     >
-                        <Typography>{dialogDescription}</Typography>
+                        <Typography sx={{ px: { xs: 1, sm: 0 } }}>{dialogDescription}</Typography>
                         <Divider sx={{ mt: 5, mb: 4, mx: { md: -3, xs: -2 } }} />
                         <SetPassword {...PasswordProps}>
                             <PasswordTextField
@@ -131,8 +131,6 @@ export const ChangePasswordDialogBase: React.FC<ChangePasswordDialogProps> = (pr
                                     }
                                 }}
                             />
-                            <Typography>{dialogDescription}</Typography>
-                            <Divider sx={{ mt: 5, mb: 4, mx: { md: -3, xs: -2 } }} />
                         </SetPassword>
                     </DialogContent>
                     <Divider />
