@@ -107,7 +107,7 @@ export const LoginScreen: React.FC<React.PropsWithChildren<LoginScreenPropsPubli
             usernameValidator={usernameValidator}
             initialUsernameValue={initialUsernameValue}
             passwordLabel={passwordLabel}
-            passwordTextFieldProps={{ required: true, ...passwordTextFieldProps }}
+            passwordTextFieldProps={passwordTextFieldProps}
             passwordValidator={(password: string): string | boolean => {
                 if (password.length < 1) {
                     return passwordRequiredValidatorText;
