@@ -39,6 +39,7 @@ export const WorkflowFinishState: React.FC<React.PropsWithChildren<React.PropsWi
                 }}
                 sx={{
                     color: 'inherit',
+                    p: 0,
                 }}
             />
         </Box>

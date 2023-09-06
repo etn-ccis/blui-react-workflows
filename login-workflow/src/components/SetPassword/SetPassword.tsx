@@ -85,7 +85,6 @@ export const SetPassword: React.FC<React.PropsWithChildren<SetPasswordProps>> = 
                 label={newPasswordLabel}
                 value={passwordInput}
                 onChange={(evt: ChangeEvent<HTMLInputElement>): void => onPassChange(evt.target.value)}
-                sx={TextFieldStyles(theme)}
                 onKeyUp={(e): void => {
                     if (e.key === 'Enter' && confirmRef.current) {
                         confirmRef.current.focus();
