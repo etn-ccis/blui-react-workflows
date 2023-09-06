@@ -65,7 +65,7 @@ describe('RegistrationWorkflow', () => {
         expect(nextScreen).toHaveBeenCalledWith({ screenId: 'Eula', values: { accepted: true } });
     });
 
-    it('should set screen data for default registration workflow in the context', () => {
+    it('should set screen data for default registration workflow in the context', async () => {
         const wrapper = ({ children }: any): JSX.Element => (
             <RegistrationContextProvider {...registrationContextProviderProps}>
                 <RegistrationWorkflow {...defaultProps}>{children}</RegistrationWorkflow>
@@ -76,10 +76,12 @@ describe('RegistrationWorkflow', () => {
         expect(result.current.screenData['Eula'].accepted).toBeFalsy();
         expect(result.current.screenData['CreateAccount'].emailAddress).toBe('');
 
-        act(() => {
+        //eslint-disable-next-line
+        await act(async () => {
             void result.current.nextScreen({ screenId: 'Eula', values: { accepted: true } });
         });
-        act(() => {
+        //eslint-disable-next-line
+        await act(async () => {
             result.current.previousScreen({
                 screenId: 'CreateAccount',
                 values: { emailAddress: 'emailAddress@emailAddress.com' },
@@ -92,7 +94,7 @@ describe('RegistrationWorkflow', () => {
             expect(result.current.screenData['CreateAccount'].emailAddress).toBe('emailAddress@emailAddress.com'));
     });
 
-    it('should set screen data for custom registration workflow in the context', () => {
+    it('should set screen data for custom registration workflow in the context', async () => {
         const wrapper = ({ children }: any): JSX.Element => (
             <RegistrationContextProvider {...registrationContextProviderProps}>
                 <RegistrationWorkflow {...defaultProps}>{children}</RegistrationWorkflow>
@@ -100,10 +102,12 @@ describe('RegistrationWorkflow', () => {
         );
         const { result } = renderHook(() => useRegistrationWorkflowContext(), { wrapper });
 
-        act(() => {
+        //eslint-disable-next-line
+        await act(async () => {
             void result.current.nextScreen({ screenId: 'Screen1', values: { test: 'test' } });
         });
-        act(() => {
+        //eslint-disable-next-line
+        await act(async () => {
             result.current.previousScreen({
                 screenId: 'Screen2',
                 values: { test2: 'test2' },
@@ -124,7 +128,7 @@ describe('RegistrationWorkflow', () => {
         expect(screen.getByText('Screen 2')).toBeInTheDocument();
     });
 
-    it('should render custom success screen', () => {
+    it('should render custom success screen', async () => {
         const props = defaultProps;
         defaultProps.successScreen = <Box>Success</Box>;
         const { getByLabelText, getByText } = render(
@@ -139,7 +143,10 @@ describe('RegistrationWorkflow', () => {
         fireEvent.blur(verifyEmailInput);
         const nextButton = getByText('Next');
         expect(screen.getByText(/Next/i)).toBeEnabled();
-        fireEvent.click(nextButton);
+        //eslint-disable-next-line
+        await act(async () => {
+            fireEvent.click(nextButton);
+        });
 
         void ((): void => expect(screen.getByText('Success')).toBeInTheDocument());
     });

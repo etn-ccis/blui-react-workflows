@@ -1,6 +1,6 @@
 import React from 'react';
 import '@testing-library/jest-dom';
-import { cleanup, render, screen, RenderResult, fireEvent } from '@testing-library/react';
+import { cleanup, render, screen, RenderResult, fireEvent, act } from '@testing-library/react';
 import { AccountDetailsScreen } from './AccountDetailsScreen';
 import { RegistrationContextProvider } from '../../contexts';
 import { AccountDetailsScreenProps } from './types';
@@ -59,7 +59,7 @@ describe('Account Details Screen', () => {
         expect(screen.getByText('Test Instruction')).toBeInTheDocument();
     });
 
-    it('should call onNext, when Next button clicked', () => {
+    it('should call onNext, when Next button clicked', async () => {
         const { getByLabelText } = renderer({
             WorkflowCardActionsProps: {
                 onNext: mockOnNext(),
@@ -67,7 +67,6 @@ describe('Account Details Screen', () => {
                 nextLabel: 'Next',
             },
         });
-
         const firstNameInput = getByLabelText('First Name');
         fireEvent.change(firstNameInput, { target: { value: 'Test First Name' } });
         fireEvent.blur(firstNameInput);
@@ -79,7 +78,10 @@ describe('Account Details Screen', () => {
         const nextButton = screen.getByText('Next');
         expect(nextButton).toBeInTheDocument();
         expect(screen.getByText(/Next/i)).toBeEnabled();
-        fireEvent.click(nextButton);
+        //eslint-disable-next-line
+        await act(async () => {
+            fireEvent.click(nextButton);
+        });
         expect(mockOnNext).toHaveBeenCalled();
     });
 
@@ -95,7 +97,9 @@ describe('Account Details Screen', () => {
         const backButton = screen.getByText('Back');
         expect(backButton).toBeInTheDocument();
         expect(screen.getByText(/Back/i)).toBeEnabled();
-        fireEvent.click(backButton);
+        act(() => {
+            fireEvent.click(backButton);
+        });
         expect(mockOnPrevious).toHaveBeenCalled();
     });
 });

@@ -1,6 +1,6 @@
 import React from 'react';
 import '@testing-library/jest-dom';
-import { cleanup, render, screen, RenderResult, fireEvent } from '@testing-library/react';
+import { cleanup, render, screen, RenderResult, fireEvent, act } from '@testing-library/react';
 import { EulaScreen } from './EulaScreen';
 import { RegistrationContextProvider } from '../../contexts';
 import { EulaScreenProps } from './types';
@@ -30,17 +30,21 @@ describe('Eula Screen', () => {
             </RegistrationContextProvider>
         );
 
-    it('renders without crashing', () => {
+    it('renders without crashing', async () => {
         renderer();
-
-        expect(screen.getByText('License Agreement')).toBeInTheDocument();
+        //eslint-disable-next-line
+        await act(async () => {
+            expect(screen.getByText('License Agreement')).toBeInTheDocument();
+        });
     });
 
-    it('should update values when passed as props', () => {
+    it('should update values when passed as props', async () => {
         renderer({ WorkflowCardHeaderProps: { title: 'Test Title' } });
-
-        expect(screen.queryByText('License Agreement')).toBeNull();
-        expect(screen.getByText('Test Title')).toBeInTheDocument();
+        //eslint-disable-next-line
+        await act(async () => {
+            expect(screen.queryByText('License Agreement')).toBeNull();
+            expect(screen.getByText('Test Title')).toBeInTheDocument();
+        });
     });
 
     it('should update content of Eula Screen when eulaContent prop set ', () => {
@@ -62,7 +66,7 @@ describe('Eula Screen', () => {
         expect(screen.getByText('<button>Submit</button>')).toBeInTheDocument();
     });
 
-    it('should call onNext, when Next button clicked', () => {
+    it('should call onNext, when Next button clicked', async () => {
         const { getByLabelText } = renderer({
             WorkflowCardActionsProps: {
                 onNext: mockOnNext(),
@@ -78,7 +82,10 @@ describe('Eula Screen', () => {
         const nextButton = screen.getByText('Next');
         expect(nextButton).toBeInTheDocument();
         expect(screen.getByText(/Next/i)).toBeEnabled();
-        fireEvent.click(nextButton);
+        //eslint-disable-next-line
+        await act(async () => {
+            fireEvent.click(nextButton);
+        });
         expect(mockOnNext).toHaveBeenCalled();
     });
 

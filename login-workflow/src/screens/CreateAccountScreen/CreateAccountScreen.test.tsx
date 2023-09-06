@@ -1,6 +1,6 @@
 import React from 'react';
 import '@testing-library/jest-dom';
-import { cleanup, render, screen, fireEvent, RenderResult } from '@testing-library/react';
+import { cleanup, render, screen, fireEvent, RenderResult, act } from '@testing-library/react';
 import { CreateAccountScreen } from './CreateAccountScreen';
 import { CreateAccountScreenProps } from './types';
 import { RegistrationContextProvider } from '../../contexts';
@@ -38,11 +38,14 @@ describe('Create Account Screen', () => {
         expect(screen.getByLabelText('Email Address')).toBeInTheDocument();
     });
 
-    it('sets error state when email is too short', () => {
+    it('sets error state when email is too short', async () => {
         const { getByLabelText } = renderer();
 
         const verifyEmailInput = getByLabelText('Email Address');
-        fireEvent.change(verifyEmailInput, { target: { value: 't' } });
+        //eslint-disable-next-line
+        await act(async () => {
+            fireEvent.change(verifyEmailInput, { target: { value: 't' } });
+        });
         fireEvent.blur(verifyEmailInput);
 
         expect(verifyEmailInput).toHaveAttribute('aria-invalid', 'true');
@@ -58,7 +61,7 @@ describe('Create Account Screen', () => {
         expect(verifyEmailInput).not.toHaveAttribute('aria-invalid', 'true');
     });
 
-    it('calls onNext when the next button is clicked', () => {
+    it('calls onNext when the next button is clicked', async () => {
         const { getByLabelText, getByText } = renderer({
             WorkflowCardActionsProps: {
                 onNext: mockOnNext(),
@@ -68,11 +71,17 @@ describe('Create Account Screen', () => {
         });
 
         const emailInput = getByLabelText('Email Address');
-        fireEvent.change(emailInput, { target: { value: 'Abcd@123.net' } });
+        //eslint-disable-next-line
+        await act(async () => {
+            fireEvent.change(emailInput, { target: { value: 'Abcd@123.net' } });
+        });
         const nextButton = getByText('Next');
         expect(nextButton).toBeInTheDocument();
         expect(screen.getByText(/Next/i)).toBeEnabled();
-        fireEvent.click(nextButton);
+        //eslint-disable-next-line
+        await act(async () => {
+            fireEvent.click(nextButton);
+        });
 
         expect(mockOnNext).toHaveBeenCalled();
     });

@@ -1,6 +1,6 @@
 /* eslint-disable @typescript-eslint/no-unused-vars */
 import React from 'react';
-import { cleanup, fireEvent, render, RenderResult, screen } from '@testing-library/react';
+import { act, cleanup, fireEvent, render, RenderResult, screen } from '@testing-library/react';
 import { ForgotPasswordScreenProps } from './types';
 import { AuthContextProvider, i18nAuthInstance } from '../../contexts';
 import { BrowserRouter } from 'react-router-dom';
@@ -75,7 +75,7 @@ describe('Forgot Password Screen tests', () => {
         expect(mockOnPrevious).toHaveBeenCalled();
     });
 
-    it('firing onNext Callback functions', () => {
+    it('firing onNext Callback functions', async () => {
         const { getByLabelText } = renderer({
             WorkflowCardActionsProps: {
                 canGoNext: true,
@@ -95,7 +95,10 @@ describe('Forgot Password Screen tests', () => {
 
         expect(nextButton).toBeInTheDocument();
         expect(screen.getByText(/Next/i)).toBeEnabled();
-        fireEvent.click(nextButton);
+        //eslint-disable-next-line
+        await act(async () => {
+            fireEvent.click(nextButton);
+        });
         expect(mockOnNext).toHaveBeenCalled();
     });
 
@@ -121,7 +124,7 @@ describe('Forgot Password Screen tests', () => {
         expect(successMessage).toBeInTheDocument();
     });
 
-    it('should not show success screen, when showSuccessScreen is false', () => {
+    it('should not show success screen, when showSuccessScreen is false', async () => {
         const { getByLabelText } = render(
             <AuthContextProvider {...authContextProviderProps}>
                 <BrowserRouter>
@@ -137,7 +140,10 @@ describe('Forgot Password Screen tests', () => {
         expect(emailInput).toHaveValue('aa@aa.aa');
         expect(nextButton).toBeInTheDocument();
         expect(screen.getByText(/Submit/i)).toBeEnabled();
-        fireEvent.click(nextButton);
+        //eslint-disable-next-line
+        await act(async () => {
+            fireEvent.click(nextButton);
+        });
 
         const successMessage = screen.queryByText('Email Sent');
         expect(successMessage).toBeNull();
