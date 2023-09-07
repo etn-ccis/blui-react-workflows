@@ -71,7 +71,7 @@ You can configure how errors are rendered on each individual screen by adding an
 ```tsx
 <LoginScreen
     {...otherProps}
-    errorConfig={{
+    errorDisplayConfig={{
         mode: 'message-box',
         messageBoxConfig: {
             dismissible: true,

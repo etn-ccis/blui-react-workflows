@@ -33,7 +33,7 @@ import { WorkflowCard, WorkflowCardHeader, WorkflowCardBody, WorkflowCardInstruc
 |---|---|---|---|
 | loading | `boolean` | A boolean that indicates whether the loading spinner should be displayed. | `false` |
 | backgroundImage | `string` | The background image to display behind the card. |  |
-| error | `boolean \| string` | Indicates than an error should be displayed. | `false` |
+| error | `boolean \| string` | Indicates that an error should be displayed. | `false` |
 
 The properties of the underlying MUI [Box](https://mui.com/components/box/) component are also available.
 
