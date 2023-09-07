@@ -1,11 +1,25 @@
 import React from 'react';
 import '@testing-library/jest-dom';
-import { render, cleanup, screen, fireEvent } from '@testing-library/react';
+import { render, cleanup, screen, fireEvent, RenderResult } from '@testing-library/react';
 import { AccountDetailsScreenBase } from './AccountDetailsScreenBase';
+import { AccountDetailsScreenProps } from './types';
+import { RegistrationContextProvider } from '../../contexts';
+import { RegistrationWorkflow } from '../../components';
+import { registrationContextProviderProps } from '../../testUtils';
 
 afterEach(cleanup);
 
+const renderer = (props?: AccountDetailsScreenProps): RenderResult =>
+    render(
+        <RegistrationContextProvider {...registrationContextProviderProps}>
+            <RegistrationWorkflow initialScreenIndex={0}>
+                <AccountDetailsScreenBase {...props} />
+            </RegistrationWorkflow>
+        </RegistrationContextProvider>
+    );
+
 describe('AccountDetailsScreenBase tests', () => {
+    renderer();
     it('renders without crashing', () => {
         render(<AccountDetailsScreenBase />);
     });

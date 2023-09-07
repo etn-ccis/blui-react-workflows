@@ -30,8 +30,12 @@ describe('Change Password Dialog tests', () => {
         );
 
     it('renders without crashing', () => {
-        renderer();
-
+        const { getByLabelText } = renderer({
+            open: true,
+            currentPasswordLabel: 'Current Password',
+        });
+        const currentPasswordInput = getByLabelText('Current Password');
+        expect(currentPasswordInput).toHaveValue('');
         expect(screen.findAllByRole('input')).not.toBeNull();
     });
 

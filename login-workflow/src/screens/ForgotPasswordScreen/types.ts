@@ -3,76 +3,63 @@ import { WorkflowCardProps } from '../../components/WorkflowCard/WorkflowCard.ty
 import { SuccessScreenProps } from '../SuccessScreen';
 
 export type ForgotPasswordScreenProps = WorkflowCardProps & {
-    // used to display contact phone number
-    contactPhone?: string;
-
-    // used to display response time
-    responseTime?: string;
-
-    // TODO: These need cleaned up to use the WorkflowCardProps instead
-
-    // used to update the instruction
-    description?: (responseTime: string) => React.ReactNode;
-
-    // used to update the screen title
-    title?: string;
-
-    // used to display back button
-    showBackButton?: boolean;
-
-    // used to display back button label
-    backButtonLabel?: string;
-
-    // used to enable to back button
-    canGoBack?: boolean | (() => boolean);
-
-    // used to display next button
-    showNextButton?: boolean;
-
-    // used to display next button label
-    nextButtonLabel?: string;
-
-    // used to enable to next button
-    canGoNext?: boolean | (() => boolean);
-
     /**
-     * The label for the email field
+     * label for the textfield
      */
     emailLabel?: string;
 
     /**
-     * The initial value for the email text field
+     * used to pre-populate the email input field
      */
     initialEmailValue?: string;
 
     /**
-     * A function used to test the input for valid formatting
-     * @param {string} email - the provided email address
+     * used to test the input for valid formatting
+     * @param {string} email - validate format via EMAIL_REGEX
      * @returns boolean | string
      */
     emailValidator?: (email: string) => boolean | string;
 
     /**
-     * Used for ForgotPasswordScreen SuccessScreen
+     * used for each slot in `ForgotPasswordScreenBase`
+     * @param {SuccessScreenProps} props - pass SuccessScreenProps to SuccessScreen
+     * @returns JSX.Element
      */
     slots?: {
         SuccessScreen?: (props: SuccessScreenProps) => JSX.Element;
     };
 
     /**
-     * Applied to slot from SuccessScreen
+     * props applied to each slot
      */
     slotProps?: {
         SuccessScreen?: SuccessScreenProps;
     };
 
     /**
-     * Used to determine whether to show a success screen after the form is submitted
+     * used to display contact phone number
+     */
+    contactPhone?: string;
+
+    /**
+     * used to display response time
+     */
+    responseTime?: string;
+
+    /**
+     * used to update the instruction
+     * @param {string} responseTime - will add the response time in instructions through desciption function
+     * @returns React.ReactNode
+     */
+    description?: (responseTime: string) => React.ReactNode;
+
+    /**
+     * used to determine whether to show a success screen after the form is submitted
      */
     showSuccessScreen?: boolean;
 
     /**
-     * The configuration for customizing how errors are displayed
+     * used to configure how errors are rendered
      */
     errorDisplayConfig?: ErrorManagerProps;
 };

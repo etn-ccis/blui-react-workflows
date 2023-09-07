@@ -1,13 +1,27 @@
 import React from 'react';
 import '@testing-library/jest-dom';
-import { cleanup, render, screen, fireEvent } from '@testing-library/react';
+import { cleanup, render, screen, fireEvent, RenderResult } from '@testing-library/react';
 import { EulaScreenBase } from './EulaScreenBase';
+import { RegistrationContextProvider } from '../../contexts';
+import { EulaScreenProps } from './types';
+import { RegistrationWorkflow } from '../../components';
+import { registrationContextProviderProps } from '../../testUtils';
 // Constants
 import { SAMPLE_EULA } from '../../constants/index';
 
 afterEach(cleanup);
 
+const renderer = (props?: EulaScreenProps): RenderResult =>
+    render(
+        <RegistrationContextProvider {...registrationContextProviderProps}>
+            <RegistrationWorkflow initialScreenIndex={0}>
+                <EulaScreenBase {...props} />
+            </RegistrationWorkflow>
+        </RegistrationContextProvider>
+    );
+
 describe('Eula Screen Base', () => {
+    renderer();
     it('renders without crashing', () => {
         render(
             <EulaScreenBase
