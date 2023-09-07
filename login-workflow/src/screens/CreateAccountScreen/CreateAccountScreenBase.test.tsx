@@ -1,7 +1,11 @@
 import React from 'react';
 import '@testing-library/jest-dom';
-import { cleanup, render, screen, fireEvent } from '@testing-library/react';
+import { cleanup, render, screen, fireEvent, RenderResult } from '@testing-library/react';
 import { CreateAccountScreenBase } from './CreateAccountScreenBase';
+import { CreateAccountScreenProps } from './types';
+import { RegistrationContextProvider } from '../../contexts';
+import { RegistrationWorkflow } from '../../components';
+import { registrationContextProviderProps } from '../../testUtils';
 
 afterEach(cleanup);
 
@@ -16,7 +20,17 @@ describe('Create Account Screen Base', () => {
         mockOnNext = jest.fn();
     });
 
+    const renderer = (props?: CreateAccountScreenProps): RenderResult =>
+        render(
+            <RegistrationContextProvider {...registrationContextProviderProps}>
+                <RegistrationWorkflow initialScreenIndex={0}>
+                    <CreateAccountScreenBase {...props} />
+                </RegistrationWorkflow>
+            </RegistrationContextProvider>
+        );
+
     it('renders without crashing', () => {
+        renderer();
         render(
             <CreateAccountScreenBase
                 WorkflowCardHeaderProps={{ title: 'Create Account' }}

@@ -10,7 +10,7 @@ describe('ChangePasswordDialogBase tests', () => {
         render(
             <ChangePasswordDialogBase
                 open={true}
-                onSubmit={(): void => {}}
+                onSubmit={(): any => {}}
                 PasswordProps={{
                     onPasswordChange: (): void => {},
                     newPasswordLabel: '',
@@ -34,7 +34,7 @@ describe('ChangePasswordDialogBase tests', () => {
         const { getByLabelText } = render(
             <ChangePasswordDialogBase
                 open={true}
-                onSubmit={(): void => {}}
+                onSubmit={(): any => {}}
                 currentPasswordChange={(): void => {}}
                 enableButton={false}
                 PasswordProps={{

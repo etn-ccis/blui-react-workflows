@@ -18,6 +18,7 @@ import { ProjectRegistrationUIActions } from '../actions/RegistrationUIActions';
 import { routes } from './Routing';
 import { ExampleHome } from '../screens/ExampleHome';
 import i18nAppInstance from '../translations/i18n';
+import { ChangePassword } from '../components/ChangePassword';
 
 export const AppRouter: React.FC = () => {
     const navigate = useNavigate();
@@ -75,14 +76,23 @@ export const AppRouter: React.FC = () => {
                 />
                 {/* USER APPLICATION ROUTES */}
                 <Route
-                    path={'/homepage'}
                     element={
-                        <ReactRouterAuthGuard isAuthenticated={app.isAuthenticated} fallBackUrl={'/login'}>
-                            <ExampleHome />
-                        </ReactRouterAuthGuard>
+                        <>
+                            <Outlet />
+                            {app.showChangePasswordDialog && <ChangePassword />}
+                        </>
                     }
-                />
-                <Route path={'/'} element={<Navigate to={'/homepage'} replace />} />
+                >
+                    <Route
+                        path={'/homepage'}
+                        element={
+                            <ReactRouterAuthGuard isAuthenticated={app.isAuthenticated} fallBackUrl={'/login'}>
+                                <ExampleHome />
+                            </ReactRouterAuthGuard>
+                        }
+                    />
+                    <Route path={'/'} element={<Navigate to={'/homepage'} replace />} />
+                </Route>
                 <Route
                     path={'*'}
                     element={
@@ -99,7 +109,7 @@ export const AppRouter: React.FC = () => {
                         language={app.language}
                         routeConfig={routes}
                         navigate={navigate}
-                        actions={ProjectRegistrationUIActions}
+                        actions={ProjectRegistrationUIActions()}
                         i18n={i18nAppInstance}
                     >
                         <Outlet />

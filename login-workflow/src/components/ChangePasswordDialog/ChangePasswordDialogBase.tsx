@@ -88,14 +88,17 @@ export const ChangePasswordDialogBase: React.FC<ChangePasswordDialogProps> = (pr
                     display: 'flex',
                     flexDirection: 'column',
                     pt: 2,
-                    px: { md: 3, sm: 2 },
-                    pb: { md: 2, sm: 3 },
+                    pb: { xs: 2, md: 3 },
+                    px: { xs: 2, md: 3 },
                 }}
             >
                 <Typography>{dialogDescription}</Typography>
                 <Divider sx={{ mt: 5, mb: 4, mx: { md: -3, xs: -2 } }} />
                 <SetPassword {...PasswordProps}>
                     <PasswordTextField
+                        sx={{
+                            mb: { xs: 3, md: 4 },
+                        }}
                         id="current-password"
                         label={currentPasswordLabel}
                         value={currentPassword}
@@ -132,7 +135,9 @@ export const ChangePasswordDialogBase: React.FC<ChangePasswordDialogProps> = (pr
                         sx={{ width: 100 }}
                         disabled={buttonState}
                         color="primary"
-                        onClick={onSubmit}
+                        onClick={(): void => {
+                            void onSubmit();
+                        }}
                     >
                         {nextLabel}
                     </Button>

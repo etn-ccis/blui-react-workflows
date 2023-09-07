@@ -14,7 +14,7 @@ afterEach(cleanup);
 describe('WorkflowCard tests', () => {
     it('renders without crashing', () => {
         render(
-            <WorkflowCard loading={false} backgroundImage="blue" error={false}>
+            <WorkflowCard loading={false} backgroundImage="blue" error={'false'}>
                 Test
             </WorkflowCard>
         );
@@ -25,7 +25,7 @@ describe('WorkflowCard tests', () => {
         const darkTheme = createTheme({ palette: { mode: 'dark' } });
         render(
             <ThemeProvider theme={darkTheme}>
-                <WorkflowCard loading={false} error={false}>
+                <WorkflowCard loading={false} error={'false'}>
                     Test
                 </WorkflowCard>
             </ThemeProvider>

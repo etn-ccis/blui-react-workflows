@@ -101,8 +101,8 @@ export const AccountDetailsScreenBase: React.FC<AccountDetailsScreenProps> = (pr
     return (
         <WorkflowCard {...cardBaseProps}>
             <WorkflowCardHeader {...headerProps} />
+            <WorkflowCardInstructions {...instructionsProps} divider />
             <WorkflowCardBody>
-                <WorkflowCardInstructions {...instructionsProps} divider />
                 <ErrorManager {...errorDisplayConfig}>
                     <TextField
                         id="first"

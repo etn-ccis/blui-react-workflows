@@ -74,7 +74,7 @@ export const WorkflowCardActions: React.FC<WorkflowCardActionsProps> = (props) =
 
             <CardActions
                 sx={[
-                    { flexDirection: 'column', justifyContent: 'flex-end', p: { xs: 2, sm: 2, md: 3 } },
+                    { flexDirection: 'column', justifyContent: 'flex-end', p: { xs: 2, md: 3 } },
                     ...(Array.isArray(sx) ? sx : [sx]),
                 ]}
                 className={defaultClasses.root}

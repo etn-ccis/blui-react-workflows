@@ -132,7 +132,7 @@ export const RegistrationWorkflow: React.FC<React.PropsWithChildren<Registration
     };
 
     const finishRegistration = (data: IndividualScreenData): Promise<void> => {
-        if (actions && actions().completeRegistration) {
+        if (actions && actions.completeRegistration) {
             const { Eula, CreateAccount, VerifyCode, CreatePassword, AccountDetails, Other } = screenData;
             const userInfo = {
                 ...Eula,
@@ -143,7 +143,7 @@ export const RegistrationWorkflow: React.FC<React.PropsWithChildren<Registration
                 ...Other,
                 ...data.values,
             };
-            return actions()
+            return actions
                 .completeRegistration(userInfo)
                 .then(({ email, organizationName }) => {
                     updateScreenData({
