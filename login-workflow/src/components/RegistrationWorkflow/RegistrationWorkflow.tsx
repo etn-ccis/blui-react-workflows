@@ -46,7 +46,7 @@ export type RegistrationWorkflowProps = {
      * Component to display for the success screen if the account already exists.
      */
     existingAccountSuccessScreen?: JSX.Element;
-    
+
     /**
      * The configuration for customizing how errors are displayed
      */

@@ -14,7 +14,7 @@ afterEach(cleanup);
 describe('WorkflowCard tests', () => {
     it('renders without crashing', () => {
         render(
-            <WorkflowCard loading={false} backgroundImage="blue" error={'false'}>
+            <WorkflowCard loading={false} backgroundImage="blue">
                 Test
             </WorkflowCard>
         );
@@ -25,9 +25,7 @@ describe('WorkflowCard tests', () => {
         const darkTheme = createTheme({ palette: { mode: 'dark' } });
         render(
             <ThemeProvider theme={darkTheme}>
-                <WorkflowCard loading={false} error={'false'}>
-                    Test
-                </WorkflowCard>
+                <WorkflowCard loading={false}>Test</WorkflowCard>
             </ThemeProvider>
         );
         expect(screen.getByText('Test')).toBeInTheDocument();
