@@ -41,6 +41,9 @@ export type VerifyCodeScreenProps = WorkflowCardProps & {
      */
     errorDisplayConfig?: ErrorManagerProps;
 
-    // The props to pass to the verify code text field.
+    /**
+     * The props to pass to the verify code field.
+     * See [MUI's TextFieldProps API](https://mui.com/material-ui/api/text-field/) for more details.
+     */
     verifyCodeTextFieldProps?: TextFieldProps;
 };

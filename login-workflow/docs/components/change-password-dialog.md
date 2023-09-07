@@ -17,19 +17,20 @@ import { AuthContextProvider, ChangePasswordDialog } from '@brightlayer-ui/react
 
 ## API
 
-| Prop Name | Type | Description | Default |
-|---|---|---|---|
-| PasswordProps | `SetPasswordProps` | See [Set Password](./set-password.md) |  |
-| ErrorDialogProps | `BasicDialogProps` | Props to configure a nested error dialog if there are errors changing the password. See [Basic Dialog](./basic-dialog.md). |  |
-| dialogTitle | `string` | The title to display in the dialog. | `t('bluiAuth:CHANGE_PASSWORD_DIALOG.TITLE')` |
-| dialogDescription | `string` | The description to display in the dialog. | `t('bluiAuth:CHANGE_PASSWORD_DIALOG.DESCRIPTION')` |
-| currentPasswordLabel | `string` | The label to display for the current password field. | `t('bluiAuth:CHANGE_PASSWORD_DIALOG.CURRENT_PASSWORD_LABEL')` |
-| previousLabel | `string` | The label to display for the previous/cancel button. | `t('bluiCommon:ACTIONS.BACK')` |
-| nextLabel | `string` | The label to display for the next button. | `t('bluiCommon:ACTIONS.OKAY')` |
-| currentPasswordChange | `(currentPassword: string) => void` | Callback called when the current password field input changes. |  |
-| enableButton | `boolean \| (() => boolean)` | True if the next button should be enabled. | `false` |
-| onSubmit | `() => void` | Called when the next button is clicked. |  |
-| onPrevious | `() => void` | Callback called when the previous/back/cancel button is clicked. |  |
-| loading | `boolean` | Whether or not the dialog is loading. |  |
+| Prop Name                     | Type                                | Description                                                                                                                     | Default                                                       |
+| ----------------------------- | ----------------------------------- | ------------------------------------------------------------------------------------------------------------------------------- | ------------------------------------------------------------- |
+| PasswordProps                 | `SetPasswordProps`                  | See [Set Password](./set-password.md)                                                                                           |                                                               |
+| ErrorDialogProps              | `BasicDialogProps`                  | Props to configure a nested error dialog if there are errors changing the password. See [Basic Dialog](./basic-dialog.md).      |                                                               |
+| dialogTitle                   | `string`                            | The title to display in the dialog.                                                                                             | `t('bluiAuth:CHANGE_PASSWORD_DIALOG.TITLE')`                  |
+| dialogDescription             | `string`                            | The description to display in the dialog.                                                                                       | `t('bluiAuth:CHANGE_PASSWORD_DIALOG.DESCRIPTION')`            |
+| currentPasswordLabel          | `string`                            | The label to display for the current password field.                                                                            | `t('bluiAuth:CHANGE_PASSWORD_DIALOG.CURRENT_PASSWORD_LABEL')` |
+| previousLabel                 | `string`                            | The label to display for the previous/cancel button.                                                                            | `t('bluiCommon:ACTIONS.BACK')`                                |
+| nextLabel                     | `string`                            | The label to display for the next button.                                                                                       | `t('bluiCommon:ACTIONS.OKAY')`                                |
+| currentPasswordChange         | `(currentPassword: string) => void` | Callback called when the current password field input changes.                                                                  |                                                               |
+| enableButton                  | `boolean \| (() => boolean)`        | True if the next button should be enabled.                                                                                      | `false`                                                       |
+| onSubmit                      | `() => void`                        | Called when the next button is clicked.                                                                                         |                                                               |
+| onPrevious                    | `() => void`                        | Callback called when the previous/back/cancel button is clicked.                                                                |                                                               |
+| loading                       | `boolean`                           | Whether or not the dialog is loading.                                                                                           |                                                               |
+| currentPasswordTextFieldProps | `TextFieldProps`                    | Props to pass to the current password input field. See MUI's [TextFieldProps API](https://mui.com/material-ui/api/text-field/). |                                                               |
 
 Props from the underlying MUI [Dialog](https://mui.com/material-ui/react-dialog/) are also available.

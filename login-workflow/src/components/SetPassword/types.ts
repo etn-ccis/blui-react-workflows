@@ -73,9 +73,15 @@ export type SetPasswordProps = {
      */
     onSubmit?: () => void;
 
-    // The props to pass to the password text field.
+    /**
+     * The props to pass to the password field.
+     * See [MUI's TextFieldProps API](https://mui.com/material-ui/api/text-field/) for more details.
+     */
     passwordTextFieldProps?: TextFieldProps;
 
-    // The props to pass to the confirm password text field.
+    /**
+     * The props to pass to the confirm password field.
+     * See [MUI's TextFieldProps API](https://mui.com/material-ui/api/text-field/) for more details.
+     */
     confirmPasswordTextFieldProps?: TextFieldProps;
 };

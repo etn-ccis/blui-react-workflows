@@ -54,8 +54,14 @@ export type ChangePasswordDialogProps = DialogProps & { PasswordProps?: SetPassw
      */
     onPrevious?: () => void;
 
+    /**
+     * If true, a blocking progress spinner will be displayed over the card
+     */
     loading?: boolean;
 
-    // The props to pass to the current password text field.
+    /**
+     * The props to pass to the current password field.
+     * See [MUI's TextFieldProps API](https://mui.com/material-ui/api/text-field/) for more details.
+     */
     currentPasswordTextFieldProps?: TextFieldProps;
 };

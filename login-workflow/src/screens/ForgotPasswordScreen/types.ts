@@ -77,6 +77,9 @@ export type ForgotPasswordScreenProps = WorkflowCardProps & {
      */
     errorDisplayConfig?: ErrorManagerProps;
 
-    // The props to pass to the forgot password email text field.
+    /**
+     * The props to pass to the email field.
+     * See [MUI's TextFieldProps API](https://mui.com/material-ui/api/text-field/) for more details.
+     */
     emailTextFieldProps?: TextFieldProps;
 };

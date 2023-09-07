@@ -16,22 +16,24 @@ import { SetPassword } from '@brightlayer-ui/react-auth-workflow';
 
 ## API
 
-| Prop Name | Type | Description | Default |
-|---|---|---|---|
-| onPasswordChange | `(passwords: { password: string; confirm: string }) => void` | Called when the new password or confirm new password fields value changes. |  |
-| newPasswordLabel | `string` | The label for the new password field. | |
-| initialNewPasswordValue | `string` | The initial value for the new password field. |  |
-| confirmPasswordLabel | `string` | The label for the confirm password field. | |
-| initialConfirmPasswordValue | `string` | The initial value for the confirm password field. |  |
-| passwordRequirements | `PasswordRequirement[]` | An array of password complexity requirements . See [PasswordRequirements](#PasswordRequirements) for more details. |  |
-| passwordRef | `MutableRefObject<any>` | Optional ref to forward to the password input. |  |
-| confirmRef | `MutableRefObject<any>` | Optional ref to forward to the confirm password input. |  |
-| passwordNotMatchError | `string` | Optional text for showing message when passwords not match. | |
-| onSubmit | `() => void` | Callback function to fire when the Enter key is pressed in the confirm field. |  |
+| Prop Name                     | Type                                                         | Description                                                                                                                     | Default |
+| ----------------------------- | ------------------------------------------------------------ | ------------------------------------------------------------------------------------------------------------------------------- | ------- |
+| onPasswordChange              | `(passwords: { password: string; confirm: string }) => void` | Called when the new password or confirm new password fields value changes.                                                      |         |
+| newPasswordLabel              | `string`                                                     | The label for the new password field.                                                                                           |         |
+| initialNewPasswordValue       | `string`                                                     | The initial value for the new password field.                                                                                   |         |
+| confirmPasswordLabel          | `string`                                                     | The label for the confirm password field.                                                                                       |         |
+| initialConfirmPasswordValue   | `string`                                                     | The initial value for the confirm password field.                                                                               |         |
+| passwordRequirements          | `PasswordRequirement[]`                                      | An array of password complexity requirements . See [PasswordRequirements](#PasswordRequirements) for more details.              |         |
+| passwordRef                   | `MutableRefObject<any>`                                      | Optional ref to forward to the password input.                                                                                  |         |
+| confirmRef                    | `MutableRefObject<any>`                                      | Optional ref to forward to the confirm password input.                                                                          |         |
+| passwordNotMatchError         | `string`                                                     | Optional text for showing message when passwords not match.                                                                     |         |
+| onSubmit                      | `() => void`                                                 | Callback function to fire when the Enter key is pressed in the confirm field.                                                   |         |
+| passwordTextFieldProps        | `TextFieldProps`                                             | Props to pass to the password input field. See MUI's [TextFieldProps API](https://mui.com/material-ui/api/text-field/).         |         |
+| confirmPasswordTextFieldProps | `TextFieldProps`                                             | Props to pass to the confirm password input field. See MUI's [TextFieldProps API](https://mui.com/material-ui/api/text-field/). |         |
 
 ### PasswordRequirements
 
-| Prop Name | Type | Description | Default |
-|---|---|---|---|
-| description | `string` | The text description / label of the password requirement. |  |
-| regex | `RegExp` | The regex to compare the password against. |  |
+| Prop Name   | Type     | Description                                               | Default |
+| ----------- | -------- | --------------------------------------------------------- | ------- |
+| description | `string` | The text description / label of the password requirement. |         |
+| regex       | `RegExp` | The regex to compare the password against.                |         |
