@@ -17,7 +17,6 @@ import { useErrorManager } from '../../contexts/ErrorContext/useErrorManager';
  * @param emailLabel label for the email field
  * @param initialEmailValue initial value for the email text field
  * @param emailValidator function used to test the input for valid formatting
- * @param canGoNext boolean or function that indicates whether the next button should be enabled
  * @param showSuccessScreen used to determine whether to show a success screen after the form is submitted
  * @param slots used for ForgotPasswordScreen SuccessScreen
  * @param slotProps applied to slot from SuccessScreen
@@ -66,7 +65,6 @@ export const ForgotPasswordScreen: React.FC<ForgotPasswordScreenProps> = (props)
     );
 
     const {
-        // TODO: THIS ALL NEEDS TO BE FIXED...CARD CONFIGURATIONS SHOULD BE COMING THROUGH THE WORKFLOWCARDPROPS, NOT DUPLICATED ON THE SCREEN COMPONENT
         emailLabel = t('bluiCommon:LABELS.EMAIL'),
         contactPhone = '1-800-123-4567',
         initialEmailValue,
@@ -74,12 +72,6 @@ export const ForgotPasswordScreen: React.FC<ForgotPasswordScreenProps> = (props)
         responseTime = 'one business day',
         emailValidator = (email: string): boolean | string =>
             new RegExp(EMAIL_REGEX).test(email) ? true : t('bluiCommon:MESSAGES.EMAIL_ENTRY_ERROR'),
-        showBackButton = true,
-        backButtonLabel = t('bluiCommon:ACTIONS.BACK'),
-        nextButtonLabel = t('bluiCommon:ACTIONS.SUBMIT'),
-        canGoNext,
-        canGoBack,
-        showNextButton = true,
         WorkflowCardBaseProps,
         WorkflowCardHeaderProps,
         WorkflowCardInstructionProps,
@@ -121,12 +113,12 @@ export const ForgotPasswordScreen: React.FC<ForgotPasswordScreenProps> = (props)
     };
 
     const workflowCardActionsProps = {
-        showNext: showNextButton,
-        showPrevious: showBackButton,
-        nextLabel: nextButtonLabel,
-        previousLabel: backButtonLabel,
-        canGoNext,
-        canGoPrevious: canGoBack,
+        showNext: true,
+        showPrevious: true,
+        nextLabel: t('bluiCommon:ACTIONS.SUBMIT'),
+        previousLabel: t('bluiCommon:ACTIONS.BACK'),
+        canGoNext: true,
+        canGoPrevious: true,
         ...WorkflowCardActionsProps,
         onNext: (data: any): void => {
             setEmailInput(data.email);
