@@ -20,6 +20,8 @@ import { PasswordRequirements } from '../PasswordRequirements';
  * @param confirmRef ref to forward to the confirm password input.
  * @param passwordNotMatchError text for showing message when passwords do not match.
  * @param onSubmit function to call when the form is submitted
+ * @param passwordTextFieldProps props to pass to the password field.
+ * @param confirmPasswordTextFieldProps props to pass to the confirm password field.
  *
  * @category Component
  */

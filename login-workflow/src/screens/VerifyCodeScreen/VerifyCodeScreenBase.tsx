@@ -25,6 +25,7 @@ import ErrorManager from '../../components/Error/ErrorManager';
  * @param WorkflowCardHeaderProps props that will be passed to the WorkflowCardHeader component
  * @param WorkflowCardInstructionProps props that will be passed to the WorkflowCardInstructions component
  * @param WorkflowCardActionsProps props that will be passed to the WorkflowCardActions component
+ * @param verifyCodeTextFieldProps props to pass to the verify code field.
  *
  * @category Component
  */

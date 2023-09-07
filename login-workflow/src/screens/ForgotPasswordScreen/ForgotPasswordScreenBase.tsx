@@ -30,6 +30,7 @@ type ForgotPasswordScreenBaseProps = Omit<ForgotPasswordScreenProps, 'slots'> & 
  * @param WorkflowCardInstructionProps props that will be passed to the WorkflowCardInstructions component
  * @param WorkflowCardActionsProps props that will be passed to the WorkflowCardActions component
  * @param errorDisplayConfig configuration for customizing how errors are displayed
+ * @param emailTextFieldProps props to pass to the email field.
  *
  * @category Component
  */

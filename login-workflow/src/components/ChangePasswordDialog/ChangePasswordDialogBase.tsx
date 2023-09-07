@@ -32,6 +32,7 @@ import { Spinner } from '../../components';
  * @param onPrevious called when the previous button is clicked
  * @param sx styles passed to the underlying root component
  * @param loading boolean that indicates whether the loading spinner should be displayed
+ * @param currentPasswordTextFieldProps props to pass to the current password field.
  *
  * @category Component
  */
