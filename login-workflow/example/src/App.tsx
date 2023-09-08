@@ -38,7 +38,7 @@ export const App = (): JSX.Element => {
     const [showChangePasswordDialog, setShowChangePasswordDialog] = useState(false);
 
     const [isLoading, setIsLoading] = useState(true);
-
+    i18nAppInstance.addResourceBundle('en', 'bluiCommon', { ACTIONS: { CREATE_ACCOUNT: 'Register now!' } }, true, true);
     // handle initialization of auth data on first load
     useEffect(() => {
         const initialize = async (): Promise<void> => {
