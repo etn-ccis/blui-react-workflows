@@ -74,34 +74,34 @@ export const AppRouter: React.FC = () => {
                         </ReactRouterGuestGuard>
                     }
                 />
-                {/* USER APPLICATION ROUTES */}
+            </Route>
+            {/* USER APPLICATION ROUTES */}
+            <Route
+                element={
+                    <>
+                        <Outlet />
+                        {app.showChangePasswordDialog && <ChangePassword />}
+                    </>
+                }
+            >
                 <Route
-                    element={
-                        <>
-                            <Outlet />
-                            {app.showChangePasswordDialog && <ChangePassword />}
-                        </>
-                    }
-                >
-                    <Route
-                        path={'/homepage'}
-                        element={
-                            <ReactRouterAuthGuard isAuthenticated={app.isAuthenticated} fallBackUrl={'/login'}>
-                                <ExampleHome />
-                            </ReactRouterAuthGuard>
-                        }
-                    />
-                    <Route path={'/'} element={<Navigate to={'/homepage'} replace />} />
-                </Route>
-                <Route
-                    path={'*'}
+                    path={'/homepage'}
                     element={
                         <ReactRouterAuthGuard isAuthenticated={app.isAuthenticated} fallBackUrl={'/login'}>
-                            <Navigate to={'/login'} />
+                            <ExampleHome />
                         </ReactRouterAuthGuard>
                     }
                 />
+                <Route path={'/'} element={<Navigate to={'/homepage'} replace />} />
             </Route>
+            <Route
+                path={'*'}
+                element={
+                    <ReactRouterAuthGuard isAuthenticated={app.isAuthenticated} fallBackUrl={'/login'}>
+                        <Navigate to={'/login'} />
+                    </ReactRouterAuthGuard>
+                }
+            />
             {/* REGISTRATION ROUTES */}
             <Route
                 element={
