@@ -27,10 +27,10 @@ export type PasswordRequirementsProps = BoxProps & {
  */
 export const PasswordRequirements: React.FC<React.PropsWithChildren<PasswordRequirementsProps>> = (props) => {
     const { t } = useLanguageLocale();
-    const { passwordText, passwordRequirements = defaultPasswordRequirements(t), ...otherProps } = props;
+    const { passwordText, passwordRequirements = defaultPasswordRequirements(t), sx, ...otherProps } = props;
 
     return (
-        <Box {...otherProps}>
+        <Box sx={sx} {...otherProps}>
             {passwordRequirements.map((req, ind) => (
                 <PasswordRequirementsCheck
                     key={`password_requirement_${ind}`}

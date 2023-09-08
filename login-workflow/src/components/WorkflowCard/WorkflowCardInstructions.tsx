@@ -13,12 +13,12 @@ import { WorkflowCardInstructionProps } from './WorkflowCard.types';
  */
 
 export const WorkflowCardInstructions: React.FC<WorkflowCardInstructionProps> = (props) => {
-    const { instructions, divider, ...otherProps } = props;
+    const { instructions, divider, sx, ...otherProps } = props;
 
     return (
         <>
             {typeof instructions === 'string' ? (
-                <Typography sx={{ px: { md: 3, xs: 2 }, pt: 2 }} {...otherProps}>
+                <Typography sx={[{ px: { md: 3, xs: 2 }, pt: 2 }, ...(Array.isArray(sx) ? sx : [sx])]} {...otherProps}>
                     {instructions}
                 </Typography>
             ) : (

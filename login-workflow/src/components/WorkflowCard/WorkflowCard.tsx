@@ -52,19 +52,16 @@ export const WorkflowCard: React.FC<WorkflowCardBaseProps> = (props) => {
             {...otherBoxProps}
         >
             <Card
-                sx={[
-                    {
-                        width: '100%',
-                        height: '100%',
-                        maxWidth: { sm: '450px', xs: 'none' },
-                        maxHeight: { sm: '730px', xs: 'none' },
-                        display: 'flex',
-                        flexDirection: 'column',
-                        position: 'relative',
-                        borderRadius: { xs: 0, sm: '4px' },
-                    },
-                    ...(Array.isArray(sx) ? sx : [sx]),
-                ]}
+                sx={{
+                    width: '100%',
+                    height: '100%',
+                    maxWidth: { sm: '450px', xs: 'none' },
+                    maxHeight: { sm: '730px', xs: 'none' },
+                    display: 'flex',
+                    flexDirection: 'column',
+                    position: 'relative',
+                    borderRadius: { xs: 0, sm: '4px' },
+                }}
                 className={defaultClasses.card}
                 data-testid={defaultClasses.card}
             >
