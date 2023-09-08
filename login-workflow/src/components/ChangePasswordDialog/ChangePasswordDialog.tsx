@@ -17,7 +17,9 @@ import CheckCircle from '@mui/icons-material/CheckCircle';
  * @param nextLabel label to display for the next button
  * @param currentPasswordChange called when the current password field changes
  * @param enableButton boolean to enable and disable the button
+ * @param onFinish function called when the button is clicked on success screen
  * @param onSubmit Callback function to call when the form is submitted
+ * @param onPrevious function called when the previous button is clicked
  * @param showSuccessScreen boolean that determines whether to show the success screen or not
  * @param slots used for ChangePasswordDialog SuccessScreen props
  * @param slotProps props that will be passed to the SuccessScreen component
