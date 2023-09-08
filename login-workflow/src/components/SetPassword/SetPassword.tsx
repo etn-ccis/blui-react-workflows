@@ -91,13 +91,21 @@ export const SetPassword: React.FC<React.PropsWithChildren<SetPasswordProps>> = 
                 error={shouldValidatePassword && !isValidPassword()}
                 sx={TextFieldStyles(theme)}
                 {...passwordTextFieldProps}
-                onChange={(evt: ChangeEvent<HTMLInputElement>): void => onPassChange(evt.target.value)}
+                onChange={(evt: ChangeEvent<HTMLInputElement>): void => {
+                    // eslint-disable-next-line no-unused-expressions
+                    passwordTextFieldProps?.onChange && passwordTextFieldProps.onChange(evt);
+                    onPassChange(evt.target.value);
+                }}
                 onKeyUp={(e): void => {
                     if (e.key === 'Enter' && confirmRef.current) {
                         confirmRef.current.focus();
                     }
                 }}
-                onBlur={(): void => setShouldValidatePassword(true)}
+                onBlur={(e): void => {
+                    // eslint-disable-next-line no-unused-expressions
+                    passwordTextFieldProps?.onBlur && passwordTextFieldProps.onBlur(e);
+                    setShouldValidatePassword(true);
+                }}
             />
             {passwordRequirements && passwordRequirements.length > 0 && (
                 <PasswordRequirements
@@ -122,11 +130,19 @@ export const SetPassword: React.FC<React.PropsWithChildren<SetPasswordProps>> = 
                     ) : undefined
                 }
                 {...confirmPasswordTextFieldProps}
-                onChange={(evt: ChangeEvent<HTMLInputElement>): void => onConfirmChange(evt.target.value)}
+                onChange={(evt: ChangeEvent<HTMLInputElement>): void => {
+                    // eslint-disable-next-line no-unused-expressions
+                    confirmPasswordTextFieldProps?.onChange && confirmPasswordTextFieldProps.onChange(evt);
+                    onConfirmChange(evt.target.value);
+                }}
                 onKeyUp={(e): void => {
                     if (e.key === 'Enter' && onSubmit) onSubmit();
                 }}
-                onBlur={(): void => setShouldValidateConfirmPassword(true)}
+                onBlur={(e): void => {
+                    // eslint-disable-next-line no-unused-expressions
+                    confirmPasswordTextFieldProps?.onBlur && confirmPasswordTextFieldProps.onBlur(e);
+                    setShouldValidateConfirmPassword(true);
+                }}
             />
         </>
     );

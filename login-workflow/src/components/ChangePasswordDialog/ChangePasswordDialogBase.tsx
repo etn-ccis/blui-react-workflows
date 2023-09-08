@@ -105,7 +105,11 @@ export const ChangePasswordDialogBase: React.FC<ChangePasswordDialogProps> = (pr
                         label={currentPasswordLabel}
                         value={currentPassword}
                         {...currentPasswordTextFieldProps}
-                        onChange={handleChange}
+                        onChange={(e): void => {
+                            // eslint-disable-next-line no-unused-expressions
+                            currentPasswordTextFieldProps?.onChange && currentPasswordTextFieldProps.onChange(e);
+                            handleChange(e.target.value);
+                        }}
                         onKeyUp={(e): void => {
                             const { current } = PasswordProps.passwordRef;
                             if (e.key === 'Enter' && current) {

@@ -96,8 +96,14 @@ export const ForgotPasswordScreenBase: React.FC<React.PropsWithChildren<ForgotPa
                                 error={shouldValidateEmail && !isEmailValid}
                                 helperText={shouldValidateEmail && emailError}
                                 {...emailTextFieldProps}
-                                onBlur={(): void => setShouldValidateEmail(true)}
+                                onBlur={(e): void => {
+                                    // eslint-disable-next-line no-unused-expressions
+                                    emailTextFieldProps?.onBlur && emailTextFieldProps.onBlur(e);
+                                    setShouldValidateEmail(true);
+                                }}
                                 onChange={(evt): void => {
+                                    // eslint-disable-next-line no-unused-expressions
+                                    emailTextFieldProps?.onChange && emailTextFieldProps.onChange(evt);
                                     handleEmailInputChange(evt.target.value);
                                 }}
                                 onKeyUp={(e): void => {

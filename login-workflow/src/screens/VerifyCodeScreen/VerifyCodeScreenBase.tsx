@@ -96,8 +96,14 @@ export const VerifyCodeScreenBase: React.FC<React.PropsWithChildren<VerifyCodeSc
                         error={shouldValidateCode && !isCodeValid}
                         helperText={shouldValidateCode && codeError}
                         {...verifyCodeTextFieldProps}
-                        onBlur={(): void => setShouldValidateCode(true)}
+                        onBlur={(e): void => {
+                            // eslint-disable-next-line no-unused-expressions
+                            verifyCodeTextFieldProps?.onBlur && verifyCodeTextFieldProps.onBlur(e);
+                            setShouldValidateCode(true);
+                        }}
                         onChange={(evt): void => {
+                            // eslint-disable-next-line no-unused-expressions
+                            verifyCodeTextFieldProps?.onChange && verifyCodeTextFieldProps.onChange(evt);
                             handleVerifyCodeInputChange(evt.target.value);
                         }}
                         onKeyUp={(e): void => {
