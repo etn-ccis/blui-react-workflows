@@ -13,7 +13,6 @@ import { unstable_composeClasses as composeClasses } from '@mui/base';
  *
  * @param loading boolean value for isLoading
  * @param backgroundImage to display card background
- * @param error error state for each workflowCard
  *
  * @category Component
  */
