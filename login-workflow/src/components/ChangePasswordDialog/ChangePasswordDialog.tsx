@@ -36,7 +36,7 @@ export const ChangePasswordDialog: React.FC<ChangePasswordDialogProps> = (props)
     const [confirmInput, setConfirmInput] = useState('');
     const [showErrorDialog, setShowErrorDialog] = useState(false);
     const [isLoading, setIsLoading] = useState(false);
-    const [showSuccessScreen, setShowSuccessScreen] = useState(props.showSuccessScreen);
+    const [showSuccessScreen, setShowSuccessScreen] = useState(false);
     const { actions } = useAuthContext();
 
     const {
@@ -71,6 +71,9 @@ export const ChangePasswordDialog: React.FC<ChangePasswordDialogProps> = (props)
             try {
                 setIsLoading(true);
                 await actions.changePassword(currentInput, passwordInput);
+                if (props.showSuccessScreen === false) {
+                    onFinish();
+                }
                 setShowSuccessScreen(true);
             } catch {
                 setShowErrorDialog(true);
@@ -145,7 +148,7 @@ export const ChangePasswordDialog: React.FC<ChangePasswordDialogProps> = (props)
                     },
                 },
             }}
-            showSuccessScreen={showSuccessScreen}
+            showSuccessScreen={props.showSuccessScreen && showSuccessScreen}
         />
     );
 };
