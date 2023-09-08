@@ -148,7 +148,7 @@ export const ChangePasswordDialog: React.FC<ChangePasswordDialogProps> = (props)
                     },
                 },
             }}
-            showSuccessScreen={props.showSuccessScreen && showSuccessScreen}
+            showSuccessScreen={showSuccessScreen}
         />
     );
 };
