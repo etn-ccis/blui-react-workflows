@@ -83,7 +83,14 @@ export const ChangePasswordDialogBase: React.FC<ChangePasswordDialogProps> = (pr
         SuccessScreen ? (
             SuccessScreen(_props)
         ) : (
-            <SuccessScreenBase WorkflowCardBaseProps={{ sx: { height: '70vh' } }} {..._props} />
+            <SuccessScreenBase
+                WorkflowCardBaseProps={{
+                    sx: {
+                        height: matchesSM ? '100vh' : '70vh',
+                    },
+                }}
+                {..._props}
+            />
         );
 
     return (
