@@ -8,6 +8,7 @@ export const ChangePassword = (): JSX.Element => {
     const app = useApp();
     const navigate = useNavigate();
     const logOut = (): void => {
+        app.setShowChangePasswordDialog(false);
         LocalStorage.clearAuthCredentials();
         app.onUserNotAuthenticated();
         navigate('/login');
