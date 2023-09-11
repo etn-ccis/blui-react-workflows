@@ -29,6 +29,8 @@ export const ExistingAccountSuccessScreen: React.FC<SuccessScreenProps> = (props
         onDismiss = (): void => navigate(routeConfig.LOGIN),
         WorkflowCardHeaderProps,
         WorkflowCardActionsProps,
+        WorkflowCardBaseProps,
+        WorkflowCardInstructionProps,
     } = props;
 
     const workflowCardHeaderProps = {
@@ -50,7 +52,9 @@ export const ExistingAccountSuccessScreen: React.FC<SuccessScreenProps> = (props
 
     return (
         <SuccessScreenBase
+            WorkflowCardBaseProps={WorkflowCardBaseProps}
             WorkflowCardHeaderProps={workflowCardHeaderProps}
+            WorkflowCardInstructionProps={WorkflowCardInstructionProps}
             icon={icon}
             messageTitle={messageTitle}
             message={message}

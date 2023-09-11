@@ -82,7 +82,7 @@ export const ForgotPasswordScreenBase: React.FC<React.PropsWithChildren<ForgotPa
             ) : (
                 <WorkflowCard {...cardBaseProps}>
                     <WorkflowCardHeader {...headerProps} />
-                    <WorkflowCardInstructions {...instructionsProps} divider />
+                    <WorkflowCardInstructions {...instructionsProps} />
                     <WorkflowCardBody>
                         <ErrorManager {...errorDisplayConfig}>
                             <TextField
@@ -108,7 +108,6 @@ export const ForgotPasswordScreenBase: React.FC<React.PropsWithChildren<ForgotPa
                         </ErrorManager>
                     </WorkflowCardBody>
                     <WorkflowCardActions
-                        divider
                         {...actionsProps}
                         canGoNext={emailInput.length > 0 && isEmailValid && actionsProps.canGoNext}
                         onNext={handleOnNext}

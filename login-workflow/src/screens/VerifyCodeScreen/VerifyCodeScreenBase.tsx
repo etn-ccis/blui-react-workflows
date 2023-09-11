@@ -83,7 +83,7 @@ export const VerifyCodeScreenBase: React.FC<React.PropsWithChildren<VerifyCodeSc
     return (
         <WorkflowCard {...cardBaseProps}>
             <WorkflowCardHeader {...headerProps} />
-            <WorkflowCardInstructions {...instructionsProps} divider />
+            <WorkflowCardInstructions {...instructionsProps} />
             <WorkflowCardBody>
                 <ErrorManager {...errorDisplayConfig}>
                     <TextField
@@ -120,7 +120,6 @@ export const VerifyCodeScreenBase: React.FC<React.PropsWithChildren<VerifyCodeSc
             </WorkflowCardBody>
             <WorkflowCardActions
                 {...actionsProps}
-                divider
                 canGoNext={verifyCode.length > 0 && isCodeValid && actionsProps.canGoNext}
                 onNext={handleOnNext}
                 onPrevious={handleOnPrevious}

@@ -1,3 +1,4 @@
+/* eslint-disable */
 import React from 'react';
 import {
     AuthContextProvider,
@@ -8,6 +9,10 @@ import {
     RegistrationContextProvider,
     ResetPasswordScreen,
     RegistrationWorkflow,
+    EulaScreen,
+    AccountDetailsScreen,
+    CreateAccountScreen,
+    VerifyCodeScreen,
 } from '@brightlayer-ui/react-auth-workflow';
 import { useApp } from '../contexts/AppContextProvider';
 import { useNavigate } from 'react-router';
@@ -19,6 +24,8 @@ import { routes } from './Routing';
 import { ExampleHome } from '../screens/ExampleHome';
 import i18nAppInstance from '../translations/i18n';
 import { ChangePassword } from '../components/ChangePassword';
+import EatonLogo from '../assets/images/eaton_stacked_logo.png';
+import { Home } from '@mui/icons-material';
 
 export const AppRouter: React.FC = () => {
     const navigate = useNavigate();
@@ -54,7 +61,25 @@ export const AppRouter: React.FC = () => {
                     path={'/forgot-password'}
                     element={
                         <ReactRouterGuestGuard isAuthenticated={app.isAuthenticated} fallBackUrl={'/'}>
-                            <ForgotPasswordScreen />
+                            <ForgotPasswordScreen
+                                WorkflowCardInstructionProps={{
+                                    instructions: 'Test Instruction',
+                                    divider: false,
+                                }}
+                                WorkflowCardHeaderProps={{
+                                    avatar: <Home />,
+                                }}
+                                WorkflowCardBaseProps={{
+                                    loading: true,
+                                    backgroundImage: EatonLogo,
+                                }}
+                                WorkflowCardActionsProps={{
+                                    nextLabel: 'Go',
+                                    fullWidthButton: true,
+                                    showPrevious: false,
+                                    divider: true,
+                                }}
+                            />
                         </ReactRouterGuestGuard>
                     }
                 />
@@ -62,7 +87,25 @@ export const AppRouter: React.FC = () => {
                     path={'/contact-support'}
                     element={
                         <ReactRouterGuestGuard isAuthenticated={app.isAuthenticated} fallBackUrl={'/'}>
-                            <ContactSupportScreen />
+                            <ContactSupportScreen
+                                WorkflowCardInstructionProps={{
+                                    instructions: 'Test Instruction',
+                                    divider: false,
+                                }}
+                                WorkflowCardHeaderProps={{
+                                    avatar: <Home />,
+                                }}
+                                WorkflowCardBaseProps={{
+                                    loading: true,
+                                    backgroundImage: EatonLogo,
+                                }}
+                                WorkflowCardActionsProps={{
+                                    nextLabel: 'Go',
+                                    fullWidthButton: true,
+                                    showPrevious: false,
+                                    divider: false,
+                                }}
+                            />
                         </ReactRouterGuestGuard>
                     }
                 />
@@ -70,7 +113,25 @@ export const AppRouter: React.FC = () => {
                     path={'/reset-password'}
                     element={
                         <ReactRouterGuestGuard isAuthenticated={app.isAuthenticated} fallBackUrl={'/'}>
-                            <ResetPasswordScreen />
+                            <ResetPasswordScreen
+                                WorkflowCardInstructionProps={{
+                                    instructions: 'Test Instruction',
+                                    divider: false,
+                                }}
+                                WorkflowCardHeaderProps={{
+                                    avatar: <Home />,
+                                }}
+                                WorkflowCardBaseProps={{
+                                    loading: true,
+                                    backgroundImage: EatonLogo,
+                                }}
+                                WorkflowCardActionsProps={{
+                                    nextLabel: 'Go',
+                                    fullWidthButton: true,
+                                    showPrevious: false,
+                                    divider: false,
+                                }}
+                            />
                         </ReactRouterGuestGuard>
                     }
                 />
@@ -116,7 +177,94 @@ export const AppRouter: React.FC = () => {
                     </RegistrationContextProvider>
                 }
             >
-                <Route path={'/self-registration'} element={<RegistrationWorkflow />} />
+                <Route
+                    path={'/self-registration'}
+                    element={
+                        <RegistrationWorkflow>
+                            {/* Eula Screen */}
+                            {/* <EulaScreen 
+                        WorkflowCardInstructionProps={{
+                            instructions: 'Test Instruction',
+                            divider: true,
+                        }}
+                        WorkflowCardHeaderProps={{
+                            avatar: <Home/>,
+                            title: 'Test Title',
+                        }}
+                        WorkflowCardBaseProps={{
+                            loading: true,
+                            backgroundImage: EatonLogo,
+                        }}
+                        WorkflowCardActionsProps={{
+                            nextLabel: 'Go',
+                            fullWidthButton: true,
+                            showPrevious: false,
+                            divider: true,
+                        }}
+                    /> */}
+                            {/* AccountDetailsScreen */}
+                            {/* <AccountDetailsScreen
+                        WorkflowCardInstructionProps={{
+                            instructions: 'Test Instruction',
+                            divider: false,
+                        }}
+                        WorkflowCardHeaderProps={{
+                            avatar: <Home/>
+                        }}
+                        WorkflowCardBaseProps={{
+                            loading: false,
+                            backgroundImage: EatonLogo,
+                        }}
+                        WorkflowCardActionsProps={{
+                            nextLabel: 'Go',
+                            fullWidthButton: true,
+                            showPrevious: false,
+                            divider: false,
+                        }}
+                    /> */}
+                            {/* CreateAccountScreen */}
+                            {/* <CreateAccountScreen
+                        WorkflowCardInstructionProps={{
+                            instructions: 'Test Instruction',
+                            divider: false,
+                        }}
+                        WorkflowCardHeaderProps={{
+                            avatar: <Home/>
+                        }}
+                        WorkflowCardBaseProps={{
+                            loading: false,
+                            backgroundImage: EatonLogo,
+                        }}
+                        WorkflowCardActionsProps={{
+                            nextLabel: 'Go',
+                            fullWidthButton: true,
+                            showPrevious: false,
+                            divider: false,
+                        }}
+                    /> */}
+                            {/* Verify code Screen */}
+                            <VerifyCodeScreen
+                                WorkflowCardInstructionProps={{
+                                    instructions: 'Test Instruction',
+                                    divider: false,
+                                }}
+                                WorkflowCardHeaderProps={{
+                                    avatar: <Home />,
+                                }}
+                                WorkflowCardBaseProps={{
+                                    loading: true,
+                                    backgroundImage: EatonLogo,
+                                }}
+                                WorkflowCardActionsProps={{
+                                    nextLabel: 'Go',
+                                    fullWidthButton: true,
+                                    showPrevious: false,
+                                    divider: false,
+                                }}
+                            />
+                        </RegistrationWorkflow>
+                    }
+                />
                 <Route path={'/register-by-invite'} element={<RegistrationWorkflow isInviteRegistration />} />
             </Route>
         </Routes>

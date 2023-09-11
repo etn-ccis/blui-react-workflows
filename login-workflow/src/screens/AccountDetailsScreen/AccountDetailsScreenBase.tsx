@@ -101,7 +101,7 @@ export const AccountDetailsScreenBase: React.FC<AccountDetailsScreenProps> = (pr
     return (
         <WorkflowCard {...cardBaseProps}>
             <WorkflowCardHeader {...headerProps} />
-            <WorkflowCardInstructions {...instructionsProps} divider />
+            <WorkflowCardInstructions {...instructionsProps} />
             <WorkflowCardBody>
                 <ErrorManager {...errorDisplayConfig}>
                     <TextField
@@ -156,7 +156,7 @@ export const AccountDetailsScreenBase: React.FC<AccountDetailsScreenProps> = (pr
             <WorkflowCardActions
                 {...actionsProps}
                 canGoNext={actionsProps.canGoNext && isFirstNameValid && isLastNameValid}
-                divider
+                // divider
             />
         </WorkflowCard>
     );

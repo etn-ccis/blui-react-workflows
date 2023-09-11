@@ -42,7 +42,7 @@ const useUtilityClasses = (ownerState: WorkflowCardActionsProps): Record<Workflo
 
 export const WorkflowCardActions: React.FC<WorkflowCardActionsProps> = (props) => {
     const {
-        divider = false,
+        divider = true,
         canGoPrevious,
         showPrevious,
         previousLabel,
