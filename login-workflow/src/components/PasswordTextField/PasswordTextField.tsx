@@ -14,7 +14,7 @@ import VisibilityOff from '@mui/icons-material/VisibilityOff';
  * @category Component
  */
 export const PasswordTextField: React.FC<React.PropsWithChildren<TextFieldProps> & { icon?: ReactNode }> = (props) => {
-    const { icon, sx } = props;
+    const { icon, sx, ...otherProps } = props;
     const [showPassword, setShowPassword] = useState(false);
 
     return (
@@ -42,7 +42,7 @@ export const PasswordTextField: React.FC<React.PropsWithChildren<TextFieldProps>
                 ),
             }}
             sx={sx}
-            {...props}
+            {...otherProps}
         />
     );
 };
