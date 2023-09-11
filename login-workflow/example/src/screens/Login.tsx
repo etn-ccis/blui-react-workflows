@@ -8,6 +8,7 @@ export const Login = (): JSX.Element => (
     <LoginScreen
         projectImage={<img src={EatonLogo} alt="logo" style={{ maxHeight: 80 }} />}
         header={<DebugComponent />}
+        passwordRequiredValidatorText={'ndnd'}
         errorDisplayConfig={{
             mode: 'message-box',
             messageBoxConfig: {
