@@ -62,6 +62,7 @@ export const ChangePasswordDialogBase: React.FC<ChangePasswordDialogProps> = (pr
         slotProps,
     } = props;
     const theme = useTheme();
+    const matchesMD = useMediaQuery(theme.breakpoints.down('md'));
     const matchesSM = useMediaQuery(theme.breakpoints.down('sm'));
     const [currentPassword, setCurrentPassword] = useState('');
     const [buttonState, setButtonState] = useState(true);
@@ -86,7 +87,7 @@ export const ChangePasswordDialogBase: React.FC<ChangePasswordDialogProps> = (pr
             <SuccessScreenBase
                 WorkflowCardBaseProps={{
                     sx: {
-                        height: matchesSM ? '100vh' : '70vh',
+                        height: matchesMD ? (matchesSM ? '100vh' : '62vh') : '70vh',
                     },
                 }}
                 {..._props}
