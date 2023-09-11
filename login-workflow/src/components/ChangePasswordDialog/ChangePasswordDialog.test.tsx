@@ -1,6 +1,6 @@
 import React from 'react';
 import '@testing-library/jest-dom';
-import { cleanup, fireEvent, render, RenderResult, screen } from '@testing-library/react';
+import { cleanup, fireEvent, render, RenderResult, screen, waitFor } from '@testing-library/react';
 import { ChangePasswordDialog } from './ChangePasswordDialog';
 import { AuthContextProvider } from '../../contexts';
 import { BrowserRouter } from 'react-router-dom';
@@ -70,5 +70,33 @@ describe('Change Password Dialog tests', () => {
         expect(newPasswordInput).toHaveValue('Abc@1234');
         fireEvent.change(confirmPasswordInput, { target: { value: 'Abc@1234' } });
         expect(confirmPasswordInput).toHaveValue('Abc@1234');
+    });
+
+    it('should show success screen, when okay button is clicked', async () => {
+        const { getByLabelText } = renderer({
+            open: true,
+            showSuccessScreen: true,
+            PasswordProps: {
+                newPasswordLabel: 'New Password',
+                confirmPasswordLabel: 'Confirm New Password',
+                onPasswordChange: updateFields,
+                passwordRequirements: [],
+            },
+        });
+
+        const currentPasswordInput = getByLabelText('Current Password');
+        fireEvent.change(currentPasswordInput, { target: { value: 'Abc@1234' } });
+        const newPasswordInput = getByLabelText('New Password');
+        const confirmPasswordInput = getByLabelText('Confirm New Password');
+        fireEvent.change(newPasswordInput, { target: { value: 'Abc@1234' } });
+        expect(newPasswordInput).toHaveValue('Abc@1234');
+        fireEvent.change(confirmPasswordInput, { target: { value: 'Abc@1234' } });
+        expect(confirmPasswordInput).toHaveValue('Abc@1234');
+
+        fireEvent.click(screen.getByText('Okay'));
+        expect(screen.getByText('Okay')).toBeEnabled();
+        fireEvent.click(screen.getByText('Okay'));
+
+        await waitFor(() => expect(screen.getByText('Your password was successfully reset.')));
     });
 });

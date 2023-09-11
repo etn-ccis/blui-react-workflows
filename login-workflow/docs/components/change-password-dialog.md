@@ -28,8 +28,26 @@ import { AuthContextProvider, ChangePasswordDialog } from '@brightlayer-ui/react
 | nextLabel | `string` | The label to display for the next button. | `t('bluiCommon:ACTIONS.OKAY')` |
 | currentPasswordChange | `(currentPassword: string) => void` | Callback called when the current password field input changes. |  |
 | enableButton | `boolean \| (() => boolean)` | True if the next button should be enabled. | `false` |
-| onSubmit | `() => void` | Called when the next button is clicked. |  |
+| onFinish | `() => void` | Called when the button is clicked on success screen. |  |
+| onSubmit | `() => void \| Promise<void>` | Called when the next button is clicked. |  |
 | onPrevious | `() => void` | Callback called when the previous/back/cancel button is clicked. |  |
 | loading | `boolean` | Whether or not the dialog is loading. |  |
+| showSuccessScreen | `boolean` | Used to determine whether to show a success screen after the form is submitted. |  |
+| slots              | `ChangePasswordDialogSlots`                  | Components to use in place of the defaults. See [ChangePasswordDialogSlots](#changepassworddialogslots)          |                                               |
+| slotProps          | `ChangePasswordDialogSlotsProps`              | Props to pass to the custom slot components. See [ChangePasswordDialogSlotsProps](#changepassworddialogslotsprops) |                                               |
+
+
+### ChangePasswordDialogSlots
+
+| Key           | Type                                         | Description                                                                    |
+| ------------- | -------------------------------------------- | ------------------------------------------------------------------------------ |
+| SuccessScreen | `(props: SuccessScreenProps) => JSX.Element` | A custom success screen component to render. See [SuccessScreen](./success.md) |
+
+### ChangePasswordDialogSlotsProps
+
+| Key           | Type                 | Description                                                                             |
+| ------------- | -------------------- | --------------------------------------------------------------------------------------- |
+| SuccessScreen | `SuccessScreenProps` | Props to pass to the custom success screen component. See [SuccessScreen](./success.md) |
+
 
 Props from the underlying MUI [Dialog](https://mui.com/material-ui/react-dialog/) are also available.

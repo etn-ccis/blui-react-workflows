@@ -4,6 +4,7 @@ import { useAuthContext } from '../../contexts';
 import { useLanguageLocale } from '../../hooks';
 import { ChangePasswordDialogBase } from './ChangePasswordDialogBase';
 import { ChangePasswordDialogProps } from './types';
+import CheckCircle from '@mui/icons-material/CheckCircle';
 
 /**
  * Component that renders a dialog with textField to enter current password and a change password form with a new password and confirm password inputs.
@@ -16,7 +17,12 @@ import { ChangePasswordDialogProps } from './types';
  * @param nextLabel label to display for the next button
  * @param currentPasswordChange called when the current password field changes
  * @param enableButton boolean to enable and disable the button
+ * @param onFinish function called when the button is clicked on success screen
  * @param onSubmit Callback function to call when the form is submitted
+ * @param onPrevious function called when the previous button is clicked
+ * @param showSuccessScreen boolean that determines whether to show the success screen or not
+ * @param slots used for ChangePasswordDialog SuccessScreen props
+ * @param slotProps props that will be passed to the SuccessScreen component
  *
  * @category Component
  */
@@ -30,7 +36,8 @@ export const ChangePasswordDialog: React.FC<ChangePasswordDialogProps> = (props)
     const [confirmInput, setConfirmInput] = useState('');
     const [showErrorDialog, setShowErrorDialog] = useState(false);
     const [isLoading, setIsLoading] = useState(false);
-    const { actions, navigate, routeConfig } = useAuthContext();
+    const [showSuccessScreen, setShowSuccessScreen] = useState(false);
+    const { actions } = useAuthContext();
 
     const {
         open,
@@ -41,6 +48,7 @@ export const ChangePasswordDialog: React.FC<ChangePasswordDialogProps> = (props)
         nextLabel = t('bluiCommon:ACTIONS.OKAY'),
         onPrevious,
         onSubmit,
+        onFinish,
         PasswordProps,
         ErrorDialogProps,
     } = props;
@@ -63,14 +71,27 @@ export const ChangePasswordDialog: React.FC<ChangePasswordDialogProps> = (props)
             try {
                 setIsLoading(true);
                 await actions.changePassword(currentInput, passwordInput);
-                await onSubmit();
+                if (props.showSuccessScreen === false) {
+                    onFinish();
+                }
+                setShowSuccessScreen(true);
             } catch {
                 setShowErrorDialog(true);
             } finally {
                 setIsLoading(false);
             }
         }
-    }, [checkPasswords, currentInput, passwordInput, actions, setIsLoading, setShowErrorDialog, onSubmit]);
+    }, [
+        checkPasswords,
+        currentInput,
+        passwordInput,
+        actions,
+        setIsLoading,
+        setShowErrorDialog,
+        onSubmit,
+        onFinish,
+        props.showSuccessScreen,
+    ]);
 
     const passwordProps = {
         newPasswordLabel: t('bluiAuth:CHANGE_PASSWORD.NEW_PASSWORD'),
@@ -113,12 +134,31 @@ export const ChangePasswordDialog: React.FC<ChangePasswordDialogProps> = (props)
             currentPasswordChange={(currentPwd): void => setCurrentInput(currentPwd)}
             enableButton={checkPasswords}
             onPrevious={onPrevious}
-            PasswordProps={passwordProps}
-            ErrorDialogProps={errorDialogProps}
             onSubmit={async (): Promise<void> => {
                 await changePasswordSubmit();
-                navigate(routeConfig.LOGIN);
             }}
+            PasswordProps={passwordProps}
+            ErrorDialogProps={errorDialogProps}
+            slotProps={{
+                SuccessScreen: {
+                    icon: <CheckCircle color="primary" sx={{ fontSize: 100 }} />,
+                    messageTitle: t('bluiAuth:PASSWORD_RESET.SUCCESS_MESSAGE'),
+                    message: t('bluiAuth:CHANGE_PASSWORD.SUCCESS_MESSAGE'),
+                    onDismiss: (): void => {
+                        onFinish();
+                    },
+                    WorkflowCardActionsProps: {
+                        showPrevious: false,
+                        fullWidthButton: true,
+                        showNext: true,
+                        nextLabel: t('bluiCommon:ACTIONS.DONE'),
+                        onNext: (): void => {
+                            onFinish();
+                        },
+                    },
+                },
+            }}
+            showSuccessScreen={showSuccessScreen}
         />
     );
 };

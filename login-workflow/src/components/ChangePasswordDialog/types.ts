@@ -1,6 +1,15 @@
+import { SuccessScreenProps } from '../../screens';
 import { DialogProps } from '@mui/material';
 import { BasicDialogProps } from '../Dialog';
 import { SetPasswordProps } from '../SetPassword';
+
+export type ChangePasswordDialogSlots = {
+    SuccessScreen?: (props?: SuccessScreenProps) => JSX.Element;
+};
+
+export type ChangePasswordDialogSlotsProps = {
+    SuccessScreen?: SuccessScreenProps;
+};
 
 export type ChangePasswordDialogProps = DialogProps & { PasswordProps?: SetPasswordProps } & {
     ErrorDialogProps?: BasicDialogProps;
@@ -43,6 +52,12 @@ export type ChangePasswordDialogProps = DialogProps & { PasswordProps?: SetPassw
     enableButton?: boolean | (() => boolean);
 
     /**
+     * Function called when the button is clicked on success screen
+     * @returns void
+     */
+    onFinish?: () => void;
+
+    /**
      * Callback function to call when the form is submitted
      * @returns void | Promise<void>
      */
@@ -54,5 +69,23 @@ export type ChangePasswordDialogProps = DialogProps & { PasswordProps?: SetPassw
      */
     onPrevious?: () => void;
 
+    /**
+     * Boolean that indicates whether the loading spinner should be displayed
+     */
     loading?: boolean;
+
+    /**
+     * Used to determine whether to show a success screen after the form is submitted
+     */
+    showSuccessScreen?: boolean;
+
+    /**
+     * Used for ChangePasswordDialog SuccessScreen
+     */
+    slots?: ChangePasswordDialogSlots;
+
+    /**
+     * Applied to slot from SuccessScreen
+     */
+    slotProps?: ChangePasswordDialogSlotsProps;
 };
