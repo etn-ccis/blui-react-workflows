@@ -41,12 +41,12 @@ export const EulaScreen: React.FC<EulaScreenProps> = (props) => {
     const {
         WorkflowCardBaseProps,
         WorkflowCardHeaderProps,
-        WorkflowCardInstructionProps,
         WorkflowCardActionsProps,
         eulaContent,
         checkboxLabel = t('bluiRegistration:REGISTRATION.EULA.AGREE_TERMS'),
         html,
         initialCheckboxValue,
+        ...otherEulaScreenProps
     } = props;
 
     const eulaAccepted = initialCheckboxValue ? initialCheckboxValue : screenData.Eula.accepted;
@@ -163,7 +163,6 @@ export const EulaScreen: React.FC<EulaScreenProps> = (props) => {
 
     return (
         <EulaScreenBase
-            WorkflowCardInstructionProps={WorkflowCardInstructionProps}
             WorkflowCardHeaderProps={workflowCardHeaderProps}
             eulaContent={eulaData}
             WorkflowCardBaseProps={{
@@ -178,6 +177,7 @@ export const EulaScreen: React.FC<EulaScreenProps> = (props) => {
             WorkflowCardActionsProps={workflowCardActionsProps}
             errorDisplayConfig={errorDisplayConfig}
             onRefetch={onRefetch}
+            {...otherEulaScreenProps}
         />
     );
 };

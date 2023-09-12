@@ -156,7 +156,6 @@ export const AccountDetailsScreenBase: React.FC<AccountDetailsScreenProps> = (pr
             <WorkflowCardActions
                 {...actionsProps}
                 canGoNext={actionsProps.canGoNext && isFirstNameValid && isLastNameValid}
-                // divider
             />
         </WorkflowCard>
     );
