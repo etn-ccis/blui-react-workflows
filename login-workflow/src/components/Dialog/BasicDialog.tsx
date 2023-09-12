@@ -5,7 +5,7 @@ import Typography from '@mui/material/Typography';
 import DialogTitle from '@mui/material/DialogTitle';
 import DialogContent from '@mui/material/DialogContent';
 import DialogActions from '@mui/material/DialogActions';
-import { useTheme, SxProps, Theme } from '@mui/material/styles';
+import { SxProps, Theme } from '@mui/material/styles';
 
 /**
  * Component that renders a basic dialog with a title, body description, and a close button.
@@ -18,32 +18,6 @@ import { useTheme, SxProps, Theme } from '@mui/material/styles';
  *
  * @category Component
  */
-
-export const DialogTitleStyles = (theme: Theme): SxProps<Theme> => ({
-    p: `${theme.spacing(4)} ${theme.spacing(3)} 0 ${theme.spacing(3)}`,
-    [theme.breakpoints.down('sm')]: {
-        p: `${theme.spacing(2)} ${theme.spacing(2)} 0 ${theme.spacing(2)}`,
-    },
-});
-
-export const DialogContentStyles = (theme: Theme): SxProps<Theme> => ({
-    flex: '1 1 0px',
-    overflow: 'auto',
-    display: 'flex',
-    flexDirection: 'column',
-    p: `${theme.spacing(2)} ${theme.spacing(3)}`,
-    [theme.breakpoints.down('sm')]: {
-        p: `${theme.spacing(2)} ${theme.spacing(2)} ${theme.spacing(3)} ${theme.spacing(2)}`,
-    },
-});
-
-export const DialogActionsStyles = (theme: Theme): SxProps<Theme> => ({
-    p: 3,
-    justifyContent: 'flex-end',
-    [theme.breakpoints.down('sm')]: {
-        p: 2,
-    },
-});
 
 export const DialogButtonStyles = (fullWidth = false): SxProps<Theme> => ({
     width: fullWidth ? '100%' : 100,
@@ -80,15 +54,37 @@ export type BasicDialogProps = Omit<DialogProps, 'open'> & {
 
 export const BasicDialog: React.FC<React.PropsWithChildren<React.PropsWithChildren<BasicDialogProps>>> = (props) => {
     const { title, body, dismissButtonText, open = false, sx, ...dialogProps } = props;
-    const theme = useTheme();
 
     return (
         <Dialog sx={sx} {...dialogProps} open={open}>
-            <DialogTitle sx={DialogTitleStyles(theme)}>{title}</DialogTitle>
-            <DialogContent sx={{ ...DialogContentStyles(theme), flex: '1 1 auto' }}>
+            <DialogTitle
+                sx={{
+                    pt: { md: 4, sm: 2 },
+                    px: { md: 3, sm: 2 },
+                    pb: 0,
+                }}
+            >
+                {title}
+            </DialogTitle>
+            <DialogContent
+                sx={{
+                    flex: '1 1 auto',
+                    overflow: 'auto',
+                    display: 'flex',
+                    flexDirection: 'column',
+                    pt: 2,
+                    px: { md: 3, sm: 2 },
+                    pb: { md: 2, sm: 3 },
+                }}
+            >
                 <Typography>{body}</Typography>
             </DialogContent>
-            <DialogActions sx={DialogActionsStyles(theme)}>
+            <DialogActions
+                sx={{
+                    justifyContent: 'flex-end',
+                    p: { md: 3, sm: 2 },
+                }}
+            >
                 <Button variant="text" color="primary" onClick={dialogProps.onClose} sx={DialogButtonStyles()}>
                     {dismissButtonText || 'Okay'}
                 </Button>

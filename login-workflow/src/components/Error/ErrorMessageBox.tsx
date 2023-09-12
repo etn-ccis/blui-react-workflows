@@ -37,6 +37,7 @@ export type ErrorMessageBoxProps = {
      */
     sx?: SxProps<Theme>;
 };
+
 /**
  * Component that renders a basic message box with an error message and a configurable dismiss button.
  *
@@ -51,6 +52,7 @@ export type ErrorMessageBoxProps = {
  */
 const ErrorMessageBox = (props: ErrorMessageBoxProps): JSX.Element => {
     const { errorMessage, backgroundColor, dismissible = true, fontColor, onClose = (): void => {}, sx } = props;
+
     return (
         <Box
             sx={[

@@ -1,40 +1,34 @@
 import { SxProps, Theme } from '@mui/material/styles';
 
-export const DialogTitleStyles = (theme: Theme): SxProps<Theme> => ({
-    p: `${theme.spacing(4)} ${theme.spacing(3)} 0 ${theme.spacing(3)}`,
-    [theme.breakpoints.down('sm')]: {
-        p: `${theme.spacing(2)} ${theme.spacing(2)} 0 ${theme.spacing(2)}`,
-    },
+export const DialogTitleStyles = (): SxProps<Theme> => ({
+    pt: { md: 4, sm: 2 },
+    px: { md: 3, sm: 2 },
+    pb: 0,
 });
 
-export const DialogContentStyles = (theme: Theme): SxProps<Theme> => ({
+export const DialogContentStyles = (): SxProps<Theme> => ({
     flex: '1 1 0px',
     overflow: 'auto',
     display: 'flex',
     flexDirection: 'column',
-    p: `${theme.spacing(2)} ${theme.spacing(3)}`,
-    [theme.breakpoints.down('sm')]: {
-        p: `${theme.spacing(2)} ${theme.spacing(2)} ${theme.spacing(3)} ${theme.spacing(2)}`,
-    },
+    pt: 2,
+    px: { md: 3, sm: 2 },
+    pb: { md: 2, sm: 3 },
 });
 
-export const DialogActionsStyles = (theme: Theme): SxProps<Theme> => ({
-    p: 3,
+export const DialogActionsStyles = (): SxProps<Theme> => ({
     justifyContent: 'flex-end',
-    [theme.breakpoints.down('sm')]: {
-        p: 2,
-    },
+    p: { md: 3, sm: 2 },
 });
 
 export const DialogButtonStyles = (fullWidth = false): SxProps<Theme> => ({
     width: fullWidth ? '100%' : 100,
 });
 
-export const FullDividerStyles = (theme: Theme): SxProps<Theme> => ({
-    m: `${theme.spacing(5)} -${theme.spacing(3)} ${theme.spacing(4)}`,
-    [theme.breakpoints.down('sm')]: {
-        m: `${theme.spacing(5)} -${theme.spacing(2)} ${theme.spacing(4)}`,
-    },
+export const FullDividerStyles = (): SxProps<Theme> => ({
+    mt: 5,
+    mb: 4,
+    mx: { md: -3, sm: -2 },
 });
 
 export const StepperStyles = {
@@ -43,15 +37,13 @@ export const StepperStyles = {
     p: 0,
 };
 
-export const StepperDotStyles = (theme: Theme): any => ({
-    m: `0px ${theme.spacing(0.5)}`,
+export const StepperDotStyles = (): any => ({
+    my: 0,
+    mx: 0.5,
 });
 
-export const TextFieldStyles = (theme: Theme): SxProps<Theme> => ({
-    mt: 4,
-    [theme.breakpoints.down('sm')]: {
-        mt: 3,
-    },
+export const TextFieldStyles = (): SxProps<Theme> => ({
+    mt: { md: 4, sm: 3 },
 });
 
 export const LinkStyles = {

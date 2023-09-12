@@ -1,6 +1,5 @@
 import React from 'react';
 import CircularProgress from '@mui/material/CircularProgress';
-import { useTheme } from '@mui/material/styles';
 import Box, { BoxProps } from '@mui/material/Box';
 
 export type SpinnerProps = BoxProps & {
@@ -18,7 +17,6 @@ export type SpinnerProps = BoxProps & {
  */
 export const Spinner: React.FC<SpinnerProps> = (props) => {
     const { visible, sx, ...otherProps } = props;
-    const theme = useTheme();
 
     return visible ? (
         <Box
@@ -30,7 +28,8 @@ export const Spinner: React.FC<SpinnerProps> = (props) => {
                     right: 0,
                     bottom: 0,
                     zIndex: 1000,
-                    backgroundColor: theme.palette.mode === 'light' ? 'rgba(255,255,255,0.6)' : 'rgba(0,0,0,0.7)',
+                    backgroundColor: (theme) =>
+                        theme.palette.mode === 'light' ? 'rgba(255,255,255,0.6)' : 'rgba(0,0,0,0.7)',
                     display: 'flex',
                     alignItems: 'center',
                     justifyContent: 'center',
