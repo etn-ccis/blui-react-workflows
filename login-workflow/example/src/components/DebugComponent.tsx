@@ -46,7 +46,7 @@ export const DebugComponent = (): JSX.Element => {
                             <Link
                                 to={`${
                                     routes?.REGISTER_INVITE ||
-                                    '/register-by-invite?code=8k27jshInvite234Code&email=example@example.com'
+                                    '/register-by-invite?code=DEBUG_VALIDATION_CODE_DEADBEEF&email=example@example.com'
                                 }`}
                             >
                                 [Test Invite Register]
