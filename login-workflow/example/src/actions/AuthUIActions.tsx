@@ -172,8 +172,6 @@ export const ProjectAuthUIActions: AuthUIActionsWithApp = (appHelper) => ({
         if (isRandomFailure()) {
             throw new Error('Sorry, there was a problem sending your request.');
         }
-        LocalStorage.clearAuthCredentials();
-        appHelper.onUserNotAuthenticated();
         return;
     },
 });

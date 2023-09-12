@@ -17,24 +17,27 @@ export type SpinnerProps = BoxProps & {
  * @category Component
  */
 export const Spinner: React.FC<SpinnerProps> = (props) => {
-    const { visible, ...otherProps } = props;
+    const { visible, sx, ...otherProps } = props;
     const theme = useTheme();
 
     return visible ? (
         <Box
-            sx={{
-                position: 'fixed',
-                top: 0,
-                left: 0,
-                right: 0,
-                bottom: 0,
-                zIndex: 1000,
-                backgroundColor: theme.palette.mode === 'light' ? 'rgba(255,255,255,0.6)' : 'rgba(0,0,0,0.7)',
-                display: 'flex',
-                alignItems: 'center',
-                justifyContent: 'center',
-                flexDirection: 'column',
-            }}
+            sx={[
+                {
+                    position: 'fixed',
+                    top: 0,
+                    left: 0,
+                    right: 0,
+                    bottom: 0,
+                    zIndex: 1000,
+                    backgroundColor: theme.palette.mode === 'light' ? 'rgba(255,255,255,0.6)' : 'rgba(0,0,0,0.7)',
+                    display: 'flex',
+                    alignItems: 'center',
+                    justifyContent: 'center',
+                    flexDirection: 'column',
+                },
+                ...(Array.isArray(sx) ? sx : [sx]),
+            ]}
             {...otherProps}
         >
             <CircularProgress size={70} variant={'indeterminate'} />
