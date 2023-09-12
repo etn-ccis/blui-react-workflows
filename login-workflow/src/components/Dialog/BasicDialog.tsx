@@ -79,11 +79,11 @@ export type BasicDialogProps = Omit<DialogProps, 'open'> & {
 };
 
 export const BasicDialog: React.FC<React.PropsWithChildren<React.PropsWithChildren<BasicDialogProps>>> = (props) => {
-    const { title, body, dismissButtonText, open = false, ...dialogProps } = props;
+    const { title, body, dismissButtonText, open = false, sx, ...dialogProps } = props;
     const theme = useTheme();
 
     return (
-        <Dialog {...dialogProps} open={open}>
+        <Dialog sx={sx} {...dialogProps} open={open}>
             <DialogTitle sx={DialogTitleStyles(theme)}>{title}</DialogTitle>
             <DialogContent sx={{ ...DialogContentStyles(theme), flex: '1 1 auto' }}>
                 <Typography>{body}</Typography>

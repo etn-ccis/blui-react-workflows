@@ -123,15 +123,12 @@ export const WorkflowCardActions: React.FC<WorkflowCardActionsProps> = (props) =
                             <Box sx={{ width: fullWidthButton ? 0 : 100 }} />
                         )
                     }
-                    sx={[
-                        {
-                            background: 'transparent',
-                            width: '100%',
-                            p: 0,
-                            '& .MuiMobileStepper-dot': showStepperDots ? { my: 0, mx: 0.5 } : { display: 'none' },
-                        },
-                        ...(Array.isArray(sx) ? sx : [sx]),
-                    ]}
+                    sx={{
+                        background: 'transparent',
+                        width: '100%',
+                        p: 0,
+                        '& .MuiMobileStepper-dot': showStepperDots ? { my: 0, mx: 0.5 } : { display: 'none' },
+                    }}
                     className={defaultClasses.stepper}
                     data-testid={defaultClasses.stepper}
                 />
