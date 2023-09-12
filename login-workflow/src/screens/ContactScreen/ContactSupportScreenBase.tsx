@@ -11,7 +11,6 @@ import { LinkStyles } from '../../styles';
  * Component renders a screen with contact information for support with the application.
  * Contact information is pulled from the context passed into the workflow.
  *
- * @param title the title for the screen
  * @param icon the icon to display in the header
  * @param emailSupportTitle text to display as the contact support title
  * @param emailSupportContent content to display as the contact support content
@@ -21,8 +20,6 @@ import { LinkStyles } from '../../styles';
  * @param contactPhone to display contact phone number
  * @param dismissButtonLabel to display label for the button
  * @param onDismiss function to call when user clicks button
- * @param slots used for each slot in `ContactScreen`
- * @param slotProps applied to each slot
  * @param WorkflowCardBaseProps props that will be passed to the WorkflowCard component
  * @param WorkflowCardHeaderProps props that will be passed to the WorkflowCardHeader component
  * @param WorkflowCardInstructionProps props that will be passed to the WorkflowCardInstructions component
