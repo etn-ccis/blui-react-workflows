@@ -308,18 +308,13 @@ export const LoginScreenBase: React.FC<React.PropsWithChildren<LoginScreenProps>
                 <Box
                     sx={{
                         display: 'flex',
-                        flexDirection: 'row',
-                        justifyContent: 'space-between',
                         alignItems: 'center',
                         width: '100%',
                         mt: 1,
                         mb: 5,
-                        flexWrap: 'nowrap',
-                        [theme.breakpoints.down('sm')]: {
-                            flexWrap: 'wrap',
-                            flexDirection: 'column',
-                            justifyContent: 'center',
-                        },
+                        flexWrap: { md: 'nowrap', sm: 'wrap' },
+                        flexDirection: { md: 'row', sm: 'column' },
+                        justifyContent: { md: 'space-between', sm: 'center' },
                     }}
                     className={defaultClasses.rememberMeLoginRowWrapper}
                     data-testid={defaultClasses.rememberMeLoginRowWrapper}
@@ -330,10 +325,7 @@ export const LoginScreenBase: React.FC<React.PropsWithChildren<LoginScreenProps>
                                 display: 'flex',
                                 alignItems: 'center',
                                 ml: -1.5,
-                                mr: 1,
-                                [theme.breakpoints.down('sm')]: {
-                                    mr: 0,
-                                },
+                                mr: { md: 1, sm: 0 },
                             }}
                             className={defaultClasses.rememberMeWrapper}
                             data-testid={defaultClasses.rememberMeWrapper}
