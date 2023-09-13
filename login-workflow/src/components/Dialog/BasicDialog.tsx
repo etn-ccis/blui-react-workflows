@@ -5,7 +5,6 @@ import Typography from '@mui/material/Typography';
 import DialogTitle from '@mui/material/DialogTitle';
 import DialogContent from '@mui/material/DialogContent';
 import DialogActions from '@mui/material/DialogActions';
-import { SxProps, Theme } from '@mui/material/styles';
 
 /**
  * Component that renders a basic dialog with a title, body description, and a close button.
@@ -18,10 +17,6 @@ import { SxProps, Theme } from '@mui/material/styles';
  *
  * @category Component
  */
-
-export const DialogButtonStyles = (fullWidth = false): SxProps<Theme> => ({
-    width: fullWidth ? '100%' : 100,
-});
 
 export type BasicDialogProps = Omit<DialogProps, 'open'> & {
     /**
@@ -85,7 +80,7 @@ export const BasicDialog: React.FC<React.PropsWithChildren<React.PropsWithChildr
                     p: { md: 3, sm: 2 },
                 }}
             >
-                <Button variant="text" color="primary" onClick={dialogProps.onClose} sx={DialogButtonStyles()}>
+                <Button variant="text" color="primary" onClick={dialogProps.onClose} sx={{ width: 100 }}>
                     {dismissButtonText || 'Okay'}
                 </Button>
             </DialogActions>

@@ -86,7 +86,9 @@ export const SetPassword: React.FC<React.PropsWithChildren<SetPasswordProps>> = 
                 label={newPasswordLabel}
                 value={passwordInput}
                 error={shouldValidatePassword && !isValidPassword()}
-                sx={TextFieldStyles(theme)}
+                sx={{
+                    mt: { md: 4, sm: 3 },
+                }}
                 {...passwordTextFieldProps}
                 onChange={(evt: ChangeEvent<HTMLInputElement>): void => {
                     // eslint-disable-next-line no-unused-expressions
