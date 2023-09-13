@@ -1,5 +1,5 @@
+import { DialogProps, TextFieldProps } from '@mui/material';
 import { SuccessScreenProps } from '../../screens';
-import { DialogProps } from '@mui/material';
 import { BasicDialogProps } from '../Dialog';
 import { SetPasswordProps } from '../SetPassword';
 
@@ -73,6 +73,12 @@ export type ChangePasswordDialogProps = DialogProps & { PasswordProps?: SetPassw
      * Boolean that indicates whether the loading spinner should be displayed
      */
     loading?: boolean;
+
+    /**
+     * The props to pass to the current password field.
+     * See [MUI's TextFieldProps API](https://mui.com/material-ui/api/text-field/) for more details.
+     */
+    currentPasswordTextFieldProps?: TextFieldProps;
 
     /**
      * Used to determine whether to show a success screen after the form is submitted

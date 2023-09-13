@@ -29,6 +29,7 @@ import { AuthContextProvider, ForgotPasswordScreen } from '@brightlayer-ui/react
 | description        | `(responseTime: string) => React.ReactNode;` | used to update the instruction                                                                                   |
 | showSuccessScreen  | `boolean`                                    | If true, a success screen will appear after submitting the form                                                  | `true`                                        |
 | errorDisplayConfig | `ErrorManagerProps`                          | See [Error Management](../error-management.md)                                                                   |                                               |
+| emailTextFieldProps| `TextFieldProps`                            | Props to pass to the email input field. See MUI's [TextFieldProps API](https://mui.com/material-ui/api/text-field/).  |                                                |
 
 This screen also extends the `WorkflowCardProps` type for updating the title, instructions, buttons, etc. See [Workflow Card](../components/workflow-card.md) for more details.
 
