@@ -16,10 +16,6 @@ export const ChangePassword = (): JSX.Element => {
 
     return (
         <ChangePasswordDialog
-            currentPasswordChange={(currentPassword: string) => {
-                console.log('Print Current Password', currentPassword);
-            }}
-            loading={false}
             open={app.showChangePasswordDialog}
             onPrevious={(): void => app.setShowChangePasswordDialog(false)}
             onSubmit={(): void => app.setShowChangePasswordDialog(false)}
