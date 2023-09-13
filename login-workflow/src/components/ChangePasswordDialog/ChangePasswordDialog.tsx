@@ -31,13 +31,6 @@ export const ChangePasswordDialog: React.FC<ChangePasswordDialogProps> = (props)
     const { t } = useLanguageLocale();
     const passwordRef = useRef(null);
     const confirmRef = useRef(null);
-    const [currentInput, setCurrentInput] = useState('');
-    const [passwordInput, setPasswordInput] = useState('');
-    const [confirmInput, setConfirmInput] = useState('');
-    const [showErrorDialog, setShowErrorDialog] = useState(false);
-    const [isLoading, setIsLoading] = useState(false);
-    const [showSuccessScreen, setShowSuccessScreen] = useState(false);
-    const { actions } = useAuthContext();
 
     const {
         open,
@@ -50,7 +43,16 @@ export const ChangePasswordDialog: React.FC<ChangePasswordDialogProps> = (props)
         onFinish,
         PasswordProps,
         ErrorDialogProps,
+        loading,
     } = props;
+
+    const [currentInput, setCurrentInput] = useState('');
+    const [passwordInput, setPasswordInput] = useState('');
+    const [confirmInput, setConfirmInput] = useState('');
+    const [showErrorDialog, setShowErrorDialog] = useState(false);
+    const [isLoading, setIsLoading] = useState(loading);
+    const [showSuccessScreen, setShowSuccessScreen] = useState(false);
+    const { actions } = useAuthContext();
 
     const passwordRequirements = defaultPasswordRequirements(t);
 
@@ -129,7 +131,10 @@ export const ChangePasswordDialog: React.FC<ChangePasswordDialogProps> = (props)
             currentPasswordLabel={currentPasswordLabel}
             previousLabel={previousLabel}
             nextLabel={nextLabel}
-            currentPasswordChange={(currentPwd): void => setCurrentInput(currentPwd)}
+            currentPasswordChange={(currentPwd): void => {
+                setCurrentInput(currentPwd);
+                props?.currentPasswordChange?.(currentPwd);
+            }}
             enableButton={checkPasswords}
             onPrevious={onPrevious}
             onSubmit={async (): Promise<void> => {
