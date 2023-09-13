@@ -1,4 +1,5 @@
 import { MutableRefObject } from 'react';
+import { TextFieldProps } from '@mui/material';
 
 /**
  * Parameters for dynamic password strength requirements.
@@ -71,4 +72,16 @@ export type SetPasswordProps = {
      * @returns void
      */
     onSubmit?: () => void;
+
+    /**
+     * The props to pass to the password field.
+     * See [MUI's TextFieldProps API](https://mui.com/material-ui/api/text-field/) for more details.
+     */
+    passwordTextFieldProps?: TextFieldProps;
+
+    /**
+     * The props to pass to the confirm password field.
+     * See [MUI's TextFieldProps API](https://mui.com/material-ui/api/text-field/) for more details.
+     */
+    confirmPasswordTextFieldProps?: TextFieldProps;
 };

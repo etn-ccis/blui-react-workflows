@@ -18,6 +18,8 @@ import { PasswordRequirements } from '../PasswordRequirements';
  * @param confirmRef ref to forward to the confirm password input.
  * @param passwordNotMatchError text for showing message when passwords do not match.
  * @param onSubmit function to call when the form is submitted
+ * @param passwordTextFieldProps props to pass to the password field.
+ * @param confirmPasswordTextFieldProps props to pass to the confirm password field.
  *
  * @category Component
  */
@@ -35,6 +37,8 @@ export const SetPassword: React.FC<React.PropsWithChildren<SetPasswordProps>> = 
         confirmRef,
         passwordNotMatchError,
         onSubmit,
+        passwordTextFieldProps,
+        confirmPasswordTextFieldProps,
     } = props;
 
     // Local State
@@ -81,14 +85,24 @@ export const SetPassword: React.FC<React.PropsWithChildren<SetPasswordProps>> = 
                 inputRef={passwordRef}
                 label={newPasswordLabel}
                 value={passwordInput}
-                onChange={(evt: ChangeEvent<HTMLInputElement>): void => onPassChange(evt.target.value)}
+                error={shouldValidatePassword && !isValidPassword()}
+                sx={TextFieldStyles(theme)}
+                {...passwordTextFieldProps}
+                onChange={(evt: ChangeEvent<HTMLInputElement>): void => {
+                    // eslint-disable-next-line no-unused-expressions
+                    passwordTextFieldProps?.onChange && passwordTextFieldProps.onChange(evt);
+                    onPassChange(evt.target.value);
+                }}
                 onKeyUp={(e): void => {
                     if (e.key === 'Enter' && confirmRef.current) {
                         confirmRef.current.focus();
                     }
                 }}
-                error={shouldValidatePassword && !isValidPassword()}
-                onBlur={(): void => setShouldValidatePassword(true)}
+                onBlur={(e): void => {
+                    // eslint-disable-next-line no-unused-expressions
+                    passwordTextFieldProps?.onBlur && passwordTextFieldProps.onBlur(e);
+                    setShouldValidatePassword(true);
+                }}
             />
             {passwordRequirements && passwordRequirements.length > 0 && (
                 <PasswordRequirements
@@ -107,10 +121,6 @@ export const SetPassword: React.FC<React.PropsWithChildren<SetPasswordProps>> = 
                     mt: { md: 4, sm: 3 },
                 }}
                 value={confirmInput}
-                onChange={(evt: ChangeEvent<HTMLInputElement>): void => onConfirmChange(evt.target.value)}
-                onKeyUp={(e): void => {
-                    if (e.key === 'Enter' && onSubmit) onSubmit();
-                }}
                 error={hasConfirmPasswordError()}
                 helperText={hasConfirmPasswordError() ? passwordNotMatchError : ''}
                 icon={
@@ -118,7 +128,20 @@ export const SetPassword: React.FC<React.PropsWithChildren<SetPasswordProps>> = 
                         <CheckCircleOutlinedIcon data-testid="check" color="success" />
                     ) : undefined
                 }
-                onBlur={(): void => setShouldValidateConfirmPassword(true)}
+                {...confirmPasswordTextFieldProps}
+                onChange={(evt: ChangeEvent<HTMLInputElement>): void => {
+                    // eslint-disable-next-line no-unused-expressions
+                    confirmPasswordTextFieldProps?.onChange && confirmPasswordTextFieldProps.onChange(evt);
+                    onConfirmChange(evt.target.value);
+                }}
+                onKeyUp={(e): void => {
+                    if (e.key === 'Enter' && onSubmit) onSubmit();
+                }}
+                onBlur={(e): void => {
+                    // eslint-disable-next-line no-unused-expressions
+                    confirmPasswordTextFieldProps?.onBlur && confirmPasswordTextFieldProps.onBlur(e);
+                    setShouldValidateConfirmPassword(true);
+                }}
             />
         </>
     );
