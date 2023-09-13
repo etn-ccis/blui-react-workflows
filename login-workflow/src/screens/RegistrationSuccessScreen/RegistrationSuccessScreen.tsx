@@ -55,6 +55,7 @@ export const RegistrationSuccessScreen: React.FC<SuccessScreenProps> = (props) =
         WorkflowCardActionsProps,
         WorkflowCardBaseProps,
         WorkflowCardInstructionProps,
+        ...otherRegistrationSuccessScreenProps
     } = props;
 
     const workflowCardHeaderProps = {
@@ -83,6 +84,7 @@ export const RegistrationSuccessScreen: React.FC<SuccessScreenProps> = (props) =
             icon={icon}
             messageTitle={messageTitle}
             message={message}
+            {...otherRegistrationSuccessScreenProps}
         />
     );
 };

@@ -31,6 +31,7 @@ export const ExistingAccountSuccessScreen: React.FC<SuccessScreenProps> = (props
         WorkflowCardActionsProps,
         WorkflowCardBaseProps,
         WorkflowCardInstructionProps,
+        ...otherExistingAccountSuccessScreenProps
     } = props;
 
     const workflowCardHeaderProps = {
@@ -55,10 +56,11 @@ export const ExistingAccountSuccessScreen: React.FC<SuccessScreenProps> = (props
             WorkflowCardBaseProps={WorkflowCardBaseProps}
             WorkflowCardHeaderProps={workflowCardHeaderProps}
             WorkflowCardInstructionProps={WorkflowCardInstructionProps}
+            WorkflowCardActionsProps={workflowCardActionsProps}
             icon={icon}
             messageTitle={messageTitle}
             message={message}
-            WorkflowCardActionsProps={workflowCardActionsProps}
+            {...otherExistingAccountSuccessScreenProps}
         />
     );
 };
