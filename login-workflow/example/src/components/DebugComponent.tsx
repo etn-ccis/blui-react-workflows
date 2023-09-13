@@ -43,7 +43,12 @@ export const DebugComponent = (): JSX.Element => {
                     {' '}
                     <Box sx={LinksWrapperStyles}>
                         <Typography variant="body2">
-                            <Link to={`${routes?.REGISTER_INVITE || '/register-by-invite'}`}>
+                            <Link
+                                to={`${
+                                    routes?.REGISTER_INVITE ||
+                                    '/register-by-invite?code=DEBUG_VALIDATION_CODE_DEADBEEF&email=example@example.com'
+                                }`}
+                            >
                                 [Test Invite Register]
                             </Link>
                         </Typography>

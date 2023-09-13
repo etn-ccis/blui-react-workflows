@@ -24,8 +24,9 @@ import { routes } from './Routing';
 import { ExampleHome } from '../screens/ExampleHome';
 import i18nAppInstance from '../translations/i18n';
 import { ChangePassword } from '../components/ChangePassword';
+import { AlarmAdd, Home } from '@mui/icons-material';
+import Fan from '@brightlayer-ui/icons-mui/Fan';
 import EatonLogo from '../assets/images/eaton_stacked_logo.png';
-import { Home } from '@mui/icons-material';
 
 export const AppRouter: React.FC = () => {
     const navigate = useNavigate();
@@ -87,25 +88,68 @@ export const AppRouter: React.FC = () => {
                     path={'/contact-support'}
                     element={
                         <ReactRouterGuestGuard isAuthenticated={app.isAuthenticated} fallBackUrl={'/'}>
-                            <ContactSupportScreen
-                                WorkflowCardInstructionProps={{
-                                    instructions: 'Test Instruction',
-                                    divider: false,
-                                }}
-                                WorkflowCardHeaderProps={{
-                                    avatar: <Home />,
-                                }}
+                            {/* <ContactSupportScreen
+                                icon={<AlarmAdd />}
+                                emailSupportTitle={'This is email support title prop'}
+                                emailSupportContent={
+                                    (email: string) => {
+                                        return `Send here ${email}`
+                                    }
+                                }
+                                phoneSupportTitle={'99674321**'}
+                                phoneSupportContent={
+                                    (phone: string) => {
+                                        return `Call here ${phone}`
+                                    }
+                                }
+                                contactEmail={
+                                    'test@test.com'
+                                }
+                                contactPhone='012-3404949-494'
+                                dismissButtonLabel={
+                                    'Dismiss'
+                                }
+                                onDismiss={
+                                    () => {
+                                        console.log('Dismiss function called')
+                                    }
+                                }
                                 WorkflowCardBaseProps={{
-                                    loading: true,
+                                    loading: false,
                                     backgroundImage: EatonLogo,
                                 }}
-                                WorkflowCardActionsProps={{
-                                    nextLabel: 'Go',
-                                    fullWidthButton: true,
-                                    showPrevious: false,
-                                    divider: false,
+                                WorkflowCardHeaderProps={{
+                                    avatar: <Fan />,
+                                    action: <Home />,
+                                    title: 'This is a Contact Header',
                                 }}
-                            />
+                                WorkflowCardInstructionProps={
+                                    {
+                                        instructions: 'This is a Contact Screen',
+                                        divider: false,
+                                        title: 'This is contact screen title'
+                                    }
+                                }
+                                WorkflowCardActionsProps={{
+                                    divider: false,
+                                    showPrevious: true,
+                                    canGoPrevious: true,
+                                    previousLabel: 'prev',
+                                    onPrevious: (): void => {
+                                        console.log('Previous button called');
+                                    },
+                                    showNext: true,
+                                    canGoNext: true,
+                                    nextLabel: 'next',
+                                    onNext: (): void => {
+                                        console.log('Next button called');
+                                    },
+                                    currentStep: 1,
+                                    totalSteps: 3,
+                                    fullWidthButton: true
+                                }}
+                            /> */}
+                            <ContactSupportScreen />
                         </ReactRouterGuestGuard>
                     }
                 />

@@ -33,7 +33,7 @@ import { Outlet, Route, Routes } from 'react-router-dom';
 
 export const routes: RouteConfig = {
     LOGIN: '/login',
-    REGISTER_INVITE: '/register-by-invite',
+    REGISTER_INVITE: '/register-by-invite?code=8k27jshInvite234Code&email=example@example.com',
     REGISTER_SELF: '/self-registration',
     FORGOT_PASSWORD: '/forgot-password',
     RESET_PASSWORD: '/reset-password',
@@ -120,7 +120,7 @@ import { i18nAppInstance } from './i18n';
 
 export const routes: RouteConfig = {
     LOGIN: '/login',
-    REGISTER_INVITE: '/register-by-invite',
+    REGISTER_INVITE: '/register-by-invite?code=8k27jshInvite234Code&email=example@example.com',
     REGISTER_SELF: '/self-registration',
     FORGOT_PASSWORD: '/forgot-password',
     RESET_PASSWORD: '/reset-password',

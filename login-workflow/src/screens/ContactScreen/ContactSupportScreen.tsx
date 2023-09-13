@@ -9,7 +9,6 @@ import { useAuthContext } from '../../contexts';
  * Component renders a screen with contact information for support with the application.
  * Contact information is pulled from the context passed into the workflow.
  *
- * @param title the title for the screen
  * @param icon the icon to display in the header
  * @param emailSupportTitle text to display as the contact support title
  * @param emailSupportContent content to display as the contact support content
@@ -19,8 +18,6 @@ import { useAuthContext } from '../../contexts';
  * @param contactPhone to display contact phone number
  * @param dismissButtonLabel to display label for the button
  * @param onDismiss function to call when user clicks button
- * @param slots used for each slot in `ContactSupportScreen`
- * @param slotProps applied to each slot
  * @param WorkflowCardBaseProps props that will be passed to the WorkflowCard component
  * @param WorkflowCardHeaderProps props that will be passed to the WorkflowCardHeader component
  * @param WorkflowCardInstructionProps props that will be passed to the WorkflowCardInstructions component
@@ -36,10 +33,15 @@ export const ContactSupportScreen: React.FC<ContactSupportScreenProps> = (props)
     const {
         icon = <ChatBubbleOutline color={'primary'} sx={{ fontSize: 70 }} />,
         emailSupportTitle = t('bluiAuth:CONTACT_SUPPORT.GENERAL_QUESTIONS'),
+        emailSupportContent,
         phoneSupportTitle = t('bluiAuth:CONTACT_SUPPORT.EMERGENCY_SUPPORT'),
+        phoneSupportContent,
         contactEmail = 'something@email.com',
         contactPhone = '1-800-123-4567',
         dismissButtonLabel = t('bluiCommon:ACTIONS.OKAY'),
+        onDismiss,
+        WorkflowCardBaseProps,
+        WorkflowCardInstructionProps,
         WorkflowCardHeaderProps,
         WorkflowCardActionsProps,
         ...otherContactSupportProps
@@ -64,14 +66,19 @@ export const ContactSupportScreen: React.FC<ContactSupportScreenProps> = (props)
 
     return (
         <ContactSupportScreenBase
+            WorkflowCardBaseProps={WorkflowCardBaseProps}
             WorkflowCardHeaderProps={workflowCardHeaderProps}
+            WorkflowCardInstructionProps={WorkflowCardInstructionProps}
             WorkflowCardActionsProps={workflowCardActionsProps}
             icon={icon}
             emailSupportTitle={emailSupportTitle}
+            emailSupportContent={emailSupportContent}
             phoneSupportTitle={phoneSupportTitle}
+            phoneSupportContent={phoneSupportContent}
             contactEmail={contactEmail}
             contactPhone={contactPhone}
             dismissButtonLabel={dismissButtonLabel}
+            onDismiss={onDismiss}
             {...otherContactSupportProps}
         />
     );
