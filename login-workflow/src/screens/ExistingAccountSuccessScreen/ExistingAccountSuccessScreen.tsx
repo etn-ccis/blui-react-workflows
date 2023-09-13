@@ -53,9 +53,7 @@ export const ExistingAccountSuccessScreen: React.FC<SuccessScreenProps> = (props
 
     return (
         <SuccessScreenBase
-            WorkflowCardBaseProps={WorkflowCardBaseProps}
             WorkflowCardHeaderProps={workflowCardHeaderProps}
-            WorkflowCardInstructionProps={WorkflowCardInstructionProps}
             WorkflowCardActionsProps={workflowCardActionsProps}
             icon={icon}
             messageTitle={messageTitle}

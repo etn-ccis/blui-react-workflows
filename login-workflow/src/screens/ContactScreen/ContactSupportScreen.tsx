@@ -66,9 +66,7 @@ export const ContactSupportScreen: React.FC<ContactSupportScreenProps> = (props)
 
     return (
         <ContactSupportScreenBase
-            WorkflowCardBaseProps={WorkflowCardBaseProps}
             WorkflowCardHeaderProps={workflowCardHeaderProps}
-            WorkflowCardInstructionProps={WorkflowCardInstructionProps}
             WorkflowCardActionsProps={workflowCardActionsProps}
             icon={icon}
             emailSupportTitle={emailSupportTitle}
