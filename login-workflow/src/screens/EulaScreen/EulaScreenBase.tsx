@@ -61,7 +61,7 @@ export const EulaScreenBase: React.FC<EulaScreenProps> = (props) => {
     return (
         <WorkflowCard {...cardBaseProps}>
             <WorkflowCardHeader {...headerProps} />
-            <WorkflowCardBody>
+            <WorkflowCardBody sx={{ pt: 2 }}>
                 {checkboxProps?.disabled ? (
                     <Box
                         sx={{
