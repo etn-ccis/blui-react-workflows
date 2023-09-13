@@ -47,7 +47,6 @@ export const ChangePasswordDialog: React.FC<ChangePasswordDialogProps> = (props)
         previousLabel = t('bluiCommon:ACTIONS.BACK'),
         nextLabel = t('bluiCommon:ACTIONS.OKAY'),
         onPrevious,
-        onSubmit,
         onFinish,
         PasswordProps,
         ErrorDialogProps,
@@ -88,7 +87,6 @@ export const ChangePasswordDialog: React.FC<ChangePasswordDialogProps> = (props)
         actions,
         setIsLoading,
         setShowErrorDialog,
-        onSubmit,
         onFinish,
         props.showSuccessScreen,
     ]);

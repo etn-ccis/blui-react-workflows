@@ -166,6 +166,18 @@ export const RegistrationWorkflow: React.FC<React.PropsWithChildren<Registration
         if (isInviteRegistration) {
             const params = parseQueryString(window.location.search);
 
+            let isAccExist;
+            void (async (): Promise<void> => {
+                try {
+                    isAccExist = await actions.validateUserRegistrationRequest(params.code, params.email);
+                } catch (_error) {
+                    triggerError(_error as Error);
+                } finally {
+                    setIsAccountExist(isAccExist);
+                    setShowSuccessScreen(isAccExist);
+                }
+            })();
+
             updateScreenData({ screenId: 'CreateAccount', values: { emailAddress: params.email } });
             updateScreenData({ screenId: 'VerifyCode', values: { code: params.code } });
         }
