@@ -81,6 +81,32 @@ describe('Forgot Password Screen Base', () => {
         expect(verifyEmailInput).toHaveAttribute('aria-invalid', 'true');
     });
 
+    it('it disables next button when initialEmailValue prop is invalid', () => {
+        render(
+            <ForgotPasswordScreenBase
+                WorkflowCardHeaderProps={{ title: 'Forgot Password' }}
+                initialEmailValue={'test'}
+                emailValidator={(email: string): boolean | string => {
+                    if (email?.length > 5) {
+                        return true;
+                    }
+                    return 'Please enter a valid email';
+                }}
+                WorkflowCardActionsProps={{
+                    showNext: true,
+                    nextLabel: 'Next',
+                    showPrevious: true,
+                    previousLabel: 'Back',
+                    canGoNext: true,
+                }}
+                slots={{ SuccessScreen: <Box>Success</Box> }}
+            />
+        );
+        expect(screen.getByText('Forgot Password')).toBeInTheDocument();
+        expect(screen.getByText('Next')).toBeInTheDocument();
+        expect(screen.getByText(/Next/i)).toBeDisabled();
+    });
+
     it('does not set error state when email is long enough', () => {
         const { getByLabelText, rerender } = render(
             <ForgotPasswordScreenBase

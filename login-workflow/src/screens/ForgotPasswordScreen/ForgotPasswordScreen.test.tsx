@@ -170,4 +170,21 @@ describe('Forgot Password Screen tests', () => {
 
         expect(screen.getByTestId('blui-spinner')).toBeInTheDocument();
     });
+
+    it('should disable submit button when initialEmailValue prop is invalid', async () => {
+        const { getByLabelText } = render(
+            <AuthContextProvider {...authContextProviderProps}>
+                <BrowserRouter>
+                    <ForgotPasswordScreen initialEmailValue='test'/>
+                </BrowserRouter>
+            </AuthContextProvider>
+        );
+
+        
+        const nextButton = screen.getByText('Submit');
+        
+        expect(nextButton).toBeInTheDocument();
+        expect(screen.getByText(/Submit/i)).toBeDisabled();
+        expect(screen.getByText(/Please enter a valid email/i)).toBeInTheDocument();
+    });
 });
