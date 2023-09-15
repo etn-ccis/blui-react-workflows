@@ -2,7 +2,7 @@
 import React from 'react';
 import { cleanup, fireEvent, render, RenderResult, screen } from '@testing-library/react';
 import { ForgotPasswordScreenProps } from './types';
-import { AuthContextProvider, i18nAuthInstance } from '../../contexts';
+import { AuthContextProvider } from '../../contexts';
 import { BrowserRouter } from 'react-router-dom';
 import { ForgotPasswordScreen } from './ForgotPasswordScreen';
 import '@testing-library/jest-dom';
@@ -171,8 +171,8 @@ describe('Forgot Password Screen tests', () => {
         expect(screen.getByTestId('blui-spinner')).toBeInTheDocument();
     });
 
-    it('should disable submit button when initialEmailValue prop is invalid', async () => {
-        const { getByLabelText } = render(
+    it('should disable submit button when initialEmailValue prop is invalid', () => {
+        render(
             <AuthContextProvider {...authContextProviderProps}>
                 <BrowserRouter>
                     <ForgotPasswordScreen initialEmailValue='test'/>
