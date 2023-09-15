@@ -29,8 +29,6 @@ export const ExistingAccountSuccessScreen: React.FC<SuccessScreenProps> = (props
         onDismiss = (): void => navigate(routeConfig.LOGIN),
         WorkflowCardHeaderProps,
         WorkflowCardActionsProps,
-        WorkflowCardBaseProps,
-        WorkflowCardInstructionProps,
         ...otherExistingAccountSuccessScreenProps
     } = props;
 

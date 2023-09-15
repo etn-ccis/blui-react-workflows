@@ -30,6 +30,7 @@ export type WorkflowCardInstructionProps = TypographyProps & {
 
     /**
      * Whether or not to show a divider below the instructions
+     * @default true
      */
     divider?: boolean;
 };

@@ -53,8 +53,6 @@ export const RegistrationSuccessScreen: React.FC<SuccessScreenProps> = (props) =
         canDismiss = true,
         WorkflowCardHeaderProps,
         WorkflowCardActionsProps,
-        WorkflowCardBaseProps,
-        WorkflowCardInstructionProps,
         ...otherRegistrationSuccessScreenProps
     } = props;
 
