@@ -1,6 +1,5 @@
 import React from 'react';
 import Box from '@mui/material/Box';
-import { useTheme } from '@mui/material/styles';
 import defaultBackgroundImage from '../../assets/images/background.svg';
 import Card from '@mui/material/Card';
 import { Spinner } from '../Spinner/Spinner';
@@ -30,7 +29,6 @@ const useUtilityClasses = (ownerState: WorkflowCardBaseProps): Record<WorkflowCa
 
 export const WorkflowCard: React.FC<WorkflowCardBaseProps> = (props) => {
     const { loading, backgroundImage, sx, children, ...otherBoxProps } = props;
-    const theme = useTheme();
     const defaultClasses = useUtilityClasses(props);
 
     return (
@@ -39,7 +37,7 @@ export const WorkflowCard: React.FC<WorkflowCardBaseProps> = (props) => {
                 {
                     height: '100vh',
                     width: '100%',
-                    backgroundColor: theme.palette.mode === 'light' ? 'primary.main' : 'primary.dark',
+                    backgroundColor: (theme) => (theme.palette.mode === 'light' ? 'primary.main' : 'primary.dark'),
                     backgroundImage: backgroundImage ? `url(${backgroundImage})` : `url(${defaultBackgroundImage})`,
                     display: 'flex',
                     alignItems: 'center',

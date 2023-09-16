@@ -34,6 +34,7 @@ import { SuccessScreenBase, SuccessScreenProps } from '../../screens';
  * @param onPrevious called when the previous button is clicked
  * @param sx styles passed to the underlying root component
  * @param loading boolean that indicates whether the loading spinner should be displayed
+ * @param currentPasswordTextFieldProps props to pass to the current password field.
  * @param showSuccessScreen boolean that determines whether to show the success screen or not
  * @param slots used for ChangePasswordDialog SuccessScreen props
  * @param slotProps props that will be passed to the SuccessScreen component
@@ -57,6 +58,7 @@ export const ChangePasswordDialogBase: React.FC<ChangePasswordDialogProps> = (pr
         ErrorDialogProps,
         PasswordProps,
         loading,
+        currentPasswordTextFieldProps,
         showSuccessScreen,
         slots,
         slotProps,
@@ -132,7 +134,13 @@ export const ChangePasswordDialogBase: React.FC<ChangePasswordDialogProps> = (pr
                                 id="current-password"
                                 label={currentPasswordLabel}
                                 value={currentPassword}
-                                onChange={handleChange}
+                                {...currentPasswordTextFieldProps}
+                                onChange={(e): void => {
+                                    // eslint-disable-next-line no-unused-expressions
+                                    currentPasswordTextFieldProps?.onChange &&
+                                        currentPasswordTextFieldProps.onChange(e);
+                                    handleChange(e);
+                                }}
                                 onKeyUp={(e): void => {
                                     const { current } = PasswordProps.passwordRef;
                                     if (e.key === 'Enter' && current) {
