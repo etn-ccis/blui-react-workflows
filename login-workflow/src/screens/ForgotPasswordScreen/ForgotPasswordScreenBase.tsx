@@ -55,7 +55,7 @@ export const ForgotPasswordScreenBase: React.FC<React.PropsWithChildren<ForgotPa
     const instructionsProps = props.WorkflowCardInstructionProps || {};
     const actionsProps = props.WorkflowCardActionsProps || {};
 
-    const validateEmail = (): boolean => typeof emailValidator(initialEmailValue) === 'string' ? false : true;
+    const validateEmail = (): boolean => typeof emailValidator(initialEmailValue) !== 'string';
 
     const [isEmailValid, setIsEmailValid] = useState(validateEmail);
     const [emailError, setEmailError] = useState(validateEmail ? emailValidator(initialEmailValue) : '');

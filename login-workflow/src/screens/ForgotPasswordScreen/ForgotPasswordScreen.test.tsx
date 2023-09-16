@@ -175,14 +175,13 @@ describe('Forgot Password Screen tests', () => {
         render(
             <AuthContextProvider {...authContextProviderProps}>
                 <BrowserRouter>
-                    <ForgotPasswordScreen initialEmailValue='test'/>
+                    <ForgotPasswordScreen initialEmailValue="test" />
                 </BrowserRouter>
             </AuthContextProvider>
         );
 
-        
         const nextButton = screen.getByText('Submit');
-        
+
         expect(nextButton).toBeInTheDocument();
         expect(screen.getByText(/Submit/i)).toBeDisabled();
         expect(screen.getByText(/Please enter a valid email/i)).toBeInTheDocument();
