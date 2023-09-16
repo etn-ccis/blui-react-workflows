@@ -1,7 +1,5 @@
 import React, { ChangeEvent, useState, useCallback } from 'react';
-import { useTheme } from '@mui/material/styles';
 import CheckCircleOutlinedIcon from '@mui/icons-material/CheckCircleOutlined';
-import { TextFieldStyles } from '../../styles';
 import { SetPasswordProps } from './types';
 import { PasswordTextField } from '../PasswordTextField';
 import { PasswordRequirements } from '../PasswordRequirements';
@@ -42,7 +40,6 @@ export const SetPassword: React.FC<React.PropsWithChildren<SetPasswordProps>> = 
         passwordTextFieldProps,
         confirmPasswordTextFieldProps,
     } = props;
-    const theme = useTheme();
 
     // Local State
     const [passwordInput, setPasswordInput] = useState(initialNewPasswordValue);
@@ -89,7 +86,9 @@ export const SetPassword: React.FC<React.PropsWithChildren<SetPasswordProps>> = 
                 label={newPasswordLabel}
                 value={passwordInput}
                 error={shouldValidatePassword && !isValidPassword()}
-                sx={TextFieldStyles(theme)}
+                sx={{
+                    mt: { md: 4, sm: 3 },
+                }}
                 {...passwordTextFieldProps}
                 onChange={(evt: ChangeEvent<HTMLInputElement>): void => {
                     // eslint-disable-next-line no-unused-expressions
@@ -120,7 +119,9 @@ export const SetPassword: React.FC<React.PropsWithChildren<SetPasswordProps>> = 
                 name="confirm"
                 inputRef={confirmRef}
                 label={confirmPasswordLabel}
-                sx={TextFieldStyles(theme)}
+                sx={{
+                    mt: { md: 4, sm: 3 },
+                }}
                 value={confirmInput}
                 error={hasConfirmPasswordError()}
                 helperText={hasConfirmPasswordError() ? passwordNotMatchError : ''}

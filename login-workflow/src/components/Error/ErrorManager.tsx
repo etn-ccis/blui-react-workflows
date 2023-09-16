@@ -41,6 +41,7 @@ export type ErrorManagerProps = {
     };
     children?: React.ReactNode;
 };
+
 /**
  * Component that manages the display of error messages. Can be configured to display a dialog, a message box, or neither.
  *
