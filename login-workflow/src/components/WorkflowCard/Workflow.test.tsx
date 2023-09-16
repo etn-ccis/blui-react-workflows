@@ -134,7 +134,7 @@ describe('WorkflowCardInstructions tests', () => {
     });
 
     it('renders with divider', () => {
-        const {container} = render(<WorkflowCardInstructions instructions="Test" />);
+        const { container } = render(<WorkflowCardInstructions instructions="Test" />);
         expect(screen.getByText('Test')).toBeInTheDocument();
         expect(container.getElementsByClassName('MuiDivider-root').length).toBe(1);
     });
