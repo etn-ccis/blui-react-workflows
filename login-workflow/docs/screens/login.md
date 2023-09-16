@@ -29,7 +29,6 @@ import { AuthContextProvider, LoginScreen } from '@brightlayer-ui/react-auth-wor
 | passwordLabel | `string` | Label for the password field. | `t('bluiCommon:LABELS.EMAIL')` |
 | passwordTextFieldProps | `TextFieldProps` | Props to pass to the MUI [TextField](https://mui.com/material-ui/api/text-field/) component. |  |
 | passwordValidator | `(password: string) => boolean \| string` | A function that validates the password text field input. | checks against valid email regex |
-| passwordRequiredValidatorText | `string` | Text for showing password is required. |  `t('bluiCommon:MESSAGES.PASSWORD_REQUIRED_ERROR')` |
 | initialUsernameValue | `string` | Username used to pre-populate the field. |  |
 | loginButtonLabel | `string` | Label for the login button. | `t('bluiCommon:ACTIONS.LOG_IN')` |
 | onLogin | `(username: string, password: string, rememberMe: boolean) => Promise<void>` | Callback function that is called when the login button is clicked. |  |

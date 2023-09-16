@@ -43,9 +43,7 @@ const EMAIL_REGEX = /^[A-Z0-9._%+'-]+@[A-Z0-9.-]+\.[A-Z]{2,}$/i;
  * @category Component
  */
 
-type LoginScreenPropsPublic = LoginScreenProps & { passwordRequiredValidatorText?: string };
-
-export const LoginScreen: React.FC<React.PropsWithChildren<LoginScreenPropsPublic>> = (props) => {
+export const LoginScreen: React.FC<React.PropsWithChildren<LoginScreenProps>> = (props) => {
     const { t } = useLanguageLocale();
     const auth = useAuthContext();
     const { actions, navigate, routeConfig, rememberMeDetails } = auth;
@@ -76,7 +74,12 @@ export const LoginScreen: React.FC<React.PropsWithChildren<LoginScreenPropsPubli
         initialUsernameValue = rememberMeDetails?.email || '',
         passwordLabel = t('bluiCommon:LABELS.PASSWORD'),
         passwordTextFieldProps,
-        passwordRequiredValidatorText = t('bluiCommon:MESSAGES.PASSWORD_REQUIRED_ERROR'),
+        passwordValidator = (password: string): string | boolean => {
+            if (password.length < 1) {
+                return t('bluiCommon:MESSAGES.PASSWORD_REQUIRED_ERROR');
+            }
+            return true;
+        },
         showRememberMe = true,
         rememberMeLabel = t('bluiCommon:ACTIONS.REMEMBER'),
         rememberMeInitialValue = rememberMeDetails?.rememberMe || false,
@@ -108,12 +111,7 @@ export const LoginScreen: React.FC<React.PropsWithChildren<LoginScreenPropsPubli
             initialUsernameValue={initialUsernameValue}
             passwordLabel={passwordLabel}
             passwordTextFieldProps={passwordTextFieldProps}
-            passwordValidator={(password: string): string | boolean => {
-                if (password.length < 1) {
-                    return passwordRequiredValidatorText;
-                }
-                return true;
-            }}
+            passwordValidator={passwordValidator}
             showRememberMe={showRememberMe}
             rememberMeLabel={rememberMeLabel}
             rememberMeInitialValue={rememberMeInitialValue}

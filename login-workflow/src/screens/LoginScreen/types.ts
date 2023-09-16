@@ -40,10 +40,10 @@ export type LoginScreenProps = WorkflowCardBaseProps & {
 
     /**
      * The function used to validate the password
-     * @param {string} foo - validates username
+     * @param {string} password - validates password
      * @returns boolean | string
      */
-    passwordValidator?: (foo: string) => boolean | string;
+    passwordValidator?: (password: string) => boolean | string;
 
     // configure Remember Me
     /**
