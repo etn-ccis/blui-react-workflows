@@ -19,7 +19,10 @@ import CheckCircle from '@mui/icons-material/CheckCircle';
  * @param enableButton boolean to enable and disable the button
  * @param onFinish function called when the button is clicked on success screen
  * @param onSubmit Callback function to call when the form is submitted
- * @param onPrevious function called when the previous button is clicked
+ * @param onPrevious called when the previous button is clicked
+ * @param sx styles passed to the underlying root component
+ * @param loading boolean that indicates whether the loading spinner should be displayed
+ * @param currentPasswordTextFieldProps props to pass to the current password field.
  * @param showSuccessScreen boolean that determines whether to show the success screen or not
  * @param slots used for ChangePasswordDialog SuccessScreen props
  * @param slotProps props that will be passed to the SuccessScreen component
@@ -44,6 +47,7 @@ export const ChangePasswordDialog: React.FC<ChangePasswordDialogProps> = (props)
         PasswordProps,
         ErrorDialogProps,
         loading,
+        currentPasswordTextFieldProps,
     } = props;
 
     const [currentInput, setCurrentInput] = useState('');
@@ -137,11 +141,12 @@ export const ChangePasswordDialog: React.FC<ChangePasswordDialogProps> = (props)
             }}
             enableButton={checkPasswords}
             onPrevious={onPrevious}
+            PasswordProps={passwordProps}
+            ErrorDialogProps={errorDialogProps}
+            currentPasswordTextFieldProps={currentPasswordTextFieldProps}
             onSubmit={async (): Promise<void> => {
                 await changePasswordSubmit();
             }}
-            PasswordProps={passwordProps}
-            ErrorDialogProps={errorDialogProps}
             slotProps={{
                 SuccessScreen: {
                     icon: <CheckCircle color="primary" sx={{ fontSize: 100 }} />,

@@ -20,6 +20,7 @@ import { useErrorManager } from '../../contexts/ErrorContext/useErrorManager';
  * @param WorkflowCardHeaderProps props that will be passed to the WorkflowCardHeader component
  * @param WorkflowCardInstructionProps props that will be passed to the WorkflowCardInstructions component
  * @param WorkflowCardActionsProps props that will be passed to the WorkflowCardActions component
+ * @param verifyCodeTextFieldProps props to pass to the verify code field.
  *
  * @category Component
  */
@@ -64,6 +65,7 @@ export const VerifyCodeScreen: React.FC<VerifyCodeScreenProps> = (props) => {
         resendLabel = t('bluiCommon:ACTIONS.RESEND'),
         verifyCodeInputLabel = t('bluiRegistration:SELF_REGISTRATION.VERIFY_EMAIL.VERIFICATION'),
         initialValue = screenData.VerifyCode.code,
+        verifyCodeTextFieldProps,
     } = props;
 
     const handleOnNext = useCallback(
@@ -143,6 +145,7 @@ export const VerifyCodeScreen: React.FC<VerifyCodeScreenProps> = (props) => {
             onResend={onResend}
             codeValidator={codeValidator}
             errorDisplayConfig={errorDisplayConfig}
+            verifyCodeTextFieldProps={verifyCodeTextFieldProps}
         />
     );
 };

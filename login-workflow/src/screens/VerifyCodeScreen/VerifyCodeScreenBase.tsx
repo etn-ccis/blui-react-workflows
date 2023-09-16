@@ -25,6 +25,7 @@ import ErrorManager from '../../components/Error/ErrorManager';
  * @param WorkflowCardHeaderProps props that will be passed to the WorkflowCardHeader component
  * @param WorkflowCardInstructionProps props that will be passed to the WorkflowCardInstructions component
  * @param WorkflowCardActionsProps props that will be passed to the WorkflowCardActions component
+ * @param verifyCodeTextFieldProps props to pass to the verify code field.
  *
  * @category Component
  */
@@ -38,6 +39,7 @@ export const VerifyCodeScreenBase: React.FC<React.PropsWithChildren<VerifyCodeSc
         verifyCodeInputLabel,
         initialValue,
         errorDisplayConfig,
+        verifyCodeTextFieldProps,
     } = props;
 
     const cardBaseProps = props.WorkflowCardBaseProps || {};
@@ -90,17 +92,24 @@ export const VerifyCodeScreenBase: React.FC<React.PropsWithChildren<VerifyCodeSc
                         label={verifyCodeInputLabel}
                         fullWidth
                         value={verifyCode}
+                        variant="filled"
+                        error={shouldValidateCode && !isCodeValid}
+                        helperText={shouldValidateCode && codeError}
+                        {...verifyCodeTextFieldProps}
+                        onBlur={(e): void => {
+                            // eslint-disable-next-line no-unused-expressions
+                            verifyCodeTextFieldProps?.onBlur && verifyCodeTextFieldProps.onBlur(e);
+                            setShouldValidateCode(true);
+                        }}
                         onChange={(evt): void => {
+                            // eslint-disable-next-line no-unused-expressions
+                            verifyCodeTextFieldProps?.onChange && verifyCodeTextFieldProps.onChange(evt);
                             handleVerifyCodeInputChange(evt.target.value);
                         }}
                         onKeyUp={(e): void => {
                             if (e.key === 'Enter' && ((verifyCode.length > 0 && isCodeValid) || actionsProps.canGoNext))
                                 handleOnNext();
                         }}
-                        variant="filled"
-                        error={shouldValidateCode && !isCodeValid}
-                        helperText={shouldValidateCode && codeError}
-                        onBlur={(): void => setShouldValidateCode(true)}
                     />
                     <Box sx={{ mt: 2 }}>
                         <Typography>
