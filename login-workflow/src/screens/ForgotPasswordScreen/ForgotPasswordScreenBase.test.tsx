@@ -35,7 +35,7 @@ describe('Forgot Password Screen Base', () => {
                     currentStep: 2,
                     totalSteps: 6,
                 }}
-                slots={{ SuccessScreen: <Box>Success</Box> }}
+                slots={{ SuccessScreen: (): JSX.Element => <Box>Success</Box> }}
             />
         );
         expect(screen.getByText('Forgot Password')).toBeInTheDocument();
@@ -57,7 +57,7 @@ describe('Forgot Password Screen Base', () => {
                     }
                     return 'Please enter a valid email';
                 }}
-                slots={{ SuccessScreen: <Box>Success</Box> }}
+                slots={{ SuccessScreen: (): JSX.Element => <Box>Success</Box> }}
             />
         );
 
@@ -75,10 +75,36 @@ describe('Forgot Password Screen Base', () => {
                     }
                     return 'Please enter a valid email';
                 }}
-                slots={{ SuccessScreen: <Box>Success</Box> }}
+                slots={{ SuccessScreen: (): JSX.Element => <Box>Success</Box> }}
             />
         );
         expect(verifyEmailInput).toHaveAttribute('aria-invalid', 'true');
+    });
+
+    it('it disables next button when initialEmailValue prop is invalid', () => {
+        render(
+            <ForgotPasswordScreenBase
+                WorkflowCardHeaderProps={{ title: 'Forgot Password' }}
+                initialEmailValue={'test'}
+                emailValidator={(email: string): boolean | string => {
+                    if (email?.length > 5) {
+                        return true;
+                    }
+                    return 'Please enter a valid email';
+                }}
+                WorkflowCardActionsProps={{
+                    showNext: true,
+                    nextLabel: 'Next',
+                    showPrevious: true,
+                    previousLabel: 'Back',
+                    canGoNext: true,
+                }}
+                slots={{ SuccessScreen: (): JSX.Element => <Box>Success</Box> }}
+            />
+        );
+        expect(screen.getByText('Forgot Password')).toBeInTheDocument();
+        expect(screen.getByText('Next')).toBeInTheDocument();
+        expect(screen.getByText(/Next/i)).toBeDisabled();
     });
 
     it('does not set error state when email is long enough', () => {
@@ -92,7 +118,7 @@ describe('Forgot Password Screen Base', () => {
                     }
                     return 'Please enter a valid email';
                 }}
-                slots={{ SuccessScreen: <Box>Success</Box> }}
+                slots={{ SuccessScreen: (): JSX.Element => <Box>Success</Box> }}
             />
         );
 
@@ -110,7 +136,7 @@ describe('Forgot Password Screen Base', () => {
                     }
                     return 'Please enter a valid email';
                 }}
-                slots={{ SuccessScreen: <Box>Success</Box> }}
+                slots={{ SuccessScreen: (): JSX.Element => <Box>Success</Box> }}
             />
         );
         expect(verifyEmailInput).not.toHaveAttribute('aria-invalid', 'true');
@@ -127,7 +153,7 @@ describe('Forgot Password Screen Base', () => {
                     currentStep: 1,
                     totalSteps: 6,
                 }}
-                slots={{ SuccessScreen: <Box>Success</Box> }}
+                slots={{ SuccessScreen: (): JSX.Element => <Box>Success</Box> }}
             />
         );
 
@@ -148,7 +174,7 @@ describe('Forgot Password Screen Base', () => {
                     }
                     return 'Please enter a valid email';
                 }}
-                slots={{ SuccessScreen: <Box>Success</Box> }}
+                slots={{ SuccessScreen: (): JSX.Element => <Box>Success</Box> }}
             />
         );
 
@@ -162,7 +188,7 @@ describe('Forgot Password Screen Base', () => {
                 WorkflowCardHeaderProps={{ title: 'Title' }}
                 WorkflowCardInstructionProps={{ instructions: 'Instructions' }}
                 emailLabel="Email Address"
-                slots={{ SuccessScreen: <Box>Success</Box> }}
+                slots={{ SuccessScreen: (): JSX.Element => <Box>Success</Box> }}
             />
         );
 
