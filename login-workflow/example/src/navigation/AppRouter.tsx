@@ -142,7 +142,7 @@ export const AppRouter: React.FC = () => {
                                     passwordRequirements: [],
                                 }}
                             />
-                            <CreateAccountScreen/>
+                            <CreateAccountScreen />
                         </RegistrationWorkflow>
                     }
                 />

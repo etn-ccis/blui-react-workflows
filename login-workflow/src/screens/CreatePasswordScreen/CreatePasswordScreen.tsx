@@ -95,11 +95,10 @@ export const CreatePasswordScreen: React.FC<CreatePasswordScreenProps> = (props)
     const areValidMatchingPasswords = useCallback((): boolean => {
         if (PasswordProps?.passwordRequirements?.length === 0) {
             return confirmInput === passwordInput;
-        } 
-            for (let i = 0; i < passwordRequirements.length; i++) {
-                if (!new RegExp(passwordRequirements[i].regex).test(passwordInput)) return false;
-            }
-        
+        }
+        for (let i = 0; i < passwordRequirements.length; i++) {
+            if (!new RegExp(passwordRequirements[i].regex).test(passwordInput)) return false;
+        }
     }, [PasswordProps.passwordRequirements.length, passwordRequirements, passwordInput, confirmInput]);
 
     const passwordProps = {
@@ -124,8 +123,6 @@ export const CreatePasswordScreen: React.FC<CreatePasswordScreenProps> = (props)
             }
         },
     };
-
-    
 
     const workflowCardBaseProps = {
         loading: isLoading,
