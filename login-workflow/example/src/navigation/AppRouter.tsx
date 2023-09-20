@@ -10,6 +10,7 @@ import {
     RegistrationWorkflow,
     EulaScreen,
     CreatePasswordScreen,
+    CreateAccountScreen,
 } from '@brightlayer-ui/react-auth-workflow';
 import { useApp } from '../contexts/AppContextProvider';
 import { useNavigate } from 'react-router';
@@ -118,30 +119,33 @@ export const AppRouter: React.FC = () => {
                     </RegistrationContextProvider>
                 }
             >
-                <Route path={'/self-registration'} element={<RegistrationWorkflow>
-                    <EulaScreen />
-                    <CreatePasswordScreen
-                        PasswordProps={
+                <Route
+                    path={'/self-registration'}
+                    element={
+                        <RegistrationWorkflow>
+                            <EulaScreen />
+                            <CreatePasswordScreen
+                                PasswordProps={{
+                                    newPasswordLabel: 'NewPassword',
+                                    confirmPasswordLabel: 'ConfirmPassword',
+                                    onPasswordChange: (passwordData: { password: string; confirm: string }): void => {
+                                        console.log('passwordData', passwordData);
+                                    },
 
-                            {
-                                newPasswordLabel: 'NewPassword', confirmPasswordLabel: 'ConfirmPassword', onPasswordChange: (passwordData:
+                                    onSubmit() {
+                                        console.log('submit');
+                                    },
 
-                                    { password: string; confirm: string }
-
-                                ): void => { console.log('passwordData', passwordData); }
-
-                                ,
-                                onSubmit() { console.log('submit') }
-
-                                ,
-                                initialNewPasswordValue: 'Test@12',
-                                initialConfirmPasswordValue: 'Test@123',
-                                passwordNotMatchError: 'not matched',
-                                passwordRequirements: [],
-                            }
-                        }
-                    />
-                </RegistrationWorkflow>} />
+                                    initialNewPasswordValue: 'Test@12',
+                                    initialConfirmPasswordValue: 'Test@123',
+                                    passwordNotMatchError: 'not matched',
+                                    passwordRequirements: [],
+                                }}
+                            />
+                            <CreateAccountScreen/>
+                        </RegistrationWorkflow>
+                    }
+                />
                 <Route path={'/register-by-invite'} element={<RegistrationWorkflow isInviteRegistration />} />
             </Route>
         </Routes>
