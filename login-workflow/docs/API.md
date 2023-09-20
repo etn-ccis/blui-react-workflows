@@ -27,7 +27,7 @@ The `RegistrationContextProvider` manages the state of the registration workflow
     -   A function that is used to accept the EULA. This function will be called when the user clicks the Next button on the EULA screen.
 - **requestRegistrationCode**: _`(email: string) => Promise<string>`_
     -   A function that is used to request a registration code. This function will be called when the user lands on the Verify Code screen as well as when a user clicks the Resend Verification Code button.
-- **validateUserRegistrationRequest**: _`(validationCode: string, validationEmail?: string) => Promise<boolean>`_
+- **validateUserRegistrationRequest**: _`(validationCode: string, validationEmail?: string) => Promise<{codeValid: boolean | string; accountExists?: boolean}>`_
     -   A function that is used to validate a registration code. This function will be called when the user clicks the Next button on the Verify Code screen screen.
 - **createPassword**: _`(password: string) => Promise<boolean>`_
     -   A function that is used to create a password. This function will be called when the user clicks the Next button on the Create Password screen.

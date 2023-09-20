@@ -169,7 +169,8 @@ export const RegistrationWorkflow: React.FC<React.PropsWithChildren<Registration
             let isAccExist;
             void (async (): Promise<void> => {
                 try {
-                    isAccExist = await actions.validateUserRegistrationRequest(params.code, params.email);
+                    const { accountExists } = await actions.validateUserRegistrationRequest(params.code, params.email);
+                    isAccExist = accountExists;
                 } catch (_error) {
                     triggerError(_error as Error);
                 } finally {

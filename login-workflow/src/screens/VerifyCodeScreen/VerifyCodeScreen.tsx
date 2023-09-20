@@ -72,12 +72,23 @@ export const VerifyCodeScreen: React.FC<VerifyCodeScreenProps> = (props) => {
         async (code: string) => {
             try {
                 setIsLoading(true);
-                const isAccExist = await actions.validateUserRegistrationRequest(code);
-                void nextScreen({
-                    screenId: 'VerifyCode',
-                    values: { code: code },
-                    isAccountExist: isAccExist,
-                });
+                const { codeValid, accountExists } = await actions.validateUserRegistrationRequest(code);
+
+                if (typeof codeValid === 'boolean') {
+                    if (codeValid)
+                        void nextScreen({
+                            screenId: 'VerifyCode',
+                            values: { code },
+                            isAccountExist: accountExists,
+                        });
+                    else {
+                        triggerError(
+                            new Error(t('bluiRegistration:SELF_REGISTRATION.VERIFY_EMAIL.CODE_VALIDATOR_ERROR'))
+                        );
+                    }
+                } else {
+                    triggerError(new Error(codeValid));
+                }
             } catch (_error) {
                 triggerError(_error as Error);
             } finally {
