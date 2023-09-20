@@ -7,6 +7,7 @@ import { defaultPasswordRequirements } from '../../constants';
 import { parseQueryString } from '../../utils';
 import { ResetPasswordScreenProps } from './types';
 import { useErrorManager } from '../../contexts/ErrorContext/useErrorManager';
+import { SuccessScreenBase } from '../SuccessScreen';
 
 /**
  * Component that renders a ResetPassword screen that allows a user to reset their password and shows a success message upon a successful password reset..
@@ -35,7 +36,7 @@ export const ResetPasswordScreen: React.FC<ResetPasswordScreenProps> = (props) =
     const [confirmInput, setConfirmInput] = useState('');
     const [hasVerifyCodeError, setHasVerifyCodeError] = useState(false);
     const [isLoading, setIsLoading] = useState(false);
-    const [showSuccessScreen, setShowSuccessScreen] = useState(props.showSuccessScreen);
+    const [showSuccessScreen, setShowSuccessScreen] = useState(false);
     const { triggerError, errorManagerConfig } = useErrorManager();
 
     const { code, email } = parseQueryString(window.location.search);
@@ -60,13 +61,17 @@ export const ResetPasswordScreen: React.FC<ResetPasswordScreenProps> = (props) =
         try {
             setIsLoading(true);
             await actions.setPassword(code, passwordInput, email);
-            setShowSuccessScreen(true);
+            if (props.showSuccessScreen === false) {
+                navigate(routeConfig.LOGIN);
+            } else {
+                setShowSuccessScreen(true);
+            }
         } catch (_error) {
             triggerError(_error as Error);
         } finally {
             setIsLoading(false);
         }
-    }, [actions, code, passwordInput, email, triggerError]);
+    }, [actions, code, passwordInput, email, triggerError, props.showSuccessScreen, navigate, routeConfig]);
 
     const areValidMatchingPasswords = useCallback((): boolean => {
         for (let i = 0; i < passwordRequirements.length; i++) {
@@ -96,6 +101,8 @@ export const ResetPasswordScreen: React.FC<ResetPasswordScreenProps> = (props) =
         WorkflowCardActionsProps,
         PasswordProps,
         errorDisplayConfig = errorManagerConfig,
+        slotProps = { SuccessScreen: {} },
+        slots,
     } = props;
 
     const workflowCardBaseProps = {
@@ -158,26 +165,31 @@ export const ResetPasswordScreen: React.FC<ResetPasswordScreenProps> = (props) =
             WorkflowCardInstructionProps={workflowCardInstructionProps}
             WorkflowCardActionsProps={workflowCardActionsProps}
             PasswordProps={passwordProps}
-            slotProps={{
-                SuccessScreen: {
-                    icon: <CheckCircle color="primary" sx={{ fontSize: 100 }} />,
-                    messageTitle: t('bluiAuth:PASSWORD_RESET.SUCCESS_MESSAGE'),
-                    message: t('bluiAuth:CHANGE_PASSWORD.SUCCESS_MESSAGE'),
-                    onDismiss: (): void => {
-                        navigate(routeConfig.LOGIN);
-                    },
-                    WorkflowCardActionsProps: {
-                        showPrevious: false,
-                        fullWidthButton: true,
-                        showNext: true,
-                        nextLabel: t('bluiCommon:ACTIONS.DONE'),
-                        onNext: (): void => {
-                            navigate(routeConfig.LOGIN);
-                        },
-                    },
-                },
-            }}
             showSuccessScreen={showSuccessScreen}
+            slots={{
+                SuccessScreen:
+                    slots?.SuccessScreen ??
+                    ((): JSX.Element => (
+                        <SuccessScreenBase
+                            icon={<CheckCircle color="primary" sx={{ fontSize: 100 }} />}
+                            messageTitle={t('bluiAuth:PASSWORD_RESET.SUCCESS_MESSAGE')}
+                            message={t('bluiAuth:CHANGE_PASSWORD.SUCCESS_MESSAGE')}
+                            {...slotProps.SuccessScreen}
+                            WorkflowCardActionsProps={{
+                                showNext: true,
+                                nextLabel: t('bluiCommon:ACTIONS.DONE'),
+                                canGoNext: true,
+                                fullWidthButton: true,
+                                ...slotProps.SuccessScreen.WorkflowCardActionsProps,
+                                onNext: (): void => {
+                                    navigate(routeConfig.LOGIN);
+                                    if (slotProps.SuccessScreen.WorkflowCardActionsProps)
+                                        slotProps.SuccessScreen.WorkflowCardActionsProps?.onNext?.();
+                                },
+                            }}
+                        />
+                    )),
+            }}
             errorDisplayConfig={{
                 ...errorDisplayConfig,
                 onClose: hasVerifyCodeError

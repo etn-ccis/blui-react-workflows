@@ -180,7 +180,7 @@ export const ForgotPasswordScreen: React.FC<ForgotPasswordScreenProps> = (props)
                                 onNext: (): void => {
                                     navigate(routeConfig.LOGIN);
                                     if (slotProps.SuccessScreen.WorkflowCardActionsProps)
-                                        slotProps.SuccessScreen.WorkflowCardActionsProps.onNext();
+                                        slotProps.SuccessScreen.WorkflowCardActionsProps?.onNext?.();
                                 },
                             }}
                         />
