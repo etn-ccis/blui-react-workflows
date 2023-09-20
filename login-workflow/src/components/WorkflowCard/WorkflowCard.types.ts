@@ -18,11 +18,6 @@ export type WorkflowCardBaseProps = BoxProps & {
      * A custom background to render behind the card
      */
     backgroundImage?: string;
-
-    /**
-     * An error message to render for the card
-     */
-    error?: boolean | string;
 };
 
 export type WorkflowCardHeaderProps = CardHeaderProps;
@@ -35,6 +30,7 @@ export type WorkflowCardInstructionProps = TypographyProps & {
 
     /**
      * Whether or not to show a divider below the instructions
+     * @default true
      */
     divider?: boolean;
 };

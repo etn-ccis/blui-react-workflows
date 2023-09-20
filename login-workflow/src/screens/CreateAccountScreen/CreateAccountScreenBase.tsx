@@ -69,7 +69,7 @@ export const CreateAccountScreenBase: React.FC<
     return (
         <WorkflowCard {...cardBaseProps}>
             <WorkflowCardHeader {...headerProps} />
-            <WorkflowCardInstructions {...instructionsProps} divider />
+            <WorkflowCardInstructions {...instructionsProps} />
             <WorkflowCardBody>
                 <ErrorManager {...errorDisplayConfig}>
                     <TextField
@@ -104,7 +104,6 @@ export const CreateAccountScreenBase: React.FC<
             </WorkflowCardBody>
             <WorkflowCardActions
                 {...actionsProps}
-                divider
                 canGoNext={emailInput.length > 0 && isEmailValid && actionsProps.canGoNext}
             ></WorkflowCardActions>
         </WorkflowCard>

@@ -40,10 +40,9 @@ export const ContactSupportScreen: React.FC<ContactSupportScreenProps> = (props)
         contactPhone = '1-800-123-4567',
         dismissButtonLabel = t('bluiCommon:ACTIONS.OKAY'),
         onDismiss,
-        WorkflowCardBaseProps,
-        WorkflowCardInstructionProps,
         WorkflowCardHeaderProps,
         WorkflowCardActionsProps,
+        ...otherContactSupportProps
     } = props;
 
     const workflowCardHeaderProps = {
@@ -65,9 +64,7 @@ export const ContactSupportScreen: React.FC<ContactSupportScreenProps> = (props)
 
     return (
         <ContactSupportScreenBase
-            WorkflowCardBaseProps={WorkflowCardBaseProps}
             WorkflowCardHeaderProps={workflowCardHeaderProps}
-            WorkflowCardInstructionProps={WorkflowCardInstructionProps}
             WorkflowCardActionsProps={workflowCardActionsProps}
             icon={icon}
             emailSupportTitle={emailSupportTitle}
@@ -78,6 +75,7 @@ export const ContactSupportScreen: React.FC<ContactSupportScreenProps> = (props)
             contactPhone={contactPhone}
             dismissButtonLabel={dismissButtonLabel}
             onDismiss={onDismiss}
+            {...otherContactSupportProps}
         />
     );
 };
