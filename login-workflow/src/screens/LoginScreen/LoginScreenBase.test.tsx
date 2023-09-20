@@ -71,6 +71,18 @@ describe('LoginScreenBase', () => {
 
         fireEvent.change(usernameInput, { target: { value: 'us' } });
         fireEvent.change(passwordInput, { target: { value: 'p' } });
+        fireEvent.blur(passwordInput);
+
+        expect(loginButton).toBeDisabled();
+    });
+
+    test('disables login button when username and password are invalid', () => {
+        const usernameInput = screen.getByLabelText('Email Address');
+        const passwordInput = screen.getByLabelText('Password');
+        const loginButton = screen.getByText('Log In');
+
+        fireEvent.change(usernameInput, { target: { value: 'us' } });
+        fireEvent.change(passwordInput, { target: { value: 'p' } });
 
         expect(loginButton).toBeDisabled();
     });
