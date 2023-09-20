@@ -138,6 +138,12 @@ describe('WorkflowCardInstructions tests', () => {
         expect(screen.getByText('Test')).toBeInTheDocument();
         expect(container.getElementsByClassName('MuiDivider-root').length).toBe(1);
     });
+
+    it('renders without divider', () => {
+        const { container } = render(<WorkflowCardInstructions instructions="Test" divider={false} />);
+        expect(screen.getByText('Test')).toBeInTheDocument();
+        expect(container.getElementsByClassName('MuiDivider-root').length).toBe(0);
+    });
 });
 
 describe('ErrorState tests', () => {
