@@ -8,6 +8,8 @@ import {
     RegistrationContextProvider,
     ResetPasswordScreen,
     RegistrationWorkflow,
+    EulaScreen,
+    CreatePasswordScreen,
 } from '@brightlayer-ui/react-auth-workflow';
 import { useApp } from '../contexts/AppContextProvider';
 import { useNavigate } from 'react-router';
@@ -116,7 +118,30 @@ export const AppRouter: React.FC = () => {
                     </RegistrationContextProvider>
                 }
             >
-                <Route path={'/self-registration'} element={<RegistrationWorkflow />} />
+                <Route path={'/self-registration'} element={<RegistrationWorkflow>
+                    <EulaScreen />
+                    <CreatePasswordScreen
+                        PasswordProps={
+
+                            {
+                                newPasswordLabel: 'NewPassword', confirmPasswordLabel: 'ConfirmPassword', onPasswordChange: (passwordData:
+
+                                    { password: string; confirm: string }
+
+                                ): void => { console.log('passwordData', passwordData); }
+
+                                ,
+                                onSubmit() { console.log('submit') }
+
+                                ,
+                                initialNewPasswordValue: 'Test@12',
+                                initialConfirmPasswordValue: 'Test@123',
+                                passwordNotMatchError: 'not matched',
+                                passwordRequirements: [],
+                            }
+                        }
+                    />
+                </RegistrationWorkflow>} />
                 <Route path={'/register-by-invite'} element={<RegistrationWorkflow isInviteRegistration />} />
             </Route>
         </Routes>
