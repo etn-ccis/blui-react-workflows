@@ -13,7 +13,7 @@ import { WorkflowCardInstructionProps } from './WorkflowCard.types';
  */
 
 export const WorkflowCardInstructions: React.FC<WorkflowCardInstructionProps> = (props) => {
-    const { instructions, divider, sx, ...otherProps } = props;
+    const { instructions, divider = true, sx, ...otherProps } = props;
 
     return (
         <>

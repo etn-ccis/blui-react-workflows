@@ -53,6 +53,7 @@ export const RegistrationSuccessScreen: React.FC<SuccessScreenProps> = (props) =
         canDismiss = true,
         WorkflowCardHeaderProps,
         WorkflowCardActionsProps,
+        ...otherRegistrationSuccessScreenProps
     } = props;
 
     const workflowCardHeaderProps = {
@@ -75,10 +76,11 @@ export const RegistrationSuccessScreen: React.FC<SuccessScreenProps> = (props) =
     return (
         <SuccessScreenBase
             WorkflowCardHeaderProps={workflowCardHeaderProps}
+            WorkflowCardActionsProps={workflowCardActionsProps}
             icon={icon}
             messageTitle={messageTitle}
             message={message}
-            WorkflowCardActionsProps={workflowCardActionsProps}
+            {...otherRegistrationSuccessScreenProps}
         />
     );
 };

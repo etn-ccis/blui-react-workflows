@@ -1,6 +1,12 @@
 import React from 'react';
-import { Divider, Typography } from '@mui/material';
-import { WorkflowCard, WorkflowCardActions, WorkflowCardBody, WorkflowCardHeader } from '../../components/WorkflowCard';
+import { Typography } from '@mui/material';
+import {
+    WorkflowCard,
+    WorkflowCardActions,
+    WorkflowCardBody,
+    WorkflowCardHeader,
+    WorkflowCardInstructions,
+} from '../../components/WorkflowCard';
 import { ContactSupportScreenProps } from './types';
 import Box, { BoxProps } from '@mui/material/Box';
 import { ContactScreenClassKey, getContactScreenUtilityClass } from './utilityClasses';
@@ -64,11 +70,13 @@ export const ContactSupportScreenBase: React.FC<ContactSupportScreenProps> = (pr
 
     const cardBaseProps = props.WorkflowCardBaseProps || {};
     const headerProps = props.WorkflowCardHeaderProps || {};
+    const instructionsProps = props.WorkflowCardInstructionProps || {};
     const actionsProps = props.WorkflowCardActionsProps || {};
 
     return (
         <WorkflowCard {...cardBaseProps} className={defaultClasses.root} data-testid={defaultClasses.root}>
             <WorkflowCardHeader {...headerProps} className={defaultClasses.title} data-testid={defaultClasses.title} />
+            {Object.keys(instructionsProps).length !== 0 && <WorkflowCardInstructions {...instructionsProps} />}
             {icon && (
                 <Box sx={{ m: 3, mb: 5, textAlign: 'center' }} className={defaultClasses.icon}>
                     {icon}
@@ -158,7 +166,6 @@ export const ContactSupportScreenBase: React.FC<ContactSupportScreenProps> = (pr
                     </Typography>
                 )}
             </WorkflowCardBody>
-            <Divider />
             <WorkflowCardActions
                 {...actionsProps}
                 nextLabel={dismissButtonLabel || actionsProps.nextLabel}

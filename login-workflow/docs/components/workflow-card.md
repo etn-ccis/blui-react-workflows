@@ -10,7 +10,7 @@ import { WorkflowCard, WorkflowCardHeader, WorkflowCardBody, WorkflowCardInstruc
 
 <WorkflowCard {...cardBaseProps}>
   <WorkflowCardHeader {...headerProps} />
-  <WorkflowCardInstructions {...instructionsProps} divider />
+  <WorkflowCardInstructions {...instructionsProps} />
   <WorkflowCardBody>
     {/* Your Screen Contents */}          
   </WorkflowCardBody>
@@ -48,7 +48,7 @@ This component is a simple wrapper that is used for layout. Instructions and you
 | Prop Name | Type | Description | Default |
 |---|---|---|---|
 | instructions | `string \| JSX.Element` | The instructions to display in the card. |  |
-| divider | `boolean` | If true, a dividing line will be displayed below the instruction text | `false` |
+| divider | `boolean` | If true, a dividing line will be displayed below the instruction text | `true` |
 
 The properties of the underlying MUI [Typography](https://mui.com/components/typography/) component are also available.
 
@@ -58,7 +58,7 @@ The WorkflowCardActions is used to configure the buttons that appear at the bott
 
 | Prop Name | Type | Description | Default |
 |---|---|---|---|
-| divider | `boolean` | If true, a dividing line will be displayed above the button panel | `false` |
+| divider | `boolean` | If true, a dividing line will be displayed above the button panel | `true` |
 | showPrevious | `boolean` | Indicates whether the previous button should be displayed | `true` |
 | canGoPrevious | `boolean \| (() => boolean)` | A boolean or function that indicates whether the previous button should be enabled. | `true` |
 | previousLabel | `string` | The label on the previous button |  |

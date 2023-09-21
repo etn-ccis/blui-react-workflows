@@ -43,7 +43,7 @@ export type EulaScreenProps = WorkflowCardProps & {
     errorDisplayConfig?: ErrorManagerProps;
 
     /**
-     * Function to refectch verify code for retry link
+     * Function to refetch Eula content
      * @returns void
      */
     onRefetch?: () => void;

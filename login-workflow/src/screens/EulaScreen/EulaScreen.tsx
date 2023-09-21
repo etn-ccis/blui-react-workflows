@@ -19,6 +19,7 @@ import { useErrorManager } from '../../contexts/ErrorContext/useErrorManager';
  * @param WorkflowCardInstructionProps props that will be passed to the WorkflowCardInstructions component
  * @param WorkflowCardActionsProps props that will be passed to the WorkflowCardActions component
  * @param errorDisplayConfig configuration for customizing how errors are displayed
+ * @param onRefetch used to refetch Eula content.
  *
  * @category Component
  */
@@ -38,12 +39,14 @@ export const EulaScreen: React.FC<EulaScreenProps> = (props) => {
     const regWorkflow = useRegistrationWorkflowContext();
     const { nextScreen, previousScreen, screenData, currentScreen, totalScreens } = regWorkflow;
     const {
+        WorkflowCardBaseProps,
         WorkflowCardHeaderProps,
         WorkflowCardActionsProps,
         eulaContent,
         checkboxLabel = t('bluiRegistration:REGISTRATION.EULA.AGREE_TERMS'),
         html,
         initialCheckboxValue,
+        ...otherEulaScreenProps
     } = props;
 
     const eulaAccepted = initialCheckboxValue ? initialCheckboxValue : screenData.Eula.accepted;
@@ -156,6 +159,7 @@ export const EulaScreen: React.FC<EulaScreenProps> = (props) => {
             eulaContent={eulaData}
             WorkflowCardBaseProps={{
                 loading: isLoading,
+                ...WorkflowCardBaseProps,
             }}
             checkboxLabel={checkboxLabel}
             checkboxProps={checkboxProps}
@@ -165,6 +169,7 @@ export const EulaScreen: React.FC<EulaScreenProps> = (props) => {
             WorkflowCardActionsProps={workflowCardActionsProps}
             errorDisplayConfig={errorDisplayConfig}
             onRefetch={onRefetch}
+            {...otherEulaScreenProps}
         />
     );
 };

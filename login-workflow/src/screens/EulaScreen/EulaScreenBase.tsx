@@ -1,6 +1,12 @@
 import React, { useCallback, useState } from 'react';
 import { EulaScreenProps } from './types';
-import { WorkflowCard, WorkflowCardActions, WorkflowCardBody, WorkflowCardHeader } from '../../components/WorkflowCard';
+import {
+    WorkflowCard,
+    WorkflowCardActions,
+    WorkflowCardBody,
+    WorkflowCardHeader,
+    WorkflowCardInstructions,
+} from '../../components/WorkflowCard';
 import FormControlLabel from '@mui/material/FormControlLabel';
 import Checkbox from '@mui/material/Checkbox';
 import Box from '@mui/material/Box';
@@ -23,6 +29,7 @@ import ReplaySharpIcon from '@mui/icons-material/ReplaySharp';
  * @param WorkflowCardInstructionProps props that will be passed to the WorkflowCardInstructions component
  * @param WorkflowCardActionsProps props that will be passed to the WorkflowCardActions component
  * @param errorDisplayConfig configuration for customizing how errors are displayed
+ * @param onRefetch used to refetch Eula content.
  *
  * @category Component
  */
@@ -41,6 +48,7 @@ export const EulaScreenBase: React.FC<EulaScreenProps> = (props) => {
 
     const cardBaseProps = props.WorkflowCardBaseProps || {};
     const headerProps = props.WorkflowCardHeaderProps || {};
+    const instructionsProps = props.WorkflowCardInstructionProps || {};
     const actionsProps = props.WorkflowCardActionsProps || {};
 
     const [eulaAccepted, setEulaAccepted] = useState(initialCheckboxValue ?? false);
@@ -61,7 +69,8 @@ export const EulaScreenBase: React.FC<EulaScreenProps> = (props) => {
     return (
         <WorkflowCard {...cardBaseProps}>
             <WorkflowCardHeader {...headerProps} />
-            <WorkflowCardBody>
+            {Object.keys(instructionsProps).length !== 0 && <WorkflowCardInstructions {...instructionsProps} />}
+            <WorkflowCardBody sx={{ pt: 2 }}>
                 {checkboxProps?.disabled ? (
                     <Box
                         sx={{
@@ -116,7 +125,7 @@ export const EulaScreenBase: React.FC<EulaScreenProps> = (props) => {
                     />
                 </ErrorManager>
             </WorkflowCardBody>
-            <WorkflowCardActions divider {...actionsProps} canGoNext={eulaAccepted && actionsProps.canGoNext} />
+            <WorkflowCardActions {...actionsProps} canGoNext={eulaAccepted && actionsProps.canGoNext} />
         </WorkflowCard>
     );
 };
