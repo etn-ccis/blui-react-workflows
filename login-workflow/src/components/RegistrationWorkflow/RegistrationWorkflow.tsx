@@ -135,7 +135,8 @@ export const RegistrationWorkflow: React.FC<React.PropsWithChildren<Registration
         }
     };
 
-    const finishRegistration = (data: IndividualScreenData): Promise<void> => {
+    const finishRegistration = async (data: IndividualScreenData): Promise<void> => {
+        try{
         if (actions && actions.completeRegistration) {
             const { Eula, CreateAccount, VerifyCode, CreatePassword, AccountDetails, Other } = screenData;
             const userInfo = {
@@ -147,7 +148,7 @@ export const RegistrationWorkflow: React.FC<React.PropsWithChildren<Registration
                 ...Other,
                 ...data.values,
             };
-            return actions
+            return await actions
                 .completeRegistration(userInfo)
                 .then(({ email, organizationName }) => {
                     updateScreenData({
@@ -160,6 +161,10 @@ export const RegistrationWorkflow: React.FC<React.PropsWithChildren<Registration
                     triggerError(_error);
                 });
         }
+    }
+    catch(err) {
+        console.error(err);
+      }
     };
 
     useEffect(() => {
@@ -169,12 +174,12 @@ export const RegistrationWorkflow: React.FC<React.PropsWithChildren<Registration
             let isAccExist;
             void (async (): Promise<void> => {
                 try {
-                    isAccExist = await actions.validateUserRegistrationRequest(params.code, params.email);
+                    isAccExist = await actions?.validateUserRegistrationRequest?.(params.code, params.email);
                 } catch (_error) {
                     triggerError(_error as Error);
                 } finally {
-                    setIsAccountExist(isAccExist);
-                    setShowSuccessScreen(isAccExist);
+                    setIsAccountExist(isAccExist!);
+                    setShowSuccessScreen(isAccExist!);
                 }
             })();
 

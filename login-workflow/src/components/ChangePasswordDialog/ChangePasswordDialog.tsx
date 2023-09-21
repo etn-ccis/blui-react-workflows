@@ -77,7 +77,7 @@ export const ChangePasswordDialog: React.FC<ChangePasswordDialogProps> = (props)
                 setIsLoading(true);
                 await actions.changePassword(currentInput, passwordInput);
                 if (props.showSuccessScreen === false) {
-                    onFinish();
+                    onFinish?.();
                 }
                 setShowSuccessScreen(true);
             } catch {
@@ -153,7 +153,7 @@ export const ChangePasswordDialog: React.FC<ChangePasswordDialogProps> = (props)
                     messageTitle: t('bluiAuth:PASSWORD_RESET.SUCCESS_MESSAGE'),
                     message: t('bluiAuth:CHANGE_PASSWORD.SUCCESS_MESSAGE'),
                     onDismiss: (): void => {
-                        onFinish();
+                        onFinish?.();
                     },
                     WorkflowCardActionsProps: {
                         showPrevious: false,
@@ -161,7 +161,7 @@ export const ChangePasswordDialog: React.FC<ChangePasswordDialogProps> = (props)
                         showNext: true,
                         nextLabel: t('bluiCommon:ACTIONS.DONE'),
                         onNext: (): void => {
-                            onFinish();
+                            onFinish?.();
                         },
                     },
                 },

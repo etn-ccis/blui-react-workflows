@@ -27,5 +27,5 @@ export const ReactRouterGuestGuard = (props: ReactRouterGuestProps): JSX.Element
         return <Navigate to={redirectedURL} replace />;
     }
 
-    return children;
+    return children as JSX.Element;
 };

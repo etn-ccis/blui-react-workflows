@@ -1,6 +1,6 @@
 import React, { ChangeEvent, useState, useCallback } from 'react';
 import CheckCircleOutlinedIcon from '@mui/icons-material/CheckCircleOutlined';
-import { SetPasswordProps } from './types';
+import { PasswordRequirement, SetPasswordProps } from './types';
 import { PasswordTextField } from '../PasswordTextField';
 import { PasswordRequirements } from '../PasswordRequirements';
 
@@ -69,8 +69,8 @@ export const SetPassword: React.FC<React.PropsWithChildren<SetPasswordProps>> = 
     );
 
     const isValidPassword = useCallback((): boolean => {
-        for (let i = 0; i < passwordRequirements.length; i++) {
-            if (!new RegExp(passwordRequirements[i].regex).test(passwordInput)) return false;
+        for (let i = 0; i < passwordRequirements!.length; i++) {
+            if (!new RegExp(passwordRequirements![i].regex).test(passwordInput)) return false;
         }
         return true;
     }, [passwordRequirements, passwordInput]);
@@ -96,7 +96,7 @@ export const SetPassword: React.FC<React.PropsWithChildren<SetPasswordProps>> = 
                     onPassChange(evt.target.value);
                 }}
                 onKeyUp={(e): void => {
-                    if (e.key === 'Enter' && confirmRef.current) {
+                    if (e.key === 'Enter' && confirmRef?.current) {
                         confirmRef.current.focus();
                     }
                 }}

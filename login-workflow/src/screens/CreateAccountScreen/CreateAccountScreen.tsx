@@ -45,7 +45,7 @@ export const CreateAccountScreen: React.FC<CreateAccountScreenProps> = (props) =
     const onNext = useCallback(async () => {
         try {
             setIsLoading(true);
-            await actions.requestRegistrationCode(emailInputValue);
+            await actions?.requestRegistrationCode?.(emailInputValue);
             void nextScreen({
                 screenId: 'CreateAccount',
                 values: { emailAddress: emailInputValue },

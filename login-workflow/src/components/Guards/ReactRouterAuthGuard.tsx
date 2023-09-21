@@ -26,5 +26,5 @@ export const ReactRouterAuthGuard = (props: ReactRouterAuthGuardProps): JSX.Elem
         return <Navigate to={fallBackUrl} replace state={{ from: location }} />;
     }
 
-    return children;
+    return children as JSX.Element;
 };

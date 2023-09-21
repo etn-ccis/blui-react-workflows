@@ -1,3 +1,4 @@
+
 /**
  * @packageDocumentation
  * @module Hooks
@@ -40,8 +41,9 @@ export const useLanguageLocale = (): {
     const { t, i18n } = useTranslation();
 
     const tFunctionWithNoDataDefault: TFunctionWithNoDataDefault = React.useCallback(
-        (key, options) => {
-            if (typeof options === 'object' && options.count === undefined) {
+        (key: string, options: any) => {
+            
+            if (typeof options === 'object' && options === undefined) {
                 // eslint-disable-next-line @typescript-eslint/restrict-template-expressions
                 return t(`${key}_noData`, { defaultValue: t(key, options), ...options });
             }

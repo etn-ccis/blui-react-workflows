@@ -126,7 +126,7 @@ export const ForgotPasswordScreen: React.FC<ForgotPasswordScreenProps> = (props)
             WorkflowCardActionsProps?.onNext?.();
         },
         onPrevious: (): void => {
-            navigate(routeConfig.LOGIN);
+            navigate(routeConfig.LOGIN as string);
             WorkflowCardActionsProps?.onPrevious?.();
         },
     };
@@ -169,18 +169,18 @@ export const ForgotPasswordScreen: React.FC<ForgotPasswordScreenProps> = (props)
                             {...slotProps.SuccessScreen}
                             WorkflowCardHeaderProps={{
                                 title: t('bluiAuth:HEADER.FORGOT_PASSWORD'),
-                                ...slotProps.SuccessScreen.WorkflowCardHeaderProps,
+                                ...slotProps?.SuccessScreen?.WorkflowCardHeaderProps,
                             }}
                             WorkflowCardActionsProps={{
                                 showNext: true,
                                 nextLabel: t('bluiCommon:ACTIONS.DONE'),
                                 canGoNext: true,
                                 fullWidthButton: true,
-                                ...slotProps.SuccessScreen.WorkflowCardActionsProps,
+                                ...slotProps?.SuccessScreen?.WorkflowCardActionsProps,
                                 onNext: (): void => {
-                                    navigate(routeConfig.LOGIN);
-                                    if (slotProps.SuccessScreen.WorkflowCardActionsProps)
-                                        slotProps.SuccessScreen.WorkflowCardActionsProps.onNext();
+                                    navigate(routeConfig.LOGIN as string);
+                                    if (slotProps?.SuccessScreen?.WorkflowCardActionsProps)
+                                        slotProps?.SuccessScreen?.WorkflowCardActionsProps?.onNext?.();
                                 },
                             }}
                         />

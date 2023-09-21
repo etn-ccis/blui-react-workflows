@@ -72,7 +72,7 @@ export const ChangePasswordDialogBase: React.FC<ChangePasswordDialogProps> = (pr
     const handleChange = (event: any): void => {
         const { value } = event.target;
         setCurrentPassword(value);
-        currentPasswordChange(value);
+        currentPasswordChange?.(value);
     };
 
     useEffect(() => {
@@ -100,7 +100,7 @@ export const ChangePasswordDialogBase: React.FC<ChangePasswordDialogProps> = (pr
         <Dialog sx={sx} fullScreen={matchesSM} open={open} maxWidth={'xs'}>
             <Spinner data-testid="blui-spinner" visible={loading} />
             {showSuccessScreen ? (
-                getSuccessScreen(slotProps?.SuccessScreen, slots?.SuccessScreen)
+                getSuccessScreen(slotProps?.SuccessScreen || {}, slots?.SuccessScreen)
             ) : (
                 <>
                     <BasicDialog {...ErrorDialogProps} />
@@ -142,7 +142,7 @@ export const ChangePasswordDialogBase: React.FC<ChangePasswordDialogProps> = (pr
                                     handleChange(e);
                                 }}
                                 onKeyUp={(e): void => {
-                                    const { current } = PasswordProps.passwordRef;
+                                    const { current } = PasswordProps?.passwordRef;
                                     if (e.key === 'Enter' && current) {
                                         current.focus();
                                     }
@@ -174,7 +174,7 @@ export const ChangePasswordDialogBase: React.FC<ChangePasswordDialogProps> = (pr
                                 disabled={buttonState}
                                 color="primary"
                                 onClick={(): void => {
-                                    void onSubmit();
+                                    void onSubmit?.();
                                 }}
                             >
                                 {nextLabel}
