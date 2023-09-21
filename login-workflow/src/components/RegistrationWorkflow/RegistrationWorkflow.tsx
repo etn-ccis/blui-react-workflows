@@ -179,12 +179,14 @@ export const RegistrationWorkflow: React.FC<React.PropsWithChildren<Registration
                     );
                     isAccExist = accountExists;
 
-                    if (typeof codeValid === 'string') {
-                        triggerError(new Error(codeValid));
-                    } else if (typeof codeValid === 'boolean' && !codeValid) {
-                        triggerError(
-                            new Error(t('bluiRegistration:SELF_REGISTRATION.VERIFY_EMAIL.CODE_VALIDATOR_ERROR'))
-                        );
+                    if (!isAccExist) {
+                        if (typeof codeValid === 'string') {
+                            triggerError(new Error(codeValid));
+                        } else if (typeof codeValid === 'boolean' && !codeValid) {
+                            triggerError(
+                                new Error(t('bluiRegistration:SELF_REGISTRATION.VERIFY_EMAIL.CODE_VALIDATOR_ERROR'))
+                            );
+                        }
                     }
                 } catch (_error) {
                     triggerError(_error as Error);
