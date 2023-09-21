@@ -95,7 +95,7 @@ export const VerifyCodeScreen: React.FC<VerifyCodeScreenProps> = (props) => {
                 setIsLoading(false);
             }
         },
-        [actions, nextScreen, triggerError]
+        [t, actions, nextScreen, triggerError]
     );
 
     const onPrevious = (code: string): void => {
