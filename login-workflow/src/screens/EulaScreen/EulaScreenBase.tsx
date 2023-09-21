@@ -125,7 +125,7 @@ export const EulaScreenBase: React.FC<EulaScreenProps> = (props) => {
                     />
                 </ErrorManager>
             </WorkflowCardBody>
-            <WorkflowCardActions divider {...actionsProps} canGoNext={eulaAccepted && actionsProps.canGoNext} />
+            <WorkflowCardActions {...actionsProps} canGoNext={eulaAccepted && actionsProps.canGoNext} />
         </WorkflowCard>
     );
 };
