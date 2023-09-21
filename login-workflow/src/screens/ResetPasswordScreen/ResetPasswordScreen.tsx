@@ -126,7 +126,7 @@ export const ResetPasswordScreen: React.FC<ResetPasswordScreenProps> = (props) =
             WorkflowCardActionsProps?.onNext?.();
         },
         onPrevious: (): void => {
-            navigate(routeConfig.LOGIN as string);
+            navigate(routeConfig.LOGIN );
             WorkflowCardActionsProps?.onPrevious?.();
         },
     };
@@ -165,7 +165,7 @@ export const ResetPasswordScreen: React.FC<ResetPasswordScreenProps> = (props) =
                     messageTitle: t('bluiAuth:PASSWORD_RESET.SUCCESS_MESSAGE'),
                     message: t('bluiAuth:CHANGE_PASSWORD.SUCCESS_MESSAGE'),
                     onDismiss: (): void => {
-                        navigate(routeConfig.LOGIN as string);
+                        navigate(routeConfig.LOGIN );
                     },
                     WorkflowCardActionsProps: {
                         showPrevious: false,
@@ -173,7 +173,7 @@ export const ResetPasswordScreen: React.FC<ResetPasswordScreenProps> = (props) =
                         showNext: true,
                         nextLabel: t('bluiCommon:ACTIONS.DONE'),
                         onNext: (): void => {
-                            navigate(routeConfig.LOGIN as string);
+                            navigate(routeConfig.LOGIN );
                         },
                     },
                 },
@@ -184,7 +184,7 @@ export const ResetPasswordScreen: React.FC<ResetPasswordScreenProps> = (props) =
                 onClose: hasVerifyCodeError
                     ? (): void => {
                           // eslint-disable-next-line no-unused-expressions
-                          navigate(routeConfig.LOGIN as string);
+                          navigate(routeConfig.LOGIN );
                           // eslint-disable-next-line
                           errorDisplayConfig.onClose;
                       }

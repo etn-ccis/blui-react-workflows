@@ -27,7 +27,7 @@ export const ExistingAccountSuccessScreen: React.FC<SuccessScreenProps> = (props
         messageTitle = t('bluiCommon:MESSAGES.WELCOME'),
         message = t('bluiRegistration:REGISTRATION.SUCCESS_EXISTING'),
         canDismiss = true,
-        onDismiss = (): void => navigate(routeConfig.LOGIN as string),
+        onDismiss = (): void => navigate(routeConfig.LOGIN ),
         WorkflowCardHeaderProps,
         WorkflowCardActionsProps,
         ...otherExistingAccountSuccessScreenProps

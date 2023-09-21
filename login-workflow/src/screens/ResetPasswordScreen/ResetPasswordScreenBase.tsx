@@ -45,7 +45,7 @@ export const ResetPasswordScreenBase: React.FC<React.PropsWithChildren<ResetPass
     ): JSX.Element => (SuccessScreen ? SuccessScreen(_props) : <SuccessScreenBase {..._props} />);
 
     return showSuccessScreen ? (
-        getSuccessScreen(slotProps?.SuccessScreen!, slots?.SuccessScreen)
+        getSuccessScreen(slotProps?.SuccessScreen, slots?.SuccessScreen)
     ) : (
         <WorkflowCard {...cardBaseProps}>
             <WorkflowCardHeader {...headerProps} />

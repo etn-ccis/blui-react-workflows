@@ -177,8 +177,8 @@ export const RegistrationWorkflow: React.FC<React.PropsWithChildren<Registration
                 } catch (_error) {
                     triggerError(_error as Error);
                 } finally {
-                    setIsAccountExist(isAccExist!);
-                    setShowSuccessScreen(isAccExist!);
+                    setIsAccountExist(isAccExist);
+                    setShowSuccessScreen(isAccExist);
                 }
             })();
 
@@ -193,13 +193,17 @@ export const RegistrationWorkflow: React.FC<React.PropsWithChildren<Registration
             currentScreen={currentScreen}
             totalScreens={totalScreens}
             nextScreen={(data): Promise<void> => {
-                updateScreenData(data);
-                if (data.isAccountExist) {
-                    setIsAccountExist(true);
-                    setShowSuccessScreen(true);
+                try {
+                    updateScreenData(data);
+                    if (data.isAccountExist) {
+                        setIsAccountExist(true);
+                        setShowSuccessScreen(true);
+                    }
+                    if (currentScreen === totalScreens - 1) return finishRegistration(data);
+                    setCurrentScreen((i) => i + 1);
+                } catch (_error) {
+                    triggerError(_error as Error);
                 }
-                if (currentScreen === totalScreens - 1) return finishRegistration(data);
-                setCurrentScreen((i) => i + 1);
             }}
             previousScreen={(data): void => {
                 updateScreenData(data);

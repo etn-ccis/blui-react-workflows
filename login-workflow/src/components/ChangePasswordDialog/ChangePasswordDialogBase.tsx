@@ -142,7 +142,7 @@ export const ChangePasswordDialogBase: React.FC<ChangePasswordDialogProps> = (pr
                                     handleChange(e);
                                 }}
                                 onKeyUp={(e): void => {
-                                    const { current } = PasswordProps?.passwordRef;
+                                    const { current } = PasswordProps?.passwordRef as any;
                                     if (e.key === 'Enter' && current) {
                                         current.focus();
                                     }

@@ -126,7 +126,7 @@ export const ForgotPasswordScreen: React.FC<ForgotPasswordScreenProps> = (props)
             WorkflowCardActionsProps?.onNext?.();
         },
         onPrevious: (): void => {
-            navigate(routeConfig.LOGIN as string);
+            navigate(routeConfig.LOGIN );
             WorkflowCardActionsProps?.onPrevious?.();
         },
     };
@@ -178,7 +178,7 @@ export const ForgotPasswordScreen: React.FC<ForgotPasswordScreenProps> = (props)
                                 fullWidthButton: true,
                                 ...slotProps?.SuccessScreen?.WorkflowCardActionsProps,
                                 onNext: (): void => {
-                                    navigate(routeConfig.LOGIN as string);
+                                    navigate(routeConfig.LOGIN );
                                     if (slotProps?.SuccessScreen?.WorkflowCardActionsProps)
                                         slotProps?.SuccessScreen?.WorkflowCardActionsProps?.onNext?.();
                                 },
