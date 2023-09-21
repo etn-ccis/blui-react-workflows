@@ -120,7 +120,11 @@ export const RegistrationWorkflow: React.FC<React.PropsWithChildren<Registration
 
     const updateScreenData = (data: IndividualScreenData): void => {
         const { Other }: { [key: string]: any } = screenData;
-        const { screenId, values } = data;
+        const { screenId, values, isAccountExist: accountExists } = data;
+
+        setIsAccountExist(accountExists);
+        setShowSuccessScreen(accountExists);
+
         if (!Object.keys(screenData).includes(screenId)) {
             setScreenData((oldData) => ({
                 ...oldData,
