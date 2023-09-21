@@ -70,7 +70,7 @@ export const EulaScreenBase: React.FC<EulaScreenProps> = (props) => {
         <WorkflowCard {...cardBaseProps}>
             <WorkflowCardHeader {...headerProps} />
             {Object.keys(instructionsProps).length !== 0 && <WorkflowCardInstructions {...instructionsProps} />}
-            <WorkflowCardBody>
+            <WorkflowCardBody sx={{ pt: 2 }}>
                 {checkboxProps?.disabled ? (
                     <Box
                         sx={{
@@ -125,7 +125,7 @@ export const EulaScreenBase: React.FC<EulaScreenProps> = (props) => {
                     />
                 </ErrorManager>
             </WorkflowCardBody>
-            <WorkflowCardActions divider {...actionsProps} canGoNext={eulaAccepted && actionsProps.canGoNext} />
+            <WorkflowCardActions {...actionsProps} canGoNext={eulaAccepted && actionsProps.canGoNext} />
         </WorkflowCard>
     );
 };
