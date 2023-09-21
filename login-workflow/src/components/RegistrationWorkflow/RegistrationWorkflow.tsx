@@ -136,35 +136,34 @@ export const RegistrationWorkflow: React.FC<React.PropsWithChildren<Registration
     };
 
     const finishRegistration = async (data: IndividualScreenData): Promise<void> => {
-        try{
-        if (actions && actions.completeRegistration) {
-            const { Eula, CreateAccount, VerifyCode, CreatePassword, AccountDetails, Other } = screenData;
-            const userInfo = {
-                ...Eula,
-                ...CreateAccount,
-                ...VerifyCode,
-                ...CreatePassword,
-                ...AccountDetails,
-                ...Other,
-                ...data.values,
-            };
-            return await actions
-                .completeRegistration(userInfo)
-                .then(({ email, organizationName }) => {
-                    updateScreenData({
-                        screenId: 'RegistrationSuccessScreen',
-                        values: { email, organizationName },
+        try {
+            if (actions && actions.completeRegistration) {
+                const { Eula, CreateAccount, VerifyCode, CreatePassword, AccountDetails, Other } = screenData;
+                const userInfo = {
+                    ...Eula,
+                    ...CreateAccount,
+                    ...VerifyCode,
+                    ...CreatePassword,
+                    ...AccountDetails,
+                    ...Other,
+                    ...data.values,
+                };
+                return await actions
+                    .completeRegistration(userInfo)
+                    .then(({ email, organizationName }) => {
+                        updateScreenData({
+                            screenId: 'RegistrationSuccessScreen',
+                            values: { email, organizationName },
+                        });
+                        setShowSuccessScreen(true);
+                    })
+                    .catch((_error) => {
+                        triggerError(_error);
                     });
-                    setShowSuccessScreen(true);
-                })
-                .catch((_error) => {
-                    triggerError(_error);
-                });
+            }
+        } catch (err) {
+            console.error(err);
         }
-    }
-    catch(err) {
-        console.error(err);
-      }
     };
 
     useEffect(() => {

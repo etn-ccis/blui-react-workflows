@@ -1,12 +1,13 @@
 import React, { useCallback, useRef, useState, useEffect } from 'react';
 import CheckCircle from '@mui/icons-material/CheckCircle';
 import { ResetPasswordScreenBase } from './ResetPasswordScreenBase';
-import { useLanguageLocale } from '../../hooks';
+// import { useLanguageLocale } from '../../hooks';
 import { useAuthContext } from '../../contexts';
 import { defaultPasswordRequirements } from '../../constants';
 import { parseQueryString } from '../../utils';
 import { ResetPasswordScreenProps } from './types';
 import { useErrorManager } from '../../contexts/ErrorContext/useErrorManager';
+import { useTranslation } from 'react-i18next';
 
 /**
  * Component that renders a ResetPassword screen that allows a user to reset their password and shows a success message upon a successful password reset..
@@ -28,7 +29,7 @@ import { useErrorManager } from '../../contexts/ErrorContext/useErrorManager';
  */
 
 export const ResetPasswordScreen: React.FC<ResetPasswordScreenProps> = (props) => {
-    const { t } = useLanguageLocale();
+    const { t } = useTranslation();
     const passwordRef = useRef(null);
     const confirmRef = useRef(null);
     const [passwordInput, setPasswordInput] = useState('');

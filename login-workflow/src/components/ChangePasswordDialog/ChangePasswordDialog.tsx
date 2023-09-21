@@ -1,10 +1,11 @@
 import React, { useCallback, useRef, useState } from 'react';
 import { defaultPasswordRequirements } from '../../constants';
 import { useAuthContext } from '../../contexts';
-import { useLanguageLocale } from '../../hooks';
+// import { useLanguageLocale } from '../../hooks';
 import { ChangePasswordDialogBase } from './ChangePasswordDialogBase';
 import { ChangePasswordDialogProps } from './types';
 import CheckCircle from '@mui/icons-material/CheckCircle';
+import { useTranslation } from 'react-i18next';
 
 /**
  * Component that renders a dialog with textField to enter current password and a change password form with a new password and confirm password inputs.
@@ -31,7 +32,7 @@ import CheckCircle from '@mui/icons-material/CheckCircle';
  */
 
 export const ChangePasswordDialog: React.FC<ChangePasswordDialogProps> = (props) => {
-    const { t } = useLanguageLocale();
+    const { t } = useTranslation();
     const passwordRef = useRef(null);
     const confirmRef = useRef(null);
 

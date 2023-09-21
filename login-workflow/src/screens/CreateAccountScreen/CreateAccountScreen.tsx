@@ -1,10 +1,11 @@
 import React, { useCallback, useState } from 'react';
 import { CreateAccountScreenProps } from './types';
 import { CreateAccountScreenBase } from './CreateAccountScreenBase';
-import { useLanguageLocale } from '../../hooks';
+// import { useLanguageLocale } from '../../hooks';
 import { useRegistrationContext } from '../../contexts/RegistrationContext/context';
 import { useRegistrationWorkflowContext } from '../../contexts';
 import { useErrorManager } from '../../contexts/ErrorContext/useErrorManager';
+import { useTranslation } from 'react-i18next';
 
 /**
  * Component that renders a screen for the user to enter their email address to start the
@@ -26,7 +27,7 @@ import { useErrorManager } from '../../contexts/ErrorContext/useErrorManager';
 const EMAIL_REGEX = /^[A-Z0-9._%+'-]+@[A-Z0-9.-]+\.[A-Z]{2,}$/i;
 
 export const CreateAccountScreen: React.FC<CreateAccountScreenProps> = (props) => {
-    const { t } = useLanguageLocale();
+    const { t } = useTranslation();
     const { actions } = useRegistrationContext();
     const regWorkflow = useRegistrationWorkflowContext();
     const { nextScreen, previousScreen, screenData, totalScreens, currentScreen } = regWorkflow;

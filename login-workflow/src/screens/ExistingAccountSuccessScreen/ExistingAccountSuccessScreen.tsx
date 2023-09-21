@@ -1,8 +1,9 @@
 import React from 'react';
 import { Person } from '@mui/icons-material';
 import { useRegistrationContext } from '../../contexts';
-import { useLanguageLocale } from '../../hooks';
+// import { useLanguageLocale } from '../../hooks';
 import { SuccessScreenBase, SuccessScreenProps } from '../SuccessScreen';
+import { useTranslation } from 'react-i18next';
 
 /**
  * Full Screen component that renders a Success Screen for the accounts which are already exists in the records
@@ -18,7 +19,7 @@ import { SuccessScreenBase, SuccessScreenProps } from '../SuccessScreen';
  */
 
 export const ExistingAccountSuccessScreen: React.FC<SuccessScreenProps> = (props) => {
-    const { t } = useLanguageLocale();
+    const { t } = useTranslation();
     const { navigate, routeConfig } = useRegistrationContext();
 
     const {

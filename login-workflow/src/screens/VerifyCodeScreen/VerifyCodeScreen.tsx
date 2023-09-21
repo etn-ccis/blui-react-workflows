@@ -1,9 +1,10 @@
 import React, { useCallback, useState } from 'react';
 import { VerifyCodeScreenBase } from './VerifyCodeScreenBase';
 import { VerifyCodeScreenProps } from './types';
-import { useLanguageLocale } from '../../hooks';
+// import { useLanguageLocale } from '../../hooks';
 import { useRegistrationContext, useRegistrationWorkflowContext } from '../../contexts';
 import { useErrorManager } from '../../contexts/ErrorContext/useErrorManager';
+import { useTranslation } from 'react-i18next';
 
 /**
  * Component that renders a screen that prompts a user to enter the confirmation code
@@ -26,7 +27,7 @@ import { useErrorManager } from '../../contexts/ErrorContext/useErrorManager';
  */
 
 export const VerifyCodeScreen: React.FC<VerifyCodeScreenProps> = (props) => {
-    const { t } = useLanguageLocale();
+    const { t } = useTranslation();
     const regWorkflow = useRegistrationWorkflowContext();
     const { actions } = useRegistrationContext();
     const { nextScreen, previousScreen, screenData, currentScreen, totalScreens } = regWorkflow;

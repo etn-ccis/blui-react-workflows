@@ -39,7 +39,7 @@ export const App = (): JSX.Element => {
 
     const [isLoading, setIsLoading] = useState(true);
 
-    i18nAppInstance.addResourceBundle('en', 'bluiCommon', { ACTIONS:{ CREATE_ACCOUNT: 'Register now!' } }, true, true);
+    i18nAppInstance.addResourceBundle('en', 'bluiCommon', { ACTIONS: { CREATE_ACCOUNT: 'Register now!' } }, true, true);
 
     // handle initialization of auth data on first load
     useEffect(() => {

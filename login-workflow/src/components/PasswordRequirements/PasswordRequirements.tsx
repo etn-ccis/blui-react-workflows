@@ -2,8 +2,9 @@ import React from 'react';
 import { PasswordRequirementsCheck } from './PasswordRequirementsCheck';
 import Box, { BoxProps } from '@mui/material/Box';
 import { PasswordRequirement } from '../SetPassword';
-import { useLanguageLocale } from '../../hooks';
+// import { useLanguageLocale } from '../../hooks';
 import { defaultPasswordRequirements } from '../../constants';
+import { useTranslation } from 'react-i18next';
 
 export type PasswordRequirementsProps = BoxProps & {
     /**
@@ -26,7 +27,7 @@ export type PasswordRequirementsProps = BoxProps & {
  * @category Component
  */
 export const PasswordRequirements: React.FC<React.PropsWithChildren<PasswordRequirementsProps>> = (props) => {
-    const { t } = useLanguageLocale();
+    const { t } = useTranslation();
     const { passwordText, passwordRequirements = defaultPasswordRequirements(t), sx, ...otherProps } = props;
 
     return (

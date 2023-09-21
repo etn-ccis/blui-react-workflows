@@ -1,8 +1,9 @@
 import React, { useCallback } from 'react';
 import { BasicDialog } from '../Dialog/BasicDialog';
 import ErrorMessageBox from './ErrorMessageBox';
-import { useLanguageLocale } from '../../hooks';
+// import { useLanguageLocale } from '../../hooks';
 import { SxProps } from '@mui/material/styles';
+import { useTranslation } from 'react-i18next';
 
 export type AuthError = { cause: { title: string; errorMessage: string } };
 
@@ -62,7 +63,7 @@ export type ErrorManagerProps = {
  */
 
 const ErrorManager: React.FC<ErrorManagerProps> = (props): JSX.Element => {
-    const { t } = useLanguageLocale();
+    const { t } = useTranslation();
     const {
         children,
         mode = 'dialog',

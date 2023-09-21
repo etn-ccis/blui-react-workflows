@@ -1,9 +1,10 @@
 import React, { useEffect } from 'react';
 import { LoginScreenProps } from './types';
 import { LoginScreenBase } from './LoginScreenBase';
-import { useLanguageLocale } from '../../hooks';
+// import { useLanguageLocale } from '../../hooks';
 import { useAuthContext } from '../../contexts';
 import { useErrorManager } from '../../contexts/ErrorContext/useErrorManager';
+import { useTranslation } from 'react-i18next';
 
 const EMAIL_REGEX = /^[A-Z0-9._%+'-]+@[A-Z0-9.-]+\.[A-Z]{2,}$/i;
 
@@ -44,7 +45,7 @@ const EMAIL_REGEX = /^[A-Z0-9._%+'-]+@[A-Z0-9.-]+\.[A-Z]{2,}$/i;
  */
 
 export const LoginScreen: React.FC<React.PropsWithChildren<LoginScreenProps>> = (props) => {
-    const { t } = useLanguageLocale();
+    const { t } = useTranslation();
     const auth = useAuthContext();
     const { actions, navigate, routeConfig, rememberMeDetails } = auth;
     const { triggerError, errorManagerConfig } = useErrorManager();
