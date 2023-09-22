@@ -29,7 +29,7 @@ export const VerifyCodeScreen: React.FC<VerifyCodeScreenProps> = (props) => {
     const { t } = useLanguageLocale();
     const regWorkflow = useRegistrationWorkflowContext();
     const { actions } = useRegistrationContext();
-    const { nextScreen, previousScreen, screenData, currentScreen, totalScreens } = regWorkflow;
+    const { nextScreen, previousScreen, screenData, currentScreen, totalScreens, updateScreenData } = regWorkflow;
     const { emailAddress } = screenData.CreateAccount;
     const { triggerError, errorManagerConfig } = useErrorManager();
     const errorDisplayConfig = {
@@ -72,19 +72,34 @@ export const VerifyCodeScreen: React.FC<VerifyCodeScreenProps> = (props) => {
         async (code: string) => {
             try {
                 setIsLoading(true);
-                const isAccExist = await actions.validateUserRegistrationRequest(code);
-                void nextScreen({
-                    screenId: 'VerifyCode',
-                    values: { code: code },
-                    isAccountExist: isAccExist,
-                });
+                const { codeValid, accountExists } = await actions.validateUserRegistrationRequest(code);
+
+                if (accountExists) {
+                    updateScreenData({ screenId: 'VerifyCode', values: { code }, isAccountExist: accountExists });
+                } else {
+                    if (typeof codeValid === 'boolean') {
+                        if (codeValid)
+                            void nextScreen({
+                                screenId: 'VerifyCode',
+                                values: { code },
+                                isAccountExist: accountExists,
+                            });
+                        else {
+                            triggerError(
+                                new Error(t('bluiRegistration:SELF_REGISTRATION.VERIFY_EMAIL.CODE_VALIDATOR_ERROR'))
+                            );
+                        }
+                    } else {
+                        triggerError(new Error(codeValid));
+                    }
+                }
             } catch (_error) {
                 triggerError(_error as Error);
             } finally {
                 setIsLoading(false);
             }
         },
-        [actions, nextScreen, triggerError]
+        [t, actions, nextScreen, triggerError, updateScreenData]
     );
 
     const onPrevious = (code: string): void => {

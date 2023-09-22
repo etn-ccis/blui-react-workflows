@@ -12,6 +12,7 @@ import {
 import { parseQueryString } from '../../utils';
 import { useErrorManager } from '../../contexts/ErrorContext/useErrorManager';
 import ErrorManager, { ErrorManagerProps } from '../Error/ErrorManager';
+import { useLanguageLocale } from '../../hooks';
 
 /**
  * Component that contain the registration workflow and index of screens.
@@ -56,12 +57,16 @@ export type RegistrationWorkflowProps = {
 export const RegistrationWorkflow: React.FC<React.PropsWithChildren<RegistrationWorkflowProps>> = (props) => {
     const [isAccountExist, setIsAccountExist] = useState(false);
     const { triggerError, errorManagerConfig } = useErrorManager();
+    const { t } = useLanguageLocale();
+    const { actions, navigate } = useRegistrationContext();
+
     const errorDisplayConfig = {
         ...errorManagerConfig,
         ...props.errorDisplayConfig,
         onClose: (): void => {
             if (props.errorDisplayConfig && props.errorDisplayConfig.onClose) props.errorDisplayConfig.onClose();
             if (errorManagerConfig.onClose) errorManagerConfig?.onClose();
+            navigate(-1);
         },
     };
     const {
@@ -90,7 +95,6 @@ export const RegistrationWorkflow: React.FC<React.PropsWithChildren<Registration
         initialScreenIndex < 0 ? 0 : initialScreenIndex > totalScreens - 1 ? totalScreens - 1 : initialScreenIndex
     );
     const [showSuccessScreen, setShowSuccessScreen] = useState(false);
-    const { actions, navigate } = useRegistrationContext();
 
     const [screenData, setScreenData] = useState({
         Eula: {
@@ -116,7 +120,11 @@ export const RegistrationWorkflow: React.FC<React.PropsWithChildren<Registration
 
     const updateScreenData = (data: IndividualScreenData): void => {
         const { Other }: { [key: string]: any } = screenData;
-        const { screenId, values } = data;
+        const { screenId, values, isAccountExist: accountExists } = data;
+
+        setIsAccountExist(accountExists);
+        setShowSuccessScreen(accountExists);
+
         if (!Object.keys(screenData).includes(screenId)) {
             setScreenData((oldData) => ({
                 ...oldData,
@@ -169,7 +177,21 @@ export const RegistrationWorkflow: React.FC<React.PropsWithChildren<Registration
             let isAccExist;
             void (async (): Promise<void> => {
                 try {
-                    isAccExist = await actions.validateUserRegistrationRequest(params.code, params.email);
+                    const { codeValid, accountExists } = await actions.validateUserRegistrationRequest(
+                        params.code,
+                        params.email
+                    );
+                    isAccExist = accountExists;
+
+                    if (!isAccExist) {
+                        if (typeof codeValid === 'string') {
+                            triggerError(new Error(codeValid));
+                        } else if (typeof codeValid === 'boolean' && !codeValid) {
+                            triggerError(
+                                new Error(t('bluiRegistration:SELF_REGISTRATION.VERIFY_EMAIL.CODE_VALIDATOR_ERROR'))
+                            );
+                        }
+                    }
                 } catch (_error) {
                     triggerError(_error as Error);
                 } finally {
