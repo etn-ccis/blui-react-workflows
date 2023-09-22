@@ -80,7 +80,7 @@ export const ExampleHome: React.FC<React.PropsWithChildren> = () => {
         <>
             <DrawerLayout
                 drawer={
-                    <Drawer open={true} width={332} variant={'persistent'}>
+                    <Drawer open={open} width={332} variant={'persistent'}>
                         <DrawerHeader
                             title={`${t('DRAWER_MENU.TITLE')}`}
                             icon={<Menu />}
@@ -106,7 +106,7 @@ export const ExampleHome: React.FC<React.PropsWithChildren> = () => {
                 <Box>
                     <AppBar color="primary">
                         <Toolbar sx={{ px: 2, minHeight: 'unset', height: '4rem' }}>
-                            <Typography variant="h6">{`${t('TOOLBAR_MENU.HOME_PAGE')}`}</Typography>
+                            <Typography variant="h6" sx={{ pl: '40px' }}>{`${t('TOOLBAR_MENU.HOME_PAGE')}`}</Typography>
                             <Spacer />
                             <Box sx={{ py: 2 }}>
                                 <FormControl fullWidth>
@@ -116,7 +116,6 @@ export const ExampleHome: React.FC<React.PropsWithChildren> = () => {
                                         variant={'standard'}
                                         sx={{
                                             padding: '4px',
-                                            minWidth: '160px',
                                             margin: '16px',
                                             backgroundColor: 'transparent',
                                             color: Colors.white[50],
