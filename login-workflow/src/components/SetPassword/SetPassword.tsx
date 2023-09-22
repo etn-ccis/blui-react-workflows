@@ -44,8 +44,10 @@ export const SetPassword: React.FC<React.PropsWithChildren<SetPasswordProps>> = 
     // Local State
     const [passwordInput, setPasswordInput] = useState(initialNewPasswordValue);
     const [confirmInput, setConfirmInput] = useState(initialConfirmPasswordValue);
-    const [shouldValidateConfirmPassword, setShouldValidateConfirmPassword] = useState(false);
-    const [shouldValidatePassword, setShouldValidatePassword] = useState(false);
+    const [shouldValidateConfirmPassword, setShouldValidateConfirmPassword] = useState(
+        initialConfirmPasswordValue ? true : false
+    );
+    const [shouldValidatePassword, setShouldValidatePassword] = useState(initialNewPasswordValue ? true : false);
 
     const onPassChange = useCallback(
         (newPassword: any) => {
