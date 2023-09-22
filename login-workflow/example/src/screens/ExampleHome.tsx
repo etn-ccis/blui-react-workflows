@@ -104,19 +104,18 @@ export const ExampleHome: React.FC<React.PropsWithChildren> = () => {
                 }
             >
                 <Box>
-                    <AppBar color="primary">
-                        <Toolbar sx={{ px: 2, minHeight: 'unset', height: '4rem' }}>
-                            <Typography variant="h6" sx={{ pl: '40px' }}>{`${t('TOOLBAR_MENU.HOME_PAGE')}`}</Typography>
+                    <AppBar position={'sticky'} color="primary">
+                        <Toolbar sx={{ px: 2 }}>
+                            <Typography variant="h6">{`${t('TOOLBAR_MENU.HOME_PAGE')}`}</Typography>
                             <Spacer />
-                            <Box sx={{ py: 2 }}>
+                            <Box>
                                 <FormControl fullWidth>
                                     <Select
                                         value={supportedLanguages.includes(app.language) ? app.language : 'en'}
                                         onChange={changeAppLanguage}
                                         variant={'standard'}
                                         sx={{
-                                            padding: '4px',
-                                            margin: '16px',
+                                            mr: 2,
                                             backgroundColor: 'transparent',
                                             color: Colors.white[50],
                                             '& .MuiSelect-icon': {
