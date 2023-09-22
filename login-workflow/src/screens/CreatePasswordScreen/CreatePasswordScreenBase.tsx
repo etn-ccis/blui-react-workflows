@@ -11,8 +11,7 @@ import { SetPassword } from '../../components/SetPassword';
 import ErrorManager from '../../components/Error/ErrorManager';
 
 /**
- * Component renders a screen with account details information for support with the application.
- * Contact information is pulled from the context passed into the workflow.
+ * The component renders a screen with the password and confirm password field for creating a new password.
  *
  * @param errorDisplayConfig configuration for customizing how errors are displayed
  * @param PasswordProps props passed from SetPassword component

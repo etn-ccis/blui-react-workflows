@@ -37,7 +37,10 @@ export type RegistrationUIActions = {
      * @param {string} validationEmail - the provided email address
      * @returns Promise<boolean>
      */
-    validateUserRegistrationRequest?: (validationCode: string, validationEmail?: string) => Promise<boolean>;
+    validateUserRegistrationRequest?: (
+        validationCode: string,
+        validationEmail?: string
+    ) => Promise<{ codeValid: boolean | string; accountExists?: boolean }>;
 
     /**
      * A function that is used to create a password. This function will be called when the user clicks the Next button on the Create Password screen
