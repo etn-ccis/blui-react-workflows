@@ -2,7 +2,6 @@ import React from 'react';
 import { ChatBubbleOutline } from '@mui/icons-material';
 import { ContactSupportScreenBase } from './ContactSupportScreenBase';
 import { ContactSupportScreenProps } from './types';
-// import { useLanguageLocale } from '../../hooks';
 import { useAuthContext } from '../../contexts';
 import { useTranslation } from 'react-i18next';
 

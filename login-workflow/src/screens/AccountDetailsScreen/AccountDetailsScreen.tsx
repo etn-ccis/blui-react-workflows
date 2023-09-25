@@ -1,6 +1,5 @@
 import React, { useCallback, useState } from 'react';
 import { AccountDetailsScreenBase, AccountDetailsScreenProps } from '../AccountDetailsScreen';
-// import { useLanguageLocale } from '../../hooks';
 import { useRegistrationContext, useRegistrationWorkflowContext } from '../../contexts';
 import { useErrorManager } from '../../contexts/ErrorContext/useErrorManager';
 import { useTranslation } from 'react-i18next';

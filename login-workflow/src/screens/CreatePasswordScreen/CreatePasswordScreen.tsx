@@ -1,6 +1,5 @@
 import React, { useCallback, useRef, useState } from 'react';
 import { CreatePasswordScreenBase } from './CreatePasswordScreenBase';
-// import { useLanguageLocale } from '../../hooks';
 import { defaultPasswordRequirements } from '../../constants';
 import { CreatePasswordScreenProps } from './types';
 import { useRegistrationContext, useRegistrationWorkflowContext } from '../../contexts';

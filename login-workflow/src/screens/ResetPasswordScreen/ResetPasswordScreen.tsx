@@ -1,7 +1,6 @@
 import React, { useCallback, useRef, useState, useEffect } from 'react';
 import CheckCircle from '@mui/icons-material/CheckCircle';
 import { ResetPasswordScreenBase } from './ResetPasswordScreenBase';
-// import { useLanguageLocale } from '../../hooks';
 import { useAuthContext } from '../../contexts';
 import { defaultPasswordRequirements } from '../../constants';
 import { parseQueryString } from '../../utils';

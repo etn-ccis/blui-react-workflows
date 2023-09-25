@@ -1,7 +1,6 @@
 import React, { useEffect } from 'react';
 import { LoginScreenProps } from './types';
 import { LoginScreenBase } from './LoginScreenBase';
-// import { useLanguageLocale } from '../../hooks';
 import { useAuthContext } from '../../contexts';
 import { useErrorManager } from '../../contexts/ErrorContext/useErrorManager';
 import { useTranslation } from 'react-i18next';

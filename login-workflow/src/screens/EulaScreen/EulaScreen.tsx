@@ -1,7 +1,6 @@
 import React, { useCallback, useEffect, useState } from 'react';
 import { EulaScreenProps } from './types';
 import { EulaScreenBase } from './EulaScreenBase';
-// import { useLanguageLocale } from '../../hooks';
 import { useRegistrationContext, useRegistrationWorkflowContext } from '../../contexts';
 import { useErrorManager } from '../../contexts/ErrorContext/useErrorManager';
 import { useTranslation } from 'react-i18next';

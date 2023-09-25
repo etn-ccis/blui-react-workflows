@@ -2,7 +2,6 @@ import React, { useCallback, useState } from 'react';
 import { Trans, useTranslation } from 'react-i18next';
 import Box from '@mui/material/Box';
 import { useAuthContext } from '../../contexts';
-// import { useLanguageLocale } from '../../hooks';
 import { ForgotPasswordScreenBase } from './ForgotPasswordScreenBase';
 import { ForgotPasswordScreenProps } from './types';
 import Typography from '@mui/material/Typography';

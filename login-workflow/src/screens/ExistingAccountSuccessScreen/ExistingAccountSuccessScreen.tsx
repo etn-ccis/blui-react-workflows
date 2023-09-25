@@ -1,7 +1,6 @@
 import React from 'react';
 import { Person } from '@mui/icons-material';
 import { useRegistrationContext } from '../../contexts';
-// import { useLanguageLocale } from '../../hooks';
 import { SuccessScreenBase, SuccessScreenProps } from '../SuccessScreen';
 import { useTranslation } from 'react-i18next';
 

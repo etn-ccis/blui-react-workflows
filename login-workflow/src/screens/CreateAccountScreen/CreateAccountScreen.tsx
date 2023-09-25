@@ -1,7 +1,6 @@
 import React, { useCallback, useState } from 'react';
 import { CreateAccountScreenProps } from './types';
 import { CreateAccountScreenBase } from './CreateAccountScreenBase';
-// import { useLanguageLocale } from '../../hooks';
 import { useRegistrationContext } from '../../contexts/RegistrationContext/context';
 import { useRegistrationWorkflowContext } from '../../contexts';
 import { useErrorManager } from '../../contexts/ErrorContext/useErrorManager';
