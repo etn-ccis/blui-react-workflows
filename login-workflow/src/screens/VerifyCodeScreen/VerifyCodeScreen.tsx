@@ -73,25 +73,27 @@ export const VerifyCodeScreen: React.FC<VerifyCodeScreenProps> = (props) => {
         async (code: string) => {
             try {
                 setIsLoading(true);
-                const { codeValid, accountExists } = await actions.validateUserRegistrationRequest(code);
+                if (actions?.validateUserRegistrationRequest) {
+                    const { codeValid, accountExists } = await actions?.validateUserRegistrationRequest(code);
 
-                if (accountExists) {
-                    updateScreenData({ screenId: 'VerifyCode', values: { code }, isAccountExist: accountExists });
-                } else {
-                    if (typeof codeValid === 'boolean') {
-                        if (codeValid)
-                            void nextScreen({
-                                screenId: 'VerifyCode',
-                                values: { code },
-                                isAccountExist: accountExists,
-                            });
-                        else {
-                            triggerError(
-                                new Error(t('bluiRegistration:SELF_REGISTRATION.VERIFY_EMAIL.CODE_VALIDATOR_ERROR'))
-                            );
-                        }
+                    if (accountExists) {
+                        updateScreenData({ screenId: 'VerifyCode', values: { code }, isAccountExist: accountExists });
                     } else {
-                        triggerError(new Error(codeValid));
+                        if (typeof codeValid === 'boolean') {
+                            if (codeValid)
+                                void nextScreen({
+                                    screenId: 'VerifyCode',
+                                    values: { code },
+                                    isAccountExist: accountExists,
+                                });
+                            else {
+                                triggerError(
+                                    new Error(t('bluiRegistration:SELF_REGISTRATION.VERIFY_EMAIL.CODE_VALIDATOR_ERROR'))
+                                );
+                            }
+                        } else {
+                            triggerError(new Error(codeValid));
+                        }
                     }
                 }
             } catch (_error) {

@@ -44,7 +44,7 @@ export const CreateAccountScreenBase: React.FC<
     const actionsProps = props.WorkflowCardActionsProps || {};
 
     const [emailInput, setEmailInput] = React.useState(initialValue ? initialValue : '');
-    const [isEmailValid, setIsEmailValid] = React.useState(emailValidator(initialValue) ?? false);
+    const [isEmailValid, setIsEmailValid] = React.useState(emailValidator(initialValue!) ?? false);
     const [emailError, setEmailError] = React.useState('');
     const [shouldValidateEmail, setShouldValidateEmail] = React.useState(false);
 

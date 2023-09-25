@@ -40,9 +40,9 @@ export const ResetPasswordScreenBase: React.FC<React.PropsWithChildren<ResetPass
     const { showSuccessScreen, slots, slotProps, errorDisplayConfig } = props;
 
     const getSuccessScreen = (
-        _props: SuccessScreenProps,
+        _props?: SuccessScreenProps,
         SuccessScreen?: (props: SuccessScreenProps) => JSX.Element
-    ): JSX.Element => (SuccessScreen ? SuccessScreen(_props) : <SuccessScreenBase {..._props} />);
+    ): JSX.Element => (SuccessScreen ? SuccessScreen(_props!) : <SuccessScreenBase {..._props} />);
 
     return showSuccessScreen ? (
         getSuccessScreen(slotProps?.SuccessScreen, slots?.SuccessScreen)

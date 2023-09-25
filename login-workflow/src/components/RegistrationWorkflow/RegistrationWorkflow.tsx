@@ -122,8 +122,10 @@ export const RegistrationWorkflow: React.FC<React.PropsWithChildren<Registration
         const { Other }: { [key: string]: any } = screenData;
         const { screenId, values, isAccountExist: accountExists } = data;
 
-        setIsAccountExist(accountExists);
-        setShowSuccessScreen(accountExists);
+        if (accountExists) {
+            setIsAccountExist(accountExists);
+            setShowSuccessScreen(accountExists);
+        }
 
         if (!Object.keys(screenData).includes(screenId)) {
             setScreenData((oldData) => ({
@@ -181,26 +183,30 @@ export const RegistrationWorkflow: React.FC<React.PropsWithChildren<Registration
             let isAccExist;
             void (async (): Promise<void> => {
                 try {
-                    const { codeValid, accountExists } = await actions.validateUserRegistrationRequest(
-                        params.code,
-                        params.email
-                    );
-                    isAccExist = accountExists;
+                    if (actions?.validateUserRegistrationRequest) {
+                        const { codeValid, accountExists } = await actions?.validateUserRegistrationRequest(
+                            params.code,
+                            params.email
+                        );
+                        isAccExist = accountExists;
 
-                    if (!isAccExist) {
-                        if (typeof codeValid === 'string') {
-                            triggerError(new Error(codeValid));
-                        } else if (typeof codeValid === 'boolean' && !codeValid) {
-                            triggerError(
-                                new Error(t('bluiRegistration:SELF_REGISTRATION.VERIFY_EMAIL.CODE_VALIDATOR_ERROR'))
-                            );
+                        if (!isAccExist) {
+                            if (typeof codeValid === 'string') {
+                                triggerError(new Error(codeValid));
+                            } else if (typeof codeValid === 'boolean' && !codeValid) {
+                                triggerError(
+                                    new Error(t('bluiRegistration:SELF_REGISTRATION.VERIFY_EMAIL.CODE_VALIDATOR_ERROR'))
+                                );
+                            }
                         }
                     }
                 } catch (_error) {
                     triggerError(_error as Error);
                 } finally {
-                    setIsAccountExist(isAccExist);
-                    setShowSuccessScreen(isAccExist);
+                    if (isAccExist) {
+                        setIsAccountExist(isAccExist);
+                        setShowSuccessScreen(isAccExist);
+                    }
                 }
             })();
 
@@ -214,7 +220,7 @@ export const RegistrationWorkflow: React.FC<React.PropsWithChildren<Registration
         <RegistrationWorkflowContextProvider
             currentScreen={currentScreen}
             totalScreens={totalScreens}
-            nextScreen={(data): Promise<void> => {
+            nextScreen={(data): Promise<void> | undefined => {
                 try {
                     updateScreenData(data);
                     if (data.isAccountExist) {

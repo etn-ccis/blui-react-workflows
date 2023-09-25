@@ -118,7 +118,7 @@ export const LoginScreenBase: React.FC<React.PropsWithChildren<LoginScreenProps>
 
     const [username, setUsername] = React.useState<string>(initialUsernameValue || '');
     const [password, setPassword] = React.useState<string>('');
-    const [rememberMe, setRememberMe] = React.useState<boolean>(rememberMeInitialValue);
+    const [rememberMe, setRememberMe] = React.useState<boolean | undefined>(rememberMeInitialValue);
 
     const [shouldValidateUsername, setShouldValidateUsername] = React.useState<boolean>(false);
     const [shouldValidatePassword, setShouldValidatePassword] = React.useState<boolean>(false);

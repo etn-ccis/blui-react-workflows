@@ -101,7 +101,7 @@ export const ContactSupportScreenBase: React.FC<ContactSupportScreenProps> = (pr
                         {' '}
                         {typeof emailSupportContent === 'string'
                             ? emailSupportContent
-                            : emailSupportContent(contactEmail)}
+                            : emailSupportContent(contactEmail!)}
                     </Typography>
                 )}
                 {!emailSupportContent && (
@@ -142,7 +142,7 @@ export const ContactSupportScreenBase: React.FC<ContactSupportScreenProps> = (pr
                         {' '}
                         {typeof phoneSupportContent === 'string'
                             ? phoneSupportContent
-                            : phoneSupportContent(contactPhone)}
+                            : phoneSupportContent(contactPhone!)}
                     </Typography>
                 )}
                 {!phoneSupportContent && (

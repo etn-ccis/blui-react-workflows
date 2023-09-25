@@ -39,7 +39,7 @@ export const RegistrationContextProvider: React.FC<React.PropsWithChildren<Regis
     return (
         <I18nextProvider i18n={i18n}>
             <RegistrationContext.Provider value={registrationContextProps}>
-                <ErrorContext.Provider value={errorConfig}>{children}</ErrorContext.Provider>
+                <ErrorContext.Provider value={errorConfig!}>{children}</ErrorContext.Provider>
             </RegistrationContext.Provider>
         </I18nextProvider>
     );

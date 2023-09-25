@@ -91,7 +91,7 @@ export const CreatePasswordScreen: React.FC<CreatePasswordScreenProps> = (props)
         [setPasswordInput, setConfirmInput]
     );
 
-    const areValidMatchingPasswords = useCallback((): boolean => {
+    const areValidMatchingPasswords = useCallback((): boolean | undefined => {
         if (PasswordProps?.passwordRequirements?.length === 0) {
             return confirmInput === passwordInput;
         }
