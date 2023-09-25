@@ -8,8 +8,7 @@ import { useErrorManager } from '../../contexts/ErrorContext/useErrorManager';
 import { useTranslation } from 'react-i18next';
 
 /**
- * Component renders a screen with account details information for support with the application.
- * Contact information is pulled from the context passed into the workflow.
+ * The component renders a screen with the password and confirm password field for creating a new password.
  *
  * @param errorDisplayConfig configuration for customizing how errors are displayed
  * @param PasswordProps props passed from SetPassword component
@@ -34,10 +33,23 @@ export const CreatePasswordScreen: React.FC<CreatePasswordScreenProps> = (props)
         currentScreen,
         totalScreens,
     } = regWorkflow;
+
+    const {
+        WorkflowCardBaseProps,
+        WorkflowCardHeaderProps,
+        WorkflowCardInstructionProps,
+        WorkflowCardActionsProps,
+        PasswordProps,
+    } = props;
+
     const passwordRef = useRef(null);
     const confirmRef = useRef(null);
-    const [passwordInput, setPasswordInput] = useState(password ?? '');
-    const [confirmInput, setConfirmInput] = useState(confirmPassword ?? '');
+    const [passwordInput, setPasswordInput] = useState(
+        password !== '' ? password : PasswordProps?.initialNewPasswordValue ?? ''
+    );
+    const [confirmInput, setConfirmInput] = useState(
+        confirmPassword !== '' ? confirmPassword : PasswordProps?.initialConfirmPasswordValue ?? ''
+    );
     const [isLoading, setIsLoading] = useState(false);
     const passwordRequirements = defaultPasswordRequirements(t);
     const { triggerError, errorManagerConfig } = useErrorManager();
@@ -81,19 +93,36 @@ export const CreatePasswordScreen: React.FC<CreatePasswordScreenProps> = (props)
     );
 
     const areValidMatchingPasswords = useCallback((): boolean => {
+        if (PasswordProps?.passwordRequirements?.length === 0) {
+            return confirmInput === passwordInput;
+        }
         for (let i = 0; i < passwordRequirements.length; i++) {
             if (!new RegExp(passwordRequirements[i].regex).test(passwordInput)) return false;
         }
-        return confirmInput === passwordInput;
-    }, [passwordRequirements, passwordInput, confirmInput]);
+    }, [PasswordProps?.passwordRequirements?.length, passwordRequirements, passwordInput, confirmInput]);
 
-    const {
-        WorkflowCardBaseProps,
-        WorkflowCardHeaderProps,
-        WorkflowCardInstructionProps,
-        WorkflowCardActionsProps,
-        PasswordProps,
-    } = props;
+    const passwordProps = {
+        newPasswordLabel: t('bluiCommon:FORMS.PASSWORD'),
+        confirmPasswordLabel: t('bluiCommon:FORMS.CONFIRM_PASSWORD'),
+        passwordNotMatchError: t('bluiCommon:FORMS.PASS_MATCH_ERROR'),
+        passwordRequirements: PasswordProps?.passwordRequirements ?? passwordRequirements,
+        passwordRef,
+        confirmRef,
+        ...PasswordProps,
+        initialNewPasswordValue: passwordInput,
+        initialConfirmPasswordValue: confirmInput,
+        onPasswordChange: (passwordData: { password: string; confirm: string }): void => {
+            updateFields(passwordData);
+            PasswordProps?.onPasswordChange?.(passwordData);
+        },
+        onSubmit: (): void => {
+            if (areValidMatchingPasswords()) {
+                void onNext();
+                WorkflowCardActionsProps?.onNext?.();
+                PasswordProps?.onSubmit?.();
+            }
+        },
+    };
 
     const workflowCardBaseProps = {
         loading: isLoading,
@@ -113,7 +142,7 @@ export const CreatePasswordScreen: React.FC<CreatePasswordScreenProps> = (props)
     const workflowCardActionsProps = {
         showNext: true,
         nextLabel: t('bluiCommon:ACTIONS.NEXT'),
-        canGoNext: passwordInput !== '' && confirmInput !== '' && passwordInput === confirmInput,
+        canGoNext: passwordInput !== '' && confirmInput !== '' && areValidMatchingPasswords(),
         showPrevious: true,
         previousLabel: t('bluiCommon:ACTIONS.BACK'),
         canGoPrevious: true,
@@ -127,29 +156,6 @@ export const CreatePasswordScreen: React.FC<CreatePasswordScreenProps> = (props)
         onPrevious: (): void => {
             void onPrevious();
             WorkflowCardActionsProps?.onPrevious?.();
-        },
-    };
-
-    const passwordProps = {
-        initialNewPasswordValue: passwordInput,
-        initialConfirmPasswordValue: confirmInput,
-        newPasswordLabel: t('bluiCommon:FORMS.PASSWORD'),
-        confirmPasswordLabel: t('bluiCommon:FORMS.CONFIRM_PASSWORD'),
-        passwordNotMatchError: t('bluiCommon:FORMS.PASS_MATCH_ERROR'),
-        passwordRequirements: passwordRequirements,
-        passwordRef,
-        confirmRef,
-        ...PasswordProps,
-        onPasswordChange: (passwordData: { password: string; confirm: string }): void => {
-            updateFields(passwordData);
-            PasswordProps?.onPasswordChange?.(passwordData);
-        },
-        onSubmit: (): void => {
-            if (areValidMatchingPasswords()) {
-                void onNext();
-                WorkflowCardActionsProps?.onNext?.();
-                PasswordProps?.onSubmit?.();
-            }
         },
     };
 
