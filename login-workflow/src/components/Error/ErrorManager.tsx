@@ -74,19 +74,18 @@ const ErrorManager: React.FC<ErrorManagerProps> = (props): JSX.Element => {
         },
     } = props;
 
-    const ErrorDialogWithProps = useCallback((): JSX.Element => {
-        const { title = t('bluiCommon:MESSAGES.ERROR'), dismissLabel } = dialogConfig;
-
-        return (
+    const ErrorDialogWithProps = useCallback(
+        (): JSX.Element => (
             <BasicDialog
                 open={error.length > 0}
-                title={title}
+                title={dialogConfig?.title ?? t('bluiCommon:MESSAGES.ERROR')}
                 body={error}
                 onClose={onClose}
-                dismissButtonText={dismissLabel}
+                dismissButtonText={dialogConfig?.dismissLabel}
             />
-        );
-    }, [dialogConfig, error, onClose, t]);
+        ),
+        [dialogConfig, error, onClose, t]
+    );
 
     const ErrorMessageBoxWithProps = useCallback((): JSX.Element => {
         const { dismissible = true, fontColor, backgroundColor, sx } = messageBoxConfig;

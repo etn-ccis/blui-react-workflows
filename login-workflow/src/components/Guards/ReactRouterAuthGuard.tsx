@@ -19,12 +19,12 @@ type ReactRouterAuthGuardProps = {
  */
 
 export const ReactRouterAuthGuard = (props: ReactRouterAuthGuardProps): JSX.Element | null => {
-    const { children, fallBackUrl, isAuthenticated } = props;
+    const { children = null, fallBackUrl, isAuthenticated } = props;
     const location = useLocation();
 
     if (!isAuthenticated) {
         return <Navigate to={fallBackUrl} replace state={{ from: location }} />;
     }
 
-    return children ;
+    return children;
 };

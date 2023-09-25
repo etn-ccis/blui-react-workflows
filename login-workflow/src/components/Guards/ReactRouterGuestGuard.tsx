@@ -20,12 +20,12 @@ type ReactRouterGuestProps = {
  */
 
 export const ReactRouterGuestGuard = (props: ReactRouterGuestProps): JSX.Element | null => {
-    const { children, isAuthenticated, fallBackUrl } = props;
+    const { children = null, isAuthenticated, fallBackUrl } = props;
     const location = useLocation();
     if (isAuthenticated) {
         const redirectedURL = location.state?.from ?? fallBackUrl;
         return <Navigate to={redirectedURL} replace />;
     }
 
-    return children ;
+    return children;
 };
