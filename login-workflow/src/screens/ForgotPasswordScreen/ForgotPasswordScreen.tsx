@@ -94,7 +94,7 @@ export const ForgotPasswordScreen: React.FC<ForgotPasswordScreenProps> = (props)
             <Typography sx={{ px: { md: 3, xs: 2 }, pt: 2 }}>
                 <Trans
                     i18nKey={'bluiAuth:FORGOT_PASSWORD.INSTRUCTIONS_ALT'}
-                    values={{ phone: contactPhone, responseTime }}
+                    values={{ phone: contactPhone, time: responseTime }}
                 >
                     Please enter your email, we will respond in <b>{responseTime}</b>. For urgent issues please call{' '}
                     <Typography component="a" href={`tel:${contactPhone}`} sx={LinkStyles}>

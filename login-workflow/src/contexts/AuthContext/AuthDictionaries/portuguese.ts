@@ -6,11 +6,11 @@ const resources: AuthLanguageFile = {
             ERROR: 'De momento, não foi possível redefinir a sua palavra-passe.',
             INSTRUCTIONS:
                 'Por favor, insira o e-mail associado com a conta.\n\n' +
-                'Se este e-mail tem uma conta com a Eaton, irá receber uma resposta dentro de <1>um dia útil</1>.\n\n' +
+                'Se este e-mail tem uma conta com a Eaton, irá receber uma resposta dentro de <1>{{time}}</1>.\n\n' +
                 'Para assuntos urgentes relacionados com a sua conta, por favor contacte <4>{{phone}}</4>.',
             INSTRUCTIONS_ALT:
                 'Por favor, insira o e-mail associado com a conta.<br/><br/>' +
-                'Se este e-mail tem uma conta com a Eaton, irá receber uma resposta dentro de <1>um dia útil</1>.\n\n' +
+                'Se este e-mail tem uma conta com a Eaton, irá receber uma resposta dentro de <1>{{time}}</1>.\n\n' +
                 'Para assuntos urgentes relacionados com a sua conta, por favor contacte <4>{{phone}}</4>.',
             RESET_CODE_ERROR: 'Houve um problema com o código de redefinição.',
             LINK_SENT: 'Um link para redefinir a palavra-passe foi enviado para <b>{{email}}</b>.',
