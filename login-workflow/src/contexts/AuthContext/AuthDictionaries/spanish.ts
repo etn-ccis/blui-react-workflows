@@ -6,11 +6,11 @@ const resources: AuthLanguageFile = {
             ERROR: 'No se pudo restablecer su contraseña en este momento.',
             INSTRUCTIONS:
                 'Por favor ingrese el correo electrónico de la cuenta asociado con la cuenta.\n\n' +
-                'Si este correo electrónico tiene una cuenta con Eaton, recibirá una respuesta dentro de <b> un día hábil </b>.\n\n' +
+                'Si este correo electrónico tiene una cuenta con Eaton, recibirá una respuesta dentro de <b> {{time}} </b>.\n\n' +
                 'Para problemas urgentes con la cuenta, llame al {{phone}}.',
             INSTRUCTIONS_ALT:
                 'Por favor ingrese el correo electrónico de la cuenta asociado con la cuenta. <br/> <br/>' +
-                'Si este correo electrónico tiene una cuenta con Eaton, recibirá una respuesta dentro de <1> un día hábil </1>. <br/> <br/>' +
+                'Si este correo electrónico tiene una cuenta con Eaton, recibirá una respuesta dentro de <1> {{time}} </1>. <br/> <br/>' +
                 'Para problemas urgentes con la cuenta, llame al <4> {{phone}} </4>.',
             RESET_CODE_ERROR: 'Hubo un error con su código de reinicio. ',
             LINK_SENT: 'Se envió un vínculo para restablecer su contraseña a <b> {{email}} </b>.',
