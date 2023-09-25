@@ -125,7 +125,7 @@ export const ForgotPasswordScreen: React.FC<ForgotPasswordScreenProps> = (props)
             WorkflowCardActionsProps?.onNext?.();
         },
         onPrevious: (): void => {
-            navigate(routeConfig.LOGIN );
+            navigate(routeConfig.LOGIN as string);
             WorkflowCardActionsProps?.onPrevious?.();
         },
     };

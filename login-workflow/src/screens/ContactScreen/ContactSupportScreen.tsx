@@ -57,7 +57,7 @@ export const ContactSupportScreen: React.FC<ContactSupportScreenProps> = (props)
         fullWidthButton: true,
         ...WorkflowCardActionsProps,
         onNext: (): void => {
-            navigate(routeConfig.LOGIN );
+            navigate(routeConfig.LOGIN as string);
             WorkflowCardActionsProps?.onNext?.();
         },
     };

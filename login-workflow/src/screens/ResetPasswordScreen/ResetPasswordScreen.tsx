@@ -125,7 +125,7 @@ export const ResetPasswordScreen: React.FC<ResetPasswordScreenProps> = (props) =
             WorkflowCardActionsProps?.onNext?.();
         },
         onPrevious: (): void => {
-            navigate(routeConfig.LOGIN );
+            navigate(routeConfig.LOGIN as string);
             WorkflowCardActionsProps?.onPrevious?.();
         },
     };
