@@ -3,6 +3,8 @@ import { ChangePasswordDialog } from '@brightlayer-ui/react-auth-workflow';
 import { useApp } from '../contexts/AppContextProvider';
 import { LocalStorage } from '../store/local-storage';
 import { useNavigate } from 'react-router-dom';
+import { Box } from '@mui/material';
+import { Alarm } from '@mui/icons-material';
 
 export const ChangePassword = (): JSX.Element => {
     const app = useApp();
@@ -20,6 +22,21 @@ export const ChangePassword = (): JSX.Element => {
             onPrevious={(): void => app.setShowChangePasswordDialog(false)}
             onSubmit={(): void => app.setShowChangePasswordDialog(false)}
             onFinish={(): void => logOut()}
+            slots={{
+                SuccessScreen: (props): JSX.Element => (
+                    <Box>
+                        {props?.icon}
+                        {props?.messageTitle}
+                    </Box>
+                ),
+            }}
+            slotProps={{
+                SuccessScreen: {
+                    icon: <Alarm />,
+                    messageTitle: 'Yeah',
+                    message: 'ee',
+                },
+            }}
         />
     );
 };

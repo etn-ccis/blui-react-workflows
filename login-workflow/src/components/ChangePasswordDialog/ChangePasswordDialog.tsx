@@ -48,6 +48,8 @@ export const ChangePasswordDialog: React.FC<ChangePasswordDialogProps> = (props)
         ErrorDialogProps,
         loading,
         currentPasswordTextFieldProps,
+        slots = {},
+        slotProps = {},
     } = props;
 
     const [currentInput, setCurrentInput] = useState('');
@@ -147,6 +149,7 @@ export const ChangePasswordDialog: React.FC<ChangePasswordDialogProps> = (props)
             onSubmit={async (): Promise<void> => {
                 await changePasswordSubmit();
             }}
+            slots={slots}
             slotProps={{
                 SuccessScreen: {
                     icon: <CheckCircle color="primary" sx={{ fontSize: 100 }} />,
@@ -164,6 +167,7 @@ export const ChangePasswordDialog: React.FC<ChangePasswordDialogProps> = (props)
                             onFinish();
                         },
                     },
+                    ...slotProps.SuccessScreen,
                 },
             }}
             showSuccessScreen={showSuccessScreen}
