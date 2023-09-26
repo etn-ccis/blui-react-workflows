@@ -40,8 +40,8 @@ export const ResetPasswordScreen: React.FC<ResetPasswordScreenProps> = (props) =
         WorkflowCardActionsProps,
         PasswordProps,
         errorDisplayConfig = errorManagerConfig,
-        slotProps = { SuccessScreen: {} },
         slots,
+        slotProps,
     } = props;
 
     const [passwordInput, setPasswordInput] = useState(PasswordProps?.initialNewPasswordValue ?? '');

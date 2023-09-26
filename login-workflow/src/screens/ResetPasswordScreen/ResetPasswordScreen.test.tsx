@@ -47,7 +47,7 @@ describe('Reset Password Screen', () => {
     it('should show success screen, when showSuccessScreen prop is true', () => {
         renderer({ showSuccessScreen: true });
 
-        expect(screen.getByText('Your password was successfully reset.')).toBeInTheDocument();
+        expect(screen.getByText(/Your password was successfully updated!/)).toBeInTheDocument();
     });
 
     it('should show loader, when loading prop is passed to WorkflowCardBaseProps', () => {
