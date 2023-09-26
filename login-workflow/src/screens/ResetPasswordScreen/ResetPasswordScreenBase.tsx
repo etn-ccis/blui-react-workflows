@@ -9,6 +9,8 @@ import {
     WorkflowCardActions,
 } from '../../components';
 import ErrorManager from '../../components/Error/ErrorManager';
+import { SuccessScreenBase, SuccessScreenProps } from '../SuccessScreen';
+import { useMediaQuery, useTheme } from '@mui/material';
 
 /**
  * Component that renders a ResetPassword screen that allows a user to reset their password and shows a success message upon a successful password reset..
@@ -36,11 +38,31 @@ export const ResetPasswordScreenBase: React.FC<React.PropsWithChildren<ResetPass
     const actionsProps = props.WorkflowCardActionsProps || {};
     const passwordProps = props.PasswordProps || { onPasswordChange: () => ({}) };
     const { showSuccessScreen, slots, slotProps = {}, errorDisplayConfig } = props;
+    const theme = useTheme();
+    const matchesMD = useMediaQuery(theme.breakpoints.down('md'));
+    const matchesSM = useMediaQuery(theme.breakpoints.down('sm'));
+
+    const getSuccessScreen = (
+        _props: SuccessScreenProps,
+        SuccessScreen?: (props: SuccessScreenProps) => JSX.Element
+    ): JSX.Element =>
+        SuccessScreen ? (
+            SuccessScreen(_props)
+        ) : (
+            <SuccessScreenBase
+                WorkflowCardBaseProps={{
+                    sx: {
+                        height: matchesMD ? (matchesSM ? '100vh' : '62vh') : '70vh',
+                    },
+                }}
+                {..._props}
+            />
+        );
 
     return (
         <>
             {showSuccessScreen ? (
-                <slots.SuccessScreen {...slotProps.SuccessScreen} />
+                getSuccessScreen(slotProps?.SuccessScreen, slots?.SuccessScreen)
             ) : (
                 <WorkflowCard {...cardBaseProps}>
                     <WorkflowCardHeader {...headerProps} />

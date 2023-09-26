@@ -7,7 +7,6 @@ import { defaultPasswordRequirements } from '../../constants';
 import { parseQueryString } from '../../utils';
 import { ResetPasswordScreenProps } from './types';
 import { useErrorManager } from '../../contexts/ErrorContext/useErrorManager';
-import { SuccessScreenBase } from '../SuccessScreen';
 
 /**
  * Component that renders a ResetPassword screen that allows a user to reset their password and shows a success message upon a successful password reset..
@@ -170,29 +169,23 @@ export const ResetPasswordScreen: React.FC<ResetPasswordScreenProps> = (props) =
             WorkflowCardActionsProps={workflowCardActionsProps}
             PasswordProps={passwordProps}
             showSuccessScreen={showSuccessScreen}
-            slots={{
-                SuccessScreen:
-                    slots?.SuccessScreen ??
-                    ((): JSX.Element => (
-                        <SuccessScreenBase
-                            icon={<CheckCircle color="primary" sx={{ fontSize: 100 }} />}
-                            messageTitle={t('bluiAuth:PASSWORD_RESET.SUCCESS_MESSAGE')}
-                            message={t('bluiAuth:CHANGE_PASSWORD.SUCCESS_MESSAGE')}
-                            {...slotProps.SuccessScreen}
-                            WorkflowCardActionsProps={{
-                                showNext: true,
-                                nextLabel: t('bluiCommon:ACTIONS.DONE'),
-                                canGoNext: true,
-                                fullWidthButton: true,
-                                ...slotProps.SuccessScreen.WorkflowCardActionsProps,
-                                onNext: (): void => {
-                                    navigate(routeConfig.LOGIN);
-                                    if (slotProps.SuccessScreen.WorkflowCardActionsProps)
-                                        slotProps.SuccessScreen.WorkflowCardActionsProps?.onNext?.();
-                                },
-                            }}
-                        />
-                    )),
+            slots={slots}
+            slotProps={{
+                SuccessScreen: {
+                    icon: <CheckCircle color="primary" sx={{ fontSize: 100 }} />,
+                    messageTitle: t('bluiAuth:PASSWORD_RESET.SUCCESS_MESSAGE'),
+                    message: t('bluiAuth:CHANGE_PASSWORD.SUCCESS_MESSAGE'),
+                    WorkflowCardActionsProps: {
+                        showPrevious: false,
+                        fullWidthButton: true,
+                        showNext: true,
+                        nextLabel: t('bluiCommon:ACTIONS.DONE'),
+                        onNext: (): void => {
+                            navigate(routeConfig.LOGIN);
+                        },
+                    },
+                },
+                ...slotProps,
             }}
             errorDisplayConfig={{
                 ...errorDisplayConfig,
