@@ -98,6 +98,7 @@ export const CreatePasswordScreen: React.FC<CreatePasswordScreenProps> = (props)
         for (let i = 0; i < passwordRequirements.length; i++) {
             if (!new RegExp(passwordRequirements[i].regex).test(passwordInput)) return false;
         }
+        return confirmInput === passwordInput;
     }, [PasswordProps?.passwordRequirements?.length, passwordRequirements, passwordInput, confirmInput]);
 
     const passwordProps = {
