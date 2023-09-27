@@ -50,7 +50,7 @@ export const RegistrationSuccessScreen: React.FC<SuccessScreenProps> = (props) =
                 </Trans>
             </Typography>
         ),
-        onDismiss = (): void => navigate(routeConfig.LOGIN!),
+        onDismiss = (): void => navigate(routeConfig.LOGIN as string),
         canDismiss = true,
         WorkflowCardHeaderProps,
         WorkflowCardActionsProps,

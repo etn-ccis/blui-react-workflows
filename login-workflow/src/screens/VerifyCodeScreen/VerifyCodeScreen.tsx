@@ -1,7 +1,6 @@
 import React, { useCallback, useState } from 'react';
 import { VerifyCodeScreenBase } from './VerifyCodeScreenBase';
 import { VerifyCodeScreenProps } from './types';
-// import { useLanguageLocale } from '../../hooks';
 import { useRegistrationContext, useRegistrationWorkflowContext } from '../../contexts';
 import { useErrorManager } from '../../contexts/ErrorContext/useErrorManager';
 import { useTranslation } from 'react-i18next';
@@ -74,6 +73,7 @@ export const VerifyCodeScreen: React.FC<VerifyCodeScreenProps> = (props) => {
             try {
                 setIsLoading(true);
                 if (actions?.validateUserRegistrationRequest) {
+                    // eslint-disable-next-line no-unsafe-optional-chaining
                     const { codeValid, accountExists } = await actions?.validateUserRegistrationRequest(code);
 
                     if (accountExists) {

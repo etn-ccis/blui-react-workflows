@@ -3,9 +3,7 @@ import '@testing-library/jest-dom';
 import { cleanup, render, screen, fireEvent, RenderResult } from '@testing-library/react';
 import { CreatePasswordScreen } from './CreatePasswordScreen';
 import { CreatePasswordScreenProps } from './types';
-import {
-    RegistrationContextProvider,
-} from '../../contexts';
+import { RegistrationContextProvider } from '../../contexts';
 import { RegistrationWorkflow } from '../../components';
 import { registrationContextProviderProps } from '../../testUtils';
 

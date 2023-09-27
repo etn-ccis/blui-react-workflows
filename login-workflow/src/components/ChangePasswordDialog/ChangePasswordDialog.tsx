@@ -68,8 +68,18 @@ export const ChangePasswordDialog: React.FC<ChangePasswordDialogProps> = (props)
         [setPasswordInput, setConfirmInput]
     );
 
+    const areValidMatchingPasswords = useCallback((): boolean => {
+        if (PasswordProps?.passwordRequirements?.length === 0) {
+            return confirmInput === passwordInput;
+        }
+        for (let i = 0; i < passwordRequirements.length; i++) {
+            if (!new RegExp(passwordRequirements[i].regex).test(passwordInput)) return false;
+        }
+        return confirmInput === passwordInput;
+    }, [PasswordProps?.passwordRequirements?.length, passwordRequirements, passwordInput, confirmInput]);
+
     const checkPasswords =
-        currentInput !== '' && passwordInput !== '' && confirmInput !== '' && passwordInput === confirmInput;
+        currentInput !== '' && passwordInput !== '' && confirmInput !== '' && areValidMatchingPasswords();
 
     const changePasswordSubmit = useCallback(async () => {
         if (checkPasswords) {
