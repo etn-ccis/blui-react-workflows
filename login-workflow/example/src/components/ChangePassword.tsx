@@ -3,8 +3,6 @@ import { ChangePasswordDialog } from '@brightlayer-ui/react-auth-workflow';
 import { useApp } from '../contexts/AppContextProvider';
 import { LocalStorage } from '../store/local-storage';
 import { useNavigate } from 'react-router-dom';
-import { Box } from '@mui/material';
-import { Alarm } from '@mui/icons-material';
 
 export const ChangePassword = (): JSX.Element => {
     const app = useApp();
