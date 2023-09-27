@@ -76,8 +76,8 @@ export const ForgotPasswordScreen: React.FC<ForgotPasswordScreenProps> = (props)
         WorkflowCardInstructionProps,
         WorkflowCardActionsProps,
         showSuccessScreen: enableSuccessScreen = true,
-        slotProps,
-        slots,
+        slots = {},
+        slotProps = {},
         emailTextFieldProps,
     } = props;
 
@@ -172,8 +172,8 @@ export const ForgotPasswordScreen: React.FC<ForgotPasswordScreenProps> = (props)
                             navigate(routeConfig.LOGIN);
                         },
                     },
+                    ...slotProps.SuccessScreen,
                 },
-                ...slotProps,
             }}
             errorDisplayConfig={errorDisplayConfig}
         />
