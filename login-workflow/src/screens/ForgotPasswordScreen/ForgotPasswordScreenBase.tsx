@@ -11,10 +11,6 @@ import { ForgotPasswordScreenProps } from './types';
 import { SuccessScreenBase, SuccessScreenProps } from '../SuccessScreen';
 import ErrorManager from '../../components/Error/ErrorManager';
 
-// type ForgotPasswordScreenBaseProps = Omit<ForgotPasswordScreenProps, 'slots'> & {
-//     slots: { SuccessScreen: (props: SuccessScreenProps) => JSX.Element };
-// };
-
 /**
  * Component renders a screen with forgot password for support with the application.
  *

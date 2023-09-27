@@ -141,50 +141,6 @@ export const ForgotPasswordScreen: React.FC<ForgotPasswordScreenProps> = (props)
             emailValidator={emailValidator}
             emailTextFieldProps={emailTextFieldProps}
             showSuccessScreen={enableSuccessScreen && showSuccessScreen}
-            // slots={{
-            //     SuccessScreen:
-            //         slots?.SuccessScreen ??
-            //         ((): JSX.Element => (
-            //             <SuccessScreenBase
-            //                 icon={<CheckCircle color={'primary'} sx={{ fontSize: 100, mb: 5 }} />}
-            //                 messageTitle={t('bluiCommon:MESSAGES.EMAIL_SENT')}
-            //                 message={
-            //                     <Box
-            //                         sx={{
-            //                             overflow: 'hidden',
-            //                             whiteSpace: 'normal',
-            //                             wordBreak: 'break-word',
-            //                         }}
-            //                         component={'span'}
-            //                     >
-            //                         <Trans
-            //                             i18nKey={'bluiAuth:FORGOT_PASSWORD.LINK_SENT_ALT'}
-            //                             values={{ email: emailInput }}
-            //                         >
-            //                             Link has been sent to <b>{emailInput}</b>.
-            //                         </Trans>
-            //                     </Box>
-            //                 }
-            //                 {...slotProps.SuccessScreen}
-            //                 WorkflowCardHeaderProps={{
-            //                     title: t('bluiAuth:HEADER.FORGOT_PASSWORD'),
-            //                     ...slotProps.SuccessScreen.WorkflowCardHeaderProps,
-            //                 }}
-            //                 WorkflowCardActionsProps={{
-            //                     showNext: true,
-            //                     nextLabel: t('bluiCommon:ACTIONS.DONE'),
-            //                     canGoNext: true,
-            //                     fullWidthButton: true,
-            //                     ...slotProps.SuccessScreen.WorkflowCardActionsProps,
-            //                     onNext: (): void => {
-            //                         navigate(routeConfig.LOGIN);
-            //                         if (slotProps.SuccessScreen.WorkflowCardActionsProps)
-            //                             slotProps.SuccessScreen.WorkflowCardActionsProps?.onNext?.();
-            //                     },
-            //                 }}
-            //             />
-            //         )),
-            // }}
             slots={slots}
             slotProps={{
                 SuccessScreen: {
