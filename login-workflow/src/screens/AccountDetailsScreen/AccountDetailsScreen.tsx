@@ -11,7 +11,7 @@ import { useTranslation } from 'react-i18next';
  * @param firstNameLabel label for the first name text field
  * @param initialFirstName initial value for the first name text field
  * @param firstNameValidator function that validates the first name text field
- * @param firstNameTextFieldProp props to pass to the first name field
+ * @param firstNameTextFieldProps props to pass to the first name field
  * @param lastNameLabel label for the last name text field
  * @param initialLastName initial value for the last name text field
  * @param lastNameValidator function that validates the last name text field
