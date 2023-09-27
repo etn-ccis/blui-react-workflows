@@ -22,21 +22,6 @@ export const ChangePassword = (): JSX.Element => {
             onPrevious={(): void => app.setShowChangePasswordDialog(false)}
             onSubmit={(): void => app.setShowChangePasswordDialog(false)}
             onFinish={(): void => logOut()}
-            slots={{
-                SuccessScreen: (props): JSX.Element => (
-                    <Box>
-                        {props?.icon}
-                        {props?.messageTitle}
-                    </Box>
-                ),
-            }}
-            slotProps={{
-                SuccessScreen: {
-                    icon: <Alarm />,
-                    messageTitle: 'Yeah',
-                    message: 'ee',
-                },
-            }}
         />
     );
 };
