@@ -20,7 +20,6 @@ import CheckCircle from '@mui/icons-material/CheckCircle';
  * @param onFinish function called when the button is clicked on success screen
  * @param onSubmit Callback function to call when the form is submitted
  * @param onPrevious called when the previous button is clicked
- * @param sx styles passed to the underlying root component
  * @param loading boolean that indicates whether the loading spinner should be displayed
  * @param currentPasswordTextFieldProps props to pass to the current password field.
  * @param showSuccessScreen boolean that determines whether to show the success screen or not
