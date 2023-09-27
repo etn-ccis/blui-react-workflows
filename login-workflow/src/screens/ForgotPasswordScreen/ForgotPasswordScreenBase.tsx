@@ -8,12 +8,8 @@ import {
     WorkflowCardInstructions,
 } from '../../components';
 import { ForgotPasswordScreenProps } from './types';
-import { SuccessScreenProps } from '../SuccessScreen';
+import { SuccessScreenBase, SuccessScreenProps } from '../SuccessScreen';
 import ErrorManager from '../../components/Error/ErrorManager';
-
-type ForgotPasswordScreenBaseProps = Omit<ForgotPasswordScreenProps, 'slots'> & {
-    slots: { SuccessScreen: (props: SuccessScreenProps) => JSX.Element };
-};
 
 /**
  * Component renders a screen with forgot password for support with the application.
@@ -35,7 +31,7 @@ type ForgotPasswordScreenBaseProps = Omit<ForgotPasswordScreenProps, 'slots'> & 
  * @category Component
  */
 
-export const ForgotPasswordScreenBase: React.FC<React.PropsWithChildren<ForgotPasswordScreenBaseProps>> = (props) => {
+export const ForgotPasswordScreenBase: React.FC<React.PropsWithChildren<ForgotPasswordScreenProps>> = (props) => {
     const [emailInput, setEmailInput] = useState(props.initialEmailValue ?? '');
 
     const {
@@ -79,10 +75,15 @@ export const ForgotPasswordScreenBase: React.FC<React.PropsWithChildren<ForgotPa
         }
     };
 
+    const getSuccessScreen = (
+        _props: SuccessScreenProps,
+        SuccessScreen?: (props: SuccessScreenProps) => JSX.Element
+    ): JSX.Element => (SuccessScreen ? SuccessScreen(_props) : <SuccessScreenBase {..._props} />);
+
     return (
         <>
             {showSuccessScreen ? (
-                <slots.SuccessScreen {...slotProps.SuccessScreen} />
+                getSuccessScreen(slotProps?.SuccessScreen, slots?.SuccessScreen)
             ) : (
                 <WorkflowCard {...cardBaseProps}>
                     <WorkflowCardHeader {...headerProps} />

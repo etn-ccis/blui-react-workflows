@@ -153,7 +153,7 @@ export const ChangePasswordDialogBase: React.FC<ChangePasswordDialogProps> = (pr
                     <DialogActions
                         sx={{
                             justifyContent: 'flex-end',
-                            p: { md: 3, sm: 2 },
+                            p: { xs: 2, md: 3 },
                         }}
                     >
                         <Grid
