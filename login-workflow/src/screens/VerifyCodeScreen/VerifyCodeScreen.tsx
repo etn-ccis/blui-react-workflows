@@ -1,9 +1,9 @@
 import React, { useCallback, useState } from 'react';
 import { VerifyCodeScreenBase } from './VerifyCodeScreenBase';
 import { VerifyCodeScreenProps } from './types';
-import { useLanguageLocale } from '../../hooks';
 import { useRegistrationContext, useRegistrationWorkflowContext } from '../../contexts';
 import { useErrorManager } from '../../contexts/ErrorContext/useErrorManager';
+import { useTranslation } from 'react-i18next';
 
 /**
  * Component that renders a screen that prompts a user to enter the confirmation code
@@ -26,7 +26,7 @@ import { useErrorManager } from '../../contexts/ErrorContext/useErrorManager';
  */
 
 export const VerifyCodeScreen: React.FC<VerifyCodeScreenProps> = (props) => {
-    const { t } = useLanguageLocale();
+    const { t } = useTranslation();
     const regWorkflow = useRegistrationWorkflowContext();
     const { actions } = useRegistrationContext();
     const { nextScreen, previousScreen, screenData, currentScreen, totalScreens, updateScreenData } = regWorkflow;
@@ -47,7 +47,7 @@ export const VerifyCodeScreen: React.FC<VerifyCodeScreenProps> = (props) => {
     const requestResendCode = useCallback(async (): Promise<void> => {
         try {
             setIsLoading(true);
-            await actions.requestRegistrationCode(emailAddress ? emailAddress : '');
+            await actions?.requestRegistrationCode?.(emailAddress ? emailAddress : '');
         } catch (_error) {
             triggerError(_error as Error);
         } finally {
@@ -72,25 +72,28 @@ export const VerifyCodeScreen: React.FC<VerifyCodeScreenProps> = (props) => {
         async (code: string) => {
             try {
                 setIsLoading(true);
-                const { codeValid, accountExists } = await actions.validateUserRegistrationRequest(code);
+                if (actions?.validateUserRegistrationRequest) {
+                    // eslint-disable-next-line no-unsafe-optional-chaining
+                    const { codeValid, accountExists } = await actions?.validateUserRegistrationRequest(code);
 
-                if (accountExists) {
-                    updateScreenData({ screenId: 'VerifyCode', values: { code }, isAccountExist: accountExists });
-                } else {
-                    if (typeof codeValid === 'boolean') {
-                        if (codeValid)
-                            void nextScreen({
-                                screenId: 'VerifyCode',
-                                values: { code },
-                                isAccountExist: accountExists,
-                            });
-                        else {
-                            triggerError(
-                                new Error(t('bluiRegistration:SELF_REGISTRATION.VERIFY_EMAIL.CODE_VALIDATOR_ERROR'))
-                            );
-                        }
+                    if (accountExists) {
+                        updateScreenData({ screenId: 'VerifyCode', values: { code }, isAccountExist: accountExists });
                     } else {
-                        triggerError(new Error(codeValid));
+                        if (typeof codeValid === 'boolean') {
+                            if (codeValid)
+                                void nextScreen({
+                                    screenId: 'VerifyCode',
+                                    values: { code },
+                                    isAccountExist: accountExists,
+                                });
+                            else {
+                                triggerError(
+                                    new Error(t('bluiRegistration:SELF_REGISTRATION.VERIFY_EMAIL.CODE_VALIDATOR_ERROR'))
+                                );
+                            }
+                        } else {
+                            triggerError(new Error(codeValid));
+                        }
                     }
                 }
             } catch (_error) {

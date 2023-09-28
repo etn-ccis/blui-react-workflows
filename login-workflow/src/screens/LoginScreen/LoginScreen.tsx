@@ -1,9 +1,9 @@
 import React, { useEffect } from 'react';
 import { LoginScreenProps } from './types';
 import { LoginScreenBase } from './LoginScreenBase';
-import { useLanguageLocale } from '../../hooks';
 import { useAuthContext } from '../../contexts';
 import { useErrorManager } from '../../contexts/ErrorContext/useErrorManager';
+import { useTranslation } from 'react-i18next';
 
 const EMAIL_REGEX = /^[A-Z0-9._%+'-]+@[A-Z0-9.-]+\.[A-Z]{2,}$/i;
 
@@ -44,7 +44,7 @@ const EMAIL_REGEX = /^[A-Z0-9._%+'-]+@[A-Z0-9.-]+\.[A-Z]{2,}$/i;
  */
 
 export const LoginScreen: React.FC<React.PropsWithChildren<LoginScreenProps>> = (props) => {
-    const { t } = useLanguageLocale();
+    const { t } = useTranslation();
     const auth = useAuthContext();
     const { actions, navigate, routeConfig, rememberMeDetails } = auth;
     const { triggerError, errorManagerConfig } = useErrorManager();
@@ -89,14 +89,14 @@ export const LoginScreen: React.FC<React.PropsWithChildren<LoginScreenProps>> = 
         loginButtonLabel = t('bluiCommon:ACTIONS.LOG_IN'),
         showForgotPassword = true,
         forgotPasswordLabel = t('bluiCommon:LABELS.FORGOT_PASSWORD'),
-        onForgotPassword = (): void => navigate(routeConfig.FORGOT_PASSWORD),
+        onForgotPassword = (): void => navigate(routeConfig.FORGOT_PASSWORD as string),
         showSelfRegistration = true,
         selfRegisterInstructions = t('bluiCommon:LABELS.NEED_ACCOUNT'),
         selfRegisterButtonLabel = t('bluiCommon:ACTIONS.CREATE_ACCOUNT'),
-        onSelfRegister = (): void => navigate(routeConfig.REGISTER_SELF),
+        onSelfRegister = (): void => navigate(routeConfig.REGISTER_SELF as string),
         showContactSupport = true,
         contactSupportLabel = t('bluiCommon:MESSAGES.CONTACT'),
-        onContactSupport = (): void => navigate(routeConfig.SUPPORT),
+        onContactSupport = (): void => navigate(routeConfig.SUPPORT as string),
         showCyberSecurityBadge = true,
         projectImage,
         header,
@@ -117,14 +117,16 @@ export const LoginScreen: React.FC<React.PropsWithChildren<LoginScreenProps>> = 
             rememberMeInitialValue={rememberMeInitialValue}
             onRememberMeChanged={onRememberMeChanged}
             loginButtonLabel={loginButtonLabel}
-            onLogin={async (username: string, password: string, rememberMe: boolean): Promise<void> => {
-                try {
-                    await actions.logIn(username, password, rememberMe);
-                    await props.onLogin?.(username, password, rememberMe);
-                } catch (_error) {
-                    triggerError(_error as Error);
-                }
-            }}
+            onLogin={
+                (async (username: string, password: string, rememberMe: boolean): Promise<void> => {
+                    try {
+                        await actions.logIn(username, password, rememberMe);
+                        await props.onLogin?.(username, password, rememberMe);
+                    } catch (_error) {
+                        triggerError(_error as Error);
+                    }
+                }) as any
+            }
             showForgotPassword={showForgotPassword}
             forgotPasswordLabel={forgotPasswordLabel}
             onForgotPassword={onForgotPassword}

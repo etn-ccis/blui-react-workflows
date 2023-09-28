@@ -1,10 +1,10 @@
 import React, { useCallback, useRef, useState } from 'react';
 import { CreatePasswordScreenBase } from './CreatePasswordScreenBase';
-import { useLanguageLocale } from '../../hooks';
 import { defaultPasswordRequirements } from '../../constants';
 import { CreatePasswordScreenProps } from './types';
 import { useRegistrationContext, useRegistrationWorkflowContext } from '../../contexts';
 import { useErrorManager } from '../../contexts/ErrorContext/useErrorManager';
+import { useTranslation } from 'react-i18next';
 
 /**
  * The component renders a screen with the password and confirm password field for creating a new password.
@@ -20,7 +20,7 @@ import { useErrorManager } from '../../contexts/ErrorContext/useErrorManager';
  */
 
 export const CreatePasswordScreen: React.FC<CreatePasswordScreenProps> = (props) => {
-    const { t } = useLanguageLocale();
+    const { t } = useTranslation();
     const { actions } = useRegistrationContext();
     const regWorkflow = useRegistrationWorkflowContext();
     const {
@@ -64,7 +64,7 @@ export const CreatePasswordScreen: React.FC<CreatePasswordScreenProps> = (props)
     const onNext = useCallback(async (): Promise<void> => {
         try {
             setIsLoading(true);
-            await actions.createPassword(passwordInput);
+            await actions?.createPassword?.(passwordInput);
             void nextScreen({
                 screenId: 'CreatePassword',
                 values: { password: passwordInput, confirmPassword: confirmInput },

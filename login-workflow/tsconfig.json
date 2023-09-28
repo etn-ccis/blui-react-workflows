@@ -10,7 +10,7 @@
         "jsx": "react",
         "strict": true,
         "allowSyntheticDefaultImports": true,
-        "strictNullChecks": false
+        "strictNullChecks": true
     },
     "include": ["src", "images.d.ts"]
 }

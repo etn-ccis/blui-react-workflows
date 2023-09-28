@@ -3,19 +3,9 @@ import '@testing-library/jest-dom';
 import { cleanup, render, screen, fireEvent, RenderResult } from '@testing-library/react';
 import { CreatePasswordScreen } from './CreatePasswordScreen';
 import { CreatePasswordScreenProps } from './types';
-import {
-    RegistrationContextProvider,
-    RegistrationContextProviderProps,
-    i18nRegistrationInstance,
-} from '../../contexts';
+import { RegistrationContextProvider } from '../../contexts';
 import { RegistrationWorkflow } from '../../components';
-
-const defaultProps: RegistrationContextProviderProps = {
-    language: 'en',
-    i18n: i18nRegistrationInstance,
-    navigate: (): void => {},
-    routeConfig: {},
-};
+import { registrationContextProviderProps } from '../../testUtils';
 
 const passwordRequirements = [
     {
@@ -45,7 +35,7 @@ describe('Create Password Screen', () => {
 
     const renderer = (props?: CreatePasswordScreenProps): RenderResult =>
         render(
-            <RegistrationContextProvider {...defaultProps}>
+            <RegistrationContextProvider {...registrationContextProviderProps}>
                 <RegistrationWorkflow initialScreenIndex={0}>
                     <CreatePasswordScreen {...props} />
                 </RegistrationWorkflow>

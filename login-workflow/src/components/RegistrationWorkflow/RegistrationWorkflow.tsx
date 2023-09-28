@@ -12,7 +12,7 @@ import {
 import { parseQueryString } from '../../utils';
 import { useErrorManager } from '../../contexts/ErrorContext/useErrorManager';
 import ErrorManager, { ErrorManagerProps } from '../Error/ErrorManager';
-import { useLanguageLocale } from '../../hooks';
+import { useTranslation } from 'react-i18next';
 
 /**
  * Component that contain the registration workflow and index of screens.
@@ -57,7 +57,7 @@ export type RegistrationWorkflowProps = {
 export const RegistrationWorkflow: React.FC<React.PropsWithChildren<RegistrationWorkflowProps>> = (props) => {
     const [isAccountExist, setIsAccountExist] = useState(false);
     const { triggerError, errorManagerConfig } = useErrorManager();
-    const { t } = useLanguageLocale();
+    const { t } = useTranslation();
     const { actions, navigate } = useRegistrationContext();
 
     const errorDisplayConfig = {
@@ -122,8 +122,10 @@ export const RegistrationWorkflow: React.FC<React.PropsWithChildren<Registration
         const { Other }: { [key: string]: any } = screenData;
         const { screenId, values, isAccountExist: accountExists } = data;
 
-        setIsAccountExist(accountExists);
-        setShowSuccessScreen(accountExists);
+        if (accountExists) {
+            setIsAccountExist(accountExists);
+            setShowSuccessScreen(accountExists);
+        }
 
         if (!Object.keys(screenData).includes(screenId)) {
             setScreenData((oldData) => ({
@@ -143,30 +145,34 @@ export const RegistrationWorkflow: React.FC<React.PropsWithChildren<Registration
         }
     };
 
-    const finishRegistration = (data: IndividualScreenData): Promise<void> => {
-        if (actions && actions.completeRegistration) {
-            const { Eula, CreateAccount, VerifyCode, CreatePassword, AccountDetails, Other } = screenData;
-            const userInfo = {
-                ...Eula,
-                ...CreateAccount,
-                ...VerifyCode,
-                ...CreatePassword,
-                ...AccountDetails,
-                ...Other,
-                ...data.values,
-            };
-            return actions
-                .completeRegistration(userInfo)
-                .then(({ email, organizationName }) => {
-                    updateScreenData({
-                        screenId: 'RegistrationSuccessScreen',
-                        values: { email, organizationName },
+    const finishRegistration = async (data: IndividualScreenData): Promise<void> => {
+        try {
+            if (actions && actions.completeRegistration) {
+                const { Eula, CreateAccount, VerifyCode, CreatePassword, AccountDetails, Other } = screenData;
+                const userInfo = {
+                    ...Eula,
+                    ...CreateAccount,
+                    ...VerifyCode,
+                    ...CreatePassword,
+                    ...AccountDetails,
+                    ...Other,
+                    ...data.values,
+                };
+                return await actions
+                    .completeRegistration(userInfo)
+                    .then(({ email, organizationName }) => {
+                        updateScreenData({
+                            screenId: 'RegistrationSuccessScreen',
+                            values: { email, organizationName },
+                        });
+                        setShowSuccessScreen(true);
+                    })
+                    .catch((_error) => {
+                        triggerError(_error);
                     });
-                    setShowSuccessScreen(true);
-                })
-                .catch((_error) => {
-                    triggerError(_error);
-                });
+            }
+        } catch (err) {
+            console.error(err);
         }
     };
 
@@ -177,26 +183,28 @@ export const RegistrationWorkflow: React.FC<React.PropsWithChildren<Registration
             let isAccExist;
             void (async (): Promise<void> => {
                 try {
-                    const { codeValid, accountExists } = await actions.validateUserRegistrationRequest(
-                        params.code,
-                        params.email
-                    );
-                    isAccExist = accountExists;
+                    if (actions?.validateUserRegistrationRequest) {
+                        const { codeValid, accountExists } =
+                            (await actions?.validateUserRegistrationRequest?.(params.code, params.email)) || {};
+                        isAccExist = accountExists;
 
-                    if (!isAccExist) {
-                        if (typeof codeValid === 'string') {
-                            triggerError(new Error(codeValid));
-                        } else if (typeof codeValid === 'boolean' && !codeValid) {
-                            triggerError(
-                                new Error(t('bluiRegistration:SELF_REGISTRATION.VERIFY_EMAIL.CODE_VALIDATOR_ERROR'))
-                            );
+                        if (!isAccExist) {
+                            if (typeof codeValid === 'string') {
+                                triggerError(new Error(codeValid));
+                            } else if (typeof codeValid === 'boolean' && !codeValid) {
+                                triggerError(
+                                    new Error(t('bluiRegistration:SELF_REGISTRATION.VERIFY_EMAIL.CODE_VALIDATOR_ERROR'))
+                                );
+                            }
                         }
                     }
                 } catch (_error) {
                     triggerError(_error as Error);
                 } finally {
-                    setIsAccountExist(isAccExist);
-                    setShowSuccessScreen(isAccExist);
+                    if (isAccExist) {
+                        setIsAccountExist(isAccExist);
+                        setShowSuccessScreen(isAccExist);
+                    }
                 }
             })();
 
@@ -210,14 +218,18 @@ export const RegistrationWorkflow: React.FC<React.PropsWithChildren<Registration
         <RegistrationWorkflowContextProvider
             currentScreen={currentScreen}
             totalScreens={totalScreens}
-            nextScreen={(data): Promise<void> => {
-                updateScreenData(data);
-                if (data.isAccountExist) {
-                    setIsAccountExist(true);
-                    setShowSuccessScreen(true);
+            nextScreen={(data): Promise<void> | undefined => {
+                try {
+                    updateScreenData(data);
+                    if (data.isAccountExist) {
+                        setIsAccountExist(true);
+                        setShowSuccessScreen(true);
+                    }
+                    if (currentScreen === totalScreens - 1) return finishRegistration(data);
+                    setCurrentScreen((i) => i + 1);
+                } catch (_error) {
+                    triggerError(_error as Error);
                 }
-                if (currentScreen === totalScreens - 1) return finishRegistration(data);
-                setCurrentScreen((i) => i + 1);
             }}
             previousScreen={(data): void => {
                 updateScreenData(data);

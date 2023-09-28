@@ -1,8 +1,8 @@
 import React, { useCallback } from 'react';
 import { BasicDialog } from '../Dialog/BasicDialog';
 import ErrorMessageBox from './ErrorMessageBox';
-import { useLanguageLocale } from '../../hooks';
 import { SxProps } from '@mui/material/styles';
+import { useTranslation } from 'react-i18next';
 
 export type AuthError = { cause: { title: string; errorMessage: string } };
 
@@ -62,7 +62,7 @@ export type ErrorManagerProps = {
  */
 
 const ErrorManager: React.FC<ErrorManagerProps> = (props): JSX.Element => {
-    const { t } = useLanguageLocale();
+    const { t } = useTranslation();
     const {
         children,
         mode = 'dialog',
@@ -74,19 +74,18 @@ const ErrorManager: React.FC<ErrorManagerProps> = (props): JSX.Element => {
         },
     } = props;
 
-    const ErrorDialogWithProps = useCallback((): JSX.Element => {
-        const { title = t('bluiCommon:MESSAGES.ERROR'), dismissLabel } = dialogConfig;
-
-        return (
+    const ErrorDialogWithProps = useCallback(
+        (): JSX.Element => (
             <BasicDialog
                 open={error.length > 0}
-                title={title}
+                title={dialogConfig?.title ?? t('bluiCommon:MESSAGES.ERROR')}
                 body={error}
                 onClose={onClose}
-                dismissButtonText={dismissLabel}
+                dismissButtonText={dialogConfig?.dismissLabel}
             />
-        );
-    }, [dialogConfig, error, onClose, t]);
+        ),
+        [dialogConfig, error, onClose, t]
+    );
 
     const ErrorMessageBoxWithProps = useCallback((): JSX.Element => {
         const { dismissible = true, fontColor, backgroundColor, sx } = messageBoxConfig;

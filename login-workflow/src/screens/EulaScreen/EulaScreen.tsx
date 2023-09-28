@@ -1,9 +1,9 @@
 import React, { useCallback, useEffect, useState } from 'react';
 import { EulaScreenProps } from './types';
 import { EulaScreenBase } from './EulaScreenBase';
-import { useLanguageLocale } from '../../hooks';
 import { useRegistrationContext, useRegistrationWorkflowContext } from '../../contexts';
 import { useErrorManager } from '../../contexts/ErrorContext/useErrorManager';
+import { useTranslation } from 'react-i18next';
 
 /**
  * Component that renders a screen displaying the EULA and requests acceptance via a checkbox.
@@ -25,7 +25,7 @@ import { useErrorManager } from '../../contexts/ErrorContext/useErrorManager';
  */
 
 export const EulaScreen: React.FC<EulaScreenProps> = (props) => {
-    const { t } = useLanguageLocale();
+    const { t } = useTranslation();
     const { actions, language } = useRegistrationContext();
     const { triggerError, errorManagerConfig } = useErrorManager();
     const errorDisplayConfig = {
@@ -59,7 +59,7 @@ export const EulaScreen: React.FC<EulaScreenProps> = (props) => {
         if (!eulaContent) {
             setEulaData(t('bluiRegistration:REGISTRATION.EULA.LOADING'));
             try {
-                const eulaText = await actions.loadEula(language);
+                const eulaText = await actions?.loadEula?.(language);
                 setEulaData(eulaText);
                 setIsLoading(false);
             } catch (_error) {
@@ -80,7 +80,7 @@ export const EulaScreen: React.FC<EulaScreenProps> = (props) => {
         setIsLoading(true);
         try {
             if (screenData.Eula.accepted) {
-                await actions.acceptEula?.();
+                await actions?.acceptEula?.();
             }
             void nextScreen({
                 screenId: 'Eula',
