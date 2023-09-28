@@ -32,6 +32,14 @@ export const ResetPasswordScreen: React.FC<ResetPasswordScreenProps> = (props) =
     const passwordRef = useRef(null);
     const confirmRef = useRef(null);
     const { triggerError, errorManagerConfig } = useErrorManager();
+    const errorDisplayConfig = {
+        ...errorManagerConfig,
+        ...props.errorDisplayConfig,
+        onClose: (): void => {
+            if (props.errorDisplayConfig && props.errorDisplayConfig.onClose) props.errorDisplayConfig.onClose();
+            if (errorManagerConfig.onClose) errorManagerConfig?.onClose();
+        },
+    };
 
     const {
         WorkflowCardBaseProps,
@@ -39,7 +47,6 @@ export const ResetPasswordScreen: React.FC<ResetPasswordScreenProps> = (props) =
         WorkflowCardInstructionProps,
         WorkflowCardActionsProps,
         PasswordProps,
-        errorDisplayConfig = errorManagerConfig,
         slots = {},
         slotProps = {},
     } = props;
