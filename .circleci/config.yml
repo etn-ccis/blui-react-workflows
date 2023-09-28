@@ -89,7 +89,7 @@ jobs:
           name: Tests
           command: |
             cd login-workflow
-            yarn test --coverage --watchAll=false
+            yarn test:ci --coverage --watchAll=false
 
   build_login_workflow:
     docker:
