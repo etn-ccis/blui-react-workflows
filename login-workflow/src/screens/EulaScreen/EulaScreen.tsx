@@ -91,8 +91,8 @@ export const EulaScreen: React.FC<EulaScreenProps> = (props) => {
                 await actions?.acceptEula?.();
             }
             let isAccExist;
-            if (isInviteRegistration && actions?.validateUserRegistrationRequest) {
-                const { codeValid, accountExists } = await actions?.validateUserRegistrationRequest(
+            if (isInviteRegistration) {
+                const { codeValid, accountExists } = await actions.validateUserRegistrationRequest(
                     screenData.VerifyCode.code,
                     screenData.CreateAccount.emailAddress
                 );
