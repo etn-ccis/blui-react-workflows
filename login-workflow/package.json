@@ -8,7 +8,7 @@
     "scripts": {
         "install:dependencies": "cd example && yarn && cd .. && yarn",
         "test": "jest --maxWorkers=50%",
-        "test:ci":"jest",
+        "test:ci": "jest",
         "build": "tsc --p tsconfig.lib.json && cp -r src/assets/. dist/assets && cp -r src/index.css dist/index.css",
         "link:workflow": "bash ./scripts/linkWorkflow.sh",
         "lint": "eslint \"src/**/**.{tsx,ts}\"",
