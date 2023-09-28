@@ -25,24 +25,6 @@ void i18next
                     app: {
                         ...AppDictionaries.english.translation,
                     },
-                    bluiRegistration: {
-                        SELF_REGISTRATION: {
-                            INSTRUCTIONS: `Test To register for an Eaton account, enter the required information below. You will need to verify your email address to continue.`,
-                            VERIFY_EMAIL: {
-                                MESSAGE:
-                                    'Test  A verification code has been sent to the email address you provided. Click the link or enter the code below to continue. This code is valid for 30 minutes.',
-                                RESEND: 'Test  Resend Verification Email',
-                                VERIFICATION_CODE_PROMPT: "Test  Didn't receive an email?",
-                                VERIFICATION: 'Test  Verification Code',
-                                CODE_VALIDATOR_ERROR: 'Test  You must provide a valid code',
-                            },
-                        },
-                    },
-                    bluiAuth: {
-                        HEADER: {
-                            FORGOT_PASSWORD: 'Test Forgot Password',
-                        },
-                    },
                 },
                 fr: {
                     app: {
