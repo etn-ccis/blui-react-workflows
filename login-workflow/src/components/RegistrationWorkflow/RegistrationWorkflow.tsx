@@ -12,7 +12,6 @@ import {
 import { parseQueryString } from '../../utils';
 import { useErrorManager } from '../../contexts/ErrorContext/useErrorManager';
 import ErrorManager, { ErrorManagerProps } from '../Error/ErrorManager';
-import { useTranslation } from 'react-i18next';
 
 /**
  * Component that contain the registration workflow and index of screens.
@@ -57,7 +56,6 @@ export type RegistrationWorkflowProps = {
 export const RegistrationWorkflow: React.FC<React.PropsWithChildren<RegistrationWorkflowProps>> = (props) => {
     const [isAccountExist, setIsAccountExist] = useState(false);
     const { triggerError, errorManagerConfig } = useErrorManager();
-    const { t } = useTranslation();
     const { actions, navigate } = useRegistrationContext();
 
     const errorDisplayConfig = {
@@ -66,7 +64,6 @@ export const RegistrationWorkflow: React.FC<React.PropsWithChildren<Registration
         onClose: (): void => {
             if (props.errorDisplayConfig && props.errorDisplayConfig.onClose) props.errorDisplayConfig.onClose();
             if (errorManagerConfig.onClose) errorManagerConfig?.onClose();
-            navigate(-1);
         },
     };
     const {
@@ -179,34 +176,6 @@ export const RegistrationWorkflow: React.FC<React.PropsWithChildren<Registration
     useEffect(() => {
         if (isInviteRegistration) {
             const params = parseQueryString(window.location.search);
-
-            let isAccExist;
-            void (async (): Promise<void> => {
-                try {
-                    if (actions?.validateUserRegistrationRequest) {
-                        const { codeValid, accountExists } =
-                            (await actions?.validateUserRegistrationRequest?.(params.code, params.email)) || {};
-                        isAccExist = accountExists;
-
-                        if (!isAccExist) {
-                            if (typeof codeValid === 'string') {
-                                triggerError(new Error(codeValid));
-                            } else if (typeof codeValid === 'boolean' && !codeValid) {
-                                triggerError(
-                                    new Error(t('bluiRegistration:SELF_REGISTRATION.VERIFY_EMAIL.CODE_VALIDATOR_ERROR'))
-                                );
-                            }
-                        }
-                    }
-                } catch (_error) {
-                    triggerError(_error as Error);
-                } finally {
-                    if (isAccExist) {
-                        setIsAccountExist(isAccExist);
-                        setShowSuccessScreen(isAccExist);
-                    }
-                }
-            })();
 
             updateScreenData({ screenId: 'CreateAccount', values: { emailAddress: params.email } });
             updateScreenData({ screenId: 'VerifyCode', values: { code: params.code } });

@@ -37,7 +37,15 @@ export const EulaScreen: React.FC<EulaScreenProps> = (props) => {
         },
     };
     const regWorkflow = useRegistrationWorkflowContext();
-    const { nextScreen, previousScreen, screenData, currentScreen, totalScreens } = regWorkflow;
+    const {
+        nextScreen,
+        previousScreen,
+        screenData,
+        currentScreen,
+        totalScreens,
+        isInviteRegistration,
+        updateScreenData,
+    } = regWorkflow;
     const {
         WorkflowCardBaseProps,
         WorkflowCardHeaderProps,
@@ -82,16 +90,50 @@ export const EulaScreen: React.FC<EulaScreenProps> = (props) => {
             if (screenData.Eula.accepted) {
                 await actions?.acceptEula?.();
             }
-            void nextScreen({
-                screenId: 'Eula',
-                values: { accepted: screenData.Eula.accepted },
-            });
+            let isAccExist;
+            if (isInviteRegistration) {
+                const { codeValid, accountExists } =
+                    (await actions?.validateUserRegistrationRequest?.(
+                        screenData.VerifyCode.code,
+                        screenData.CreateAccount.emailAddress
+                    )) || {};
+                isAccExist = accountExists;
+                if (isAccExist) {
+                    updateScreenData({
+                        screenId: 'Eula',
+                        values: { accepted: screenData.Eula.accepted },
+                        isAccountExist: accountExists,
+                    });
+                } else {
+                    if (typeof codeValid === 'boolean') {
+                        if (codeValid)
+                            void nextScreen({
+                                screenId: 'Eula',
+                                values: { accepted: screenData.Eula.accepted },
+                                isAccountExist: accountExists,
+                            });
+                        else {
+                            triggerError(
+                                new Error(t('bluiRegistration:SELF_REGISTRATION.VERIFY_EMAIL.CODE_VALIDATOR_ERROR'))
+                            );
+                        }
+                    } else {
+                        triggerError(new Error(codeValid));
+                    }
+                }
+            } else {
+                void nextScreen({
+                    screenId: 'Eula',
+                    values: { accepted: screenData.Eula.accepted },
+                    isAccountExist: isAccExist,
+                });
+            }
         } catch (_error) {
             triggerError(_error as Error);
         } finally {
             setIsLoading(false);
         }
-    }, [actions, nextScreen, triggerError, screenData]);
+    }, [actions, nextScreen, triggerError, isInviteRegistration, screenData, t, updateScreenData]);
 
     const onPrevious = useCallback((): void => {
         setIsLoading(true);
