@@ -147,7 +147,7 @@ export const AccountDetailsScreenBase: React.FC<AccountDetailsScreenProps> = (pr
                         }}
                         onKeyUp={(e): void => {
                             if (e.key === 'Enter' && isFirstNameValid && isLastNameValid && actionsProps.canGoNext)
-                                actionsProps.onNext();
+                                actionsProps.onNext?.();
                         }}
                         onBlur={(): void => setShouldValidateLastName(true)}
                     />

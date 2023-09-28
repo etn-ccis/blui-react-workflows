@@ -54,7 +54,7 @@ export const ForgotPasswordScreenBase: React.FC<React.PropsWithChildren<ForgotPa
     const validateEmail = (): boolean => typeof emailValidator(initialEmailValue) !== 'string';
 
     const [isEmailValid, setIsEmailValid] = useState(validateEmail);
-    const [emailError, setEmailError] = useState(validateEmail ? emailValidator(initialEmailValue) : '');
+    const [emailError, setEmailError] = useState(!validateEmail() ? emailValidator(initialEmailValue) : '');
     const [shouldValidateEmail, setShouldValidateEmail] = useState(initialEmailValue !== '' ?? validateEmail);
 
     const handleEmailInputChange = useCallback(
@@ -83,7 +83,7 @@ export const ForgotPasswordScreenBase: React.FC<React.PropsWithChildren<ForgotPa
     return (
         <>
             {showSuccessScreen ? (
-                getSuccessScreen(slotProps?.SuccessScreen, slots?.SuccessScreen)
+                getSuccessScreen(slotProps?.SuccessScreen || {}, slots?.SuccessScreen)
             ) : (
                 <WorkflowCard {...cardBaseProps}>
                     <WorkflowCardHeader {...headerProps} />

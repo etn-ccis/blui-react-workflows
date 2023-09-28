@@ -1,8 +1,7 @@
 import React, { useCallback, useState } from 'react';
-import { Trans } from 'react-i18next';
+import { Trans, useTranslation } from 'react-i18next';
 import Box from '@mui/material/Box';
 import { useAuthContext } from '../../contexts';
-import { useLanguageLocale } from '../../hooks';
 import { ForgotPasswordScreenBase } from './ForgotPasswordScreenBase';
 import { ForgotPasswordScreenProps } from './types';
 import Typography from '@mui/material/Typography';
@@ -30,7 +29,7 @@ import { useErrorManager } from '../../contexts/ErrorContext/useErrorManager';
  */
 
 export const ForgotPasswordScreen: React.FC<ForgotPasswordScreenProps> = (props) => {
-    const { t } = useLanguageLocale();
+    const { t } = useTranslation();
     const { actions, navigate, routeConfig } = useAuthContext();
     const { triggerError, errorManagerConfig } = useErrorManager();
     const errorDisplayConfig = {
@@ -125,7 +124,7 @@ export const ForgotPasswordScreen: React.FC<ForgotPasswordScreenProps> = (props)
             WorkflowCardActionsProps?.onNext?.();
         },
         onPrevious: (): void => {
-            navigate(routeConfig.LOGIN);
+            navigate(routeConfig.LOGIN as string);
             WorkflowCardActionsProps?.onPrevious?.();
         },
     };
@@ -169,7 +168,7 @@ export const ForgotPasswordScreen: React.FC<ForgotPasswordScreenProps> = (props)
                         canGoNext: true,
                         fullWidthButton: true,
                         onNext: (): void => {
-                            navigate(routeConfig.LOGIN);
+                            navigate(routeConfig.LOGIN as string);
                         },
                     },
                     ...slotProps.SuccessScreen,

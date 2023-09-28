@@ -118,7 +118,7 @@ export const LoginScreenBase: React.FC<React.PropsWithChildren<LoginScreenProps>
 
     const [username, setUsername] = React.useState<string>(initialUsernameValue || '');
     const [password, setPassword] = React.useState<string>('');
-    const [rememberMe, setRememberMe] = React.useState<boolean>(rememberMeInitialValue);
+    const [rememberMe, setRememberMe] = React.useState<boolean | undefined>(rememberMeInitialValue);
 
     const [shouldValidateUsername, setShouldValidateUsername] = React.useState<boolean>(false);
     const [shouldValidatePassword, setShouldValidatePassword] = React.useState<boolean>(false);
@@ -134,7 +134,7 @@ export const LoginScreenBase: React.FC<React.PropsWithChildren<LoginScreenProps>
     const handleUsernameInputChange = useCallback(
         (value: string) => {
             setUsername(value);
-            const validatorResponse = usernameValidator(value);
+            const validatorResponse = usernameValidator?.(value);
 
             setIsUsernameValid(typeof validatorResponse === 'boolean' ? validatorResponse : false);
             setUsernameError(typeof validatorResponse === 'string' ? validatorResponse : '');
@@ -145,7 +145,7 @@ export const LoginScreenBase: React.FC<React.PropsWithChildren<LoginScreenProps>
     const handlePasswordInputChange = useCallback(
         (value: string) => {
             setPassword(value);
-            const validatorResponse = passwordValidator(value);
+            const validatorResponse = passwordValidator?.(value);
 
             setIsPasswordValid(typeof validatorResponse === 'boolean' ? validatorResponse : false);
             setPasswordError(typeof validatorResponse === 'string' ? validatorResponse : '');

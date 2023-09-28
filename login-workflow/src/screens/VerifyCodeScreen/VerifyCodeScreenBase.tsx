@@ -49,7 +49,7 @@ export const VerifyCodeScreenBase: React.FC<React.PropsWithChildren<VerifyCodeSc
 
     const [verifyCode, setVerifyCode] = React.useState(initialValue ?? '');
     const [shouldValidateCode, setShouldValidateCode] = React.useState(false);
-    const [isCodeValid, setIsCodeValid] = React.useState(codeValidator ? codeValidator(initialValue) : false);
+    const [isCodeValid, setIsCodeValid] = React.useState(codeValidator ? codeValidator(initialValue ?? '') : false);
     const [codeError, setCodeError] = React.useState('');
 
     const handleVerifyCodeInputChange = useCallback(
@@ -116,7 +116,7 @@ export const VerifyCodeScreenBase: React.FC<React.PropsWithChildren<VerifyCodeSc
                             {resendInstructions}
                             <Typography
                                 sx={{ fontSize: 'inherit', textTransform: 'initial', '&:hover': { cursor: 'pointer' } }}
-                                onClick={(): void => onResend()}
+                                onClick={(): void => onResend?.()}
                                 color="primary"
                                 variant={'button'}
                             >
@@ -129,7 +129,7 @@ export const VerifyCodeScreenBase: React.FC<React.PropsWithChildren<VerifyCodeSc
             </WorkflowCardBody>
             <WorkflowCardActions
                 {...actionsProps}
-                canGoNext={verifyCode.length > 0 && isCodeValid && actionsProps.canGoNext}
+                canGoNext={(verifyCode.length > 0 && isCodeValid && actionsProps.canGoNext) as any}
                 onNext={handleOnNext}
                 onPrevious={handleOnPrevious}
             />

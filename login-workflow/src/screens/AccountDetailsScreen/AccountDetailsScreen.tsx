@@ -1,8 +1,8 @@
 import React, { useCallback, useState } from 'react';
 import { AccountDetailsScreenBase, AccountDetailsScreenProps } from '../AccountDetailsScreen';
-import { useLanguageLocale } from '../../hooks';
 import { useRegistrationContext, useRegistrationWorkflowContext } from '../../contexts';
 import { useErrorManager } from '../../contexts/ErrorContext/useErrorManager';
+import { useTranslation } from 'react-i18next';
 
 /**
  * Component renders a screen with account details information for support with the application.
@@ -26,7 +26,7 @@ import { useErrorManager } from '../../contexts/ErrorContext/useErrorManager';
  */
 
 export const AccountDetailsScreen: React.FC<AccountDetailsScreenProps> = (props) => {
-    const { t } = useLanguageLocale();
+    const { t } = useTranslation();
     const { actions } = useRegistrationContext();
     const regWorkflow = useRegistrationWorkflowContext();
     const { nextScreen, previousScreen, screenData, currentScreen, totalScreens } = regWorkflow;
@@ -46,7 +46,7 @@ export const AccountDetailsScreen: React.FC<AccountDetailsScreenProps> = (props)
     const onNext = useCallback(async (): Promise<void> => {
         try {
             setIsLoading(true);
-            await actions.setAccountDetails({ firstName, lastName });
+            await actions?.setAccountDetails?.({ firstName, lastName });
             void nextScreen({
                 screenId: 'AccountDetails',
                 values: { firstName, lastName },

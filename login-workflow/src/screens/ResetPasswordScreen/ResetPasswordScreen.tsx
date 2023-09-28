@@ -1,12 +1,12 @@
 import React, { useCallback, useRef, useState, useEffect } from 'react';
 import CheckCircle from '@mui/icons-material/CheckCircle';
 import { ResetPasswordScreenBase } from './ResetPasswordScreenBase';
-import { useLanguageLocale } from '../../hooks';
 import { useAuthContext } from '../../contexts';
 import { defaultPasswordRequirements } from '../../constants';
 import { parseQueryString } from '../../utils';
 import { ResetPasswordScreenProps } from './types';
 import { useErrorManager } from '../../contexts/ErrorContext/useErrorManager';
+import { useTranslation } from 'react-i18next';
 
 /**
  * Component that renders a ResetPassword screen that allows a user to reset their password and shows a success message upon a successful password reset..
@@ -28,7 +28,7 @@ import { useErrorManager } from '../../contexts/ErrorContext/useErrorManager';
  */
 
 export const ResetPasswordScreen: React.FC<ResetPasswordScreenProps> = (props) => {
-    const { t } = useLanguageLocale();
+    const { t } = useTranslation();
     const passwordRef = useRef(null);
     const confirmRef = useRef(null);
     const { triggerError, errorManagerConfig } = useErrorManager();
@@ -73,7 +73,7 @@ export const ResetPasswordScreen: React.FC<ResetPasswordScreenProps> = (props) =
             setIsLoading(true);
             await actions.setPassword(code, passwordInput, email);
             if (props.showSuccessScreen === false) {
-                navigate(routeConfig.LOGIN);
+                navigate(routeConfig.LOGIN as string);
             } else {
                 setShowSuccessScreen(true);
             }
@@ -135,7 +135,7 @@ export const ResetPasswordScreen: React.FC<ResetPasswordScreenProps> = (props) =
             WorkflowCardActionsProps?.onNext?.();
         },
         onPrevious: (): void => {
-            navigate(routeConfig.LOGIN);
+            navigate(routeConfig.LOGIN as string);
             WorkflowCardActionsProps?.onPrevious?.();
         },
     };
@@ -181,7 +181,7 @@ export const ResetPasswordScreen: React.FC<ResetPasswordScreenProps> = (props) =
                         showNext: true,
                         nextLabel: t('bluiCommon:ACTIONS.DONE'),
                         onNext: (): void => {
-                            navigate(routeConfig.LOGIN);
+                            navigate(routeConfig.LOGIN as string);
                         },
                     },
                     ...slotProps.SuccessScreen,
@@ -191,9 +191,8 @@ export const ResetPasswordScreen: React.FC<ResetPasswordScreenProps> = (props) =
                 ...errorDisplayConfig,
                 onClose: hasVerifyCodeError
                     ? (): void => {
+                          navigate(routeConfig.LOGIN as string);
                           // eslint-disable-next-line no-unused-expressions
-                          navigate(routeConfig.LOGIN);
-                          // eslint-disable-next-line
                           errorDisplayConfig.onClose;
                       }
                     : errorDisplayConfig.onClose,

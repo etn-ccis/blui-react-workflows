@@ -56,7 +56,7 @@ export const EulaScreenBase: React.FC<EulaScreenProps> = (props) => {
     const handleEulaAcceptedChecked = useCallback(
         (accepted: boolean) => {
             setEulaAccepted(accepted);
-            onEulaAcceptedChange(accepted);
+            onEulaAcceptedChange?.(accepted);
         },
         [onEulaAcceptedChange]
     );

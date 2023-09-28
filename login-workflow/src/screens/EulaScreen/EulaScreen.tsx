@@ -1,9 +1,9 @@
 import React, { useCallback, useEffect, useState } from 'react';
 import { EulaScreenProps } from './types';
 import { EulaScreenBase } from './EulaScreenBase';
-import { useLanguageLocale } from '../../hooks';
 import { useRegistrationContext, useRegistrationWorkflowContext } from '../../contexts';
 import { useErrorManager } from '../../contexts/ErrorContext/useErrorManager';
+import { useTranslation } from 'react-i18next';
 
 /**
  * Component that renders a screen displaying the EULA and requests acceptance via a checkbox.
@@ -25,7 +25,7 @@ import { useErrorManager } from '../../contexts/ErrorContext/useErrorManager';
  */
 
 export const EulaScreen: React.FC<EulaScreenProps> = (props) => {
-    const { t } = useLanguageLocale();
+    const { t } = useTranslation();
     const { actions, language } = useRegistrationContext();
     const { triggerError, errorManagerConfig } = useErrorManager();
     const errorDisplayConfig = {

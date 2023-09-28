@@ -1,10 +1,10 @@
 import React, { useCallback, useRef, useState } from 'react';
 import { defaultPasswordRequirements } from '../../constants';
 import { useAuthContext } from '../../contexts';
-import { useLanguageLocale } from '../../hooks';
 import { ChangePasswordDialogBase } from './ChangePasswordDialogBase';
 import { ChangePasswordDialogProps } from './types';
 import CheckCircle from '@mui/icons-material/CheckCircle';
+import { useTranslation } from 'react-i18next';
 
 /**
  * Component that renders a dialog with textField to enter current password and a change password form with a new password and confirm password inputs.
@@ -30,7 +30,7 @@ import CheckCircle from '@mui/icons-material/CheckCircle';
  */
 
 export const ChangePasswordDialog: React.FC<ChangePasswordDialogProps> = (props) => {
-    const { t } = useLanguageLocale();
+    const { t } = useTranslation();
     const passwordRef = useRef(null);
     const confirmRef = useRef(null);
 
@@ -69,8 +69,18 @@ export const ChangePasswordDialog: React.FC<ChangePasswordDialogProps> = (props)
         [setPasswordInput, setConfirmInput]
     );
 
+    const areValidMatchingPasswords = useCallback((): boolean => {
+        if (PasswordProps?.passwordRequirements?.length === 0) {
+            return confirmInput === passwordInput;
+        }
+        for (let i = 0; i < passwordRequirements.length; i++) {
+            if (!new RegExp(passwordRequirements[i].regex).test(passwordInput)) return false;
+        }
+        return confirmInput === passwordInput;
+    }, [PasswordProps?.passwordRequirements?.length, passwordRequirements, passwordInput, confirmInput]);
+
     const checkPasswords =
-        currentInput !== '' && passwordInput !== '' && confirmInput !== '' && passwordInput === confirmInput;
+        currentInput !== '' && passwordInput !== '' && confirmInput !== '' && areValidMatchingPasswords();
 
     const changePasswordSubmit = useCallback(async () => {
         if (checkPasswords) {
@@ -78,7 +88,7 @@ export const ChangePasswordDialog: React.FC<ChangePasswordDialogProps> = (props)
                 setIsLoading(true);
                 await actions.changePassword(currentInput, passwordInput);
                 if (props.showSuccessScreen === false) {
-                    onFinish();
+                    onFinish?.();
                 }
                 setShowSuccessScreen(true);
             } catch {
@@ -155,7 +165,7 @@ export const ChangePasswordDialog: React.FC<ChangePasswordDialogProps> = (props)
                     messageTitle: t('bluiAuth:PASSWORD_RESET.SUCCESS_MESSAGE'),
                     message: t('bluiAuth:CHANGE_PASSWORD.SUCCESS_MESSAGE'),
                     onDismiss: (): void => {
-                        onFinish();
+                        onFinish?.();
                     },
                     WorkflowCardActionsProps: {
                         showPrevious: false,
@@ -163,7 +173,7 @@ export const ChangePasswordDialog: React.FC<ChangePasswordDialogProps> = (props)
                         showNext: true,
                         nextLabel: t('bluiCommon:ACTIONS.DONE'),
                         onNext: (): void => {
-                            onFinish();
+                            onFinish?.();
                         },
                     },
                     ...slotProps.SuccessScreen,
