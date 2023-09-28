@@ -67,7 +67,7 @@ export const EulaScreen: React.FC<EulaScreenProps> = (props) => {
         if (!eulaContent) {
             setEulaData(t('bluiRegistration:REGISTRATION.EULA.LOADING'));
             try {
-                const eulaText = await actions.loadEula(language);
+                const eulaText = await actions?.loadEula?.(language);
                 setEulaData(eulaText);
                 setIsLoading(false);
             } catch (_error) {
@@ -88,11 +88,11 @@ export const EulaScreen: React.FC<EulaScreenProps> = (props) => {
         setIsLoading(true);
         try {
             if (screenData.Eula.accepted) {
-                await actions.acceptEula?.();
+                await actions?.acceptEula?.();
             }
             let isAccExist;
-            if (isInviteRegistration) {
-                const { codeValid, accountExists } = await actions.validateUserRegistrationRequest(
+            if (isInviteRegistration && actions?.validateUserRegistrationRequest) {
+                const { codeValid, accountExists } = await actions?.validateUserRegistrationRequest(
                     screenData.VerifyCode.code,
                     screenData.CreateAccount.emailAddress
                 );
@@ -107,7 +107,7 @@ export const EulaScreen: React.FC<EulaScreenProps> = (props) => {
                     if (typeof codeValid === 'boolean') {
                         if (codeValid)
                             void nextScreen({
-                                screenId: 'VerifyCode',
+                                screenId: 'Eula',
                                 values: { accepted: screenData.Eula.accepted },
                                 isAccountExist: accountExists,
                             });
@@ -120,6 +120,12 @@ export const EulaScreen: React.FC<EulaScreenProps> = (props) => {
                         triggerError(new Error(codeValid));
                     }
                 }
+            } else {
+                void nextScreen({
+                    screenId: 'Eula',
+                    values: { accepted: screenData.Eula.accepted },
+                    isAccountExist: isAccExist,
+                });
             }
         } catch (_error) {
             triggerError(_error as Error);
