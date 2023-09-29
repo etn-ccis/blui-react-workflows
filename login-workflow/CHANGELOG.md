@@ -12,10 +12,11 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 -   Reusable screen components.
 -   Support for custom react auth workflow injection.
 -   Support for router customizability.
+-   Learn more about migrating from v4 => v5 your existing application by reading our [Migrating Guide](https://github.com/etn-ccis/blui-react-workflows/blob/dev/login-workflow/README.md#migrating-from-v4--v5)
 
 ### Changed
 
--  Updated i18next and react-i18next packages to the latest.
+-   Updated i18next and react-i18next packages to the latest.
 
 ## v3.1.1 (December 14, 2022)
 
