@@ -3,6 +3,7 @@
 ## Update Dependencies
 
 First, update your @brightlayer-ui/react-auth-workflow dependency to the latest version.
+
 ```shell
 npm install --save @brightlayer-ui/react-auth-workflow@^5.0.0
 // or
@@ -11,13 +12,11 @@ yarn upgrade @brightlayer-ui/react-auth-workflow@^5.0.0
 
 ## Managing Auth State
 
-In order to be more flexible / customizable, the workflow no longer manages the authentication status of the user internally. You will need to establish your own mechanism (such as using a ContextProvider or Redux) to track whether or not a user is authenticated to your application. For reference, you can look at how we set up the [AppContext](https://github.com/etn-ccis/blui-react-workflows/blob/dev/login-workflow/example/src/contexts/AppContextProvider.tsx) in the example project.
-
+In order to be more flexible / customizable, the workflow no longer manages the authentication status of the user internally. You will need to establish your own mechanism (such as using a ContextProvider or Redux) to track whether or not a user is authenticated to your application. For reference, you can look at how we set up the [AppContext](https://github.com/etn-ccis/blui-react-workflows/blob/master/login-workflow/example/src/contexts/AppContextProvider.tsx) in the example project.
 
 ## Managing Routing
 
 In order to be more flexible / customizable, the workflow no longer manages routing. The `AuthNavigationContainer` has been removed and will need to be replaced by your own routing solution (we recommend React Router). Please follow our [Routing Guide](./routing.md) for detailed information on setup.
-
 
 ## Managing Workflow Providers
 
@@ -27,29 +26,27 @@ We previously provided a `AuthUIContextProvider` component that was used to conf
 
 You no longer need to merge your apps translation data into the workflow — they an exist independently for the sake of simplifying your setup. If you aren't already, you will need to set up [react-i18next](https://react.i18next.com/) to manage your application side translations. Refer to our [Language Support](./language-support.md) guide for more information.
 
-
 ## Updated Actions
 
 ### AuthUIActions
 
 The `SecurityContextActions` no longer exist in the newest version and so they will not be available to your action definitions (i.e., `onUserAuthenticated` and `onUserNotAuthenticated` are no longer available). You will need to pass your own self-managed auth state/functions and use those instead (refer to above).
 
-
 ## RegistrationUIActions
 
-1) Update type name `AccountDetailInformation` to `AccountDetails`.
+1. Update type name `AccountDetailInformation` to `AccountDetails`.
 
 ```tsx
-// before 
+// before
 import { RegistrationUIActions, AccountDetailInformation } from '@brightlayer-ui/react-auth-workflow';
 // after
 import { RegistrationUIActions, AccountDetails } from '@brightlayer-ui/react-auth-workflow';
 ```
 
-2) LoadEULA renamed to loadEula
+2. LoadEULA renamed to loadEula
 
 ```tsx
-// before 
+// before
 loadEULA: async (language: string): Promise<string> => {
     ...
     return SAMPLE_EULA;
@@ -62,7 +59,7 @@ loadEula: async (language: string): Promise<string> => {
 },
 ```
 
-3) Additional data available in completeRegistration
+3. Additional data available in completeRegistration
 
 The `userData` parameter will now pass all data collected from the registration workflow, including custom data.
 
@@ -91,19 +88,17 @@ completeRegistration: async (
 },
 ```
 
-4) New actions available
+4. New actions available
 
 To give greater flexibility / granularity in the workflow, we have added a few more actions in registrationUIActions such as `acceptEula`, `requestRegistrationCode`, `createPassword`, and `setAccountDetails`. Refer to the [Registration Workflow](./registration-workflow.md) Guide for information about these new actions.
-
 
 ## New Setup
 
 Your new app architecture will look something like this once you have made all of the necessary updates:
 
-
 ```tsx
 // Your application instance of i18n
-<I18nextProvider i18n={i18nAppInstance} defaultNS={'app'}> 
+<I18nextProvider i18n={i18nAppInstance} defaultNS={'app'}>
     {/* Your custom context provider for managing auth state, etc. */}
     <AppContext.Provider
         value={{
@@ -123,12 +118,8 @@ Your new app architecture will look something like this once you have made all o
     >
         {/* Your implementation of a routing solution */}
         <BrowserRouter basename={'/'}>
-            <AuthContextProvider>
-                {/* Auth Routes */}
-            </AuthContextProvider>
-            <RegistrationContextProvider>
-                {/* Registration Routes */}
-            </RegistrationContextProvider>
+            <AuthContextProvider>{/* Auth Routes */}</AuthContextProvider>
+            <RegistrationContextProvider>{/* Registration Routes */}</RegistrationContextProvider>
         </BrowserRouter>
     </AppContext.Provider>
 </I18nextProvider>
