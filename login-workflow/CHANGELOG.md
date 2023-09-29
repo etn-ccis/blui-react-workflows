@@ -5,21 +5,17 @@ All notable changes to this project will be documented in this file.
 The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.0.0/),
 and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0.html).
 
-## v4.0.0 (Unreleased)
+## v6.0.0 (Unreleased)
 
 ### Added
 
--   A `ViewEulaSubscreen` component.
--   A `ContactSupportSubscreen` component.
--   A `BrandedCardContainer` component.
--   Confirm password field error state message in `ChangePasswordForm`.
--   Option to hide the Create Password screen during registration
--   A `ExistingAccountRegisterSuccessSubscreen` component.
--   A `RegistrationWorkflowContext` context, a `RegistrationWorkflowContextProvider` component and a `useRegistrationWorkflowContext` hook.
+-   Reusable screen components.
+-   Support for custom react auth workflow injection.
+-   Support for router customizability.
 
 ### Changed
 
--   Changed the verification code styles for the self registration workflow.
+-   Update support for the latest versions of i18n and react-i18n.
 
 ## v3.1.1 (December 14, 2022)
 
