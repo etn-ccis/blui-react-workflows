@@ -11,7 +11,7 @@ yarn upgrade @brightlayer-ui/react-auth-workflow@^5.0.0
 
 ## Managing Auth State
 
-In order to be more flexible / customizable, the workflow no longer manages the authentication status of the user internally. You will need to establish your own mechanism (such as using a ContextProvider or Redux) to track whether or not a user is authenticated to your application. For reference, you can look at how we set up the [AppContext](https://github.com/etn-ccis/blui-react-workflows/blob/dev/login-workflow/example/src/contexts/AppContextProvider.tsx) in the example project.
+In order to be more flexible / customizable, the workflow no longer manages the authentication status of the user internally. You will need to establish your own mechanism (such as using a ContextProvider or Redux) to track whether or not a user is authenticated to your application. For reference, you can look at how we set up the [AppContext](https://github.com/etn-ccis/blui-react-workflows/blob/master/login-workflow/example/src/contexts/AppContextProvider.tsx) in the example project.
 
 
 ## Managing Routing
