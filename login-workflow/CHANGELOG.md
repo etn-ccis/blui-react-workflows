@@ -15,7 +15,7 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 ### Changed
 
--   Update support for the latest versions of i18n and react-i18n.
+-  Updated i18next and react-i18next packages to the latest.
 
 ## v3.1.1 (December 14, 2022)
 
