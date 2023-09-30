@@ -4,6 +4,8 @@ import { ContactSupportScreenBase } from './ContactSupportScreenBase';
 import { ContactSupportScreenProps } from './types';
 import { useAuthContext } from '../../contexts';
 import { useTranslation } from 'react-i18next';
+import { LinkStyles } from '../../styles';
+import { Typography } from '@mui/material';
 
 /**
  * Component renders a screen with contact information for support with the application.
@@ -30,12 +32,42 @@ export const ContactSupportScreen: React.FC<ContactSupportScreenProps> = (props)
     const { t } = useTranslation();
     const { navigate, routeConfig } = useAuthContext();
 
+    const defaultEmailSupportContent = (): JSX.Element => (
+        <Typography variant="body1">
+            {`${t('bluiAuth:CONTACT_SUPPORT.SUPPORT_MESSAGE')}`}
+            <Typography
+                variant="button"
+                sx={{ ...LinkStyles, fontSize: 'inherit' }}
+                component="a"
+                href={`mailto:${contactEmail ?? ''}`}
+            >
+                {contactEmail}
+            </Typography>
+            {`.`}
+        </Typography>
+    );
+
+    const defaultPhoneSupportContent = (): JSX.Element => (
+        <Typography variant="body1">
+            {`${t('bluiAuth:CONTACT_SUPPORT.TECHNICAL_ASSISTANCE')}`}
+            <Typography
+                variant="button"
+                sx={{ ...LinkStyles, fontSize: 'inherit' }}
+                component="a"
+                href={`tel:${contactPhone ?? ''}`}
+            >
+                {contactPhone}
+            </Typography>
+            {`.`}
+        </Typography>
+    );
+
     const {
         icon = <ChatBubbleOutline color={'primary'} sx={{ fontSize: 70 }} />,
         emailSupportTitle = t('bluiAuth:CONTACT_SUPPORT.GENERAL_QUESTIONS'),
-        emailSupportContent,
+        emailSupportContent = defaultEmailSupportContent,
         phoneSupportTitle = t('bluiAuth:CONTACT_SUPPORT.EMERGENCY_SUPPORT'),
-        phoneSupportContent,
+        phoneSupportContent = defaultPhoneSupportContent,
         contactEmail = 'something@email.com',
         contactPhone = '1-800-123-4567',
         dismissButtonLabel = t('bluiCommon:ACTIONS.OKAY'),
