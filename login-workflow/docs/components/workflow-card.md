@@ -71,4 +71,4 @@ The WorkflowCardActions is used to configure the buttons that appear at the bott
 | totalSteps | `number` | Indicates the total number of steps in the multi-step workflow | `0` |
 | fullWidthButton | `boolean` | If true, buttons will expand to the full width of the panel (useful if you only have one button configured) | `false` |
 
-The properties of the underlying MUI [CardActions](https://mui.com/components/card-actions/) component are also available.
+The properties of the underlying MUI [CardActions](https://mui.com/material-ui/api/card-actions/) component are also available.

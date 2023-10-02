@@ -47,6 +47,6 @@ import { AuthContextProvider, ChangePasswordDialog } from '@brightlayer-ui/react
 
 | Key           | Type                 | Description                                                                             |
 | ------------- | -------------------- | --------------------------------------------------------------------------------------- |
-| SuccessScreen | `SuccessScreenProps` | Props to pass to the custom success screen component. See [SuccessScreen](./success.md) |
+| SuccessScreen | `SuccessScreenProps` | Props to pass to the custom success screen component. See [SuccessScreen](../screens/success.md) |
 
 Props from the underlying MUI [Dialog](https://mui.com/material-ui/react-dialog/) are also available.
