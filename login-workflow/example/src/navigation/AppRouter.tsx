@@ -19,7 +19,6 @@ import { routes } from './Routing';
 import { ExampleHome } from '../screens/ExampleHome';
 import i18nAppInstance from '../translations/i18n';
 import { ChangePassword } from '../components/ChangePassword';
-import Typography from '@mui/material/Typography';
 
 export const AppRouter: React.FC = () => {
     const navigate = useNavigate();
@@ -63,47 +62,7 @@ export const AppRouter: React.FC = () => {
                     path={'/contact-support'}
                     element={
                         <ReactRouterGuestGuard isAuthenticated={app.isAuthenticated} fallBackUrl={'/'}>
-                            <ContactSupportScreen
-                                emailSupportTitle={'Test General Questions'}
-                                emailSupportContent={
-                                    (contactEmail: string) => {
-                                        return (<Typography variant="body1">
-                                            {'Test For questions, feedback, or support please email us at '}
-                                            <Typography
-                                                variant="button"
-                                                component="a"
-                                                href={`mailto:${contactEmail ?? ''}`}
-                                            >
-                                                {contactEmail}
-                                            </Typography>
-                                            {`.`}
-                                        </Typography>)
-                                    }
-                                }
-                                phoneSupportTitle={'Test Emergency Support'}
-                                phoneSupportContent={
-                                    (phone: string) => {
-                                        return (
-                                            <Typography variant="body1">
-                                                {'Test For technical support, please call '}
-                                                <Typography
-                                                    variant="button"
-
-                                                    component="a"
-                                                    href={`tel:${phone ?? ''}`}
-                                                >
-                                                    {phone}
-                                                </Typography>
-                                                {`.`}
-                                            </Typography>
-                                        )
-                                    }
-                                }
-                            contactEmail={
-                                'testsomething@email.com'
-                            }
-                            contactPhone='1-800-123-4567' 
-                            />
+                            <ContactSupportScreen />
                         </ReactRouterGuestGuard>
                     }
                 />
