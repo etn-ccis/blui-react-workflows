@@ -11,7 +11,6 @@ import { ContactSupportScreenProps } from './types';
 import Box, { BoxProps } from '@mui/material/Box';
 import { ContactScreenClassKey, getContactScreenUtilityClass } from './utilityClasses';
 import { unstable_composeClasses as composeClasses } from '@mui/base';
-import { LinkStyles } from '../../styles';
 
 /**
  * Component renders a screen with contact information for support with the application.
@@ -92,38 +91,7 @@ export const ContactSupportScreenBase: React.FC<ContactSupportScreenProps> = (pr
                     {' '}
                     {emailSupportTitle}
                 </Typography>
-                {emailSupportContent && (
-                    <Typography
-                        className={defaultClasses.emailSupportContent}
-                        data-testid={defaultClasses.emailSupportContent}
-                        variant="body1"
-                    >
-                        {' '}
-                        {typeof emailSupportContent === 'string'
-                            ? emailSupportContent
-                            : emailSupportContent(contactEmail ?? '')}
-                    </Typography>
-                )}
-                {!emailSupportContent && (
-                    <Typography
-                        className={defaultClasses.emailSupportContent}
-                        data-testid={defaultClasses.emailSupportContent}
-                        variant="body1"
-                    >
-                        {`For questions, feedback, or support please email us at `}
-                        <Typography
-                            className={defaultClasses.contactEmail}
-                            data-testid={defaultClasses.contactEmail}
-                            variant="button"
-                            sx={{ ...LinkStyles, fontSize: 'inherit' }}
-                            component="a"
-                            href={`mailto:${contactEmail ?? ''}`}
-                        >
-                            {contactEmail}
-                        </Typography>
-                        {`.`}
-                    </Typography>
-                )}
+                <>{emailSupportContent?.(contactEmail ?? '')}</>
                 <Typography
                     className={defaultClasses.phoneSupportTitle}
                     data-testid={defaultClasses.phoneSupportTitle}
@@ -133,38 +101,7 @@ export const ContactSupportScreenBase: React.FC<ContactSupportScreenProps> = (pr
                     {' '}
                     {phoneSupportTitle}
                 </Typography>
-                {phoneSupportContent && (
-                    <Typography
-                        className={defaultClasses.phoneSupportContent}
-                        data-testid={defaultClasses.phoneSupportContent}
-                        variant="body1"
-                    >
-                        {' '}
-                        {typeof phoneSupportContent === 'string'
-                            ? phoneSupportContent
-                            : phoneSupportContent(contactPhone ?? '')}
-                    </Typography>
-                )}
-                {!phoneSupportContent && (
-                    <Typography
-                        className={defaultClasses.phoneSupportContent}
-                        data-testid={defaultClasses.phoneSupportContent}
-                        variant="body1"
-                    >
-                        {`For technical support, please call `}
-                        <Typography
-                            className={defaultClasses.contactPhone}
-                            data-testid={defaultClasses.contactPhone}
-                            variant="button"
-                            sx={{ ...LinkStyles, fontSize: 'inherit' }}
-                            component="a"
-                            href={`tel:${contactPhone ?? ''}`}
-                        >
-                            {contactPhone}
-                        </Typography>
-                        {`.`}
-                    </Typography>
-                )}
+                <>{phoneSupportContent?.(contactPhone ?? '')}</>
             </WorkflowCardBody>
             <WorkflowCardActions
                 {...actionsProps}
