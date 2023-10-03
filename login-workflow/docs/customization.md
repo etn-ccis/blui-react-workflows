@@ -94,7 +94,7 @@ For information about supporting multiple languages and customizing the translat
 For information about handling errors in your application, refer to our [Error Management](./error-management.md) documentation.
 
 ## Components
-For more details on customizing our components, refer to our [Components](./components/components.md) documentation. 
+For more details on customizing our components, refer to our [Components](./components/README.md) documentation. 
 
 ## Screens
-For more details on customizing our screens, refer to our [Screens](./screens/screens.md) documentation.
+For more details on customizing our screens, refer to our [Screens](./screens/README.md) documentation.
