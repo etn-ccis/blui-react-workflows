@@ -5,6 +5,7 @@
 The React Auth Workflow package provides a consistent UI implementation of authentication-related capabilities for use in Eaton web applications built with React.
 
 The package is intended to provide a standard, out-of-the-box experience for capabilities such as:
+
 -   Login
 -   Forgot / Reset Password
 -   Change Password
@@ -15,7 +16,6 @@ The package is intended to provide a standard, out-of-the-box experience for cap
 This package is flexible, allowing you to use the Login and Registration flows independently or in combination (or simply use individual screen components), while also providing many opportunities to customize the flows if needed for your particular application.
 
 These workflows are back-end agnostic, meaning you can use them with any back-end API you wish. You simply need to provide an implementation for several key functions (actions) that are called at various points within the workflows based on user interaction.
-
 
 ![Login](https://raw.githubusercontent.com/etn-ccis/blui-react-workflows/master/login-workflow/media/login.png)
 ![Password](https://raw.githubusercontent.com/etn-ccis/blui-react-workflows/master/login-workflow/media/password.png)
@@ -31,6 +31,7 @@ yarn add @brightlayer-ui/react-auth-workflow
 ```
 
 ### Peer Dependencies
+
 This package also has a number of peer dependency requirements that you will need to install in your project. To install the latest version of all of these peer dependencies, run the following command in your project root:
 
 ```
@@ -44,6 +45,7 @@ yarn add @mui/material @emotion/react @emotion/styled @mui/icons-material @brigh
 To use the package, read our [Integration](https://github.com/etn-ccis/blui-react-workflows/tree/master/login-workflow/docs/integration.md) instructions. Even if you are starting from scratch, it may be useful for you to refer to the [Example](https://github.com/etn-ccis/blui-react-workflows/tree/master/login-workflow/example) project while getting started.
 
 In short, you will need to:
+
 -   Add routes for each of the Login Workflow screens you wish to include
 -   Define a mechanism for tracking the authenticated state of the current user
 -   Add a registration route for the registration workflow component
@@ -63,10 +65,12 @@ In short, you will need to:
 -   [Components & APIs](https://github.com/etn-ccis/blui-react-workflows/tree/master/login-workflow/docs/components/README.md)
 -   [Screens](https://github.com/etn-ccis/blui-react-workflows/tree/master/login-workflow/docs/screens/README.md)
 
-# Migrating from v4 => v5
-We have listened to your feedback and version 5 of this library is a significant rewrite that aims to address many requests for greater flexibility and customization of the workflows.
+# Migrating from v3 => v4
+
+We have listened to your feedback and version 4 of this library is a significant rewrite that aims to address many requests for greater flexibility and customization of the workflows.
 
 Some notable changes include:
+
 -   Router independence — you now have full control over your routing library and its configuration
 -   Allowing you to manage the authentication status / mechanism (separating UI from business logic)
 -   Separation of Login and Registration workflows so they can be used independently
@@ -74,7 +78,7 @@ Some notable changes include:
 -   Exporting screens individually so you can build your own custom flows
 -   Simpler approach to translations (separating our internal translations from your application-level translations)
 -   Greater customization of screens through props (and moving customization properties to the screens they affect instead of handling all customizations through a monolithic wrapper component)
-- Improved error management mechanism (customizable)
+-   Improved error management mechanism (customizable)
 
 Learn more about upgrading your existing application by reading our [Migrating Guide](https://github.com/etn-ccis/blui-react-workflows/tree/master/login-workflow/docs/migration-guide-4-5.md)
 
