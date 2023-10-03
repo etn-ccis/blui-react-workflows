@@ -52,7 +52,11 @@ export const ForgotPasswordScreen: React.FC<ForgotPasswordScreenProps> = (props)
             try {
                 setIsLoading(true);
                 await actions.forgotPassword(email);
-                setShowSuccessScreen(true);
+                if (props.showSuccessScreen === false) {
+                    navigate(routeConfig.LOGIN as string);
+                } else {
+                    setShowSuccessScreen(true);
+                }
             } catch (_error) {
                 triggerError(_error as Error);
             } finally {
