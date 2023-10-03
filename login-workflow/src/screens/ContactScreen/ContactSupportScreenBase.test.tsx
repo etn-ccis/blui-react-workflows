@@ -3,6 +3,7 @@ import '@testing-library/jest-dom';
 import { render, cleanup, screen, fireEvent } from '@testing-library/react';
 import { ContactSupportScreenBase } from './ContactSupportScreenBase';
 import ChatBubbleOutline from '@mui/icons-material/ChatBubbleOutline';
+import Typography from '@mui/material/Typography';
 
 afterEach(cleanup);
 
@@ -30,6 +31,24 @@ describe('ContactSupportScreenBase tests', () => {
                 contactEmail="something@email.com"
                 contactPhone="1-800-123-4567"
                 dismissButtonLabel="Okay"
+                emailSupportContent={(contactEmail: string): JSX.Element => (
+                    <Typography variant="body1">
+                        {'For questions, feedback, or support please email us at '}
+                        <Typography variant="button" component="a" href={`mailto:${contactEmail ?? ''}`}>
+                            {contactEmail}
+                        </Typography>
+                        {`.`}
+                    </Typography>
+                )}
+                phoneSupportContent={(phone: string): JSX.Element => (
+                    <Typography variant="body1">
+                        {'For technical support, please call '}
+                        <Typography variant="button" component="a" href={`tel:${phone ?? ''}`}>
+                            {phone}
+                        </Typography>
+                        {`.`}
+                    </Typography>
+                )}
                 WorkflowCardActionsProps={{
                     nextLabel: 'Okay',
                     showNext: true,

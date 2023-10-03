@@ -32,6 +32,8 @@ export const ContactSupportScreen: React.FC<ContactSupportScreenProps> = (props)
     const { t } = useTranslation();
     const { navigate, routeConfig } = useAuthContext();
 
+    const { contactEmail = 'something@email.com', contactPhone = '1-800-123-4567' } = props;
+
     const defaultEmailSupportContent = (): JSX.Element => (
         <Typography variant="body1">
             {`${t('bluiAuth:CONTACT_SUPPORT.SUPPORT_MESSAGE')}`}
@@ -68,8 +70,6 @@ export const ContactSupportScreen: React.FC<ContactSupportScreenProps> = (props)
         emailSupportContent = defaultEmailSupportContent,
         phoneSupportTitle = t('bluiAuth:CONTACT_SUPPORT.EMERGENCY_SUPPORT'),
         phoneSupportContent = defaultPhoneSupportContent,
-        contactEmail = 'something@email.com',
-        contactPhone = '1-800-123-4567',
         dismissButtonLabel = t('bluiCommon:ACTIONS.OKAY'),
         onDismiss,
         WorkflowCardHeaderProps,
