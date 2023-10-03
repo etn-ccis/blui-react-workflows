@@ -111,7 +111,7 @@ export const SetPassword: React.FC<React.PropsWithChildren<SetPasswordProps>> = 
             />
             {passwordRequirements && passwordRequirements.length > 0 && (
                 <PasswordRequirements
-                    sx={{ mt: 2 }}
+                    sx={{ mt: { xs: 2 }, mb: { xs: 2 } }}
                     passwordText={passwordInput}
                     passwordRequirements={passwordRequirements}
                 />
@@ -122,9 +122,6 @@ export const SetPassword: React.FC<React.PropsWithChildren<SetPasswordProps>> = 
                 name="confirm"
                 inputRef={confirmRef}
                 label={confirmPasswordLabel}
-                sx={{
-                    mt: { md: 4, sm: 3 },
-                }}
                 value={confirmInput}
                 error={hasConfirmPasswordError()}
                 helperText={hasConfirmPasswordError() ? passwordNotMatchError : ''}
