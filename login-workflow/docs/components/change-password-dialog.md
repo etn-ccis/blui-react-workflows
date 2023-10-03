@@ -41,7 +41,7 @@ import { AuthContextProvider, ChangePasswordDialog } from '@brightlayer-ui/react
 
 | Key           | Type                                         | Description                                                                    |
 | ------------- | -------------------------------------------- | ------------------------------------------------------------------------------ |
-| SuccessScreen | `(props: SuccessScreenProps) => JSX.Element` | A custom success screen component to render. See [SuccessScreen](./success.md) |
+| SuccessScreen | `(props: SuccessScreenProps) => JSX.Element` | A custom success screen component to render. See [SuccessScreen](../screens/success.md) |
 
 ### ChangePasswordDialogSlotsProps
 
