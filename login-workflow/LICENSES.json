@@ -35,7 +35,7 @@
         "licenseUrl": "https://github.com/i18next/i18next-browser-languageDetector/raw/master/LICENSE",
         "parents": "@brightlayer-ui/react-auth-workflow"
     },
-    "i18next@23.2.11": {
+    "i18next@23.5.1": {
         "licenses": "MIT",
         "repository": "https://github.com/i18next/i18next",
         "licenseUrl": "https://github.com/i18next/i18next/raw/master/LICENSE",
@@ -47,7 +47,7 @@
         "licenseUrl": "https://github.com/facebook/create-react-app/raw/master/LICENSE",
         "parents": "example"
     },
-    "react-i18next@13.0.2": {
+    "react-i18next@13.2.2": {
         "licenses": "MIT",
         "repository": "https://github.com/i18next/react-i18next",
         "licenseUrl": "https://github.com/i18next/react-i18next/raw/master/LICENSE",
