@@ -15,6 +15,7 @@ const resources: AuthLanguageFile = {
             RESET_CODE_ERROR: 'Hubo un error con su código de reinicio. ',
             LINK_SENT: 'Se envió un vínculo para restablecer su contraseña a <b> {{email}} </b>.',
             LINK_SENT_ALT: 'Se envió un vínculo para restablecer su contraseña a <1> {{email}} </1>.',
+            RESPONSE_TIME: 'un día hábil',
         },
         LOGIN: {
             INCORRECT_CREDENTIALS: 'Correo electrónico o contraseña incorrectos',
