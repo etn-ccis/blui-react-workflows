@@ -1,13 +1,14 @@
 version: 2.1
 orbs:
     codecov: codecov/codecov@3.2.2
-    gh: circleci/github-cli@1.0.3
-    browser-tools: circleci/browser-tools@1.2.4
+    gh: circleci/github-cli@2.2.0
+    browser-tools: circleci/browser-tools@1.4.3
+
 jobs:
-  build_login_workflow:
-    working_directory: ~/login-workflow
+  install_dependencies:
     docker:
-      - image: cimg/node:14.19.0-browsers
+      - image: cimg/node:18.17.0-browsers
+    working_directory: ~/login-workflow
     resource_class: large
     steps:
       - checkout
@@ -24,21 +25,90 @@ jobs:
           paths:
             - node_modules
           key: v2-dependencies-{{ checksum "login-workflow/yarn.lock" }}
+
+  prettier_check:
+    docker:
+      - image: cimg/node:18.17.0-browsers
+    working_directory: ~/login-workflow
+    resource_class: large
+    steps:
+      - checkout
+      - restore_cache:
+          keys:
+            - v2-dependencies-{{ checksum "login-workflow/yarn.lock" }}
+      - run:
+          name: Install Dependencies
+          command: |
+            cd login-workflow
+            yarn install --frozen-lockfile
       - run:
           name: Prettier Check
           command: |
             cd login-workflow
             yarn prettier:check
+
+  lint_check:
+    docker:
+      - image: cimg/node:18.17.0-browsers
+        environment:
+          NODE_OPTIONS=--max-old-space-size=5120
+    working_directory: ~/login-workflow
+    resource_class: large
+    steps:
+      - checkout
+      - restore_cache:
+          keys:
+            - v2-dependencies-{{ checksum "login-workflow/yarn.lock" }}
+      - run:
+          name: Install Dependencies
+          command: |
+            cd login-workflow
+            yarn install --frozen-lockfile
       - run:
           name: Lint
           command: |
             cd login-workflow
             yarn lint
+
+  store_test_results:
+    docker:
+      - image: cimg/node:18.17.0-browsers
+    parallelism: 4
+    working_directory: ~/login-workflow
+    resource_class: large
+    steps:
+      - checkout
+      - restore_cache:
+          keys:
+            - v2-dependencies-{{ checksum "login-workflow/yarn.lock" }}
+      - run:
+          name: Install Dependencies
+          command: |
+            cd login-workflow
+            yarn install --frozen-lockfile
       - run:
           name: Tests
           command: |
             cd login-workflow
-            yarn test --maxWorkers=2 --coverage --watchAll=false
+            yarn test:ci  --maxWorkers=2 --coverage --watchAll=false
+
+  build_login_workflow:
+    docker:
+      - image: cimg/node:18.17.0-browsers
+        environment:
+          NODE_OPTIONS=--max-old-space-size=5120
+    working_directory: ~/login-workflow
+    resource_class: large
+    steps:
+      - checkout
+      - restore_cache:
+          keys:
+            - v2-dependencies-{{ checksum "login-workflow/yarn.lock" }}
+      - run:
+          name: Install Dependencies
+          command: |
+            cd login-workflow
+            yarn install --frozen-lockfile
       - run:
           name: Build
           command: |
@@ -50,63 +120,10 @@ jobs:
             - login-workflow/dist
             - login-workflow/coverage
 
-  cypress_tests:
-    working_directory: ~/login-workflow/example
-    parallelism: 2
-    docker:
-        - image: cimg/node:14.19.0-browsers
-    resource_class: large
-    steps:
-        - checkout
-        - restore_cache:
-            keys:
-                - v2-dependencies-{{ checksum "login-workflow/yarn.lock" }}
-        - restore_cache:
-            keys:
-                - v2-dependencies-{{ checksum "login-workflow/example/yarn.lock" }}
-        - run:
-            name: Install Dependencies
-            command: |
-              cd login-workflow
-              yarn install --frozen-lockfile
-        - run:
-            name: Install Dependencies
-            command: |
-              cd login-workflow/example
-              yarn install --frozen-lockfile
-        - save_cache:
-            name: Save Cache
-            paths:
-                - ~/.cache
-                - node_modules
-            key: v2-dependencies-{{ checksum "login-workflow/yarn.lock" }}
-        - save_cache:
-            name: Save Cache
-            paths:
-                - ~/.cache
-                - node_modules
-            key: v2-dependencies-{{ checksum "login-workflow/example/yarn.lock" }}
-        - run:
-            name: Initialize link workflow
-            command: |
-                cd login-workflow
-                yarn cy:stage
-        - run:
-            name: Cypress E2E Tests
-            command: |
-                cd login-workflow
-                yarn cytest
-        - store_artifacts:
-            path: cypress/screenshots
-        - persist_to_workspace:
-            root: .
-            paths:
-                - login-workflow/cypress-coverage
-
   coverage_report:
         working_directory: ~/login-workflow
         docker:
-            - image: cimg/node:14.19.0-browsers
+            - image: cimg/node:18.17.0-browsers
         steps:
             - checkout
             - attach_workspace:
@@ -115,14 +132,10 @@ jobs:
                 file: './login-workflow/coverage/clover.xml'
                 flags: unit_tests
                 token: CODECOV_TOKEN
-            - codecov/upload:
-                file: './login-workflow/cypress-coverage/clover.xml'
-                flags: ui_tests
-                token: CODECOV_TOKEN
 
   publish_login_workflow:
     docker:
-      - image: cimg/node:14.19.0-browsers
+      - image: cimg/node:18.17.0-browsers
     steps:
       - checkout
       - attach_workspace:
@@ -137,30 +150,14 @@ jobs:
           command:  |
             cd login-workflow && yarn publish:package -b $CIRCLE_BRANCH
 
-  tag_login_workflow:
-    docker:
-      - image: cimg/node:14.19.0-browsers
-    steps:
-      - checkout
-      - gh/setup
-      - run:
-          name: Tag @brightlayer-ui/react-auth-workflow
-          command:  |
-            cd login-workflow && yarn tag:package -b $CIRCLE_BRANCH -s -blui-react-auth-workflow
-
 workflows:
-  version: 2
   react_workflows:
     jobs:
+      - install_dependencies
+      - prettier_check
+      - lint_check
+      - store_test_results
       - build_login_workflow
-      - cypress_tests:
-          requires:
-            - build_login_workflow
-          filters:
-            branches:
-              only:
-                - master
-                - dev
       - publish_login_workflow:
           requires:
             - build_login_workflow
@@ -169,18 +166,11 @@ workflows:
               only:
                 - master
                 - dev
-      - tag_login_workflow:
-          requires:
-            - publish_login_workflow
-          filters:
-            branches:
-              only:
-                - master
       - coverage_report:
                    requires:
                         - build_login_workflow
-                        - cypress_tests
                    filters:
                         branches:
                             only:
                                 - master
+                                - dev

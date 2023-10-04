@@ -1,0 +1,31 @@
+# EulaScreen
+
+A screen that displays an End User License Agreement and a checkbox to confirm that they have read and agree to the terms. The EulaScreen must be used within a `RegistrationContextProvider`.
+
+![EULA](../../media/screens/eula.png)
+
+## Usage
+
+```tsx
+import { RegistrationContextProvider, EulaScreen } from '@brightlayer-ui/react-auth-workflow';
+
+...
+
+<RegistrationContextProvider {...props}>
+    <EulaScreen />
+</RegistrationContextProvider>
+```
+
+## API
+
+| Prop Name | Type | Description | Default |
+|---|---|---|---|
+| eulaContent | `string \| JSX.Element` | The content to render for the EULA. Can be a plain string or HTML. | `t('bluiAuth:EULA.EULA_CONTENT')` |
+| checkboxLabel | `string` | The text to render for the acceptance checkbox. | `t('bluiAuth:EULA.ACCEPT_EULA')` |
+| checkboxProps | `CheckboxProps` | Props to spread to the MUI [Checkbox](https://mui.com/material-ui/api/checkbox/) component |  |
+| html | `boolean` | True if the EULA should be rendered as HTML, false for plain text | `false` |
+| initialCheckboxValue | `boolean` | Used to pre-populate the checked/unchecked checkbox when the screen loads. | `false` |
+| onEulaAcceptedChange | `(accepted: boolean) => void` | Called when the acceptance checkbox clicked. |  |
+| errorDisplayConfig | `ErrorManagerProps` | See [Error Management](../error-management.md) |  |
+
+This screen also extends the `WorkflowCardProps` type for updating the title, instructions, buttons, etc. See [Workflow Card](../components/workflow-card.md) for more details.

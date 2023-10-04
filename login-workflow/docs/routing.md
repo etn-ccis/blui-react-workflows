@@ -1,0 +1,217 @@
+# Setting up Routing
+
+While this workflow library will work with different routing providers, we generally recommend using [React Router](https://reactrouter.com/) and will do so in all of the examples.
+
+## Usage
+
+Because this workflow package is router-agnostic, you will be required to set up your routing solution and configure which of the workflow screens will appear on each of your routes.
+
+You will also want to set up Auth/Guest Guard wrappers to control which users can access which screens / routes. For more information see [Protecting Routes](#protecting-routes) below.
+
+### Authentication
+
+The **Authentication** workflow screens are rendered individually on separate routes (e.g., the Login screen is on '/login' and the support screen is on '/support'). This means you can deep-link to any of these screens directly if you have them configured.
+
+For more information on the `AuthContextProvider` , refer to the [Authentication Workflow](./authentication-workflow.md) Guide.
+
+#### Example Setup
+
+```tsx
+import React from 'react';
+import {
+    AuthContextProvider,
+    ContactSupportScreen,
+    ForgotPasswordScreen,
+    ResetPasswordScreen,
+    LoginScreen,
+    ReactRouterGuestGuard,
+    ContactSupportScreen,
+} from '@brightlayer-ui/react-auth-workflow';
+import { useNavigate } from 'react-router';
+import { ProjectAuthUIActions } from '../actions/AuthUIActions';
+import { Outlet, Route, Routes } from 'react-router-dom';
+
+export const routes: RouteConfig = {
+    LOGIN: '/login',
+    REGISTER_INVITE: '/register-by-invite?code=8k27jshInvite234Code&email=example@example.com',
+    REGISTER_SELF: '/self-registration',
+    FORGOT_PASSWORD: '/forgot-password',
+    RESET_PASSWORD: '/reset-password',
+    SUPPORT: '/support',
+};
+
+// Retrieve data that you are storing about the logged-in status of the user
+const getAuthState = () => ({
+    isAuthenticated: true;
+})
+
+export const AppRouter: React.FC = () => {
+    const navigate = useNavigate();
+    const authState = getAuthState();
+    return (
+        <Routes>
+            <Route
+                element={
+                    <AuthContextProvider
+                        actions={ProjectAuthUIActions}
+                        language={'en'}
+                        navigate={navigate}
+                        routeConfig={routes}
+                    >
+                        <Outlet />
+                    </AuthContextProvider>
+                }
+            >
+                <Route
+                    path={routes.LOGIN}
+                    element={
+                        <ReactRouterGuestGuard isAuthenticated={appState.isAuthenticated} fallBackUrl={'/'}>
+                            <LoginScreen />
+                        </ReactRouterGuestGuard>
+                    }
+                />
+                <Route
+                    path={routes.FORGOT_PASSWORD}
+                    element={
+                        <ReactRouterGuestGuard isAuthenticated={app.isAuthenticated} fallBackUrl={'/'}>
+                            <ForgotPasswordScreen />
+                        </ReactRouterGuestGuard>
+                    }
+                />
+                <Route
+                    path={routes.RESET_PASSWORD}
+                    element={
+                        <ReactRouterGuestGuard isAuthenticated={app.isAuthenticated} fallBackUrl={'/'}>
+                            <ResetPasswordScreen />
+                        </ReactRouterGuestGuard>
+                    }
+                />
+                <Route
+                    path={routes.SUPPORT}
+                    element={
+                        // No GuestGuard means this screen can be accessed by any user regardless of whether or not they are logged in
+                        <ContactSupportScreen />
+                    }
+                />
+            </Route>
+        </Routes>
+    );
+};
+```
+
+### Registration
+
+The **Registration** workflow is intended to be used on a _single_ route (e.g., '/register') because the screens work together and share data, etc. This single route renders a component that manages the transitions between the screens. You are not intended to be able to deep-link to any particular screen in the flow (e.g., you would not want a user to be able to jump right to '/register/create-password' — it wouldn't make sense without the context of the other screens in the flow). However, all of these screens are exported as individual components if you wanted to build the workflow differently (see [Customization](./customization.md)).
+
+For more information on the `RegistrationContextProvider`, refer to the [Registration Workflow](./registration-workflow.md) Guide.
+
+#### Example Usage
+
+```tsx
+import React from 'react';
+import {
+    RegistrationContextProvider,
+    RegistrationWorkflow,
+} from '@brightlayer-ui/react-auth-workflow';
+import { useNavigate } from 'react-router';
+import { Outlet, Route, Routes } from 'react-router-dom';
+import { ProjectRegistrationUIActions } from '../actions/RegistrationUIActions';
+import { i18nAppInstance } from './i18n';
+
+export const routes: RouteConfig = {
+    LOGIN: '/login',
+    REGISTER_INVITE: '/register-by-invite?code=8k27jshInvite234Code&email=example@example.com',
+    REGISTER_SELF: '/self-registration',
+    FORGOT_PASSWORD: '/forgot-password',
+    RESET_PASSWORD: '/reset-password',
+    SUPPORT: '/support',
+};
+
+// Retrieve data that you are storing about the logged-in status of the user
+const getAuthState = () => ({
+    isAuthenticated: true;
+})
+
+export const AppRouter: React.FC = () => {
+   const navigate = useNavigate();
+    const authState = getAuthState();
+    return (
+        <Routes>
+            <Route
+                element={
+                    <RegistrationContextProvider
+                        language={language}
+                        routeConfig={routes}
+                        navigate={navigate}
+                        actions={ProjectRegistrationUIActions}
+                        i18n={i18nAppInstance}
+                    >
+                        <Outlet />
+                    </RegistrationContextProvider>
+                }
+            >
+                <Route
+                    path={routes.REGISTER_SELF}
+                    element={
+                        <ReactRouterGuestGuard isAuthenticated={appState.isAuthenticated} fallBackUrl={'/'}>
+                            <RegistrationWorkflow />
+                        </ReactRouterGuestGuard>
+                    }
+                />
+                <Route 
+                    path={routes.REGISTER_INVITE} 
+                    element={
+                        <ReactRouterGuestGuard isAuthenticated={appState.isAuthenticated} fallBackUrl={'/'}>
+                            <RegistrationWorkflow isInviteRegistration />
+                        </ReactRouterGuestGuard>
+                    } 
+                />
+            </Route>
+        </Routes>
+    );
+};
+```
+
+### Protecting Routes
+
+Different routes in your application should be accessible under different conditions. Some routes (e.g., Login or Reset Password) should only be available when a user is unauthenticated (a logged in user should never be able to get back to the login screen without logging out first). Other routes (like your main application content) should only be accessible when a user is authenticated. Some routes (like Contact Support or Terms and Conditions) may be available to any user regardless of authentication status.
+
+This is where Route Guard components / protected routes are handy. We provide implementations of a `ReactRouterAuthGuard` (prevents access to the child unless the user is logged in) and `ReactRouterGuestGuard` (prevents access to child routes if the user is logged in) for use with React Router. If you are using another routing provider, you will need to implement these guards yourself.
+
+
+#### Examples
+
+```tsx
+import { 
+    ReactRouterAuthGuard,
+    ReactRouterGuestGuard
+} from '@brightlayer-ui/react-auth-workflow';
+
+...
+
+// AUTH GUARD
+
+// This will redirect to the login screen since the user is not authenticated
+// The user will be returned to Page1 after they enter their credentials
+<ReactRouterAuthGuard isAuthenticated={false} fallBackUrl={'/login'}>
+    <Page1 />
+</ReactRouterAuthGuard>
+
+// Page1 will be rendered because the user is authenticated
+<ReactRouterAuthGuard isAuthenticated={true} fallBackUrl={'/login'}>
+    <Page1 />
+</ReactRouterAuthGuard>
+
+
+// GUEST GUARD
+
+// Page1 will be rendered because the user is NOT authenticated
+<ReactRouterGuestGuard isAuthenticated={false} fallBackUrl={'/'}>
+    <Page1 />
+</ReactRouterGuestGuard>
+
+// This will redirect to the base url because the user is authenticated and this screen is for guests only
+<ReactRouterGuestGuard isAuthenticated={true} fallBackUrl={'/'}>
+    <Page1 />
+</ReactRouterGuestGuard>
+```

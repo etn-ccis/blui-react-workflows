@@ -1,4 +1,0 @@
-[submodule "login-workflow/shared-auth"]
-	path = login-workflow/shared-auth
-	url = https://github.com/brightlayer-ui/react-auth-shared
-	branch = dev

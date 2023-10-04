@@ -1,0 +1,33 @@
+# AccountDetailsScreen
+
+A screen that displays text fields to collect the user's basic account details (first name and last name). The AccountDetailsScreen must be used within a `RegistrationContextProvider`.
+
+![Account Details](../../media/screens/account-details.png)
+
+## Usage
+
+```tsx
+import { RegistrationContextProvider, AccountDetailsScreen } from '@brightlayer-ui/react-auth-workflow';
+
+...
+
+<RegistrationContextProvider {...props}>
+    <AccountDetailsScreen />
+</RegistrationContextProvider>
+```
+
+## API
+
+| Prop Name | Type | Description | Default |
+|---|---|---|---|
+| firstNameLabel | `string` | Label for the firstName text field | `'First Name'` |
+| initialFirstName | `string` | Initial value to populate in the firstName text field |  |
+| firstNameValidator | `(firstName: string) => boolean \| string` | A function to validate the first name input value | required to be > 0 characters |
+| firstNameTextFieldProps | `TextFieldProps` | Props to pass to the firstName component. See MUI's [TextFieldProps API](https://mui.com/material-ui/api/text-field/). |  |
+| lastNameLabel | `string` | Label for the lastName text field | `'Last Name'` |
+| initialLastName | `string` | Initial value to populate in the lastName text field |  |
+| lastNameValidator | `(lastName: string) => boolean \| string` | A function to validate the last name input value | required to be > 0 characters |
+| lastNameTextFieldProps | `TextFieldProps` | Props to pass to the lastName component. See MUI's [TextFieldProps API](https://mui.com/material-ui/api/text-field/). |  |
+| errorDisplayConfig | `ErrorManagerProps` | See [Error Management](../error-management.md) |  |
+
+This screen also extends the `WorkflowCardProps` type for updating the title, instructions, buttons, etc. See [Workflow Card](../components/workflow-card.md) for more details.

@@ -1,0 +1,97 @@
+# Registration Workflow Guide
+
+The registration workflow includes screens related to user sign-up / registration including Create Account, Create Password, Account Details, etc.
+
+## RegistrationContextProvider
+
+The screens in this workflow access shared data / configuration / API definitions through a `RegistrationContextProvider` which should wrap all of the relevant routes / screens.
+
+You must supply the `AuthContextProvider` with the following props / data:
+-   `actions`: defines the API calls / functions to execute when certain actions are performed in the UI (such as submitting the password form)
+-   `language`: configures the language displayed on the screens
+-   `navigate`: a function that can be called to navigate to a new route
+-   `routeConfig`: an object describing the URLs you are using for the relevant routes so the workflow can correctly navigate between screens
+
+More information about the required and optional props can found in the [API](#api) section.
+
+## Implement RegistrationUIActions
+
+Because this workflow package is back-end agnostic, you must provide an implementation for what happens when the user triggers certain behaviors in the UI.
+
+The example project includes a skeleton implementation of all required functions using mocks / sleeps. You will need to replace these implementations with appropriate calls to your APIs, caching the returned data, etc. depending on the requirements of your application.
+
+1. Create a `RegistrationUIActions.ts` file
+    - This file will handle the implementation of the registration related actions (such as create password, verify code, and create account).
+    - You can copy this file directly from the [example](../example/src/actions/RegistrationUIActions.tsx) project as a starting point and then update the implementation details if you choose.
+2. You might also want to copy over the `example/src/store` and `example/src/constants` folders, which provide a very basic mechanism for storing important data using LocalStorage
+    -   You will want to switch this out for a more secure approach before going to production with your application.
+
+## Example Usage
+
+Here is an example of how you would set up the Registration workflow using our recommended routing solution ([React Router](https://reactrouter.com/)).
+
+The Registration Workflow is made available as a single-page, multi-step component — you will only need a single route for the workflow. If you wish to support invitation-based and self-registration, you can configure two separate routes and use the `RegistrationWorkflow` component to configure each flow separately.
+
+```tsx
+<Routes>
+    {/* Wrap all routes in a single shared RegistrationContextProvider */}
+    <Route
+        element={
+            <RegistrationContextProvider
+                actions={actions}
+                language={'en'}
+                navigate={navigate}
+                routeConfig={{}}
+            >
+                <Outlet />
+            </RegistrationContextProvider>
+        }
+    >
+        {/* Routes for each workflow you want to include */}
+        <Route path={'/self-registration'} element={<RegistrationWorkflow />} />
+        <Route path={'/register-by-invite'} element={<RegistrationWorkflow isInviteRegistration />} />
+    </Route>
+    ...
+</Routes>
+```
+
+For a detailed explanation of setting up routes, see the [Routing](./routing.md) guide.
+
+## API
+
+### RegistrationContextProviderProps
+
+
+
+| Prop Name | Type | Description | Default |
+|---|---|---|---|
+| actions* | `RegistrationUIActions` | An object of functions that are used to manage the authentication workflow. See [RegistrationUIActions](#registrationuiactions) for more information |  |
+| language* | `string` | The language code specifying which language to use for the UI | `'en'` |
+| navigate* | `(url: string) => void` | A function that is used to navigate to a new URL. This is used to navigate to the various screens of the workflow. |  |
+| routeConfig* | `RouteConfig` | An object that defines the various routes for the workflow. See [RouteConfig](#routeconfig) for more information. |  |
+| i18n | `i18n` | An optional i18n object that is used to translate the UI. This is only needed if you want to use custom translation keys / languages inside any of the workflow screens |  |
+| errorConfig | `ErrorContextProviderProps` | An object that is used to configure error handling within the workflow. See [Error Management](./error-management.md) for more information. |  |
+
+### RegistrationUIActions
+
+| Prop Name | Type | Description | Default |
+|---|---|---|---|
+| loadEula | `(language: string) => Promise<string>` | A function that is used to load the Eula content. This function will be called when the Eula screen is loaded. |  |
+| acceptEula | `() => Promise<void>` | A function that is called when the user has accepted the Eula and hit the Next button. |  |
+| requestRegistrationCode | `(email: string) => Promise<string>` | A function that is used to request a registration code. This function will be called when the user clicks the Next button on the Create Account screen or Resend button on Verify Code screen.  |  |
+| validateUserRegistrationRequest | `(validationCode: string, validationEmail?: string) => Promise<{codeValid: boolean | string; accountExists?: boolean}>` | A function that is used to verify  registration code. This function will be called when the user clicks the Next button on the Verify Code screen. |  |
+| createPassword | `(password: string) => Promise<boolean>` | A function that is used to create password. This function will be called when the user clicks the Next button on the Create Password screen. |  |
+| setAccountDetails | `(details: { firstName: string; lastName: string; extra?: { [key: string]: boolean \| string \| number }}) => Promise<boolean>` | A function that is used to set account details. This function will be called when the user clicks the Next button on the Account Details screen. |  |
+| completeRegistration | `(userData: any, validationCode: number \| string, validationEmail: string) => Promise<{ email: string; organizationName: string }>` | A function that is used to complete the registration workflow. This function will be called when the user clicks the Next button on the last registration workflow screen. |  |
+
+### RouteConfig
+The RouteConfig is an object that specifies the paths you are using for the routes / screens in your application to facilitate navigating between screens within the workflows.
+
+| Key | Type | Description | Default |
+|---|---|---|---|
+| LOGIN | `string` | The URL path for the Login screen |  |
+| FORGOT_PASSWORD | `string` | The URL path for the Forgot Password screen |  |
+| RESET_PASSWORD | `string` | The URL path for the Reset Password screen |  |
+| REGISTER_INVITE | `string` | The URL path for the invitation-based registration workflow |  |
+| REGISTER_SELF | `string` | The URL path for the self-registration workflow |  |
+| SUPPORT | `string` | The URL path for the Contact/Support screen |  |

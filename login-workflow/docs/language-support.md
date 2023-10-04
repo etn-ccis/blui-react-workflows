@@ -1,84 +1,115 @@
 # Language Support
 
-This package supports translations to different languages using [i18next](https://www.i18next.com/) / [react-i18next](https://github.com/i18next/react-i18next). The workflow screens are currently available in:
+This package supports translations to different languages using [i18next](https://www.i18next.com/) / [react-i18next](https://github.com/i18next/react-i18next). Out of the box, the workflow screens are available in:
 
 -   English
 -   French
+-   Portuguese
 -   Spanish
 -   Simplified Chinese
 
+If you wish to support additional languages, refer to the [Add Custom Language](#add-custom-languages) section below.
+
+The translation dictionary used by the workflows is independent of any translations / dictionaries used in your main application. This eliminates the possibility of your translations unintentionally overriding values that are used by the workflows screens. When setting up internationalization for your application, you can follow the instructions for [react-i18next](https://github.com/i18next/react-i18next) without worrying about the workflow screens.
+
 ## Changing the Language
 
-The authentication workflow configures i18next to store the most recently used language in local storage (`blui-auth-i18nextLng`) so that when the app is loaded again, it will default to the last language used. There are three ways that you can change this stored value.
+The language used by the workflow screens is exclusively driven by the `language` prop passed to the `AuthContextProvider` and/or the `RegistrationContextProvider`.
 
-### 1. ChangeLanguage Function (recommended)
+You can change the language used in your application in a number of different ways using react-i18next — just make sure to update the value passed into the workflows so they remain in sync.
 
-The i18next package provides a function you can call to change the current language:
+## Using Your Translations in Workflow Screens
 
-```tsx
-import i18n from 'i18next';
+By default, the translations inside the workflow screens are isolated from the translations used for your application. If you want to override a string used for a text element on one of the screens, this can be configured by passing the appropriate prop.
 
-i18n.changeLanguage('fr'); // 'en', 'es', 'fr'
-```
-
-### 2. Query String
-
-If you navigate to your application URL and append the `lng` query string, the specified language will be loaded:
-
-```
-https://www.yourwebsite.com/page?lgn=fr
-```
-
-### 3. Local Storage
-
-You can also manually modify the value that is stored in Local Storage to edit or remove the stored value. Removing the value will tell the application to default to the browser default value.
+However, because the translation providers are separate for the workflow and for the app, if you want to use one of your translation keys inside a workflow screen, you will need to pass your i18n instance to the `i18n` prop of the `AuthContextProvider` and / or `RegistrationContextProvider` so we can access your dictionary. If you do not do this, the workflow will attempt to find your application key in the workflow dictionary and it will not be found.
 
 ```tsx
-localStorage.setItem('blui-auth-i18nextLng', 'fr');
-localStorage.removeItem('blui-auth-i18nextLng');
+// your i18n instance
+import { i18nAppInstance } from './i18n';
+import { useTranslation } from 'react-i18next';
+
+...
+
+const { t } = useTranslation();
+
+// WRONG
+<AuthContextProvider>
+    {/* YOUR_KEY won't be found */}
+    <ForgotPasswordScreen emailLabel={`${t('YOUR_KEY')}`} />
+</AuthContextProvider>
+
+// RIGHT
+<AuthContextProvider i18n={i18nAppInstance}>
+    {/* YOUR_KEY will be found since you passed your i18n instance through props */}
+    <ForgotPasswordScreen emailLabel={`${t('YOUR_KEY')}`} />
+</AuthContextProvider>
 ```
 
-> If you are planning to provide user-specific language settings for your application, you will be responsible for manipulating the value in localStorage in order to properly reflect a user's setting when loading the application.
+## Add Custom Language
 
-> All applications using the @brightlayer-ui/react-auth-workflow will use the same local storage key when doing this lookup. In order to avoid possible interference with other applications, we recommend using the ChangeLanguage function (#1) instead of relying on local storage.
+If you would like to support a language other than the ones supported by the workflow, you can, but you will need to provide the translations for all of the strings that are needed by the workflow screens. If you do not, the workflow screens will default to showing English.
 
-## Adding Your Own Resources
-
-If you intend to support multiple languages in your application, you will need to provide translations for all of the UI string resources used in your application (refer to the [documentation](https://www.i18next.com/overview/getting-started) for i18next for specific information on how to build translation files).
-
-The Auth Workflow is configured with two separate namespaces for resources:
-
--   The `blui` namespace contains strings that are used internally in the workflow screens
--   The `app` namespace is where your app-specific UI strings are placed
-
-> The `app` namespace is set as the default so that you do not need to prefix any of your resource IDs.
-
-To load your resources into the i18next object, you can call:
+The example below shows how to do this for a few keys, but you will need to provide all of the keys in your actual implementation (refer to the links at the bottom of the page for a list of all of the keys that must be provided).
 
 ```tsx
-import i18n from 'i18next';
+// Auth Workflow Keys
+const authWorkflowKorean =  {
+    translation: {
+        SETTINGS: {
+            TITLE: '제목',
+        },
+    },
+}
+// Common Keys shared by Auth and Registration workflows
+const commonWorkflowKorean =  {
+    translation: {
+        ACTIONS: {
+            NEXT: '다음',
+        },
+    },
+}
+// Registration Workflow Keys
+const registrationWorkflowKorean = {
+    translation: {
+        REGISTRATION: {
+            EULA: {
+                LOADING: '최종 사용자 라이선스 계약 로드 중...',
+            },
+        },
+    },
+};
 
-i18n.addResourceBundle('en', 'app', { BUTTONLABEL: 'Change Language' });
-i18n.addResourceBundle('es', 'app', { BUTTONLABEL: '¡Cambia el idioma!' });
-i18n.addResourceBundle('fr', 'app', { BUTTONLABEL: 'Changez de Langue' });
+// Create your application i18n instance
+export const i18nAppInstance = i18next.createInstance(
+    {
+        ...
+        resources: {
+            ...
+            kr: {
+                // provide your app-side translation in your app namespace
+                app: {
+                    ...AppDictionaries.korean.translation,
+                },
+                // provide the custom workflow translations to the workflow namespaces
+                bluiAuth: {
+                    ...authWorkflowKorean.translation,
+                },
+                bluiRegistration: {
+                    ...registrationWorkflowKorean.translation,
+                },
+                bluiCommon: {
+                    ...commonWorkflowKorean.translation,
+                },
+            },
+        },
+    },
+);
 ```
 
-> This will need to be called before the application renders so that the strings are available. If you cannot load these before the application renders, you will need to force the app to refresh after they are loaded to pick up the values.
+You will then need to pass this i18n instance through the `i18n` prop on the `AuthContextProvider` and / or `RegistrationContextProvider` wrappers.
 
-### Using translations in your application
-
-To use the appropriate translations in your application, you can use the `t` function or `<Trans>` components from [react-i18next](https://github.com/i18next/react-i18next).
-
-## Overriding default resources
-
-If you need to override any of the strings or translations used internally in the Auth Workflow, you can do so in a similar way by specifying the blui namespace and the appropriate resource ID:
-
-```tsx
-import i18n from 'i18next';
-
-i18n.addResourceBundle('en', 'blui', { ACTIONS: { CREATE_ACCOUNT: 'Register now!' } }, true, true);
-i18n.addResourceBundle('es', 'blui', { ACTIONS: { CREATE_ACCOUNT: '¡Regístrate ahora!' } }, true, true);
-i18n.addResourceBundle('fr', 'blui', { ACTIONS: { CREATE_ACCOUNT: `S'inscrire maintenant!` } }, true, true);
-```
-
-> For a complete list of resource IDs available, refer to the documentation for [@brightlayer-ui/react-auth-shared](https://github.com/brightlayer-ui/react-auth-shared/blob/master/src/data/translations/english.ts).
+> For a complete list of resource IDs available, refer to the documentation for 
+[Authentication Workflow](../src/contexts/AuthContext/AuthDictionaries/english.ts).
+[Registration Workflow](../src/contexts/RegistrationContext/RegistrationDictionaries/english.ts).
+[Common translations](../src/contexts/SharedDictionaries/english.ts).

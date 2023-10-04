@@ -5,15 +5,29 @@ All notable changes to this project will be documented in this file.
 The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.0.0/),
 and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0.html).
 
+## v4.0.0 (October 4, 2023)
+
+### Added
+
+-   Reusable screen components.
+-   Support for custom react auth workflow injection.
+-   Support for router customizability.
+
+Learn more about migrating from v3 => v4 your existing application by reading our [Migrating Guide](https://github.com/etn-ccis/blui-react-workflows/blob/master/login-workflow/README.md#migrating-from-v3--v4).
+
+### Changed
+
+-   Updated i18next and react-i18next packages to the latest.
+
 ## v3.1.1 (December 14, 2022)
 
 ### Changed
 
--   Removed dependency on @mui/styles ([#170](https://github.com/brightlayer-ui/react-workflows/issues/170)).
+-   Removed dependency on @mui/styles ([#170](https://github.com/etn-ccis/blui-react-workflows/issues/170)).
 
 ### Fixed
 
--   Issue where password field displays two show password icons on Edge and IE ([#173](https://github.com/brightlayer-ui/react-workflows/issues/173)).
+-   Issue where password field displays two show password icons on Edge and IE ([#173](https://github.com/etn-ccis/blui-react-workflows/issues/173)).
 
 ## v3.1.0 (June 24, 2022)
 
@@ -32,7 +46,7 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 ### Changed
 
 -   We now use [Material UI v5](https://mui.com/) — you will need to update peerDependencies appropriately and make the [necessary changes](https://mui.com/guides/migration-v4/) to migrate your application to the new version.
--   We now use [React Router v6](https://reactrouter.com/docs/en/v6/upgrading/v5) — this will likely require you to reconfigure how your application routes are set up. Routes must be passed directly into the `<AuthNavigationContainer>` element (see [Existing Project Integration ](https://github.com/brightlayer-ui/react-workflows/tree/master/login-workflow/docs/existing-project-integration.md) for examples).
+-   We now use [React Router v6](https://reactrouter.com/docs/en/v6/upgrading/v5) — this will likely require you to reconfigure how your application routes are set up. Routes must be passed directly into the `<AuthNavigationContainer>` element.
 
 ## v2.5.0 (March 14, 2022)
 
@@ -42,7 +56,7 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 ### Changed
 
--   Import material-ui components via default imports instead of named imports to reduce overall bundle size ([#85](https://github.com/brightlayer-ui/react-workflows/issues/85))
+-   Import material-ui components via default imports instead of named imports to reduce overall bundle size ([#85](https://github.com/etn-ccis/blui-react-workflows/issues/85))
 
 ### Fixed
 

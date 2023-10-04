@@ -1,0 +1,29 @@
+# BasicDialog
+
+Component that renders a basic dialog. This component provides a title, a body, and a close button.
+
+## Usage
+
+```tsx
+import { BasicDialog } from '@brightlayer-ui/react-auth-workflow';
+
+...
+
+<BasicDialog 
+  title="Notice!"
+  body="This is an example notice"
+  onClose={() => console.log('close')}  
+/>
+```
+
+## API
+
+| Prop Name | Type | Description | Default |
+|---|---|---|---|
+| open | `boolean`  | Whether the dialog is open. |  |
+| title | `string` | The title to display in the dialog. |  |
+| body | `string` | The content to display in the body of the dialog |  |
+| onClose | `() => void` | A function that is called when the close button is clicked. |  |
+| dismissButtonText | `string` | The text to display in the close button. | `'Okay'` |
+
+Props from the underlying MUI [Dialog](https://mui.com/material-ui/react-dialog/) are also available.
