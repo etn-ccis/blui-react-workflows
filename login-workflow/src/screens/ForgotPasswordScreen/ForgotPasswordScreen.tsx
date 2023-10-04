@@ -71,7 +71,7 @@ export const ForgotPasswordScreen: React.FC<ForgotPasswordScreenProps> = (props)
         contactPhone = '1-800-123-4567',
         initialEmailValue,
         description,
-        responseTime = 'one business day',
+        responseTime = t('bluiAuth:FORGOT_PASSWORD.RESPONSE_TIME'),
         emailValidator = (email: string): boolean | string =>
             new RegExp(EMAIL_REGEX).test(email) ? true : t('bluiCommon:MESSAGES.EMAIL_ENTRY_ERROR'),
         WorkflowCardBaseProps,

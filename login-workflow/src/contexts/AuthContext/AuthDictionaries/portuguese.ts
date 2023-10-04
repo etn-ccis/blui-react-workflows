@@ -15,6 +15,7 @@ const resources: AuthLanguageFile = {
             RESET_CODE_ERROR: 'Houve um problema com o código de redefinição.',
             LINK_SENT: 'Um link para redefinir a palavra-passe foi enviado para <b>{{email}}</b>.',
             LINK_SENT_ALT: 'Um link para redefinir a palavra-passe foi enviado para <1>{{email}}</1>.',
+            RESPONSE_TIME: 'um dia útil',
         },
         LOGIN: {
             INCORRECT_CREDENTIALS: 'E-mail ou palavra-passe incorretos.',

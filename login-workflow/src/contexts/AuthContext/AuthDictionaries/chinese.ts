@@ -15,6 +15,7 @@ const resources: AuthLanguageFile = {
             RESET_CODE_ERROR: '您的密码重置链接无效。',
             LINK_SENT: '已向<b>{{email}}</b>发送了密码重置链接。',
             LINK_SENT_ALT: '已向<1>{{email}}</1>发送了密码重置链接。',
+            RESPONSE_TIME: '一个工作日',
         },
         LOGIN: {
             INCORRECT_CREDENTIALS: '邮箱地址或密码错误',

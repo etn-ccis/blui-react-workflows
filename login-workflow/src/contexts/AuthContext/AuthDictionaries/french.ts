@@ -15,6 +15,7 @@ const resources: AuthLanguageFile = {
             RESET_CODE_ERROR: `Une erreur s'est produite avec votre code de réinitialisation. `,
             LINK_SENT: 'Un lien pour réinitialiser votre mot de passe a été envoyé à <b>{{email}}</b>.',
             LINK_SENT_ALT: 'Un lien pour réinitialiser votre mot de passe a été envoyé à <1>{{email}}</1>.',
+            RESPONSE_TIME: 'un jour ouvrable',
         },
         LOGIN: {
             INCORRECT_CREDENTIALS: 'Email ou mot de passe incorrect',

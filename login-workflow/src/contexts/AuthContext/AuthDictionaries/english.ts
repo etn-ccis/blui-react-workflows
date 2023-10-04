@@ -15,6 +15,7 @@ const resources: AuthLanguageFile = {
             RESET_CODE_ERROR: 'There was an error with your reset code. ',
             LINK_SENT: 'A link to reset your password has been sent to <b>{{email}}</b>.',
             LINK_SENT_ALT: 'A link to reset your password has been sent to <1>{{email}}</1>.',
+            RESPONSE_TIME: 'one business day',
         },
         LOGIN: {
             INCORRECT_CREDENTIALS: 'Incorrect Email or Password',

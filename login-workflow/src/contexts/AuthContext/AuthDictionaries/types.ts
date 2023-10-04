@@ -6,6 +6,7 @@ export type AuthTranslations = {
         RESET_CODE_ERROR: string;
         LINK_SENT: string;
         LINK_SENT_ALT: string;
+        RESPONSE_TIME: string;
     };
     LOGIN: {
         INCORRECT_CREDENTIALS: string;
