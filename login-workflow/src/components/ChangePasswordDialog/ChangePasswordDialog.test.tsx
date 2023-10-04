@@ -24,7 +24,7 @@ describe('Change Password Dialog tests', () => {
         render(
             <AuthContextProvider {...authContextProviderProps}>
                 <BrowserRouter>
-                    <ChangePasswordDialog {...props} />
+                    <ChangePasswordDialog open {...props} />
                 </BrowserRouter>
             </AuthContextProvider>
         );
