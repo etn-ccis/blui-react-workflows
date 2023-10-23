@@ -2,6 +2,7 @@
 import { AuthUIActions } from '@brightlayer-ui/react-auth-workflow';
 import { AppContextType } from '../contexts/AppContextProvider';
 import { LocalStorage } from '../store/local-storage';
+import { BLCLogin } from '@brightlayer-ui/derms-blcloud-seedui';
 
 const sleep = (ms: number): Promise<void> => new Promise((resolve) => setTimeout(resolve, ms));
 
@@ -98,6 +99,8 @@ export const ProjectAuthUIActions: AuthUIActionsWithApp = (appHelper) => ({
 
         appHelper.onUserAuthenticated({ email: email, userId: email, rememberMe: rememberMe });
     },
+    // @TODO: Do we want to update the type definition in actions or create a custom action e.g., BLCLogin
+    // logIn: BLCLogin,
     /**
      * The user has forgotten their password and wants help.
      * The application generally should call an API which will then send a password reset

@@ -28,6 +28,7 @@
         "i18next-browser-languagedetector": "^6.1.0"
     },
     "peerDependencies": {
+        "@brightlayer-ui/derms-blcloud-seedui": "^0.1.8",
         "@brightlayer-ui/react-components": "^6.1.2",
         "@emotion/react": "^11.7.1",
         "@emotion/styled": "^11.6.0",
