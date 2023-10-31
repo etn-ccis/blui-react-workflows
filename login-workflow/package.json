@@ -40,7 +40,7 @@
         "react-i18next": "^13.0.0"
     },
     "optionalDependencies": {
-        "react-router-dom": "^6.8.0"
+        "react-router-dom": "^6.9.0"
     },
     "repository": {
         "type": "git",
@@ -104,7 +104,7 @@
         "react": "^18.0.0",
         "react-dom": "^18.0.0",
         "react-i18next": "^13.2.2",
-        "react-router-dom": "^6.8.0",
+        "react-router-dom": "^6.9.0",
         "regenerator-runtime": "^0.13.7",
         "ts-jest": "^29.0.0-next.1",
         "typescript": "^5.0.3"
