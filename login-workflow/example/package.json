@@ -51,7 +51,7 @@
         "react-i18next": "^13.0.3",
         "react-router-dom": "^6.8.0",
         "react-scripts": "^5.0.0",
-        "typescript": "^4.3.2"
+        "typescript": "^5.2.2"
     },
     "devDependencies": {
         "@brightlayer-ui/eslint-config": "^3.0.0",
