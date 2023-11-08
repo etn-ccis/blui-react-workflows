@@ -19,8 +19,7 @@ import { SuccessScreenBase } from '@brightlayer-ui/react-auth-workflow';
 | Prop Name | Type | Description | Default |
 |---|---|---|---|
 | icon | `React.ReactNode` | The icon to be displayed on the screen. |  |
-| messageTitle | `string` | The title of the success message. |  |
-| message | `ReactNode` | The success message to be displayed on the screen. |  |
+| message | `ReactNode` | The message to be displayed on the screen. |  |
 | dismissButtonLabel | `string` | The label of the dismiss button. |  |
 | canDismiss | `boolean` | A boolean determining if the screen can be dismissed. |  |
 | onDismiss | `() => void` | A function to be called when the screen is dismissed. |  |
