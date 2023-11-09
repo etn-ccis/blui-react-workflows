@@ -1,8 +1,8 @@
 # SiteOptionsScreen
 
-A component to use for DERMS Auth workflow. It renders a a message, an icon, and a two buttons with `Create a New Organization` and `Join Existing Organization` buttons.
+A component to use for DERMS Auth workflow. It renders a message, an icon, and two buttons named `Create a New Organization` and `Join Existing Organization`.
 
-<!-- This needs to be updatd in Full screen story -->
+<!-- TODO: This needs to be updatd in Full screen story -->
 <!-- ![SiteOption](../../media/screens/success.png)
 
 ## Usage
