@@ -12,28 +12,37 @@ export type SiteOptionsScreenProps = WorkflowCardProps & {
      * The success message to be displayed on the screen
      */
     message?: ReactNode;
+    /**
+     * Boolean or function that indicates whether the next button should be enabled
+     */
+    canJoinExistingOrg?: boolean | (() => boolean);
 
     /**
-     * To display label for the next button
+     * Boolean or function that indicates whether the previous button should be enabled
      */
-    nextButtonLabel?: string;
+    canCreateNewOrg?: boolean | (() => boolean);
 
     /**
-     * To display label for the previous button
+     * To display label for the custom button which redirects to existing organization flow
      */
-    previousButtonLabel?: string;
+    joinExistingOrgLabel?: string;
+
+    /**
+     * To display label for the custom button which redirects create new organization flow
+     */
+    createNewOrgLabel?: string;
 
     /**
      * The function to call when user wants to join existing organization
      * @returns void
      */
-    onJoinExistingOrganization?: () => void;
+    onJoinExistingOrg?: () => void;
 
     /**
      * The function to call when user wants to create a new  organization
      * @returns void
      */
-    onCreateNewOrganization?: () => void;
+    onCreateNewOrg?: () => void;
 
     /**
      * The configuration for customizing how errors are displayed
