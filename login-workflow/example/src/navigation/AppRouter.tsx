@@ -19,6 +19,7 @@ import { routes } from './Routing';
 import { ExampleHome } from '../screens/ExampleHome';
 import i18nAppInstance from '../translations/i18n';
 import { ChangePassword } from '../components/ChangePassword';
+import { CreateNewOrgScreenBaseDemo } from '../screens/demo-components/CreateNewOrgScreenBaseDemo';
 
 export const AppRouter: React.FC = () => {
     const navigate = useNavigate();
@@ -42,6 +43,7 @@ export const AppRouter: React.FC = () => {
                     </AuthContextProvider>
                 }
             >
+                <Route path={'/create-new-org-base-screen-demo'} element={<CreateNewOrgScreenBaseDemo />} />
                 <Route
                     path={'/login'}
                     element={
