@@ -9,7 +9,7 @@ export type CreateNewOrgScreenProps = WorkflowCardProps & {
     orgNameLabel?: string;
 
     /**
-     * The initial value for the email text field
+     * The initial value for the organization name text field
      */
     initialValue?: string;
 
