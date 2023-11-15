@@ -1,4 +1,4 @@
-import React, { useEffect } from 'react';
+import React, { useEffect, useState } from 'react';
 import { LoginScreenProps } from './types';
 import { LoginScreenBase } from './LoginScreenBase';
 import { useAuthContext } from '../../contexts';
@@ -48,6 +48,7 @@ export const LoginScreen: React.FC<React.PropsWithChildren<LoginScreenProps>> = 
     const auth = useAuthContext();
     const { actions, navigate, routeConfig, rememberMeDetails } = auth;
     const { triggerError, errorManagerConfig } = useErrorManager();
+    const [isLoading, setIsLoading] = useState(false);
     const errorDisplayConfig = {
         ...errorManagerConfig,
         ...props.errorDisplayConfig,
@@ -63,6 +64,7 @@ export const LoginScreen: React.FC<React.PropsWithChildren<LoginScreenProps>> = 
     }, []);
 
     const {
+        WorkflowCardBaseProps,
         usernameLabel = t('bluiCommon:LABELS.EMAIL'),
         usernameTextFieldProps,
         usernameValidator = (username: string): string | boolean => {
@@ -103,8 +105,14 @@ export const LoginScreen: React.FC<React.PropsWithChildren<LoginScreenProps>> = 
         footer,
     } = props;
 
+    const workflowCardBaseProps = {
+        loading: isLoading,
+        ...WorkflowCardBaseProps,
+    };
+
     return (
         <LoginScreenBase
+            WorkflowCardBaseProps={workflowCardBaseProps}
             usernameLabel={usernameLabel}
             usernameTextFieldProps={usernameTextFieldProps}
             usernameValidator={usernameValidator}
@@ -120,10 +128,13 @@ export const LoginScreen: React.FC<React.PropsWithChildren<LoginScreenProps>> = 
             onLogin={
                 (async (username: string, password: string, rememberMe: boolean): Promise<void> => {
                     try {
+                        setIsLoading(true);
                         await actions.logIn(username, password, rememberMe);
                         await props.onLogin?.(username, password, rememberMe);
                     } catch (_error) {
                         triggerError(_error as Error);
+                    } finally {
+                        setIsLoading(false);
                     }
                 }) as any
             }
