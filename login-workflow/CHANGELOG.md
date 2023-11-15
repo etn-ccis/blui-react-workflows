@@ -5,6 +5,13 @@ All notable changes to this project will be documented in this file.
 The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.0.0/),
 and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0.html).
 
+## v4.0.1 (Unreleased)
+
+### Added
+
+-   Loader to the login action ([#511](https://github.com/etn-ccis/blui-react-workflows/issues/511)).
+
+
 ## v4.0.0 (October 4, 2023)
 
 ### Added
