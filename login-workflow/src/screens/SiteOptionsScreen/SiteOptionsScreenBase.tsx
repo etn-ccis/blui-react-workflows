@@ -40,52 +40,39 @@ export const SiteOptionsScreenBase: React.FC<React.PropsWithChildren<SiteOptions
             <WorkflowCardHeader {...headerProps} />
             {Object.keys(instructionsProps).length !== 0 && <WorkflowCardInstructions {...instructionsProps} />}
             <WorkflowCardBody>
-                {icon && (
-                    <Box
-                        sx={{
-                            display: 'flex',
-                            justifyContent: 'center',
-                            mt: 2,
-                        }}
-                    >
+                <Box
+                    sx={{
+                        display: 'flex',
+                        flexDirection: 'column',
+                        alignItems: 'center',
+                        justifyContent: 'center',
+                        height: '100%',
+                    }}
+                >
+                    {icon && (
                         <Box
                             sx={{
                                 display: 'flex',
                                 justifyContent: 'center',
-                                alignItems: 'center',
-                                width: '96px',
-                                height: '96px',
-                                backgroundColor: '#e0eff8',
-                                borderRadius: '50%',
+                                mb: 6,
                             }}
                         >
                             {icon}
                         </Box>
-                    </Box>
-                )}
-                {message && (
-                    <Box
-                        sx={{
-                            display: 'flex',
-                            flexDirection: 'column',
-                            alignItems: 'center',
-                            justifyContent: 'center',
-                            height: '100%',
-                        }}
-                    >
+                    )}
+                    {message && (
                         <Box
                             sx={{
                                 flexDirection: 'column',
                                 alignItems: 'center',
                                 justifyContent: 'center',
                                 cursor: 'pointer',
-                                p: 1,
                             }}
                         >
                             {message}
                         </Box>
-                    </Box>
-                )}
+                    )}
+                </Box>
             </WorkflowCardBody>
             <Box
                 sx={{
