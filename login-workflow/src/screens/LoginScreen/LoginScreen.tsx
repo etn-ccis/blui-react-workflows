@@ -64,7 +64,6 @@ export const LoginScreen: React.FC<React.PropsWithChildren<LoginScreenProps>> = 
     }, []);
 
     const {
-        WorkflowCardBaseProps,
         usernameLabel = t('bluiCommon:LABELS.EMAIL'),
         usernameTextFieldProps,
         usernameValidator = (username: string): string | boolean => {
@@ -105,14 +104,9 @@ export const LoginScreen: React.FC<React.PropsWithChildren<LoginScreenProps>> = 
         footer,
     } = props;
 
-    const workflowCardBaseProps = {
-        loading: isLoading,
-        ...WorkflowCardBaseProps,
-    };
-
     return (
         <LoginScreenBase
-            WorkflowCardBaseProps={workflowCardBaseProps}
+            loading={isLoading}
             usernameLabel={usernameLabel}
             usernameTextFieldProps={usernameTextFieldProps}
             usernameValidator={usernameValidator}

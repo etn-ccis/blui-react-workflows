@@ -1,8 +1,8 @@
 import { TextFieldProps } from '@mui/material';
-import { WorkflowCardProps } from '../../components/WorkflowCard/WorkflowCard.types';
+import { WorkflowCardBaseProps } from '../../components/WorkflowCard/WorkflowCard.types';
 import { ErrorManagerProps } from '../../components/Error';
 
-export type LoginScreenProps = WorkflowCardProps & {
+export type LoginScreenProps = WorkflowCardBaseProps & {
     // configure fields
     /**
      * The label for the username field

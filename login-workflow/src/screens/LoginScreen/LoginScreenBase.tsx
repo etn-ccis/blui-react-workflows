@@ -3,7 +3,7 @@ import { LoginScreenProps } from './types';
 import { WorkflowCard } from '../../components/WorkflowCard';
 import { WorkflowCardBody } from '../../components/WorkflowCard/WorkflowCardBody';
 import TextField from '@mui/material/TextField';
-import Box, { BoxProps } from '@mui/material/Box';
+import Box from '@mui/material/Box';
 import Typography from '@mui/material/Typography';
 import cyberSecurityBadge from '../../assets/images/cybersecurity_certified.png';
 import { PasswordTextField } from '../../components';
@@ -52,7 +52,7 @@ import { LinkStyles } from '../../styles';
  * @category Component
  */
 
-const useUtilityClasses = (ownerState: LoginScreenProps & BoxProps): Record<LoginScreenClassKey, string> => {
+const useUtilityClasses = (ownerState: LoginScreenProps): Record<LoginScreenClassKey, string> => {
     const { classes } = ownerState;
 
     const slots = {
@@ -111,9 +111,8 @@ export const LoginScreenBase: React.FC<React.PropsWithChildren<LoginScreenProps>
         projectImage,
         header,
         footer,
+        ...otherProps
     } = props;
-
-    const cardBaseProps = props.WorkflowCardBaseProps || {};
 
     const theme = useTheme();
     const defaultClasses = useUtilityClasses(props);
@@ -191,7 +190,7 @@ export const LoginScreenBase: React.FC<React.PropsWithChildren<LoginScreenProps>
     };
 
     return (
-        <WorkflowCard className={defaultClasses.root} data-testid={defaultClasses.root} {...cardBaseProps}>
+        <WorkflowCard className={defaultClasses.root} data-testid={defaultClasses.root} {...otherProps}>
             <WorkflowCardBody sx={{ py: { xs: 4, sm: 4, md: 4 }, px: { xs: 4, sm: 8, md: 8 } }}>
                 {header}
                 <Box
