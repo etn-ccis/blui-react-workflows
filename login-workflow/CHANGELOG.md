@@ -11,7 +11,6 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 -   Added loader to the login action ([#511](https://github.com/etn-ccis/blui-react-workflows/issues/511)).
 
-
 ## v4.0.0 (October 4, 2023)
 
 ### Added
