@@ -5,6 +5,14 @@ All notable changes to this project will be documented in this file.
 The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.0.0/),
 and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0.html).
 
+## v4.0.1 (Unreleased)
+
+### Fixed
+
+-   Translations not working while throwing error from actions ([#513](https://github.com/etn-ccis/blui-react-workflows/issues/513)).
+-   Error in the dialog / message box does not translate ([#510](https://github.com/etn-ccis/blui-react-workflows/issues/510)).
+-   Title missing in the messageBoxConfig of ErrorManager ([#507](https://github.com/etn-ccis/blui-react-workflows/issues/507)).
+
 ## v4.0.0 (October 4, 2023)
 
 ### Added
