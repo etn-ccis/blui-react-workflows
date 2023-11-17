@@ -1,12 +1,14 @@
 import React, { useCallback, useEffect } from 'react';
 import { CreateNewOrgScreenProps } from './types';
-import { WorkflowCard } from '../../components/WorkflowCard';
-import { WorkflowCardActions } from '../../components/WorkflowCard/WorkflowCardActions';
-import { WorkflowCardBody } from '../../components/WorkflowCard/WorkflowCardBody';
-import { WorkflowCardHeader } from '../../components/WorkflowCard/WorkflowCardHeader';
-import { WorkflowCardInstructions } from '../../components/WorkflowCard/WorkflowCardInstructions';
 import TextField from '@mui/material/TextField';
 import ErrorManager from '../../components/Error/ErrorManager';
+import {
+    WorkflowCard,
+    WorkflowCardHeader,
+    WorkflowCardInstructions,
+    WorkflowCardBody,
+    WorkflowCardActions,
+} from '../../components';
 
 /**
  * Component that renders a screen for the user to enter an organization name to start the
@@ -83,8 +85,7 @@ export const CreateNewOrgScreenBase: React.FC<React.PropsWithChildren<CreateNewO
                         helperText={shouldValidateOrgName && orgNameError}
                         {...orgNameTextFieldProps}
                         onChange={(e): void => {
-                            // eslint-disable-next-line no-unused-expressions
-                            orgNameTextFieldProps?.onChange && orgNameTextFieldProps.onChange(e);
+                            orgNameTextFieldProps?.onChange?.(e);
                             handleOrgNameInputChange(e.target.value);
                         }}
                         onKeyUp={(e): void => {
@@ -95,8 +96,7 @@ export const CreateNewOrgScreenBase: React.FC<React.PropsWithChildren<CreateNewO
                                 actionsProps?.onNext?.();
                         }}
                         onBlur={(e): void => {
-                            // eslint-disable-next-line no-unused-expressions
-                            orgNameTextFieldProps?.onBlur && orgNameTextFieldProps.onBlur(e);
+                            orgNameTextFieldProps?.onBlur?.(e);
                             setShouldValidateOrgName(true);
                         }}
                     />
@@ -105,7 +105,7 @@ export const CreateNewOrgScreenBase: React.FC<React.PropsWithChildren<CreateNewO
             <WorkflowCardActions
                 {...actionsProps}
                 canGoNext={(orgNameInput.length > 0 && isOrgNameValid && actionsProps.canGoNext) as any}
-            ></WorkflowCardActions>
+            />
         </WorkflowCard>
     );
 };
