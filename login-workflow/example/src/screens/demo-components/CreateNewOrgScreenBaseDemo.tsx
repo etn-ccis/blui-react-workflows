@@ -5,8 +5,7 @@ export const CreateNewOrgScreenBaseDemo: React.FC = () => (
     <CreateNewOrgScreenBase
         WorkflowCardHeaderProps={{ title: 'Create An Organization' }}
         WorkflowCardInstructionProps={{
-            instructions:
-                'Enter your organization name to continue with account creation.',
+            instructions: 'Enter your organization name to continue with account creation.',
         }}
         orgNameLabel="Organization Name"
         orgNameValidator={(orgName: string): boolean | string => {
