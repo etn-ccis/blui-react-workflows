@@ -33,6 +33,7 @@ export type ErrorManagerProps = {
         dismissLabel?: string;
     };
     messageBoxConfig?: {
+        title?: string;
         dismissible?: boolean;
         position?: 'top' | 'bottom';
         fontColor?: string;
@@ -79,7 +80,7 @@ const ErrorManager: React.FC<ErrorManagerProps> = (props): JSX.Element => {
             <BasicDialog
                 open={error.length > 0}
                 title={dialogConfig?.title ?? t('bluiCommon:MESSAGES.ERROR')}
-                body={error}
+                body={t(error)}
                 onClose={onClose}
                 dismissButtonText={dialogConfig?.dismissLabel}
             />
@@ -92,7 +93,8 @@ const ErrorManager: React.FC<ErrorManagerProps> = (props): JSX.Element => {
 
         return (
             <ErrorMessageBox
-                errorMessage={error}
+                title={dialogConfig?.title ?? t('bluiCommon:MESSAGES.ERROR')}
+                errorMessage={t(error)}
                 dismissible={dismissible}
                 sx={sx}
                 backgroundColor={backgroundColor}

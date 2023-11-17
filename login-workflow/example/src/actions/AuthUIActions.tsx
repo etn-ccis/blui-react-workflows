@@ -11,7 +11,7 @@ function getRandomInt(max: number): number {
 
 function isRandomFailure(): boolean {
     const randomResponseNumber = getRandomInt(100);
-    return false; // randomResponseNumber < 10;
+    return true; // randomResponseNumber < 10;
 }
 
 type AuthUIActionsWithApp = (appHelper: AppContextType) => AuthUIActions;
@@ -90,7 +90,7 @@ export const ProjectAuthUIActions: AuthUIActionsWithApp = (appHelper) => ({
 
         if (isRandomFailure()) {
             // reject(new Error('LOGIN.GENERIC_ERROR'));
-            throw new Error('LOGIN.INVALID_CREDENTIALS');
+            throw new Error('bluiAuth:LOGIN.INVALID_CREDENTIALS');
         }
 
         LocalStorage.saveAuthCredentials(email, email);
