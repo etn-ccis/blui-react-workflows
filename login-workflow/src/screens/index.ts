@@ -14,3 +14,4 @@ export * from './ContactScreen';
 export * from './RegistrationSuccessScreen';
 export * from './ExistingAccountSuccessScreen';
 export * from './CreateNewOrgScreen';
+export * from './OrganizationDetailsScreen';
