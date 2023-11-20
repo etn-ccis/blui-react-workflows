@@ -12,6 +12,7 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 -   Translations not working while throwing error from actions ([#513](https://github.com/etn-ccis/blui-react-workflows/issues/513)).
 -   Error in the dialog / message box does not translate ([#510](https://github.com/etn-ccis/blui-react-workflows/issues/510)).
 -   Title missing in the messageBoxConfig of ErrorManager ([#507](https://github.com/etn-ccis/blui-react-workflows/issues/507)).
+-   Added loader to the login action ([#511](https://github.com/etn-ccis/blui-react-workflows/issues/511)).
 
 ## v4.0.0 (October 4, 2023)
 

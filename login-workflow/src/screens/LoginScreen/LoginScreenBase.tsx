@@ -111,6 +111,7 @@ export const LoginScreenBase: React.FC<React.PropsWithChildren<LoginScreenProps>
         projectImage,
         header,
         footer,
+        ...otherProps
     } = props;
 
     const theme = useTheme();
@@ -189,7 +190,7 @@ export const LoginScreenBase: React.FC<React.PropsWithChildren<LoginScreenProps>
     };
 
     return (
-        <WorkflowCard className={defaultClasses.root} data-testid={defaultClasses.root}>
+        <WorkflowCard className={defaultClasses.root} data-testid={defaultClasses.root} {...otherProps}>
             <WorkflowCardBody sx={{ py: { xs: 4, sm: 4, md: 4 }, px: { xs: 4, sm: 8, md: 8 } }}>
                 {header}
                 <Box
