@@ -13,12 +13,12 @@ export type SiteOptionsScreenProps = WorkflowCardProps & {
      */
     message?: ReactNode;
     /**
-     * Boolean or function that indicates whether the next button should be enabled
+     * Boolean or function that indicates whether the join existing organization button should be enabled
      */
     canJoinExistingOrg?: boolean | (() => boolean);
 
     /**
-     * Boolean or function that indicates whether the previous button should be enabled
+     * Boolean or function that indicates whether the create new organization button should be enabled
      */
     canCreateNewOrg?: boolean | (() => boolean);
 
