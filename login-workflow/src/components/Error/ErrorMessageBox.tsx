@@ -88,7 +88,7 @@ const ErrorMessageBox = (props: ErrorMessageBoxProps): JSX.Element => {
             )}
             <Box>
                 <Typography>{title}</Typography>
-                <Typography sx={{ fontSize: 'body2' }}>{errorMessage}</Typography>
+                <Typography variant="body2">{errorMessage}</Typography>
             </Box>
         </Box>
     );
