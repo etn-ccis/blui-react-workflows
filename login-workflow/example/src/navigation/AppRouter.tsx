@@ -8,7 +8,6 @@ import {
     RegistrationContextProvider,
     ResetPasswordScreen,
     RegistrationWorkflow,
-    SiteOptionsScreenBase,
 } from '@brightlayer-ui/react-auth-workflow';
 import { useApp } from '../contexts/AppContextProvider';
 import { useNavigate } from 'react-router';
@@ -20,9 +19,8 @@ import { routes } from './Routing';
 import { ExampleHome } from '../screens/ExampleHome';
 import i18nAppInstance from '../translations/i18n';
 import { ChangePassword } from '../components/ChangePassword';
-import DomainIcon from '@mui/icons-material/Domain';
-import Typography from '@mui/material/Typography';
-import Box from '@mui/material/Box';
+import { CreateNewOrgScreenBaseDemo } from '../screens/demo-components/CreateNewOrgScreenBaseDemo';
+import { SiteOptionsScreenBaseDemo } from '../screens/demo-components/SiteOptionsScreenBaseDemo';
 
 export const AppRouter: React.FC = () => {
     const navigate = useNavigate();
@@ -46,6 +44,8 @@ export const AppRouter: React.FC = () => {
                     </AuthContextProvider>
                 }
             >
+                <Route path={'/create-new-org-base-screen-demo'} element={<CreateNewOrgScreenBaseDemo />} />
+                <Route path={'/site-options-base-screen-demo'} element={<SiteOptionsScreenBaseDemo />} />
                 <Route
                     path={'/login'}
                     element={
@@ -120,55 +120,7 @@ export const AppRouter: React.FC = () => {
                     </RegistrationContextProvider>
                 }
             >
-                <Route
-                    path={'/self-registration'}
-                    element={
-                        <RegistrationWorkflow>
-                            <SiteOptionsScreenBase
-                                icon={
-                                    <Box
-                                        sx={{
-                                            display: 'flex',
-                                            justifyContent: 'center',
-                                            alignItems: 'center',
-                                            width: '100px',
-                                            height: '100px',
-                                            backgroundColor: '#e0eff8',
-                                            borderRadius: '50%',
-                                        }}
-                                    >
-                                        <DomainIcon color={'primary'} sx={{ fontSize: 54 }} />
-                                    </Box>
-                                }
-                                message={
-                                    <>
-                                        <Typography variant="subtitle2" sx={{ mb: 1 }}>
-                                            {`Now that you've specified your account details, you need to add your Organization details.`}
-                                        </Typography>
-                                        <Typography variant="subtitle2" sx={{ mb: 1 }}>
-                                            {`If you want to create a new Organization, choose Create a New Organization below.`}
-                                        </Typography>
-                                        <Typography variant="subtitle2" sx={{ mb: 1 }}>
-                                            {`If your Organization already exists, ask your administrator to provide you with the Registration
-                                            Code and choose Join Existing Organization below.`}
-                                        </Typography>
-                                    </>
-                                }
-                                createNewOrgLabel="Create a New Organization"
-                                joinExistingOrgLabel="Join Existing Organization"
-                                WorkflowCardHeaderProps={{
-                                    title: 'Join an Organization',
-                                }}
-                                onCreateNewOrg={() => {
-                                    console.log('new organization');
-                                }}
-                                onJoinExistingOrg={() => {
-                                    console.log('existing');
-                                }}
-                            />
-                        </RegistrationWorkflow>
-                    }
-                />
+                <Route path={'/self-registration'} element={<RegistrationWorkflow />} />
                 <Route path={'/register-by-invite'} element={<RegistrationWorkflow isInviteRegistration />} />
             </Route>
         </Routes>

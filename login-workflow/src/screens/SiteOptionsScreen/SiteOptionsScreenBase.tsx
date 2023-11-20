@@ -73,18 +73,18 @@ export const SiteOptionsScreenBase: React.FC<React.PropsWithChildren<SiteOptions
                     )}
                 </Box>
             </WorkflowCardBody>
+            <Divider />
             <Box
                 sx={{
                     p: { xs: 2, md: 3 },
                 }}
             >
-                <Divider />
                 <CardActions
                     sx={[
                         {
                             flexDirection: 'column',
                             justifyContent: 'flex-end',
-                            p: { xs: '16px 0 0', m: '24px 0 0' },
+                            p: 0,
                             '>:not(:first-of-type)': {
                                 ml: 0,
                             },
@@ -96,7 +96,7 @@ export const SiteOptionsScreenBase: React.FC<React.PropsWithChildren<SiteOptions
                         color="primary"
                         fullWidth
                         sx={{
-                            mb: 3,
+                            mb: { xs: 2, md: 3 },
                         }}
                         disabled={
                             canCreateNewOrg === false || (typeof canCreateNewOrg === 'function' && !canCreateNewOrg())
