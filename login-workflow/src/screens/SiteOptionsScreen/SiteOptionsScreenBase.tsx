@@ -66,7 +66,6 @@ export const SiteOptionsScreenBase: React.FC<React.PropsWithChildren<SiteOptions
                                 flexDirection: 'column',
                                 alignItems: 'center',
                                 justifyContent: 'center',
-                                cursor: 'pointer',
                             }}
                         >
                             {message}
