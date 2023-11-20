@@ -45,7 +45,7 @@ export type ErrorMessageBoxProps = {
 /**
  * Component that renders a basic message box with an error message and a configurable dismiss button.
  *
- * @param title text to show in the title
+ * @param text to show as the title
  * @param errorMessage text to show in the message
  * @param backgroundColor the background color of the message box
  * @param dismissible whether the message box can be dismissed
