@@ -1,6 +1,7 @@
 import React from 'react';
 import { SiteOptionsScreenProps } from './types';
 import { WorkflowCard, WorkflowCardHeader, WorkflowCardBody, WorkflowCardInstructions } from '../../components';
+import ErrorManager from '../../components/Error/ErrorManager';
 import Box from '@mui/material/Box';
 import CardActions from '@mui/material/CardActions';
 import Button from '@mui/material/Button';
@@ -17,6 +18,7 @@ import Divider from '@mui/material/Divider';
  * @param WorkflowCardBaseProps props that will be passed to the WorkflowCard component
  * @param WorkflowCardHeaderProps props that will be passed to the WorkflowCardHeader component
  * @param WorkflowCardInstructionProps props that will be passed to the WorkflowCardInstructions component
+ * @param errorDisplayConfig configuration for customizing how errors are displayed
  *
  * @category Component
  */
@@ -31,6 +33,7 @@ export const SiteOptionsScreenBase: React.FC<React.PropsWithChildren<SiteOptions
         canJoinExistingOrg,
         onJoinExistingOrg,
         onCreateNewOrg,
+        errorDisplayConfig,
     } = props;
     const cardBaseProps = props.WorkflowCardBaseProps || {};
     const headerProps = props.WorkflowCardHeaderProps || {};
@@ -39,40 +42,42 @@ export const SiteOptionsScreenBase: React.FC<React.PropsWithChildren<SiteOptions
         <WorkflowCard {...cardBaseProps}>
             <WorkflowCardHeader {...headerProps} />
             {Object.keys(instructionsProps).length !== 0 && <WorkflowCardInstructions {...instructionsProps} />}
-            <WorkflowCardBody>
-                <Box
-                    sx={{
-                        display: 'flex',
-                        flexDirection: 'column',
-                        alignItems: 'center',
-                        justifyContent: 'center',
-                        height: '100%',
-                    }}
-                >
-                    {icon && (
-                        <Box
-                            sx={{
-                                display: 'flex',
-                                justifyContent: 'center',
-                                mb: 6,
-                            }}
-                        >
-                            {icon}
-                        </Box>
-                    )}
-                    {message && (
-                        <Box
-                            sx={{
-                                flexDirection: 'column',
-                                alignItems: 'center',
-                                justifyContent: 'center',
-                            }}
-                        >
-                            {message}
-                        </Box>
-                    )}
-                </Box>
-            </WorkflowCardBody>
+                <WorkflowCardBody>
+                <ErrorManager {...errorDisplayConfig}>
+                    <Box
+                        sx={{
+                            display: 'flex',
+                            flexDirection: 'column',
+                            alignItems: 'center',
+                            justifyContent: 'center',
+                            height: '100%',
+                        }}
+                    >
+                        {icon && (
+                            <Box
+                                sx={{
+                                    display: 'flex',
+                                    justifyContent: 'center',
+                                    mb: 6,
+                                }}
+                            >
+                                {icon}
+                            </Box>
+                        )}
+                        {message && (
+                            <Box
+                                sx={{
+                                    flexDirection: 'column',
+                                    alignItems: 'center',
+                                    justifyContent: 'center',
+                                }}
+                            >
+                                {message}
+                            </Box>
+                        )}
+                    </Box>
+                    </ErrorManager>
+                </WorkflowCardBody>
             <Divider />
             <Box
                 sx={{
