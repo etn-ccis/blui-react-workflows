@@ -42,7 +42,7 @@ export const SiteOptionsScreenBase: React.FC<React.PropsWithChildren<SiteOptions
         <WorkflowCard {...cardBaseProps}>
             <WorkflowCardHeader {...headerProps} />
             {Object.keys(instructionsProps).length !== 0 && <WorkflowCardInstructions {...instructionsProps} />}
-                <WorkflowCardBody>
+            <WorkflowCardBody>
                 <ErrorManager {...errorDisplayConfig}>
                     <Box
                         sx={{
@@ -76,8 +76,8 @@ export const SiteOptionsScreenBase: React.FC<React.PropsWithChildren<SiteOptions
                             </Box>
                         )}
                     </Box>
-                    </ErrorManager>
-                </WorkflowCardBody>
+                </ErrorManager>
+            </WorkflowCardBody>
             <Divider />
             <Box
                 sx={{
