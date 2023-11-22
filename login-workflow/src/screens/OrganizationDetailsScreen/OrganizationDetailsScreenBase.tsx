@@ -308,13 +308,13 @@ export const OrganizationDetailsScreenBase: React.FC<OrganizationDetailsScreenPr
                             }}
                             options={stateOptions}
                             value={stateInput}
-                            onChange={(event, value) => {
+                            onChange={(event, value): void => {
                                 // @ts-ignore
                                 stateTextFieldProps?.onChange?.(value);
                                 handleStateInputChange(value as { name: string; id: string });
                             }}
                             getOptionLabel={(option: StateOption): string => option.name}
-                            isOptionEqualToValue={(option: any, value: any) => option.id === value.id}
+                            isOptionEqualToValue={(option: any, value: any): boolean => option.id === value.id}
                             renderInput={(params): JSX.Element => (
                                 <TextField
                                     {...params}
@@ -367,13 +367,13 @@ export const OrganizationDetailsScreenBase: React.FC<OrganizationDetailsScreenPr
                         }}
                         options={countryOptions}
                         value={countryInput}
-                        onChange={(event, value) => {
+                        onChange={(event, value): void => {
                             // @ts-ignore
                             countryTextFieldProps?.onChange?.(value);
-                            handleCountryInputChange(value as CountryOption);
+                            handleCountryInputChange(value);
                         }}
                         getOptionLabel={(option: CountryOption): string => option.name}
-                        isOptionEqualToValue={(option: any, value: any) => option.id === value.id}
+                        isOptionEqualToValue={(option: any, value: any): boolean => option.id === value.id}
                         renderInput={(params): JSX.Element => (
                             <TextField
                                 {...params}
