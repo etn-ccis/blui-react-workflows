@@ -191,6 +191,7 @@ export const OrganizationDetailsScreenBase: React.FC<OrganizationDetailsScreenPr
 
             setCountryInput(countryValue);
             setStateInput({ name: '', id: '' });
+            setIsStateValid(false);
 
             const countryValidatorResponse = countryValidator(countryValue.name);
 
@@ -299,7 +300,6 @@ export const OrganizationDetailsScreenBase: React.FC<OrganizationDetailsScreenPr
                     />
                     <Box sx={{ display: 'flex' }}>
                         <Autocomplete
-                            multiple={false}
                             disableClearable
                             id="state"
                             sx={{
@@ -328,8 +328,11 @@ export const OrganizationDetailsScreenBase: React.FC<OrganizationDetailsScreenPr
                                         if (e.key === 'Enter' && zipCodeRef.current) zipCodeRef.current.focus();
                                     }}
                                     onBlur={(): void => setShouldValidateState(true)}
+                                    role="state-textfield"
+                                    data-testid="state"
                                 />
                             )}
+                            role="combobox-state"
                         />
                         <TextField
                             id="zipCode"
@@ -357,7 +360,6 @@ export const OrganizationDetailsScreenBase: React.FC<OrganizationDetailsScreenPr
                         />
                     </Box>
                     <Autocomplete
-                        multiple={false}
                         disableClearable
                         id="country"
                         sx={{
@@ -388,6 +390,7 @@ export const OrganizationDetailsScreenBase: React.FC<OrganizationDetailsScreenPr
                                 onBlur={(): void => setShouldValidateCountry(true)}
                             />
                         )}
+                        role="combobox-country"
                     />
                 </ErrorManager>
             </WorkflowCardBody>
