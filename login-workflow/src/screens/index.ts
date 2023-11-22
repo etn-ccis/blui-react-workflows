@@ -13,4 +13,5 @@ export * from './ForgotPasswordScreen';
 export * from './ContactScreen';
 export * from './RegistrationSuccessScreen';
 export * from './ExistingAccountSuccessScreen';
+export * from './SiteOptionsScreen';
 export * from './CreateNewOrgScreen';

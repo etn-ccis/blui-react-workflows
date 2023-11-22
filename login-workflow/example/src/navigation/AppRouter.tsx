@@ -20,6 +20,7 @@ import { ExampleHome } from '../screens/ExampleHome';
 import i18nAppInstance from '../translations/i18n';
 import { ChangePassword } from '../components/ChangePassword';
 import { CreateNewOrgScreenBaseDemo } from '../screens/demo-components/CreateNewOrgScreenBaseDemo';
+import { SiteOptionsScreenBaseDemo } from '../screens/demo-components/SiteOptionsScreenBaseDemo';
 
 export const AppRouter: React.FC = () => {
     const navigate = useNavigate();
@@ -44,6 +45,7 @@ export const AppRouter: React.FC = () => {
                 }
             >
                 <Route path={'/create-new-org-base-screen-demo'} element={<CreateNewOrgScreenBaseDemo />} />
+                <Route path={'/site-options-base-screen-demo'} element={<SiteOptionsScreenBaseDemo />} />
                 <Route
                     path={'/login'}
                     element={
