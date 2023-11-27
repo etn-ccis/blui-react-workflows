@@ -313,7 +313,7 @@ export const OrganizationDetailsScreenBase: React.FC<OrganizationDetailsScreenPr
                                 stateTextFieldProps?.onChange?.(value);
                                 handleStateInputChange(value as { name: string; id: string });
                             }}
-                            getOptionLabel={(option: StateOption): string => option.name}
+                            getOptionLabel={(option: StateOption): string => option.id}
                             isOptionEqualToValue={(option: any, value: any): boolean => option.id === value.id}
                             renderInput={(params): JSX.Element => (
                                 <TextField

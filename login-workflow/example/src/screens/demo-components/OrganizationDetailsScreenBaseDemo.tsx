@@ -10,10 +10,6 @@ export type StateType = {
 
 const countryList = [
     {
-        name: '',
-        isoCode: '',
-    },
-    {
         name: 'Afghanistan',
         isoCode: 'AF',
         flag: '🇦🇫',
