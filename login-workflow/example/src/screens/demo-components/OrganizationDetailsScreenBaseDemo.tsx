@@ -94,13 +94,7 @@ export const OrganizationDetailsScreenBaseDemo: React.FC = () => {
                 return 'Please enter a valid city';
             }}
             stateLabel="State"
-            stateOptions={[
-                {
-                    name: '',
-                    id: '',
-                },
-                ...stateOptions,
-            ]}
+            stateOptions={stateOptions}
             initialState={{ name: 'Pennsylvania', id: 'PA' }}
             stateValidator={(state: string): boolean | string => {
                 if (state?.length > 0) {
