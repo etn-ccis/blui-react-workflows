@@ -57,7 +57,7 @@ describe('OrganizationDetailsScreenBase', () => {
         expect(screen.getByLabelText(mockProps.addressLabel)).toHaveValue(mockProps.initialAddress);
         expect(screen.getByLabelText(mockProps.address2Label)).toHaveValue(mockProps.initialAddress2);
         expect(screen.getByLabelText(mockProps.cityLabel)).toHaveValue(mockProps.initialCity);
-        expect(screen.getByLabelText(mockProps.stateLabel)).toHaveValue(mockProps.initialState.name);
+        expect(screen.getByLabelText(mockProps.stateLabel)).toHaveValue(mockProps.initialState.id);
         expect(screen.getByLabelText(mockProps.zipCodeLabel)).toHaveValue(mockProps.initialZipCode);
         expect(screen.getByLabelText(mockProps.countryLabel)).toHaveValue(mockProps.initialCountry.name);
     });
