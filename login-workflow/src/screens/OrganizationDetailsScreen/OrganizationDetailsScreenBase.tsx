@@ -192,6 +192,7 @@ export const OrganizationDetailsScreenBase: React.FC<OrganizationDetailsScreenPr
             setCountryInput(countryValue);
             setStateInput({ name: '', id: '' });
             setIsStateValid(false);
+            setShouldValidateState(false);
 
             const countryValidatorResponse = countryValidator(countryValue.name);
 
