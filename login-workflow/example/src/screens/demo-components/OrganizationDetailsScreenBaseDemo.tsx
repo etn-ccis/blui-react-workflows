@@ -129,7 +129,7 @@ export const OrganizationDetailsScreenBaseDemo: React.FC = () => {
             WorkflowCardActionsProps={{
                 onNext: (): void => {},
                 showNext: true,
-                nextLabel: 'Next',
+                nextLabel: 'Finish',
                 onPrevious: (): void => {},
                 showPrevious: true,
                 previousLabel: 'Back',
