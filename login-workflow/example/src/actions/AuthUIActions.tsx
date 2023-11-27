@@ -90,7 +90,7 @@ export const ProjectAuthUIActions: AuthUIActionsWithApp = (appHelper) => ({
 
         if (isRandomFailure()) {
             // reject(new Error('LOGIN.GENERIC_ERROR'));
-            throw new Error('LOGIN.INVALID_CREDENTIALS');
+            throw new Error('bluiAuth:LOGIN.INVALID_CREDENTIALS');
         }
 
         LocalStorage.saveAuthCredentials(email, email);
