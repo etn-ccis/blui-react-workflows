@@ -119,11 +119,19 @@ export const OrganizationDetailsScreenBase: React.FC<OrganizationDetailsScreenPr
     const [shouldValidateZipCode, setShouldValidateZipCode] = React.useState(false);
     const [shouldValidateCountry, setShouldValidateCountry] = React.useState(false);
 
-    const isFormValid =
-        isAddressValid && isAddress2Valid && isCityValid && isStateValid && isZipCodeValid && isCountryValid;
+    const getIsStateValid = useCallback((): boolean => {
+        return stateOptions.length > 0 ? isStateValid : true;
+    }, [stateOptions, isStateValid]);
+
+    const isFormValid = useCallback((): boolean => {
+        return (
+            isAddressValid && isAddress2Valid && isCityValid && getIsStateValid() && isZipCodeValid && isCountryValid
+        );
+    }, [isAddressValid, isAddress2Valid, isCityValid, isStateValid, getIsStateValid, isZipCodeValid, isCountryValid]);
 
     const handleAddressInputChange = useCallback(
         (address: string) => {
+            setAddressError('');
             setAddressInput(address);
             const addressValidatorResponse = addressValidator(address);
 
@@ -135,6 +143,7 @@ export const OrganizationDetailsScreenBase: React.FC<OrganizationDetailsScreenPr
 
     const handleAddress2InputChange = useCallback(
         (address2: string) => {
+            setAddress2Error('');
             setAddress2Input(address2);
             const address2ValidatorResponse = address2Validator(address2);
 
@@ -152,6 +161,7 @@ export const OrganizationDetailsScreenBase: React.FC<OrganizationDetailsScreenPr
 
     const handleCityInputChange = useCallback(
         (city: string) => {
+            setCityError('');
             setCityInput(city);
             const cityValidatorResponse = cityValidator(city);
 
@@ -163,6 +173,7 @@ export const OrganizationDetailsScreenBase: React.FC<OrganizationDetailsScreenPr
 
     const handleStateInputChange = useCallback(
         (state: StateOption) => {
+            setStateError('');
             const stateValue: StateOption = state;
 
             setStateInput(stateValue);
@@ -176,6 +187,7 @@ export const OrganizationDetailsScreenBase: React.FC<OrganizationDetailsScreenPr
 
     const handleZipCodeInputChange = useCallback(
         (zipCode: string) => {
+            setZipCodeError('');
             setZipCodeInput(zipCode);
             const zipCodeValidatorResponse = zipCodeValidator(zipCode);
 
@@ -187,9 +199,11 @@ export const OrganizationDetailsScreenBase: React.FC<OrganizationDetailsScreenPr
 
     const handleCountryInputChange = useCallback(
         (country: CountryOption) => {
+            setCountryError('');
             const countryValue: CountryOption = country;
 
             setCountryInput(countryValue);
+            // reset stateInput validation
             setStateInput({ name: '', id: '' });
             setIsStateValid(false);
             setShouldValidateState(false);
@@ -253,7 +267,15 @@ export const OrganizationDetailsScreenBase: React.FC<OrganizationDetailsScreenPr
                         onKeyUp={(e): void => {
                             if (e.key === 'Enter' && address2Ref.current) address2Ref.current.focus();
                         }}
-                        onBlur={(): void => setShouldValidateAddress(true)}
+                        onBlur={(): void => {
+                            setShouldValidateAddress(true);
+                            const addressValidatorResponse = addressValidator(addressInput);
+                            setAddressError(
+                                typeof addressValidatorResponse === 'boolean'
+                                    ? ''
+                                    : (addressValidatorResponse as string)
+                            );
+                        }}
                     />
                     <TextField
                         id="address2"
@@ -275,7 +297,15 @@ export const OrganizationDetailsScreenBase: React.FC<OrganizationDetailsScreenPr
                         onKeyUp={(e): void => {
                             if (e.key === 'Enter' && cityRef.current) cityRef.current.focus();
                         }}
-                        onBlur={(): void => setShouldValidateAddress2(true)}
+                        onBlur={(): void => {
+                            setShouldValidateAddress2(true);
+                            const address2ValidatorResponse = address2Validator(address2Input);
+                            setAddress2Error(
+                                typeof address2ValidatorResponse === 'boolean'
+                                    ? ''
+                                    : (address2ValidatorResponse as string)
+                            );
+                        }}
                     />
                     <TextField
                         id="city"
@@ -297,7 +327,13 @@ export const OrganizationDetailsScreenBase: React.FC<OrganizationDetailsScreenPr
                         onKeyUp={(e): void => {
                             if (e.key === 'Enter' && stateRef.current) stateRef.current.focus();
                         }}
-                        onBlur={(): void => setShouldValidateCity(true)}
+                        onBlur={(): void => {
+                            setShouldValidateCity(true);
+                            const cityValidatorResponse = cityValidator(cityInput);
+                            setCityError(
+                                typeof cityValidatorResponse === 'boolean' ? '' : (cityValidatorResponse as string)
+                            );
+                        }}
                     />
                     <Box sx={{ display: 'flex' }}>
                         <Autocomplete
@@ -315,20 +351,30 @@ export const OrganizationDetailsScreenBase: React.FC<OrganizationDetailsScreenPr
                                 handleStateInputChange(value as { name: string; id: string });
                             }}
                             getOptionLabel={(option: StateOption): string => option.id}
-                            isOptionEqualToValue={(option: any, value: any): boolean => option.id === value.id}
+                            isOptionEqualToValue={(option: any, value: any): boolean =>
+                                option.id === value.id || (value.id === '' && value.name === '')
+                            }
                             renderInput={(params): JSX.Element => (
                                 <TextField
                                     {...params}
                                     inputRef={stateRef}
                                     variant="filled"
                                     label={stateLabel}
-                                    error={shouldValidateState && !isStateValid}
-                                    helperText={shouldValidateState && stateError}
+                                    error={stateOptions.length > 0 && shouldValidateState && !isStateValid}
+                                    helperText={stateOptions.length > 0 && shouldValidateState && stateError}
                                     {...stateTextFieldProps}
                                     onKeyUp={(e): void => {
                                         if (e.key === 'Enter' && zipCodeRef.current) zipCodeRef.current.focus();
                                     }}
-                                    onBlur={(): void => setShouldValidateState(true)}
+                                    onBlur={(): void => {
+                                        setShouldValidateState(true);
+                                        const stateValidatorResponse = stateValidator(stateInput.name);
+                                        setStateError(
+                                            typeof stateValidatorResponse === 'boolean'
+                                                ? ''
+                                                : (stateValidatorResponse as string)
+                                        );
+                                    }}
                                     role="state-textfield"
                                     data-testid="state"
                                 />
@@ -357,7 +403,15 @@ export const OrganizationDetailsScreenBase: React.FC<OrganizationDetailsScreenPr
                             onKeyUp={(e): void => {
                                 if (e.key === 'Enter' && countryRef.current) countryRef.current.focus();
                             }}
-                            onBlur={(): void => setShouldValidateZipCode(true)}
+                            onBlur={(): void => {
+                                setShouldValidateZipCode(true);
+                                const zipCodeValidatorResponse = zipCodeValidator(zipCodeInput);
+                                setZipCodeError(
+                                    typeof zipCodeValidatorResponse === 'boolean'
+                                        ? ''
+                                        : (zipCodeValidatorResponse as string)
+                                );
+                            }}
                         />
                     </Box>
                     <Autocomplete
@@ -388,7 +442,15 @@ export const OrganizationDetailsScreenBase: React.FC<OrganizationDetailsScreenPr
                                     if (e.key === 'Enter' && isFormValid && actionsProps.canGoNext)
                                         actionsProps.onNext?.();
                                 }}
-                                onBlur={(): void => setShouldValidateCountry(true)}
+                                onBlur={(): void => {
+                                    setShouldValidateCountry(true);
+                                    const countryValidatorResponse = countryValidator(countryInput.name);
+                                    setAddressError(
+                                        typeof countryValidatorResponse === 'boolean'
+                                            ? ''
+                                            : (countryValidatorResponse as string)
+                                    );
+                                }}
                             />
                         )}
                         role="combobox-country"
