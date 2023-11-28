@@ -119,15 +119,16 @@ export const OrganizationDetailsScreenBase: React.FC<OrganizationDetailsScreenPr
     const [shouldValidateZipCode, setShouldValidateZipCode] = React.useState(false);
     const [shouldValidateCountry, setShouldValidateCountry] = React.useState(false);
 
-    const getIsStateValid = useCallback((): boolean => {
-        return stateOptions.length > 0 ? isStateValid : true;
-    }, [stateOptions, isStateValid]);
+    const getIsStateValid = useCallback(
+        (): boolean => (stateOptions.length > 0 ? isStateValid : true),
+        [stateOptions, isStateValid]
+    );
 
-    const isFormValid = useCallback((): boolean => {
-        return (
-            isAddressValid && isAddress2Valid && isCityValid && getIsStateValid() && isZipCodeValid && isCountryValid
-        );
-    }, [isAddressValid, isAddress2Valid, isCityValid, isStateValid, getIsStateValid, isZipCodeValid, isCountryValid]);
+    const isFormValid = useCallback(
+        (): boolean =>
+            isAddressValid && isAddress2Valid && isCityValid && getIsStateValid() && isZipCodeValid && isCountryValid,
+        [isAddressValid, isAddress2Valid, isCityValid, getIsStateValid, isZipCodeValid, isCountryValid]
+    );
 
     const handleAddressInputChange = useCallback(
         (address: string) => {
