@@ -440,7 +440,7 @@ export const OrganizationDetailsScreenBase: React.FC<OrganizationDetailsScreenPr
                                 helperText={shouldValidateCountry && countryError}
                                 {...countryTextFieldProps}
                                 onKeyUp={(e): void => {
-                                    if (e.key === 'Enter' && isFormValid && actionsProps.canGoNext)
+                                    if (e.key === 'Enter' && isFormValid() && actionsProps.canGoNext)
                                         actionsProps.onNext?.();
                                 }}
                                 onBlur={(): void => {
