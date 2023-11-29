@@ -102,7 +102,7 @@ const ErrorManager: React.FC<ErrorManagerProps> = (props): JSX.Element => {
                 onClose={onClose}
             />
         );
-    }, [error, messageBoxConfig, onClose]);
+    }, [error, messageBoxConfig, onClose, dialogConfig, t]);
 
     return mode === 'dialog' && error.length > 0 ? (
         <>
