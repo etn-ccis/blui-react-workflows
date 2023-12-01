@@ -13,6 +13,11 @@ export type ErrorManagerProps = {
     mode?: 'dialog' | 'message-box' | 'none';
 
     /**
+     * Title to display in message box and dialog
+     */
+    title?: string;
+
+    /**
      * The function to call when the close/dismiss button is clicked
      * @returns void
      */
@@ -29,11 +34,9 @@ export type ErrorManagerProps = {
      * @param {string} dialogConfig.dismissLabel - The label on the dismiss button.
      */
     dialogConfig?: {
-        title?: string;
         dismissLabel?: string;
     };
     messageBoxConfig?: {
-        title?: string;
         dismissible?: boolean;
         position?: 'top' | 'bottom';
         fontColor?: string;
@@ -67,6 +70,7 @@ const ErrorManager: React.FC<ErrorManagerProps> = (props): JSX.Element => {
     const {
         children,
         mode = 'dialog',
+        title,
         error = '',
         onClose = (): void => {},
         dialogConfig,
@@ -79,7 +83,7 @@ const ErrorManager: React.FC<ErrorManagerProps> = (props): JSX.Element => {
         (): JSX.Element => (
             <BasicDialog
                 open={error.length > 0}
-                title={dialogConfig?.title ?? t('bluiCommon:MESSAGES.ERROR')}
+                title={title ?? t('bluiCommon:MESSAGES.ERROR')}
                 body={t(error)}
                 onClose={onClose}
                 dismissButtonText={dialogConfig?.dismissLabel}
@@ -93,7 +97,7 @@ const ErrorManager: React.FC<ErrorManagerProps> = (props): JSX.Element => {
 
         return (
             <ErrorMessageBox
-                title={dialogConfig?.title ?? t('bluiCommon:MESSAGES.ERROR')}
+                title={title ?? t('bluiCommon:MESSAGES.ERROR')}
                 errorMessage={t(error)}
                 dismissible={dismissible}
                 sx={sx}

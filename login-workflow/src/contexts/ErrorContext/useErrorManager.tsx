@@ -15,7 +15,8 @@ export const useErrorManager = (): {
         if (isAuthError(err)) {
             return {
                 ...errorConfig,
-                dialogConfig: { title: err.cause.title },
+                title: err.cause.title,
+                // dialogConfig: { title: err.cause.title },
                 error: err.cause.errorMessage,
                 onClose: (): void => {
                     setError(new Error());
