@@ -8,6 +8,9 @@ import {
     RegistrationContextProvider,
     ResetPasswordScreen,
     RegistrationWorkflow,
+    CreateNewOrgScreen,
+    CreateAccountScreen,
+    EulaScreen,
 } from '@brightlayer-ui/react-auth-workflow';
 import { useApp } from '../contexts/AppContextProvider';
 import { useNavigate } from 'react-router';
@@ -127,6 +130,16 @@ export const AppRouter: React.FC = () => {
             >
                 <Route path={'/self-registration'} element={<RegistrationWorkflow />} />
                 <Route path={'/register-by-invite'} element={<RegistrationWorkflow isInviteRegistration />} />
+                <Route
+                    path={'/selfregistration'}
+                    element={
+                        <RegistrationWorkflow>
+                            <EulaScreen />
+                            <CreateNewOrgScreen />
+                            <CreateAccountScreen />
+                        </RegistrationWorkflow>
+                    }
+                />
             </Route>
         </Routes>
     );
