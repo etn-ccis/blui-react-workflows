@@ -5,6 +5,9 @@ import { useRegistrationContext } from '../../contexts/RegistrationContext/conte
 import { useRegistrationWorkflowContext } from '../../contexts';
 import { useErrorManager } from '../../contexts/ErrorContext/useErrorManager';
 import { useTranslation } from 'react-i18next';
+import Typography from '@mui/material/Typography';
+import Box from '@mui/material/Box';
+import DomainIcon from '@mui/icons-material/Domain';
 
 /**
  * Component that renders a screen for the user to enter an organization name to start the
@@ -41,6 +44,41 @@ export const CreateNewOrgScreen: React.FC<CreateNewOrgScreenProps> = (props) => 
             if (errorManagerConfig.onClose) errorManagerConfig?.onClose();
         },
     };
+
+    const NewOrgInstructions = (): JSX.Element => (
+        <Box sx={{ p: '16px 24px 0', display: 'flex', flexDirection: 'column' }}>
+            <Box
+                sx={{
+                    display: 'flex',
+                    justifyContent: 'center',
+                    alignItems: 'center',
+                    width: '100px',
+                    height: '100px',
+                    backgroundColor: '#e0eff8',
+                    borderRadius: '50%',
+                    alignSelf: 'center',
+                    mb: 6,
+                    mt: 2,
+                }}
+            >
+                <DomainIcon color={'primary'} sx={{ fontSize: 54 }} />
+            </Box>
+            <Typography variant="body1" sx={{ mb: 1 }}>
+                {/* {`${t('bluiRegistration:SITE_MESSAGE.SITE_OPTION_MESSAGE1')}`} */}
+                {`${t("Now that you've specified your account details, you need to add your Organization details.")}`}
+            </Typography>
+            <Typography variant="body1" sx={{ mb: 1 }}>
+                {/* {`${t('bluiRegistration:SITE_MESSAGE.SITE_OPTION_MESSAGE2')}`} */}
+                {`${t('Enter your organization name to continue with account creation.')}`}
+            </Typography>
+            <Typography variant="body1">
+                {/* {`${t('bluiRegistration:SITE_MESSAGE.SITE_OPTION_MESSAGE4')}`} */}
+                {`${t(
+                    'If your Organization already exists, ask your administrator to provide you with a Registration Code.'
+                )}`}
+            </Typography>
+        </Box>
+    );
 
     const onNext = useCallback(async () => {
         try {
@@ -93,7 +131,7 @@ export const CreateNewOrgScreen: React.FC<CreateNewOrgScreenProps> = (props) => 
 
     const workflowCardInstructionProps = {
         // @TODO add translations to bluiRegistration and translate appropriately
-        instructions: 'Enter your organization name to continue with account creation.',
+        instructions: <NewOrgInstructions />,
         ...WorkflowCardInstructionProps,
     };
 
@@ -108,7 +146,6 @@ export const CreateNewOrgScreen: React.FC<CreateNewOrgScreenProps> = (props) => 
         ...WorkflowCardActionsProps,
         onNext: (): void => {
             void onNext();
-            console.log(screenData);
             WorkflowCardActionsProps?.onNext?.();
         },
         onPrevious: (): void => {
