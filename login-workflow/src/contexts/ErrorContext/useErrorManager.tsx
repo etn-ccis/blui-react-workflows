@@ -24,7 +24,6 @@ export const useErrorManager = (): {
         }
         return {
             ...errorConfig,
-            dialogConfig: { title: 'Error' },
             error: err.message,
             onClose: (): void => {
                 setError(new Error());
