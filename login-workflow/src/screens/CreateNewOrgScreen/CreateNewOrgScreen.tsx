@@ -1,7 +1,6 @@
 import React, { useCallback, useState } from 'react';
 import { CreateNewOrgScreenProps } from './types';
 import { CreateNewOrgScreenBase } from './CreateNewOrgScreenBase';
-import { useRegistrationContext } from '../../contexts/RegistrationContext/context';
 import { useRegistrationWorkflowContext } from '../../contexts';
 import { useErrorManager } from '../../contexts/ErrorContext/useErrorManager';
 import { useTranslation } from 'react-i18next';
@@ -28,7 +27,6 @@ import DomainIcon from '@mui/icons-material/Domain';
 
 export const CreateNewOrgScreen: React.FC<CreateNewOrgScreenProps> = (props) => {
     const { t } = useTranslation();
-    const { actions } = useRegistrationContext();
     const regWorkflow = useRegistrationWorkflowContext();
     const { nextScreen, previousScreen, screenData, totalScreens, currentScreen } = regWorkflow;
     const [organizationNameInputValue, setOrganizationNameInputValue] = useState(
@@ -73,7 +71,7 @@ export const CreateNewOrgScreen: React.FC<CreateNewOrgScreenProps> = (props) => 
         </Box>
     );
 
-    const onNext = useCallback(async () => {
+    const onNext = useCallback(() => {
         try {
             setIsLoading(true);
             void nextScreen({
@@ -85,7 +83,7 @@ export const CreateNewOrgScreen: React.FC<CreateNewOrgScreenProps> = (props) => 
         } finally {
             setIsLoading(false);
         }
-    }, [actions, organizationNameInputValue, nextScreen, triggerError]);
+    }, [organizationNameInputValue, nextScreen, triggerError]);
 
     const onPrevious = (): void => {
         previousScreen({
@@ -105,7 +103,7 @@ export const CreateNewOrgScreen: React.FC<CreateNewOrgScreenProps> = (props) => 
             if (orgName?.length > 0) {
                 return true;
             }
-            return 'Please enter a valid organization name';
+            return t('bluiRegistration:SELF_REGISTRATION.NEW_ORG.ORG_NAME_ENTRY_ERROR');
         },
         orgNameTextFieldProps,
     } = props;

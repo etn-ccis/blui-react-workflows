@@ -38,6 +38,7 @@ export type RegistrationTranslations = {
             MESSAGE_1: string;
             MESSAGE_2: string;
             MESSAGE_3: string;
+            ORG_NAME_ENTRY_ERROR: string;
         };
     };
 };

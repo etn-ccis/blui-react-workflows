@@ -48,6 +48,7 @@ const resources: RegistrationLanguageFile = {
                 MESSAGE_2: 'Enter your organization name to continue with account creation.',
                 MESSAGE_3:
                     'If your Organization already exists, ask your administrator to provide you with a Registration Code.',
+                ORG_NAME_ENTRY_ERROR: 'Please enter a valid organization name',
             },
         },
     },
