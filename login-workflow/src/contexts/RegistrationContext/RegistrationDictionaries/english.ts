@@ -42,6 +42,13 @@ const resources: RegistrationLanguageFile = {
                 VERIFICATION: 'Verification Code',
                 CODE_VALIDATOR_ERROR: 'You must provide a valid code',
             },
+            NEW_ORG: {
+                SCREEN_TITLE: 'Create an Organization',
+                MESSAGE_1: `Now that you've specified your account details, you need to add your Organization details.`,
+                MESSAGE_2: 'Enter your organization name to continue with account creation.',
+                MESSAGE_3:
+                    'If your Organization already exists, ask your administrator to provide you with a Registration Code.',
+            },
         },
     },
 };

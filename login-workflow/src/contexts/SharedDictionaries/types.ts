@@ -30,6 +30,7 @@ export type CommonTranslations = {
         FORGOT_PASSWORD: string;
         NEED_ACCOUNT: string;
         VIEW_ALL_EVENTS: string;
+        ORG_NAME?: string;
     };
     MESSAGES: {
         EMAIL_SENT: string;

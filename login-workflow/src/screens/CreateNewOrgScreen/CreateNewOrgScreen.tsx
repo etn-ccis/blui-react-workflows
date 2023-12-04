@@ -64,19 +64,12 @@ export const CreateNewOrgScreen: React.FC<CreateNewOrgScreenProps> = (props) => 
                 <DomainIcon color={'primary'} sx={{ fontSize: 54 }} />
             </Box>
             <Typography variant="body1" sx={{ mb: 1 }}>
-                {/* {`${t('bluiRegistration:SITE_MESSAGE.SITE_OPTION_MESSAGE1')}`} */}
-                {`${t("Now that you've specified your account details, you need to add your Organization details.")}`}
+                {`${t('bluiRegistration:SELF_REGISTRATION.NEW_ORG.MESSAGE_1')}`}
             </Typography>
             <Typography variant="body1" sx={{ mb: 1 }}>
-                {/* {`${t('bluiRegistration:SITE_MESSAGE.SITE_OPTION_MESSAGE2')}`} */}
-                {`${t('Enter your organization name to continue with account creation.')}`}
+                {`${t('bluiRegistration:SELF_REGISTRATION.NEW_ORG.MESSAGE_2')}`}
             </Typography>
-            <Typography variant="body1">
-                {/* {`${t('bluiRegistration:SITE_MESSAGE.SITE_OPTION_MESSAGE4')}`} */}
-                {`${t(
-                    'If your Organization already exists, ask your administrator to provide you with a Registration Code.'
-                )}`}
-            </Typography>
+            <Typography variant="body1">{`${t('bluiRegistration:SELF_REGISTRATION.NEW_ORG.MESSAGE_3')}`}</Typography>
         </Box>
     );
 
@@ -106,8 +99,7 @@ export const CreateNewOrgScreen: React.FC<CreateNewOrgScreenProps> = (props) => 
         WorkflowCardHeaderProps,
         WorkflowCardInstructionProps,
         WorkflowCardActionsProps,
-        // @TODO add translations to bluiCommon and translate appropriately
-        orgNameLabel = t('Organization Name'),
+        orgNameLabel = t('bluiCommon:LABELS.ORG_NAME'),
         initialValue = screenData?.Other?.CreateOrganization?.organizationName as string,
         orgNameValidator = (orgName: string): boolean | string => {
             if (orgName?.length > 0) {
@@ -124,13 +116,11 @@ export const CreateNewOrgScreen: React.FC<CreateNewOrgScreenProps> = (props) => 
     };
 
     const workflowCardHeaderProps = {
-        // @TODO add translations to bluiRegistration and translate appropriately
-        title: t('Create an Organization'),
+        title: t('bluiRegistration:SELF_REGISTRATION.NEW_ORG.SCREEN_TITLE'),
         ...WorkflowCardHeaderProps,
     };
 
     const workflowCardInstructionProps = {
-        // @TODO add translations to bluiRegistration and translate appropriately
         instructions: <NewOrgInstructions />,
         ...WorkflowCardInstructionProps,
     };
