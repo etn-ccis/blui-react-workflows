@@ -1,6 +1,6 @@
-# CreateAccountScreen
+# CreateNewOrgScreen
 
-A screen that displays a text field to collect tan organization name. The CreateNewOrgScreen must be used within a `RegistrationContextProvider`.
+A screen that displays a text field to collect an organization name. The CreateNewOrgScreen must be used within a `RegistrationContextProvider`.
 
 ## Usage
 
