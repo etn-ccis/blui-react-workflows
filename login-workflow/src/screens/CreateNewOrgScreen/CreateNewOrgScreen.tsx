@@ -27,6 +27,18 @@ import DomainIcon from '@mui/icons-material/Domain';
 
 export const CreateNewOrgScreen: React.FC<CreateNewOrgScreenProps> = (props) => {
     const { t } = useTranslation();
+    const NewOrgInstructions = (): JSX.Element => (
+        <Box>
+            <Typography variant="body1" sx={{ mb: 1 }}>
+                {`${t('bluiRegistration:SELF_REGISTRATION.NEW_ORG.MESSAGE_1')}`}
+            </Typography>
+            <Typography variant="body1" sx={{ mb: 1 }}>
+                {`${t('bluiRegistration:SELF_REGISTRATION.NEW_ORG.MESSAGE_2')}`}
+            </Typography>
+            <Typography variant="body1">{`${t('bluiRegistration:SELF_REGISTRATION.NEW_ORG.MESSAGE_3')}`}</Typography>
+        </Box>
+    );
+    const { icon = <DomainIcon color={'primary'} sx={{ fontSize: 54 }} />, message = NewOrgInstructions() } = props;
     const regWorkflow = useRegistrationWorkflowContext();
     const { nextScreen, previousScreen, screenData, totalScreens, currentScreen } = regWorkflow;
     const [organizationNameInputValue, setOrganizationNameInputValue] = useState(
@@ -42,34 +54,6 @@ export const CreateNewOrgScreen: React.FC<CreateNewOrgScreenProps> = (props) => 
             if (errorManagerConfig.onClose) errorManagerConfig?.onClose();
         },
     };
-
-    const NewOrgInstructions = (): JSX.Element => (
-        <Box sx={{ p: '16px 24px 0', display: 'flex', flexDirection: 'column' }}>
-            <Box
-                sx={{
-                    display: 'flex',
-                    justifyContent: 'center',
-                    alignItems: 'center',
-                    width: '100px',
-                    height: '100px',
-                    backgroundColor: '#e0eff8',
-                    borderRadius: '50%',
-                    alignSelf: 'center',
-                    mb: 6,
-                    mt: 2,
-                }}
-            >
-                <DomainIcon color={'primary'} sx={{ fontSize: 54 }} />
-            </Box>
-            <Typography variant="body1" sx={{ mb: 1 }}>
-                {`${t('bluiRegistration:SELF_REGISTRATION.NEW_ORG.MESSAGE_1')}`}
-            </Typography>
-            <Typography variant="body1" sx={{ mb: 1 }}>
-                {`${t('bluiRegistration:SELF_REGISTRATION.NEW_ORG.MESSAGE_2')}`}
-            </Typography>
-            <Typography variant="body1">{`${t('bluiRegistration:SELF_REGISTRATION.NEW_ORG.MESSAGE_3')}`}</Typography>
-        </Box>
-    );
 
     const onNext = useCallback(() => {
         try {
@@ -119,7 +103,6 @@ export const CreateNewOrgScreen: React.FC<CreateNewOrgScreenProps> = (props) => 
     };
 
     const workflowCardInstructionProps = {
-        instructions: <NewOrgInstructions />,
         ...WorkflowCardInstructionProps,
     };
 
@@ -151,6 +134,8 @@ export const CreateNewOrgScreen: React.FC<CreateNewOrgScreenProps> = (props) => 
             WorkflowCardBaseProps={workflowCardBaseProps}
             WorkflowCardHeaderProps={workflowCardHeaderProps}
             WorkflowCardInstructionProps={workflowCardInstructionProps}
+            icon={icon}
+            message={message}
             orgNameLabel={orgNameLabel}
             initialValue={initialValue || ''}
             orgNameTextFieldProps={{ ...orgNameTextFieldProps, onChange: onOrganizationNameInputValueChange }}
