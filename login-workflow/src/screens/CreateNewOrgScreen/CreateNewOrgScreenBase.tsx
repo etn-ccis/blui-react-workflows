@@ -15,6 +15,8 @@ import Box from '@mui/material/Box';
  * Component that renders a screen for the user to enter an organization name to start the
  * organization creation process.
  *
+ * @param icon the icon to display
+ * @param message the message to be displayed on the screen
  * @param orgNameLabel label for the organization name field
  * @param initialValue initial value for the orgName text field
  * @param orgNameValidator function used to test the organization name input for valid formatting
