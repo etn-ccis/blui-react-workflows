@@ -33,6 +33,7 @@ const resources: CommonTranslationsFile = {
             FORGOT_PASSWORD: '忘记密码？',
             NEED_ACCOUNT: '新用户？',
             VIEW_ALL_EVENTS: '查看共{{count}}个事件',
+            ORG_NAME: '组织名称',
         },
         MESSAGES: {
             EMAIL_SENT: '邮件已发送',

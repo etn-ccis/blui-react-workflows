@@ -33,6 +33,7 @@ const resources: CommonTranslationsFile = {
             FORGOT_PASSWORD: 'Esqueceu-se da sua palavra-passe?',
             NEED_ACCOUNT: 'Precisa de uma conta?',
             VIEW_ALL_EVENTS: 'Ver todos os {{count}} Eventos',
+            ORG_NAME: 'Nome da Organização',
         },
         MESSAGES: {
             EMAIL_SENT: 'E-mail enviado',

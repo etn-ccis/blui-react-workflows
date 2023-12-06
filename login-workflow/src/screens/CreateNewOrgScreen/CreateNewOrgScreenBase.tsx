@@ -9,11 +9,14 @@ import {
     WorkflowCardBody,
     WorkflowCardActions,
 } from '../../components';
+import Box from '@mui/material/Box';
 
 /**
  * Component that renders a screen for the user to enter an organization name to start the
  * organization creation process.
  *
+ * @param icon the icon to display
+ * @param message the message to be displayed on the screen
  * @param orgNameLabel label for the organization name field
  * @param initialValue initial value for the orgName text field
  * @param orgNameValidator function used to test the organization name input for valid formatting
@@ -31,6 +34,8 @@ export const CreateNewOrgScreenBase: React.FC<React.PropsWithChildren<CreateNewO
     props
 ) => {
     const {
+        icon,
+        message,
         // eslint-disable-next-line @typescript-eslint/no-unused-vars
         orgNameValidator = (orgName: string): boolean | string => true,
         orgNameLabel,
@@ -49,6 +54,31 @@ export const CreateNewOrgScreenBase: React.FC<React.PropsWithChildren<CreateNewO
     const [isOrgNameValid, setIsOrgNameValid] = React.useState(orgNameValidator(initialValue ?? '') ?? false);
     const [orgNameError, setOrgNameError] = React.useState('');
     const [shouldValidateOrgName, setShouldValidateOrgName] = React.useState(false);
+
+    const NewOrgInstructions = useCallback(
+        (): JSX.Element => (
+            <Box sx={{ p: '16px 24px 0', display: 'flex', flexDirection: 'column' }}>
+                <Box
+                    sx={{
+                        display: 'flex',
+                        justifyContent: 'center',
+                        alignItems: 'center',
+                        width: '100px',
+                        height: '100px',
+                        backgroundColor: '#e0eff8',
+                        borderRadius: '50%',
+                        alignSelf: 'center',
+                        mb: 6,
+                        mt: 2,
+                    }}
+                >
+                    {icon}
+                </Box>
+                {message}
+            </Box>
+        ),
+        [icon, message]
+    );
 
     const handleOrgNameInputChange = useCallback(
         (orgName: string) => {
@@ -71,7 +101,7 @@ export const CreateNewOrgScreenBase: React.FC<React.PropsWithChildren<CreateNewO
     return (
         <WorkflowCard {...cardBaseProps}>
             <WorkflowCardHeader {...headerProps} />
-            <WorkflowCardInstructions {...instructionsProps} />
+            <WorkflowCardInstructions instructions={NewOrgInstructions()} {...instructionsProps} />
             <WorkflowCardBody>
                 <ErrorManager {...errorDisplayConfig}>
                     <TextField

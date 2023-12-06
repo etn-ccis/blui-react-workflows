@@ -40,6 +40,13 @@ const resources: RegistrationLanguageFile = {
                 VERIFICATION: '验证码',
                 CODE_VALIDATOR_ERROR: '请输入有效验证码',
             },
+            NEW_ORG: {
+                SCREEN_TITLE: '创建一个组织',
+                MESSAGE_1: '既然您已经指定了您的帐户详细信息，您需要添加您的组织详细信息。',
+                MESSAGE_2: '请输入您的组织名称以继续帐户创建。',
+                MESSAGE_3: '如果您的组织已经存在，请向您的管理员获取注册码。',
+                ORG_NAME_ENTRY_ERROR: '请输入有效的组织名称',
+            },
         },
     },
 };

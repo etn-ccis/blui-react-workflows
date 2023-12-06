@@ -43,6 +43,15 @@ const resources: RegistrationLanguageFile = {
                 VERIFICATION: 'Código de verificação',
                 CODE_VALIDATOR_ERROR: 'Você deve fornecer um código válido',
             },
+            NEW_ORG: {
+                SCREEN_TITLE: 'Criar uma Organização',
+                MESSAGE_1:
+                    'Agora que você especificou os detalhes da sua conta, você precisa adicionar os detalhes da sua organização.',
+                MESSAGE_2: 'Digite o nome da sua organização para continuar com a criação da conta.',
+                MESSAGE_3:
+                    'Se a sua organização já existe, peça ao seu administrador para fornecer um Código de Registro.',
+                ORG_NAME_ENTRY_ERROR: 'Por favor, insira um nome de organização válido',
+            },
         },
     },
 };

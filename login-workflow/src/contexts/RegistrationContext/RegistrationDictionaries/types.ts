@@ -33,6 +33,13 @@ export type RegistrationTranslations = {
             VERIFICATION: string;
             CODE_VALIDATOR_ERROR: string;
         };
+        NEW_ORG?: {
+            SCREEN_TITLE: string;
+            MESSAGE_1: string;
+            MESSAGE_2: string;
+            MESSAGE_3: string;
+            ORG_NAME_ENTRY_ERROR: string;
+        };
     };
 };
 
