@@ -61,7 +61,7 @@
         "@testing-library/react": "^13.3.0",
         "@testing-library/user-event": "^14.4.3",
         "@types/jest": "^29.2.4",
-        "@typescript-eslint/eslint-plugin": "^5.54.0",
+        "@typescript-eslint/eslint-plugin": "^5.62.0",
         "@typescript-eslint/parser": "^5.49.0",
         "babel-plugin-istanbul": "^6.1.1",
         "eslint": "^8.31.0",

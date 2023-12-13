@@ -22,6 +22,7 @@ import { ErrorManager } from '@brightlayer-ui/react-auth-workflow';
 | Prop Name | Type | Description | Default |
 |---|---|---|---|
 | error | `string` | Error text to display. If string is empty, the error will not be shown. |  |
+| title | `string` | Title text to display for error dialog and message box. If string is empty, the title will not be shown. | |
 | mode | `'dialog' \| 'message-box' \| 'none'` | Determines whether to display a dialog, a message box, or neither. | `'dialog'` |
 | onClose | `() => void` | Function to call when the close/dismiss button is clicked. |  |
 | dialogConfig | `{title?: string, dismissLabel?: string}` | Configuration options for the dialog. See [DialogConfig Props](#dialogconfigprops) |  |

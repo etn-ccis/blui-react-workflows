@@ -74,7 +74,10 @@ export const VerifyCodeScreen: React.FC<VerifyCodeScreenProps> = (props) => {
                 setIsLoading(true);
                 if (actions?.validateUserRegistrationRequest) {
                     // eslint-disable-next-line no-unsafe-optional-chaining
-                    const { codeValid, accountExists } = await actions?.validateUserRegistrationRequest(code);
+                    const { codeValid, accountExists } = await actions?.validateUserRegistrationRequest(
+                        code,
+                        emailAddress
+                    );
 
                     if (accountExists) {
                         updateScreenData({ screenId: 'VerifyCode', values: { code }, isAccountExist: accountExists });
