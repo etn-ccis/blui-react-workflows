@@ -36,6 +36,7 @@ export type ErrorManagerProps = {
     dialogConfig?: {
         dismissLabel?: string;
         title?: string;
+        sx?: SxProps;
     };
     messageBoxConfig?: {
         title?: string;
@@ -57,6 +58,7 @@ export type ErrorManagerProps = {
  * @param dialogConfig configuration for the error dialog
  * @param dialogConfig.title text to show in the title of the dialog
  * @param dialogConfig.dismissLabel text to show in the close button
+ * @param dialogConfig.sx sx styles passed to the underlying root(Box) component
  * @param messageBoxConfig configuration for the error message box
  * @param messageBoxConfig.dismissible whether the message box can be dismissed
  * @param messageBoxConfig.position determines whether the message box should be displayed at the top or bottom of the screen
@@ -89,6 +91,7 @@ const ErrorManager: React.FC<ErrorManagerProps> = (props): JSX.Element => {
                 body={t(error)}
                 onClose={onClose}
                 dismissButtonText={dialogConfig?.dismissLabel}
+                sx={dialogConfig?.sx}
             />
         ),
         [dialogConfig, title, error, onClose, t]
