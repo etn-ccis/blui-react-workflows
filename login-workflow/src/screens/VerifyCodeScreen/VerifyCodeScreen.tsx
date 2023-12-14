@@ -69,12 +69,12 @@ export const VerifyCodeScreen: React.FC<VerifyCodeScreenProps> = (props) => {
     } = props;
 
     const handleOnNext = useCallback(
-        async (code: string) => {
+        async (code: string, email?: string) => {
             try {
                 setIsLoading(true);
                 if (actions?.validateUserRegistrationRequest) {
                     // eslint-disable-next-line no-unsafe-optional-chaining
-                    const { codeValid, accountExists } = await actions?.validateUserRegistrationRequest(code);
+                    const { codeValid, accountExists } = await actions?.validateUserRegistrationRequest(code, email);
 
                     if (accountExists) {
                         updateScreenData({ screenId: 'VerifyCode', values: { code }, isAccountExist: accountExists });
@@ -141,7 +141,7 @@ export const VerifyCodeScreen: React.FC<VerifyCodeScreenProps> = (props) => {
         ...WorkflowCardActionsProps,
         onNext: (data: any): void => {
             setVerifyCode(data.code);
-            void handleOnNext(data.code);
+            void handleOnNext(data.code, emailAddress);
             WorkflowCardActionsProps?.onNext?.();
         },
         onPrevious: (data: any): void => {
