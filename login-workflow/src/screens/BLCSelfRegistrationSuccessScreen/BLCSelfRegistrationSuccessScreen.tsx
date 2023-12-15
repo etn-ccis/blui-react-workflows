@@ -1,7 +1,6 @@
 import React from 'react';
-import { Trans, useTranslation } from 'react-i18next';
+import { useTranslation } from 'react-i18next';
 import Typography from '@mui/material/Typography';
-import CheckCircle from '@mui/icons-material/CheckCircle';
 import { SuccessScreenBase, SuccessScreenProps } from '..';
 import { useRegistrationWorkflowContext, useRegistrationContext } from '../../contexts';
 import Box from '@mui/material/Box';
@@ -91,13 +90,11 @@ export const BLCSelfRegistrationSuccessScreen: React.FC<SuccessScreenProps> = (p
     } = props;
 
     const workflowCardHeaderProps = {
-        // title: t('bluiRegistration:REGISTRATION.STEPS.COMPLETE'),
         title: t('Account & Organization Created'),
         ...WorkflowCardHeaderProps,
     };
 
     const workflowCardActionsProps = {
-        // nextLabel: t('bluiCommon:ACTIONS.FINISH'),
         nextLabel: t('Return to Login'),
         showNext: true,
         canGoNext: canDismiss,
