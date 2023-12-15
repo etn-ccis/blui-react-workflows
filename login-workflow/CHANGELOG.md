@@ -7,9 +7,9 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 ## v4.0.2 (Unreleased)
 
-### Fixed
+### Added
 
--   Add `sx` prop to Error Manager Dialog ([#521](https://github.com/etn-ccis/blui-react-workflows/issues/521)).
+-   Added `sx` prop to Error Manager Dialog ([#521](https://github.com/etn-ccis/blui-react-workflows/issues/521)).
 
 ## v4.0.1 (December 4, 2023)
 

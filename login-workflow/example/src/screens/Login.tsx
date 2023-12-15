@@ -13,6 +13,20 @@ export const Login = (): JSX.Element => (
             messageBoxConfig: {
                 dismissible: true,
                 position: 'top',
+                sx: {
+                    backgroundColor: 'green',
+                    '& .MuiTypography-body1': {
+                        color: 'red',
+                    },
+                },
+            },
+            dialogConfig: {
+                title: 'Change Title Color',
+                sx: {
+                    '& .MuiTypography-h6': {
+                        color: 'red',
+                    },
+                },
             },
         }}
     />
