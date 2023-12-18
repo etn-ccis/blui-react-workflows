@@ -88,7 +88,7 @@ export const ProjectAuthUIActions: AuthUIActionsWithApp = (appHelper) => ({
 
         // throw new Error('My Custom Error');
 
-        if (true) {
+        if (isRandomFailure()) {
             // reject(new Error('LOGIN.GENERIC_ERROR'));
             throw new Error('bluiAuth:LOGIN.INVALID_CREDENTIALS');
         }

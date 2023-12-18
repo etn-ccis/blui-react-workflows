@@ -1,7 +1,7 @@
 import React, { useCallback } from 'react';
 import { BasicDialog } from '../Dialog/BasicDialog';
 import ErrorMessageBox from './ErrorMessageBox';
-import { SxProps } from '@mui/material/styles';
+import { SxProps, Theme } from '@mui/material/styles';
 import { useTranslation } from 'react-i18next';
 
 export type AuthError = { cause: { title: string; errorMessage: string } };
