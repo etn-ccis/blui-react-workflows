@@ -1,7 +1,7 @@
 import React, { useCallback } from 'react';
 import { BasicDialog } from '../Dialog/BasicDialog';
 import ErrorMessageBox from './ErrorMessageBox';
-import { SxProps } from '@mui/material/styles';
+import { SxProps, Theme } from '@mui/material/styles';
 import { useTranslation } from 'react-i18next';
 
 export type AuthError = { cause: { title: string; errorMessage: string } };
@@ -36,6 +36,7 @@ export type ErrorManagerProps = {
     dialogConfig?: {
         dismissLabel?: string;
         title?: string;
+        sx?: SxProps<Theme>;
     };
     messageBoxConfig?: {
         title?: string;
@@ -43,7 +44,7 @@ export type ErrorManagerProps = {
         position?: 'top' | 'bottom';
         fontColor?: string;
         backgroundColor?: string;
-        sx?: SxProps;
+        sx?: SxProps<Theme>;
     };
     children?: React.ReactNode;
 };
@@ -57,6 +58,7 @@ export type ErrorManagerProps = {
  * @param dialogConfig configuration for the error dialog
  * @param dialogConfig.title text to show in the title of the dialog
  * @param dialogConfig.dismissLabel text to show in the close button
+ * @param dialogConfig.sx sx styles passed to the underlying root(Dialog) component
  * @param messageBoxConfig configuration for the error message box
  * @param messageBoxConfig.dismissible whether the message box can be dismissed
  * @param messageBoxConfig.position determines whether the message box should be displayed at the top or bottom of the screen
@@ -89,6 +91,7 @@ const ErrorManager: React.FC<ErrorManagerProps> = (props): JSX.Element => {
                 body={t(error)}
                 onClose={onClose}
                 dismissButtonText={dialogConfig?.dismissLabel}
+                sx={dialogConfig?.sx}
             />
         ),
         [dialogConfig, title, error, onClose, t]
