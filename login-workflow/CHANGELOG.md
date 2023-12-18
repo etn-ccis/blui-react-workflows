@@ -7,9 +7,13 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 ## v4.0.2 (Unreleased)
 
+### Added
+
+-   `sx` prop to Error Manager Dialog ([#521](https://github.com/etn-ccis/blui-react-workflows/issues/521)).
+
 ### Fixed
 
--   Pass `email` to `validateUserRegistrationRequest` RegistrationUIActions when available ([#529](https://github.com/etn-ccis/blui-react-workflows/issues/529)).
+-   Issue where the `email` field did not pass to `validateUserRegistrationRequest` RegistrationUIActions when email is available ([#529](https://github.com/etn-ccis/blui-react-workflows/issues/529)).
 
 ## v4.0.1 (December 4, 2023)
 
