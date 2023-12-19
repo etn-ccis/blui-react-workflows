@@ -9,8 +9,11 @@ import {
     ResetPasswordScreen,
     RegistrationWorkflow,
     CreateNewOrgScreen,
+    CreatePasswordScreen,
     CreateAccountScreen,
+    AccountDetailsScreen,
     EulaScreen,
+    BLCSelfRegistrationSuccessScreen,
 } from '@brightlayer-ui/react-auth-workflow';
 import { useApp } from '../contexts/AppContextProvider';
 import { useNavigate } from 'react-router';
@@ -133,10 +136,13 @@ export const AppRouter: React.FC = () => {
                 <Route
                     path={'/selfregistration'}
                     element={
-                        <RegistrationWorkflow>
+                        <RegistrationWorkflow successScreen={<BLCSelfRegistrationSuccessScreen />}>
                             <EulaScreen />
-                            <CreateNewOrgScreen />
+                            <CreatePasswordScreen />
+                            {/* @TODO: Create account screen will need pulled out for the final selfregistration workflow. Email will need to be handled in the url params?? */}
                             <CreateAccountScreen />
+                            <AccountDetailsScreen />
+                            <CreateNewOrgScreen />
                         </RegistrationWorkflow>
                     }
                 />
