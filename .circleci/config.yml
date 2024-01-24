@@ -92,9 +92,9 @@ jobs:
             cd login-workflow
             yarn test:ci  --maxWorkers=2 --coverage --watchAll=false
       - persist_to_workspace:
-        root: .
-        paths:
-          - login-workflow/coverage
+          root: .
+          paths:
+            - login-workflow/coverage
 
   build_login_workflow:
     docker:
