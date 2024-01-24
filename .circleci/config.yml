@@ -122,7 +122,6 @@ jobs:
           root: .
           paths:
             - login-workflow/dist
-            - login-workflow/coverage
 
   coverage_report:
         working_directory: ~/login-workflow
