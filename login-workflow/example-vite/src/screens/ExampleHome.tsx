@@ -144,7 +144,7 @@ export const ExampleHome: React.FC<React.PropsWithChildren> = () => {
                                             {
                                                 icon: <LockIcon />,
                                                 title: `${t('USER_MENU.CHANGE_PASSWORD')}`,
-                                                onClick: (): any => {
+                                                onClick: (): void => {
                                                     app.setShowChangePasswordDialog(true);
                                                 },
                                             },
