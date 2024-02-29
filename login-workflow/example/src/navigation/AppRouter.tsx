@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { useCallback } from 'react';
 import {
     AuthContextProvider,
     ContactSupportScreen,
@@ -12,7 +12,7 @@ import {
 import { useApp } from '../contexts/AppContextProvider';
 import { useNavigate } from 'react-router';
 import { ProjectAuthUIActions } from '../actions/AuthUIActions';
-import { Navigate, Outlet, Route, Routes } from 'react-router-dom';
+import { Navigate, Outlet, Route, Routes, To } from 'react-router-dom';
 import { Login } from '../screens/Login';
 import { ProjectRegistrationUIActions } from '../actions/RegistrationUIActions';
 import { routes } from './Routing';
@@ -21,9 +21,12 @@ import i18nAppInstance from '../translations/i18n';
 import { ChangePassword } from '../components/ChangePassword';
 
 export const AppRouter: React.FC = () => {
-    const navigate = useNavigate();
+    const navigation = useNavigate();
     const app = useApp();
     const { email, rememberMe } = app.loginData;
+    const navigate = useCallback((destination: -1 | string) => {
+        navigation(destination as To);
+    }, []);
 
     return (
         <Routes>

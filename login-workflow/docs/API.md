@@ -9,7 +9,7 @@ The `RegistrationContextProvider` manages the state of the registration workflow
     -   Returns an object of functions that are used to manage the registration workflow. See [RegistrationUIActions](#registrationuiactions) for more information.
 -  **language**: _`string`_
     -   The language code to use for the registration workflow. This is used to determine which language to use for the UI and for the API calls.
--  **navigate**: _`(url: string) => void`_
+-  **navigate**: _`(destination: -1 | string) => void`_
     -   A function that is used to navigate to a new URL. This is used to navigate to the various screens of the registration workflow.
 -  **routeConfig**: _`RouteConfig`_
     -   An object that defines the various routes for the registration workflow. See [RouteConfig](#routeconfig) for more information.
