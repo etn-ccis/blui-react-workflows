@@ -31,7 +31,7 @@ describe('Account Details Screen', () => {
             </RegistrationContextProvider>
         );
 
-    it('should call onNext, when Next button clicked', async () => {
+    it('should call onNext, when Next button clicked', () => {
         const { getByLabelText } = renderer({
             WorkflowCardActionsProps: {
                 onNext: mockOnNext(),
@@ -51,9 +51,10 @@ describe('Account Details Screen', () => {
         const nextButton = screen.getByText('Next');
         expect(nextButton).toBeInTheDocument();
         expect(screen.getByText(/Next/i)).toBeEnabled();
-        await act(async () => {
+        void ((): void =>
+        act(() => {
             fireEvent.click(nextButton);
-        });
+        }));
         expect(mockOnNext).toHaveBeenCalled();
     });
 });
