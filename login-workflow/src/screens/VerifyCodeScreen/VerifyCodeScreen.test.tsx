@@ -1,6 +1,6 @@
 import React from 'react';
 import '@testing-library/jest-dom';
-import { cleanup, render, screen, fireEvent, RenderResult } from '@testing-library/react';
+import { cleanup, render, screen, fireEvent, RenderResult, act } from '@testing-library/react';
 import { VerifyCodeScreen } from './VerifyCodeScreen';
 import { VerifyCodeScreenProps } from './types';
 import { RegistrationContextProvider } from '../../contexts';
@@ -118,7 +118,7 @@ describe('Verify Code Screen', () => {
         expect(mockOnResend).toHaveBeenCalled();
     });
 
-    it('calls onNext when the next button is clicked', () => {
+    it('calls onNext when the next button is clicked', async () => {
         const { getByLabelText } = renderer({
             WorkflowCardActionsProps: {
                 canGoNext: true,
@@ -132,8 +132,10 @@ describe('Verify Code Screen', () => {
         const nextButton = screen.getByText('Next');
         expect(verifyCodeInput).toHaveValue('');
         expect(screen.getByText(/Next/i)).toBeDisabled();
-        fireEvent.change(verifyCodeInput, { target: { value: '123' } });
-        fireEvent.click(nextButton);
+        await act(async () => {
+            fireEvent.change(verifyCodeInput, { target: { value: '123' } });
+            fireEvent.click(nextButton);
+        });
         expect(mockOnNext).toHaveBeenCalled();
     });
 
