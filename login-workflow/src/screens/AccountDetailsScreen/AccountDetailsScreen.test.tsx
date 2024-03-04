@@ -82,8 +82,7 @@ describe('Account Details Screen', () => {
         await act(async () => {
             fireEvent.click(nextButton);
         });
-        // fireEvent.click(nextButton);
-        // expect(mockOnNext).toHaveBeenCalled();
+        expect(mockOnNext).toHaveBeenCalled();
     });
 
     it('should call onPrevious, when Back button clicked', () => {
