@@ -18,6 +18,11 @@ export type ErrorManagerProps = {
     title?: string;
 
     /**
+     * The label on the dismiss button in dialog mode
+     */
+    dismissLabel?: string;
+
+    /**
      * The function to call when the close/dismiss button is clicked
      * @returns void
      */
@@ -31,7 +36,7 @@ export type ErrorManagerProps = {
     /**
      * Configuration options when using mode='dialog'
      * @param {string} dialogConfig.title - The title used in the dialog header
-     * @param {string} dialogConfig.dismissLabel - The label on the dismiss button.
+     * @param {string} dialogConfig.dismissLabel - The label on the dismiss button in dialog mode.
      */
     dialogConfig?: {
         dismissLabel?: string;
@@ -76,6 +81,7 @@ const ErrorManager: React.FC<ErrorManagerProps> = (props): JSX.Element => {
         mode = 'dialog',
         title,
         error = '',
+        dismissLabel,
         onClose = (): void => {},
         dialogConfig,
         messageBoxConfig = {
@@ -90,7 +96,7 @@ const ErrorManager: React.FC<ErrorManagerProps> = (props): JSX.Element => {
                 title={dialogConfig?.title ?? title ?? t('bluiCommon:MESSAGES.ERROR')}
                 body={t(error)}
                 onClose={onClose}
-                dismissButtonText={dialogConfig?.dismissLabel}
+                dismissButtonText={dialogConfig?.dismissLabel ?? dismissLabel ?? t('bluiCommon:ACTIONS.OKAY')}
                 sx={dialogConfig?.sx}
             />
         ),
