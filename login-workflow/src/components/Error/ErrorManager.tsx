@@ -100,7 +100,7 @@ const ErrorManager: React.FC<ErrorManagerProps> = (props): JSX.Element => {
                 sx={dialogConfig?.sx}
             />
         ),
-        [dialogConfig, title, error, onClose, t]
+        [dialogConfig, dismissLabel, title, error, onClose, t]
     );
 
     const ErrorMessageBoxWithProps = useCallback((): JSX.Element => {
