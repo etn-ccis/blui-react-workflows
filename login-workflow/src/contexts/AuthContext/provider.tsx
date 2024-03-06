@@ -6,20 +6,18 @@
 import React, { useEffect } from 'react';
 import { AuthContextProviderProps } from './types';
 import { AuthContext } from './context';
-import { I18nextProvider } from 'react-i18next';
+import { I18nextProvider, useTranslation } from 'react-i18next';
 import { i18nAuthInstance } from './i18nAuthInstance';
 import { ErrorContext } from '../ErrorContext';
 import { AuthDictionaries } from './AuthDictionaries';
 import { SharedDictionaries } from '../SharedDictionaries';
+import { ErrorManagerProps } from '../../components/Error';
 
 export const AuthContextProvider: React.FC<
     React.PropsWithChildren<AuthContextProviderProps & { PasswordDialog?: JSX.Element }>
 > = (props) => {
     const i18nInstance = props.i18n ?? i18nAuthInstance;
-
-    const { children, ...authContextProps } = props;
-
-    const { language, i18n = i18nInstance, errorConfig } = props;
+    const { language, i18n = i18nInstance, children, ...other } = props;
 
     if (props.i18n) {
         i18n.addResourceBundle('zh', 'bluiAuth', AuthDictionaries.chinese.translation, true, false);
@@ -40,9 +38,36 @@ export const AuthContextProvider: React.FC<
 
     return (
         <I18nextProvider i18n={i18n}>
-            <AuthContext.Provider value={{ ...authContextProps }}>
-                <ErrorContext.Provider value={errorConfig!}>{children}</ErrorContext.Provider>
-            </AuthContext.Provider>
+            <AuthContextProviderContent {
+                ...other
+            }
+                language={language}
+
+            >{children}</AuthContextProviderContent>
         </I18nextProvider>
     );
 };
+
+const AuthContextProviderContent: React.FC<
+    React.PropsWithChildren<Omit<AuthContextProviderProps, 'i18n'> & { PasswordDialog?: JSX.Element }>
+> = (props) => {
+    const { children, errorConfig, ...authContextProps } = props;
+    const { t } = useTranslation();
+    const mergedErrorConfig: ErrorManagerProps = {
+        title: t('bluiCommon:MESSAGES.ERROR'),
+        error: t('bluiAuth:LOGIN.INVALID_CREDENTIALS'),
+        ...errorConfig,
+        dialogConfig: {
+            dismissLabel:t('bluiCommon:ACTIONS.OKAY'),
+            ...errorConfig?.dialogConfig ?? {},
+        }
+    }
+
+    return (
+        <AuthContext.Provider value={{ ...authContextProps }}>
+            <ErrorContext.Provider value={mergedErrorConfig}>{children}</ErrorContext.Provider>
+        </AuthContext.Provider>
+    );
+};
+
+

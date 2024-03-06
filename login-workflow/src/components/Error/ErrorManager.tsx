@@ -2,7 +2,6 @@ import React, { useCallback } from 'react';
 import { BasicDialog } from '../Dialog/BasicDialog';
 import ErrorMessageBox from './ErrorMessageBox';
 import { SxProps, Theme } from '@mui/material/styles';
-import { useTranslation } from 'react-i18next';
 
 export type AuthError = { cause: { title: string; errorMessage: string } };
 
@@ -16,11 +15,6 @@ export type ErrorManagerProps = {
      * Title to display in message box and dialog
      */
     title?: string;
-
-    /**
-     * The label on the dismiss button in dialog mode
-     */
-    dismissLabel?: string;
 
     /**
      * The function to call when the close/dismiss button is clicked
@@ -75,13 +69,11 @@ export type ErrorManagerProps = {
  */
 
 const ErrorManager: React.FC<ErrorManagerProps> = (props): JSX.Element => {
-    const { t } = useTranslation();
     const {
         children,
         mode = 'dialog',
         title,
         error = '',
-        dismissLabel,
         onClose = (): void => {},
         dialogConfig,
         messageBoxConfig = {
@@ -93,14 +85,14 @@ const ErrorManager: React.FC<ErrorManagerProps> = (props): JSX.Element => {
         (): JSX.Element => (
             <BasicDialog
                 open={error.length > 0}
-                title={dialogConfig?.title ?? title ?? t('bluiCommon:MESSAGES.ERROR')}
-                body={t(error)}
+                title={dialogConfig?.title ?? title ?? 'Error' }
+                body={(error)}
                 onClose={onClose}
-                dismissButtonText={dialogConfig?.dismissLabel ?? dismissLabel ?? t('bluiCommon:ACTIONS.OKAY')}
+                dismissButtonText={dialogConfig?.dismissLabel ?? 'Okay'}
                 sx={dialogConfig?.sx}
             />
         ),
-        [dialogConfig, dismissLabel, title, error, onClose, t]
+        [dialogConfig, title, error, onClose]
     );
 
     const ErrorMessageBoxWithProps = useCallback((): JSX.Element => {
@@ -108,8 +100,8 @@ const ErrorManager: React.FC<ErrorManagerProps> = (props): JSX.Element => {
 
         return (
             <ErrorMessageBox
-                title={messageBoxConfig?.title ?? title ?? t('bluiCommon:MESSAGES.ERROR')}
-                errorMessage={t(error)}
+                title={messageBoxConfig?.title ?? title ?? 'Error'}
+                errorMessage={error}
                 dismissible={dismissible}
                 sx={sx}
                 backgroundColor={backgroundColor}
@@ -117,7 +109,7 @@ const ErrorManager: React.FC<ErrorManagerProps> = (props): JSX.Element => {
                 onClose={onClose}
             />
         );
-    }, [error, title, t, messageBoxConfig, onClose]);
+    }, [error, title, messageBoxConfig, onClose]);
 
     return mode === 'dialog' && error.length > 0 ? (
         <>
