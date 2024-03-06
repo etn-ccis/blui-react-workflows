@@ -11,7 +11,7 @@ afterEach(cleanup);
 
 describe('Account Details Screen', () => {
     let mockOnNext: any;
-    let mockOnPrevious: any;
+    // let mockOnPrevious: any;
 
     afterEach(() => {
         jest.clearAllMocks();
@@ -19,7 +19,7 @@ describe('Account Details Screen', () => {
 
     beforeEach(() => {
         mockOnNext = jest.fn();
-        mockOnPrevious = jest.fn();
+        // mockOnPrevious = jest.fn();
     });
 
     const renderer = (props?: AccountDetailsScreenProps): RenderResult =>
@@ -31,7 +31,7 @@ describe('Account Details Screen', () => {
             </RegistrationContextProvider>
         );
 
-    it('should call onNext, when Next button clicked', () => {
+    it('should call onNext, when Next button clicked', async() => {
         const { getByLabelText } = renderer({
             WorkflowCardActionsProps: {
                 onNext: mockOnNext(),
@@ -50,11 +50,11 @@ describe('Account Details Screen', () => {
 
         const nextButton = screen.getByText('Next');
         expect(nextButton).toBeInTheDocument();
-        expect(screen.getByText(/Next/i)).toBeEnabled();
-        void ((): void =>
-        act(() => {
+        
+        await act(async() => {
+            expect( await screen.findByText('Next')).toBeEnabled();
             fireEvent.click(nextButton);
-        }));
+        });
         expect(mockOnNext).toHaveBeenCalled();
     });
 });
