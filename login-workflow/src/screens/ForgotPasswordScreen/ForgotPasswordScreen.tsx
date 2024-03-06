@@ -63,6 +63,7 @@ export const ForgotPasswordScreen: React.FC<ForgotPasswordScreenProps> = (props)
                 setIsLoading(false);
             }
         },
+        // eslint-disable-next-line react-hooks/exhaustive-deps
         [actions, triggerError]
     );
 
