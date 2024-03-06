@@ -131,8 +131,8 @@ describe('Verify Code Screen', () => {
         const verifyCodeInput = getByLabelText('Verification Code');
         const nextButton = screen.getByText('Next');
         expect(verifyCodeInput).toHaveValue('');
-        expect(screen.getByText(/Next/i)).toBeDisabled();
         await act(async () => {
+            expect( await screen.findByText('Next')).toBeDisabled();
             fireEvent.change(verifyCodeInput, { target: { value: '123' } });
             fireEvent.click(nextButton);
         });

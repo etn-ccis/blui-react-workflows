@@ -59,7 +59,7 @@ describe('Account Details Screen', () => {
         expect(screen.getByText('Test Instruction')).toBeInTheDocument();
     });
 
-    it('should call onNext, when Next button clicked', () => {
+    it('should call onNext, when Next button clicked', async() => {
         const { getByLabelText } = renderer({
             WorkflowCardActionsProps: {
                 onNext: mockOnNext(),
@@ -78,11 +78,10 @@ describe('Account Details Screen', () => {
 
         const nextButton = screen.getByText('Next');
         expect(nextButton).toBeInTheDocument();
-        expect(screen.getByText(/Next/i)).toBeEnabled();
-        void ((): void =>
-        act(() => {
+        await act(async() => {
+            expect( await screen.findByText('Next')).toBeEnabled();
             fireEvent.click(nextButton);
-        }));
+        });
         expect(mockOnNext).toHaveBeenCalled();
     });
     

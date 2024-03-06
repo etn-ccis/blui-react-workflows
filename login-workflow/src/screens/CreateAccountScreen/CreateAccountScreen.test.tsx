@@ -71,8 +71,8 @@ describe('Create Account Screen', () => {
         fireEvent.change(emailInput, { target: { value: 'Abcd@123.net' } });
         const nextButton = getByText('Next');
         expect(nextButton).toBeInTheDocument();
-        expect(screen.getByText(/Next/i)).toBeEnabled();
         await act(async () => {
+            expect( await screen.findByText('Next')).toBeEnabled();
             fireEvent.click(nextButton);
         });
 

@@ -94,8 +94,8 @@ describe('Forgot Password Screen tests', () => {
         expect(emailInput).toHaveValue('aa@aa.aa');
 
         expect(nextButton).toBeInTheDocument();
-        expect(screen.getByText(/Next/i)).toBeEnabled();
         await act(async () => {
+            expect( await screen.findByText('Next')).toBeEnabled();
             fireEvent.click(nextButton);
         });
         expect(mockOnNext).toHaveBeenCalled();
@@ -138,8 +138,8 @@ describe('Forgot Password Screen tests', () => {
         fireEvent.blur(emailInput);
         expect(emailInput).toHaveValue('aa@aa.aa');
         expect(nextButton).toBeInTheDocument();
-        expect(screen.getByText(/Submit/i)).toBeEnabled();
         await act(async () => {
+            expect( await screen.findByText('Submit')).toBeEnabled();
             fireEvent.click(nextButton);
         });
 
@@ -162,8 +162,9 @@ describe('Forgot Password Screen tests', () => {
         fireEvent.blur(emailInput);
         expect(emailInput).toHaveValue('aa@aa.aa');
         expect(nextButton).toBeInTheDocument();
-        expect(screen.getByText(/Submit/i)).toBeEnabled();
+        // expect(screen.getByText(/Submit/i)).toBeEnabled();
         await act(async () => {
+            expect( await screen.findByText('Submit')).toBeEnabled();
             fireEvent.click(nextButton);
         });
 

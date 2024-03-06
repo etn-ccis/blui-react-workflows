@@ -87,8 +87,8 @@ describe('Reset Password Screen', () => {
         fireEvent.blur(confirmPasswordField);
         const nextButton = screen.getByText('Next');
         expect(nextButton).toBeInTheDocument();
-        expect(screen.getByText(/Next/i)).toBeEnabled();
         await act(async () => {
+            expect( await screen.findByText('Next')).toBeEnabled();
             fireEvent.click(nextButton);
         });
         expect(mockOnNext).toHaveBeenCalled();
@@ -105,8 +105,8 @@ describe('Reset Password Screen', () => {
 
         const backButton = screen.getByText('Back');
         expect(backButton).toBeInTheDocument();
-        expect(screen.getByText(/Back/i)).toBeEnabled();
         await act(async () => {
+            expect( await screen.findByText('Back')).toBeEnabled();
             fireEvent.click(backButton);
         });
         expect(mockOnPrevious).toHaveBeenCalled();

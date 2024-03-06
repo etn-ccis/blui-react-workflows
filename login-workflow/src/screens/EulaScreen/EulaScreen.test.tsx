@@ -77,8 +77,8 @@ describe('Eula Screen', () => {
 
         const nextButton = screen.getByText('Next');
         expect(nextButton).toBeInTheDocument();
-        expect(screen.getByText(/Next/i)).toBeEnabled();
         await act(async () => {
+            expect( await screen.findByText('Next')).toBeEnabled();
             fireEvent.click(nextButton);
         });
         expect(mockOnNext).toHaveBeenCalled();
