@@ -9,7 +9,7 @@ export const Login = (): JSX.Element => (
         projectImage={<img src={EatonLogo} alt="logo" style={{ maxHeight: 80 }} />}
         header={<DebugComponent />}
         errorDisplayConfig={{
-            mode: 'dialog',
+            mode: 'message-box',
             messageBoxConfig: {
                 dismissible: true,
                 position: 'top',
