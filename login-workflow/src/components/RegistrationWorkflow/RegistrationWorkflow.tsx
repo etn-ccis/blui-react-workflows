@@ -58,9 +58,18 @@ export const RegistrationWorkflow: React.FC<React.PropsWithChildren<Registration
     const [isAccountExist, setIsAccountExist] = useState(false);
     const { triggerError, errorManagerConfig: globalErrorManagerConfig } = useErrorManager();
     const { actions, navigate } = useRegistrationContext();
-    const { messageBoxConfig: workflowMessageBoxConfig, dialogConfig: workflowDialogConfig, onClose:workflowOnClose, ...otherWorkflowErrorConfig } = registrationWorkflowErrorConfig ?? {};
-    const { messageBoxConfig: globalMessageBoxConfig, dialogConfig: globalDialogConfig, onClose:globalOnClose, ...otherGlobalErrorConfig } = globalErrorManagerConfig;
-
+    const {
+        messageBoxConfig: workflowMessageBoxConfig,
+        dialogConfig: workflowDialogConfig,
+        onClose: workflowOnClose,
+        ...otherWorkflowErrorConfig
+    } = registrationWorkflowErrorConfig ?? {};
+    const {
+        messageBoxConfig: globalMessageBoxConfig,
+        dialogConfig: globalDialogConfig,
+        onClose: globalOnClose,
+        ...otherGlobalErrorConfig
+    } = globalErrorManagerConfig;
 
     const errorDisplayConfig: ErrorManagerProps = {
         messageBoxConfig: { ...globalMessageBoxConfig, ...workflowMessageBoxConfig },
@@ -80,17 +89,17 @@ export const RegistrationWorkflow: React.FC<React.PropsWithChildren<Registration
         isInviteRegistration = false,
         children = isInviteRegistration
             ? [
-                <EulaScreen key="EulaScreen" />,
-                <CreatePasswordScreen key="CreatePasswordScreen" />,
-                <AccountDetailsScreen key="AccountDetailsScreen" />,
-            ]
+                  <EulaScreen key="EulaScreen" />,
+                  <CreatePasswordScreen key="CreatePasswordScreen" />,
+                  <AccountDetailsScreen key="AccountDetailsScreen" />,
+              ]
             : [
-                <EulaScreen key="EulaScreen" />,
-                <CreateAccountScreen key="CreateAccountScreen" />,
-                <VerifyCodeScreen key="VerifyCodeScreen" />,
-                <CreatePasswordScreen key="CreatePasswordScreen" />,
-                <AccountDetailsScreen key="AccountDetailsScreen" />,
-            ],
+                  <EulaScreen key="EulaScreen" />,
+                  <CreateAccountScreen key="CreateAccountScreen" />,
+                  <VerifyCodeScreen key="VerifyCodeScreen" />,
+                  <CreatePasswordScreen key="CreatePasswordScreen" />,
+                  <AccountDetailsScreen key="AccountDetailsScreen" />,
+              ],
     } = props;
 
     const screens = [...(Array.isArray(children) ? children : [children])];

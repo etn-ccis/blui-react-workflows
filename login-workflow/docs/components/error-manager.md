@@ -27,6 +27,7 @@ import { ErrorManager } from '@brightlayer-ui/react-auth-workflow';
 | onClose | `() => void` | Function to call when the close/dismiss button is clicked. |  |
 | dialogConfig | `{title?: string, dismissLabel?: string}` | Configuration options for the dialog. See [DialogConfig Props](#dialogconfigprops) |  |
 | messageBoxConfig | `MessageBoxProps` | Configuration options for the message box. See [MessageBoxProps](#messageboxprops) |  |
+| t | `TFunction \| ((key: string) => string)` | Translate function to translate error related text. |  |
 | children | `ReactNode` | Message box errors will appear before or after content passed as children. |  |
 
 ### DialogConfigProps
