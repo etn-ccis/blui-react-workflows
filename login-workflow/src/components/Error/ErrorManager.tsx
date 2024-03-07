@@ -31,8 +31,7 @@ export type ErrorManagerProps = {
     /**
      * Translate function to translate error related text
      */
-
-    t?: TFunction | ((key: string) => string);
+    t?: TFunction;
 
     /**
      * Configuration options when using mode='dialog'
