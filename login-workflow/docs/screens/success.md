@@ -1,6 +1,6 @@
 # SuccessScreenBase
 
-A component to use as a simple success screen for a mini-1 step workflow like the Forgot Password. It renders a message, icon, and a dismiss button.
+A component to use as a simple success screen for a mini 1-step workflow like the Forgot Password. It renders a message, icon, and a dismiss button.
 
 ![Success](../../media/screens/success.png)
 

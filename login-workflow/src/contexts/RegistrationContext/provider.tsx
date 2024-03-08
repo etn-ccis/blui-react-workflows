@@ -1,23 +1,45 @@
 /**
  * @packageDocumentation
- * @module RegistrationWorkflowContextProvider
+ * @module RegistrationContextProvider
  */
 
 import React, { useEffect } from 'react';
 import { RegistrationContextProviderProps } from './types';
 import { RegistrationContext } from './context';
-import { I18nextProvider } from 'react-i18next';
+import { I18nextProvider, useTranslation } from 'react-i18next';
 import { i18nRegistrationInstance } from './i18nRegistrationInstance';
 import { ErrorContext } from '../ErrorContext';
 import { SharedDictionaries } from '../SharedDictionaries';
 import { RegistrationDictionaries } from './RegistrationDictionaries';
+import { ErrorManagerProps } from '../../components/Error';
+
+const RegistrationContextProviderContent: React.FC<
+    React.PropsWithChildren<Omit<RegistrationContextProviderProps, 'i18n'>>
+> = (props) => {
+    const { children, errorConfig, ...registrationContextProps } = props;
+    const { t } = useTranslation();
+    const mergedErrorConfig: ErrorManagerProps = {
+        t: t,
+        title: 'bluiCommon:MESSAGES.ERROR',
+        ...errorConfig,
+        dialogConfig: {
+            dismissLabel: 'bluiCommon:ACTIONS.OKAY',
+            ...(errorConfig?.dialogConfig ?? {}),
+        },
+    };
+
+    return (
+        <RegistrationContext.Provider value={{ ...registrationContextProps }}>
+            <ErrorContext.Provider value={mergedErrorConfig}>{children}</ErrorContext.Provider>
+        </RegistrationContext.Provider>
+    );
+};
 
 export const RegistrationContextProvider: React.FC<React.PropsWithChildren<RegistrationContextProviderProps>> = (
     props
 ) => {
     const i18nInstance = props.i18n ?? i18nRegistrationInstance;
-    const { children, ...registrationContextProps } = props;
-    const { language, i18n = i18nInstance, errorConfig } = props;
+    const { language, i18n = i18nInstance, children, ...other } = props;
 
     if (props.i18n) {
         i18n.addResourceBundle('zh', 'bluiRegistration', RegistrationDictionaries.chinese.translation, true, false);
@@ -38,9 +60,9 @@ export const RegistrationContextProvider: React.FC<React.PropsWithChildren<Regis
 
     return (
         <I18nextProvider i18n={i18n}>
-            <RegistrationContext.Provider value={registrationContextProps}>
-                <ErrorContext.Provider value={errorConfig!}>{children}</ErrorContext.Provider>
-            </RegistrationContext.Provider>
+            <RegistrationContextProviderContent {...other} language={language}>
+                {children}
+            </RegistrationContextProviderContent>
         </I18nextProvider>
     );
 };
