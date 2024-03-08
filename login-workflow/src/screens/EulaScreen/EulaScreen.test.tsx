@@ -71,6 +71,7 @@ describe('Eula Screen', () => {
                 nextLabel: 'Next',
             },
         });
+        await waitFor(() => expect(screen.getByText('License Agreement')).toBeInTheDocument);
         const checkboxLabel = getByLabelText('I have read and agree to the Terms & Conditions');
         fireEvent.click(checkboxLabel);
         fireEvent.change(checkboxLabel, { target: { accepted: true } });

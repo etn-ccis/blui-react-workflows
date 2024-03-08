@@ -68,6 +68,7 @@ describe('Create Account Screen', () => {
         });
 
         const emailInput = getByLabelText('Email Address');
+        expect(screen.getByLabelText('Email Address')).toBeInTheDocument();
         fireEvent.change(emailInput, { target: { value: 'Abcd@123.net' } });
         const nextButton = getByText('Next');
         expect(nextButton).toBeInTheDocument();
@@ -79,7 +80,7 @@ describe('Create Account Screen', () => {
         expect(mockOnNext).toHaveBeenCalled();
     });
 
-    it('calls onPrevious when the back button is clicked', () => {
+    it('calls onPrevious when the back button is clicked', async () => {
         const { getByText } = renderer({
             WorkflowCardActionsProps: {
                 onPrevious: mockOnPrevious(),
@@ -90,8 +91,12 @@ describe('Create Account Screen', () => {
 
         const backButton = getByText('Back');
         expect(backButton).toBeInTheDocument();
-        expect(screen.getByText(/Back/i)).toBeEnabled();
-        fireEvent.click(backButton);
+        // expect(screen.getByText(/Back/i)).toBeEnabled();
+        await act(async () => {
+            expect(await screen.findByText('Back')).toBeEnabled();
+            fireEvent.click(backButton);
+        });
+        // fireEvent.click(backButton);
         expect(mockOnPrevious).toHaveBeenCalled();
     });
 

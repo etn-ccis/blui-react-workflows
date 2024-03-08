@@ -78,7 +78,7 @@ describe('Reset Password Screen', () => {
                 nextLabel: 'Next',
             },
         });
-
+        await waitFor(() => expect(screen.getByText('Reset Password')).toBeInTheDocument);
         const passwordField = getByLabelText('New Password');
         const confirmPasswordField = getByLabelText('Confirm New Password');
         fireEvent.change(passwordField, { target: { value: 'Abcd@123' } });
@@ -102,6 +102,7 @@ describe('Reset Password Screen', () => {
                 previousLabel: 'Back',
             },
         });
+        await waitFor(() => expect(screen.getByText('Reset Password')).toBeInTheDocument);
 
         const backButton = screen.getByText('Back');
         expect(backButton).toBeInTheDocument();
