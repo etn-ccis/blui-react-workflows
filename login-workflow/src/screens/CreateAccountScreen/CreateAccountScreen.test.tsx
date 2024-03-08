@@ -91,12 +91,10 @@ describe('Create Account Screen', () => {
 
         const backButton = getByText('Back');
         expect(backButton).toBeInTheDocument();
-        // expect(screen.getByText(/Back/i)).toBeEnabled();
         await act(async () => {
             expect(await screen.findByText('Back')).toBeEnabled();
             fireEvent.click(backButton);
         });
-        // fireEvent.click(backButton);
         expect(mockOnPrevious).toHaveBeenCalled();
     });
 
