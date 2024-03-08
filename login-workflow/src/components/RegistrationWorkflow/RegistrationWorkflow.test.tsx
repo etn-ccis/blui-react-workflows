@@ -65,10 +65,14 @@ describe('RegistrationWorkflow', () => {
         expect(nextScreen).toHaveBeenCalledWith({ screenId: 'Eula', values: { accepted: true } });
     });
 
-    it('should set screen data for default registration workflow in the context', () => {
+    it('should set screen data for default registration workflow in the context', async () => {
         const wrapper = ({ children }: any): JSX.Element => (
             <RegistrationContextProvider {...registrationContextProviderProps}>
-                <RegistrationWorkflow {...defaultProps}>{children}</RegistrationWorkflow>
+                <RegistrationWorkflow {...defaultProps}>
+                    <Box>{children}</Box>
+                    <Box>{children}</Box>
+                    <Box>{children}</Box>
+                </RegistrationWorkflow>
             </RegistrationContextProvider>
         );
         const { result } = renderHook(() => useRegistrationWorkflowContext(), { wrapper });
@@ -76,8 +80,8 @@ describe('RegistrationWorkflow', () => {
         expect(result.current.screenData['Eula'].accepted).toBeFalsy();
         expect(result.current.screenData['CreateAccount'].emailAddress).toBe('');
 
-        act(() => {
-            void result.current.nextScreen({ screenId: 'Eula', values: { accepted: true } });
+        await act(async () => {
+            await result.current.nextScreen({ screenId: 'Eula', values: { accepted: true } });
         });
         act(() => {
             result.current.previousScreen({
@@ -87,21 +91,26 @@ describe('RegistrationWorkflow', () => {
         });
 
         expect(result.current.screenData['Eula'].accepted).toBeTruthy();
-
-        void ((): void =>
-            expect(result.current.screenData['CreateAccount'].emailAddress).toBe('emailAddress@emailAddress.com'));
+        expect(result.current.screenData['CreateAccount'].emailAddress).toBe('emailAddress@emailAddress.com');
     });
 
-    it('should set screen data for custom registration workflow in the context', () => {
+    it('should set screen data for custom registration workflow in the context', async () => {
         const wrapper = ({ children }: any): JSX.Element => (
             <RegistrationContextProvider {...registrationContextProviderProps}>
-                <RegistrationWorkflow {...defaultProps}>{children}</RegistrationWorkflow>
+                <RegistrationWorkflow {...defaultProps}>
+                    <Box>{children}</Box>
+                    <Box>{children}</Box>
+                    <Box>{children}</Box>
+                </RegistrationWorkflow>
             </RegistrationContextProvider>
         );
         const { result } = renderHook(() => useRegistrationWorkflowContext(), { wrapper });
 
-        act(() => {
-            void result.current.nextScreen({ screenId: 'Screen1', values: { test: 'test' } });
+        expect(result.current.screenData['Eula'].accepted).toBeFalsy();
+        expect(result.current.screenData['CreateAccount'].emailAddress).toBe('');
+
+        await act(async () => {
+            result.current.nextScreen({ screenId: 'Screen1', values: { test: 'test' } });
         });
         act(() => {
             result.current.previousScreen({
@@ -110,37 +119,39 @@ describe('RegistrationWorkflow', () => {
             });
         });
         expect(result.current.screenData['Other']['Screen1'].test).toBe('test');
+        expect(result.current.screenData['Other']['Screen2'].test2).toBe('test2');
+});
 
-        void ((): void => expect(result.current.screenData['Other']['Screen2'].test2).toBe('test2'));
-    });
+it('should check for lower bound of initialScreenIndex props', () => {
+    renderer({ initialScreenIndex: -1 });
+    expect(screen.getByText('Screen 1')).toBeInTheDocument();
+});
 
-    it('should check for lower bound of initialScreenIndex props', () => {
-        renderer({ initialScreenIndex: -1 });
-        expect(screen.getByText('Screen 1')).toBeInTheDocument();
-    });
+it('should check for upper bound of initialScreenIndex props', () => {
+    renderer({ initialScreenIndex: 2 });
+    expect(screen.getByText('Screen 2')).toBeInTheDocument();
+});
 
-    it('should check for upper bound of initialScreenIndex props', () => {
-        renderer({ initialScreenIndex: 2 });
-        expect(screen.getByText('Screen 2')).toBeInTheDocument();
-    });
-
-    it('should render custom success screen', () => {
-        const props = defaultProps;
-        defaultProps.successScreen = <Box>Success</Box>;
-        const { getByLabelText, getByText } = render(
-            <RegistrationContextProvider {...registrationContextProviderProps}>
-                <RegistrationWorkflow {...props}>
-                    <CreateAccountScreen />
-                </RegistrationWorkflow>
-            </RegistrationContextProvider>
-        );
-        const verifyEmailInput = getByLabelText('Email Address');
-        fireEvent.change(verifyEmailInput, { target: { value: 'test@test.net' } });
-        fireEvent.blur(verifyEmailInput);
-        const nextButton = getByText('Next');
-        expect(screen.getByText(/Next/i)).toBeEnabled();
+it('should render custom success screen', async () => {
+    const props = defaultProps;
+    defaultProps.successScreen = <Box>Success</Box>;
+    const { getByLabelText, getByText } = render(
+        <RegistrationContextProvider {...registrationContextProviderProps}>
+            <RegistrationWorkflow {...props}>
+                <CreateAccountScreen />
+            </RegistrationWorkflow>
+        </RegistrationContextProvider>
+    );
+    const verifyEmailInput = getByLabelText('Email Address');
+    fireEvent.change(verifyEmailInput, { target: { value: 'test@test.net' } });
+    fireEvent.blur(verifyEmailInput);
+    const nextButton = getByText('Next');
+    expect(screen.getByText(/Next/i)).toBeEnabled();
+    await act(async () => {
+        expect(await screen.findByText('Next')).toBeEnabled();
         fireEvent.click(nextButton);
-
-        void ((): void => expect(screen.getByText('Success')).toBeInTheDocument());
     });
+
+    void ((): void => expect(screen.getByText('Success')).toBeInTheDocument());
+});
 });
