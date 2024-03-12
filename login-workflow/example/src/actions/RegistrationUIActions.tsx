@@ -68,20 +68,19 @@ export const ProjectRegistrationUIActions: () => RegistrationUIActions = () => (
                 errorMessage: 'ERROR_MESSAGE.EMAIL_ERROR_MESSAGE',
                 errorOptions: { email: email },
                 title: 'ERROR_MESSAGE.EMAIL_ERROR_TITLE',
-                titleOptions: {timestamp: Date.now()},
-    
-    }
-});
-return 'a1b2c3';
+                titleOptions: { timestamp: Date.now() },
+            },
+        });
+        return 'a1b2c3';
     },
 
-createPassword: async (password: string): Promise<boolean> => {
-    await sleep(800);
-    if (isRandomFailure()) {
-        throw new Error('Sorry, there was a problem sending your request.');
-    }
-    return true;
-},
+    createPassword: async (password: string): Promise<boolean> => {
+        await sleep(800);
+        if (isRandomFailure()) {
+            throw new Error('Sorry, there was a problem sending your request.');
+        }
+        return true;
+    },
 
     setAccountDetails: async (details: AccountDetails): Promise<boolean> => {
         await sleep(800);
@@ -91,37 +90,37 @@ createPassword: async (password: string): Promise<boolean> => {
         return true;
     },
 
-        /**
-         * The user has tapped on an email link inviting them to register with the application.
-         * The application should validate the code provided by the link.
-         *
-         * @param validationCode  Registration code provided from the link.
-         * @param validationEmail  Email provided from the invitation email link (optional) `?email=addr%40domain.com`.
-         *
-         * @returns Resolves when the code is valid. True if registration is complete, False if account information is needed.
-         *          If the code is not valid a rejection will occur with an error message.
-         */
-        validateUserRegistrationRequest: async (
-            validationCode: string,
-            validationEmail?: string
-        ): Promise<{ codeValid: boolean | string; accountExists?: boolean }> => {
-            await sleep(800);
+    /**
+     * The user has tapped on an email link inviting them to register with the application.
+     * The application should validate the code provided by the link.
+     *
+     * @param validationCode  Registration code provided from the link.
+     * @param validationEmail  Email provided from the invitation email link (optional) `?email=addr%40domain.com`.
+     *
+     * @returns Resolves when the code is valid. True if registration is complete, False if account information is needed.
+     *          If the code is not valid a rejection will occur with an error message.
+     */
+    validateUserRegistrationRequest: async (
+        validationCode: string,
+        validationEmail?: string
+    ): Promise<{ codeValid: boolean | string; accountExists?: boolean }> => {
+        await sleep(800);
 
-            if (isRandomFailure()) {
-                throw new Error('Sorry, there was a problem sending your request.');
-            }
-            return { codeValid: true, accountExists: false };
-        },
+        if (isRandomFailure()) {
+            throw new Error('Sorry, there was a problem sending your request.');
+        }
+        return { codeValid: true, accountExists: false };
+    },
 
-            completeRegistration: async (userData: object): Promise<{ email: string; organizationName: string }> => {
-                const email = 'example@email.com';
-                const organizationName = 'Acme Co.';
-                const userInfo = { email, organizationName };
+    completeRegistration: async (userData: object): Promise<{ email: string; organizationName: string }> => {
+        const email = 'example@email.com';
+        const organizationName = 'Acme Co.';
+        const userInfo = { email, organizationName };
 
-                await sleep(1000);
-                if (isRandomFailure()) {
-                    throw new Error('Sorry, there was a problem sending your request.');
-                }
-                return userInfo;
-            },
+        await sleep(1000);
+        if (isRandomFailure()) {
+            throw new Error('Sorry, there was a problem sending your request.');
+        }
+        return userInfo;
+    },
 });

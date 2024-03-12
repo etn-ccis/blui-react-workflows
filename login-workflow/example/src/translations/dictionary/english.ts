@@ -20,7 +20,7 @@ const resources: AppTranslationsFile = {
         },
         ERROR_MESSAGE: {
             EMAIL_ERROR_MESSAGE: '{{email}} is already registered',
-            EMAIL_ERROR_TITLE: 'Error {{timestamp}}'
+            EMAIL_ERROR_TITLE: 'Error {{timestamp}}',
         },
     },
 };

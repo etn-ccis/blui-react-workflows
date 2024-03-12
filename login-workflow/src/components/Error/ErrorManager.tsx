@@ -4,7 +4,9 @@ import ErrorMessageBox from './ErrorMessageBox';
 import { SxProps, Theme } from '@mui/material/styles';
 import { TFunction, TOptions } from 'i18next';
 
-export type AuthError = { cause: { title: string; errorMessage: string, errorOptions?: TOptions, titleOptions?: TOptions } };
+export type AuthError = {
+    cause: { title: string; errorMessage: string; errorOptions?: TOptions; titleOptions?: TOptions };
+};
 
 export type ErrorManagerProps = {
     /**
@@ -92,7 +94,7 @@ const ErrorManager: React.FC<ErrorManagerProps> = (props): JSX.Element => {
         error = '',
         errorOptions,
         titleOptions,
-        onClose = (): void => { },
+        onClose = (): void => {},
         dialogConfig,
         // eslint-disable-next-line @typescript-eslint/no-unused-vars
         t = (key: string, _options?: TOptions): string => key,
