@@ -36,7 +36,7 @@ describe('Change Password Dialog tests', () => {
         });
         const currentPasswordInput = getByLabelText('Current Password');
         expect(currentPasswordInput).toHaveValue('');
-        expect(screen.findAllByRole('input')).not.toBeNull();
+        expect(screen.getByLabelText('Current Password')).not.toBeNull();
     });
 
     it('should display input field with passed prop', () => {
