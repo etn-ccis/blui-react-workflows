@@ -15,6 +15,10 @@ export type AppTranslations = {
         CHANGE_PASSWORD: string;
         MY_ACCOUNT: string;
     };
+    ERROR_MESSAGE: {
+        EMAIL_ERROR_MESSAGE: string;
+        EMAIL_ERROR_TITLE: string;
+    };
 };
 export type AppTranslationsFile = {
     translation: AppTranslations;
