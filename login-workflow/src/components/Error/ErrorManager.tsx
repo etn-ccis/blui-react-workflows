@@ -2,9 +2,11 @@ import React, { useCallback } from 'react';
 import { BasicDialog } from '../Dialog/BasicDialog';
 import ErrorMessageBox from './ErrorMessageBox';
 import { SxProps, Theme } from '@mui/material/styles';
-import { TFunction } from 'i18next';
+import { TFunction, TOptions } from 'i18next';
 
-export type AuthError = { cause: { title: string; errorMessage: string } };
+export type AuthError = {
+    cause: { title: string; errorMessage: string; errorOptions?: TOptions; titleOptions?: TOptions };
+};
 
 export type ErrorManagerProps = {
     /**
@@ -27,6 +29,16 @@ export type ErrorManagerProps = {
      * The error text to display
      */
     error?: string;
+
+    /**
+     * Interpolate string with a dynamic value to pass values using t function for message
+     */
+    errorOptions?: TOptions;
+
+    /**
+     * Interpolate string with a dynamic value to pass values using t function for title
+     */
+    titleOptions?: TOptions;
 
     /**
      * Translate function to translate error related text
@@ -80,9 +92,12 @@ const ErrorManager: React.FC<ErrorManagerProps> = (props): JSX.Element => {
         mode = 'dialog',
         title,
         error = '',
+        errorOptions,
+        titleOptions,
         onClose = (): void => {},
         dialogConfig,
-        t = (key: string): string => key,
+        // eslint-disable-next-line @typescript-eslint/no-unused-vars
+        t = (key: string, _options?: TOptions): string => key,
         messageBoxConfig = {
             position: 'top',
         },
@@ -92,14 +107,14 @@ const ErrorManager: React.FC<ErrorManagerProps> = (props): JSX.Element => {
         (): JSX.Element => (
             <BasicDialog
                 open={error.length > 0}
-                title={t(dialogConfig?.title ?? title ?? 'Error')}
-                body={t(error)}
+                title={t(dialogConfig?.title ?? title ?? 'Error', titleOptions)}
+                body={t(error, errorOptions)}
                 onClose={onClose}
                 dismissButtonText={t(dialogConfig?.dismissLabel ?? 'Okay')}
                 sx={dialogConfig?.sx}
             />
         ),
-        [dialogConfig, title, error, onClose, t]
+        [dialogConfig, title, error, errorOptions, titleOptions, onClose, t]
     );
 
     const ErrorMessageBoxWithProps = useCallback((): JSX.Element => {
@@ -107,8 +122,8 @@ const ErrorManager: React.FC<ErrorManagerProps> = (props): JSX.Element => {
 
         return (
             <ErrorMessageBox
-                title={t(messageBoxConfig?.title ?? title ?? 'Error')}
-                errorMessage={t(error)}
+                title={t(messageBoxConfig?.title ?? title ?? 'Error', titleOptions)}
+                errorMessage={t(error, errorOptions)}
                 dismissible={dismissible}
                 sx={sx}
                 backgroundColor={backgroundColor}
@@ -116,7 +131,7 @@ const ErrorManager: React.FC<ErrorManagerProps> = (props): JSX.Element => {
                 onClose={onClose}
             />
         );
-    }, [error, title, messageBoxConfig, onClose, t]);
+    }, [error, errorOptions, titleOptions, title, messageBoxConfig, onClose, t]);
 
     return mode === 'dialog' && error.length > 0 ? (
         <>

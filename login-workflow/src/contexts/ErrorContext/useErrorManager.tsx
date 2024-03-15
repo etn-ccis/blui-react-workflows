@@ -15,8 +15,10 @@ export const useErrorManager = (): {
         if (isAuthError(err)) {
             return {
                 ...errorConfig,
-                dialogConfig: { title: err.cause.title },
+                dialogConfig: { ...errorConfig.dialogConfig, title: err.cause.title },
                 error: err.cause.errorMessage,
+                errorOptions: err.cause.errorOptions,
+                titleOptions: err.cause.titleOptions,
                 onClose: (): void => {
                     setError(new Error());
                 },
@@ -37,6 +39,8 @@ export const useErrorManager = (): {
                 cause: {
                     title: err.cause.title,
                     errorMessage: err.cause.errorMessage,
+                    errorOptions: err.cause.errorOptions,
+                    titleOptions: err.cause.titleOptions,
                 },
             });
         } else {
