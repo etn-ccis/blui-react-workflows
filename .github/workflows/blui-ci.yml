@@ -67,27 +67,28 @@ jobs:
         name: codecov-report
         verbose: true
 
-  # build:
-  #   runs-on: ubuntu-latest
+  build:
+    runs-on: ubuntu-latest
 
-  #   strategy:
-  #     matrix:
-  #       node-version: [18.x]
+    strategy:
+      matrix:
+        node-version: [18.x]
 
-  #   steps:
-  #   - uses: actions/checkout@v4
-  #   - name: Use Node.js ${{ matrix.node-version }}
-  #     uses: actions/setup-node@v4
-  #     with:
-  #       node-version: ${{ matrix.node-version }}
-  #       cache: 'yarn'
-  #   - run: yarn --frozen-lockfile
-  #     working-directory: login-workflow
-  #   - run: yarn build
-  #     working-directory: login-workflow
-  #   - name: Save build
-  #     uses: actions/upload-artifact@v3
-  #     with:
-  #       name: dist
-  #       if-no-files-found: error
-  #       path: dist
+    steps:
+    - uses: actions/checkout@v4
+    - name: Use Node.js ${{ matrix.node-version }}
+      uses: actions/setup-node@v4
+      with:
+        node-version: ${{ matrix.node-version }}
+        cache: 'yarn'
+        cache-dependency-path: login-workflow
+    - run: yarn --frozen-lockfile
+      working-directory: login-workflow
+    - run: yarn build
+      working-directory: login-workflow
+    - name: Save build
+      uses: actions/upload-artifact@v3
+      with:
+        name: dist
+        if-no-files-found: error
+        path: dist
