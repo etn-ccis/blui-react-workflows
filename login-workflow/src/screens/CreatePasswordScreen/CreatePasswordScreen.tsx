@@ -50,7 +50,7 @@ export const CreatePasswordScreen: React.FC<CreatePasswordScreenProps> = (props)
         confirmPassword !== '' ? confirmPassword : PasswordProps?.initialConfirmPasswordValue ?? ''
     );
     const [isLoading, setIsLoading] = useState(false);
-    const passwordRequirements = defaultPasswordRequirements(t);
+    const passwordReqs = PasswordProps?.passwordRequirements ?? defaultPasswordRequirements(t);
     const { triggerError, errorManagerConfig } = useErrorManager();
     const errorDisplayConfig = {
         ...errorManagerConfig,
@@ -92,20 +92,20 @@ export const CreatePasswordScreen: React.FC<CreatePasswordScreenProps> = (props)
     );
 
     const areValidMatchingPasswords = useCallback((): boolean => {
-        if (PasswordProps?.passwordRequirements?.length === 0) {
+        if (passwordReqs?.length === 0) {
             return confirmInput === passwordInput;
         }
-        for (let i = 0; i < passwordRequirements.length; i++) {
-            if (!new RegExp(passwordRequirements[i].regex).test(passwordInput)) return false;
+        for (let i = 0; i < passwordReqs.length; i++) {
+            if (!new RegExp(passwordReqs[i].regex).test(passwordInput)) return false;
         }
         return confirmInput === passwordInput;
-    }, [PasswordProps?.passwordRequirements?.length, passwordRequirements, passwordInput, confirmInput]);
+    }, [passwordReqs, passwordInput, confirmInput]);
 
     const passwordProps = {
         newPasswordLabel: t('bluiCommon:FORMS.PASSWORD'),
         confirmPasswordLabel: t('bluiCommon:FORMS.CONFIRM_PASSWORD'),
         passwordNotMatchError: t('bluiCommon:FORMS.PASS_MATCH_ERROR'),
-        passwordRequirements: PasswordProps?.passwordRequirements ?? passwordRequirements,
+        passwordRequirements: passwordReqs,
         passwordRef,
         confirmRef,
         ...PasswordProps,

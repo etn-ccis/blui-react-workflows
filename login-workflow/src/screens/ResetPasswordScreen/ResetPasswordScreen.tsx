@@ -60,7 +60,7 @@ export const ResetPasswordScreen: React.FC<ResetPasswordScreenProps> = (props) =
     const { code, email } = parseQueryString(window.location.search);
 
     const { actions, navigate, routeConfig } = useAuthContext();
-    const passwordRequirements = defaultPasswordRequirements(t);
+    const passwordReqs = PasswordProps?.passwordRequirements ?? defaultPasswordRequirements(t);
 
     const verifyResetCode = useCallback(async (): Promise<void> => {
         try {
@@ -92,14 +92,14 @@ export const ResetPasswordScreen: React.FC<ResetPasswordScreenProps> = (props) =
     }, [actions, code, passwordInput, email, triggerError, props.showSuccessScreen, navigate, routeConfig]);
 
     const areValidMatchingPasswords = useCallback((): boolean => {
-        if (PasswordProps?.passwordRequirements?.length === 0) {
+        if (passwordReqs?.length === 0) {
             return confirmInput === passwordInput;
         }
-        for (let i = 0; i < passwordRequirements.length; i++) {
-            if (!new RegExp(passwordRequirements[i].regex).test(passwordInput)) return false;
+        for (let i = 0; i < passwordReqs.length; i++) {
+            if (!new RegExp(passwordReqs[i].regex).test(passwordInput)) return false;
         }
         return confirmInput === passwordInput;
-    }, [PasswordProps?.passwordRequirements?.length, passwordRequirements, passwordInput, confirmInput]);
+    }, [passwordReqs, passwordInput, confirmInput]);
 
     const updateFields = useCallback(
         (fields: { password: string; confirm: string }) => {
@@ -151,7 +151,7 @@ export const ResetPasswordScreen: React.FC<ResetPasswordScreenProps> = (props) =
         newPasswordLabel: t('bluiAuth:CHANGE_PASSWORD.NEW_PASSWORD'),
         confirmPasswordLabel: t('bluiAuth:CHANGE_PASSWORD.CONFIRM_NEW_PASSWORD'),
         passwordNotMatchError: t('bluiCommon:FORMS.PASS_MATCH_ERROR'),
-        passwordRequirements: PasswordProps?.passwordRequirements ?? passwordRequirements,
+        passwordRequirements: passwordReqs,
         passwordRef,
         confirmRef,
         ...PasswordProps,
