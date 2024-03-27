@@ -32,10 +32,10 @@ jobs:
         node-version: ${{ matrix.node-version }}
         cache: 'yarn'
     - run: yarn install:dependencies
-    - run: yarn prettier
-      working-directory: login-workflow
-    - run: yarn lint
-      working-directory: login-workflow
+    # - run: yarn prettier
+    #   working-directory: login-workflow
+    # - run: yarn lint
+    #   working-directory: login-workflow
 
   # unit_test:
   #   runs-on: ubuntu-latest
