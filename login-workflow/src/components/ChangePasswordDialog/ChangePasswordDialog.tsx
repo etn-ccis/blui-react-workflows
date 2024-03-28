@@ -59,7 +59,7 @@ export const ChangePasswordDialog: React.FC<ChangePasswordDialogProps> = (props)
     const [showSuccessScreen, setShowSuccessScreen] = useState(false);
     const { actions } = useAuthContext();
 
-    const passwordRequirements = defaultPasswordRequirements(t);
+    const passwordReqs = PasswordProps?.passwordRequirements ?? defaultPasswordRequirements(t);
 
     const updateFields = useCallback(
         (fields: { password: string; confirm: string }) => {
@@ -70,14 +70,14 @@ export const ChangePasswordDialog: React.FC<ChangePasswordDialogProps> = (props)
     );
 
     const areValidMatchingPasswords = useCallback((): boolean => {
-        if (PasswordProps?.passwordRequirements?.length === 0) {
+        if (passwordReqs?.length === 0) {
             return confirmInput === passwordInput;
         }
-        for (let i = 0; i < passwordRequirements.length; i++) {
-            if (!new RegExp(passwordRequirements[i].regex).test(passwordInput)) return false;
+        for (let i = 0; i < passwordReqs.length; i++) {
+            if (!new RegExp(passwordReqs[i].regex).test(passwordInput)) return false;
         }
         return confirmInput === passwordInput;
-    }, [PasswordProps?.passwordRequirements?.length, passwordRequirements, passwordInput, confirmInput]);
+    }, [passwordReqs, passwordInput, confirmInput]);
 
     const checkPasswords =
         currentInput !== '' && passwordInput !== '' && confirmInput !== '' && areValidMatchingPasswords();
@@ -115,7 +115,7 @@ export const ChangePasswordDialog: React.FC<ChangePasswordDialogProps> = (props)
         confirmRef,
         initialNewPasswordValue: passwordInput,
         initialConfirmPasswordValue: confirmInput,
-        passwordRequirements,
+        passwordRequirements: passwordReqs,
         passwordNotMatchError: t('bluiCommon:FORMS.PASS_MATCH_ERROR'),
         ...PasswordProps,
         onPasswordChange: (passwordData: { password: string; confirm: string }): void => {

@@ -85,9 +85,9 @@ describe('Create Password Screen', () => {
         const passwordField = getByLabelText('Password');
         const confirmPasswordField = getByLabelText('Confirm Password');
 
-        fireEvent.change(passwordField, { target: { value: 'Abcd@123' } });
+        fireEvent.change(passwordField, { target: { value: 'Ab@12' } });
         fireEvent.blur(passwordField);
-        fireEvent.change(confirmPasswordField, { target: { value: 'Abcd@123' } });
+        fireEvent.change(confirmPasswordField, { target: { value: 'Ab@12' } });
         fireEvent.blur(confirmPasswordField);
 
         const nextButton = screen.getByText('Next');
