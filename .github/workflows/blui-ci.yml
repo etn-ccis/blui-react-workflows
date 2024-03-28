@@ -67,7 +67,7 @@ jobs:
         name: codecov-report
         verbose: true
 
-  build:
+  build_login_workflow:
     runs-on: ubuntu-latest
 
     strategy:
@@ -92,3 +92,27 @@ jobs:
         name: dist
         if-no-files-found: error
         path: login-workflow/dist
+
+  publish_login_workflow:
+    runs-on: ubuntu-latest
+    if: ${{ github.event_name == 'push' && (github.ref == 'refs/heads/master' || github.ref == 'refs/heads/dev') }}
+    needs: build_login_workflow
+    strategy:
+      matrix:
+        node-version: [18.x]
+    env:
+      NODE_AUTH_TOKEN: ${{ secrets.NPM_TOKEN }}
+      BRANCH: ${{ github.ref == 'refs/heads/master' && 'master' || 'dev' }}
+    steps:
+      - uses: actions/checkout@v4
+      - name: Download dist
+        uses: actions/download-artifact@v3
+        with:
+          name: dist
+          path: login-workflow/dist
+      - uses: actions/setup-node@v4
+        with:
+          node-version: ${{ matrix.node-version }}
+          registry-url: 'https://registry.npmjs.org'
+      - run: yarn --frozen-lockfile
+      - run: yarn publish:package -b ${{env.BRANCH}}
