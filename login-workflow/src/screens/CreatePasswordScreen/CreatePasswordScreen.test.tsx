@@ -16,26 +16,6 @@ const passwordRequirements = [
         description: 'Check 2',
         regex: /[a-z]+/,
     },
-    {
-        description: '8-16 Characters',
-        regex: /^.{8,16}$/,
-    },
-    {
-        description: 'One number',
-        regex: /\d+/,
-    },
-    {
-        description: 'One uppercase letter',
-        regex: /[A-Z]+/,
-    },
-    {
-        description: 'One lowercase letter',
-        regex: /[a-z]+/,
-    },
-    {
-        description: 'One special character',
-        regex: /[!@#$%^&*(),.?":{}|<>]+/,
-    },
 ];
 
 afterEach(cleanup);
@@ -165,40 +145,5 @@ describe('Create Password Screen', () => {
         expect(screen.getByText(/Back/i)).toBeEnabled();
         fireEvent.click(backButton);
         expect(mockOnPrevious).toHaveBeenCalled();
-    });
-
-    it('renders with custom and default password requirements', () => {
-        renderer();
-
-        expect(passwordRequirements).toEqual([
-            {
-                description: 'Check 1',
-                regex: /^.{3,5}$/,
-            },
-            {
-                description: 'Check 2',
-                regex: /[a-z]+/,
-            },
-            {
-                description: '8-16 Characters',
-                regex: /^.{8,16}$/,
-            },
-            {
-                description: 'One number',
-                regex: /\d+/,
-            },
-            {
-                description: 'One uppercase letter',
-                regex: /[A-Z]+/,
-            },
-            {
-                description: 'One lowercase letter',
-                regex: /[a-z]+/,
-            },
-            {
-                description: 'One special character',
-                regex: /[!@#$%^&*(),.?":{}|<>]+/,
-            },
-        ]);
     });
 });
