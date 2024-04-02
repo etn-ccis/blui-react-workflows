@@ -117,3 +117,4 @@ jobs:
           cache-dependency-path: login-workflow
       - run: yarn --frozen-lockfile
       - run: yarn publish:package -b ${{env.BRANCH}}
+        working-directory: login-workflow
