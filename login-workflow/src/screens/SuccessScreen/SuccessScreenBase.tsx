@@ -7,7 +7,8 @@ import {
     WorkflowCardInstructions,
 } from '../../components/WorkflowCard';
 import { SuccessScreenProps } from './types';
-import { WorkflowFinishState } from '../../components';
+import { EmptyState } from '@brightlayer-ui/react-components';
+import Box from '@mui/material/Box';
 
 /**
  * Component that renders a success screen
@@ -27,7 +28,15 @@ import { WorkflowFinishState } from '../../components';
  */
 
 export const SuccessScreenBase: React.FC<SuccessScreenProps> = (props) => {
-    const { icon, messageTitle = '', message = '', dismissButtonLabel = '', canDismiss, onDismiss } = props;
+    const {
+        icon,
+        messageTitle = '',
+        message = '',
+        dismissButtonLabel = '',
+        canDismiss,
+        onDismiss,
+        ...emptyStateProps
+    } = props;
 
     const cardBaseProps = props.WorkflowCardBaseProps || {};
     const headerProps = props.WorkflowCardHeaderProps || {};
@@ -39,7 +48,29 @@ export const SuccessScreenBase: React.FC<SuccessScreenProps> = (props) => {
             <WorkflowCardHeader {...headerProps} />
             {Object.keys(instructionsProps).length !== 0 && <WorkflowCardInstructions {...instructionsProps} />}
             <WorkflowCardBody>
-                <WorkflowFinishState icon={icon} title={messageTitle} description={message} />
+                <Box
+                    sx={[
+                        {
+                            display: 'flex',
+                            flex: '1 1 0%',
+                            justifyContent: 'center',
+                            alignItems: 'center',
+                            height: '100%',
+                            minHeight: { md: 500, sm: 'auto' },
+                        },
+                    ]}
+                >
+                    <EmptyState
+                        {...emptyStateProps}
+                        icon={icon}
+                        title={messageTitle}
+                        description={message}
+                        sx={{
+                            color: 'inherit',
+                            p: 0,
+                        }}
+                    />
+                </Box>
             </WorkflowCardBody>
             <WorkflowCardActions
                 {...actionsProps}
