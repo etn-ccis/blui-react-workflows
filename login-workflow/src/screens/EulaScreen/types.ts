@@ -43,11 +43,8 @@ export type EulaScreenProps = WorkflowCardProps & {
     errorDisplayConfig?: ErrorManagerProps;
 
     /**
-     * Function to refetch Eula content
-     * @returns void
+     * used to show refresh button and refresh the Eula content
      */
-    onRefetch?: () => void;
-
     refreshConfig?: {
         /**
          * Function to refresh Eula content
