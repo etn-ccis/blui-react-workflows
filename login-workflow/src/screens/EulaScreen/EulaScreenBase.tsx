@@ -14,6 +14,7 @@ import DOMPurify from 'dompurify';
 import ErrorManager from '../../components/Error/ErrorManager';
 import { Typography } from '@mui/material';
 import ReplaySharpIcon from '@mui/icons-material/ReplaySharp';
+import { useTranslation } from 'react-i18next';
 
 /**
  * Component that renders a screen displaying the EULA and requests acceptance via a checkbox.
@@ -29,7 +30,7 @@ import ReplaySharpIcon from '@mui/icons-material/ReplaySharp';
  * @param WorkflowCardInstructionProps props that will be passed to the WorkflowCardInstructions component
  * @param WorkflowCardActionsProps props that will be passed to the WorkflowCardActions component
  * @param errorDisplayConfig configuration for customizing how errors are displayed
- * @param onRefetch used to refetch Eula content.
+ * @param onRefresh used to refresh Eula content.
  *
  * @category Component
  */
@@ -43,9 +44,10 @@ export const EulaScreenBase: React.FC<EulaScreenProps> = (props) => {
         initialCheckboxValue,
         checkboxProps,
         errorDisplayConfig,
-        onRefetch,
+        refreshConfig,
     } = props;
 
+    const { t } = useTranslation();
     const cardBaseProps = props.WorkflowCardBaseProps || {};
     const headerProps = props.WorkflowCardHeaderProps || {};
     const instructionsProps = props.WorkflowCardInstructionProps || {};
@@ -71,7 +73,7 @@ export const EulaScreenBase: React.FC<EulaScreenProps> = (props) => {
             <WorkflowCardHeader {...headerProps} />
             {Object.keys(instructionsProps).length !== 0 && <WorkflowCardInstructions {...instructionsProps} />}
             <WorkflowCardBody sx={{ pt: 2 }}>
-                {checkboxProps?.disabled ? (
+                {refreshConfig?.showRefreshButton ? (
                     <Box
                         sx={{
                             display: 'flex',
@@ -89,11 +91,11 @@ export const EulaScreenBase: React.FC<EulaScreenProps> = (props) => {
                                 cursor: 'pointer',
                                 p: 1,
                             }}
-                            onClick={onRefetch}
+                            onClick={refreshConfig?.onRefresh}
                         >
                             <ReplaySharpIcon color="primary" sx={{ width: 36, height: 36 }} />
                             <Typography variant="subtitle2" color="primary">
-                                Retry
+                                {refreshConfig?.refreshButtonLabel || t('bluiCommon:MESSAGES.RETRY')}
                             </Typography>
                         </Box>
                     </Box>
