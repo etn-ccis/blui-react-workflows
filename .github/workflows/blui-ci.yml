@@ -116,5 +116,5 @@ jobs:
           registry-url: 'https://registry.npmjs.org'
           cache-dependency-path: login-workflow
       - run: yarn --frozen-lockfile
-      - run: yarn publish:package -b ${{env.BRANCH}}
+      - run: npm run publish:package -b ${{env.BRANCH}}
         working-directory: login-workflow
