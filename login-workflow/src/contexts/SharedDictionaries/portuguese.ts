@@ -49,6 +49,7 @@ const resources: CommonTranslationsFile = {
             LOADING: 'A carregar...',
             REQUEST_ERROR: 'Pedimos desculpa, existe um problema ao submeter o seu pedido',
             PASSWORD_REQUIRED_ERROR: 'Senha requerida',
+            RETRY: 'Tentar novamente',
         },
         FORMS: {
             FIRST_NAME: 'Primeiro Nome',
