@@ -92,10 +92,7 @@ export const ProjectRegistrationUIActions: () => RegistrationUIActions = () => (
      * @returns Resolves when the code is valid. True if registration is complete, False if account information is needed.
      *          If the code is not valid a rejection will occur with an error message.
      */
-    validateUserRegistrationRequest: async (
-        validationCode: string,
-        validationEmail?: string
-    ): Promise<{ codeValid: boolean | string; accountExists?: boolean }> => {
+    validateUserRegistrationRequest: async (): Promise<{ codeValid: boolean | string; accountExists?: boolean }> => {
         await sleep(800);
 
         if (isRandomFailure()) {

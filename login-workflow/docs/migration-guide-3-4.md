@@ -80,9 +80,7 @@ completeRegistration: async (
 
 // after
 completeRegistration: async (
-    userData: any, // TODO: this should be properly typed
-    validationCode: string | number,
-    validationEmail?: string
+    userData: object,
 ): Promise<{ email: string; organizationName: string }> => {
     ...
 },
