@@ -1,22 +1,13 @@
 import { ReactNode } from 'react';
 import { ErrorManagerProps } from '../../components/Error';
 import { WorkflowCardProps } from '../../components/WorkflowCard/WorkflowCard.types';
+import { EmptyStateProps } from '@brightlayer-ui/react-components';
 
 export type SuccessScreenProps = WorkflowCardProps & {
     /**
-     * The icon to display in the header
+     * To pass EmptyStateProps i.e icon, title, description... etc
      */
-    icon?: JSX.Element;
-
-    /**
-     * The title of the success message
-     */
-    messageTitle?: string;
-
-    /**
-     * The success message to be displayed on the screen
-     */
-    message?: ReactNode;
+    EmptyStateProps?: EmptyStateProps;
 
     /**
      * To display label for the button

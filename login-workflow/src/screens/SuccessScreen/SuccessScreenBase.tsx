@@ -28,15 +28,7 @@ import Box from '@mui/material/Box';
  */
 
 export const SuccessScreenBase: React.FC<SuccessScreenProps> = (props) => {
-    const {
-        icon,
-        messageTitle = '',
-        message = '',
-        dismissButtonLabel = '',
-        canDismiss,
-        onDismiss,
-        ...emptyStateProps
-    } = props;
+    const { EmptyStateProps, dismissButtonLabel = '', canDismiss, onDismiss } = props;
 
     const cardBaseProps = props.WorkflowCardBaseProps || {};
     const headerProps = props.WorkflowCardHeaderProps || {};
@@ -60,16 +52,15 @@ export const SuccessScreenBase: React.FC<SuccessScreenProps> = (props) => {
                         },
                     ]}
                 >
-                    <EmptyState
-                        {...emptyStateProps}
-                        icon={icon}
-                        title={messageTitle}
-                        description={message}
-                        sx={{
-                            color: 'inherit',
-                            p: 0,
-                        }}
-                    />
+                    {EmptyStateProps && (
+                        <EmptyState
+                            {...EmptyStateProps}
+                            sx={{
+                                color: 'inherit',
+                                p: 0,
+                            }}
+                        />
+                    )}
                 </Box>
             </WorkflowCardBody>
             <WorkflowCardActions
