@@ -1,4 +1,3 @@
-import { ReactNode } from 'react';
 import { ErrorManagerProps } from '../../components/Error';
 import { WorkflowCardProps } from '../../components/WorkflowCard/WorkflowCard.types';
 import { EmptyStateProps } from '@brightlayer-ui/react-components';
