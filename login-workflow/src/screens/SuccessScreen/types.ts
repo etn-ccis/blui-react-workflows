@@ -4,7 +4,7 @@ import { EmptyStateProps } from '@brightlayer-ui/react-components';
 
 export type SuccessScreenProps = WorkflowCardProps & {
     /**
-     * To pass EmptyStateProps i.e icon, title, description... etc
+     * EmptyStateProps, which include properties such as icon, title, and description etc.
      */
     EmptyStateProps?: EmptyStateProps;
 
