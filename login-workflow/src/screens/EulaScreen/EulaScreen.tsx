@@ -19,7 +19,7 @@ import { useTranslation } from 'react-i18next';
  * @param WorkflowCardInstructionProps props that will be passed to the WorkflowCardInstructions component
  * @param WorkflowCardActionsProps props that will be passed to the WorkflowCardActions component
  * @param errorDisplayConfig configuration for customizing how errors are displayed
- * @param onRefetch used to refetch Eula content.
+ * @param refreshConfig used to refresh Eula content.
  *
  * @category Component
  */
@@ -162,13 +162,7 @@ export const EulaScreen: React.FC<EulaScreenProps> = (props) => {
         void loadAndCacheEula();
     }, [loadAndCacheEula]);
 
-    const {
-        checkboxProps = { ...props.checkboxProps, disabled: eulaFetchError },
-        onRefetch = (): void => {
-            setEulaFetchError(false);
-            void loadAndCacheEula();
-        },
-    } = props;
+    const { checkboxProps = { ...props.checkboxProps, disabled: eulaFetchError } } = props;
 
     const workflowCardHeaderProps = {
         title: t('bluiRegistration:REGISTRATION.STEPS.LICENSE'),
@@ -195,6 +189,16 @@ export const EulaScreen: React.FC<EulaScreenProps> = (props) => {
         },
     };
 
+    const {
+        refreshConfig = {
+            showRefreshButton: eulaFetchError,
+            onRefresh: (): void => {
+                setEulaFetchError(false);
+                void loadAndCacheEula();
+            },
+        },
+    } = props;
+
     return (
         <EulaScreenBase
             WorkflowCardHeaderProps={workflowCardHeaderProps}
@@ -210,7 +214,7 @@ export const EulaScreen: React.FC<EulaScreenProps> = (props) => {
             onEulaAcceptedChange={updateEulaAcceptedStatus}
             WorkflowCardActionsProps={workflowCardActionsProps}
             errorDisplayConfig={errorDisplayConfig}
-            onRefetch={onRefetch}
+            refreshConfig={refreshConfig}
             {...otherEulaScreenProps}
         />
     );

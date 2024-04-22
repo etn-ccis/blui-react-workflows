@@ -49,6 +49,7 @@ const resources: CommonTranslationsFile = {
             LOADING: '正在加载……',
             REQUEST_ERROR: '抱歉，发送您的请求时出现了程序错误。',
             PASSWORD_REQUIRED_ERROR: '密码为必填项',
+            RETRY: '重试',
         },
         FORMS: {
             FIRST_NAME: '名',
