@@ -7,12 +7,7 @@ import { useTranslation } from 'react-i18next';
 /**
  * Full Screen component that renders a Success Screen for the accounts which are already exists in the records
  *
- * @param icon the icon to be displayed on the screen
- * @param messageTitle title of the success message
- * @param message success message to be displayed on the screen
- * @param dismissButtonLabel to display label for the button
- * @param canDismiss boolean flag prop to dismiss the success screen or not
- * @param onDismiss function to call when the dismiss button is clicked
+ * @param {SuccessScreenProps} props - props of successScreen
  *
  * @category Component
  */
