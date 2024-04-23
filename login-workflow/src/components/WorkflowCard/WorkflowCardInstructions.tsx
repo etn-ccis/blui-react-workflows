@@ -6,8 +6,7 @@ import { WorkflowCardInstructionProps } from './WorkflowCard.types';
 /**
  * Component that renders the instructions content for the workflow card.
  *
- * @param instructions text to display as instructions
- * @param divider whether or not to show a divider below the instructions
+ * @param {WorkflowCardInstructionProps} props - props of workflowCardInstruction
  *
  * @category Component
  */

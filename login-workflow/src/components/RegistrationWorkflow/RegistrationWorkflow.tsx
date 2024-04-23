@@ -13,17 +13,6 @@ import { parseQueryString } from '../../utils';
 import { useErrorManager } from '../../contexts/ErrorContext/useErrorManager';
 import ErrorManager, { ErrorManagerProps } from '../Error/ErrorManager';
 
-/**
- * Component that contain the registration workflow and index of screens.
- *
- * @param initialScreenIndex initial screen index to start the registration workflow from
- * @param successScreen success screen to display upon successful registration
- * @param isInviteRegistration boolean when true verifies validateUserRegistrationRequest for verifyCode
- * @param existingAccountSuccessScreen component that displays the success screen
- *
- * @category Component
- */
-
 export type RegistrationWorkflowProps = {
     /**
      * The initial screen index to start the registration workflow from
@@ -52,6 +41,14 @@ export type RegistrationWorkflowProps = {
      */
     errorDisplayConfig?: ErrorManagerProps;
 };
+
+/**
+ * Component that contain the registration workflow and index of screens.
+ *
+ * @param {RegistrationWorkflowProps} props - props of registrationworkflow component
+ *
+ * @category Component
+ */
 
 export const RegistrationWorkflow: React.FC<React.PropsWithChildren<RegistrationWorkflowProps>> = (props) => {
     const { errorDisplayConfig: registrationWorkflowErrorConfig } = props;

@@ -20,8 +20,7 @@ export type PasswordRequirementsProps = BoxProps & {
 /**
  * Component that renders all of the password requirement line items with check indicators.
  *
- * @param passwordText The string to conduct the complexity checks against
- * @param passwordRequirements Optional requirements to set password
+ * @param {PasswordRequirementsProps} props - props of passwordRequirement component
  *
  * @category Component
  */

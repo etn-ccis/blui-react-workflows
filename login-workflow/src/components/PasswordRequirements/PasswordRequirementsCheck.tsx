@@ -18,8 +18,7 @@ export type PasswordRequirementsCheckProps = {
 /**
  * Component that renders an individual password complexity line item with check indicator.
  *
- * @param isChecked True if the line item should have a blue check (false for gray)
- * @param label text to display beside the check icon
+ * @param {PasswordRequirementsCheckProps} props - props of PasswordRequirementsCheck component
  *
  * @category Component
  */

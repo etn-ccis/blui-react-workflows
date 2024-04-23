@@ -11,7 +11,7 @@ export type SpinnerProps = BoxProps & {
 /**
  * Component that renders a indeterminate circular progress spinner atop a semi-transparent white background.
  *
- * @param visible True if the spinner should be displayed, false to render nothing
+ * @param {SpinnerProps} props - props of spinner component
  *
  * @category Component
  */
