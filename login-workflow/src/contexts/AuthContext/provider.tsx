@@ -11,7 +11,7 @@ import { i18nAuthInstance } from './i18nAuthInstance';
 import { ErrorContext } from '../ErrorContext';
 import { AuthDictionaries } from './AuthDictionaries';
 import { SharedDictionaries } from '../SharedDictionaries';
-import { ErrorManagerProps } from '../../components/Error';
+import { ErrorManagerProps } from '../../components/Error/types';
 
 const AuthContextProviderContent: React.FC<
     React.PropsWithChildren<Omit<AuthContextProviderProps, 'i18n'> & { PasswordDialog?: JSX.Element }>

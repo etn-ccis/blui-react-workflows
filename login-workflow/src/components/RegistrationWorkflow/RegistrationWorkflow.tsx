@@ -11,7 +11,8 @@ import {
 } from '../../screens';
 import { parseQueryString } from '../../utils';
 import { useErrorManager } from '../../contexts/ErrorContext/useErrorManager';
-import ErrorManager, { ErrorManagerProps } from '../Error/ErrorManager';
+import ErrorManager from '../Error/ErrorManager';
+import { ErrorManagerProps } from '../Error/types';
 
 export type RegistrationWorkflowProps = {
     /**

@@ -1,5 +1,5 @@
 import { ReactNode } from 'react';
-import { ErrorManagerProps } from '../../components/Error';
+import { ErrorManagerProps } from '../../components/Error/types';
 import { WorkflowCardProps } from '../../components/WorkflowCard/WorkflowCard.types';
 
 export type SuccessScreenProps = WorkflowCardProps & {

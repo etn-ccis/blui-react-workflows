@@ -1,5 +1,5 @@
 import { useState } from 'react';
-import { AuthError, ErrorManagerProps } from '../../components/Error';
+import { AuthError, ErrorManagerProps } from '../../components/Error/types';
 import { useErrorContext } from '.';
 
 export const useErrorManager = (): {

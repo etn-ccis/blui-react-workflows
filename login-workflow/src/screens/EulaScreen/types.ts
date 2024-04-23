@@ -1,6 +1,6 @@
 import { CheckboxProps } from '@mui/material';
 import { WorkflowCardProps } from '../../components/WorkflowCard/WorkflowCard.types';
-import { ErrorManagerProps } from '../../components/Error';
+import { ErrorManagerProps } from '../../components/Error/types';
 
 export type EulaScreenProps = WorkflowCardProps & {
     /**
