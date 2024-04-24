@@ -54,11 +54,11 @@ export const SuccessScreenBase: React.FC<SuccessScreenProps> = (props) => {
                 >
                     {EmptyStateProps && (
                         <EmptyState
-                            {...EmptyStateProps}
                             sx={{
                                 color: 'inherit',
                                 p: 0,
                             }}
+                            {...EmptyStateProps}
                         />
                     )}
                 </Box>
