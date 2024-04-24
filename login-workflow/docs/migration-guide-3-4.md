@@ -63,8 +63,6 @@ loadEula: async (language: string): Promise<string> => {
 
 The `userData` parameter will now pass all data collected from the registration workflow, including custom data.
 
-The `validationCode` parameter now supports numbers or string.
-
 ```tsx
 // before
 completeRegistration: async (
