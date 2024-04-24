@@ -137,22 +137,27 @@ export const ForgotPasswordScreen: React.FC<ForgotPasswordScreenProps> = (props)
             slots={slots}
             slotProps={{
                 SuccessScreen: {
-                    icon: <CheckCircle color={'primary'} sx={{ fontSize: 100, mb: 5 }} />,
-                    messageTitle: t('bluiCommon:MESSAGES.EMAIL_SENT'),
-                    message: (
-                        <Box
-                            sx={{
-                                overflow: 'hidden',
-                                whiteSpace: 'normal',
-                                wordBreak: 'break-word',
-                            }}
-                            component={'span'}
-                        >
-                            <Trans i18nKey={'bluiAuth:FORGOT_PASSWORD.LINK_SENT_ALT'} values={{ email: emailInput }}>
-                                Link has been sent to <b>{emailInput}</b>.
-                            </Trans>
-                        </Box>
-                    ),
+                    EmptyStateProps: {
+                        icon: <CheckCircle color={'primary'} sx={{ fontSize: 100, mb: 5 }} />,
+                        title: t('bluiCommon:MESSAGES.EMAIL_SENT'),
+                        description: (
+                            <Box
+                                sx={{
+                                    overflow: 'hidden',
+                                    whiteSpace: 'normal',
+                                    wordBreak: 'break-word',
+                                }}
+                                component={'span'}
+                            >
+                                <Trans
+                                    i18nKey={'bluiAuth:FORGOT_PASSWORD.LINK_SENT_ALT'}
+                                    values={{ email: emailInput }}
+                                >
+                                    Link has been sent to <b>{emailInput}</b>.
+                                </Trans>
+                            </Box>
+                        ),
+                    },
                     WorkflowCardHeaderProps: {
                         title: t('bluiAuth:HEADER.FORGOT_PASSWORD'),
                     },
