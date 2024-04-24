@@ -11,7 +11,7 @@ import { Typography } from '@mui/material';
  * Component renders a screen with contact information for support with the application.
  * Contact information is pulled from the context passed into the workflow.
  *
- * @param {ContactSupportScreenProps} props - props of contactSupportScreen
+ * @param {ContactSupportScreenProps} props - props of ContactSupportScreen
  *
  * @category Component
  */

@@ -13,7 +13,7 @@ import ErrorManager from '../../components/Error/ErrorManager';
 /**
  * The component renders a screen with the password and confirm password field for creating a new password.
  *
- * @param {CreatePasswordScreenProps} props - props of createPasswordScreen
+ * @param {CreatePasswordScreenProps} props - props of CreatePasswordScreen base component
  *
  * @category Component
  */

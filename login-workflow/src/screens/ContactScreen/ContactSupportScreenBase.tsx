@@ -35,7 +35,7 @@ const useUtilityClasses = (ownerState: ContactSupportScreenProps & BoxProps): Re
  * Component renders a screen with contact information for support with the application.
  * Contact information is pulled from the context passed into the workflow.
  *
- * @param {ContactSupportScreenProps} props - props of contactSupportScreen
+ * @param {ContactSupportScreenProps} props - props of ContactSupportScreen base component
  *
  * @category Component
  */

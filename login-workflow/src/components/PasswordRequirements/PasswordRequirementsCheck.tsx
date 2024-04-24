@@ -2,18 +2,7 @@ import React from 'react';
 import Typography from '@mui/material/Typography';
 import Check from '@mui/icons-material/Check';
 import Box from '@mui/material/Box';
-
-export type PasswordRequirementsCheckProps = {
-    /**
-     * True if the line item should have a blue check (false for gray)
-     */
-    isChecked: boolean;
-
-    /**
-     * The text to display beside the check icon
-     */
-    label: string;
-};
+import { PasswordRequirementsCheckProps } from './types';
 
 /**
  * Component that renders an individual password complexity line item with check indicator.

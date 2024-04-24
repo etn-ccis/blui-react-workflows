@@ -11,7 +11,7 @@ import { useTranslation } from 'react-i18next';
 /**
  * Component that renders a ResetPassword screen that allows a user to reset their password and shows a success message upon a successful password reset..
  *
- * @param {ResetPasswordScreenProps} props - props of resetPasswordScreen
+ * @param {ResetPasswordScreenProps} props - props of ResetPasswordScreen
  * @returns a React JSX Element that renders a ResetPassword screen
  *
  * @category Component

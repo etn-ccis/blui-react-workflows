@@ -8,7 +8,7 @@ import { useTranslation } from 'react-i18next';
 /**
  * Component that renders a screen displaying the EULA and requests acceptance via a checkbox.
  *
- * @param {EulaScreenProps} props - props of eulaScreen
+ * @param {EulaScreenProps} props - props of EULA screen
  *
  * @category Component
  */

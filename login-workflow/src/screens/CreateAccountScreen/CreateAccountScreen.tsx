@@ -10,7 +10,7 @@ import { useTranslation } from 'react-i18next';
  * Component that renders a screen for the user to enter their email address to start the
  * account creation process.
  *
- * @param {CreateAccountScreenProps} props - props of createAccountScreen
+ * @param {CreateAccountScreenProps} props - props of CreateAccountScreen
  *
  * @category Component
  */

@@ -14,7 +14,7 @@ import { SuccessScreenBase, SuccessScreenProps } from '../SuccessScreen';
 /**
  * Component that renders a ResetPassword screen that allows a user to reset their password and shows a success message upon a successful password reset..
  *
- * @param {ResetPasswordScreenProps} props - props of resetPasswordScreen base component
+ * @param {ResetPasswordScreenProps} props - props of ResetPasswordScreen base component
  * @returns a React JSX Element that renders a ResetPassword screen
  *
  * @category Component

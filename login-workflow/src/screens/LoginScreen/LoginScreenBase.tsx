@@ -48,7 +48,7 @@ const useUtilityClasses = (ownerState: LoginScreenProps): Record<LoginScreenClas
 /**
  * Component that renders a login screen that prompts a user to enter a username and password to login.
  *
- * @param {LoginScreenProps} props - props of loginScreen base component
+ * @param {LoginScreenProps} props - props of LoginScreen base component
  *
  * @category Component
  */

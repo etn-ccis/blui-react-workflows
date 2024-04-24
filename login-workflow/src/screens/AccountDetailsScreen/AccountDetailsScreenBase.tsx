@@ -14,7 +14,7 @@ import ErrorManager from '../../components/Error/ErrorManager';
  * Component renders a screen with account details information for support with the application.
  * Contact information is pulled from the context passed into the workflow.
  *
- * @param {AccountDetailsScreenProps} props - props of accountDetailsScreen
+ * @param {AccountDetailsScreenProps} props - props of AccountDetailsScreen base component
  *
  * @category Component
  */

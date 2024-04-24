@@ -14,7 +14,7 @@ import ErrorManager from '../../components/Error/ErrorManager';
 /**
  * Component renders a screen with forgot password for support with the application.
  *
- * @param {ForgotPasswordScreenProps} props - props of forgotPasswordScreen base component
+ * @param {ForgotPasswordScreenProps} props - props of ForgotPasswordScreen base component
  *
  * @category Component
  */

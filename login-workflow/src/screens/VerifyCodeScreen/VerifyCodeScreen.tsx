@@ -9,7 +9,7 @@ import { useTranslation } from 'react-i18next';
  * Component that renders a screen that prompts a user to enter the confirmation code
  * that was sent to the email address that they used to register.
  *
- * @param {VerifyCodeScreenProps} props - props of verifyCodeScreen
+ * @param {VerifyCodeScreenProps} props - props of VerifyCodeScreen
  *
  * @category Component
  */

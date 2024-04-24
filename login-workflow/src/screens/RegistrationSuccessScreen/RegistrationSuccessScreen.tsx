@@ -8,7 +8,7 @@ import { useRegistrationWorkflowContext, useRegistrationContext } from '../../co
 /**
  * Component that renders a success screen for when registration completes.
  *
- * @param {SuccessScreenProps} props - props of successScreen
+ * @param {SuccessScreenProps} props - props of SuccessScreen
  *
  * @category Component
  */

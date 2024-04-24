@@ -7,7 +7,7 @@ import { useTranslation } from 'react-i18next';
 /**
  * Full Screen component that renders a Success Screen for the accounts which are already exists in the records
  *
- * @param {SuccessScreenProps} props - props of successScreen
+ * @param {SuccessScreenProps} props - props of SuccessScreen
  *
  * @category Component
  */

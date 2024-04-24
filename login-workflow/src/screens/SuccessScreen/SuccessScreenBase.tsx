@@ -12,7 +12,7 @@ import { WorkflowFinishState } from '../../components';
 /**
  * Component that renders a success screen
  *
- * @param {SuccessScreenProps} props - props of successScreen base component
+ * @param {SuccessScreenProps} props - props of SuccessScreen base component
  *
  * @category Component
  */

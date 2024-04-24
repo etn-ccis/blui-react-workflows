@@ -10,7 +10,7 @@ const EMAIL_REGEX = /^[A-Z0-9._%+'-]+@[A-Z0-9.-]+\.[A-Z]{2,}$/i;
 /**
  * Component that renders a login screen that prompts a user to enter a username and password to login.
  *
- * @param {LoginScreenProps} props - props of loginScreen
+ * @param {LoginScreenProps} props - props of LoginScreen
  *
  * @category Component
  */

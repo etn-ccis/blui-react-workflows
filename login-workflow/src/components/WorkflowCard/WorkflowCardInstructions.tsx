@@ -6,7 +6,7 @@ import { WorkflowCardInstructionProps } from './WorkflowCard.types';
 /**
  * Component that renders the instructions content for the workflow card.
  *
- * @param {WorkflowCardInstructionProps} props - props of workflowCardInstruction
+ * @param {WorkflowCardInstructionProps} props - props of WorkflowCardInstruction
  *
  * @category Component
  */

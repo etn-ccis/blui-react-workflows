@@ -12,7 +12,7 @@ import ErrorManager from '../../components/Error/ErrorManager';
  * Component that renders a screen for the user to enter their email address to start the
  * account creation process.
  *
- * @param {CreateAccountScreenProps} props - props of createAccountScreen
+ * @param {CreateAccountScreenProps} props - props of CreateAccountScreen base component
  *
  * @category Component
  */

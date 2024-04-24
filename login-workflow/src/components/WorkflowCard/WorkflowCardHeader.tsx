@@ -6,6 +6,8 @@ import { WorkflowCardHeaderProps } from './WorkflowCard.types';
 /**
  * Component that renders the header content for the workflow card.
  *
+ * @param {WorkflowCardHeaderProps} props - props of WorkflowCardHeader component
+ *
  * @category Component
  */
 

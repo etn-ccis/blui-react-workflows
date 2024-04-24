@@ -12,7 +12,7 @@ import { useErrorManager } from '../../contexts/ErrorContext/useErrorManager';
 /**
  * Component renders a screen with forgot password for support with the application.
  *
- * @param {ForgotPasswordScreenProps} props - props of forgotPasswordScreen
+ * @param {ForgotPasswordScreenProps} props - props of ForgotPasswordScreen
  *
  * @category Component
  */
