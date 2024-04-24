@@ -33,27 +33,11 @@ export const RegistrationSuccessScreen: React.FC<SuccessScreenProps> = (props) =
     } = useRegistrationWorkflowContext();
 
     const {
-        icon = <CheckCircle color={'primary'} sx={{ fontSize: 100, mb: 2 }} />,
-        messageTitle = `${t('bluiCommon:MESSAGES.WELCOME')}, ${firstName} ${lastName}!`,
-        message = (
-            <Typography variant="subtitle2">
-                <Trans
-                    i18nKey={
-                        email
-                            ? 'bluiRegistration:REGISTRATION.SUCCESS_MESSAGE_ALT'
-                            : 'bluiRegistration:REGISTRATION.SUCCESS_MESSAGE_ALT_WITHOUT_EMAIL_PROVIDED'
-                    }
-                    values={{ email, organization }}
-                >
-                    Your account has successfully been created with the email <b>{email}</b> belonging to the
-                    <b>{` ${String(organization)}`}</b> org.
-                </Trans>
-            </Typography>
-        ),
         onDismiss = (): void => navigate(routeConfig.LOGIN as string),
         canDismiss = true,
         WorkflowCardHeaderProps,
         WorkflowCardActionsProps,
+        EmptyStateProps,
         ...otherRegistrationSuccessScreenProps
     } = props;
 
@@ -74,13 +58,32 @@ export const RegistrationSuccessScreen: React.FC<SuccessScreenProps> = (props) =
         },
     };
 
+    const emptyStateProps = {
+        icon: <CheckCircle color={'primary'} sx={{ fontSize: 100, mb: 2 }} />,
+        title: `${t('bluiCommon:MESSAGES.WELCOME')}, ${firstName} ${lastName}!`,
+        description: (
+            <Typography variant="subtitle2">
+                <Trans
+                    i18nKey={
+                        email
+                            ? 'bluiRegistration:REGISTRATION.SUCCESS_MESSAGE_ALT'
+                            : 'bluiRegistration:REGISTRATION.SUCCESS_MESSAGE_ALT_WITHOUT_EMAIL_PROVIDED'
+                    }
+                    values={{ email, organization }}
+                >
+                    Your account has successfully been created with the email <b>{email}</b> belonging to the
+                    <b>{` ${String(organization)}`}</b> org.
+                </Trans>
+            </Typography>
+        ),
+        ...EmptyStateProps,
+    };
+
     return (
         <SuccessScreenBase
             WorkflowCardHeaderProps={workflowCardHeaderProps}
             WorkflowCardActionsProps={workflowCardActionsProps}
-            icon={icon}
-            messageTitle={messageTitle}
-            message={message}
+            EmptyStateProps={emptyStateProps}
             {...otherRegistrationSuccessScreenProps}
         />
     );

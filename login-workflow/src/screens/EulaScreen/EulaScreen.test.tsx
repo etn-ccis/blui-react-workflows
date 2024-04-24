@@ -6,6 +6,7 @@ import { RegistrationContextProvider } from '../../contexts';
 import { EulaScreenProps } from './types';
 import { RegistrationWorkflow } from '../../components';
 import { registrationContextProviderProps } from '../../testUtils';
+import { i18nRegistrationInstance } from '../../contexts/RegistrationContext/i18nRegistrationInstance';
 
 afterEach(cleanup);
 
@@ -100,4 +101,35 @@ describe('Eula Screen', () => {
         fireEvent.click(backButton);
         expect(mockOnPrevious).toHaveBeenCalled();
     });
+
+    it('should throw error in eula and clicking refresh button should call loadEula', async () => {
+        const loadFn = jest.fn().mockRejectedValue(new Error('qwertyuiop'));
+        const { findByText } = render(
+            <RegistrationContextProvider
+                {...{
+                    language: 'en',
+                    i18n: i18nRegistrationInstance,
+                    navigate: (): void => {},
+                    routeConfig: {},
+                    actions: {
+                        loadEula: loadFn,
+                        acceptEula: jest.fn(),
+                        requestRegistrationCode: jest.fn(),
+                        validateUserRegistrationRequest: jest.fn(),
+                        createPassword: jest.fn(),
+                        setAccountDetails: jest.fn(),
+                        completeRegistration: jest.fn().mockImplementation(() => Promise.resolve()),
+                    },
+                }}
+            >
+                <RegistrationWorkflow>
+                    <EulaScreen />
+                </RegistrationWorkflow>
+            </RegistrationContextProvider>
+        );
+
+        await waitFor(() => expect(screen.queryByText('Loading...')).toBeNull());
+        fireEvent.click(await findByText('Retry'));
+        expect(loadFn).toBeCalled();
+    }, 10000);
 });

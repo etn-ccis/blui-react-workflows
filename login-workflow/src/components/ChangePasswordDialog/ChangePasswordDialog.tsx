@@ -161,9 +161,11 @@ export const ChangePasswordDialog: React.FC<ChangePasswordDialogProps> = (props)
             slots={slots}
             slotProps={{
                 SuccessScreen: {
-                    icon: <CheckCircle color="primary" sx={{ fontSize: 100 }} />,
-                    messageTitle: t('bluiAuth:PASSWORD_RESET.SUCCESS_MESSAGE'),
-                    message: t('bluiAuth:CHANGE_PASSWORD.SUCCESS_MESSAGE'),
+                    EmptyStateProps: {
+                        icon: <CheckCircle color="primary" sx={{ fontSize: 100 }} />,
+                        title: t('bluiAuth:PASSWORD_RESET.SUCCESS_MESSAGE'),
+                        description: t('bluiAuth:CHANGE_PASSWORD.SUCCESS_MESSAGE'),
+                    },
                     onDismiss: (): void => {
                         onFinish?.();
                     },
