@@ -16,42 +16,6 @@ import { unstable_composeClasses as composeClasses } from '@mui/base';
 import ErrorManager from '../../components/Error/ErrorManager';
 import { LinkStyles } from '../../styles';
 
-/**
- * Component that renders a login screen that prompts a user to enter a username and password to login.
- *
- * @param usernameLabel label for the username field
- * @param usernameTextFieldProps props to pass to the username text field
- * @param usernameValidator function used to validate the username
- * @param initialUsernameValue username used to pre-populate the field
- * @param passwordLabel label for the password field
- * @param passwordTextFieldProps props to pass to the password text field
- * @param passwordValidator function used to validate the password
- * @param showRememberMe whether or not to show the 'remember me' checkbox
- * @param rememberMeLabel label for the 'remember me' checkbox
- * @param rememberMeInitialValue whether or not the 'remember me' checkbox should be checked by default
- * @param onRememberMeChanged callback function that is called when the 'remember me' checkbox is changed
- * @param loginButtonLabel label for the login button
- * @param onLogin callback function that is called when the login button is clicked
- * @param showForgotPassword whether or not to show the 'forgot password' link
- * @param forgotPasswordLabel label for the 'forgot password' link
- * @param onForgotPassword callback function that is called when the 'forgot password' link is clicked
- * @param showSelfRegistration whether or not to show the 'self registration' link
- * @param selfRegisterButtonLabel label for the 'self registration' link
- * @param selfRegisterInstructions instructions for the 'self registration' link
- * @param onSelfRegister callback function that is called when the 'self registration' link is clicked
- * @param showContactSupport whether or not to show the 'contact support' link
- * @param contactSupportLabel label for the 'contact support' link
- * @param onContactSupport callback function that is called when the 'contact support' link is clicked
- * @param errorDisplayConfig configuration for customizing how errors are displayed
- * @param showCyberSecurityBadge whether or not to show the cyber security badge
- * @param projectImage image to display at the top of the screen
- * @param header header to display at the top of the screen
- * @param footer footer to display at the bottom of the screen
- * @param WorkflowCardBaseProps props that will be passed to the WorkflowCard component
- *
- * @category Component
- */
-
 const useUtilityClasses = (ownerState: LoginScreenProps): Record<LoginScreenClassKey, string> => {
     const { classes } = ownerState;
 
@@ -80,6 +44,14 @@ const useUtilityClasses = (ownerState: LoginScreenProps): Record<LoginScreenClas
 
     return composeClasses(slots, getLoginScreenUtilityClass, classes);
 };
+
+/**
+ * Component that renders a login screen that prompts a user to enter a username and password to login.
+ *
+ * @param {LoginScreenProps} props - props of loginScreen base component
+ *
+ * @category Component
+ */
 
 export const LoginScreenBase: React.FC<React.PropsWithChildren<LoginScreenProps>> = (props) => {
     const {

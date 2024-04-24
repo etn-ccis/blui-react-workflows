@@ -8,11 +8,7 @@ import { useRegistrationWorkflowContext, useRegistrationContext } from '../../co
 /**
  * Component that renders a success screen for when registration completes.
  *
- * @param icon the icon to be displayed on the screen
- * @param messageTitle title of the success message
- * @param message success message to be displayed on the screen
- * @param onDismiss function to call when user clicks button
- * @param canDismiss function to call when the dismiss button is clicked
+ * @param {SuccessScreenProps} props - props of successScreen
  *
  * @category Component
  */
