@@ -1,4 +1,4 @@
-import { ErrorManagerProps } from '../../components/Error';
+import { ErrorManagerProps } from '../../components/Error/types';
 import { WorkflowCardProps } from '../../components/WorkflowCard/WorkflowCard.types';
 import { EmptyStateProps } from '@brightlayer-ui/react-components';
 

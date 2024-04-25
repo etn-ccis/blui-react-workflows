@@ -12,18 +12,7 @@ import { useErrorManager } from '../../contexts/ErrorContext/useErrorManager';
 /**
  * Component renders a screen with forgot password for support with the application.
  *
- * @param emailLabel label for the email field
- * @param initialEmailValue initial value for the email text field
- * @param emailValidator function used to test the input for valid formatting
- * @param showSuccessScreen used to determine whether to show a success screen after the form is submitted
- * @param slots used for ForgotPasswordScreen SuccessScreen
- * @param slotProps applied to slot from SuccessScreen
- * @param WorkflowCardBaseProps props that will be passed to the WorkflowCard component
- * @param WorkflowCardHeaderProps props that will be passed to the WorkflowCardHeader component
- * @param WorkflowCardInstructionProps props that will be passed to the WorkflowCardInstructions component
- * @param WorkflowCardActionsProps props that will be passed to the WorkflowCardActions component
- * @param errorDisplayConfig configuration for customizing how errors are displayed
- * @param emailTextFieldProps props to pass to the email field.
+ * @param {ForgotPasswordScreenProps} props - props of ForgotPasswordScreen
  *
  * @category Component
  */

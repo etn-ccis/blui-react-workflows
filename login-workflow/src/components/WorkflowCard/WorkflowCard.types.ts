@@ -103,9 +103,24 @@ export type WorkflowCardActionsProps = CardActionsProps & {
     fullWidthButton?: boolean;
 };
 
+/**
+ * Props for WorkflowCard component
+ */
 export type WorkflowCardProps = {
+    /**
+     * Props for WorkflowCardBase component
+     */
     WorkflowCardBaseProps?: WorkflowCardBaseProps;
+    /**
+     * Props for WorkflowCardHeader component
+     */
     WorkflowCardHeaderProps?: WorkflowCardHeaderProps;
+    /**
+     * Props for WorkflowCardInstructions component
+     */
     WorkflowCardInstructionProps?: WorkflowCardInstructionProps;
+    /**
+     * Props for WorkflowCardActions component
+     */
     WorkflowCardActionsProps?: WorkflowCardActionsProps;
 };

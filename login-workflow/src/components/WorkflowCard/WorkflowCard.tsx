@@ -7,15 +7,6 @@ import { WorkflowCardBaseProps } from './WorkflowCard.types';
 import { getWorkflowCardUtilityClass, WorkflowCardClassKey } from './Utility';
 import { unstable_composeClasses as composeClasses } from '@mui/base';
 
-/**
- * Component that renders the workflow card that is used for all screen components.
- *
- * @param loading boolean value for isLoading
- * @param backgroundImage to display card background
- *
- * @category Component
- */
-
 const useUtilityClasses = (ownerState: WorkflowCardBaseProps): Record<WorkflowCardClassKey, string> => {
     const { classes } = ownerState;
 
@@ -26,6 +17,14 @@ const useUtilityClasses = (ownerState: WorkflowCardBaseProps): Record<WorkflowCa
 
     return composeClasses(slots, getWorkflowCardUtilityClass, classes);
 };
+
+/**
+ * Component that renders the workflow card that is used for all screen components.
+ *
+ * @param {WorkflowCardBaseProps} props - props of workflowCardBase component
+ *
+ * @category Component
+ */
 
 export const WorkflowCard: React.FC<WorkflowCardBaseProps> = (props) => {
     const { loading, backgroundImage, sx, children, ...otherBoxProps } = props;

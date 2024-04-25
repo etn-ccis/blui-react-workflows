@@ -1,7 +1,8 @@
 import React from 'react';
 import '@testing-library/jest-dom';
 import { cleanup, fireEvent, render, screen, renderHook, act, RenderResult } from '@testing-library/react';
-import { RegistrationWorkflow, RegistrationWorkflowProps } from './RegistrationWorkflow';
+import { RegistrationWorkflow } from './RegistrationWorkflow';
+import { RegistrationWorkflowProps } from './types';
 import Typography from '@mui/material/Typography';
 import Button from '@mui/material/Button';
 import { RegistrationContextProvider, useRegistrationWorkflowContext } from '../../contexts';

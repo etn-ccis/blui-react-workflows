@@ -22,22 +22,7 @@ import { SuccessScreenBase, SuccessScreenProps } from '../../screens';
  * Component that renders a dialog with textField to enter current password and a change password form with a new password and confirm password inputs.
  * It includes callbacks so you can respond to changes in the inputs.
  *
- * @param dialogTitle title to display in the dialog
- * @param dialogDescription description to display in the dialog
- * @param currentPasswordLabel label to display for the current password field
- * @param previousLabel label to display for the previous button
- * @param nextLabel label to display for the next button
- * @param currentPasswordChange called when the current password field changes
- * @param enableButton boolean to enable and disable the button
- * @param onFinish function called when the button is clicked on success screen
- * @param onSubmit callback function to call when the form is submitted
- * @param onPrevious called when the previous button is clicked
- * @param sx styles passed to the underlying root component
- * @param loading boolean that indicates whether the loading spinner should be displayed
- * @param currentPasswordTextFieldProps props to pass to the current password field.
- * @param showSuccessScreen boolean that determines whether to show the success screen or not
- * @param slots used for ChangePasswordDialog SuccessScreen props
- * @param slotProps props that will be passed to the SuccessScreen component
+ * @param {ChangePasswordDialogProps} props - props of changePassword dailog base component
  *
  * @category Component
  */

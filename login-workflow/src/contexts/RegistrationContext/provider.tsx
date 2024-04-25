@@ -11,7 +11,7 @@ import { i18nRegistrationInstance } from './i18nRegistrationInstance';
 import { ErrorContext } from '../ErrorContext';
 import { SharedDictionaries } from '../SharedDictionaries';
 import { RegistrationDictionaries } from './RegistrationDictionaries';
-import { ErrorManagerProps } from '../../components/Error';
+import { ErrorManagerProps } from '../../components/Error/types';
 
 const RegistrationContextProviderContent: React.FC<
     React.PropsWithChildren<Omit<RegistrationContextProviderProps, 'i18n'>>

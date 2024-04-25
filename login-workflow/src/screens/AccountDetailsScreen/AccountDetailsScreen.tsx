@@ -8,19 +8,7 @@ import { useTranslation } from 'react-i18next';
  * Component renders a screen with account details information for support with the application.
  * Contact information is pulled from the context passed into the workflow.
  *
- * @param firstNameLabel label for the first name text field
- * @param initialFirstName initial value for the first name text field
- * @param firstNameValidator function that validates the first name text field
- * @param firstNameTextFieldProps props to pass to the first name field
- * @param lastNameLabel label for the last name text field
- * @param initialLastName initial value for the last name text field
- * @param lastNameValidator function that validates the last name text field
- * @param lastNameTextFieldProps props to pass to the last name field
- * @param WorkflowCardBaseProps props that will be passed to the WorkflowCard component
- * @param WorkflowCardHeaderProps props that will be passed to the WorkflowCardHeader component
- * @param WorkflowCardInstructionProps props that will be passed to the WorkflowCardInstructions component
- * @param WorkflowCardActionsProps props that will be passed to the WorkflowCardActions component
- * @param errorDisplayConfig configuration for customizing how errors are displayed
+ * @param {AccountDetailsScreenProps} props - props of AccountDetailsScreen
  *
  * @category Component
  */

@@ -1,17 +1,12 @@
 import React from 'react';
 import CircularProgress from '@mui/material/CircularProgress';
-import Box, { BoxProps } from '@mui/material/Box';
+import Box from '@mui/material/Box';
+import { SpinnerProps } from './types';
 
-export type SpinnerProps = BoxProps & {
-    /**
-     * True if the spinner should be displayed, false to render nothing
-     */
-    visible?: boolean;
-};
 /**
  * Component that renders a indeterminate circular progress spinner atop a semi-transparent white background.
  *
- * @param visible True if the spinner should be displayed, false to render nothing
+ * @param {SpinnerProps} props - props of spinner component
  *
  * @category Component
  */
