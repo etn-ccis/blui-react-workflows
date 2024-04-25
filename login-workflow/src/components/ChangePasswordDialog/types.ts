@@ -3,11 +3,23 @@ import { SuccessScreenProps } from '../../screens';
 import { BasicDialogProps } from '../Dialog';
 import { SetPasswordProps } from '../SetPassword';
 
+/**
+ * Props of ChangePasswordDialogSlots
+ */
 export type ChangePasswordDialogSlots = {
+    /**
+     * used to define a function that renders success screen
+     */
     SuccessScreen?: (props?: SuccessScreenProps) => JSX.Element;
 };
 
+/**
+ * Props of ChangePasswordDialogSlotsProps
+ */
 export type ChangePasswordDialogSlotsProps = {
+    /**
+     * The props that will be passed to the success screen
+     */
     SuccessScreen?: SuccessScreenProps;
 };
 
