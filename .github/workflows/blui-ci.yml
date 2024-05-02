@@ -1,4 +1,4 @@
-name: CI Run
+name: Build
 
 on:
   push:
@@ -54,7 +54,7 @@ jobs:
         node-version: ${{ matrix.node-version }}
         cache: 'yarn'
         cache-dependency-path: login-workflow
-    - run: yarn --frozen-lockfile
+    - run: yarn --immutable
       working-directory: login-workflow
     - run: yarn test:ci --coverage --watchAll=false
       working-directory: login-workflow
@@ -82,7 +82,7 @@ jobs:
         node-version: ${{ matrix.node-version }}
         cache: 'yarn'
         cache-dependency-path: login-workflow
-    - run: yarn --frozen-lockfile
+    - run: yarn --immutable
       working-directory: login-workflow
     - run: yarn build
       working-directory: login-workflow
@@ -115,6 +115,6 @@ jobs:
           node-version: ${{ matrix.node-version }}
           registry-url: 'https://registry.npmjs.org'
           cache-dependency-path: login-workflow
-      - run: yarn --frozen-lockfile
+      - run: yarn --immutable
       - run: npm run publish:package -b ${{env.BRANCH}}
         working-directory: login-workflow
