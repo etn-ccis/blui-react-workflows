@@ -9,7 +9,11 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 ### Fixed
 
-- Error Manager with dynamic values ([#540](https://github.com/etn-ccis/blui-react-workflows/issues/540)).
+-   Error Manager with dynamic values ([#540](https://github.com/etn-ccis/blui-react-workflows/issues/540)).
+-   Eula screen tests throws console warnings to wrap ([#390](https://github.com/etn-ccis/blui-react-workflows/issues/390)).
+-   Hardcoded dismissible Dialog button text ([#543](https://github.com/etn-ccis/blui-react-workflows/issues/543)).
+-   Fix dependency on react-router ([#546](https://github.com/etn-ccis/blui-react-workflows/issues/546)).
+-   Typo in Success screen readme ([#567](https://github.com/etn-ccis/blui-react-workflows/issues/547)).
 
 ## v4.0.2 (December 18, 2023)
 
