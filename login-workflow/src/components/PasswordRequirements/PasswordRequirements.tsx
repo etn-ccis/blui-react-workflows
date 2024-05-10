@@ -1,27 +1,14 @@
 import React from 'react';
 import { PasswordRequirementsCheck } from './PasswordRequirementsCheck';
-import Box, { BoxProps } from '@mui/material/Box';
-import { PasswordRequirement } from '../SetPassword';
+import Box from '@mui/material/Box';
 import { defaultPasswordRequirements } from '../../constants';
 import { useTranslation } from 'react-i18next';
-
-export type PasswordRequirementsProps = BoxProps & {
-    /**
-     * The string to conduct the complexity checks against
-     */
-    passwordText: string;
-
-    /**
-     * Optional requirements to set password
-     */
-    passwordRequirements?: PasswordRequirement[];
-};
+import { PasswordRequirementsProps } from './types';
 
 /**
  * Component that renders all of the password requirement line items with check indicators.
  *
- * @param passwordText The string to conduct the complexity checks against
- * @param passwordRequirements Optional requirements to set password
+ * @param {PasswordRequirementsProps} props - props of passwordRequirement component
  *
  * @category Component
  */

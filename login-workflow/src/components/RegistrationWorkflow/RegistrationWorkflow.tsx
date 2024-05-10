@@ -11,60 +11,46 @@ import {
 } from '../../screens';
 import { parseQueryString } from '../../utils';
 import { useErrorManager } from '../../contexts/ErrorContext/useErrorManager';
-import ErrorManager, { ErrorManagerProps } from '../Error/ErrorManager';
+import ErrorManager from '../Error/ErrorManager';
+import { ErrorManagerProps } from '../Error/types';
+import { RegistrationWorkflowProps } from './types';
 
 /**
  * Component that contain the registration workflow and index of screens.
  *
- * @param initialScreenIndex initial screen index to start the registration workflow from
- * @param successScreen success screen to display upon successful registration
- * @param isInviteRegistration boolean when true verifies validateUserRegistrationRequest for verifyCode
- * @param existingAccountSuccessScreen component that displays the success screen
+ * @param {RegistrationWorkflowProps} props - props of registrationworkflow component
  *
  * @category Component
  */
 
-export type RegistrationWorkflowProps = {
-    /**
-     * The initial screen index to start the registration workflow from
-     */
-    initialScreenIndex?: number;
-
-    /**
-     * The success screen to display upon successful registration
-     */
-    successScreen?: JSX.Element;
-
-    /**
-     * When true verifies validateUserRegistrationRequest for verifyCode and several of the default screens will be skipped
-     * not requiring user input for email and the validation code will be pulled from the url
-     * @default false
-     */
-    isInviteRegistration?: boolean;
-
-    /**
-     * Component to display for the success screen if the account already exists.
-     */
-    existingAccountSuccessScreen?: JSX.Element;
-
-    /**
-     * The configuration for customizing how errors are displayed
-     */
-    errorDisplayConfig?: ErrorManagerProps;
-};
-
 export const RegistrationWorkflow: React.FC<React.PropsWithChildren<RegistrationWorkflowProps>> = (props) => {
+    const { errorDisplayConfig: registrationWorkflowErrorConfig } = props;
     const [isAccountExist, setIsAccountExist] = useState(false);
-    const { triggerError, errorManagerConfig } = useErrorManager();
+    const { triggerError, errorManagerConfig: globalErrorManagerConfig } = useErrorManager();
     const { actions, navigate } = useRegistrationContext();
+    const {
+        messageBoxConfig: workflowMessageBoxConfig,
+        dialogConfig: workflowDialogConfig,
+        onClose: workflowOnClose,
+        ...otherWorkflowErrorConfig
+    } = registrationWorkflowErrorConfig ?? {};
+    const {
+        messageBoxConfig: globalMessageBoxConfig,
+        dialogConfig: globalDialogConfig,
+        onClose: globalOnClose,
+        ...otherGlobalErrorConfig
+    } = globalErrorManagerConfig;
 
-    const errorDisplayConfig = {
-        ...errorManagerConfig,
-        ...props.errorDisplayConfig,
+    const errorDisplayConfig: ErrorManagerProps = {
+        messageBoxConfig: { ...globalMessageBoxConfig, ...workflowMessageBoxConfig },
+        dialogConfig: { ...globalDialogConfig, ...workflowDialogConfig },
         onClose: (): void => {
-            if (props.errorDisplayConfig && props.errorDisplayConfig.onClose) props.errorDisplayConfig.onClose();
-            if (errorManagerConfig.onClose) errorManagerConfig?.onClose();
+            workflowOnClose?.();
+            globalOnClose?.();
         },
+
+        ...otherGlobalErrorConfig,
+        ...otherWorkflowErrorConfig,
     };
     const {
         initialScreenIndex = 0,

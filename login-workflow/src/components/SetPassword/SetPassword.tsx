@@ -8,18 +8,7 @@ import { PasswordRequirements } from '../PasswordRequirements';
  * Component that renders a change password form with a new password and confirm password inputs.
  * It includes callbacks so you can respond to changes in the inputs.
  *
- * @param onPasswordChange called when the new password or confirm new password fields value changes
- * @param initialNewPasswordValue initial value for the new password field
- * @param initialConfirmPasswordValue initial value for the confirm password field
- * @param passwordRequirements requirements to set password
- * @param newPasswordLabel label for the new password field (default = 'Password')
- * @param confirmPasswordLabel label for the confirm password field (default = 'Confirm')
- * @param passwordRef ref to forward to the password input.
- * @param confirmRef ref to forward to the confirm password input.
- * @param passwordNotMatchError text for showing message when passwords do not match.
- * @param onSubmit function to call when the form is submitted
- * @param passwordTextFieldProps props to pass to the password field.
- * @param confirmPasswordTextFieldProps props to pass to the confirm password field.
+ * @param {SetPasswordProps} props - props of setPassword component
  *
  * @category Component
  */

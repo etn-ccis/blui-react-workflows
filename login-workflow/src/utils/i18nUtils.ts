@@ -1,5 +1,5 @@
 import i18n from 'i18next';
-import { fr, enUS, es, zhCN, ptBR } from 'date-fns/locale';
+import { fr, enUS, es, zhCN, ptBR, Locale } from 'date-fns/locale';
 
 // for getting the device's language locale
 // 'en' is default deviceLocale

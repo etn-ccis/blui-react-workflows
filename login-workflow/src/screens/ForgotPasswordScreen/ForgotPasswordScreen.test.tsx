@@ -1,6 +1,6 @@
 /* eslint-disable @typescript-eslint/no-unused-vars */
 import React from 'react';
-import { cleanup, fireEvent, render, RenderResult, screen } from '@testing-library/react';
+import { act, cleanup, fireEvent, render, RenderResult, screen } from '@testing-library/react';
 import { ForgotPasswordScreenProps } from './types';
 import { AuthContextProvider } from '../../contexts';
 import { BrowserRouter } from 'react-router-dom';
@@ -75,7 +75,7 @@ describe('Forgot Password Screen tests', () => {
         expect(mockOnPrevious).toHaveBeenCalled();
     });
 
-    it('firing onNext Callback functions', () => {
+    it('firing onNext Callback functions', async () => {
         const { getByLabelText } = renderer({
             WorkflowCardActionsProps: {
                 canGoNext: true,
@@ -94,8 +94,10 @@ describe('Forgot Password Screen tests', () => {
         expect(emailInput).toHaveValue('aa@aa.aa');
 
         expect(nextButton).toBeInTheDocument();
-        expect(screen.getByText(/Next/i)).toBeEnabled();
-        fireEvent.click(nextButton);
+        await act(async () => {
+            expect(await screen.findByText('Next')).toBeEnabled();
+            fireEvent.click(nextButton);
+        });
         expect(mockOnNext).toHaveBeenCalled();
     });
 
@@ -114,14 +116,17 @@ describe('Forgot Password Screen tests', () => {
         fireEvent.blur(emailInput);
         expect(emailInput).toHaveValue('aa@aa.aa');
         expect(nextButton).toBeInTheDocument();
-        expect(screen.getByText(/Submit/i)).toBeEnabled();
-        fireEvent.click(nextButton);
+        // expect(screen.getByText(/Submit/i)).toBeEnabled();
+        await act(async () => {
+            expect(await screen.findByText('Submit')).toBeEnabled();
+            fireEvent.click(nextButton);
+        });
 
         const successMessage = await screen.findByText('Email Sent');
         expect(successMessage).toBeInTheDocument();
     });
 
-    it('should not show success screen, when showSuccessScreen is false', () => {
+    it('should not show success screen, when showSuccessScreen is false', async () => {
         const { getByLabelText } = render(
             <AuthContextProvider {...authContextProviderProps}>
                 <BrowserRouter>
@@ -136,8 +141,10 @@ describe('Forgot Password Screen tests', () => {
         fireEvent.blur(emailInput);
         expect(emailInput).toHaveValue('aa@aa.aa');
         expect(nextButton).toBeInTheDocument();
-        expect(screen.getByText(/Submit/i)).toBeEnabled();
-        fireEvent.click(nextButton);
+        await act(async () => {
+            expect(await screen.findByText('Submit')).toBeEnabled();
+            fireEvent.click(nextButton);
+        });
 
         const successMessage = screen.queryByText('Email Sent');
         expect(successMessage).toBeNull();
@@ -158,8 +165,11 @@ describe('Forgot Password Screen tests', () => {
         fireEvent.blur(emailInput);
         expect(emailInput).toHaveValue('aa@aa.aa');
         expect(nextButton).toBeInTheDocument();
-        expect(screen.getByText(/Submit/i)).toBeEnabled();
-        fireEvent.click(nextButton);
+        // expect(screen.getByText(/Submit/i)).toBeEnabled();
+        await act(async () => {
+            expect(await screen.findByText('Submit')).toBeEnabled();
+            fireEvent.click(nextButton);
+        });
 
         const successMessage = await screen.findByText('Success');
         expect(successMessage).toBeInTheDocument();

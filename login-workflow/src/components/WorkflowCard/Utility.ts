@@ -1,7 +1,14 @@
 import generateUtilityClass from '@mui/material/generateUtilityClass';
 
 export type WorkflowCardClasses = {
+    /**
+     * The class name for the root element.
+     */
     root?: string;
+
+    /**
+     * The class name for the card element.
+     */
     card?: string;
 };
 
@@ -13,9 +20,24 @@ export function getWorkflowCardUtilityClass(slot: string): string {
 
 // For WorkflowCardActions component
 export type workflowCardActionsClasses = {
+    /**
+     * The class name for the root element.
+     */
     root?: string;
+
+    /**
+     * The class name for the next button element.
+     */
     nextButton?: string;
+
+    /**
+     * The class name for the previous button element.
+     */
     previousButton?: string;
+
+    /**
+     * The class name for the stepper element.
+     */
     stepper?: string;
 };
 

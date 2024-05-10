@@ -7,12 +7,7 @@ import { useTranslation } from 'react-i18next';
 /**
  * Full Screen component that renders a Success Screen for the accounts which are already exists in the records
  *
- * @param icon the icon to be displayed on the screen
- * @param messageTitle title of the success message
- * @param message success message to be displayed on the screen
- * @param dismissButtonLabel to display label for the button
- * @param canDismiss boolean flag prop to dismiss the success screen or not
- * @param onDismiss function to call when the dismiss button is clicked
+ * @param {SuccessScreenProps} props - props of SuccessScreen
  *
  * @category Component
  */
@@ -22,13 +17,11 @@ export const ExistingAccountSuccessScreen: React.FC<SuccessScreenProps> = (props
     const { navigate, routeConfig } = useRegistrationContext();
 
     const {
-        icon = <Person color={'primary'} sx={{ fontSize: 100, mb: 2 }} />,
-        messageTitle = t('bluiCommon:MESSAGES.WELCOME'),
-        message = t('bluiRegistration:REGISTRATION.SUCCESS_EXISTING'),
         canDismiss = true,
         onDismiss = (): void => navigate(routeConfig.LOGIN as string),
         WorkflowCardHeaderProps,
         WorkflowCardActionsProps,
+        EmptyStateProps,
         ...otherExistingAccountSuccessScreenProps
     } = props;
 
@@ -49,13 +42,18 @@ export const ExistingAccountSuccessScreen: React.FC<SuccessScreenProps> = (props
         },
     };
 
+    const emptyStateProps = {
+        icon: <Person color={'primary'} sx={{ fontSize: 100, mb: 2 }} />,
+        title: t('bluiCommon:MESSAGES.WELCOME'),
+        description: t('bluiRegistration:REGISTRATION.SUCCESS_EXISTING'),
+        ...EmptyStateProps,
+    };
+
     return (
         <SuccessScreenBase
             WorkflowCardHeaderProps={workflowCardHeaderProps}
             WorkflowCardActionsProps={workflowCardActionsProps}
-            icon={icon}
-            messageTitle={messageTitle}
-            message={message}
+            EmptyStateProps={emptyStateProps}
             {...otherExistingAccountSuccessScreenProps}
         />
     );

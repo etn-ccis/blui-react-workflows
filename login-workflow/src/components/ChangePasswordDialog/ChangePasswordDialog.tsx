@@ -10,21 +10,7 @@ import { useTranslation } from 'react-i18next';
  * Component that renders a dialog with textField to enter current password and a change password form with a new password and confirm password inputs.
  * It includes callbacks so you can respond to changes in the inputs.
  *
- * @param dialogTitle title to display in the dialog
- * @param dialogDescription description to display in the dialog
- * @param currentPasswordLabel label to display for the current password field
- * @param previousLabel label to display for the previous button
- * @param nextLabel label to display for the next button
- * @param currentPasswordChange called when the current password field changes
- * @param enableButton boolean to enable and disable the button
- * @param onFinish function called when the button is clicked on success screen
- * @param onSubmit Callback function to call when the form is submitted
- * @param onPrevious called when the previous button is clicked
- * @param loading boolean that indicates whether the loading spinner should be displayed
- * @param currentPasswordTextFieldProps props to pass to the current password field.
- * @param showSuccessScreen boolean that determines whether to show the success screen or not
- * @param slots used for ChangePasswordDialog SuccessScreen props
- * @param slotProps props that will be passed to the SuccessScreen component
+ * @param {ChangePasswordDialogProps} props - props of changePassword dailog
  *
  * @category Component
  */
@@ -59,7 +45,7 @@ export const ChangePasswordDialog: React.FC<ChangePasswordDialogProps> = (props)
     const [showSuccessScreen, setShowSuccessScreen] = useState(false);
     const { actions } = useAuthContext();
 
-    const passwordRequirements = defaultPasswordRequirements(t);
+    const passwordReqs = PasswordProps?.passwordRequirements ?? defaultPasswordRequirements(t);
 
     const updateFields = useCallback(
         (fields: { password: string; confirm: string }) => {
@@ -70,14 +56,14 @@ export const ChangePasswordDialog: React.FC<ChangePasswordDialogProps> = (props)
     );
 
     const areValidMatchingPasswords = useCallback((): boolean => {
-        if (PasswordProps?.passwordRequirements?.length === 0) {
+        if (passwordReqs?.length === 0) {
             return confirmInput === passwordInput;
         }
-        for (let i = 0; i < passwordRequirements.length; i++) {
-            if (!new RegExp(passwordRequirements[i].regex).test(passwordInput)) return false;
+        for (let i = 0; i < passwordReqs.length; i++) {
+            if (!new RegExp(passwordReqs[i].regex).test(passwordInput)) return false;
         }
         return confirmInput === passwordInput;
-    }, [PasswordProps?.passwordRequirements?.length, passwordRequirements, passwordInput, confirmInput]);
+    }, [passwordReqs, passwordInput, confirmInput]);
 
     const checkPasswords =
         currentInput !== '' && passwordInput !== '' && confirmInput !== '' && areValidMatchingPasswords();
@@ -115,7 +101,7 @@ export const ChangePasswordDialog: React.FC<ChangePasswordDialogProps> = (props)
         confirmRef,
         initialNewPasswordValue: passwordInput,
         initialConfirmPasswordValue: confirmInput,
-        passwordRequirements,
+        passwordRequirements: passwordReqs,
         passwordNotMatchError: t('bluiCommon:FORMS.PASS_MATCH_ERROR'),
         ...PasswordProps,
         onPasswordChange: (passwordData: { password: string; confirm: string }): void => {
@@ -161,9 +147,11 @@ export const ChangePasswordDialog: React.FC<ChangePasswordDialogProps> = (props)
             slots={slots}
             slotProps={{
                 SuccessScreen: {
-                    icon: <CheckCircle color="primary" sx={{ fontSize: 100 }} />,
-                    messageTitle: t('bluiAuth:PASSWORD_RESET.SUCCESS_MESSAGE'),
-                    message: t('bluiAuth:CHANGE_PASSWORD.SUCCESS_MESSAGE'),
+                    EmptyStateProps: {
+                        icon: <CheckCircle color="primary" sx={{ fontSize: 100 }} />,
+                        title: t('bluiAuth:PASSWORD_RESET.SUCCESS_MESSAGE'),
+                        description: t('bluiAuth:CHANGE_PASSWORD.SUCCESS_MESSAGE'),
+                    },
                     onDismiss: (): void => {
                         onFinish?.();
                     },

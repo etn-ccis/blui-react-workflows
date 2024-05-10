@@ -1,11 +1,13 @@
 import React from 'react';
 import '@testing-library/jest-dom';
-import { cleanup, render, screen, RenderResult, fireEvent } from '@testing-library/react';
+import { cleanup, render, screen, RenderResult, fireEvent, act, waitFor } from '@testing-library/react';
 import { EulaScreen } from './EulaScreen';
 import { RegistrationContextProvider } from '../../contexts';
 import { EulaScreenProps } from './types';
 import { RegistrationWorkflow } from '../../components';
 import { registrationContextProviderProps } from '../../testUtils';
+import { i18nRegistrationInstance } from '../../contexts/RegistrationContext/i18nRegistrationInstance';
+
 afterEach(cleanup);
 
 describe('Eula Screen', () => {
@@ -30,17 +32,17 @@ describe('Eula Screen', () => {
             </RegistrationContextProvider>
         );
 
-    it('renders without crashing', () => {
+    it('renders without crashing', async () => {
         renderer();
-
-        expect(screen.getByText('License Agreement')).toBeInTheDocument();
+        await waitFor(() => expect(screen.getByText('License Agreement')).toBeInTheDocument);
     });
 
-    it('should update values when passed as props', () => {
+    it('should update values when passed as props', async () => {
         renderer({ WorkflowCardHeaderProps: { title: 'Test Title' } });
-
-        expect(screen.queryByText('License Agreement')).toBeNull();
-        expect(screen.getByText('Test Title')).toBeInTheDocument();
+        await waitFor(() => {
+            expect(screen.queryByText('License Agreement')).toBeNull();
+            expect(screen.getByText('Test Title')).toBeInTheDocument();
+        });
     });
 
     it('should update content of Eula Screen when eulaContent prop set ', () => {
@@ -62,7 +64,7 @@ describe('Eula Screen', () => {
         expect(screen.getByText('<button>Submit</button>')).toBeInTheDocument();
     });
 
-    it('should call onNext, when Next button clicked', () => {
+    it('should call onNext, when Next button clicked', async () => {
         const { getByLabelText } = renderer({
             WorkflowCardActionsProps: {
                 onNext: mockOnNext(),
@@ -70,15 +72,17 @@ describe('Eula Screen', () => {
                 nextLabel: 'Next',
             },
         });
-
+        await waitFor(() => expect(screen.getByText('License Agreement')).toBeInTheDocument);
         const checkboxLabel = getByLabelText('I have read and agree to the Terms & Conditions');
         fireEvent.click(checkboxLabel);
         fireEvent.change(checkboxLabel, { target: { accepted: true } });
 
         const nextButton = screen.getByText('Next');
         expect(nextButton).toBeInTheDocument();
-        expect(screen.getByText(/Next/i)).toBeEnabled();
-        fireEvent.click(nextButton);
+        await act(async () => {
+            expect(await screen.findByText('Next')).toBeEnabled();
+            fireEvent.click(nextButton);
+        });
         expect(mockOnNext).toHaveBeenCalled();
     });
 
@@ -97,4 +101,35 @@ describe('Eula Screen', () => {
         fireEvent.click(backButton);
         expect(mockOnPrevious).toHaveBeenCalled();
     });
+
+    it('should throw error in eula and clicking refresh button should call loadEula', async () => {
+        const loadFn = jest.fn().mockRejectedValue(new Error('qwertyuiop'));
+        const { findByText } = render(
+            <RegistrationContextProvider
+                {...{
+                    language: 'en',
+                    i18n: i18nRegistrationInstance,
+                    navigate: (): void => {},
+                    routeConfig: {},
+                    actions: {
+                        loadEula: loadFn,
+                        acceptEula: jest.fn(),
+                        requestRegistrationCode: jest.fn(),
+                        validateUserRegistrationRequest: jest.fn(),
+                        createPassword: jest.fn(),
+                        setAccountDetails: jest.fn(),
+                        completeRegistration: jest.fn().mockImplementation(() => Promise.resolve()),
+                    },
+                }}
+            >
+                <RegistrationWorkflow>
+                    <EulaScreen />
+                </RegistrationWorkflow>
+            </RegistrationContextProvider>
+        );
+
+        await waitFor(() => expect(screen.queryByText('Loading...')).toBeNull());
+        fireEvent.click(await findByText('Retry'));
+        expect(loadFn).toBeCalled();
+    }, 10000);
 });

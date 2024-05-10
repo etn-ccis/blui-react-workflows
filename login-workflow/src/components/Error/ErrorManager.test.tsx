@@ -1,7 +1,8 @@
 import React from 'react';
 import '@testing-library/jest-dom';
 import { render, cleanup, screen, RenderResult } from '@testing-library/react';
-import ErrorManager, { ErrorManagerProps } from './ErrorManager';
+import ErrorManager from './ErrorManager';
+import { ErrorManagerProps } from './types';
 import { RegistrationContextProvider } from '../../contexts';
 import { RegistrationWorkflow } from '../../components';
 import { registrationContextProviderProps } from '../../testUtils';

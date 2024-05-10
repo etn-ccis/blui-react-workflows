@@ -1,6 +1,6 @@
 import React from 'react';
 import '@testing-library/jest-dom';
-import { cleanup, render, screen, RenderResult, fireEvent } from '@testing-library/react';
+import { cleanup, render, screen, RenderResult, fireEvent, act } from '@testing-library/react';
 import { AccountDetailsScreen } from './AccountDetailsScreen';
 import { RegistrationContextProvider } from '../../contexts';
 import { AccountDetailsScreenProps } from './types';
@@ -59,7 +59,7 @@ describe('Account Details Screen', () => {
         expect(screen.getByText('Test Instruction')).toBeInTheDocument();
     });
 
-    it('should call onNext, when Next button clicked', () => {
+    it('should call onNext, when Next button clicked', async () => {
         const { getByLabelText } = renderer({
             WorkflowCardActionsProps: {
                 onNext: mockOnNext(),
@@ -78,8 +78,10 @@ describe('Account Details Screen', () => {
 
         const nextButton = screen.getByText('Next');
         expect(nextButton).toBeInTheDocument();
-        expect(screen.getByText(/Next/i)).toBeEnabled();
-        fireEvent.click(nextButton);
+        await act(async () => {
+            expect(await screen.findByText('Next')).toBeEnabled();
+            fireEvent.click(nextButton);
+        });
         expect(mockOnNext).toHaveBeenCalled();
     });
 

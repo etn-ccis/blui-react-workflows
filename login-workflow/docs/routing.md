@@ -46,7 +46,10 @@ const getAuthState = () => ({
 })
 
 export const AppRouter: React.FC = () => {
-    const navigate = useNavigate();
+    const navigation = useNavigate();
+    const navigate = useCallback((destination: -1 | string) => {
+        navigation(destination as To);
+    }, []);
     const authState = getAuthState();
     return (
         <Routes>

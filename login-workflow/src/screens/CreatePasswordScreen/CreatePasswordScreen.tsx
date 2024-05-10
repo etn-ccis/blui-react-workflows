@@ -9,12 +9,7 @@ import { useTranslation } from 'react-i18next';
 /**
  * The component renders a screen with the password and confirm password field for creating a new password.
  *
- * @param errorDisplayConfig configuration for customizing how errors are displayed
- * @param PasswordProps props passed from SetPassword component
- * @param WorkflowCardBaseProps props that will be passed to the WorkflowCard component
- * @param WorkflowCardHeaderProps props that will be passed to the WorkflowCardHeader component
- * @param WorkflowCardInstructionProps props that will be passed to the WorkflowCardInstructions component
- * @param WorkflowCardActionsProps props that will be passed to the WorkflowCardActions component
+ * @param {CreatePasswordScreenProps} props - props of CreatePasswordScreen
  *
  * @category Component
  */
@@ -50,7 +45,7 @@ export const CreatePasswordScreen: React.FC<CreatePasswordScreenProps> = (props)
         confirmPassword !== '' ? confirmPassword : PasswordProps?.initialConfirmPasswordValue ?? ''
     );
     const [isLoading, setIsLoading] = useState(false);
-    const passwordRequirements = defaultPasswordRequirements(t);
+    const passwordReqs = PasswordProps?.passwordRequirements ?? defaultPasswordRequirements(t);
     const { triggerError, errorManagerConfig } = useErrorManager();
     const errorDisplayConfig = {
         ...errorManagerConfig,
@@ -92,20 +87,20 @@ export const CreatePasswordScreen: React.FC<CreatePasswordScreenProps> = (props)
     );
 
     const areValidMatchingPasswords = useCallback((): boolean => {
-        if (PasswordProps?.passwordRequirements?.length === 0) {
+        if (passwordReqs?.length === 0) {
             return confirmInput === passwordInput;
         }
-        for (let i = 0; i < passwordRequirements.length; i++) {
-            if (!new RegExp(passwordRequirements[i].regex).test(passwordInput)) return false;
+        for (let i = 0; i < passwordReqs.length; i++) {
+            if (!new RegExp(passwordReqs[i].regex).test(passwordInput)) return false;
         }
         return confirmInput === passwordInput;
-    }, [PasswordProps?.passwordRequirements?.length, passwordRequirements, passwordInput, confirmInput]);
+    }, [passwordReqs, passwordInput, confirmInput]);
 
     const passwordProps = {
         newPasswordLabel: t('bluiCommon:FORMS.PASSWORD'),
         confirmPasswordLabel: t('bluiCommon:FORMS.CONFIRM_PASSWORD'),
         passwordNotMatchError: t('bluiCommon:FORMS.PASS_MATCH_ERROR'),
-        passwordRequirements: PasswordProps?.passwordRequirements ?? passwordRequirements,
+        passwordRequirements: passwordReqs,
         passwordRef,
         confirmRef,
         ...PasswordProps,

@@ -1,7 +1,8 @@
 import React from 'react';
 import '@testing-library/jest-dom';
 import { cleanup, fireEvent, render, screen, renderHook, act, RenderResult } from '@testing-library/react';
-import { RegistrationWorkflow, RegistrationWorkflowProps } from './RegistrationWorkflow';
+import { RegistrationWorkflow } from './RegistrationWorkflow';
+import { RegistrationWorkflowProps } from './types';
 import Typography from '@mui/material/Typography';
 import Button from '@mui/material/Button';
 import { RegistrationContextProvider, useRegistrationWorkflowContext } from '../../contexts';
@@ -65,10 +66,14 @@ describe('RegistrationWorkflow', () => {
         expect(nextScreen).toHaveBeenCalledWith({ screenId: 'Eula', values: { accepted: true } });
     });
 
-    it('should set screen data for default registration workflow in the context', () => {
+    it('should set screen data for default registration workflow in the context', async () => {
         const wrapper = ({ children }: any): JSX.Element => (
             <RegistrationContextProvider {...registrationContextProviderProps}>
-                <RegistrationWorkflow {...defaultProps}>{children}</RegistrationWorkflow>
+                <RegistrationWorkflow {...defaultProps}>
+                    <Box>{children}</Box>
+                    <Box>{children}</Box>
+                    <Box>{children}</Box>
+                </RegistrationWorkflow>
             </RegistrationContextProvider>
         );
         const { result } = renderHook(() => useRegistrationWorkflowContext(), { wrapper });
@@ -76,8 +81,8 @@ describe('RegistrationWorkflow', () => {
         expect(result.current.screenData['Eula'].accepted).toBeFalsy();
         expect(result.current.screenData['CreateAccount'].emailAddress).toBe('');
 
-        act(() => {
-            void result.current.nextScreen({ screenId: 'Eula', values: { accepted: true } });
+        await act(async () => {
+            await result.current.nextScreen({ screenId: 'Eula', values: { accepted: true } });
         });
         act(() => {
             result.current.previousScreen({
@@ -87,21 +92,26 @@ describe('RegistrationWorkflow', () => {
         });
 
         expect(result.current.screenData['Eula'].accepted).toBeTruthy();
-
-        void ((): void =>
-            expect(result.current.screenData['CreateAccount'].emailAddress).toBe('emailAddress@emailAddress.com'));
+        expect(result.current.screenData['CreateAccount'].emailAddress).toBe('emailAddress@emailAddress.com');
     });
 
-    it('should set screen data for custom registration workflow in the context', () => {
+    it('should set screen data for custom registration workflow in the context', async () => {
         const wrapper = ({ children }: any): JSX.Element => (
             <RegistrationContextProvider {...registrationContextProviderProps}>
-                <RegistrationWorkflow {...defaultProps}>{children}</RegistrationWorkflow>
+                <RegistrationWorkflow {...defaultProps}>
+                    <Box>{children}</Box>
+                    <Box>{children}</Box>
+                    <Box>{children}</Box>
+                </RegistrationWorkflow>
             </RegistrationContextProvider>
         );
         const { result } = renderHook(() => useRegistrationWorkflowContext(), { wrapper });
 
-        act(() => {
-            void result.current.nextScreen({ screenId: 'Screen1', values: { test: 'test' } });
+        expect(result.current.screenData['Eula'].accepted).toBeFalsy();
+        expect(result.current.screenData['CreateAccount'].emailAddress).toBe('');
+
+        await act(async () => {
+            await result.current.nextScreen({ screenId: 'Screen1', values: { test: 'test' } });
         });
         act(() => {
             result.current.previousScreen({
@@ -110,8 +120,7 @@ describe('RegistrationWorkflow', () => {
             });
         });
         expect(result.current.screenData['Other']['Screen1'].test).toBe('test');
-
-        void ((): void => expect(result.current.screenData['Other']['Screen2'].test2).toBe('test2'));
+        expect(result.current.screenData['Other']['Screen2'].test2).toBe('test2');
     });
 
     it('should check for lower bound of initialScreenIndex props', () => {
@@ -124,7 +133,7 @@ describe('RegistrationWorkflow', () => {
         expect(screen.getByText('Screen 2')).toBeInTheDocument();
     });
 
-    it('should render custom success screen', () => {
+    it('should render custom success screen', async () => {
         const props = defaultProps;
         defaultProps.successScreen = <Box>Success</Box>;
         const { getByLabelText, getByText } = render(
@@ -139,7 +148,10 @@ describe('RegistrationWorkflow', () => {
         fireEvent.blur(verifyEmailInput);
         const nextButton = getByText('Next');
         expect(screen.getByText(/Next/i)).toBeEnabled();
-        fireEvent.click(nextButton);
+        await act(async () => {
+            expect(await screen.findByText('Next')).toBeEnabled();
+            fireEvent.click(nextButton);
+        });
 
         void ((): void => expect(screen.getByText('Success')).toBeInTheDocument());
     });

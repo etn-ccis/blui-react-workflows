@@ -12,18 +12,7 @@ import { useErrorManager } from '../../contexts/ErrorContext/useErrorManager';
 /**
  * Component renders a screen with forgot password for support with the application.
  *
- * @param emailLabel label for the email field
- * @param initialEmailValue initial value for the email text field
- * @param emailValidator function used to test the input for valid formatting
- * @param showSuccessScreen used to determine whether to show a success screen after the form is submitted
- * @param slots used for ForgotPasswordScreen SuccessScreen
- * @param slotProps applied to slot from SuccessScreen
- * @param WorkflowCardBaseProps props that will be passed to the WorkflowCard component
- * @param WorkflowCardHeaderProps props that will be passed to the WorkflowCardHeader component
- * @param WorkflowCardInstructionProps props that will be passed to the WorkflowCardInstructions component
- * @param WorkflowCardActionsProps props that will be passed to the WorkflowCardActions component
- * @param errorDisplayConfig configuration for customizing how errors are displayed
- * @param emailTextFieldProps props to pass to the email field.
+ * @param {ForgotPasswordScreenProps} props - props of ForgotPasswordScreen
  *
  * @category Component
  */
@@ -63,6 +52,7 @@ export const ForgotPasswordScreen: React.FC<ForgotPasswordScreenProps> = (props)
                 setIsLoading(false);
             }
         },
+        // eslint-disable-next-line react-hooks/exhaustive-deps
         [actions, triggerError]
     );
 
@@ -147,22 +137,27 @@ export const ForgotPasswordScreen: React.FC<ForgotPasswordScreenProps> = (props)
             slots={slots}
             slotProps={{
                 SuccessScreen: {
-                    icon: <CheckCircle color={'primary'} sx={{ fontSize: 100, mb: 5 }} />,
-                    messageTitle: t('bluiCommon:MESSAGES.EMAIL_SENT'),
-                    message: (
-                        <Box
-                            sx={{
-                                overflow: 'hidden',
-                                whiteSpace: 'normal',
-                                wordBreak: 'break-word',
-                            }}
-                            component={'span'}
-                        >
-                            <Trans i18nKey={'bluiAuth:FORGOT_PASSWORD.LINK_SENT_ALT'} values={{ email: emailInput }}>
-                                Link has been sent to <b>{emailInput}</b>.
-                            </Trans>
-                        </Box>
-                    ),
+                    EmptyStateProps: {
+                        icon: <CheckCircle color={'primary'} sx={{ fontSize: 100, mb: 5 }} />,
+                        title: t('bluiCommon:MESSAGES.EMAIL_SENT'),
+                        description: (
+                            <Box
+                                sx={{
+                                    overflow: 'hidden',
+                                    whiteSpace: 'normal',
+                                    wordBreak: 'break-word',
+                                }}
+                                component={'span'}
+                            >
+                                <Trans
+                                    i18nKey={'bluiAuth:FORGOT_PASSWORD.LINK_SENT_ALT'}
+                                    values={{ email: emailInput }}
+                                >
+                                    Link has been sent to <b>{emailInput}</b>.
+                                </Trans>
+                            </Box>
+                        ),
+                    },
                     WorkflowCardHeaderProps: {
                         title: t('bluiAuth:HEADER.FORGOT_PASSWORD'),
                     },

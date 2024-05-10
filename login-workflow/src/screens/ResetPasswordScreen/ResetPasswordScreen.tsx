@@ -11,16 +11,7 @@ import { useTranslation } from 'react-i18next';
 /**
  * Component that renders a ResetPassword screen that allows a user to reset their password and shows a success message upon a successful password reset..
  *
- * @param PasswordProps props that will be passed to the SetPassword component
- * @param showSuccessScreen boolean that determines whether to show the success screen or not
- * @param slots used for ResetPasswordScreen SuccessScreen props
- * @param slotProps props that will be passed to the SuccessScreen component
- * @param errorDisplayConfig configuration for customizing how errors are displayed
- * @param SuccessScreen component that will be rendered when showSuccessScreen is true
- * @param WorkflowCardBaseProps props that will be passed to the WorkflowCard component
- * @param WorkflowCardHeaderProps props that will be passed to the WorkflowCardHeader component
- * @param WorkflowCardInstructionProps props that will be passed to the WorkflowCardInstructions component
- * @param WorkflowCardActionsProps props that will be passed to the WorkflowCardActions component
+ * @param {ResetPasswordScreenProps} props - props of ResetPasswordScreen
  * @returns a React JSX Element that renders a ResetPassword screen
  *
  * @category Component
@@ -60,7 +51,7 @@ export const ResetPasswordScreen: React.FC<ResetPasswordScreenProps> = (props) =
     const { code, email } = parseQueryString(window.location.search);
 
     const { actions, navigate, routeConfig } = useAuthContext();
-    const passwordRequirements = defaultPasswordRequirements(t);
+    const passwordReqs = PasswordProps?.passwordRequirements ?? defaultPasswordRequirements(t);
 
     const verifyResetCode = useCallback(async (): Promise<void> => {
         try {
@@ -92,14 +83,14 @@ export const ResetPasswordScreen: React.FC<ResetPasswordScreenProps> = (props) =
     }, [actions, code, passwordInput, email, triggerError, props.showSuccessScreen, navigate, routeConfig]);
 
     const areValidMatchingPasswords = useCallback((): boolean => {
-        if (PasswordProps?.passwordRequirements?.length === 0) {
+        if (passwordReqs?.length === 0) {
             return confirmInput === passwordInput;
         }
-        for (let i = 0; i < passwordRequirements.length; i++) {
-            if (!new RegExp(passwordRequirements[i].regex).test(passwordInput)) return false;
+        for (let i = 0; i < passwordReqs.length; i++) {
+            if (!new RegExp(passwordReqs[i].regex).test(passwordInput)) return false;
         }
         return confirmInput === passwordInput;
-    }, [PasswordProps?.passwordRequirements?.length, passwordRequirements, passwordInput, confirmInput]);
+    }, [passwordReqs, passwordInput, confirmInput]);
 
     const updateFields = useCallback(
         (fields: { password: string; confirm: string }) => {
@@ -151,7 +142,7 @@ export const ResetPasswordScreen: React.FC<ResetPasswordScreenProps> = (props) =
         newPasswordLabel: t('bluiAuth:CHANGE_PASSWORD.NEW_PASSWORD'),
         confirmPasswordLabel: t('bluiAuth:CHANGE_PASSWORD.CONFIRM_NEW_PASSWORD'),
         passwordNotMatchError: t('bluiCommon:FORMS.PASS_MATCH_ERROR'),
-        passwordRequirements: PasswordProps?.passwordRequirements ?? passwordRequirements,
+        passwordRequirements: passwordReqs,
         passwordRef,
         confirmRef,
         ...PasswordProps,
@@ -181,9 +172,11 @@ export const ResetPasswordScreen: React.FC<ResetPasswordScreenProps> = (props) =
             slots={slots}
             slotProps={{
                 SuccessScreen: {
-                    icon: <CheckCircle color="primary" sx={{ fontSize: 100 }} />,
-                    messageTitle: t('bluiAuth:PASSWORD_RESET.SUCCESS_MESSAGE'),
-                    message: t('bluiAuth:CHANGE_PASSWORD.SUCCESS_MESSAGE'),
+                    EmptyStateProps: {
+                        icon: <CheckCircle color="primary" sx={{ fontSize: 100 }} />,
+                        title: t('bluiAuth:PASSWORD_RESET.SUCCESS_MESSAGE'),
+                        description: t('bluiAuth:CHANGE_PASSWORD.SUCCESS_MESSAGE'),
+                    },
                     WorkflowCardActionsProps: {
                         showPrevious: false,
                         fullWidthButton: true,

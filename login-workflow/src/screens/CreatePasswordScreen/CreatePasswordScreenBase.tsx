@@ -13,12 +13,7 @@ import ErrorManager from '../../components/Error/ErrorManager';
 /**
  * The component renders a screen with the password and confirm password field for creating a new password.
  *
- * @param errorDisplayConfig configuration for customizing how errors are displayed
- * @param PasswordProps props passed from SetPassword component
- * @param WorkflowCardBaseProps props that will be passed to the WorkflowCard component
- * @param WorkflowCardHeaderProps props that will be passed to the WorkflowCardHeader component
- * @param WorkflowCardInstructionProps props that will be passed to the WorkflowCardInstructions component
- * @param WorkflowCardActionsProps props that will be passed to the WorkflowCardActions component
+ * @param {CreatePasswordScreenProps} props - props of CreatePasswordScreen base component
  *
  * @category Component
  */
