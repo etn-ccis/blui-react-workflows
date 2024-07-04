@@ -20,7 +20,10 @@ import { ExampleHome } from '../screens/ExampleHome';
 import i18nAppInstance from '../translations/i18n';
 import { ChangePassword } from '../components/ChangePassword';
 
-export const AppRouter: React.FC = () => {
+export const AppRouter: React.FC = (props) => {
+
+    const {isOktaUser} = props;
+
     const navigation = useNavigate();
     const app = useApp();
     const { email, rememberMe } = app.loginData;
@@ -28,10 +31,8 @@ export const AppRouter: React.FC = () => {
         navigation(destination as To);
     }, []);
 
-    return (
-        <Routes>
-            {/* AUTH ROUTES */}
-            <Route
+    const CommonRoutes = [
+        <Route
                 element={
                     <AuthContextProvider
                         actions={ProjectAuthUIActions(app)}
@@ -105,23 +106,45 @@ export const AppRouter: React.FC = () => {
                     }
                 />
             </Route>
-            {/* REGISTRATION ROUTES */}
+    ]
+
+    return (isOktaUser ? (       
+        <Routes>
+
+            {/* add common route */}
+            CommonRoutes.map((route, index) => {
+                return <Route/>;
+            })
+
             <Route
-                element={
-                    <RegistrationContextProvider
-                        language={app.language}
-                        routeConfig={routes}
-                        navigate={navigate}
-                        actions={ProjectRegistrationUIActions()}
-                        i18n={i18nAppInstance}
-                    >
-                        <Outlet />
-                    </RegistrationContextProvider>
-                }
-            >
-                <Route path={'/self-registration'} element={<RegistrationWorkflow />} />
-                <Route path={'/register-by-invite'} element={<RegistrationWorkflow isInviteRegistration />} />
-            </Route>
+            Component={oktaLoginScreen}
+            />
+
+            {/* Okta routes */}
+        
         </Routes>
+    ) : (
+        {/* Security component routes for Okta screens 
+
+            Create OktaAuth instance with oktaConfig and pass it to Security component as oktaAuth prop. Find more on below link
+            https://github.com/okta/okta-react?tab=readme-ov-file#general-components
+            const oktaAuth = new OktaAuth(oktaConfig as OktaAuthOptions);
+
+            <Security
+                oktaAuth={oktaAuth}
+                restoreOriginalUri={restoreOriginalUri}
+            >
+                 CommonRoutes.map((route, index) => {
+                return <Route/>;
+            })
+            <Route
+                path=":realmName/login"
+                element={<CustomLoginComponent/>} 
+            />
+            </Security>
+           */}
+    )
+
+         
     );
 };
