@@ -1,55 +1,18 @@
-import { ErrorManagerProps } from '../../components/Error/types';
 import { WorkflowCardBaseProps } from '../../components/WorkflowCard/WorkflowCard.types';
-import {WidgetOptions} from '@okta/okta-signin-widget';
+import { ErrorManagerProps } from '../../components/Error/types';
+import { OktaAuthOptions } from '@okta/okta-auth-js';
 
 export type OktaLoginScreenProps = WorkflowCardBaseProps & {
-    // https://github.com/okta/okta-signin-widget/blob/master/src/types/options.ts
-    // oktaLoginConfigProps: object,
-    //Or object with OktaSignIn type
-    widgetConfigProps: WidgetOptions,
-
-    //    // configure fields
-    // /**
-    //  * The label for the username field
-    //  */
-    // usernameLabel?: string;
-
-    // /**
-    //  * The props to pass to the username text field.
-    //  * See [MUI's TextFieldProps API](https://mui.com/material-ui/api/text-field/) for more details.
-    //  */
-    // usernameTextFieldProps?: TextFieldProps;
-
-    // /**
-    //  * The function used to validate the username
-    //  * @param {string} username - validates username
-    //  * @returns boolean | string
-    //  */
-    // usernameValidator?: (username: string) => boolean | string;
-
-    // /**
-    //  * The username used to pre-populate the field
-    //  */
-    // initialUsernameValue?: string;
-
-     // configure Forgot Password
     /**
-     * whether or not to show the 'forgot password' link
+     * Options for configuring the Okta Auth SDK.
      */
-    showForgotPassword?: boolean;
+    oktaAuthOptions: OktaAuthOptions;
 
     /**
-     * The label for the 'forgot password' link
+     * The label for the username field
      */
-    forgotPasswordLabel?: string;
+    loginButtonLabel?: string;
 
-    /**
-     * The callback function that is called when the 'forgot password' link is clicked
-     * @returns void
-     */
-    onForgotPassword?: () => void;
-
-      // configure Support
     /**
      * whether or not to show the 'contact support' link
      */
@@ -66,7 +29,6 @@ export type OktaLoginScreenProps = WorkflowCardBaseProps & {
      */
     onContactSupport?: () => void;
 
-    // configure visual customizations
     /**
      * The configuration for customizing how errors are displayed
      */
@@ -91,4 +53,4 @@ export type OktaLoginScreenProps = WorkflowCardBaseProps & {
      * The footer to display at the bottom of the screen
      */
     footer?: JSX.Element;
-}
+};
