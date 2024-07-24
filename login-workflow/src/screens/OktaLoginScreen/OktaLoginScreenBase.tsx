@@ -1,12 +1,14 @@
-import React from 'react';
+import React, { useEffect, useRef } from 'react';
 import { WorkflowCard } from '../../components/WorkflowCard';
-import { WorkflowCardBody } from '../../components/WorkflowCard/WorkflowCardBody';
 import Box from '@mui/material/Box';
 import Typography from '@mui/material/Typography';
 import cyberSecurityBadge from '../../assets/images/cybersecurity_certified.png';
 import ErrorManager from '../../components/Error/ErrorManager';
 import { LinkStyles } from '../../styles';
 import { OktaLoginScreenProps } from './types';
+import { useOktaAuth } from '@okta/okta-react';
+import OktaSignIn from '@okta/okta-signin-widget';
+import './OktaLoginScreenBase.css';
 
 /**
  * Component that renders an okta login screen that prompts a user to enter a username to login.
@@ -20,63 +22,34 @@ export const OktaLoginScreenBase: React.FC<React.PropsWithChildren<OktaLoginScre
     const {
         widgetConfigProps, header, projectImage, footer, errorDisplayConfig,showForgotPassword,forgotPasswordLabel,onForgotPassword, showContactSupport, contactSupportLabel,onContactSupport, showCyberSecurityBadge, ...otherProps
     } = props;
+    const widgetRef = useRef(null);
+    const { oktaAuth, authState } = useOktaAuth();
 
-    const handleForgotPassword = (): void => {
-        if (onForgotPassword) onForgotPassword();
-    };
+    useEffect((): void | (() => void) => {
+        if (!widgetRef.current) {
+            return;
+        }
 
-    const handleContactSupport = (): void => {
-        if (onContactSupport) onContactSupport();
-    };
+        widgetConfigProps.customButtons = customButtons;
+        const widget = new OktaSignIn(widgetConfigProps);
+
+        widget.showSignInAndRedirect({ el: widgetRef.current }).catch(() => {});
+
+        return () => widget.remove();
+
+    }, [oktaAuth, authState]);
+
+
+    const linkButtons: any = [];
+
+    const customButtons: any = linkButtons.concat(props.widgetConfigProps.customButtons);
+
 
     return (
-        <WorkflowCard  {...otherProps}>
-            <WorkflowCardBody sx={{ py: { xs: 4, sm: 4, md: 4 }, px: { xs: 4, sm: 8, md: 8 } }}>
+        <WorkflowCard {...otherProps}>
                 <ErrorManager {...errorDisplayConfig}>
-                    {/* Write widget */}
-                    <Box>Widget</Box>
+                    <Box className='OktaWidget' ref={widgetRef}></Box>
                 </ErrorManager>
-                {showForgotPassword && (
-                    <Box
-                        sx={{ display: 'flex', justifyContent: 'center', textAlign: 'center' }}
-                    >
-                        <Typography
-                            variant="body2"
-                            sx={LinkStyles}
-                            onClick={handleForgotPassword}
-                        >
-                            {forgotPasswordLabel || 'Forgot your password?'}
-                        </Typography>
-                    </Box>
-                )}
-                {showContactSupport && (
-                    <Box
-                        sx={{ display: 'flex', justifyContent: 'center', marginTop: 4, textAlign: 'center' }}
-                    >
-                        <Typography
-                            variant="body2"
-                            sx={LinkStyles}
-                            onClick={handleContactSupport}
-                        >
-                            {contactSupportLabel || 'Contact Support'}
-                        </Typography>
-                    </Box>
-                )}
-
-                <Box sx={{ display: 'flex', justifyContent: 'center' }}>{footer}</Box>
-
-                {showCyberSecurityBadge && (
-                    <Box
-                        sx={{ display: 'flex', justifyContent: 'center', marginTop: 2 }}
-                    >
-                        <img
-                            src={cyberSecurityBadge}
-                            alt="Cyber Security Badge"
-                            style={{ width: '100px' }}
-                        />
-                    </Box>
-                )}
-            </WorkflowCardBody>
         </WorkflowCard>
     );
 };
