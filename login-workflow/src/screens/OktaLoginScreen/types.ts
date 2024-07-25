@@ -6,7 +6,7 @@ export type OktaLoginScreenProps = WorkflowCardBaseProps & {
     /**
      * Options for configuring the Okta Auth SDK.
      */
-    oktaAuthOptions: OktaAuthOptions;
+    oktaAuthOptions?: OktaAuthOptions;
 
     /**
      * The label for the username field
