@@ -26,6 +26,8 @@
     },
     "prettier": "@brightlayer-ui/prettier-config",
     "dependencies": {
+        "@okta/okta-auth-js": "^7.7.0",
+        "@okta/okta-react": "^6.9.0",
         "dompurify": "^2.2.9",
         "i18next-browser-languagedetector": "^8.0.0"
     },
