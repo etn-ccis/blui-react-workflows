@@ -16,6 +16,9 @@ const mockSignInWithRedirect = jest.fn();
 const mockOnContactSupport = jest.fn();
 
 describe('OktaLoginScreenBase', () => {
+    afterEach(() => {
+        jest.clearAllMocks();
+    });
     beforeEach(() => {
         (useOktaAuth as jest.Mock).mockReturnValue({
             authState: { isAuthenticated: false },
