@@ -14,6 +14,12 @@ export type OktaLoginScreenProps = WorkflowCardBaseProps & {
     loginButtonLabel?: string;
 
     /**
+     * Callback function that is called when the login button is clicked
+     * @returns Promise<void> | void
+     */
+    onLogin?: () => Promise<void> | void;
+
+    /**
      * whether or not to show the 'contact support' link
      */
     showContactSupport?: boolean;
