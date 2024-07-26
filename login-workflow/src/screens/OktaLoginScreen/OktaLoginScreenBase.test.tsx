@@ -4,9 +4,7 @@ import '@testing-library/jest-dom';
 import { OktaLoginScreenBase } from './OktaLoginScreenBase';
 import { useOktaAuth } from '@okta/okta-react';
 import { Box } from '@mui/material';
-import { ErrorContextProvider } from '../../contexts/ErrorContext';
 import { OktaLoginScreenProps } from './types';
-import { errorContextProviderProps } from '../../contexts/ErrorContext/ErrorContextProvider.test';
 
 jest.mock('@okta/okta-react', () => ({
     useOktaAuth: jest.fn(),
@@ -26,12 +24,7 @@ describe('OktaLoginScreenBase', () => {
         });
     });
 
-    const renderer = (props?: OktaLoginScreenProps): RenderResult =>
-        render(
-            <ErrorContextProvider {...errorContextProviderProps}>
-                <OktaLoginScreenBase {...props} />
-            </ErrorContextProvider>
-        );
+    const renderer = (props?: OktaLoginScreenProps): RenderResult => render(<OktaLoginScreenBase {...props} />);
 
     it('renders correctly', () => {
         renderer({ header: <Box data-testid="test-header">Test Header</Box> });
@@ -39,7 +32,7 @@ describe('OktaLoginScreenBase', () => {
     });
 
     it('calls signInWithRedirect on login button click', () => {
-        renderer({ loginButtonLabel: 'Login' });
+        renderer({ loginButtonLabel: 'Login', onLogin: mockSignInWithRedirect });
         const loginButton = screen.getByText('Login');
         fireEvent.click(loginButton);
         expect(mockSignInWithRedirect).toHaveBeenCalled();

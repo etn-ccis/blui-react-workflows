@@ -1,5 +1,4 @@
 import React from 'react';
-import { useOktaAuth } from '@okta/okta-react';
 import { OktaLoginScreenProps } from './types';
 import { WorkflowCard } from '../../components/WorkflowCard';
 import { WorkflowCardBody } from '../../components/WorkflowCard/WorkflowCardBody';
@@ -7,7 +6,6 @@ import { Box, Button, Typography } from '@mui/material';
 import ErrorManager from '../../components/Error/ErrorManager';
 import { LinkStyles } from '../../styles';
 import cyberSecurityBadge from '../../assets/images/cybersecurity_certified.png';
-import { useErrorManager } from '../../contexts/ErrorContext/useErrorManager';
 import { unstable_composeClasses as composeClasses } from '@mui/base';
 import { getOktaLoginScreenUtilityClass, OktaLoginScreenClassKey } from './utilityClasses';
 
@@ -36,8 +34,6 @@ const useUtilityClasses = (ownerState: OktaLoginScreenProps): Record<OktaLoginSc
  */
 
 export const OktaLoginScreenBase: React.FC<OktaLoginScreenProps> = (props) => {
-    const { authState, oktaAuth } = useOktaAuth();
-    const { triggerError } = useErrorManager();
     const defaultClasses = useUtilityClasses(props);
 
     const {
@@ -45,6 +41,7 @@ export const OktaLoginScreenBase: React.FC<OktaLoginScreenProps> = (props) => {
         projectImage,
         errorDisplayConfig,
         loginButtonLabel,
+        onLogin,
         showContactSupport,
         showCyberSecurityBadge,
         contactSupportLabel,
@@ -54,11 +51,7 @@ export const OktaLoginScreenBase: React.FC<OktaLoginScreenProps> = (props) => {
     } = props;
 
     const handleOnLogin = async (): Promise<void> => {
-        try {
-            await oktaAuth.signInWithRedirect();
-        } catch (_error) {
-            triggerError(_error as Error);
-        }
+        if (onLogin) await onLogin();
     };
 
     const handleContactSupport = (): void => {
@@ -66,12 +59,7 @@ export const OktaLoginScreenBase: React.FC<OktaLoginScreenProps> = (props) => {
     };
 
     return (
-        <WorkflowCard
-            loading={!authState}
-            className={defaultClasses.root}
-            data-testid={defaultClasses.root}
-            {...otherProps}
-        >
+        <WorkflowCard className={defaultClasses.root} data-testid={defaultClasses.root} {...otherProps}>
             <WorkflowCardBody
                 sx={{
                     py: { xs: 4, sm: 4, md: 4 },
