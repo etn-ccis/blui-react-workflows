@@ -9,6 +9,7 @@ export type CommonTranslations = {
         CONTINUE: string;
         DONE: string;
         LOG_IN: string;
+        OKTA_LOG_IN: string;
         LOG_OUT: string;
         CLICK_BUTTON: string;
         UPDATE_REDUX: string;

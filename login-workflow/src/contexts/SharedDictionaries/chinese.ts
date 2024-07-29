@@ -12,6 +12,7 @@ const resources: CommonTranslationsFile = {
             DONE: '完成',
             CONTINUE: '继续',
             LOG_IN: '登录',
+            OKTA_LOG_IN: '使用 Okta 登录',
             LOG_OUT: '登出',
             CLICK_BUTTON: '点击按钮',
             UPDATE_REDUX: '点击按钮以更新redux中存的值',
