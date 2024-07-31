@@ -20,6 +20,43 @@ export type OktaLoginScreenProps = WorkflowCardBaseProps & {
     onLogin?: () => Promise<void> | void;
 
     /**
+     * whether or not to show the 'forgot password' link
+     */
+    showForgotPassword?: boolean;
+
+    /**
+     * The label for the 'forgot password' link
+     */
+    forgotPasswordLabel?: string;
+
+    /**
+     * The callback function that is called when the 'forgot password' link is clicked
+     * @returns void
+     */
+    onForgotPassword?: () => void;
+
+    /**
+     * whether or not to show the 'self registration' link
+     */
+    showSelfRegistration?: boolean;
+
+    /**
+     * The label for the 'self registration' link
+     */
+    selfRegisterButtonLabel?: string;
+
+    /**
+     * The instructions for the 'self registration' link
+     */
+    selfRegisterInstructions?: string;
+
+    /**
+     * The callback function that is called when the 'self registration' link is clicked
+     * @returns void
+     */
+    onSelfRegister?: () => void;
+
+    /**
      * whether or not to show the 'contact support' link
      */
     showContactSupport?: boolean;

@@ -15,7 +15,13 @@ const useUtilityClasses = (ownerState: OktaLoginScreenProps): Record<OktaLoginSc
     const slots = {
         root: ['root'],
         projectImageWrapper: ['projectImageWrapper'],
+        loginButtonWrapper: ['loginButtonWrapper'],
         loginButton: ['loginButton'],
+        forgotPasswordWrapper: ['forgotPasswordWrapper'],
+        forgotPasswordLabel: ['forgotPasswordLabel'],
+        selfRegisterWrapper: ['selfRegisterWrapper'],
+        selfRegisterInstructionLabel: ['selfRegisterInstructionLabel'],
+        selfRegisterLabel: ['selfRegisterLabel'],
         contactSupportWrapper: ['contactSupportWrapper'],
         contactSupportLabel: ['contactSupportLabel'],
         cyberSecurityBadgeWrapper: ['cyberSecurityBadgeWrapper'],
@@ -42,8 +48,15 @@ export const OktaLoginScreenBase: React.FC<OktaLoginScreenProps> = (props) => {
         errorDisplayConfig,
         loginButtonLabel,
         onLogin,
+        showForgotPassword,
+        forgotPasswordLabel,
+        onForgotPassword,
         showContactSupport,
         showCyberSecurityBadge,
+        showSelfRegistration,
+        selfRegisterButtonLabel,
+        selfRegisterInstructions,
+        onSelfRegister,
         contactSupportLabel,
         footer,
         onContactSupport,
@@ -52,6 +65,14 @@ export const OktaLoginScreenBase: React.FC<OktaLoginScreenProps> = (props) => {
 
     const handleOnLogin = async (): Promise<void> => {
         if (onLogin) await onLogin();
+    };
+
+    const handleForgotPassword = (): void => {
+        if (onForgotPassword) onForgotPassword();
+    };
+
+    const handleSelfRegister = (): void => {
+        if (onSelfRegister) onSelfRegister();
     };
 
     const handleContactSupport = (): void => {
@@ -79,25 +100,82 @@ export const OktaLoginScreenBase: React.FC<OktaLoginScreenProps> = (props) => {
                 </Box>
 
                 <ErrorManager {...errorDisplayConfig}>
-                    <Button
-                        className={defaultClasses.loginButton}
-                        data-testid={defaultClasses.loginButton}
-                        onClick={(): void => {
-                            void handleOnLogin();
-                        }}
-                        variant="contained"
-                        color="primary"
+                    <Box
                         sx={{
-                            width: '100%',
+                            my: 5,
                         }}
+                        className={defaultClasses.loginButtonWrapper}
+                        data-testid={defaultClasses.loginButtonWrapper}
                     >
-                        {loginButtonLabel || 'Sign In With Okta'}
-                    </Button>
+                        <Button
+                            className={defaultClasses.loginButton}
+                            data-testid={defaultClasses.loginButton}
+                            onClick={(): void => {
+                                void handleOnLogin();
+                            }}
+                            variant="contained"
+                            color="primary"
+                            sx={{
+                                width: '100%',
+                            }}
+                        >
+                            {loginButtonLabel || 'Sign In With Okta'}
+                        </Button>
+                    </Box>
                 </ErrorManager>
+
+                {showForgotPassword && (
+                    <Box
+                        sx={{ display: 'flex', justifyContent: 'center', textAlign: 'center' }}
+                        className={defaultClasses.forgotPasswordWrapper}
+                        data-testid={defaultClasses.forgotPasswordWrapper}
+                    >
+                        <Typography
+                            variant="body2"
+                            sx={LinkStyles}
+                            onClick={handleForgotPassword}
+                            className={defaultClasses.forgotPasswordLabel}
+                            data-testid={defaultClasses.forgotPasswordLabel}
+                        >
+                            {forgotPasswordLabel || 'Forgot your password?'}
+                        </Typography>
+                    </Box>
+                )}
+
+                {showSelfRegistration && (
+                    <Box
+                        sx={{
+                            display: 'flex',
+                            justifyContent: 'center',
+                            alignItems: 'center',
+                            flexDirection: 'column',
+                            textAlign: 'center',
+                        }}
+                        className={defaultClasses.selfRegisterWrapper}
+                        data-testid={defaultClasses.selfRegisterWrapper}
+                    >
+                        <Typography
+                            variant="body2"
+                            className={defaultClasses.selfRegisterInstructionLabel}
+                            data-testid={defaultClasses.selfRegisterInstructionLabel}
+                        >
+                            {selfRegisterInstructions || 'Need an account?'}
+                        </Typography>
+                        <Typography
+                            variant="body2"
+                            sx={LinkStyles}
+                            onClick={handleSelfRegister}
+                            className={defaultClasses.selfRegisterLabel}
+                            data-testid={defaultClasses.selfRegisterLabel}
+                        >
+                            {selfRegisterButtonLabel || 'Register now!'}
+                        </Typography>
+                    </Box>
+                )}
 
                 {showContactSupport && (
                     <Box
-                        sx={{ display: 'flex', justifyContent: 'center', marginTop: 4, textAlign: 'center' }}
+                        sx={{ display: 'flex', justifyContent: 'center', textAlign: 'center' }}
                         className={defaultClasses.contactSupportWrapper}
                         data-testid={defaultClasses.contactSupportWrapper}
                     >
@@ -107,11 +185,11 @@ export const OktaLoginScreenBase: React.FC<OktaLoginScreenProps> = (props) => {
                     </Box>
                 )}
 
-                <Box sx={{ display: 'flex', justifyContent: 'center' }}>{footer}</Box>
+                {footer && <Box sx={{ display: 'flex', justifyContent: 'center' }}>{footer}</Box>}
 
                 {showCyberSecurityBadge && (
                     <Box
-                        sx={{ display: 'flex', justifyContent: 'center', marginTop: 2 }}
+                        sx={{ display: 'flex', justifyContent: 'center' }}
                         className={defaultClasses.cyberSecurityBadgeWrapper}
                         data-testid={defaultClasses.cyberSecurityBadgeWrapper}
                     >

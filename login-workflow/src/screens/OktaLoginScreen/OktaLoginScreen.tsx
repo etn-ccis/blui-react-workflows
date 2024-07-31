@@ -31,6 +31,13 @@ export const OktaLoginScreen: React.FC<OktaLoginScreenProps> = (props) => {
     };
     const {
         loginButtonLabel = t('bluiCommon:ACTIONS.OKTA_LOG_IN'),
+        showForgotPassword = true,
+        forgotPasswordLabel = t('bluiCommon:LABELS.FORGOT_PASSWORD'),
+        onForgotPassword = (): void => navigate(routeConfig.FORGOT_PASSWORD as string),
+        showSelfRegistration = true,
+        selfRegisterInstructions = t('bluiCommon:LABELS.NEED_ACCOUNT'),
+        selfRegisterButtonLabel = t('bluiCommon:ACTIONS.CREATE_ACCOUNT'),
+        onSelfRegister = (): void => navigate(routeConfig.REGISTER_SELF as string),
         showContactSupport = true,
         contactSupportLabel = t('bluiCommon:MESSAGES.CONTACT'),
         onContactSupport = (): void => navigate(routeConfig.SUPPORT as string),
@@ -61,6 +68,13 @@ export const OktaLoginScreen: React.FC<OktaLoginScreenProps> = (props) => {
             loading={isLoading}
             loginButtonLabel={loginButtonLabel}
             onLogin={handleOnLogin}
+            showForgotPassword={showForgotPassword}
+            forgotPasswordLabel={forgotPasswordLabel}
+            onForgotPassword={onForgotPassword}
+            showSelfRegistration={showSelfRegistration}
+            selfRegisterButtonLabel={selfRegisterButtonLabel}
+            selfRegisterInstructions={selfRegisterInstructions}
+            onSelfRegister={onSelfRegister}
             showContactSupport={showContactSupport}
             contactSupportLabel={contactSupportLabel}
             onContactSupport={onContactSupport}
