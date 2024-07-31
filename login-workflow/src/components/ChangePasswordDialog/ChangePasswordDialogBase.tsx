@@ -17,6 +17,8 @@ import { PasswordTextField } from '../PasswordTextField';
 import { BasicDialog } from '../Dialog';
 import { Spinner } from '../../components';
 import { SuccessScreenBase, SuccessScreenProps } from '../../screens';
+import { unstable_composeClasses as composeClasses } from '@mui/base';
+import { ChangePasswordDialogClassKey, getChangePasswordDialogUtilityClass } from './utilityClasses';
 
 /**
  * Component that renders a dialog with textField to enter current password and a change password form with a new password and confirm password inputs.
@@ -26,7 +28,24 @@ import { SuccessScreenBase, SuccessScreenProps } from '../../screens';
  *
  * @category Component
  */
+const useUtilityClasses = (ownerState: ChangePasswordDialogProps): Record<ChangePasswordDialogClassKey, string> => {
+    const { classes } = ownerState;
 
+    const slots = {
+        root: ['root'],
+        spinner: ['spinner'],
+        basicDialog: ['basicDialog'],
+        title: ['title'],
+        content: ['content'],
+        description: ['description'],
+        divider: ['divider'],
+        previousLabelButton: ['previousLabelButton'],
+        nextLabelButton: ['nextLabelButton'],
+        buttonAction: ['buttonAction'],
+    };
+
+    return composeClasses(slots, getChangePasswordDialogUtilityClass, classes);
+};
 export const ChangePasswordDialogBase: React.FC<ChangePasswordDialogProps> = (props) => {
     const {
         open,
@@ -48,6 +67,7 @@ export const ChangePasswordDialogBase: React.FC<ChangePasswordDialogProps> = (pr
         slots,
         slotProps,
     } = props;
+    const defaultClasses = useUtilityClasses(props);
     const theme = useTheme();
     const matchesMD = useMediaQuery(theme.breakpoints.down('md'));
     const matchesSM = useMediaQuery(theme.breakpoints.down('sm'));
@@ -82,19 +102,28 @@ export const ChangePasswordDialogBase: React.FC<ChangePasswordDialogProps> = (pr
         );
 
     return (
-        <Dialog sx={sx} fullScreen={matchesSM} open={open} maxWidth={'xs'}>
-            <Spinner data-testid="blui-spinner" visible={loading} />
+        <Dialog
+            sx={sx}
+            fullScreen={matchesSM}
+            open={open}
+            maxWidth={'xs'}
+            className={defaultClasses.root}
+            data-testid={defaultClasses.root}
+        >
+            <Spinner data-testid="blui-spinner" visible={loading} className={defaultClasses.spinner} />
             {showSuccessScreen ? (
                 getSuccessScreen(slotProps?.SuccessScreen || {}, slots?.SuccessScreen)
             ) : (
                 <>
-                    <BasicDialog {...ErrorDialogProps} />
+                    <BasicDialog {...ErrorDialogProps} className={defaultClasses.basicDialog} />
                     <DialogTitle
                         sx={{
                             pt: { md: 4, sm: 2 },
                             px: { md: 3, sm: 2 },
                             pb: 0,
                         }}
+                        className={defaultClasses.title}
+                        data-testid={defaultClasses.title}
                     >
                         {dialogTitle}
                     </DialogTitle>
@@ -108,9 +137,21 @@ export const ChangePasswordDialogBase: React.FC<ChangePasswordDialogProps> = (pr
                             pb: { xs: 2, md: 3 },
                             px: { xs: 2, md: 3 },
                         }}
+                        className={defaultClasses.content}
+                        data-testid={defaultClasses.content}
                     >
-                        <Typography sx={{ px: { xs: 1, sm: 0 } }}>{dialogDescription}</Typography>
-                        <Divider sx={{ mt: 5, mb: 4, mx: { md: -3, xs: -2 } }} />
+                        <Typography
+                            sx={{ px: { xs: 1, sm: 0 } }}
+                            className={defaultClasses.description}
+                            data-testid={defaultClasses.description}
+                        >
+                            {dialogDescription}
+                        </Typography>
+                        <Divider
+                            sx={{ mt: 5, mb: 4, mx: { md: -3, xs: -2 } }}
+                            className={defaultClasses.divider}
+                            data-testid={defaultClasses.divider}
+                        />
                         <SetPassword {...PasswordProps}>
                             <PasswordTextField
                                 sx={{
@@ -140,6 +181,8 @@ export const ChangePasswordDialogBase: React.FC<ChangePasswordDialogProps> = (pr
                             justifyContent: 'flex-end',
                             p: { xs: 2, md: 3 },
                         }}
+                        className={defaultClasses.buttonAction}
+                        data-testid={defaultClasses.buttonAction}
                     >
                         <Grid
                             container
@@ -148,7 +191,14 @@ export const ChangePasswordDialogBase: React.FC<ChangePasswordDialogProps> = (pr
                             justifyContent="space-between"
                             sx={{ width: '100%' }}
                         >
-                            <Button variant="outlined" color="primary" sx={{ width: 100 }} onClick={onPrevious}>
+                            <Button
+                                variant="outlined"
+                                color="primary"
+                                sx={{ width: 100 }}
+                                onClick={onPrevious}
+                                className={defaultClasses.previousLabelButton}
+                                data-testid={defaultClasses.previousLabelButton}
+                            >
                                 {previousLabel}
                             </Button>
                             <Button
@@ -160,6 +210,8 @@ export const ChangePasswordDialogBase: React.FC<ChangePasswordDialogProps> = (pr
                                 onClick={(): void => {
                                     void onSubmit?.();
                                 }}
+                                className={defaultClasses.nextLabelButton}
+                                data-testid={defaultClasses.nextLabelButton}
                             >
                                 {nextLabel}
                             </Button>
