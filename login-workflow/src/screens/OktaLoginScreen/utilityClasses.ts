@@ -3,7 +3,13 @@ import generateUtilityClass from '@mui/material/generateUtilityClass';
 export type OktaLoginScreenClasses = {
     root?: string;
     projectImageWrapper?: string;
+    loginButtonWrapper?: string;
     loginButton?: string;
+    forgotPasswordWrapper?: string;
+    forgotPasswordLabel?: string;
+    selfRegisterWrapper?: string;
+    selfRegisterInstructionLabel?: string;
+    selfRegisterLabel?: string;
     contactSupportWrapper?: string;
     contactSupportLabel?: string;
     cyberSecurityBadgeWrapper?: string;
