@@ -1,5 +1,5 @@
 import React from 'react';
-import { render, screen, fireEvent, waitFor, act } from '@testing-library/react';
+import { render, screen, fireEvent, waitFor, act, RenderResult } from '@testing-library/react';
 import '@testing-library/jest-dom';
 import { OktaLoginScreen } from './OktaLoginScreen';
 import { useOktaAuth } from '@okta/okta-react';
@@ -39,7 +39,7 @@ describe('OktaLoginScreen', () => {
         jest.clearAllMocks();
     });
 
-    const renderer = (props?: OktaLoginScreenProps) => render(<OktaLoginScreen {...props} />);
+    const renderer = (props?: OktaLoginScreenProps): RenderResult => render(<OktaLoginScreen {...props} />);
 
     it('renders without crashing', () => {
         renderer();
