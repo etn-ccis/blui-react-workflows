@@ -32,6 +32,7 @@ export const ForgotPasswordScreenBase: React.FC<React.PropsWithChildren<ForgotPa
         showSuccessScreen,
         errorDisplayConfig,
         emailTextFieldProps,
+        ...otherProps
     } = props;
 
     const cardBaseProps = props.WorkflowCardBaseProps || {};
@@ -73,7 +74,7 @@ export const ForgotPasswordScreenBase: React.FC<React.PropsWithChildren<ForgotPa
             {showSuccessScreen ? (
                 getSuccessScreen(slotProps?.SuccessScreen || {}, slots?.SuccessScreen)
             ) : (
-                <WorkflowCard {...cardBaseProps}>
+                <WorkflowCard {...cardBaseProps} {...otherProps}>
                     <WorkflowCardHeader {...headerProps} />
                     <WorkflowCardInstructions {...instructionsProps} />
                     <WorkflowCardBody>

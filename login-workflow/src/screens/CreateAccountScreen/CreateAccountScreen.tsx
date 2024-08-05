@@ -70,6 +70,7 @@ export const CreateAccountScreen: React.FC<CreateAccountScreenProps> = (props) =
             return true;
         },
         emailTextFieldProps,
+        ...otherProps
     } = props;
 
     const workflowCardBaseProps = {
@@ -123,6 +124,7 @@ export const CreateAccountScreen: React.FC<CreateAccountScreenProps> = (props) =
             emailValidator={emailValidator}
             WorkflowCardActionsProps={workflowCardActionsProps}
             errorDisplayConfig={errorDisplayConfig}
+            {...otherProps}
         />
     );
 };
