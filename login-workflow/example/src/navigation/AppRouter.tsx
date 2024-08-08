@@ -13,12 +13,17 @@ import { useApp } from '../contexts/AppContextProvider';
 import { useNavigate } from 'react-router';
 import { ProjectAuthUIActions } from '../actions/AuthUIActions';
 import { Navigate, Outlet, Route, Routes, To } from 'react-router-dom';
-import { Login } from '../screens/Login';
 import { ProjectRegistrationUIActions } from '../actions/RegistrationUIActions';
 import { routes } from './Routing';
 import { ExampleHome } from '../screens/ExampleHome';
 import i18nAppInstance from '../translations/i18n';
 import { ChangePassword } from '../components/ChangePassword';
+import { Security } from '@okta/okta-react';
+import OktaAuth, { OktaAuthOptions, toRelativeUrl } from '@okta/okta-auth-js';
+import oktaConfig from '../oktaConfig';
+import { OktaLogin } from '../screens/OktaLogin';
+
+const oktaAuth = new OktaAuth(oktaConfig as OktaAuthOptions);
 
 export const AppRouter: React.FC = () => {
     const navigation = useNavigate();
@@ -28,100 +33,106 @@ export const AppRouter: React.FC = () => {
         navigation(destination as To);
     }, []);
 
+    const restoreOriginalUri = (_oktaAuth: any, originalUri: any): void => {
+        navigate(toRelativeUrl(originalUri || '/', window.location.origin));
+    };
+
     return (
-        <Routes>
-            {/* AUTH ROUTES */}
-            <Route
-                element={
-                    <AuthContextProvider
-                        actions={ProjectAuthUIActions(app)}
-                        language={app.language}
-                        navigate={navigate}
-                        routeConfig={routes}
-                        i18n={i18nAppInstance}
-                        rememberMeDetails={{ email: rememberMe ? email : '', rememberMe: rememberMe }}
-                    >
-                        <Outlet />
-                    </AuthContextProvider>
-                }
-            >
-                <Route
-                    path={'/login'}
-                    element={
-                        <ReactRouterGuestGuard isAuthenticated={app.isAuthenticated} fallBackUrl={'/'}>
-                            <Login />
-                        </ReactRouterGuestGuard>
-                    }
-                />
-                <Route
-                    path={'/forgot-password'}
-                    element={
-                        <ReactRouterGuestGuard isAuthenticated={app.isAuthenticated} fallBackUrl={'/'}>
-                            <ForgotPasswordScreen />
-                        </ReactRouterGuestGuard>
-                    }
-                />
-                <Route
-                    path={'/contact-support'}
-                    element={
-                        <ReactRouterGuestGuard isAuthenticated={app.isAuthenticated} fallBackUrl={'/'}>
-                            <ContactSupportScreen />
-                        </ReactRouterGuestGuard>
-                    }
-                />
-                <Route
-                    path={'/reset-password'}
-                    element={
-                        <ReactRouterGuestGuard isAuthenticated={app.isAuthenticated} fallBackUrl={'/'}>
-                            <ResetPasswordScreen />
-                        </ReactRouterGuestGuard>
-                    }
-                />
-                {/* USER APPLICATION ROUTES */}
+        <Security oktaAuth={oktaAuth} restoreOriginalUri={restoreOriginalUri}>
+            <Routes>
+                {/* AUTH ROUTES */}
                 <Route
                     element={
-                        <>
+                        <AuthContextProvider
+                            actions={ProjectAuthUIActions(app)}
+                            language={app.language}
+                            navigate={navigate}
+                            routeConfig={routes}
+                            i18n={i18nAppInstance}
+                            rememberMeDetails={{ email: rememberMe ? email : '', rememberMe: rememberMe }}
+                        >
                             <Outlet />
-                            {app.showChangePasswordDialog && <ChangePassword />}
-                        </>
+                        </AuthContextProvider>
                     }
                 >
                     <Route
-                        path={'/homepage'}
+                        path={'/login'}
+                        element={
+                            <ReactRouterGuestGuard isAuthenticated={app.isAuthenticated} fallBackUrl={'/'}>
+                                <OktaLogin />
+                            </ReactRouterGuestGuard>
+                        }
+                    />
+                    <Route
+                        path={'/forgot-password'}
+                        element={
+                            <ReactRouterGuestGuard isAuthenticated={app.isAuthenticated} fallBackUrl={'/'}>
+                                <ForgotPasswordScreen />
+                            </ReactRouterGuestGuard>
+                        }
+                    />
+                    <Route
+                        path={'/contact-support'}
+                        element={
+                            <ReactRouterGuestGuard isAuthenticated={app.isAuthenticated} fallBackUrl={'/'}>
+                                <ContactSupportScreen />
+                            </ReactRouterGuestGuard>
+                        }
+                    />
+                    <Route
+                        path={'/reset-password'}
+                        element={
+                            <ReactRouterGuestGuard isAuthenticated={app.isAuthenticated} fallBackUrl={'/'}>
+                                <ResetPasswordScreen />
+                            </ReactRouterGuestGuard>
+                        }
+                    />
+                    {/* USER APPLICATION ROUTES */}
+                    <Route
+                        element={
+                            <>
+                                <Outlet />
+                                {app.showChangePasswordDialog && <ChangePassword />}
+                            </>
+                        }
+                    >
+                        <Route
+                            path={'/homepage'}
+                            element={
+                                <ReactRouterAuthGuard isAuthenticated={app.isAuthenticated} fallBackUrl={'/login'}>
+                                    <ExampleHome />
+                                </ReactRouterAuthGuard>
+                            }
+                        />
+                        <Route path={'/'} element={<Navigate to={'/homepage'} replace />} />
+                    </Route>
+                    <Route
+                        path={'*'}
                         element={
                             <ReactRouterAuthGuard isAuthenticated={app.isAuthenticated} fallBackUrl={'/login'}>
-                                <ExampleHome />
+                                <Navigate to={'/login'} />
                             </ReactRouterAuthGuard>
                         }
                     />
-                    <Route path={'/'} element={<Navigate to={'/homepage'} replace />} />
                 </Route>
+                {/* REGISTRATION ROUTES */}
                 <Route
-                    path={'*'}
                     element={
-                        <ReactRouterAuthGuard isAuthenticated={app.isAuthenticated} fallBackUrl={'/login'}>
-                            <Navigate to={'/login'} />
-                        </ReactRouterAuthGuard>
+                        <RegistrationContextProvider
+                            language={app.language}
+                            routeConfig={routes}
+                            navigate={navigate}
+                            actions={ProjectRegistrationUIActions()}
+                            i18n={i18nAppInstance}
+                        >
+                            <Outlet />
+                        </RegistrationContextProvider>
                     }
-                />
-            </Route>
-            {/* REGISTRATION ROUTES */}
-            <Route
-                element={
-                    <RegistrationContextProvider
-                        language={app.language}
-                        routeConfig={routes}
-                        navigate={navigate}
-                        actions={ProjectRegistrationUIActions()}
-                        i18n={i18nAppInstance}
-                    >
-                        <Outlet />
-                    </RegistrationContextProvider>
-                }
-            >
-                <Route path={'/self-registration'} element={<RegistrationWorkflow />} />
-                <Route path={'/register-by-invite'} element={<RegistrationWorkflow isInviteRegistration />} />
-            </Route>
-        </Routes>
+                >
+                    <Route path={'/self-registration'} element={<RegistrationWorkflow />} />
+                    <Route path={'/register-by-invite'} element={<RegistrationWorkflow isInviteRegistration />} />
+                </Route>
+            </Routes>
+        </Security>
     );
 };
