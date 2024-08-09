@@ -9,7 +9,7 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 ### Added
 
--   Error Maneger for ChangePasswordDialog ([#612](https://github.com/etn-ccis/blui-react-workflows/issues/612))
+-   Error Manager for ChangePasswordDialog ([#612](https://github.com/etn-ccis/blui-react-workflows/issues/612))
 
 ## v4.0.3 (May 9, 2024)
 
