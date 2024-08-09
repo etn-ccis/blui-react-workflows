@@ -29,6 +29,7 @@ export const VerifyCodeScreenBase: React.FC<React.PropsWithChildren<VerifyCodeSc
         initialValue,
         errorDisplayConfig,
         verifyCodeTextFieldProps,
+        ...otherProps
     } = props;
 
     const cardBaseProps = props.WorkflowCardBaseProps || {};
@@ -72,7 +73,7 @@ export const VerifyCodeScreenBase: React.FC<React.PropsWithChildren<VerifyCodeSc
     };
 
     return (
-        <WorkflowCard {...cardBaseProps}>
+        <WorkflowCard {...cardBaseProps} {...otherProps}>
             <WorkflowCardHeader {...headerProps} />
             <WorkflowCardInstructions {...instructionsProps} />
             <WorkflowCardBody>

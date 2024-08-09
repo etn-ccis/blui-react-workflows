@@ -123,4 +123,8 @@ export type WorkflowCardProps = {
      * Props for WorkflowCardActions component
      */
     WorkflowCardActionsProps?: WorkflowCardActionsProps;
+    /**
+     * The system prop that allows defining system overrides as well as additional CSS styles.
+     */
+    sx?: BoxProps['sx']; // or SxProps<Theme>
 };

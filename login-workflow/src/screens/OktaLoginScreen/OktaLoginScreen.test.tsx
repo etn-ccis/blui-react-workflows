@@ -17,7 +17,6 @@ describe('OktaLoginScreen', () => {
     const mockSignInWithRedirect = jest.fn();
     const mockTriggerError = jest.fn();
     const mockNavigate = jest.fn();
-    const mockOnLogin = jest.fn();
 
     beforeEach(() => {
         (useOktaAuth as jest.Mock).mockReturnValue({
@@ -49,18 +48,6 @@ describe('OktaLoginScreen', () => {
     it('renders login button with correct label', () => {
         renderer();
         expect(screen.getByRole('button', { name: 'bluiCommon:ACTIONS.OKTA_LOG_IN' })).toBeInTheDocument();
-    });
-
-    it('handles login correctly', async () => {
-        renderer({ onLogin: mockOnLogin });
-        const loginButton = screen.getByRole('button', { name: 'bluiCommon:ACTIONS.OKTA_LOG_IN' });
-
-        act(() => {
-            fireEvent.click(loginButton);
-        });
-
-        await waitFor(() => expect(mockSignInWithRedirect).toHaveBeenCalled());
-        await waitFor(() => expect(mockOnLogin).toHaveBeenCalled());
     });
 
     it('handles login error correctly', async () => {

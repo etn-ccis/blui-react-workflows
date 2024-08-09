@@ -76,6 +76,7 @@ export const AccountDetailsScreen: React.FC<AccountDetailsScreenProps> = (props)
         lastNameTextFieldProps,
         initialFirstName = screenData.AccountDetails.firstName,
         initialLastName = screenData.AccountDetails.lastName,
+        ...otherProps
     } = props;
 
     const workflowCardHeaderProps = {
@@ -134,6 +135,7 @@ export const AccountDetailsScreen: React.FC<AccountDetailsScreenProps> = (props)
             lastNameValidator={lastNameValidator}
             WorkflowCardActionsProps={workflowCardActionsProps}
             errorDisplayConfig={errorDisplayConfig}
+            {...otherProps}
         />
     );
 };

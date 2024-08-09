@@ -27,7 +27,7 @@ export const ResetPasswordScreenBase: React.FC<React.PropsWithChildren<ResetPass
     const instructionsProps = props.WorkflowCardInstructionProps || {};
     const actionsProps = props.WorkflowCardActionsProps || {};
     const passwordProps = props.PasswordProps || { onPasswordChange: () => ({}) };
-    const { showSuccessScreen, slots, slotProps = {}, errorDisplayConfig } = props;
+    const { showSuccessScreen, slots, slotProps = {}, errorDisplayConfig, ...otherProps } = props;
 
     const getSuccessScreen = (
         _props?: SuccessScreenProps,
@@ -39,7 +39,7 @@ export const ResetPasswordScreenBase: React.FC<React.PropsWithChildren<ResetPass
             {showSuccessScreen ? (
                 getSuccessScreen(slotProps?.SuccessScreen, slots?.SuccessScreen)
             ) : (
-                <WorkflowCard {...cardBaseProps}>
+                <WorkflowCard {...cardBaseProps} {...otherProps}>
                     <WorkflowCardHeader {...headerProps} />
                     <WorkflowCardInstructions {...instructionsProps} divider />
                     <WorkflowCardBody>

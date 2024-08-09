@@ -72,6 +72,7 @@ export const ForgotPasswordScreen: React.FC<ForgotPasswordScreenProps> = (props)
         slots = {},
         slotProps = {},
         emailTextFieldProps,
+        ...otherProps
     } = props;
 
     const workflowCardBaseProps = {
@@ -174,6 +175,7 @@ export const ForgotPasswordScreen: React.FC<ForgotPasswordScreenProps> = (props)
                 },
             }}
             errorDisplayConfig={errorDisplayConfig}
+            {...otherProps}
         />
     );
 };
