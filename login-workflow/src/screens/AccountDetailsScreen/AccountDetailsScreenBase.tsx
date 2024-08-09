@@ -30,6 +30,7 @@ export const AccountDetailsScreenBase: React.FC<AccountDetailsScreenProps> = (pr
         lastNameValidator = (): void => {},
         lastNameTextFieldProps,
         errorDisplayConfig,
+        ...otherProps
     } = props;
 
     const cardBaseProps = props.WorkflowCardBaseProps || {};
@@ -87,7 +88,7 @@ export const AccountDetailsScreenBase: React.FC<AccountDetailsScreenProps> = (pr
     }, []);
 
     return (
-        <WorkflowCard {...cardBaseProps}>
+        <WorkflowCard {...cardBaseProps} {...otherProps}>
             <WorkflowCardHeader {...headerProps} />
             <WorkflowCardInstructions {...instructionsProps} />
             <WorkflowCardBody>

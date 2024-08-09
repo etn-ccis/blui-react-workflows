@@ -43,8 +43,7 @@ describe('Reset Password Screen', () => {
     });
 
     it('should show success screen, when okay button is clicked', async () => {
-        const { getByLabelText } = renderer({
-            showSuccessScreen: true,
+        const { getByLabelText, getByTestId } = renderer({
             PasswordProps: {
                 newPasswordLabel: 'New Password',
                 confirmPasswordLabel: 'Confirm New Password',
@@ -63,6 +62,32 @@ describe('Reset Password Screen', () => {
         fireEvent.change(confirmPasswordInput, { target: { value: 'Abc@1234' } });
         fireEvent.click(screen.getByText('Next'));
         await waitFor(() => expect(screen.getByText('Your password was successfully reset.')));
+        const doneButton = getByTestId('BluiWorkflowCardActions-nextButton');
+        fireEvent.click(doneButton);
+    });
+
+    it('should call handleNext callback function', () => {
+        const { getByLabelText } = renderer({
+            showSuccessScreen: false,
+            PasswordProps: {
+                newPasswordLabel: 'New Password',
+                confirmPasswordLabel: 'Confirm New Password',
+                onPasswordChange: jest.fn(),
+                passwordRequirements: [],
+            },
+            WorkflowCardActionsProps: {
+                canGoNext: true,
+                nextLabel: 'Next',
+                onNext: mockOnNext(),
+            },
+        });
+
+        const newPasswordInput = getByLabelText('New Password');
+        const confirmPasswordInput = getByLabelText('Confirm New Password');
+        fireEvent.change(newPasswordInput, { target: { value: 'Abc@1234' } });
+        fireEvent.change(confirmPasswordInput, { target: { value: 'Abc@1234' } });
+        fireEvent.click(screen.getByText('Next'));
+        expect(mockOnNext).toHaveBeenCalled();
     });
 
     it('should show loader, when loading prop is passed to WorkflowCardBaseProps', async () => {

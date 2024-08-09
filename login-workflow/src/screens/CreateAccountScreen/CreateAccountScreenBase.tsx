@@ -28,6 +28,7 @@ export const CreateAccountScreenBase: React.FC<
         emailTextFieldProps,
         inputRef,
         errorDisplayConfig,
+        ...otherProps
     } = props;
 
     const cardBaseProps = props.WorkflowCardBaseProps || {};
@@ -59,7 +60,7 @@ export const CreateAccountScreenBase: React.FC<
     }, []);
 
     return (
-        <WorkflowCard {...cardBaseProps}>
+        <WorkflowCard {...cardBaseProps} {...otherProps}>
             <WorkflowCardHeader {...headerProps} />
             <WorkflowCardInstructions {...instructionsProps} />
             <WorkflowCardBody>

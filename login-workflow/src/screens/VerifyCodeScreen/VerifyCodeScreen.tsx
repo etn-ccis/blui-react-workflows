@@ -55,6 +55,7 @@ export const VerifyCodeScreen: React.FC<VerifyCodeScreenProps> = (props) => {
         verifyCodeInputLabel = t('bluiRegistration:SELF_REGISTRATION.VERIFY_EMAIL.VERIFICATION'),
         initialValue = screenData.VerifyCode.code,
         verifyCodeTextFieldProps,
+        ...otherProps
     } = props;
 
     const handleOnNext = useCallback(
@@ -153,6 +154,7 @@ export const VerifyCodeScreen: React.FC<VerifyCodeScreenProps> = (props) => {
             codeValidator={codeValidator}
             errorDisplayConfig={errorDisplayConfig}
             verifyCodeTextFieldProps={verifyCodeTextFieldProps}
+            {...otherProps}
         />
     );
 };

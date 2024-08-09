@@ -45,6 +45,7 @@ export const OktaLoginScreen: React.FC<OktaLoginScreenProps> = (props) => {
         projectImage,
         header,
         footer,
+        ...otherProps
     } = props;
 
     useEffect(() => {
@@ -83,6 +84,7 @@ export const OktaLoginScreen: React.FC<OktaLoginScreenProps> = (props) => {
             projectImage={projectImage}
             header={header}
             footer={footer}
+            {...otherProps}
         />
     );
 };

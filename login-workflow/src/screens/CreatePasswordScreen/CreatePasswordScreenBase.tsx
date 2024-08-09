@@ -24,10 +24,10 @@ export const CreatePasswordScreenBase: React.FC<React.PropsWithChildren<CreatePa
     const instructionsProps = props.WorkflowCardInstructionProps || {};
     const actionsProps = props.WorkflowCardActionsProps || {};
     const passwordProps = props.PasswordProps || { onPasswordChange: () => ({}) };
-    const { errorDisplayConfig } = props;
+    const { errorDisplayConfig, ...otherProps } = props;
 
     return (
-        <WorkflowCard {...cardBaseProps}>
+        <WorkflowCard {...cardBaseProps} {...otherProps}>
             <WorkflowCardHeader {...headerProps} />
             <WorkflowCardInstructions {...instructionsProps} />
             <WorkflowCardBody>

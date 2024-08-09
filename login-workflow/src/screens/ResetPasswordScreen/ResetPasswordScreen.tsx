@@ -40,6 +40,7 @@ export const ResetPasswordScreen: React.FC<ResetPasswordScreenProps> = (props) =
         PasswordProps,
         slots = {},
         slotProps = {},
+        ...otherProps
     } = props;
 
     const [passwordInput, setPasswordInput] = useState(PasswordProps?.initialNewPasswordValue ?? '');
@@ -199,6 +200,7 @@ export const ResetPasswordScreen: React.FC<ResetPasswordScreenProps> = (props) =
                       }
                     : errorDisplayConfig.onClose,
             }}
+            {...otherProps}
         />
     );
 };
