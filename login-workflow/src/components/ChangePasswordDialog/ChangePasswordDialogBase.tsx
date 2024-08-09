@@ -19,6 +19,7 @@ import { Spinner } from '../../components';
 import { SuccessScreenBase, SuccessScreenProps } from '../../screens';
 import { unstable_composeClasses as composeClasses } from '@mui/base';
 import { ChangePasswordDialogClassKey, getChangePasswordDialogUtilityClass } from './utilityClasses';
+import ErrorManager from '../Error/ErrorManager';
 
 /**
  * Component that renders a dialog with textField to enter current password and a change password form with a new password and confirm password inputs.
@@ -66,6 +67,7 @@ export const ChangePasswordDialogBase: React.FC<ChangePasswordDialogProps> = (pr
         showSuccessScreen,
         slots,
         slotProps,
+        errorDisplayConfig,
     } = props;
     const defaultClasses = useUtilityClasses(props);
     const theme = useTheme();
@@ -140,40 +142,42 @@ export const ChangePasswordDialogBase: React.FC<ChangePasswordDialogProps> = (pr
                         className={defaultClasses.content}
                         data-testid={defaultClasses.content}
                     >
-                        <Typography
-                            sx={{ px: { xs: 1, sm: 0 } }}
-                            className={defaultClasses.description}
-                            data-testid={defaultClasses.description}
-                        >
-                            {dialogDescription}
-                        </Typography>
-                        <Divider
-                            sx={{ mt: 5, mb: 4, mx: { md: -3, xs: -2 } }}
-                            className={defaultClasses.divider}
-                            data-testid={defaultClasses.divider}
-                        />
-                        <SetPassword {...PasswordProps}>
-                            <PasswordTextField
-                                sx={{
-                                    mb: { xs: 3, md: 4 },
-                                }}
-                                id="current-password"
-                                label={currentPasswordLabel}
-                                value={currentPassword}
-                                {...currentPasswordTextFieldProps}
-                                onChange={(e): void => {
-                                    // eslint-disable-next-line no-unused-expressions
-                                    currentPasswordTextFieldProps?.onChange &&
-                                        currentPasswordTextFieldProps.onChange(e);
-                                    handleChange(e);
-                                }}
-                                onKeyUp={(e): void => {
-                                    if (e.key === 'Enter' && PasswordProps?.passwordRef?.current) {
-                                        PasswordProps?.passwordRef.current.focus();
-                                    }
-                                }}
+                        <ErrorManager {...errorDisplayConfig}>
+                            <Typography
+                                sx={{ px: { xs: 1, sm: 0 } }}
+                                className={defaultClasses.description}
+                                data-testid={defaultClasses.description}
+                            >
+                                {dialogDescription}
+                            </Typography>
+                            <Divider
+                                sx={{ mt: 5, mb: 4, mx: { md: -3, xs: -2 } }}
+                                className={defaultClasses.divider}
+                                data-testid={defaultClasses.divider}
                             />
-                        </SetPassword>
+                            <SetPassword {...PasswordProps}>
+                                <PasswordTextField
+                                    sx={{
+                                        mb: { xs: 3, md: 4 },
+                                    }}
+                                    id="current-password"
+                                    label={currentPasswordLabel}
+                                    value={currentPassword}
+                                    {...currentPasswordTextFieldProps}
+                                    onChange={(e): void => {
+                                        // eslint-disable-next-line no-unused-expressions
+                                        currentPasswordTextFieldProps?.onChange &&
+                                            currentPasswordTextFieldProps.onChange(e);
+                                        handleChange(e);
+                                    }}
+                                    onKeyUp={(e): void => {
+                                        if (e.key === 'Enter' && PasswordProps?.passwordRef?.current) {
+                                            PasswordProps?.passwordRef.current.focus();
+                                        }
+                                    }}
+                                />
+                            </SetPassword>
+                        </ErrorManager>
                     </DialogContent>
                     <Divider />
                     <DialogActions
