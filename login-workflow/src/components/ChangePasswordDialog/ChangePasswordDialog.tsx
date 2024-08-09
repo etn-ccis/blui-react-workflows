@@ -91,7 +91,7 @@ export const ChangePasswordDialog: React.FC<ChangePasswordDialogProps> = (props)
                 setShowSuccessScreen(true);
             } catch (_error) {
                 setHasVerifyCodeError(true);
-                // setShowErrorDialog(true);
+                setShowErrorDialog(true);
                 triggerError(_error as Error);
             } finally {
                 setIsLoading(false);
@@ -106,6 +106,7 @@ export const ChangePasswordDialog: React.FC<ChangePasswordDialogProps> = (props)
         onFinish,
         props.showSuccessScreen,
         triggerError,
+        setShowErrorDialog,
     ]);
 
     const passwordProps = {
