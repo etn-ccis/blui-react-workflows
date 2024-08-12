@@ -1,4 +1,4 @@
-# Test React Auth Workflow
+# React Auth Workflow
 
 [![Build](https://github.com/etn-ccis/blui-react-workflows/actions/workflows/blui-ci.yml/badge.svg?branch=master)](https://github.com/etn-ccis/blui-react-workflows/actions/workflows/blui-ci.yml) ![npm (scoped)](https://img.shields.io/npm/v/@brightlayer-ui/react-auth-workflow) [![codecov](https://codecov.io/gh/etn-ccis/blui-react-workflows/branch/master/graph/badge.svg?token=H18T75WBFS)](https://codecov.io/gh/etn-ccis/blui-react-workflows)
 
