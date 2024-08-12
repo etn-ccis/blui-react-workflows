@@ -31,7 +31,6 @@ export const ChangePasswordDialog: React.FC<ChangePasswordDialogProps> = (props)
         onPrevious,
         onFinish,
         PasswordProps,
-        ErrorDialogProps,
         loading,
         currentPasswordTextFieldProps,
         slots = {},
@@ -41,7 +40,6 @@ export const ChangePasswordDialog: React.FC<ChangePasswordDialogProps> = (props)
     const [currentInput, setCurrentInput] = useState('');
     const [passwordInput, setPasswordInput] = useState('');
     const [confirmInput, setConfirmInput] = useState('');
-    const [showErrorDialog, setShowErrorDialog] = useState(false);
     const [isLoading, setIsLoading] = useState(loading);
     const [showSuccessScreen, setShowSuccessScreen] = useState(false);
     const { actions, navigate, routeConfig } = useAuthContext();
@@ -91,7 +89,6 @@ export const ChangePasswordDialog: React.FC<ChangePasswordDialogProps> = (props)
                 setShowSuccessScreen(true);
             } catch (_error) {
                 setHasVerifyCodeError(true);
-                setShowErrorDialog(true);
                 triggerError(_error as Error);
             } finally {
                 setIsLoading(false);
@@ -106,7 +103,6 @@ export const ChangePasswordDialog: React.FC<ChangePasswordDialogProps> = (props)
         onFinish,
         props.showSuccessScreen,
         triggerError,
-        setShowErrorDialog,
     ]);
 
     const passwordProps = {
@@ -129,15 +125,6 @@ export const ChangePasswordDialog: React.FC<ChangePasswordDialogProps> = (props)
         },
     };
 
-    const errorDialogProps = {
-        open: showErrorDialog,
-        title: t('bluiCommon:MESSAGES.ERROR'),
-        body: t('bluiAuth:CHANGE_PASSWORD.PROBLEM_OCCURRED'),
-        dismissButtonText: t('bluiCommon:ACTIONS.OKAY'),
-        ...ErrorDialogProps,
-        onClose: (): void => setShowErrorDialog(false),
-    };
-
     return (
         <ChangePasswordDialogBase
             open={open}
@@ -154,7 +141,6 @@ export const ChangePasswordDialog: React.FC<ChangePasswordDialogProps> = (props)
             enableButton={checkPasswords}
             onPrevious={onPrevious}
             PasswordProps={passwordProps}
-            ErrorDialogProps={errorDialogProps}
             currentPasswordTextFieldProps={currentPasswordTextFieldProps}
             onSubmit={async (): Promise<void> => {
                 await changePasswordSubmit();

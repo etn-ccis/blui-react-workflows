@@ -3,7 +3,6 @@ import generateUtilityClass from '@mui/material/generateUtilityClass';
 export type ChangePasswordDialogClasses = {
     root?: string;
     spinner?: string;
-    basicDialog?: string;
     title?: string;
     content?: string;
     description?: string;
