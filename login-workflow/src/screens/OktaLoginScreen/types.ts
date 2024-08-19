@@ -1,13 +1,7 @@
 import { WorkflowCardBaseProps } from '../../components/WorkflowCard/WorkflowCard.types';
 import { ErrorManagerProps } from '../../components/Error/types';
-import { OktaAuthOptions } from '@okta/okta-auth-js';
 
 export type OktaLoginScreenProps = WorkflowCardBaseProps & {
-    /**
-     * Options for configuring the Okta Auth SDK.
-     */
-    oktaAuthOptions?: OktaAuthOptions;
-
     /**
      * The label for the username field
      */
