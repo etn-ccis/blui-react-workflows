@@ -1,6 +1,5 @@
 import { DialogProps, TextFieldProps } from '@mui/material';
 import { SuccessScreenProps } from '../../screens';
-import { BasicDialogProps } from '../Dialog';
 import { SetPasswordProps } from '../SetPassword';
 import { ErrorManagerProps } from '../Error/types';
 
@@ -25,8 +24,6 @@ export type ChangePasswordDialogSlotsProps = {
 };
 
 export type ChangePasswordDialogProps = DialogProps & { PasswordProps?: SetPasswordProps } & {
-    ErrorDialogProps?: BasicDialogProps;
-} & {
     /**
      * The title to display in the dialog
      */

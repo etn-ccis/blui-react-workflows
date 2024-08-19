@@ -14,7 +14,6 @@ import {
 import { ChangePasswordDialogProps } from './types';
 import { SetPassword } from '../SetPassword';
 import { PasswordTextField } from '../PasswordTextField';
-import { BasicDialog } from '../Dialog';
 import { Spinner } from '../../components';
 import { SuccessScreenBase, SuccessScreenProps } from '../../screens';
 import { unstable_composeClasses as composeClasses } from '@mui/base';
@@ -35,7 +34,6 @@ const useUtilityClasses = (ownerState: ChangePasswordDialogProps): Record<Change
     const slots = {
         root: ['root'],
         spinner: ['spinner'],
-        basicDialog: ['basicDialog'],
         title: ['title'],
         content: ['content'],
         description: ['description'],
@@ -60,7 +58,6 @@ export const ChangePasswordDialogBase: React.FC<ChangePasswordDialogProps> = (pr
         currentPasswordChange,
         onSubmit,
         onPrevious,
-        ErrorDialogProps,
         PasswordProps,
         loading,
         currentPasswordTextFieldProps,
@@ -117,7 +114,6 @@ export const ChangePasswordDialogBase: React.FC<ChangePasswordDialogProps> = (pr
                 getSuccessScreen(slotProps?.SuccessScreen || {}, slots?.SuccessScreen)
             ) : (
                 <>
-                    <BasicDialog {...ErrorDialogProps} className={defaultClasses.basicDialog} />
                     <DialogTitle
                         sx={{
                             pt: { md: 4, sm: 2 },
