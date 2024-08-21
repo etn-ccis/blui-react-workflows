@@ -2,6 +2,18 @@ This project is a sample that demonstrates how to use [@brightlayer-ui/react-aut
 
 It was bootstrapped with [Create React App](https://github.com/facebook/create-react-app).
 
+This project now includes an Okta login screen for authentication. To use the Okta login screen, you need to configure your Okta application and update the environment variables in your project.
+
+## Okta Configuration
+
+1. Create an application in Okta.
+2. Update the `.env` file in your project directory with the following variables:
+    ```
+    REACT_APP_OKTA_CLIENT_ID=<your-okta-client-id>
+    REACT_APP_OKTA_ISSUER=<your-okta-issuer-url>
+    ```
+**Note: The Okta login screen will be automatically presented to the user if they are not authenticated. The user can log in using their Okta credentials. Once authenticated, they will be redirected to the Home screen.**
+
 ## Available Scripts
 
 In the project directory, you can run:
