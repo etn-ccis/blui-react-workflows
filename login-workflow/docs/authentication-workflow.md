@@ -120,7 +120,7 @@ For a detailed explanation of setting up routes, see the [Routing](./routing.md)
 
 ### Auth Context Provider API
 
-### AuthContextProviderProps
+#### AuthContextProviderProps
 
 | Prop Name | Type | Description | Default |
 |---|---|---|---|
