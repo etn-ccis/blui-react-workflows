@@ -1,9 +1,7 @@
 import { useContext } from 'react';
 import { OktaAuthContext } from './context';
-import i18nOktaAuthInstance from './i18nOktaAuthInstance';
 import { OktaAuthContextProvider } from './provider';
 import { OktaAuthContextProviderProps } from './types';
-import { OktaAuthDictionaries } from './OktaAuthDictionaries';
 
 /**
  * Hook to get top level data in okta authentication workflow
@@ -22,4 +20,4 @@ export const useOktaAuthContext = (): OktaAuthContextProviderProps => {
 
 export type { OktaAuthContextProviderProps };
 
-export { OktaAuthContext, OktaAuthContextProvider, i18nOktaAuthInstance, OktaAuthDictionaries };
+export { OktaAuthContext, OktaAuthContextProvider };

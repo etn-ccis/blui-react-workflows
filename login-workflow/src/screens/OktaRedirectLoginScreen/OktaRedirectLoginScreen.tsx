@@ -30,7 +30,7 @@ export const OktaRedirectLoginScreen: React.FC<OktaRedirectLoginScreenProps> = (
         },
     };
     const {
-        loginButtonLabel = t('bluiOktaAuth:ACTIONS.OKTA_LOG_IN'),
+        loginButtonLabel = t('bluiCommon:ACTIONS.OKTA_LOG_IN'),
         showForgotPassword = true,
         forgotPasswordLabel = t('bluiCommon:LABELS.FORGOT_PASSWORD'),
         onForgotPassword = (): void => navigate(routeConfig.FORGOT_PASSWORD as string),

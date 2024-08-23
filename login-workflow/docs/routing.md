@@ -62,48 +62,19 @@ export const AppRouter: React.FC = () => {
         <Security oktaAuth={oktaAuth} restoreOriginalUri={restoreOriginalUri}>
             <Routes>
                 <Route
+                    path={routes.LOGIN}
                     element={
-                        <OktaAuthContextProvider
-                            language={'en'}
-                            navigate={navigate}
-                            routeConfig={routes}
-                        >
-                            <Outlet />
-                        </OktaAuthContextProvider>
-                    }
-                >
-                    <Route
-                        path={routes.LOGIN}
-                        element={
-                            <ReactRouterGuestGuard isAuthenticated={appState.isAuthenticated} fallBackUrl={'/'}>
+                        <ReactRouterGuestGuard isAuthenticated={appState.isAuthenticated} fallBackUrl={'/'}>
+                            <OktaAuthContextProvider
+                                language={'en'}
+                                navigate={navigate}
+                                routeConfig={routes}
+                            >
                                 <OktaRedirectLoginScreen />
-                            </ReactRouterGuestGuard>
-                        }
-                    />
-                    <Route
-                        path={routes.FORGOT_PASSWORD}
-                        element={
-                            <ReactRouterGuestGuard isAuthenticated={app.isAuthenticated} fallBackUrl={'/'}>
-                                <ForgotPasswordScreen />
-                            </ReactRouterGuestGuard>
-                        }
-                    />
-                    <Route
-                        path={routes.RESET_PASSWORD}
-                        element={
-                            <ReactRouterGuestGuard isAuthenticated={app.isAuthenticated} fallBackUrl={'/'}>
-                                <ResetPasswordScreen />
-                            </ReactRouterGuestGuard>
-                        }
-                    />
-                    <Route
-                        path={routes.SUPPORT}
-                        element={
-                            // No GuestGuard means this screen can be accessed by any user regardless of whether or not they are logged in
-                            <ContactSupportScreen />
-                        }
-                    />
-                </Route>
+                            </OktaAuthContextProvider>
+                        </ReactRouterGuestGuard>
+                    }
+                />
             </Routes>
         </Security>
     );

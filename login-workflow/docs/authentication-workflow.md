@@ -17,7 +17,7 @@ You must supply the `OktaAuthContextProvider` with the following props / data:
 -   `navigate`: a function that can be called to navigate to a new route
 -   `routeConfig`: an object describing the URLs you are using for the relevant routes so the workflow can correctly navigate between screens
 
-More information about the required and optional props can found in the [API](#okta-auth-context-provider) section.
+More information about the required and optional props can found in the [API](#okta-auth-context-provider-api) section.
 
 ### Example
 
@@ -27,7 +27,6 @@ Each feature/screen from the Okta Auth Workflow that you wish to use should be r
 
 ```tsx
 <Routes>
-    {/* Wrap all routes in a single shared OktaAuthContextProvider */}
     <Route
         element={
             <OktaAuthContextProvider
@@ -35,17 +34,10 @@ Each feature/screen from the Okta Auth Workflow that you wish to use should be r
                 navigate={navigate}
                 routeConfig={{}}
             >
-                <Outlet />
+                <OktaRedirectLogin />
             </OktaAuthContextProvider>
         }
-    >
-        {/* Routes for each workflow screen you want to include */}
-        <Route/>
-        <Route/>
-        <Route/>
-        <Route/>
-    </Route>
-    ...
+    />
 </Routes>
 ```
 
