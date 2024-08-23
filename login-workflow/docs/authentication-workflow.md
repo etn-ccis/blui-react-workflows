@@ -6,7 +6,7 @@ This guide covers two approaches for implementing login/authentication workflows
 
 
 ## Okta Approach
-The Okta approach leverages Okta's identity and access management services to handle user authentication. This workflow includes screens related to user authentication such as Okta Redirect Login, Forgot Password, Reset Password, etc. By integrating with Okta, you can offload the complexities of authentication and focus on building your application.
+The Okta approach leverages Okta's identity and access management services to handle user authentication, including login and password management. By integrating with Okta, you can offload the complexities of authentication and focus on building your application.
 
 ### OktaAuthContextProvider
 
