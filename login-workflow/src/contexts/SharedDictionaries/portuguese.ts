@@ -12,7 +12,6 @@ const resources: CommonTranslationsFile = {
             CONTINUE: 'Continuar',
             DONE: 'Concluir',
             LOG_IN: 'Iniciar Sessão',
-            OKTA_LOG_IN: 'Iniciar Sessão com Okta',
             LOG_OUT: 'Terminar Sessão',
             CLICK_BUTTON: 'Clique no botão',
             UPDATE_REDUX: 'Clique no botão para atualizar o valor de armazenamento redux!',

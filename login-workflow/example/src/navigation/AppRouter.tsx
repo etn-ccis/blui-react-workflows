@@ -1,6 +1,7 @@
 import React, { useCallback } from 'react';
 import {
     AuthContextProvider,
+    OktaAuthContextProvider,
     ContactSupportScreen,
     ReactRouterAuthGuard,
     ReactRouterGuestGuard,
@@ -59,7 +60,14 @@ export const AppRouter: React.FC = () => {
                         path={'/login'}
                         element={
                             <ReactRouterGuestGuard isAuthenticated={app.isAuthenticated} fallBackUrl={'/'}>
-                                <OktaLogin />
+                                <OktaAuthContextProvider
+                                    language={app.language}
+                                    navigate={navigate}
+                                    routeConfig={routes}
+                                    i18n={i18nAppInstance}
+                                >
+                                    <OktaLogin />
+                                </OktaAuthContextProvider>
                             </ReactRouterGuestGuard>
                         }
                     />

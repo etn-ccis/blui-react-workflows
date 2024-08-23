@@ -10,6 +10,108 @@ You will also want to set up Auth/Guest Guard wrappers to control which users ca
 
 ### Authentication
 
+The **Authentication** workflow screens are rendered individually on separate routes (e.g., the Okta Redirect Login screen is on '/login' and the support screen is on '/support'). This means you can deep-link to any of these screens directly if you have them configured.
+
+You have to add a `Security` component as a wrapper to the `Routes` from [@okta/okta-react](https://www.npmjs.com/package/@okta/okta-react) package. This component initializes the Okta authentication context and provides methods to interact with Okta.
+
+For more information on the `OktaAuthContextProvider` , refer to the [Authentication Workflow](./authentication-workflow.md) Guide.
+
+#### Example Setup
+
+```tsx
+import React from 'react';
+import {
+    AuthContextProvider,
+    ContactSupportScreen,
+    ForgotPasswordScreen,
+    ResetPasswordScreen,
+    OktaLoginScreen,
+    ReactRouterGuestGuard,
+    ContactSupportScreen,
+} from '@brightlayer-ui/react-auth-workflow';
+import { useNavigate } from 'react-router';
+import { ProjectAuthUIActions } from '../actions/AuthUIActions';
+import { Outlet, Route, Routes } from 'react-router-dom';
+import { Security } from '@okta/okta-react';
+import OktaAuth, { OktaAuthOptions, toRelativeUrl } from '@okta/okta-auth-js';
+import oktaConfig from '../oktaConfig';
+import { OktaLogin } from '../screens/OktaLogin';
+
+export const routes: RouteConfig = {
+    LOGIN: '/login',
+    REGISTER_INVITE: '/register-by-invite?code=8k27jshInvite234Code&email=example@example.com',
+    REGISTER_SELF: '/self-registration',
+    FORGOT_PASSWORD: '/forgot-password',
+    RESET_PASSWORD: '/reset-password',
+    SUPPORT: '/support',
+};
+
+const oktaAuth = new OktaAuth(oktaConfig as OktaAuthOptions);
+
+export const AppRouter: React.FC = () => {
+    const navigation = useNavigate();
+    const navigate = useCallback((destination: -1 | string) => {
+        navigation(destination as To);
+    }, []);
+    
+    const restoreOriginalUri = (_oktaAuth: any, originalUri: any): void => {
+        navigate(toRelativeUrl(originalUri || '/', window.location.origin));
+    };
+
+    return (
+        <Security oktaAuth={oktaAuth} restoreOriginalUri={restoreOriginalUri}>
+            <Routes>
+                <Route
+                    element={
+                        <OktaAuthContextProvider
+                            language={'en'}
+                            navigate={navigate}
+                            routeConfig={routes}
+                        >
+                            <Outlet />
+                        </OktaAuthContextProvider>
+                    }
+                >
+                    <Route
+                        path={routes.LOGIN}
+                        element={
+                            <ReactRouterGuestGuard isAuthenticated={appState.isAuthenticated} fallBackUrl={'/'}>
+                                <OktaLoginScreen />
+                            </ReactRouterGuestGuard>
+                        }
+                    />
+                    <Route
+                        path={routes.FORGOT_PASSWORD}
+                        element={
+                            <ReactRouterGuestGuard isAuthenticated={app.isAuthenticated} fallBackUrl={'/'}>
+                                <ForgotPasswordScreen />
+                            </ReactRouterGuestGuard>
+                        }
+                    />
+                    <Route
+                        path={routes.RESET_PASSWORD}
+                        element={
+                            <ReactRouterGuestGuard isAuthenticated={app.isAuthenticated} fallBackUrl={'/'}>
+                                <ResetPasswordScreen />
+                            </ReactRouterGuestGuard>
+                        }
+                    />
+                    <Route
+                        path={routes.SUPPORT}
+                        element={
+                            // No GuestGuard means this screen can be accessed by any user regardless of whether or not they are logged in
+                            <ContactSupportScreen />
+                        }
+                    />
+                </Route>
+            </Routes>
+        </Security>
+    );
+};
+```
+
+### Authentication for Custom Login
+
 The **Authentication** workflow screens are rendered individually on separate routes (e.g., the Login screen is on '/login' and the support screen is on '/support'). This means you can deep-link to any of these screens directly if you have them configured.
 
 For more information on the `AuthContextProvider` , refer to the [Authentication Workflow](./authentication-workflow.md) Guide.
@@ -23,7 +125,7 @@ import {
     ContactSupportScreen,
     ForgotPasswordScreen,
     ResetPasswordScreen,
-    OktaLoginScreen,
+    LoginScreen,
     ReactRouterGuestGuard,
     ContactSupportScreen,
 } from '@brightlayer-ui/react-auth-workflow';
@@ -69,7 +171,7 @@ export const AppRouter: React.FC = () => {
                     path={routes.LOGIN}
                     element={
                         <ReactRouterGuestGuard isAuthenticated={appState.isAuthenticated} fallBackUrl={'/'}>
-                            <OktaLoginScreen />
+                            <LoginScreen />
                         </ReactRouterGuestGuard>
                     }
                 />

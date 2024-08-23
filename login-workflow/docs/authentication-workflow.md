@@ -2,8 +2,73 @@
 
 The authentication workflow includes screens related to user authentication including Login, Forgot Password, Reset Password, etc.
 
+This guide covers two approaches for implementing login/authentication workflows: Okta and Custom Login.
 
-## AuthContextProvider
+
+## Okta Approach
+The Okta approach leverages Okta's identity and access management services to handle user authentication. This workflow includes screens related to user authentication such as Okta Redirect Login, Forgot Password, Reset Password, etc. By integrating with Okta, you can offload the complexities of authentication and focus on building your application.
+
+### OktaAuthContextProvider
+
+The screens in this workflow access shared data / configuration / API definitions through an `OktaAuthContextProvider` which should wrap all of the relevant routes / screens.
+
+You must supply the `OktaAuthContextProvider` with the following props / data:
+-   `language`: configures the language displayed on the screens
+-   `navigate`: a function that can be called to navigate to a new route
+-   `routeConfig`: an object describing the URLs you are using for the relevant routes so the workflow can correctly navigate between screens
+
+More information about the required and optional props can found in the [API](#okta-auth-context-provider) section.
+
+### Example
+
+Here is an example of how you would set up the Okta Redirect Login workflow using our recommended routing solution ([React Router](https://reactrouter.com/)).
+
+Each feature/screen from the Okta Auth Workflow that you wish to use should be rendered on a separate route.
+
+```tsx
+<Routes>
+    {/* Wrap all routes in a single shared OktaAuthContextProvider */}
+    <Route
+        element={
+            <OktaAuthContextProvider
+                language={'en'}
+                navigate={navigate}
+                routeConfig={{}}
+            >
+                <Outlet />
+            </OktaAuthContextProvider>
+        }
+    >
+        {/* Routes for each workflow screen you want to include */}
+        <Route/>
+        <Route/>
+        <Route/>
+        <Route/>
+    </Route>
+    ...
+</Routes>
+```
+
+For a detailed explanation of setting up routes, see the [Routing](./routing.md) guide.
+
+### Okta Auth Context Provider API
+
+### OktaAuthContextProviderProps
+
+| Prop Name | Type | Description | Default |
+|---|---|---|---|
+| language* | `string` | The language code specifying which language to use for the UI | `'en'` |
+| navigate* | `(url: string) => void` | A function that is used to navigate to a new URL. This is used to navigate to the various screens of the authentication workflow. |  |
+| routeConfig* | `RouteConfig` | An object that defines the various routes for the authentication workflow. See [RouteConfig](#routeconfig) for more information. |  |
+| i18n | `i18n` | An optional i18n object that is used to translate the UI. This is only needed if you want to use custom translation keys / languages inside any of the workflow screens |  |
+| errorConfig | `ErrorContextProviderProps` | An object that is used to configure error handling within the workflow. See [Error Management](./error-management.md) for more information. |  |
+
+
+## Custom Login Approach
+
+The Custom Login approach allows you to implement your own authentication logic. This workflow includes screens related to user authentication such as Login, Forgot Password, Reset Password, etc. By implementing your own authentication logic, you have full control over the authentication process and can customize it to meet your application's needs.
+
+### AuthContextProvider
 
 The screens in this workflow access shared data / configuration / API definitions through an `AuthContextProvider` which should wrap all of the relevant routes / screens.
 
@@ -15,7 +80,7 @@ You must supply the `AuthContextProvider` with the following props / data:
 
 More information about the required and optional props can found in the [API](#api) section.
 
-## Implement AuthUIActions
+### Implement AuthUIActions
 
 Because this workflow package is back-end agnostic, you must provide an implementation for what happens when the user triggers certain behaviors in the UI.
 
@@ -27,7 +92,7 @@ The example project includes a skeleton implementation of all required functions
 2. You might also want to copy over the `example/src/store` and `example/src/constants` folders, which provide a very basic mechanism for storing important data using LocalStorage
     -   You will want to switch this out for a more secure approach before going to production with your application.
 
-## Example
+### Example
 
 Here is an example of how you would set up the Login workflow using our recommended routing solution ([React Router](https://reactrouter.com/)).
 
@@ -61,7 +126,7 @@ Each feature/screen from the Auth Workflow that you wish to use should be render
 
 For a detailed explanation of setting up routes, see the [Routing](./routing.md) guide.
 
-## API
+### Auth Context Provider API
 
 ### AuthContextProviderProps
 
@@ -76,7 +141,7 @@ For a detailed explanation of setting up routes, see the [Routing](./routing.md)
 | errorConfig | `ErrorContextProviderProps` | An object that is used to configure error handling within the workflow. See [Error Management](./error-management.md) for more information. |  |
 
 
-### AuthUIActions
+#### AuthUIActions
 
 | Prop Name | Type | Description | Default |
 |---|---|---|---|
@@ -87,7 +152,7 @@ For a detailed explanation of setting up routes, see the [Routing](./routing.md)
 | setPassword | `(code: string, password: string, email?: string) => Promise<void>` | A function that is used to set a new password. This function will be called when the user clicks the Next button on the Reset Password screen. |  |
 | changePassword | `(oldPassword: string, newPassword: string) => Promise<void>` | A function that is used to change a user's password. This function will be called when the user clicks the Next button in the Change Password dialog. |  |
 
-### RouteConfig Object
+#### RouteConfig Object
 
 The RouteConfig is an object that specifies the paths you are using for the routes / screens in your application to facilitate navigating between screens within the workflows.
 
