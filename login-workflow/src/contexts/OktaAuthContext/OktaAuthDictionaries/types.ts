@@ -1,9 +1,9 @@
 export type OktaAuthTranslations = {
-   ACTIONS: {
+    ACTIONS: {
         OKTA_LOG_IN: string;
-     };
-   }
-   
+    };
+};
+
 export type OktaAuthLanguageFile = {
     translation: OktaAuthTranslations;
 };

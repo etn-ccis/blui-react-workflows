@@ -38,7 +38,8 @@ describe('OktaRedirectLoginScreen', () => {
         jest.clearAllMocks();
     });
 
-    const renderer = (props?: OktaRedirectLoginScreenProps): RenderResult => render(<OktaRedirectLoginScreen {...props} />);
+    const renderer = (props?: OktaRedirectLoginScreenProps): RenderResult =>
+        render(<OktaRedirectLoginScreen {...props} />);
 
     it('renders without crashing', () => {
         renderer();

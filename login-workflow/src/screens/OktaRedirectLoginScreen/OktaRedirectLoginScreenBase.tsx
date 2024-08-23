@@ -9,7 +9,9 @@ import cyberSecurityBadge from '../../assets/images/cybersecurity_certified.png'
 import { unstable_composeClasses as composeClasses } from '@mui/base';
 import { getOktaRedirectLoginScreenUtilityClass, OktaRedirectLoginScreenClassKey } from './utilityClasses';
 
-const useUtilityClasses = (ownerState: OktaRedirectLoginScreenProps): Record<OktaRedirectLoginScreenClassKey, string> => {
+const useUtilityClasses = (
+    ownerState: OktaRedirectLoginScreenProps
+): Record<OktaRedirectLoginScreenClassKey, string> => {
     const { classes } = ownerState;
 
     const slots = {

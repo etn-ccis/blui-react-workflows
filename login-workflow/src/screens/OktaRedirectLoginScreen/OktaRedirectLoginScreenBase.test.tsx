@@ -24,7 +24,8 @@ describe('OktaRedirectLoginScreenBase', () => {
         });
     });
 
-    const renderer = (props?: OktaRedirectLoginScreenProps): RenderResult => render(<OktaRedirectLoginScreenBase {...props} />);
+    const renderer = (props?: OktaRedirectLoginScreenProps): RenderResult =>
+        render(<OktaRedirectLoginScreenBase {...props} />);
 
     it('renders correctly', () => {
         renderer({ header: <Box data-testid="test-header">Test Header</Box> });
