@@ -8,7 +8,7 @@ Because this workflow package is router-agnostic, you will be required to set up
 
 You will also want to set up Auth/Guest Guard wrappers to control which users can access which screens / routes. For more information see [Protecting Routes](#protecting-routes) below.
 
-### Authentication
+### Authentication (Okta Redirect)
 
 The **Authentication** workflow screens are rendered individually on separate routes (e.g., the Okta Redirect Login screen is on '/login' and the support screen is on '/support'). This means you can deep-link to any of these screens directly if you have them configured.
 

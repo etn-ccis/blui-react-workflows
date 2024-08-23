@@ -6,11 +6,11 @@ This guide covers two approaches for implementing login/authentication workflows
 
 
 ## Okta Approach
-The Okta approach leverages Okta's identity and access management services to handle user authentication. This workflow includes screens related to user authentication such as Okta Redirect Login, Forgot Password, Reset Password, etc. By integrating with Okta, you can offload the complexities of authentication and focus on building your application.
+The Okta approach leverages Okta's identity and access management services to handle user authentication, including login and password management. By integrating with Okta, you can offload the complexities of authentication and focus on building your application.
 
 ### OktaAuthContextProvider
 
-The screens in this workflow access shared data / configuration / API definitions through an `OktaAuthContextProvider` which should wrap all of the relevant routes / screens.
+The login screen in this workflow accesses shared data / configuration / API definitions through an `OktaAuthContextProvider` which should wrap the screen. We recommend using Okta to manage the additional password-related screens (Forgot / Reset / Change), but if you prefer to use those screens from this workflow, you'll need to wrap those screens with the `AuthContextProvider` (see custom workflow below).
 
 You must supply the `OktaAuthContextProvider` with the following props / data:
 -   `language`: configures the language displayed on the screens
