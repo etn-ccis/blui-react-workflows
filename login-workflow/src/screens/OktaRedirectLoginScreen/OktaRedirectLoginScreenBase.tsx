@@ -1,5 +1,5 @@
 import React from 'react';
-import { OktaLoginScreenProps } from './types';
+import { OktaRedirectLoginScreenProps } from './types';
 import { WorkflowCard } from '../../components/WorkflowCard';
 import { WorkflowCardBody } from '../../components/WorkflowCard/WorkflowCardBody';
 import { Box, Button, Typography } from '@mui/material';
@@ -7,9 +7,9 @@ import ErrorManager from '../../components/Error/ErrorManager';
 import { LinkStyles } from '../../styles';
 import cyberSecurityBadge from '../../assets/images/cybersecurity_certified.png';
 import { unstable_composeClasses as composeClasses } from '@mui/base';
-import { getOktaLoginScreenUtilityClass, OktaLoginScreenClassKey } from './utilityClasses';
+import { getOktaRedirectLoginScreenUtilityClass, OktaRedirectLoginScreenClassKey } from './utilityClasses';
 
-const useUtilityClasses = (ownerState: OktaLoginScreenProps): Record<OktaLoginScreenClassKey, string> => {
+const useUtilityClasses = (ownerState: OktaRedirectLoginScreenProps): Record<OktaRedirectLoginScreenClassKey, string> => {
     const { classes } = ownerState;
 
     const slots = {
@@ -28,18 +28,18 @@ const useUtilityClasses = (ownerState: OktaLoginScreenProps): Record<OktaLoginSc
         cyberSecurityBadge: ['cyberSecurityBadge'],
     };
 
-    return composeClasses(slots, getOktaLoginScreenUtilityClass, classes);
+    return composeClasses(slots, getOktaRedirectLoginScreenUtilityClass, classes);
 };
 
 /**
  * Component that renders an okta login screen.
  *
- * @param {OktaLoginScreenProps} props - props of OktaLoginScreen base component
+ * @param {OktaRedirectLoginScreenProps} props - props of OktaRedirectLoginScreen base component
  *
  * @category Component
  */
 
-export const OktaLoginScreenBase: React.FC<OktaLoginScreenProps> = (props) => {
+export const OktaRedirectLoginScreenBase: React.FC<OktaRedirectLoginScreenProps> = (props) => {
     const defaultClasses = useUtilityClasses(props);
 
     const {

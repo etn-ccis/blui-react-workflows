@@ -1,17 +1,17 @@
-# OktaLoginScreen
+# OktaRedirectLoginScreen
 
-The `OktaLoginScreen` component is a part of the login workflow and is used to render a login screen that integrates with Okta for authentication. The OktaLoginScreen must be used within an `AuthContextProvider` 
+The `OktaRedirectLoginScreen` component is a part of the login workflow and is used to render a login screen that integrates with Okta for authentication. The OktaRedirectLoginScreen must be used within an `AuthContextProvider` 
 
 ![Okta Login](../../media/screens/okta-login.png)
 
 ## Import
 
 ```tsx
-import { OktaLoginScreen } from '@brightlayer-ui/react-auth-workflow';
+import { OktaRedirectLoginScreen } from '@brightlayer-ui/react-auth-workflow';
 
 ...
 
-<OktaLoginScreen />
+<OktaRedirectLoginScreen />
 ```
 
 ## API

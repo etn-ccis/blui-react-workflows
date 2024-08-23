@@ -13,7 +13,7 @@ The following screen components are available:
 - [EulaScreen](./eula.md)
 - [ForgotPasswordScreen](./forgot-password.md)
 - [LoginScreen](./login.md)
-- [OktaLoginScreen](./okta-login.md)
+- [OktaRedirectLoginScreen](./okta-login.md)
 - [ResetPasswordScreen](./reset-password.md)
 - [SuccessScreen](./success.md)
 - [VerifyCodeScreen](./verify-code.md)

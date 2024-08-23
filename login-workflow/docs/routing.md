@@ -25,7 +25,7 @@ import {
     ContactSupportScreen,
     ForgotPasswordScreen,
     ResetPasswordScreen,
-    OktaLoginScreen,
+    OktaRedirectLoginScreen,
     ReactRouterGuestGuard,
     ContactSupportScreen,
 } from '@brightlayer-ui/react-auth-workflow';
@@ -76,7 +76,7 @@ export const AppRouter: React.FC = () => {
                         path={routes.LOGIN}
                         element={
                             <ReactRouterGuestGuard isAuthenticated={appState.isAuthenticated} fallBackUrl={'/'}>
-                                <OktaLoginScreen />
+                                <OktaRedirectLoginScreen />
                             </ReactRouterGuestGuard>
                         }
                     />

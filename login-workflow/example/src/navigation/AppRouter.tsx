@@ -22,7 +22,7 @@ import { ChangePassword } from '../components/ChangePassword';
 import { Security } from '@okta/okta-react';
 import OktaAuth, { OktaAuthOptions, toRelativeUrl } from '@okta/okta-auth-js';
 import oktaConfig from '../oktaConfig';
-import { OktaLogin } from '../screens/OktaLogin';
+import { OktaLogin } from '../screens/OktaRedirectLogin';
 
 const oktaAuth = new OktaAuth(oktaConfig as OktaAuthOptions);
 

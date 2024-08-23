@@ -1,7 +1,7 @@
 import { WorkflowCardBaseProps } from '../../components/WorkflowCard/WorkflowCard.types';
 import { ErrorManagerProps } from '../../components/Error/types';
 
-export type OktaLoginScreenProps = WorkflowCardBaseProps & {
+export type OktaRedirectLoginScreenProps = WorkflowCardBaseProps & {
     /**
      * The label for the username field
      */
