@@ -2,7 +2,7 @@ import React from 'react';
 import { render, cleanup, screen, renderHook } from '@testing-library/react';
 import '@testing-library/jest-dom';
 import { OktaAuthContextProvider } from './provider';
-import { useAuthContext } from '.';
+import { useOktaAuthContext } from '.';
 import { authContextProviderProps } from '../../testUtils';
 
 afterEach(cleanup);
@@ -18,7 +18,7 @@ describe('OktaAuthContextProvider', () => {
         const wrapper = ({ children }: any): JSX.Element => (
             <OktaAuthContextProvider {...authContextProviderProps}>{children}</OktaAuthContextProvider>
         );
-        const { result } = renderHook(() => useAuthContext(), { wrapper });
+        const { result } = renderHook(() => useOktaAuthContext(), { wrapper });
 
         expect(result.current.language).toBe('en');
     });
@@ -29,7 +29,7 @@ describe('OktaAuthContextProvider', () => {
                 {children}
             </OktaAuthContextProvider>
         );
-        const { result } = renderHook(() => useAuthContext(), { wrapper });
+        const { result } = renderHook(() => useOktaAuthContext(), { wrapper });
 
         expect(result.current.language).not.toBe('en');
         expect(result.current.language).toBe('es');

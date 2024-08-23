@@ -43,19 +43,19 @@ describe('OktaRedirectLoginScreen', () => {
 
     it('renders without crashing', () => {
         renderer();
-        expect(screen.getByText('bluiCommon:ACTIONS.OKTA_LOG_IN')).toBeInTheDocument();
+        expect(screen.getByText('bluiOktaAuth:ACTIONS.OKTA_LOG_IN')).toBeInTheDocument();
     });
 
     it('renders login button with correct label', () => {
         renderer();
-        expect(screen.getByRole('button', { name: 'bluiCommon:ACTIONS.OKTA_LOG_IN' })).toBeInTheDocument();
+        expect(screen.getByRole('button', { name: 'bluiOktaAuth:ACTIONS.OKTA_LOG_IN' })).toBeInTheDocument();
     });
 
     it('handles login error correctly', async () => {
         mockSignInWithRedirect.mockRejectedValueOnce(new Error('Login error'));
         renderer();
 
-        const loginButton = screen.getByRole('button', { name: 'bluiCommon:ACTIONS.OKTA_LOG_IN' });
+        const loginButton = screen.getByRole('button', { name: 'bluiOktaAuth:ACTIONS.OKTA_LOG_IN' });
 
         act(() => {
             fireEvent.click(loginButton);
