@@ -9,13 +9,16 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 ### Added
 
--   Reusable okta login screen.
--   Error Manager for ChangePasswordDialog ([#612](https://github.com/etn-ccis/blui-react-workflows/issues/612)).
--   Reload EULA should not be tied to checkbox status ([#549](https://github.com/etn-ccis/blui-react-workflows/issues/549)).
--   Eliminate `WorkflowCardFinishState` and introduce `EmptyStateProps` in the success screen. ([#552](https://github.com/etn-ccis/blui-react-workflows/issues/552)).
--   Updated password validation callaback function.([#560]https://github.com/etn-ccis/blui-react-workflows/issues/560).
--   SX Style overrides on full screens([#599](https://github.com/etn-ccis/blui-react-workflows/issues/599)).
+-   Reusable okta login screen. 
+-   Error Manager for ChangePasswordDialog ([#612](https://github.com/etn-ccis/blui-react-workflows/issues/612)). 
 -   Added BLUI class names for ChangePasswordDialog ([#600](https://github.com/etn-ccis/blui-react-workflows/issues/600)).
+
+### Changed 
+
+-  Reload EULA should not be tied to checkbox status ([#549](https://github.com/etn-ccis/blui-react-workflows/issues/549)).
+-  Eliminate `WorkflowCardFinishState` and introduce `EmptyStateProps` in the success screen([#552](https://github.com/etn-ccis/blui-react-workflows/issues/552)).
+-  Updated password validation callaback function ([#560]https://github.com/etn-ccis/blui-react-workflows/issues/560).
+-  SX Style overrides on full screens ([#599](https://github.com/etn-ccis/blui-react-workflows/issues/599)).
 
 
 ## v4.0.3 (May 9, 2024)
