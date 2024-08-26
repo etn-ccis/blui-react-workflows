@@ -35,6 +35,7 @@ import { AuthContextProvider, ChangePasswordDialog } from '@brightlayer-ui/react
 | showSuccessScreen             | `boolean`                           | Used to determine whether to show a success screen after the form is submitted.                                                 |                                                               |
 | slots                         | `ChangePasswordDialogSlots`         | Components to use in place of the defaults. See [ChangePasswordDialogSlots](#changepassworddialogslots)                         |                                                               |
 | slotProps                     | `ChangePasswordDialogSlotsProps`    | Props to pass to the custom slot components. See [ChangePasswordDialogSlotsProps](#changepassworddialogslotsprops)              |                                                               |
+| errorDisplayConfig | `ErrorManagerProps` | See [Error Management](../error-management.md) |  |
 
 ### ChangePasswordDialogSlots
 
