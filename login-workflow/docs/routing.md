@@ -10,7 +10,7 @@ You will also want to set up Auth/Guest Guard wrappers to control which users ca
 
 ### Authentication (Okta Redirect)
 
-The **Authentication** workflow screens are rendered individually on separate routes (e.g., the Okta Redirect Login screen is on '/login' and the support screen is on '/support'). This means you can deep-link to any of these screens directly if you have them configured.
+The **Authentication** workflow screens are rendered individually on separate routes (e.g., the Okta Redirect Login screen is on '/login'). This means you can deep-link to any of these screens directly if you have them configured.
 
 You have to add a `Security` component as a wrapper to the `Routes` from [@okta/okta-react](https://www.npmjs.com/package/@okta/okta-react) package. This component initializes the Okta authentication context and provides methods to interact with Okta.
 

@@ -3,7 +3,6 @@ import { OktaRedirectLoginScreenProps } from './types';
 import { WorkflowCard } from '../../components/WorkflowCard';
 import { WorkflowCardBody } from '../../components/WorkflowCard/WorkflowCardBody';
 import { Box, Button, Typography } from '@mui/material';
-import ErrorManager from '../../components/Error/ErrorManager';
 import { LinkStyles } from '../../styles';
 import cyberSecurityBadge from '../../assets/images/cybersecurity_certified.png';
 import { unstable_composeClasses as composeClasses } from '@mui/base';
@@ -47,7 +46,6 @@ export const OktaRedirectLoginScreenBase: React.FC<OktaRedirectLoginScreenProps>
     const {
         header,
         projectImage,
-        errorDisplayConfig,
         loginButtonLabel,
         onLogin,
         showForgotPassword,
@@ -101,30 +99,28 @@ export const OktaRedirectLoginScreenBase: React.FC<OktaRedirectLoginScreenProps>
                     {projectImage}
                 </Box>
 
-                <ErrorManager {...errorDisplayConfig}>
-                    <Box
-                        sx={{
-                            my: 5,
+                <Box
+                    sx={{
+                        my: 5,
+                    }}
+                    className={defaultClasses.loginButtonWrapper}
+                    data-testid={defaultClasses.loginButtonWrapper}
+                >
+                    <Button
+                        className={defaultClasses.loginButton}
+                        data-testid={defaultClasses.loginButton}
+                        onClick={(): void => {
+                            void handleOnLogin();
                         }}
-                        className={defaultClasses.loginButtonWrapper}
-                        data-testid={defaultClasses.loginButtonWrapper}
+                        variant="contained"
+                        color="primary"
+                        sx={{
+                            width: '100%',
+                        }}
                     >
-                        <Button
-                            className={defaultClasses.loginButton}
-                            data-testid={defaultClasses.loginButton}
-                            onClick={(): void => {
-                                void handleOnLogin();
-                            }}
-                            variant="contained"
-                            color="primary"
-                            sx={{
-                                width: '100%',
-                            }}
-                        >
-                            {loginButtonLabel || 'Sign In With Okta'}
-                        </Button>
-                    </Box>
-                </ErrorManager>
+                        {loginButtonLabel || 'Sign In With Okta'}
+                    </Button>
+                </Box>
 
                 {showForgotPassword && (
                     <Box

@@ -4,7 +4,6 @@ import { useTranslation } from 'react-i18next';
 import { OktaRedirectLoginScreenBase } from './OktaRedirectLoginScreenBase';
 import { OktaRedirectLoginScreenProps } from './types';
 import { useAuthContext } from '../../contexts';
-import { useErrorManager } from '../../contexts/ErrorContext/useErrorManager';
 
 /**
  * Component that renders an okta login screen.
@@ -17,18 +16,10 @@ import { useErrorManager } from '../../contexts/ErrorContext/useErrorManager';
 export const OktaRedirectLoginScreen: React.FC<OktaRedirectLoginScreenProps> = (props) => {
     const { authState, oktaAuth } = useOktaAuth();
     const [isLoading, setIsLoading] = useState(!authState);
-    const { triggerError, errorManagerConfig } = useErrorManager();
     const { t } = useTranslation();
     const auth = useAuthContext();
     const { navigate, routeConfig } = auth;
-    const errorDisplayConfig = {
-        ...errorManagerConfig,
-        ...props.errorDisplayConfig,
-        onClose: (): void => {
-            if (props.errorDisplayConfig && props.errorDisplayConfig.onClose) props.errorDisplayConfig.onClose();
-            if (errorManagerConfig.onClose) errorManagerConfig?.onClose();
-        },
-    };
+
     const {
         loginButtonLabel = t('bluiCommon:ACTIONS.OKTA_LOG_IN'),
         showForgotPassword = true,
@@ -58,7 +49,8 @@ export const OktaRedirectLoginScreen: React.FC<OktaRedirectLoginScreenProps> = (
             await oktaAuth.signInWithRedirect();
             await props.onLogin?.();
         } catch (_error) {
-            triggerError(_error as Error);
+            // eslint-disable-next-line no-console
+            console.log(_error as Error);
         } finally {
             setIsLoading(false);
         }
@@ -79,7 +71,6 @@ export const OktaRedirectLoginScreen: React.FC<OktaRedirectLoginScreenProps> = (
             showContactSupport={showContactSupport}
             contactSupportLabel={contactSupportLabel}
             onContactSupport={onContactSupport}
-            errorDisplayConfig={errorDisplayConfig}
             showCyberSecurityBadge={showCyberSecurityBadge}
             projectImage={projectImage}
             header={header}

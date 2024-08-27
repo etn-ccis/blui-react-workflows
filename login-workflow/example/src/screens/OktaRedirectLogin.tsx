@@ -7,12 +7,5 @@ export const OktaLogin = (): JSX.Element => (
     <OktaRedirectLoginScreen
         projectImage={<img src={EatonLogo} alt="logo" style={{ maxHeight: 80 }} />}
         header={<DebugComponent />}
-        errorDisplayConfig={{
-            mode: 'message-box',
-            messageBoxConfig: {
-                dismissible: true,
-                position: 'top',
-            },
-        }}
     />
 );

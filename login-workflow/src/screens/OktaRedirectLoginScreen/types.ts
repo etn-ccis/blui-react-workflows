@@ -1,5 +1,4 @@
 import { WorkflowCardBaseProps } from '../../components/WorkflowCard/WorkflowCard.types';
-import { ErrorManagerProps } from '../../components/Error/types';
 
 export type OktaRedirectLoginScreenProps = WorkflowCardBaseProps & {
     /**
@@ -65,11 +64,6 @@ export type OktaRedirectLoginScreenProps = WorkflowCardBaseProps & {
      * @returns void
      */
     onContactSupport?: () => void;
-
-    /**
-     * The configuration for customizing how errors are displayed
-     */
-    errorDisplayConfig?: ErrorManagerProps;
 
     /**
      * whether or not to show the cyber security badge
