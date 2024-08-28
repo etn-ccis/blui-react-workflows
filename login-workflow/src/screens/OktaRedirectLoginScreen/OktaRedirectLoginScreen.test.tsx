@@ -1,5 +1,5 @@
 import React from 'react';
-import { render, screen, fireEvent, waitFor, act, RenderResult } from '@testing-library/react';
+import { render, screen, fireEvent, act, RenderResult } from '@testing-library/react';
 import '@testing-library/jest-dom';
 import { OktaRedirectLoginScreen } from './OktaRedirectLoginScreen';
 import { useOktaAuth } from '@okta/okta-react';
