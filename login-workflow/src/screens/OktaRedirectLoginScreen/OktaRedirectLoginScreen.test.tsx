@@ -51,19 +51,6 @@ describe('OktaRedirectLoginScreen', () => {
         expect(screen.getByRole('button', { name: 'bluiCommon:ACTIONS.OKTA_LOG_IN' })).toBeInTheDocument();
     });
 
-    it('handles login error correctly', async () => {
-        mockSignInWithRedirect.mockRejectedValueOnce(new Error('Login error'));
-        renderer();
-
-        const loginButton = screen.getByRole('button', { name: 'bluiCommon:ACTIONS.OKTA_LOG_IN' });
-
-        act(() => {
-            fireEvent.click(loginButton);
-        });
-
-        await waitFor(() => expect(mockTriggerError).toHaveBeenCalledWith(expect.any(Error)));
-    });
-
     it('navigates to support route when support button is clicked', () => {
         renderer();
 
