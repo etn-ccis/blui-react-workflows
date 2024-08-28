@@ -14,7 +14,7 @@ The **Authentication** workflow screens are rendered individually on separate ro
 
 You have to add a `Security` component as a wrapper to the `Routes` from [@okta/okta-react](https://www.npmjs.com/package/@okta/okta-react) package. This component initializes the Okta authentication context and provides methods to interact with Okta.
 
-For more information on the `OktaAuthContextProvider` , refer to the [Authentication Workflow](./authentication-workflow.md) Guide.
+For more information on the `OktaAuthContextProvider`, refer to the [Authentication Workflow](./authentication-workflow.md#OktaAuthContextProvider) Guide.
 
 #### Example Setup
 
