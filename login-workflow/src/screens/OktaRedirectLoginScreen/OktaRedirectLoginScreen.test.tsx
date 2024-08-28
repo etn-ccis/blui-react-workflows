@@ -4,7 +4,7 @@ import '@testing-library/jest-dom';
 import { OktaRedirectLoginScreen } from './OktaRedirectLoginScreen';
 import { useOktaAuth } from '@okta/okta-react';
 import { useTranslation } from 'react-i18next';
-import { useAuthContext } from '../../contexts';
+import { useOktaAuthContext } from '../../contexts';
 import { useErrorManager } from '../../contexts/ErrorContext/useErrorManager';
 import { OktaRedirectLoginScreenProps } from './types';
 
@@ -24,7 +24,7 @@ describe('OktaRedirectLoginScreen', () => {
             oktaAuth: { signInWithRedirect: mockSignInWithRedirect },
         });
         (useTranslation as jest.Mock).mockReturnValue({ t: (key: string) => key });
-        (useAuthContext as jest.Mock).mockReturnValue({
+        (useOktaAuthContext as jest.Mock).mockReturnValue({
             navigate: mockNavigate,
             routeConfig: { SUPPORT: '/support' },
         });
