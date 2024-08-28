@@ -1,6 +1,7 @@
 import React, { useCallback } from 'react';
 import {
     AuthContextProvider,
+    OktaAuthContextProvider,
     ContactSupportScreen,
     ReactRouterAuthGuard,
     ReactRouterGuestGuard,
@@ -21,7 +22,7 @@ import { ChangePassword } from '../components/ChangePassword';
 import { Security } from '@okta/okta-react';
 import OktaAuth, { OktaAuthOptions, toRelativeUrl } from '@okta/okta-auth-js';
 import oktaConfig from '../oktaConfig';
-import { OktaLogin } from '../screens/OktaLogin';
+import { OktaLogin } from '../screens/OktaRedirectLogin';
 
 const oktaAuth = new OktaAuth(oktaConfig as OktaAuthOptions);
 
@@ -59,7 +60,14 @@ export const AppRouter: React.FC = () => {
                         path={'/login'}
                         element={
                             <ReactRouterGuestGuard isAuthenticated={app.isAuthenticated} fallBackUrl={'/'}>
-                                <OktaLogin />
+                                <OktaAuthContextProvider
+                                    language={app.language}
+                                    navigate={navigate}
+                                    routeConfig={routes}
+                                    i18n={i18nAppInstance}
+                                >
+                                    <OktaLogin />
+                                </OktaAuthContextProvider>
                             </ReactRouterGuestGuard>
                         }
                     />

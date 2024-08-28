@@ -1,10 +1,10 @@
 import React from 'react';
 import { render, screen, fireEvent, RenderResult } from '@testing-library/react';
 import '@testing-library/jest-dom';
-import { OktaLoginScreenBase } from './OktaLoginScreenBase';
+import { OktaRedirectLoginScreenBase } from './OktaRedirectLoginScreenBase';
 import { useOktaAuth } from '@okta/okta-react';
 import { Box } from '@mui/material';
-import { OktaLoginScreenProps } from './types';
+import { OktaRedirectLoginScreenProps } from './types';
 
 jest.mock('@okta/okta-react', () => ({
     useOktaAuth: jest.fn(),
@@ -13,7 +13,7 @@ jest.mock('@okta/okta-react', () => ({
 const mockSignInWithRedirect = jest.fn();
 const mockOnContactSupport = jest.fn();
 
-describe('OktaLoginScreenBase', () => {
+describe('OktaRedirectLoginScreenBase', () => {
     afterEach(() => {
         jest.clearAllMocks();
     });
@@ -24,7 +24,8 @@ describe('OktaLoginScreenBase', () => {
         });
     });
 
-    const renderer = (props?: OktaLoginScreenProps): RenderResult => render(<OktaLoginScreenBase {...props} />);
+    const renderer = (props?: OktaRedirectLoginScreenProps): RenderResult =>
+        render(<OktaRedirectLoginScreenBase {...props} />);
 
     it('renders correctly', () => {
         renderer({ header: <Box data-testid="test-header">Test Header</Box> });

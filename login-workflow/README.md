@@ -6,7 +6,7 @@ The React Auth Workflow package provides a consistent UI implementation of authe
 
 The package is intended to provide a standard, out-of-the-box experience for capabilities such as:
 
--   Okta Login
+-   Okta Login (Recommended)
 -   Login
 -   Forgot / Reset Password
 -   Change Password

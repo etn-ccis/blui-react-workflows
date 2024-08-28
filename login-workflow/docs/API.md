@@ -123,7 +123,7 @@ Exported screens that can be used to customize the auth workflow.
 -   [EulaScreen](./screens/eula.md)
 -   [ForgotPasswordScreen](./screens/forgot-password.md)
 -   [LoginScreen](./screens/login.md)
--   [OktaLoginScreen](./screens/okta-login.md)
+-   [OktaRedirectLoginScreen](./screens/okta-login.md)
 -   [ResetPasswordScreen](./screens/reset-password.md)
 -   [SuccessScreen](./screens/success.md)
 -   [VerifyCodeScreen](./screens/verify-code.md)

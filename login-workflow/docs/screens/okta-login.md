@@ -1,17 +1,17 @@
-# OktaLoginScreen
+# OktaRedirectLoginScreen
 
-The `OktaLoginScreen` component is a part of the login workflow and is used to render a login screen that integrates with Okta for authentication. The OktaLoginScreen must be used within an `AuthContextProvider` 
+The `OktaRedirectLoginScreen` component is a part of the login workflow and is used to render a login screen that integrates with Okta for authentication. The OktaRedirectLoginScreen must be used within an `OktaAuthContextProvider` 
 
 ![Okta Login](../../media/screens/okta-login.png)
 
 ## Import
 
 ```tsx
-import { OktaLoginScreen } from '@brightlayer-ui/react-auth-workflow';
+import { OktaRedirectLoginScreen } from '@brightlayer-ui/react-auth-workflow';
 
 ...
 
-<OktaLoginScreen />
+<OktaRedirectLoginScreen />
 ```
 
 ## API
@@ -30,7 +30,6 @@ import { OktaLoginScreen } from '@brightlayer-ui/react-auth-workflow';
 | showContactSupport | `boolean` | Whether or not to show the 'contact support' link. | `true` |
 | contactSupportLabel | `string` | Label for the 'contact support' link. | `t('bluiCommon:MESSAGES.CONTACT')` |
 | onContactSupport | `() => void` | Callback function that is called when the 'contact support' link is clicked. |  |
-| errorDisplayConfig | `ErrorManagerProps` | See [Error Management](../error-management.md) |  |
 | showCyberSecurityBadge | `boolean` | Whether or not to show the cyber security badge. | `true` |
 | projectImage | `ReactNode` | Image to display at the top of the screen. |  |
 | header | `ReactNode` | Custom content to display at the top of the screen. |  |

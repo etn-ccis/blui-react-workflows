@@ -1,6 +1,6 @@
 import generateUtilityClass from '@mui/material/generateUtilityClass';
 
-export type OktaLoginScreenClasses = {
+export type OktaRedirectLoginScreenClasses = {
     root?: string;
     projectImageWrapper?: string;
     loginButtonWrapper?: string;
@@ -16,8 +16,8 @@ export type OktaLoginScreenClasses = {
     cyberSecurityBadge?: string;
 };
 
-export type OktaLoginScreenClassKey = keyof OktaLoginScreenClasses;
+export type OktaRedirectLoginScreenClassKey = keyof OktaRedirectLoginScreenClasses;
 
-export function getOktaLoginScreenUtilityClass(slot: string): string {
-    return generateUtilityClass('BluiOktaLogin', slot);
+export function getOktaRedirectLoginScreenUtilityClass(slot: string): string {
+    return generateUtilityClass('BluiOktaRedirectLogin', slot);
 }

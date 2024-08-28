@@ -1,19 +1,19 @@
 import React from 'react';
-import { render, screen, fireEvent, waitFor, act, RenderResult } from '@testing-library/react';
+import { render, screen, fireEvent, act, RenderResult } from '@testing-library/react';
 import '@testing-library/jest-dom';
-import { OktaLoginScreen } from './OktaLoginScreen';
+import { OktaRedirectLoginScreen } from './OktaRedirectLoginScreen';
 import { useOktaAuth } from '@okta/okta-react';
 import { useTranslation } from 'react-i18next';
 import { useAuthContext } from '../../contexts';
 import { useErrorManager } from '../../contexts/ErrorContext/useErrorManager';
-import { OktaLoginScreenProps } from './types';
+import { OktaRedirectLoginScreenProps } from './types';
 
 jest.mock('@okta/okta-react');
 jest.mock('react-i18next');
 jest.mock('../../contexts');
 jest.mock('../../contexts/ErrorContext/useErrorManager');
 
-describe('OktaLoginScreen', () => {
+describe('OktaRedirectLoginScreen', () => {
     const mockSignInWithRedirect = jest.fn();
     const mockTriggerError = jest.fn();
     const mockNavigate = jest.fn();
@@ -38,7 +38,8 @@ describe('OktaLoginScreen', () => {
         jest.clearAllMocks();
     });
 
-    const renderer = (props?: OktaLoginScreenProps): RenderResult => render(<OktaLoginScreen {...props} />);
+    const renderer = (props?: OktaRedirectLoginScreenProps): RenderResult =>
+        render(<OktaRedirectLoginScreen {...props} />);
 
     it('renders without crashing', () => {
         renderer();
@@ -48,19 +49,6 @@ describe('OktaLoginScreen', () => {
     it('renders login button with correct label', () => {
         renderer();
         expect(screen.getByRole('button', { name: 'bluiCommon:ACTIONS.OKTA_LOG_IN' })).toBeInTheDocument();
-    });
-
-    it('handles login error correctly', async () => {
-        mockSignInWithRedirect.mockRejectedValueOnce(new Error('Login error'));
-        renderer();
-
-        const loginButton = screen.getByRole('button', { name: 'bluiCommon:ACTIONS.OKTA_LOG_IN' });
-
-        act(() => {
-            fireEvent.click(loginButton);
-        });
-
-        await waitFor(() => expect(mockTriggerError).toHaveBeenCalledWith(expect.any(Error)));
     });
 
     it('navigates to support route when support button is clicked', () => {
