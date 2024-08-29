@@ -3,7 +3,7 @@ import { useOktaAuth } from '@okta/okta-react';
 import { useTranslation } from 'react-i18next';
 import { OktaRedirectLoginScreenBase } from './OktaRedirectLoginScreenBase';
 import { OktaRedirectLoginScreenProps } from './types';
-import { useAuthContext } from '../../contexts';
+import { useOktaAuthContext } from '../../contexts';
 
 /**
  * Component that renders an okta login screen.
@@ -17,8 +17,7 @@ export const OktaRedirectLoginScreen: React.FC<OktaRedirectLoginScreenProps> = (
     const { authState, oktaAuth } = useOktaAuth();
     const [isLoading, setIsLoading] = useState(!authState);
     const { t } = useTranslation();
-    const auth = useAuthContext();
-    const { navigate, routeConfig } = auth;
+    const { navigate, routeConfig } = useOktaAuthContext();
 
     const {
         loginButtonLabel = t('bluiCommon:ACTIONS.OKTA_LOG_IN'),
