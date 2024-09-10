@@ -1,6 +1,6 @@
 {
     "name": "@brightlayer-ui/react-auth-workflow",
-    "version": "5.0.0-beta.2",
+    "version": "5.0.0",
     "author": "Brightlayer UI <brightlayer-ui@eaton.com> (https://github.com/brightlayer-ui)",
     "license": "BSD-3-Clause",
     "description": "Re-usable workflow components for Authentication and Registration within Eaton applications.",
@@ -37,6 +37,8 @@
         "@emotion/styled": "^11.6.0",
         "@mui/icons-material": "^5.10.15",
         "@mui/material": "^5.10.15",
+        "@okta/okta-auth-js": "^7.7.0",
+        "@okta/okta-react": "^6.9.0",
         "date-fns": "^3.0.6",
         "i18next": "^23.0.1",
         "react": "^16.13.1 || ^17.0.0 || ^18.0.0",
