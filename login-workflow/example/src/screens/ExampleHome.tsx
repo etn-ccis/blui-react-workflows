@@ -41,7 +41,7 @@ export const ExampleHome: React.FC<React.PropsWithChildren> = () => {
     const navigate = useNavigate();
     const theme = useTheme();
     const { oktaAuth } = useOktaAuth();
-    
+
     const containerStyles = {
         width: '100%',
         height: `calc(100vh - ${theme.spacing(8)})`,
