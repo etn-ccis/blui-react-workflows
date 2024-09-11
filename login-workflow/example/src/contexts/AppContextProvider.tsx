@@ -7,6 +7,7 @@ export type LoginData = {
 
 export type AppContextType = {
     isAuthenticated: boolean;
+    setIsAuthenticated: (isAuthenticated: boolean) => void;
     loginData: LoginData;
     onUserAuthenticated: (args: { email: string; userId: string; rememberMe: boolean }) => void;
     onUserNotAuthenticated: (clearRememberMe?: boolean, overrideRememberMeEmail?: string) => void;
