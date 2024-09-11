@@ -5,6 +5,7 @@ import { ChangePasswordDialogBase } from './ChangePasswordDialogBase';
 import { ChangePasswordDialogProps } from './types';
 import CheckCircle from '@mui/icons-material/CheckCircle';
 import { useTranslation } from 'react-i18next';
+import { useErrorManager } from '../../contexts/ErrorContext/useErrorManager';
 
 /**
  * Component that renders a dialog with textField to enter current password and a change password form with a new password and confirm password inputs.
@@ -30,7 +31,6 @@ export const ChangePasswordDialog: React.FC<ChangePasswordDialogProps> = (props)
         onPrevious,
         onFinish,
         PasswordProps,
-        ErrorDialogProps,
         loading,
         currentPasswordTextFieldProps,
         slots = {},
@@ -40,10 +40,20 @@ export const ChangePasswordDialog: React.FC<ChangePasswordDialogProps> = (props)
     const [currentInput, setCurrentInput] = useState('');
     const [passwordInput, setPasswordInput] = useState('');
     const [confirmInput, setConfirmInput] = useState('');
-    const [showErrorDialog, setShowErrorDialog] = useState(false);
     const [isLoading, setIsLoading] = useState(loading);
     const [showSuccessScreen, setShowSuccessScreen] = useState(false);
-    const { actions } = useAuthContext();
+    const { actions, navigate, routeConfig } = useAuthContext();
+
+    const { triggerError, errorManagerConfig } = useErrorManager();
+    const errorDisplayConfig = {
+        ...errorManagerConfig,
+        ...props.errorDisplayConfig,
+        onClose: (): void => {
+            if (props.errorDisplayConfig && props.errorDisplayConfig.onClose) props.errorDisplayConfig.onClose();
+            if (errorManagerConfig.onClose) errorManagerConfig?.onClose();
+        },
+    };
+    const [hasVerifyCodeError, setHasVerifyCodeError] = useState(false);
 
     const passwordReqs = PasswordProps?.passwordRequirements ?? defaultPasswordRequirements(t);
 
@@ -77,8 +87,9 @@ export const ChangePasswordDialog: React.FC<ChangePasswordDialogProps> = (props)
                     onFinish?.();
                 }
                 setShowSuccessScreen(true);
-            } catch {
-                setShowErrorDialog(true);
+            } catch (_error) {
+                setHasVerifyCodeError(true);
+                triggerError(_error as Error);
             } finally {
                 setIsLoading(false);
             }
@@ -89,9 +100,9 @@ export const ChangePasswordDialog: React.FC<ChangePasswordDialogProps> = (props)
         passwordInput,
         actions,
         setIsLoading,
-        setShowErrorDialog,
         onFinish,
         props.showSuccessScreen,
+        triggerError,
     ]);
 
     const passwordProps = {
@@ -114,15 +125,6 @@ export const ChangePasswordDialog: React.FC<ChangePasswordDialogProps> = (props)
         },
     };
 
-    const errorDialogProps = {
-        open: showErrorDialog,
-        title: t('bluiCommon:MESSAGES.ERROR'),
-        body: t('bluiAuth:CHANGE_PASSWORD.PROBLEM_OCCURRED'),
-        dismissButtonText: t('bluiCommon:ACTIONS.OKAY'),
-        ...ErrorDialogProps,
-        onClose: (): void => setShowErrorDialog(false),
-    };
-
     return (
         <ChangePasswordDialogBase
             open={open}
@@ -139,7 +141,6 @@ export const ChangePasswordDialog: React.FC<ChangePasswordDialogProps> = (props)
             enableButton={checkPasswords}
             onPrevious={onPrevious}
             PasswordProps={passwordProps}
-            ErrorDialogProps={errorDialogProps}
             currentPasswordTextFieldProps={currentPasswordTextFieldProps}
             onSubmit={async (): Promise<void> => {
                 await changePasswordSubmit();
@@ -168,6 +169,16 @@ export const ChangePasswordDialog: React.FC<ChangePasswordDialogProps> = (props)
                 },
             }}
             showSuccessScreen={showSuccessScreen}
+            errorDisplayConfig={{
+                ...errorDisplayConfig,
+                onClose: hasVerifyCodeError
+                    ? (): void => {
+                          navigate(routeConfig.LOGIN as string);
+                          // eslint-disable-next-line no-unused-expressions
+                          errorDisplayConfig.onClose;
+                      }
+                    : errorDisplayConfig.onClose,
+            }}
         />
     );
 };

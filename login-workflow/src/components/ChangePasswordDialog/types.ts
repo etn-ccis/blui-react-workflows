@@ -1,7 +1,7 @@
 import { DialogProps, TextFieldProps } from '@mui/material';
 import { SuccessScreenProps } from '../../screens';
-import { BasicDialogProps } from '../Dialog';
 import { SetPasswordProps } from '../SetPassword';
+import { ErrorManagerProps } from '../Error/types';
 
 /**
  * Props of ChangePasswordDialogSlots
@@ -24,8 +24,6 @@ export type ChangePasswordDialogSlotsProps = {
 };
 
 export type ChangePasswordDialogProps = DialogProps & { PasswordProps?: SetPasswordProps } & {
-    ErrorDialogProps?: BasicDialogProps;
-} & {
     /**
      * The title to display in the dialog
      */
@@ -106,4 +104,9 @@ export type ChangePasswordDialogProps = DialogProps & { PasswordProps?: SetPassw
      * Applied to slot from SuccessScreen
      */
     slotProps?: ChangePasswordDialogSlotsProps;
+
+    /**
+     * The configuration for customizing how errors are displayed
+     */
+    errorDisplayConfig?: ErrorManagerProps;
 };

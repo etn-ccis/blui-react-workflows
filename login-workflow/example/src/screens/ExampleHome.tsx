@@ -31,6 +31,7 @@ import * as Colors from '@brightlayer-ui/colors';
 import FormControl from '@mui/material/FormControl';
 import { MenuItem, Select, SelectChangeEvent } from '@mui/material';
 import i18n from '../translations/i18n';
+import { useOktaAuth } from '@okta/okta-react';
 
 export const ExampleHome: React.FC<React.PropsWithChildren> = () => {
     const app = useApp();
@@ -39,6 +40,7 @@ export const ExampleHome: React.FC<React.PropsWithChildren> = () => {
     const [open, setOpen] = useState(false);
     const navigate = useNavigate();
     const theme = useTheme();
+    const { oktaAuth } = useOktaAuth();
 
     const containerStyles = {
         width: '100%',
@@ -64,9 +66,12 @@ export const ExampleHome: React.FC<React.PropsWithChildren> = () => {
         justifyContent: 'center',
     };
 
-    const logOut = (): void => {
+    const logOut = async (): Promise<void> => {
+        await oktaAuth.signOut();
         LocalStorage.clearAuthCredentials();
         app.onUserNotAuthenticated();
+        app.setIsAuthenticated(false);
+
         navigate('/login');
     };
 
@@ -152,7 +157,7 @@ export const ExampleHome: React.FC<React.PropsWithChildren> = () => {
                                                 icon: <ExitToApp />,
                                                 title: `${t('USER_MENU.LOG_OUT')}`,
                                                 onClick: (): void => {
-                                                    logOut();
+                                                    void logOut();
                                                 },
                                             },
                                         ],

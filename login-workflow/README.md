@@ -1,4 +1,4 @@
-# Test React Auth Workflow
+# React Auth Workflow
 
 [![Build](https://github.com/etn-ccis/blui-react-workflows/actions/workflows/blui-ci.yml/badge.svg?branch=master)](https://github.com/etn-ccis/blui-react-workflows/actions/workflows/blui-ci.yml) ![npm (scoped)](https://img.shields.io/npm/v/@brightlayer-ui/react-auth-workflow) [![codecov](https://codecov.io/gh/etn-ccis/blui-react-workflows/branch/master/graph/badge.svg?token=H18T75WBFS)](https://codecov.io/gh/etn-ccis/blui-react-workflows)
 
@@ -6,6 +6,7 @@ The React Auth Workflow package provides a consistent UI implementation of authe
 
 The package is intended to provide a standard, out-of-the-box experience for capabilities such as:
 
+-   Okta Login (Recommended)
 -   Login
 -   Forgot / Reset Password
 -   Change Password
@@ -17,7 +18,7 @@ This package is flexible, allowing you to use the Login and Registration flows i
 
 These workflows are back-end agnostic, meaning you can use them with any back-end API you wish. You simply need to provide an implementation for several key functions (actions) that are called at various points within the workflows based on user interaction.
 
-![Login](https://raw.githubusercontent.com/etn-ccis/blui-react-workflows/master/login-workflow/media/login.png)
+![Okta Login](https://raw.githubusercontent.com/etn-ccis/blui-react-workflows/master/login-workflow/media/okta-login.png)
 ![Password](https://raw.githubusercontent.com/etn-ccis/blui-react-workflows/master/login-workflow/media/password.png)
 
 # Installation

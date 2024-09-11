@@ -1,0 +1,36 @@
+# OktaRedirectLoginScreen
+
+The `OktaRedirectLoginScreen` component is a part of the login workflow and is used to render a login screen that integrates with Okta for authentication. The OktaRedirectLoginScreen must be used within an `OktaAuthContextProvider` 
+
+![Okta Login](../../media/screens/okta-login.png)
+
+## Import
+
+```tsx
+import { OktaRedirectLoginScreen } from '@brightlayer-ui/react-auth-workflow';
+
+...
+
+<OktaRedirectLoginScreen />
+```
+
+## API
+
+| Prop Name | Type | Description | Default |
+|---|---|---|---|
+| loginButtonLabel | `string` | Label for the login button. | `t('bluiCommon:ACTIONS.LOG_IN')` |
+| onLogin | `() => Promise<void> \| void` | Callback function that is called when the login button is clicked. |  |
+| showForgotPassword | `boolean` | Whether or not to show the 'forgot password' link. | `true` |
+| forgotPasswordLabel | `string` | Label for the 'forgot password' link. | `t('bluiCommon:LABELS.FORGOT_PASSWORD')` |
+| onForgotPassword | `() => void` | Callback function that is called when the 'forgot password' link is clicked. |  |
+| showSelfRegistration | `boolean` | Whether or not to show the 'self registration' link. | `true` |
+| selfRegisterButtonLabel | `string` | Label for the 'self registration' link. | `t('bluiCommon:ACTIONS.CREATE_ACCOUNT')` |
+| selfRegisterInstructions | `string` | Instructions to display before the 'self registration' link. | `t('bluiCommon:LABELS.NEED_ACCOUNT')` |
+| onSelfRegister | `() => void` | Callback function that is called when the 'self registration' link is clicked. |  |
+| showContactSupport | `boolean` | Whether or not to show the 'contact support' link. | `true` |
+| contactSupportLabel | `string` | Label for the 'contact support' link. | `t('bluiCommon:MESSAGES.CONTACT')` |
+| onContactSupport | `() => void` | Callback function that is called when the 'contact support' link is clicked. |  |
+| showCyberSecurityBadge | `boolean` | Whether or not to show the cyber security badge. | `true` |
+| projectImage | `ReactNode` | Image to display at the top of the screen. |  |
+| header | `ReactNode` | Custom content to display at the top of the screen. |  |
+| footer | `ReactNode` | Custom content to display at the bottom of the screen. |  |

@@ -61,6 +61,7 @@ jobs:
     - name: Upload to Codecov
       uses: codecov/codecov-action@v3
       with:
+        token: ${{ secrets.CODECOV_TOKEN }}
         directory: ./login-workflow/coverage/
         files: clover.xml
         flags: unittests
@@ -114,7 +115,7 @@ jobs:
         with:
           node-version: ${{ matrix.node-version }}
           registry-url: 'https://registry.npmjs.org'
-          cache-dependency-path: login-workflow
       - run: yarn --immutable
+        working-directory: login-workflow
       - run: npm run publish:package -- -b ${{env.BRANCH}}
         working-directory: login-workflow

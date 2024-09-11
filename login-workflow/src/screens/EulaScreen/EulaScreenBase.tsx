@@ -34,6 +34,7 @@ export const EulaScreenBase: React.FC<EulaScreenProps> = (props) => {
         checkboxProps,
         errorDisplayConfig,
         refreshConfig,
+        ...otherProps
     } = props;
 
     const { t } = useTranslation();
@@ -58,7 +59,7 @@ export const EulaScreenBase: React.FC<EulaScreenProps> = (props) => {
     };
 
     return (
-        <WorkflowCard {...cardBaseProps}>
+        <WorkflowCard {...cardBaseProps} {...otherProps}>
             <WorkflowCardHeader {...headerProps} />
             {Object.keys(instructionsProps).length !== 0 && <WorkflowCardInstructions {...instructionsProps} />}
             <WorkflowCardBody sx={{ pt: 2 }}>

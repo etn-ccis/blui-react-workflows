@@ -20,7 +20,6 @@ import { AuthContextProvider, ChangePasswordDialog } from '@brightlayer-ui/react
 | Prop Name                     | Type                                | Description                                                                                                                     | Default                                                       |
 | ----------------------------- | ----------------------------------- | ------------------------------------------------------------------------------------------------------------------------------- | ------------------------------------------------------------- |
 | PasswordProps                 | `SetPasswordProps`                  | See [Set Password](./set-password.md)                                                                                           |                                                               |
-| ErrorDialogProps              | `BasicDialogProps`                  | Props to configure a nested error dialog if there are errors changing the password. See [Basic Dialog](./basic-dialog.md).      |                                                               |
 | dialogTitle                   | `string`                            | The title to display in the dialog.                                                                                             | `t('bluiAuth:CHANGE_PASSWORD_DIALOG.TITLE')`                  |
 | dialogDescription             | `string`                            | The description to display in the dialog.                                                                                       | `t('bluiAuth:CHANGE_PASSWORD_DIALOG.DESCRIPTION')`            |
 | currentPasswordLabel          | `string`                            | The label to display for the current password field.                                                                            | `t('bluiAuth:CHANGE_PASSWORD_DIALOG.CURRENT_PASSWORD_LABEL')` |
@@ -36,17 +35,18 @@ import { AuthContextProvider, ChangePasswordDialog } from '@brightlayer-ui/react
 | showSuccessScreen             | `boolean`                           | Used to determine whether to show a success screen after the form is submitted.                                                 |                                                               |
 | slots                         | `ChangePasswordDialogSlots`         | Components to use in place of the defaults. See [ChangePasswordDialogSlots](#changepassworddialogslots)                         |                                                               |
 | slotProps                     | `ChangePasswordDialogSlotsProps`    | Props to pass to the custom slot components. See [ChangePasswordDialogSlotsProps](#changepassworddialogslotsprops)              |                                                               |
+| errorDisplayConfig | `ErrorManagerProps` | See [Error Management](../error-management.md) |  |
 
 ### ChangePasswordDialogSlots
 
-| Key           | Type                                         | Description                                                                    |
-| ------------- | -------------------------------------------- | ------------------------------------------------------------------------------ |
+| Key           | Type                                         | Description                                                                             |
+| ------------- | -------------------------------------------- | --------------------------------------------------------------------------------------- |
 | SuccessScreen | `(props: SuccessScreenProps) => JSX.Element` | A custom success screen component to render. See [SuccessScreen](../screens/success.md) |
 
 ### ChangePasswordDialogSlotsProps
 
-| Key           | Type                 | Description                                                                             |
-| ------------- | -------------------- | --------------------------------------------------------------------------------------- |
+| Key           | Type                 | Description                                                                                      |
+| ------------- | -------------------- | ------------------------------------------------------------------------------------------------ |
 | SuccessScreen | `SuccessScreenProps` | Props to pass to the custom success screen component. See [SuccessScreen](../screens/success.md) |
 
 Props from the underlying MUI [Dialog](https://mui.com/material-ui/react-dialog/) are also available.
