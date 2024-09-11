@@ -18,7 +18,7 @@ This package is flexible, allowing you to use the Login and Registration flows i
 
 These workflows are back-end agnostic, meaning you can use them with any back-end API you wish. You simply need to provide an implementation for several key functions (actions) that are called at various points within the workflows based on user interaction.
 
-![Login](https://raw.githubusercontent.com/etn-ccis/blui-react-workflows/master/login-workflow/media/okta-login.png)
+![Okta Login](https://raw.githubusercontent.com/etn-ccis/blui-react-workflows/master/login-workflow/media/okta-login.png)
 ![Password](https://raw.githubusercontent.com/etn-ccis/blui-react-workflows/master/login-workflow/media/password.png)
 
 # Installation
