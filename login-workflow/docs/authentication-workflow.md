@@ -25,20 +25,37 @@ Here is an example of how you would set up the Okta Redirect Login workflow usin
 
 Each feature/screen from the Okta Auth Workflow that you wish to use should be rendered on a separate route.
 
+We have to wrap all of the application routes inside the `Security` component from `@okta/okta-react` to make the Okta authentication workflow.
+
 ```tsx
-<Routes>
-    <Route
-        element={
-            <OktaAuthContextProvider
-                language={'en'}
-                navigate={navigate}
-                routeConfig={{}}
-            >
-                <OktaRedirectLogin />
-            </OktaAuthContextProvider>
-        }
-    />
-</Routes>
+import { Security } from '@okta/okta-react';
+import OktaAuth, { OktaAuthOptions, toRelativeUrl } from '@okta/okta-auth-js';
+
+const oktaAuth = new OktaAuth(oktaConfig as OktaAuthOptions);
+
+const RouteExample = () => {
+    const restoreOriginalUri = (): void => {};
+
+    return (
+        <Security oktaAuth={oktaAuth} restoreOriginalUri={restoreOriginalUri}>
+            <Routes>
+                <Route
+                    element={
+                        <OktaAuthContextProvider
+                            language={'en'}
+                            navigate={navigate}
+                            routeConfig={{}}
+                        >
+                            <OktaRedirectLogin />
+                        </OktaAuthContextProvider>
+                    }
+                />
+               
+            </Routes>
+        </Security>
+    );
+};
+    
 ```
 
 For a detailed explanation of setting up routes, see the [Routing](./routing.md) guide.
