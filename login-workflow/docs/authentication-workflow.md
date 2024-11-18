@@ -29,7 +29,7 @@ We have to wrap all of the application routes inside the `Security` component fr
 
 ```tsx
 import { Security } from '@okta/okta-react';
-import OktaAuth, { OktaAuthOptions, toRelativeUrl } from '@okta/okta-auth-js';
+import OktaAuth, { OktaAuthOptions } from '@okta/okta-auth-js';
 
 const oktaAuth = new OktaAuth(oktaConfig as OktaAuthOptions);
 
