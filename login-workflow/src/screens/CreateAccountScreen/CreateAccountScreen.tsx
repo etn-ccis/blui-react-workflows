@@ -123,8 +123,8 @@ export const CreateAccountScreen: React.FC<CreateAccountScreenProps> = (props) =
             emailTextFieldProps={{ ...emailTextFieldProps, onChange: onEmailInputValueChange }}
             emailValidator={emailValidator}
             WorkflowCardActionsProps={workflowCardActionsProps}
-            errorDisplayConfig={errorDisplayConfig}
             {...otherProps}
+            errorDisplayConfig={errorDisplayConfig}
         />
     );
 };

@@ -190,6 +190,7 @@ export const ResetPasswordScreen: React.FC<ResetPasswordScreenProps> = (props) =
                     ...slotProps.SuccessScreen,
                 },
             }}
+            {...otherProps}
             errorDisplayConfig={{
                 ...errorDisplayConfig,
                 onClose: hasVerifyCodeError
@@ -200,7 +201,6 @@ export const ResetPasswordScreen: React.FC<ResetPasswordScreenProps> = (props) =
                       }
                     : errorDisplayConfig.onClose,
             }}
-            {...otherProps}
         />
     );
 };
