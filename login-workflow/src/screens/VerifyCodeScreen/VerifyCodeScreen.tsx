@@ -152,9 +152,9 @@ export const VerifyCodeScreen: React.FC<VerifyCodeScreenProps> = (props) => {
             initialValue={verifyCode.length > 0 ? verifyCode : initialValue}
             onResend={onResend}
             codeValidator={codeValidator}
-            errorDisplayConfig={errorDisplayConfig}
             verifyCodeTextFieldProps={verifyCodeTextFieldProps}
             {...otherProps}
+            errorDisplayConfig={errorDisplayConfig}
         />
     );
 };

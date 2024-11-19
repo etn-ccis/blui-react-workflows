@@ -174,8 +174,8 @@ export const ForgotPasswordScreen: React.FC<ForgotPasswordScreenProps> = (props)
                     ...slotProps.SuccessScreen,
                 },
             }}
-            errorDisplayConfig={errorDisplayConfig}
             {...otherProps}
+            errorDisplayConfig={errorDisplayConfig}
         />
     );
 };
