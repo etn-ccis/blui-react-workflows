@@ -45,15 +45,21 @@ export const ChangePasswordDialog: React.FC<ChangePasswordDialogProps> = (props)
     const { actions, navigate, routeConfig } = useAuthContext();
 
     const { triggerError, errorManagerConfig } = useErrorManager();
+    const [hasVerifyCodeError, setHasVerifyCodeError] = useState(false);
+
+    const handleErrorClose = useCallback(() => {
+        if (hasVerifyCodeError) {
+            navigate(routeConfig.LOGIN as string);
+        }
+        props.errorDisplayConfig?.onClose?.();
+        errorManagerConfig.onClose?.();
+    }, [hasVerifyCodeError, navigate, routeConfig.LOGIN, props.errorDisplayConfig, errorManagerConfig]);
+
     const errorDisplayConfig = {
         ...errorManagerConfig,
         ...props.errorDisplayConfig,
-        onClose: (): void => {
-            if (props.errorDisplayConfig && props.errorDisplayConfig.onClose) props.errorDisplayConfig.onClose();
-            if (errorManagerConfig.onClose) errorManagerConfig?.onClose();
-        },
+        onClose: handleErrorClose,
     };
-    const [hasVerifyCodeError, setHasVerifyCodeError] = useState(false);
 
     const passwordReqs = PasswordProps?.passwordRequirements ?? defaultPasswordRequirements(t);
 
@@ -169,16 +175,7 @@ export const ChangePasswordDialog: React.FC<ChangePasswordDialogProps> = (props)
                 },
             }}
             showSuccessScreen={showSuccessScreen}
-            errorDisplayConfig={{
-                ...errorDisplayConfig,
-                onClose: hasVerifyCodeError
-                    ? (): void => {
-                          navigate(routeConfig.LOGIN as string);
-                          // eslint-disable-next-line no-unused-expressions
-                          errorDisplayConfig.onClose;
-                      }
-                    : errorDisplayConfig.onClose,
-            }}
+            errorDisplayConfig={errorDisplayConfig}
         />
     );
 };

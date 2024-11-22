@@ -13,6 +13,20 @@ import { createRoot } from 'react-dom/client';
 const container = document.getElementById('root');
 const root = createRoot(container || document.createDocumentFragment());
 
+// TODO: Remove this after the issues with @types/react goes away
+
+// https://github.com/DefinitelyTyped/DefinitelyTyped/discussions/68444
+/* eslint-disable */
+declare global {
+    namespace React {
+        interface DOMAttributes<T> {
+            placeholder?: string | undefined;
+            onPointerEnterCapture?: React.PointerEventHandler<T> | undefined;
+            onPointerLeaveCapture?: any;
+        }
+    }
+}
+
 root.render(
     // Enable Strict Mode for more error checking
     <React.StrictMode>

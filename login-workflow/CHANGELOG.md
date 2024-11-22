@@ -5,6 +5,13 @@ All notable changes to this project will be documented in this file.
 The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.0.0/),
 and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0.html).
 
+## v5.0.1 (Unreleased)
+
+### Fixed 
+
+-   Issue with ChangePasswordDialog `errorDisplayConfig` ([#656](https://github.com/etn-ccis/blui-react-workflows/issues/656)).
+-   Issue with `errorDisplayConfig` in screens unable to display the custom error ([#664](https://github.com/etn-ccis/blui-react-workflows/issues/664)).
+
 ## v5.0.0 (September 11, 2024)
 
 ### Added
@@ -17,7 +24,7 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 ### Fixed 
 
 -  Reload EULA should not be tied to checkbox status ([#549](https://github.com/etn-ccis/blui-react-workflows/issues/549)).
--  Updated password validation callback function ([#560]https://github.com/etn-ccis/blui-react-workflows/issues/560).
+-  Updated password validation callback function ([#560](https://github.com/etn-ccis/blui-react-workflows/issues/560)).
 
 ### Changed
 
