@@ -1,11 +1,11 @@
 import 'react-app-polyfill/ie11';
-import { ThemeProvider, createTheme, StyledEngineProvider } from '@mui/material/styles';
+import { ThemeProvider, StyledEngineProvider } from '@mui/material/styles';
 import 'react-app-polyfill/stable';
 import React from 'react';
 import * as serviceWorker from './serviceWorker';
 import { App } from './App';
 import CssBaseline from '@mui/material/CssBaseline';
-import * as BLUIThemes from '@brightlayer-ui/react-themes';
+import {blueThemes} from '@brightlayer-ui/react-themes';
 import '@brightlayer-ui/react-themes/open-sans';
 import './index.css';
 import { createRoot } from 'react-dom/client';
@@ -21,8 +21,8 @@ declare global {
     namespace React {
         interface DOMAttributes<T> {
             placeholder?: string | undefined;
-            onPointerEnterCapture?: React.PointerEventHandler<T> | undefined;
-            onPointerLeaveCapture?: any;
+            onPointerEnterCapture?: string | undefined;
+            onPointerLeaveCapture?: string | undefined;
         }
     }
 }
@@ -31,7 +31,7 @@ root.render(
     // Enable Strict Mode for more error checking
     <React.StrictMode>
         <StyledEngineProvider injectFirst>
-            <ThemeProvider theme={createTheme(BLUIThemes.blue)}>
+            <ThemeProvider theme={blueThemes}>
                 <CssBaseline />
                 <App />
             </ThemeProvider>
