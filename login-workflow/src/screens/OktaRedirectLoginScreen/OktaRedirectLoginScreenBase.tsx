@@ -5,7 +5,7 @@ import { WorkflowCardBody } from '../../components/WorkflowCard/WorkflowCardBody
 import { Box, Button, Typography } from '@mui/material';
 import { LinkStyles } from '../../styles';
 import cyberSecurityBadge from '../../assets/images/cybersecurity_certified.png';
-import { unstable_composeClasses as composeClasses } from '@mui/base';
+import { unstable_composeClasses as composeClasses } from '@mui/material';
 import { getOktaRedirectLoginScreenUtilityClass, OktaRedirectLoginScreenClassKey } from './utilityClasses';
 
 const useUtilityClasses = (

@@ -12,7 +12,7 @@ import { useTheme } from '@mui/material/styles';
 import Checkbox from '@mui/material/Checkbox';
 import { HELPER_TEXT_HEIGHT } from '../../utils/constants';
 import { LoginScreenClassKey, getLoginScreenUtilityClass } from './utilityClasses';
-import { unstable_composeClasses as composeClasses } from '@mui/base';
+import { unstable_composeClasses as composeClasses } from '@mui/material';
 import ErrorManager from '../../components/Error/ErrorManager';
 import { LinkStyles } from '../../styles';
 

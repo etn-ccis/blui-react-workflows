@@ -9,6 +9,7 @@ import { blueThemes } from '@brightlayer-ui/react-themes';
 import '@brightlayer-ui/react-themes/open-sans';
 import './index.css';
 import { createRoot } from 'react-dom/client';
+import type {} from '@mui/material/themeCssVarsAugmentation';
 
 const container = document.getElementById('root');
 const root = createRoot(container || document.createDocumentFragment());
