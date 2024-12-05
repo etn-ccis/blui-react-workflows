@@ -23,22 +23,51 @@ yarn add @brightlayer-ui/react-themes
 To use these themes in your application, simply wrap the app in a `ThemeProvider` and pass in the theme.:
 
 ```tsx
+import React, { useEffect } from 'react';
 import { ThemeProvider, StyledEngineProvider } from '@mui/material/styles';
 import { App } from './App';
 import CssBaseline from '@mui/material/CssBaseline';
 import { blueThemes } from '@brightlayer-ui/react-themes';
+import rtl from 'jss-rtl';
+import { create } from 'jss';
+import rtlPlugin from 'stylis-plugin-rtl';
+import { CacheProvider } from '@emotion/react';
+import createCache from '@emotion/cache';
+import jssPreset from '@mui/styles/jssPreset';
 import '@brightlayer-ui/react-themes/open-sans';
-import { createRoot } from 'react-dom/client';
 
-const container = document.getElementById('root');
-const root = createRoot(container || document.createDocumentFragment());
+document.body.setAttribute('dir', 'rtl');
+const jss = create({
+    plugins: [...jssPreset().plugins, rtl()],
+});
 
-root.render(
+export const Example = (props: any): JSX.Element => {
+    const dir = useSelector((store: AppStore) => store.app.direction); 
+
+    const cacheRtl = createCache({
+        key: dir === 'rtl' ? 'cssrtl' : 'cssltr',
+        prepend: true,
+        stylisPlugins: [rtlPlugin],
+    });
+
+    const cacheLtr = createCache({
+        key: dir === 'ltr' ? 'cssltr' : 'cssrtl',
+        prepend: true,
+        stylisPlugins: dir === 'ltr' ? undefined : [rtlPlugin],
+    });
+
+    useEffect(() => {
+        document.body.dir = dir;
+    }, [dir]);
+
+return(
     <React.StrictMode>
         <StyledEngineProvider injectFirst>
-            <ThemeProvider theme={blueThemes}>
+            <ThemeProvider theme={{...blueThemes, direction: dir}}>
+             <CacheProvider value={dir === 'ltr' ? cacheLtr : cacheRtl}>
                 <CssBaseline />
                 <App />
+            </CacheProvider>
             </ThemeProvider>
         </StyledEngineProvider>
     </React.StrictMode>
