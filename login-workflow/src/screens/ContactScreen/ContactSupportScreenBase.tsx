@@ -10,7 +10,7 @@ import {
 import { ContactSupportScreenProps } from './types';
 import Box, { BoxProps } from '@mui/material/Box';
 import { ContactScreenClassKey, getContactScreenUtilityClass } from './utilityClasses';
-import { unstable_composeClasses as composeClasses } from '@mui/base';
+import { unstable_composeClasses as composeClasses } from '@mui/material';
 
 const useUtilityClasses = (ownerState: ContactSupportScreenProps & BoxProps): Record<ContactScreenClassKey, string> => {
     const { classes } = ownerState;

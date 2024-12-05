@@ -16,7 +16,7 @@ import { SetPassword } from '../SetPassword';
 import { PasswordTextField } from '../PasswordTextField';
 import { Spinner } from '../../components';
 import { SuccessScreenBase, SuccessScreenProps } from '../../screens';
-import { unstable_composeClasses as composeClasses } from '@mui/base';
+import { unstable_composeClasses as composeClasses } from '@mui/material';
 import { ChangePasswordDialogClassKey, getChangePasswordDialogUtilityClass } from './utilityClasses';
 import ErrorManager from '../Error/ErrorManager';
 
