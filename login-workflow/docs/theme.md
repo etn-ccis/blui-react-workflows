@@ -74,27 +74,4 @@ return(
 );
 ```
 
-By Default the theme will take system's mode. To set your mode(light/dark), make use of `useColorScheme()` hook to set and use theme modes using helpers `mode` & `setMode` of `useColorScheme()`.
-
-## Example to use useColorScheme() hook
-
-```tsx
-import { useEffect } from 'react';
-import { useColorScheme } from '@mui/material/styles';
-
-export const App = (): JSX.Element => {
-    const { setMode } = useColorScheme();
-
-    useEffect(() => {
-        setMode('light');
-    }, []);
-
-    return (
-        <>
-            <BrowserRouter basename={'/'}>
-                <AppRouter />
-            </BrowserRouter>
-        </>
-    );
-};
-```
+For more configuration, please refer to the [BLUI React Themes README](https://github.com/etn-ccis/blui-react-themes/blob/dev/README.md).
