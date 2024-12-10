@@ -24,7 +24,6 @@ jobs:
             - run: cd login-workflow && yarn install:dependencies && yarn link:workflow && cd example && yarn && echo "${{ secrets.OKTA_APP_ISSUER }}" > .env.local && yarn build
             # - run: |
             #     cd login-workflow/example
-            #     touch .env.local
             #     echo "${{ secrets.OKTA_APP_ISSUER }}" > .env.local
             - uses: FirebaseExtended/action-hosting-deploy@v0
               with:
