@@ -21,11 +21,11 @@ jobs:
           OKTA_APP_ISSUER: ${{secrets.OKTA_APP_ISSUER}}
         steps:
             - uses: actions/checkout@v4
-            - run: cd login-workflow && yarn install:dependencies && yarn link:workflow && cd example && yarn && yarn build
-            - run: |
-                cd login-workflow/example
-                touch .env.local
-                echo "${{ secrets.OKTA_APP_ISSUER }}" > .env.local
+            - run: cd login-workflow && yarn install:dependencies && yarn link:workflow && cd example && yarn && echo "${{ secrets.OKTA_APP_ISSUER }}" > .env.local && yarn build
+            # - run: |
+            #     cd login-workflow/example
+            #     touch .env.local
+            #     echo "${{ secrets.OKTA_APP_ISSUER }}" > .env.local
             - uses: FirebaseExtended/action-hosting-deploy@v0
               with:
                   entryPoint: './login-workflow'
