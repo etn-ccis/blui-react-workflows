@@ -2,14 +2,32 @@
 # https://github.com/firebase/firebase-tools
 
 name: Deploy to Firebase Hosting on PR
-'on': pull_request
+
+on: 
+  pull_request:
+    branches:
+      - '*/*'
+  pull_request_target:
+      types:
+        - opened
+      branches:
+        - '*/*'
+
+permissions:
+  pull-requests: write
+  contents: read
+
 jobs:
     build_and_preview:
         if: '${{ github.event.pull_request.head.repo.full_name == github.repository }}'
         runs-on: ubuntu-latest
+        env:
+          OKTA_APP_ISSUER: ${{secrets.OKTA_APP_ISSUER}}
         steps:
-            - uses: actions/checkout@v2
+            - uses: actions/checkout@v4
             - run: cd login-workflow && yarn install:dependencies && yarn link:workflow && cd example && yarn && yarn build
+            - run: |
+                echo "${{ secrets.OKTA_APP_ISSUER }}" > .env.local
             - uses: FirebaseExtended/action-hosting-deploy@v0
               with:
                   entryPoint: './login-workflow'
