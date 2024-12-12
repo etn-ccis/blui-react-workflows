@@ -2,16 +2,24 @@
 # https://github.com/firebase/firebase-tools
 
 name: Deploy to Firebase Hosting on merge
-'on':
-    push:
-        branches:
-            - master
+on:
+  push:
+    branches:
+      - master
+
+permissions:
+  pull-requests: write
+  contents: read
+  checks: write
+
 jobs:
     build_and_deploy:
         runs-on: ubuntu-latest
+        env:
+          OKTA_APP_ISSUER: ${{secrets.OKTA_APP_ISSUER}}
         steps:
-            - uses: actions/checkout@v2
-            - run: cd login-workflow && yarn install:dependencies && yarn link:workflow && cd example && yarn && yarn build
+            - uses: actions/checkout@v4
+            - run: cd login-workflow && yarn install:dependencies && yarn link:workflow && cd example && yarn && echo "${{ secrets.OKTA_APP_ISSUER }}" > .env.local && yarn build
             - uses: FirebaseExtended/action-hosting-deploy@v0
               with:
                   entryPoint: './login-workflow'
