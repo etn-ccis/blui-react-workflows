@@ -10,13 +10,13 @@ import {
     Typography,
     useMediaQuery,
     useTheme,
+    unstable_composeClasses as composeClasses 
 } from '@mui/material';
 import { ChangePasswordDialogProps } from './types';
 import { SetPassword } from '../SetPassword';
 import { PasswordTextField } from '../PasswordTextField';
 import { Spinner } from '../../components';
 import { SuccessScreenBase, SuccessScreenProps } from '../../screens';
-import { unstable_composeClasses as composeClasses } from '@mui/material';
 import { ChangePasswordDialogClassKey, getChangePasswordDialogUtilityClass } from './utilityClasses';
 import ErrorManager from '../Error/ErrorManager';
 

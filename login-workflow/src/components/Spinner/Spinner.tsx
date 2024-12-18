@@ -2,7 +2,6 @@ import React from 'react';
 import CircularProgress from '@mui/material/CircularProgress';
 import Box from '@mui/material/Box';
 import { SpinnerProps } from './types';
-import { useTheme } from '@emotion/react';
 
 /**
  * Component that renders a indeterminate circular progress spinner atop a semi-transparent white background.
@@ -12,8 +11,7 @@ import { useTheme } from '@emotion/react';
  * @category Component
  */
 export const Spinner: React.FC<SpinnerProps> = (props) => {
-    const theme = useTheme()
-    const { visible, sx, ...otherProps } = props;
+    const { visible, ...otherProps } = props;
 
     return visible ? (
         <Box
