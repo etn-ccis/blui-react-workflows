@@ -1033,10 +1033,10 @@
     "@seznam/compose-react-refs" "^1.0.6"
     color "^4.2.3"
 
-"@brightlayer-ui/react-themes@8.0.0-alpha.0":
-  version "8.0.0-alpha.0"
-  resolved "https://registry.yarnpkg.com/@brightlayer-ui/react-themes/-/react-themes-8.0.0-alpha.0.tgz#683fdef86cb1a9e5248ebacdb1d73b9fc8799d9b"
-  integrity sha512-aC5IJD5bEnWvZJqxmNnR4PdZGz+fBqhRX/lNU9OTKRoYKRI8SpdhkgWpWibbboLGUjIWE1AB9WZeyqnybUUJGQ==
+"@brightlayer-ui/react-themes@8.0.0":
+  version "8.0.0"
+  resolved "https://registry.yarnpkg.com/@brightlayer-ui/react-themes/-/react-themes-8.0.0.tgz#91ad70289889dd8986b6524216345444cdf69624"
+  integrity sha512-kLo1tSLt+IHG5/xywltIeewLefRZiVSzI7XgIic0I13jQ1Lc3P5e5nj5QHcBzw6CQFQ7r7oOHb7aiIibXpVMwQ==
   dependencies:
     "@brightlayer-ui/colors" "^3.1.1"
     "@fontsource/open-sans" "^5.0.3"
@@ -6564,9 +6564,9 @@ libsodium@^0.7.15:
   resolved "https://registry.yarnpkg.com/libsodium/-/libsodium-0.7.15.tgz#ac284e3dcb1c29ae9526c5581cdada6a072f6d20"
   integrity sha512-sZwRknt/tUpE2AwzHq3jEyUU5uvIZHtSssktXq7owd++3CSgn8RGrv6UZJJBpP7+iBghBqe7Z06/2M31rI2NKw==
 
-"license-checker@git+https://github.com/mwittig/license-checker.git#d546e3f738e14c62e732346fa355162d46700893":
+"license-checker@git+https://github.com/mwittig/license-checker#d546e3f738e14c62e732346fa355162d46700893":
   version "1.0.0"
-  resolved "git+https://github.com/mwittig/license-checker.git#d546e3f738e14c62e732346fa355162d46700893"
+  resolved "git+https://github.com/mwittig/license-checker#d546e3f738e14c62e732346fa355162d46700893"
   dependencies:
     chalk "~0.5.1"
     mkdirp "^0.3.5"
