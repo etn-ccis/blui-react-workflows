@@ -9,7 +9,7 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 ### Changed
 
--   Updated styles to use the new MUI v6 and requires [brightlayer-ui react-components 7.0.0](https://www.npmjs.com/package/@brightlayer-ui/react-components/v/7.0.0)
+-   Updated styles to use the new MUI v6 and requires [brightlayer-ui react-components 7.0.0](https://www.npmjs.com/package/@brightlayer-ui/react-components/v/7.0.0) and [brightlayer-ui react-theme 8.0.0](https://www.npmjs.com/package/@brightlayer-ui/react-themes/v/8.0.0)
 
 ### Fixed
 
