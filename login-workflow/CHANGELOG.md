@@ -5,11 +5,11 @@ All notable changes to this project will be documented in this file.
 The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.0.0/),
 and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0.html).
 
-## v5.1.0 (December 20, 2024)
+## v6.0.0 (December 20, 2024)
 
 ### Changed
 
--   Updated styles to use the new MUI 6.
+-   Updated styles to use the new MUI v6 and requires [brightlayer-ui react-components 7.0.0](https://www.npmjs.com/package/@brightlayer-ui/react-components/v/7.0.0)
 
 ### Fixed
 
