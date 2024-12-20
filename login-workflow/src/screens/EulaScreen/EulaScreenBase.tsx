@@ -34,14 +34,14 @@ export const EulaScreenBase: React.FC<EulaScreenProps> = (props) => {
         checkboxProps,
         errorDisplayConfig,
         refreshConfig,
+        WorkflowCardBaseProps: cardBaseProps = {},
+        WorkflowCardInstructionProps: instructionsProps = {},
+        WorkflowCardActionsProps: actionsProps = {},
+        WorkflowCardHeaderProps: headerProps = {},
         ...otherProps
     } = props;
 
     const { t } = useTranslation();
-    const cardBaseProps = props.WorkflowCardBaseProps || {};
-    const headerProps = props.WorkflowCardHeaderProps || {};
-    const instructionsProps = props.WorkflowCardInstructionProps || {};
-    const actionsProps = props.WorkflowCardActionsProps || {};
 
     const [eulaAccepted, setEulaAccepted] = useState(initialCheckboxValue ?? false);
 

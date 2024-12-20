@@ -32,13 +32,12 @@ export const ForgotPasswordScreenBase: React.FC<React.PropsWithChildren<ForgotPa
         showSuccessScreen,
         errorDisplayConfig,
         emailTextFieldProps,
+        WorkflowCardBaseProps: cardBaseProps = {},
+        WorkflowCardInstructionProps: instructionsProps = {},
+        WorkflowCardActionsProps: actionsProps = {},
+        WorkflowCardHeaderProps: headerProps = {},
         ...otherProps
     } = props;
-
-    const cardBaseProps = props.WorkflowCardBaseProps || {};
-    const headerProps = props.WorkflowCardHeaderProps || {};
-    const instructionsProps = props.WorkflowCardInstructionProps || {};
-    const actionsProps = props.WorkflowCardActionsProps || {};
 
     const validateEmail = (): boolean => typeof emailValidator(initialEmailValue) !== 'string';
 

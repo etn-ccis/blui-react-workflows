@@ -28,13 +28,12 @@ export const CreateAccountScreenBase: React.FC<
         emailTextFieldProps,
         inputRef,
         errorDisplayConfig,
+        WorkflowCardBaseProps: cardBaseProps = {},
+        WorkflowCardInstructionProps: instructionsProps = {},
+        WorkflowCardActionsProps: actionsProps = {},
+        WorkflowCardHeaderProps: headerProps = {},
         ...otherProps
     } = props;
-
-    const cardBaseProps = props.WorkflowCardBaseProps || {};
-    const headerProps = props.WorkflowCardHeaderProps || {};
-    const instructionsProps = props.WorkflowCardInstructionProps || {};
-    const actionsProps = props.WorkflowCardActionsProps || {};
 
     const [emailInput, setEmailInput] = React.useState(initialValue ? initialValue : '');
     const [isEmailValid, setIsEmailValid] = React.useState(emailValidator(initialValue ?? '') ?? false);

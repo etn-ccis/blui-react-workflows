@@ -50,15 +50,14 @@ export const ContactSupportScreenBase: React.FC<ContactSupportScreenProps> = (pr
         contactPhone,
         dismissButtonLabel,
         onDismiss,
+        WorkflowCardBaseProps: cardBaseProps = {},
+        WorkflowCardInstructionProps: instructionsProps = {},
+        WorkflowCardActionsProps: actionsProps = {},
+        WorkflowCardHeaderProps: headerProps = {},
         ...otherProps
     } = props;
 
     const defaultClasses = useUtilityClasses(props);
-
-    const cardBaseProps = props.WorkflowCardBaseProps || {};
-    const headerProps = props.WorkflowCardHeaderProps || {};
-    const instructionsProps = props.WorkflowCardInstructionProps || {};
-    const actionsProps = props.WorkflowCardActionsProps || {};
 
     return (
         <WorkflowCard
