@@ -1,5 +1,5 @@
 import React from 'react';
-import { Typography } from '@mui/material';
+import { Typography, unstable_composeClasses as composeClasses } from '@mui/material';
 import {
     WorkflowCard,
     WorkflowCardActions,
@@ -10,7 +10,6 @@ import {
 import { ContactSupportScreenProps } from './types';
 import Box, { BoxProps } from '@mui/material/Box';
 import { ContactScreenClassKey, getContactScreenUtilityClass } from './utilityClasses';
-import { unstable_composeClasses as composeClasses } from '@mui/base';
 
 const useUtilityClasses = (ownerState: ContactSupportScreenProps & BoxProps): Record<ContactScreenClassKey, string> => {
     const { classes } = ownerState;
@@ -51,15 +50,14 @@ export const ContactSupportScreenBase: React.FC<ContactSupportScreenProps> = (pr
         contactPhone,
         dismissButtonLabel,
         onDismiss,
+        WorkflowCardBaseProps: cardBaseProps = {},
+        WorkflowCardInstructionProps: instructionsProps = {},
+        WorkflowCardActionsProps: actionsProps = {},
+        WorkflowCardHeaderProps: headerProps = {},
         ...otherProps
     } = props;
 
     const defaultClasses = useUtilityClasses(props);
-
-    const cardBaseProps = props.WorkflowCardBaseProps || {};
-    const headerProps = props.WorkflowCardHeaderProps || {};
-    const instructionsProps = props.WorkflowCardInstructionProps || {};
-    const actionsProps = props.WorkflowCardActionsProps || {};
 
     return (
         <WorkflowCard

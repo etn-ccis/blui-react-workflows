@@ -30,13 +30,12 @@ export const AccountDetailsScreenBase: React.FC<AccountDetailsScreenProps> = (pr
         lastNameValidator = (): void => {},
         lastNameTextFieldProps,
         errorDisplayConfig,
+        WorkflowCardBaseProps: cardBaseProps = {},
+        WorkflowCardInstructionProps: instructionsProps = {},
+        WorkflowCardActionsProps: actionsProps = {},
+        WorkflowCardHeaderProps: headerProps = {},
         ...otherProps
     } = props;
-
-    const cardBaseProps = props.WorkflowCardBaseProps || {};
-    const headerProps = props.WorkflowCardHeaderProps || {};
-    const instructionsProps = props.WorkflowCardInstructionProps || {};
-    const actionsProps = props.WorkflowCardActionsProps || {};
 
     const firstNameRef = useRef<any>(null);
     const lastNameRef = useRef<any>(null);

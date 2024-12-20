@@ -22,27 +22,29 @@ export const PasswordTextField: React.FC<React.PropsWithChildren<TextFieldProps>
             type={showPassword ? 'text' : 'password'}
             variant="filled"
             fullWidth
-            InputProps={{
-                endAdornment: (
-                    <InputAdornment position="end">
-                        {icon && (
-                            <IconButton aria-label="Toggle password visibility" edge="end" size="large">
-                                {icon}
-                            </IconButton>
-                        )}
-                        <IconButton
-                            aria-label="Toggle password visibility"
-                            onClick={(): void => setShowPassword(!showPassword)}
-                            edge={'end'}
-                            size="large"
-                        >
-                            {showPassword ? <Visibility /> : <VisibilityOff />}
-                        </IconButton>
-                    </InputAdornment>
-                ),
-            }}
             sx={sx}
             {...otherProps}
+            slotProps={{
+                input: {
+                    endAdornment: (
+                        <InputAdornment position="end">
+                            {icon && (
+                                <IconButton aria-label="Toggle password visibility" edge="end" size="large">
+                                    {icon}
+                                </IconButton>
+                            )}
+                            <IconButton
+                                aria-label="Toggle password visibility"
+                                onClick={(): void => setShowPassword(!showPassword)}
+                                edge={'end'}
+                                size="large"
+                            >
+                                {showPassword ? <Visibility /> : <VisibilityOff />}
+                            </IconButton>
+                        </InputAdornment>
+                    ),
+                },
+            }}
         />
     );
 };
