@@ -19,12 +19,17 @@ import Box from '@mui/material/Box';
  */
 
 export const SuccessScreenBase: React.FC<SuccessScreenProps> = (props) => {
-    const { EmptyStateProps, dismissButtonLabel = '', canDismiss, onDismiss, ...otherProps } = props;
-
-    const cardBaseProps = props.WorkflowCardBaseProps || {};
-    const headerProps = props.WorkflowCardHeaderProps || {};
-    const instructionsProps = props.WorkflowCardInstructionProps || {};
-    const actionsProps = props.WorkflowCardActionsProps || {};
+    const {
+        EmptyStateProps,
+        dismissButtonLabel = '',
+        canDismiss,
+        onDismiss,
+        WorkflowCardBaseProps: cardBaseProps = {},
+        WorkflowCardInstructionProps: instructionsProps = {},
+        WorkflowCardActionsProps: actionsProps = {},
+        WorkflowCardHeaderProps: headerProps = {},
+        ...otherProps
+    } = props;
 
     return (
         <WorkflowCard {...cardBaseProps} {...otherProps}>

@@ -115,12 +115,12 @@ export const LoginScreen: React.FC<React.PropsWithChildren<LoginScreenProps>> = 
             showContactSupport={showContactSupport}
             contactSupportLabel={contactSupportLabel}
             onContactSupport={onContactSupport}
-            errorDisplayConfig={errorDisplayConfig}
             showCyberSecurityBadge={showCyberSecurityBadge}
             projectImage={projectImage}
             header={header}
             footer={footer}
             {...otherProps}
+            errorDisplayConfig={errorDisplayConfig}
         />
     );
 };

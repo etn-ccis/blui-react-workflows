@@ -202,9 +202,9 @@ export const EulaScreen: React.FC<EulaScreenProps> = (props) => {
             initialCheckboxValue={eulaAccepted}
             onEulaAcceptedChange={updateEulaAcceptedStatus}
             WorkflowCardActionsProps={workflowCardActionsProps}
-            errorDisplayConfig={errorDisplayConfig}
             refreshConfig={refreshConfig}
             {...otherEulaScreenProps}
+            errorDisplayConfig={errorDisplayConfig}
         />
     );
 };

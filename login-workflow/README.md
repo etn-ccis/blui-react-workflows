@@ -66,6 +66,24 @@ In short, you will need to:
 -   [Components & APIs](https://github.com/etn-ccis/blui-react-workflows/tree/master/login-workflow/docs/components/README.md)
 -   [Screens](https://github.com/etn-ccis/blui-react-workflows/tree/master/login-workflow/docs/screens/README.md)
 
+# Migrating from v5 => v6
+
+The migration to v6 from v5 should be very straightforward — all usage remains the same if you are using the custom login flow. However, version 6 has introduced new MUI v6. And two new peer dependencies that you will need to install:
+
+```
+"@mui/icons-material": "^6.1.4",
+"@mui/material": "^6.1.4",
+```
+
+# Migrating from v4 => v5
+
+The migration to v5 from v4 should be very straightforward — all usage remains the same if you are using the custom login flow. However, version 5 has two new peer dependencies that you will need to install:
+
+```
+"@okta/okta-auth-js": "^7.7.0",
+"@okta/okta-react": "^6.9.0",
+```
+
 # Migrating from v3 => v4
 
 We have listened to your feedback and version 4 of this library is a significant rewrite that aims to address many requests for greater flexibility and customization of the workflows.

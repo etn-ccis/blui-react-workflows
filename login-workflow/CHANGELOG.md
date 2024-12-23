@@ -5,24 +5,42 @@ All notable changes to this project will be documented in this file.
 The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.0.0/),
 and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0.html).
 
+## v6.0.0 (December 23, 2024)
+
+### Changed
+
+-   Updated styles to use the new MUI v6 and requires [brightlayer-ui react-components 7.0.0](https://www.npmjs.com/package/@brightlayer-ui/react-components/v/7.0.0) and [brightlayer-ui react-theme 8.0.0](https://www.npmjs.com/package/@brightlayer-ui/react-themes/v/8.0.0)
+
+### Fixed
+
+-   Update the doc for Okta login authentication ([#658](https://github.com/etn-ccis/blui-react-workflows/issues/658))
+-   Update unstable_composeClasses imports ([#677](https://github.com/etn-ccis/blui-react-workflows/issues/677))
+-   WorkflowCard components warnings ([#684](https://github.com/etn-ccis/blui-react-workflows/issues/684))
+
+## v5.0.1 (November 26, 2024)
+
+### Fixed
+
+-   Issue with ChangePasswordDialog `errorDisplayConfig` ([#656](https://github.com/etn-ccis/blui-react-workflows/issues/656)).
+-   Issue with `errorDisplayConfig` in screens unable to display the custom error ([#664](https://github.com/etn-ccis/blui-react-workflows/issues/664)).
+
 ## v5.0.0 (September 11, 2024)
 
 ### Added
 
--   Okta redirect-compatible login screen. 
--   Error Manager for ChangePasswordDialog ([#612](https://github.com/etn-ccis/blui-react-workflows/issues/612)). 
+-   Okta redirect-compatible login screen.
+-   Error Manager for ChangePasswordDialog ([#612](https://github.com/etn-ccis/blui-react-workflows/issues/612)).
 -   BLUI class names for ChangePasswordDialog ([#600](https://github.com/etn-ccis/blui-react-workflows/issues/600)).
--  SX style overrides on full screens ([#599](https://github.com/etn-ccis/blui-react-workflows/issues/599)).
+-   SX style overrides on full screens ([#599](https://github.com/etn-ccis/blui-react-workflows/issues/599)).
 
-### Fixed 
+### Fixed
 
--  Reload EULA should not be tied to checkbox status ([#549](https://github.com/etn-ccis/blui-react-workflows/issues/549)).
--  Updated password validation callback function ([#560]https://github.com/etn-ccis/blui-react-workflows/issues/560).
+-   Reload EULA should not be tied to checkbox status ([#549](https://github.com/etn-ccis/blui-react-workflows/issues/549)).
+-   Updated password validation callback function ([#560](https://github.com/etn-ccis/blui-react-workflows/issues/560)).
 
 ### Changed
 
--  Eliminate `WorkflowCardFinishState` and introduce `EmptyStateProps` in the success screen([#552](https://github.com/etn-ccis/blui-react-workflows/issues/552)).
-
+-   Eliminate `WorkflowCardFinishState` and introduce `EmptyStateProps` in the success screen([#552](https://github.com/etn-ccis/blui-react-workflows/issues/552)).
 
 ## v4.0.3 (May 9, 2024)
 

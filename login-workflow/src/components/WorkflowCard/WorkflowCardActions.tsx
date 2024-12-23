@@ -4,7 +4,7 @@ import MobileStepper from '@mui/material/MobileStepper';
 import Button from '@mui/material/Button';
 import { WorkflowCardActionsProps } from './WorkflowCard.types';
 import { getWorkflowCardActionsUtilityClass, WorkflowCardActionsClassKey } from './Utility';
-import { unstable_composeClasses as composeClasses } from '@mui/base';
+import { unstable_composeClasses as composeClasses } from '@mui/material';
 import Divider from '@mui/material/Divider';
 import Box from '@mui/material/Box';
 

@@ -5,7 +5,7 @@ import Card from '@mui/material/Card';
 import { Spinner } from '../Spinner/Spinner';
 import { WorkflowCardBaseProps } from './WorkflowCard.types';
 import { getWorkflowCardUtilityClass, WorkflowCardClassKey } from './Utility';
-import { unstable_composeClasses as composeClasses } from '@mui/base';
+import { unstable_composeClasses as composeClasses, useTheme } from '@mui/material';
 
 const useUtilityClasses = (ownerState: WorkflowCardBaseProps): Record<WorkflowCardClassKey, string> => {
     const { classes } = ownerState;
@@ -29,21 +29,23 @@ const useUtilityClasses = (ownerState: WorkflowCardBaseProps): Record<WorkflowCa
 export const WorkflowCard: React.FC<WorkflowCardBaseProps> = (props) => {
     const { loading, backgroundImage, sx, children, ...otherBoxProps } = props;
     const defaultClasses = useUtilityClasses(props);
+    const theme = useTheme();
 
     return (
         <Box
-            sx={[
-                {
+            sx={{
                     height: '100vh',
                     width: '100%',
-                    backgroundColor: (theme) => (theme.palette.mode === 'light' ? 'primary.main' : 'primary.dark'),
+                    backgroundColor: 'primary.main',
                     backgroundImage: backgroundImage ? `url(${backgroundImage})` : `url(${defaultBackgroundImage})`,
                     display: 'flex',
                     alignItems: 'center',
                     justifyContent: 'center',
-                },
-                ...(Array.isArray(sx) ? sx : [sx]),
-            ]}
+                    ...theme.applyStyles('dark', {
+                        backgroundColor: 'primary.dark',
+                    }),
+                    ...sx
+                }}
             className={defaultClasses.root}
             data-testid={defaultClasses.root}
             {...otherBoxProps}

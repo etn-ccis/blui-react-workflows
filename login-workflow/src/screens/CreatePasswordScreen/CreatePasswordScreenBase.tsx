@@ -19,13 +19,16 @@ import ErrorManager from '../../components/Error/ErrorManager';
  */
 
 export const CreatePasswordScreenBase: React.FC<React.PropsWithChildren<CreatePasswordScreenProps>> = (props) => {
-    const cardBaseProps = props.WorkflowCardBaseProps || {};
-    const headerProps = props.WorkflowCardHeaderProps || {};
-    const instructionsProps = props.WorkflowCardInstructionProps || {};
-    const actionsProps = props.WorkflowCardActionsProps || {};
-    const passwordProps = props.PasswordProps || { onPasswordChange: () => ({}) };
-    const { errorDisplayConfig, ...otherProps } = props;
-
+    const {
+        errorDisplayConfig,
+        WorkflowCardBaseProps: cardBaseProps = {},
+        WorkflowCardInstructionProps: instructionsProps = {},
+        WorkflowCardActionsProps: actionsProps = {},
+        WorkflowCardHeaderProps: headerProps = {},
+        PasswordProps: passwordProps = { onPasswordChange: () => ({}) },
+        ...otherProps
+    } = props;
+    
     return (
         <WorkflowCard {...cardBaseProps} {...otherProps}>
             <WorkflowCardHeader {...headerProps} />

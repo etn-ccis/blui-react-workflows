@@ -22,12 +22,18 @@ import { SuccessScreenBase, SuccessScreenProps } from '../SuccessScreen';
  */
 
 export const ResetPasswordScreenBase: React.FC<React.PropsWithChildren<ResetPasswordScreenProps>> = (props) => {
-    const cardBaseProps = props.WorkflowCardBaseProps || {};
-    const headerProps = props.WorkflowCardHeaderProps || {};
-    const instructionsProps = props.WorkflowCardInstructionProps || {};
-    const actionsProps = props.WorkflowCardActionsProps || {};
     const passwordProps = props.PasswordProps || { onPasswordChange: () => ({}) };
-    const { showSuccessScreen, slots, slotProps = {}, errorDisplayConfig, ...otherProps } = props;
+    const {
+        showSuccessScreen,
+        slots,
+        slotProps = {},
+        errorDisplayConfig,
+        WorkflowCardBaseProps: cardBaseProps = {},
+        WorkflowCardInstructionProps: instructionsProps = {},
+        WorkflowCardActionsProps: actionsProps = {},
+        WorkflowCardHeaderProps: headerProps = {},
+        ...otherProps
+    } = props;
 
     const getSuccessScreen = (
         _props?: SuccessScreenProps,

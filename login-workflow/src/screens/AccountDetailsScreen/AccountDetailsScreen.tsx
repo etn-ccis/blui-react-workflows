@@ -134,8 +134,8 @@ export const AccountDetailsScreen: React.FC<AccountDetailsScreenProps> = (props)
             lastNameTextFieldProps={{ ...lastNameTextFieldProps, onChange: onLastNameInputChange }}
             lastNameValidator={lastNameValidator}
             WorkflowCardActionsProps={workflowCardActionsProps}
-            errorDisplayConfig={errorDisplayConfig}
             {...otherProps}
+            errorDisplayConfig={errorDisplayConfig}
         />
     );
 };

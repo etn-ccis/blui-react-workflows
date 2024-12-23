@@ -162,8 +162,8 @@ export const CreatePasswordScreen: React.FC<CreatePasswordScreenProps> = (props)
             WorkflowCardHeaderProps={workflowCardHeaderProps}
             WorkflowCardInstructionProps={workflowCardInstructionProps}
             PasswordProps={passwordProps}
-            errorDisplayConfig={errorDisplayConfig}
             {...otherProps}
+            errorDisplayConfig={errorDisplayConfig}
         />
     );
 };
