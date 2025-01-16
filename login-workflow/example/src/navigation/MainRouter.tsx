@@ -21,6 +21,7 @@ import i18nAppInstance from '../translations/i18n';
 import { ChangePassword } from '../components/ChangePassword';
 import { OktaLogin } from '../screens/OktaRedirectLogin';
 import { useOktaAuth, LoginCallback } from '@okta/okta-react';
+import { Login } from '../screens';
 
 export const MainRouter: React.FC = () => {
     const navigation = useNavigate();
@@ -68,7 +69,7 @@ export const MainRouter: React.FC = () => {
                                 routeConfig={routes}
                                 i18n={i18nAppInstance}
                             >
-                                <OktaLogin />
+                                <Login />
                             </OktaAuthContextProvider>
                         </ReactRouterGuestGuard>
                     }

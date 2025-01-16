@@ -6,6 +6,8 @@ import { I18nextProvider } from 'react-i18next';
 import i18nAppInstance from './translations/i18n';
 import { LocalStorage } from './store/local-storage';
 import { Box, CircularProgress, SxProps, Theme, useColorScheme } from '@mui/material';
+import { AbilityContext } from './components/Can';
+import { buildAbilityFor } from './config/ability';
 
 const containerStyles: SxProps<Theme> = {
     width: '100%',
@@ -27,6 +29,8 @@ const emptyStateContainerStyles = {
     alignItems: 'center',
     justifyContent: 'center',
 };
+
+const ability = buildAbilityFor('admin');
 
 export const App = (): JSX.Element => {
     const [isAuthenticated, setIsAuthenticated] = useState(false);
@@ -67,6 +71,7 @@ export const App = (): JSX.Element => {
             <CircularProgress sx={emptyStateContainerStyles} size={70} variant={'indeterminate'} />
         </Box>
     ) : (
+        <AbilityContext.Provider value={ability}>
         <I18nextProvider i18n={i18nAppInstance} defaultNS={'app'}>
             <AppContext.Provider
                 value={{
@@ -93,5 +98,6 @@ export const App = (): JSX.Element => {
                 </BrowserRouter>
             </AppContext.Provider>
         </I18nextProvider>
+        </AbilityContext.Provider>
     );
 };
