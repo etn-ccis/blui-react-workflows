@@ -2,14 +2,14 @@ name: Build
 
 on:
   push:
-    branches: [ "dev", "master" ]
+    branches: ["dev", "master"]
   pull_request:
-    branches: [ "dev", "master" ]
+    branches: ["dev", "master"]
   pull_request_target:
     types:
       - opened
     branches:
-      - '*/*'
+      - "*/*"
 
 permissions:
   pull-requests: write
@@ -24,20 +24,20 @@ jobs:
         node-version: [18.x]
 
     steps:
-    - name: Checkout
-      uses: actions/checkout@v4
-    - name: Use Node.js ${{ matrix.node-version }}
-      uses: actions/setup-node@v4
-      with:
-        node-version: ${{ matrix.node-version }}
-        cache: 'yarn'
-        cache-dependency-path: login-workflow
-    - run: yarn install:dependencies
-      working-directory: login-workflow
-    - run: yarn prettier
-      working-directory: login-workflow
-    - run: yarn lint
-      working-directory: login-workflow
+      - name: Checkout
+        uses: actions/checkout@v4
+      - name: Use Node.js ${{ matrix.node-version }}
+        uses: actions/setup-node@v4
+        with:
+          node-version: ${{ matrix.node-version }}
+          cache: "yarn"
+          cache-dependency-path: login-workflow
+      - run: yarn install:dependencies
+        working-directory: login-workflow
+      - run: yarn prettier
+        working-directory: login-workflow
+      - run: yarn lint
+        working-directory: login-workflow
 
   unit_test:
     runs-on: ubuntu-latest
@@ -47,26 +47,26 @@ jobs:
         node-version: [18.x]
 
     steps:
-    - uses: actions/checkout@v4
-    - name: Use Node.js ${{ matrix.node-version }}
-      uses: actions/setup-node@v4
-      with:
-        node-version: ${{ matrix.node-version }}
-        cache: 'yarn'
-        cache-dependency-path: login-workflow
-    - run: yarn --immutable
-      working-directory: login-workflow
-    - run: yarn test:ci --coverage --watchAll=false
-      working-directory: login-workflow
-    - name: Upload to Codecov
-      uses: codecov/codecov-action@v3
-      with:
-        token: ${{ secrets.CODECOV_TOKEN }}
-        directory: ./login-workflow/coverage/
-        files: clover.xml
-        flags: unittests
-        name: codecov-report
-        verbose: true
+      - uses: actions/checkout@v4
+      - name: Use Node.js ${{ matrix.node-version }}
+        uses: actions/setup-node@v4
+        with:
+          node-version: ${{ matrix.node-version }}
+          cache: "yarn"
+          cache-dependency-path: login-workflow
+      - run: yarn --immutable
+        working-directory: login-workflow
+      - run: yarn test:ci --coverage --watchAll=false
+        working-directory: login-workflow
+      - name: Upload to Codecov
+        uses: codecov/codecov-action@v5
+        with:
+          token: ${{ secrets.CODECOV_TOKEN }}
+          directory: ./login-workflow/coverage/
+          files: clover.xml
+          flags: unittests
+          name: codecov-report
+          verbose: true
 
   build_login_workflow:
     runs-on: ubuntu-latest
@@ -76,23 +76,23 @@ jobs:
         node-version: [18.x]
 
     steps:
-    - uses: actions/checkout@v4
-    - name: Use Node.js ${{ matrix.node-version }}
-      uses: actions/setup-node@v4
-      with:
-        node-version: ${{ matrix.node-version }}
-        cache: 'yarn'
-        cache-dependency-path: login-workflow
-    - run: yarn --immutable
-      working-directory: login-workflow
-    - run: yarn build
-      working-directory: login-workflow
-    - name: Save build
-      uses: actions/upload-artifact@v3
-      with:
-        name: dist
-        if-no-files-found: error
-        path: login-workflow/dist
+      - uses: actions/checkout@v4
+      - name: Use Node.js ${{ matrix.node-version }}
+        uses: actions/setup-node@v4
+        with:
+          node-version: ${{ matrix.node-version }}
+          cache: "yarn"
+          cache-dependency-path: login-workflow
+      - run: yarn --immutable
+        working-directory: login-workflow
+      - run: yarn build
+        working-directory: login-workflow
+      - name: Save build
+        uses: actions/upload-artifact@v4
+        with:
+          name: dist
+          if-no-files-found: error
+          path: login-workflow/dist
 
   publish_login_workflow:
     runs-on: ubuntu-latest
@@ -107,14 +107,14 @@ jobs:
     steps:
       - uses: actions/checkout@v4
       - name: Download dist
-        uses: actions/download-artifact@v3
+        uses: actions/download-artifact@v4
         with:
           name: dist
           path: login-workflow/dist
       - uses: actions/setup-node@v4
         with:
           node-version: ${{ matrix.node-version }}
-          registry-url: 'https://registry.npmjs.org'
+          registry-url: "https://registry.npmjs.org"
       - run: yarn --immutable
         working-directory: login-workflow
       - run: npm run publish:package -- -b ${{env.BRANCH}}
