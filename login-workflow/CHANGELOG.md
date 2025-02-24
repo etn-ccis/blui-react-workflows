@@ -9,7 +9,7 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 ### Changed
 
--   Update dependencies for react-auth-workflow package.
+-   Update `dompurify` dependency to address security vulnerabilities.
 
 ## v6.0.0 (December 23, 2024)
 
