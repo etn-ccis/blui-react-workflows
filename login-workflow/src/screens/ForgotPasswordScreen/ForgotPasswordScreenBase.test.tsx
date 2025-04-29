@@ -172,7 +172,7 @@ describe('Forgot Password Screen Base', () => {
                     if (email?.length > 1) {
                         return true;
                     }
-                    return 'Please enter a valid email';
+                    return 'Please enter a valid email.';
                 }}
                 slots={{ SuccessScreen: (): JSX.Element => <Box>Success</Box> }}
             />
