@@ -55,7 +55,7 @@ describe('Forgot Password Screen Base', () => {
                     if (email?.length > 6) {
                         return true;
                     }
-                    return 'Please enter a valid email';
+                    return 'Please enter a valid email.';
                 }}
                 slots={{ SuccessScreen: (): JSX.Element => <Box>Success</Box> }}
             />
@@ -73,7 +73,7 @@ describe('Forgot Password Screen Base', () => {
                     if (email?.length > 6) {
                         return true;
                     }
-                    return 'Please enter a valid email';
+                    return 'Please enter a valid email.';
                 }}
                 slots={{ SuccessScreen: (): JSX.Element => <Box>Success</Box> }}
             />
@@ -90,7 +90,7 @@ describe('Forgot Password Screen Base', () => {
                     if (email?.length > 5) {
                         return true;
                     }
-                    return 'Please enter a valid email';
+                    return 'Please enter a valid email.';
                 }}
                 WorkflowCardActionsProps={{
                     showNext: true,
@@ -116,7 +116,7 @@ describe('Forgot Password Screen Base', () => {
                     if (email?.length > 2) {
                         return true;
                     }
-                    return 'Please enter a valid email';
+                    return 'Please enter a valid email.';
                 }}
                 slots={{ SuccessScreen: (): JSX.Element => <Box>Success</Box> }}
             />
@@ -134,7 +134,7 @@ describe('Forgot Password Screen Base', () => {
                     if (email?.length > 1) {
                         return true;
                     }
-                    return 'Please enter a valid email';
+                    return 'Please enter a valid email.';
                 }}
                 slots={{ SuccessScreen: (): JSX.Element => <Box>Success</Box> }}
             />
