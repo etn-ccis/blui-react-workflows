@@ -42,8 +42,8 @@ export const App = (): JSX.Element => {
     const { setMode } = useColorScheme();
 
     useEffect(() => {
-        setMode('light')
-    },[])
+        setMode('light');
+    }, []);
 
     // handle initialization of auth data on first load
     useEffect(() => {
@@ -88,7 +88,8 @@ export const App = (): JSX.Element => {
                     setShowChangePasswordDialog,
                 }}
             >
-                <BrowserRouter basename={'/'}>
+                {/* eslint-disable @typescript-eslint/naming-convention */}
+                <BrowserRouter future={{ v7_startTransition: true, v7_relativeSplatPath: true }} basename={'/'}>
                     <AppRouter />
                 </BrowserRouter>
             </AppContext.Provider>
