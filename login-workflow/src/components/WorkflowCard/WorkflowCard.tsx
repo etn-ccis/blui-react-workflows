@@ -34,18 +34,18 @@ export const WorkflowCard: React.FC<WorkflowCardBaseProps> = (props) => {
     return (
         <Box
             sx={{
-                    height: '100vh',
-                    width: '100%',
-                    backgroundColor: 'primary.main',
-                    backgroundImage: backgroundImage ? `url(${backgroundImage})` : `url(${defaultBackgroundImage})`,
-                    display: 'flex',
-                    alignItems: 'center',
-                    justifyContent: 'center',
-                    ...theme.applyStyles('dark', {
-                        backgroundColor: 'primary.dark',
-                    }),
-                    ...sx
-                }}
+                height: '100vh',
+                width: '100%',
+                backgroundColor: 'primary.main',
+                backgroundImage: backgroundImage ? `url(${backgroundImage})` : `url(${defaultBackgroundImage})`,
+                display: 'flex',
+                alignItems: 'center',
+                justifyContent: 'center',
+                ...theme.applyStyles('dark', {
+                    backgroundColor: 'primary.dark',
+                }),
+                ...sx,
+            }}
             className={defaultClasses.root}
             data-testid={defaultClasses.root}
             {...otherBoxProps}
