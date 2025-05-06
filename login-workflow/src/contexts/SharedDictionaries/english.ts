@@ -43,7 +43,7 @@ const resources: CommonTranslationsFile = {
             CONGRATS: 'Congratulations!',
             CONTACT: 'Contact an Eaton Support Representative',
             ERROR: 'Error!',
-            EMAIL_ENTRY_ERROR: 'Please enter a valid email',
+            EMAIL_ENTRY_ERROR: 'Please enter a valid email.',
             USERNAME_ENTRY_ERROR: 'Please enter a valid username',
             SUCCESS: 'Success',
             FAILURE: 'Failure',

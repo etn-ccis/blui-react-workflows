@@ -67,7 +67,7 @@ describe('Create Account Screen Base', () => {
                     if (email?.length > 6) {
                         return true;
                     }
-                    return 'Please enter a valid email';
+                    return 'Please enter a valid email.';
                 }}
             />
         );
@@ -84,7 +84,7 @@ describe('Create Account Screen Base', () => {
                     if (email?.length > 6) {
                         return true;
                     }
-                    return 'Please enter a valid email';
+                    return 'Please enter a valid email.';
                 }}
             />
         );
@@ -100,7 +100,7 @@ describe('Create Account Screen Base', () => {
                     if (email?.length > 2) {
                         return true;
                     }
-                    return 'Please enter a valid email';
+                    return 'Please enter a valid email.';
                 }}
             />
         );
@@ -117,7 +117,7 @@ describe('Create Account Screen Base', () => {
                     if (email?.length > 1) {
                         return true;
                     }
-                    return 'Please enter a valid email';
+                    return 'Please enter a valid email.';
                 }}
             />
         );
@@ -153,7 +153,7 @@ describe('Create Account Screen Base', () => {
                     if (email?.length > 1) {
                         return true;
                     }
-                    return 'Please enter a valid email';
+                    return 'Please enter a valid email.';
                 }}
             />
         );
