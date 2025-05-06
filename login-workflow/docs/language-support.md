@@ -51,7 +51,7 @@ const { t } = useTranslation();
 If you want to override just one or few labels (e.g, the License Agreeement title or an Email error message), you can define only those keys under the appropriate namespace (e.g, `bluiRegistration`, `bluiCommon`). Any other keys you do not specify will fall back to default translation.
 
 ```tsx
-resourse: {
+resources: {
     en:{
         bluiRegistration:{
             REGISTRATION:{
