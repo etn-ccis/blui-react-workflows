@@ -163,7 +163,6 @@ export const ForgotPasswordScreen: React.FC<ForgotPasswordScreenProps> = (props)
                         title: t('bluiAuth:HEADER.FORGOT_PASSWORD'),
                         ...slotProps?.SuccessScreen?.WorkflowCardHeaderProps,
                     },
-                                        ...slotProps.SuccessScreen,
                     WorkflowCardActionsProps: {
                         showNext: true,
                         nextLabel: t('bluiCommon:ACTIONS.DONE'),
