@@ -2,6 +2,7 @@ import { PasswordRequirement } from '../components';
 
 export const EMAIL_REGEX = /^[A-Z0-9._%+'-]+@[A-Z0-9.-]+\.[A-Z]{2,}$/i;
 export const USERNAME_REGEX = /^[^\r\n\t\f\v ]+$/;
+
 /////////////////////////////////////////////////////////////////////////////////////
 // NOTE: The following Regular expressions are used for the
 //       password validation logic. It is critical that they not
