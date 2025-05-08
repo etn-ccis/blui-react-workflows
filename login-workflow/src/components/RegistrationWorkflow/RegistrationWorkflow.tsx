@@ -14,7 +14,6 @@ import { useErrorManager } from '../../contexts/ErrorContext/useErrorManager';
 import ErrorManager from '../Error/ErrorManager';
 import { ErrorManagerProps } from '../Error/types';
 import { RegistrationWorkflowProps } from './types';
-import { timeOutDelay } from '../../constants';
 import { Spinner } from '../Spinner';
 
 /**
@@ -134,7 +133,7 @@ export const RegistrationWorkflow: React.FC<React.PropsWithChildren<Registration
         try {
             setTimeout(() => {
                 setLoading(true);
-            }, timeOutDelay);
+            });
 
             if (actions && actions.completeRegistration) {
                 const { Eula, CreateAccount, VerifyCode, CreatePassword, AccountDetails, Other } = screenData;
@@ -165,7 +164,7 @@ export const RegistrationWorkflow: React.FC<React.PropsWithChildren<Registration
         } finally {
             setTimeout(() => {
                 setLoading(false);
-            }, timeOutDelay);
+            });
         }
     };
 
