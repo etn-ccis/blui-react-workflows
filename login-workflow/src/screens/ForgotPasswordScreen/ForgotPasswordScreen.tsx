@@ -137,6 +137,7 @@ export const ForgotPasswordScreen: React.FC<ForgotPasswordScreenProps> = (props)
             slots={slots}
             slotProps={{
                 SuccessScreen: {
+                    ...slotProps.SuccessScreen,
                     EmptyStateProps: {
                         icon: <CheckCircle color={'primary'} sx={{ fontSize: 100, mb: 5 }} />,
                         title: t('bluiCommon:MESSAGES.EMAIL_SENT'),
