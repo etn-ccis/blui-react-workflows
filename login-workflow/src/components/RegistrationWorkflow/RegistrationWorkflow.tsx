@@ -131,10 +131,7 @@ export const RegistrationWorkflow: React.FC<React.PropsWithChildren<Registration
     const [loading, setLoading] = useState(false);
     const finishRegistration = async (data: IndividualScreenData): Promise<void> => {
         try {
-            setTimeout(() => {
-                setLoading(true);
-            });
-
+            setLoading(true);
             if (actions && actions.completeRegistration) {
                 const { Eula, CreateAccount, VerifyCode, CreatePassword, AccountDetails, Other } = screenData;
                 const userInfo = {
@@ -162,9 +159,7 @@ export const RegistrationWorkflow: React.FC<React.PropsWithChildren<Registration
         } catch (err) {
             console.error(err);
         } finally {
-            setTimeout(() => {
-                setLoading(false);
-            });
+            setLoading(false);
         }
     };
 
