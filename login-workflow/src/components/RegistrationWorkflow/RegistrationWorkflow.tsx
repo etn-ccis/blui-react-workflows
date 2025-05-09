@@ -14,6 +14,7 @@ import { useErrorManager } from '../../contexts/ErrorContext/useErrorManager';
 import ErrorManager from '../Error/ErrorManager';
 import { ErrorManagerProps } from '../Error/types';
 import { RegistrationWorkflowProps } from './types';
+import { Spinner } from '../Spinner';
 
 /**
  * Component that contain the registration workflow and index of screens.
@@ -127,9 +128,10 @@ export const RegistrationWorkflow: React.FC<React.PropsWithChildren<Registration
             }));
         }
     };
-
+    const [loading, setLoading] = useState(false);
     const finishRegistration = async (data: IndividualScreenData): Promise<void> => {
         try {
+            setLoading(true);
             if (actions && actions.completeRegistration) {
                 const { Eula, CreateAccount, VerifyCode, CreatePassword, AccountDetails, Other } = screenData;
                 const userInfo = {
@@ -156,6 +158,8 @@ export const RegistrationWorkflow: React.FC<React.PropsWithChildren<Registration
             }
         } catch (err) {
             console.error(err);
+        } finally {
+            setLoading(false);
         }
     };
 
@@ -203,6 +207,8 @@ export const RegistrationWorkflow: React.FC<React.PropsWithChildren<Registration
                         ? existingAccountSuccessScreen
                         : successScreen
                     : screens[currentScreen]}
+
+                {loading ? <Spinner visible={loading} /> : null}
             </ErrorManager>
         </RegistrationWorkflowContextProvider>
     );
