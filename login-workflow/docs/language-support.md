@@ -62,7 +62,7 @@ resources: {
         },
         bluiCommon: {
             MESSAGES : {
-                 EMAIL_ENTRY_ERROR : 'Email not valid please enter a valid email.',
+                 EMAIL_ENTRY_ERROR : 'Email not valid, please enter a valid email.',
             }
         },
     },
