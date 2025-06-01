@@ -1047,9 +1047,9 @@
   integrity sha512-EYm3+V7Qd+oYEF+8FadsXAZqXryEHHbGnrV1BMp9selhABjceqUqXPVE4Sn3SKWQdBNJ3En2A3EzgrzRbvRTaw==
 
 "@brightlayer-ui/react-components@^7.0.0":
-  version "7.0.0"
-  resolved "https://registry.yarnpkg.com/@brightlayer-ui/react-components/-/react-components-7.0.0.tgz#113113c39bc144ebb96c60c908f2a58ad0b3fa1c"
-  integrity sha512-H+FfeWA4kIU6LOK/7Wi3PL9mUs+kO8UQfqnfKmo6zURxdmKRSKB1dj4527RzyayWFe1wZFcxVdGtlwNkFvXO7g==
+  version "7.1.0"
+  resolved "https://registry.yarnpkg.com/@brightlayer-ui/react-components/-/react-components-7.1.0.tgz#29d0a312d6f8183c881c0d9881adc579fed95263"
+  integrity sha512-BbBnLJjDjz0FI3/QzpEojPJ+ImNmpRUrpH96t5xzOKVkuEUzr3fB6oaVcG4TY+cKf+GRK9881aqRcOEpKcvWdg==
   dependencies:
     "@emotion/css" "^11.10.5"
     "@seznam/compose-react-refs" "^1.0.6"
