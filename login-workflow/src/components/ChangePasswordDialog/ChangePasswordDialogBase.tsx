@@ -10,7 +10,7 @@ import {
     Typography,
     useMediaQuery,
     useTheme,
-    unstable_composeClasses as composeClasses 
+    unstable_composeClasses as composeClasses,
 } from '@mui/material';
 import { ChangePasswordDialogProps } from './types';
 import { SetPassword } from '../SetPassword';

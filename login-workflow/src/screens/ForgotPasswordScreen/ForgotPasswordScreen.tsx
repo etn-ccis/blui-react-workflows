@@ -123,7 +123,6 @@ export const ForgotPasswordScreen: React.FC<ForgotPasswordScreenProps> = (props)
             WorkflowCardActionsProps?.onPrevious?.();
         },
     };
-
     return (
         <ForgotPasswordScreenBase
             WorkflowCardBaseProps={workflowCardBaseProps}
@@ -138,6 +137,7 @@ export const ForgotPasswordScreen: React.FC<ForgotPasswordScreenProps> = (props)
             slots={slots}
             slotProps={{
                 SuccessScreen: {
+                    ...slotProps.SuccessScreen,
                     EmptyStateProps: {
                         icon: <CheckCircle color={'primary'} sx={{ fontSize: 100, mb: 5 }} />,
                         title: t('bluiCommon:MESSAGES.EMAIL_SENT'),
@@ -158,9 +158,11 @@ export const ForgotPasswordScreen: React.FC<ForgotPasswordScreenProps> = (props)
                                 </Trans>
                             </Box>
                         ),
+                        ...slotProps?.SuccessScreen?.EmptyStateProps,
                     },
                     WorkflowCardHeaderProps: {
                         title: t('bluiAuth:HEADER.FORGOT_PASSWORD'),
+                        ...slotProps?.SuccessScreen?.WorkflowCardHeaderProps,
                     },
                     WorkflowCardActionsProps: {
                         showNext: true,
@@ -170,8 +172,8 @@ export const ForgotPasswordScreen: React.FC<ForgotPasswordScreenProps> = (props)
                         onNext: (): void => {
                             navigate(routeConfig.LOGIN as string);
                         },
+                        ...slotProps?.SuccessScreen?.WorkflowCardActionsProps,
                     },
-                    ...slotProps.SuccessScreen,
                 },
             }}
             {...otherProps}

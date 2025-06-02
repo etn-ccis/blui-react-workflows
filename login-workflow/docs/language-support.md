@@ -46,6 +46,29 @@ const { t } = useTranslation();
 </AuthContextProvider>
 ```
 
+## Override in-built translations
+
+If you want to override just one or few labels (e.g, the License Agreeement title or an Email error message), you can define only those keys under the appropriate namespace (e.g, `bluiRegistration`, `bluiCommon`). Any other keys you do not specify will fall back to default translation.
+
+```tsx
+resources: {
+    en:{
+        bluiRegistration:{
+            REGISTRATION:{
+                STEPS:{
+                    LICENSE: 'Terms & Conditions'
+                },
+            },
+        },
+        bluiCommon: {
+            MESSAGES : {
+                 EMAIL_ENTRY_ERROR : 'Email not valid, please enter a valid email.',
+            }
+        },
+    },
+}
+```
+
 ## Add Custom Language
 
 If you would like to support a language other than the ones supported by the workflow, you can, but you will need to provide the translations for all of the strings that are needed by the workflow screens. If you do not, the workflow screens will default to showing English.
@@ -109,7 +132,7 @@ export const i18nAppInstance = i18next.createInstance(
 
 You will then need to pass this i18n instance through the `i18n` prop on the `AuthContextProvider` and / or `RegistrationContextProvider` wrappers.
 
-> For a complete list of resource IDs available, refer to the documentation for 
-[Authentication Workflow](../src/contexts/AuthContext/AuthDictionaries/english.ts).
-[Registration Workflow](../src/contexts/RegistrationContext/RegistrationDictionaries/english.ts).
-[Common translations](../src/contexts/SharedDictionaries/english.ts).
+> For a complete list of resource IDs available, refer to the documentation for
+> [Authentication Workflow](../src/contexts/AuthContext/AuthDictionaries/english.ts).
+> [Registration Workflow](../src/contexts/RegistrationContext/RegistrationDictionaries/english.ts).
+> [Common translations](../src/contexts/SharedDictionaries/english.ts).

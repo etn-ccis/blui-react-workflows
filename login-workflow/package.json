@@ -1,6 +1,6 @@
 {
     "name": "@brightlayer-ui/react-auth-workflow",
-    "version": "6.0.1",
+    "version": "6.0.2",
     "author": "Brightlayer UI <brightlayer-ui@eaton.com> (https://github.com/brightlayer-ui)",
     "license": "BSD-3-Clause",
     "description": "Re-usable workflow components for Authentication and Registration within Eaton applications.",
@@ -94,7 +94,7 @@
         "@typescript-eslint/eslint-plugin": "^6.7.3",
         "@typescript-eslint/parser": "^6.7.3",
         "babel-jest": "^29.7.0",
-        "clsx": "^1.1.1",
+        "clsx": "^2.1.1",
         "date-fns": "^3.0.6",
         "eslint": "^8.50.0",
         "eslint-config-prettier": "^8.3.0",

@@ -28,7 +28,7 @@ export const CreatePasswordScreenBase: React.FC<React.PropsWithChildren<CreatePa
         PasswordProps: passwordProps = { onPasswordChange: () => ({}) },
         ...otherProps
     } = props;
-    
+
     return (
         <WorkflowCard {...cardBaseProps} {...otherProps}>
             <WorkflowCardHeader {...headerProps} />
