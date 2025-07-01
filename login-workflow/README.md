@@ -2,6 +2,10 @@
 
 [![Build](https://github.com/etn-ccis/blui-react-workflows/actions/workflows/blui-ci.yml/badge.svg?branch=master)](https://github.com/etn-ccis/blui-react-workflows/actions/workflows/blui-ci.yml) ![npm (scoped)](https://img.shields.io/npm/v/@brightlayer-ui/react-auth-workflow) [![codecov](https://codecov.io/gh/etn-ccis/blui-react-workflows/branch/master/graph/badge.svg?token=H18T75WBFS)](https://codecov.io/gh/etn-ccis/blui-react-workflows)
 
+> **Important Migration Notice:**
+>
+> This repository has been migrated to a monorepo to consolidate all the React libraries developed by Brightlayer UI team into a single workspace. Future development and updates will now occur in [this location](https://github.com/etn-ccis/blui-react/tree/dev/packages/login-workflow). Please update your bookmarks and contribute to the monorepo for the latest changes.
+
 The React Auth Workflow package provides a consistent UI implementation of authentication-related capabilities for use in Eaton web applications built with React.
 
 The package is intended to provide a standard, out-of-the-box experience for capabilities such as:
